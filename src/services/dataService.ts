@@ -1,0 +1,523 @@
+import { AssessmentData, UserProfile } from '../shared/types';
+import { Asset } from '../shared/types/assets';
+import { Task } from '../features/tasks/types';
+import { auditLogger } from '../lib/auditLog';
+
+export interface AppData {
+  assessments: AssessmentData[];
+  userProfile: UserProfile | null;
+  assets: Asset[];
+  tasks: Task[];
+  settings: Record<string, any>;
+  lastBackup: Date | null;
+  version: string;
+}
+
+export class DataService {
+  private static instance: DataService;
+  private readonly STORAGE_KEYS = {
+    ASSESSMENTS: 'cybersecurity-assessments',
+    USER_PROFILE: 'user-profile',
+    ASSETS: 'asset-inventory',
+    TASKS: 'cybersecurity-tasks',
+    SETTINGS: 'app-settings',
+    BACKUP_METADATA: 'backup-metadata'
+  };
+  private readonly CURRENT_VERSION = '2.0.0';
+
+  static getInstance(): DataService {
+    if (!DataService.instance) {
+      DataService.instance = new DataService();
+    }
+    return DataService.instance;
+  }
+
+  private constructor() {
+    this.initializeStorage();
+    this.migrateDataIfNeeded();
+  }
+
+  private initializeStorage(): void {
+    // Initialize storage with empty data if not exists
+    Object.values(this.STORAGE_KEYS).forEach(key => {
+      if (!localStorage.getItem(key)) {
+        const defaultValue = key.includes('settings') ? '{}' : 
+                           key.includes('profile') ? 'null' : '[]';
+        localStorage.setItem(key, defaultValue);
+      }
+    });
+
+    // Set version if not exists
+    if (!localStorage.getItem('app-version')) {
+      localStorage.setItem('app-version', this.CURRENT_VERSION);
+    }
+  }
+
+  private migrateDataIfNeeded(): void {
+    const storedVersion = localStorage.getItem('app-version');
+    if (!storedVersion || storedVersion !== this.CURRENT_VERSION) {
+      this.performDataMigration(storedVersion);
+      localStorage.setItem('app-version', this.CURRENT_VERSION);
+    }
+  }
+
+  private performDataMigration(fromVersion: string | null): void {
+    console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
+    
+    // Migration logic for different versions
+    if (!fromVersion) {
+      // First time setup - no migration needed
+      return;
+    }
+
+    // Add specific migration logic here as the app evolves
+    try {
+      // Example: Migrate old assessment format
+      const oldAssessments = this.getAssessments();
+      const migratedAssessments = oldAssessments.map(assessment => ({
+        ...assessment,
+        assessmentVersion: assessment.assessmentVersion || '1.0.0',
+        evidenceLibrary: assessment.evidenceLibrary || [],
+        questionEvidence: assessment.questionEvidence || {},
+        versionHistory: assessment.versionHistory || []
+      }));
+      
+      this.saveAssessments(migratedAssessments);
+      
+    } catch (error) {
+      console.error('Data migration failed:', error);
+      // Don't throw - continue with current data
+    }
+  }
+
+  // Assessment Data Management
+  getAssessments(): AssessmentData[] {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEYS.ASSESSMENTS);
+      if (!data) return [];
+      
+      const assessments = JSON.parse(data);
+      return assessments.map((assessment: any) => ({
+        ...assessment,
+        createdAt: new Date(assessment.createdAt),
+        lastModified: new Date(assessment.lastModified)
+      }));
+    } catch (error) {
+      console.error('Failed to load assessments:', error);
+      return [];
+    }
+  }
+
+  saveAssessments(assessments: AssessmentData[]): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify(assessments));
+      auditLogger.log({
+        userId: 'current-user',
+        action: 'update',
+        resource: 'assessments',
+        resourceId: 'bulk',
+        changes: { count: assessments.length }
+      });
+    } catch (error) {
+      console.error('Failed to save assessments:', error);
+      throw new Error('Storage quota exceeded or localStorage unavailable');
+    }
+  }
+
+  getAssessment(id: string): AssessmentData | null {
+    const assessments = this.getAssessments();
+    return assessments.find(a => a.id === id) || null;
+  }
+
+  saveAssessment(assessment: AssessmentData): void {
+    const assessments = this.getAssessments();
+    const index = assessments.findIndex(a => a.id === assessment.id);
+    
+    if (index >= 0) {
+      assessments[index] = assessment;
+    } else {
+      assessments.push(assessment);
+    }
+    
+    this.saveAssessments(assessments);
+  }
+
+  deleteAssessment(id: string): void {
+    const assessments = this.getAssessments().filter(a => a.id !== id);
+    this.saveAssessments(assessments);
+  }
+
+  // User Profile Management
+  getUserProfile(): UserProfile | null {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEYS.USER_PROFILE);
+      if (!data || data === 'null') return null;
+      
+      const profile = JSON.parse(data);
+      return {
+        ...profile,
+        createdAt: new Date(profile.createdAt),
+        lastLogin: new Date(profile.lastLogin)
+      };
+    } catch (error) {
+      console.error('Failed to load user profile:', error);
+      return null;
+    }
+  }
+
+  saveUserProfile(profile: UserProfile): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, JSON.stringify(profile));
+    } catch (error) {
+      console.error('Failed to save user profile:', error);
+      throw new Error('Failed to save user profile');
+    }
+  }
+
+  // Asset Management
+  getAssets(): Asset[] {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEYS.ASSETS);
+      if (!data) return [];
+      
+      const assets = JSON.parse(data);
+      return assets.map((asset: any) => ({
+        ...asset,
+        createdAt: new Date(asset.createdAt),
+        updatedAt: new Date(asset.updatedAt),
+        lastReviewed: new Date(asset.lastReviewed),
+        nextReview: new Date(asset.nextReview),
+        riskAssessment: {
+          ...asset.riskAssessment,
+          lastAssessment: new Date(asset.riskAssessment.lastAssessment),
+          nextAssessment: new Date(asset.riskAssessment.nextAssessment)
+        },
+        lifecycle: {
+          ...asset.lifecycle,
+          deploymentDate: asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate) : undefined,
+          acquisitionDate: asset.lifecycle.acquisitionDate ? new Date(asset.lifecycle.acquisitionDate) : undefined,
+          endOfLife: asset.lifecycle.endOfLife ? new Date(asset.lifecycle.endOfLife) : undefined,
+          disposalDate: asset.lifecycle.disposalDate ? new Date(asset.lifecycle.disposalDate) : undefined,
+          maintenanceSchedule: {
+            ...asset.lifecycle.maintenanceSchedule,
+            lastMaintenance: asset.lifecycle.maintenanceSchedule.lastMaintenance ? 
+              new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) : undefined,
+            nextMaintenance: new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance)
+          }
+        }
+      }));
+    } catch (error) {
+      console.error('Failed to load assets:', error);
+      return [];
+    }
+  }
+
+  saveAssets(assets: Asset[]): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.ASSETS, JSON.stringify(assets));
+    } catch (error) {
+      console.error('Failed to save assets:', error);
+      throw new Error('Failed to save assets');
+    }
+  }
+
+  saveAsset(asset: Asset): void {
+    const assets = this.getAssets();
+    const index = assets.findIndex(a => a.id === asset.id);
+    
+    if (index >= 0) {
+      assets[index] = asset;
+    } else {
+      assets.push(asset);
+    }
+    
+    this.saveAssets(assets);
+  }
+
+  deleteAsset(id: string): void {
+    const assets = this.getAssets().filter(a => a.id !== id);
+    this.saveAssets(assets);
+  }
+
+  // Task Management
+  getTasks(): Task[] {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEYS.TASKS);
+      if (!data) return [];
+      
+      const tasks = JSON.parse(data);
+      return tasks.map((task: any) => ({
+        ...task,
+        createdAt: new Date(task.createdAt),
+        updatedAt: new Date(task.updatedAt),
+        dueDate: new Date(task.dueDate),
+        startDate: task.startDate ? new Date(task.startDate) : undefined,
+        completedAt: task.completedAt ? new Date(task.completedAt) : undefined,
+        approvedAt: task.approvedAt ? new Date(task.approvedAt) : undefined
+      }));
+    } catch (error) {
+      console.error('Failed to load tasks:', error);
+      return [];
+    }
+  }
+
+  saveTasks(tasks: Task[]): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.TASKS, JSON.stringify(tasks));
+    } catch (error) {
+      console.error('Failed to save tasks:', error);
+      throw new Error('Failed to save tasks');
+    }
+  }
+
+  saveTask(task: Task): void {
+    const tasks = this.getTasks();
+    const index = tasks.findIndex(t => t.id === task.id);
+    
+    if (index >= 0) {
+      tasks[index] = task;
+    } else {
+      tasks.push(task);
+    }
+    
+    this.saveTasks(tasks);
+  }
+
+  deleteTask(id: string): void {
+    const tasks = this.getTasks().filter(t => t.id !== id);
+    this.saveTasks(tasks);
+  }
+
+  // Settings Management
+  getSettings(): Record<string, any> {
+    try {
+      const data = localStorage.getItem(this.STORAGE_KEYS.SETTINGS);
+      return data ? JSON.parse(data) : {
+        autoSave: true,
+        emailNotifications: false,
+        reportFormat: 'detailed',
+        dataRetention: '12',
+        autoBackup: false,
+        backupFrequency: 'weekly'
+      };
+    } catch (error) {
+      console.error('Failed to load settings:', error);
+      return {};
+    }
+  }
+
+  saveSettings(settings: Record<string, any>): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+    } catch (error) {
+      console.error('Failed to save settings:', error);
+      throw new Error('Failed to save settings');
+    }
+  }
+
+  // Data Export/Import
+  exportAllData(): AppData {
+    return {
+      assessments: this.getAssessments(),
+      userProfile: this.getUserProfile(),
+      assets: this.getAssets(),
+      tasks: this.getTasks(),
+      settings: this.getSettings(),
+      lastBackup: new Date(),
+      version: this.CURRENT_VERSION
+    };
+  }
+
+  importAllData(data: AppData): void {
+    try {
+      // Validate data structure
+      if (!data.version) {
+        throw new Error('Invalid data format - missing version');
+      }
+
+      // Import each data type
+      if (data.assessments && Array.isArray(data.assessments)) {
+        this.saveAssessments(data.assessments);
+      }
+
+      if (data.userProfile) {
+        this.saveUserProfile(data.userProfile);
+      }
+
+      if (data.assets && Array.isArray(data.assets)) {
+        this.saveAssets(data.assets);
+      }
+
+      if (data.tasks && Array.isArray(data.tasks)) {
+        this.saveTasks(data.tasks);
+      }
+
+      if (data.settings) {
+        this.saveSettings(data.settings);
+      }
+
+      // Update backup metadata
+      localStorage.setItem(this.STORAGE_KEYS.BACKUP_METADATA, JSON.stringify({
+        lastImport: new Date(),
+        importedVersion: data.version
+      }));
+
+    } catch (error) {
+      console.error('Failed to import data:', error);
+      throw new Error('Failed to import data');
+    }
+  }
+
+  // Data Reset and Cleanup
+  resetAllData(): void {
+    try {
+      Object.values(this.STORAGE_KEYS).forEach(key => {
+        localStorage.removeItem(key);
+      });
+      
+      // Remove version and backup metadata
+      localStorage.removeItem('app-version');
+      localStorage.removeItem('backup-metadata');
+      
+      // Reinitialize
+      this.initializeStorage();
+      
+      auditLogger.log({
+        userId: 'current-user',
+        action: 'delete',
+        resource: 'all-data',
+        resourceId: 'bulk-reset'
+      });
+      
+    } catch (error) {
+      console.error('Failed to reset data:', error);
+      throw new Error('Failed to reset data');
+    }
+  }
+
+  // Storage Usage Monitoring
+  getStorageUsage(): { used: number; total: number; percentage: number } {
+    try {
+      let totalSize = 0;
+      for (const key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+          totalSize += localStorage[key].length + key.length;
+        }
+      }
+
+      // Estimate total available (usually ~5-10MB, but varies by browser)
+      const estimatedTotal = 5 * 1024 * 1024; // 5MB estimate
+      const percentage = (totalSize / estimatedTotal) * 100;
+
+      return {
+        used: totalSize,
+        total: estimatedTotal,
+        percentage: Math.min(percentage, 100)
+      };
+    } catch (error) {
+      console.error('Failed to calculate storage usage:', error);
+      return { used: 0, total: 0, percentage: 0 };
+    }
+  }
+
+  // Data Validation
+  validateData(): { isValid: boolean; errors: string[] } {
+    const errors: string[] = [];
+
+    try {
+      // Validate assessments
+      const assessments = this.getAssessments();
+      assessments.forEach((assessment, index) => {
+        if (!assessment.id || !assessment.frameworkId) {
+          errors.push(`Assessment ${index + 1}: Missing required fields`);
+        }
+      });
+
+      // Validate assets
+      const assets = this.getAssets();
+      assets.forEach((asset, index) => {
+        if (!asset.id || !asset.name || !asset.owner) {
+          errors.push(`Asset ${index + 1}: Missing required fields`);
+        }
+      });
+
+      // Validate tasks
+      const tasks = this.getTasks();
+      tasks.forEach((task, index) => {
+        if (!task.id || !task.title || !task.assignedBy) {
+          errors.push(`Task ${index + 1}: Missing required fields`);
+        }
+      });
+
+    } catch (error) {
+      errors.push(`Data validation error: ${error}`);
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  }
+
+  // Backup and Recovery
+  createBackup(): string {
+    try {
+      const backupData = {
+        ...this.exportAllData(),
+        backupDate: new Date(),
+        backupId: Date.now().toString()
+      };
+
+      return JSON.stringify(backupData, null, 2);
+    } catch (error) {
+      console.error('Failed to create backup:', error);
+      throw new Error('Failed to create backup');
+    }
+  }
+
+  restoreFromBackup(backupData: string): void {
+    try {
+      const data = JSON.parse(backupData);
+      
+      // Validate backup structure
+      if (!data.version || !data.backupDate) {
+        throw new Error('Invalid backup format');
+      }
+
+      this.importAllData(data);
+      
+      auditLogger.log({
+        userId: 'current-user',
+        action: 'import',
+        resource: 'backup',
+        resourceId: data.backupId || 'unknown'
+      });
+
+    } catch (error) {
+      console.error('Failed to restore from backup:', error);
+      throw new Error('Failed to restore from backup');
+    }
+  }
+
+  // Data Cleanup and Optimization
+  optimizeStorage(): void {
+    try {
+      // Remove old versions of assessments (keep only last 5 versions per assessment)
+      const assessments = this.getAssessments().map(assessment => ({
+        ...assessment,
+        versionHistory: assessment.versionHistory?.slice(-5) || [],
+        changeLog: assessment.changeLog?.slice(-20) || []
+      }));
+
+      this.saveAssessments(assessments);
+
+      // Clean up old audit logs (keep only last 1000 entries)
+      auditLogger.loadFromLocalStorage();
+      
+    } catch (error) {
+      console.error('Failed to optimize storage:', error);
+    }
+  }
+}
+
+export const dataService = DataService.getInstance();
