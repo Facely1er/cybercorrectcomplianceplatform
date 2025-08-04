@@ -9,8 +9,8 @@ import {
 import { Control, ControlStatus, ImplementationStatus, ControlType, AssessmentFrequency } from '../types';
 
 interface ControlsManagementViewProps {
-  onBack: () => void;
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+  onBack: () => void;
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
