@@ -1,7 +1,5 @@
  import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { 
   Shield, BarChart3, AlertTriangle, CheckCircle, Target,
   Server, Database, Users, Building, FileText, Cloud,
