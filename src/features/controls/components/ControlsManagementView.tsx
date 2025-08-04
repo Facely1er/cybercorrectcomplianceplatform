@@ -7,10 +7,6 @@ import {
   Layers, Network, Code, Gauge, PieChart, LineChart, MapPin, Briefcase
 } from 'lucide-react';
 import { Control, ControlStatus, ImplementationStatus, ControlType, AssessmentFrequency } from '../types';
-import { BarChart } from '../../../shared/components/charts/BarChart';
-import { PieChart } from '../../../shared/components/charts/PieChart';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface ControlsManagementViewProps {
   onBack: () => void;
