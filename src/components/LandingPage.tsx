@@ -593,7 +593,7 @@ export const LandingPage: React.FC = () => {
               className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-surface/90 transition-all duration-300 shadow-enhanced hover:shadow-glow hover:scale-105 flex items-center justify-center space-x-3"
             >
               <Building className="w-6 h-6" />
-              <span>CMMC Level 2 (110 controls)</span>
+              <span>CMMC Level 2</span>
             </Link>
             
             <Link
@@ -601,7 +601,7 @@ export const LandingPage: React.FC = () => {
               className="bg-white text-green-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-surface/90 transition-all duration-300 shadow-enhanced hover:shadow-glow hover:scale-105 flex items-center justify-center space-x-3"
             >
               <Eye className="w-6 h-6" />
-              <span>Privacy Framework (73 questions)</span>
+              <span>Privacy Framework</span>
             </Link>
             
             <Link
@@ -609,7 +609,7 @@ export const LandingPage: React.FC = () => {
               className="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-3"
             >
               <Shield className="w-6 h-6" />
-              <span>NIST CSF v2.0 (106 subcategories)</span>
+              <span>NIST CSF v2.0</span>
             </Link>
           </div>
         </div>
