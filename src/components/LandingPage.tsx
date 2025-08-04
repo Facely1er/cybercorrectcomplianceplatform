@@ -464,12 +464,12 @@ export const LandingPage: React.FC = () => {
 
                     {/* Pain Points */}
                     <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-dark-text mb-3">Key Challenges:</h4>
+                      <h4 className="text-lg font-semibold text-gray-700 dark:text-dark-text mb-3">Key Challenges:</h4>
                       <div className="space-y-3">
                         {persona.painPoints.map((pain, pIndex) => (
                           <div key={pIndex} className="border-l-3 border-primary-teal/30 pl-4">
-                            <div className="text-sm font-medium text-gray-800 dark:text-dark-text">{pain.title}</div>
-                            <div className="text-xs text-gray-600 dark:text-dark-text/70">{pain.desc}</div>
+                            <div className="text-lg font-medium text-gray-800 dark:text-dark-text">{pain.title}</div>
+                            <div className="text-base text-gray-600 dark:text-dark-text/70">{pain.desc}</div>
                           </div>
                         ))}
                       </div>
@@ -477,17 +477,17 @@ export const LandingPage: React.FC = () => {
 
                     {/* Features */}
                     <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-dark-text mb-3">Key Features:</h4>
+                      <h4 className="text-lg font-semibold text-gray-700 dark:text-dark-text mb-3">Key Features:</h4>
                       <div className="grid grid-cols-2 gap-2">
                         {persona.features.slice(0, 4).map((feature, fIndex) => (
                           <div key={fIndex} className="flex items-center space-x-2">
                             <CheckCircle className="w-3 h-3 text-success-green dark:text-dark-success flex-shrink-0" />
-                            <span className="text-xs text-gray-600 dark:text-dark-text/80">{feature}</span>
+                            <span className="text-base text-gray-600 dark:text-dark-text/80">{feature}</span>
                           </div>
                         ))}
                       </div>
                       {persona.features.length > 4 && (
-                        <div className="text-xs text-gray-500 dark:text-dark-text/60 mt-2">
+                        <div className="text-base text-gray-500 dark:text-dark-text/60 mt-2">
                           +{persona.features.length - 4} more features
                         </div>
                       )}
