@@ -877,7 +877,7 @@ function AppContent() {
 
       {/* Footer */}
       {!isHomePage && (
-        <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
+        <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Logo and Branding */}
@@ -895,7 +895,7 @@ function AppContent() {
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                   Comprehensive cybersecurity compliance platform for NIST CSF v2.0, 
-                  CMMC, and privacy regulations implementation.
+                  Privacy, and CUI protection implementation.
                 </p>
               </div>
 
@@ -961,15 +961,6 @@ function AppContent() {
                   </li>
                   <li>
                     <Link
-                      to="/compliance/nist-extended"
-                      className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
-                    >
-                      <Award className="w-4 h-4" />
-                      <span>NIST CSF v2.0 Standard</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       to="/compliance/cmmc"
                       className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
                     >
@@ -984,6 +975,15 @@ function AppContent() {
                     >
                       <Eye className="w-4 h-4" />
                       <span>Privacy Framework</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/compliance/nist-extended"
+                      className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    >
+                      <Award className="w-4 h-4" />
+                      <span>NIST CSF v2.0 Standard</span>
                     </Link>
                   </li>
                 </ul>
@@ -1001,7 +1001,7 @@ function AppContent() {
                       className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
                     >
                       <HelpCircle className="w-4 h-4" />
-                      <span>NIST CSF v2.0 Quick Check (10 questions)</span>
+                      <span>Help & Documentation</span>
                     </Link>
                   </li>
                   <li>
@@ -1010,7 +1010,7 @@ function AppContent() {
                       className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
                     >
                       <Settings className="w-4 h-4" />
-                      <span>NIST CSF v2.0 Lite (25 questions)</span>
+                      <span>Settings</span>
                     </Link>
                   </li>
                   <li>
@@ -1019,7 +1019,7 @@ function AppContent() {
                       className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
                     >
                       <Mail className="w-4 h-4" />
-                      <span>NIST CSF v2.0 Standard (106 subcategories)</span>
+                      <span>Contact Support</span>
                     </a>
                   </li>
                   <li>
@@ -1030,7 +1030,7 @@ function AppContent() {
                       className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      <span>Privacy Framework (45 questions)</span>
+                      <span>About ERMITS</span>
                     </a>
                   </li>
                 </ul>
