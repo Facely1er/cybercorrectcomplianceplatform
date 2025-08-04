@@ -165,7 +165,7 @@ export const LandingPage: React.FC = () => {
       ],
       features: ['Framework Harmonization', 'Evidence Vault', 'Compliance Dashboard', 'Audit Management', 'Cost Optimization'],
       primaryCTA: 'Harmonize Frameworks',
-      ctaLink: '/dashboard'
+      ctaLink: '/compliance'
     },
     {
       id: 'legal-risk',
@@ -197,7 +197,7 @@ export const LandingPage: React.FC = () => {
       ],
       features: ['NIST CSF Implementation', 'Control Assessment', 'CMMC Tools', 'Technical Monitoring', 'Vulnerability Management'],
       primaryCTA: 'Map Technical Controls',
-      ctaLink: '/cui-assessment'
+      ctaLink: '/controls'
     }
   ];
 
