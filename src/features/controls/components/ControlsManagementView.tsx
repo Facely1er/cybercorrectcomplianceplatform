@@ -10,6 +10,7 @@ import { Control, ControlStatus, ImplementationStatus, ControlType, AssessmentFr
 
 interface ControlsManagementViewProps {
   onBack: () => void;
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
