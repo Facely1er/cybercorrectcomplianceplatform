@@ -250,6 +250,17 @@ export const useInternalLinking = () => {
       currentPath += `/${segment}`;
       const isLast = index === pathSegments.length - 1;
       
+      // Special handling for assessment routes
+      if (segment === 'assessment' && !isLast) {
+        // For /assessment/:id routes, link "Assessment" to dashboard instead of non-existent /assessment
+        breadcrumbs.push({
+          label: 'Assessment',
+          path: '/dashboard',
+          isActive: false
+        });
+        return;
+      }
+      
       breadcrumbs.push({
         label: pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
                pathLabels[segment] || 
