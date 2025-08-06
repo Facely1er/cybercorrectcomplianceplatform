@@ -40,7 +40,8 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     estimatedHours: 8,
     tags: '',
     businessImpact: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    technicalComplexity: 'medium' as 'low' | 'medium' | 'high'
+    technicalComplexity: 'medium' as 'low' | 'medium' | 'high',
+    framework: 'NIST CSF v2.0' as string
   });
 
   // Load tasks on component mount and when user/organization changes
@@ -199,16 +200,12 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       comments: [],
       evidence: [],
       approvalRequired: false,
-      approvedBy: undefined,
-      approvedAt: undefined,
       tags: taskFormData.tags ? taskFormData.tags.split(',').map(t => t.trim()).filter(Boolean) : [taskFormData.type, taskFormData.nistFunction.toLowerCase()],
-      workflowId: undefined,
-      stageId: undefined,
       metadata: {
         businessImpact: taskFormData.businessImpact,
         technicalComplexity: taskFormData.technicalComplexity,
         riskReduction: 10,
-        complianceImpact: ['NIST CSF'],
+        complianceImpact: [taskFormData.framework || 'NIST CSF v2.0'],
         successCriteria: ['Task completed on time', 'Deliverables approved']
       }
     };
@@ -661,9 +658,14 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       <div className="flex -space-x-2">
                         {task.assignedTo.slice(0, 2).map((userId, index) => (
                           <div key={index} className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
-                            {userId.charAt(userId.length - 1)}
+                            {typeof userId === 'string' ? userId.charAt(0).toUpperCase() : 'U'}
                           </div>
                         ))}
+                        {task.assignedTo.length > 2 && (
+                          <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                            +{task.assignedTo.length - 2}
+                          </div>
+                        )}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -927,10 +929,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       nistSubcategory: '',
                       assignedTo: '',
                       dueDate: '',
-                      estimatedHours: 8,
-                      tags: '',
-                      businessImpact: 'medium',
-                      technicalComplexity: 'medium'
+                      estimatedHours: 8
                     });
                   }}
                   className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
