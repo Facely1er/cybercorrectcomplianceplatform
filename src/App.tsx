@@ -13,7 +13,6 @@ import { errorMonitoring } from './lib/errorMonitoring';
 import { performanceMonitoring } from './lib/performanceMonitoring';
 import { enhancedDataService } from './services/enhancedDataService';
 import { assessmentService } from './services/assessmentService';
-import { useDataPersistence } from './hooks/useDataPersistence';
 import { ErrorState, EmptyState } from './shared/components/ui/LoadingStates';
 import { LandingPage } from './components/LandingPage';
 import { AssessmentIntroScreen } from './features/assessment/components/AssessmentIntroScreen';
@@ -118,21 +117,29 @@ function AppContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAssetForm, setShowAssetForm] = useState(false);
 
-  // Use data persistence hooks
-  const assessmentState = useDataPersistence<AssessmentData>('assessments');
-  const assetState = useDataPersistence<any>('assets');
-  const taskState = useDataPersistence<any>('tasks');
+  // Use local data service directly for better reliability
+  const [savedAssessments, setSavedAssessments] = useState<AssessmentData[]>([]);
+  const [assets, setAssets] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Initialize monitoring on app start
   useEffect(() => {
     errorMonitoring.initialize();
     performanceMonitoring.initialize();
+    
+    // Load data from localStorage
+    try {
+      const assessments = dataService.getAssessments();
+      const assetData = dataService.getAssets();
+      setSavedAssessments(assessments);
+      setAssets(assetData);
+    } catch (error) {
+      console.error('Failed to load data:', error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const savedAssessments = assessmentState.data;
-  const assets = assetState.data;
-  const tasks = taskState.data;
-  const loading = assessmentState.loading || assetState.loading;
   // Navigation menu structure
   const navigationMenus = [
     {
@@ -307,8 +314,9 @@ function AppContent() {
         changeLog: []
       };
 
-      // Save using data persistence hook
-      await assessmentState.saveItem(newAssessment);
+      // Save using local data service directly
+      dataService.saveAssessment(newAssessment);
+      setSavedAssessments(prev => [...prev, newAssessment]);
       navigate(`/assessment/${newAssessment.id}`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
@@ -321,7 +329,8 @@ function AppContent() {
     console.log('Saving assessment:', assessment.id);
     
     try {
-      await assessmentState.saveItem(assessment);
+      dataService.saveAssessment(assessment);
+      setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
       console.error('Failed to save assessment:', error);
@@ -333,7 +342,8 @@ function AppContent() {
     console.log('Deleting assessment:', assessmentId);
     
     try {
-      await assessmentState.deleteItem(assessmentId);
+      dataService.deleteAssessment(assessmentId);
+      setSavedAssessments(prev => prev.filter(a => a.id !== assessmentId));
       addNotification('success', 'Assessment deleted successfully');
     } catch (error) {
       console.error('Failed to delete assessment:', error);
@@ -351,7 +361,8 @@ function AppContent() {
         updatedAt: new Date()
       };
       
-      await assetState.saveItem(newAsset);
+      dataService.saveAsset(newAsset);
+      setAssets(prev => [...prev, newAsset]);
       addNotification('success', 'Asset created successfully');
     } catch (error) {
       console.error('Failed to create asset:', error);
@@ -374,16 +385,13 @@ function AppContent() {
   }
 
   // Show error state if data loading failed
-  if (assessmentState.error && assetState.error) {
+  if (loading === false && savedAssessments.length === 0 && assets.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
-        <ErrorState
-          error="Failed to load application data"
-          onRetry={() => {
-            assessmentState.refresh();
-            assetState.refresh();
-          }}
-        />
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Welcome to CyberCorrect™</h2>
+          <p className="text-gray-600 dark:text-gray-300">Start by creating your first assessment</p>
+        </div>
       </div>
     );
   }
