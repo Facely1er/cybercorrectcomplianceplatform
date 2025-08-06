@@ -6,7 +6,6 @@ import {
   CheckCircle, XCircle, Pause, Play, RotateCcw
 } from 'lucide-react';
 import { Task, TaskFilter, TaskMetrics, TaskStatus, TaskPriority, TaskType } from '../types';
-import { taskService } from '../../../services/taskService';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { dataService } from '../../../services/dataService';
 
@@ -38,7 +37,10 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     nistSubcategory: '',
     assignedTo: '',
     dueDate: '',
-    estimatedHours: 8
+    estimatedHours: 8,
+    tags: '',
+    businessImpact: 'medium' as 'low' | 'medium' | 'high' | 'critical',
+    technicalComplexity: 'medium' as 'low' | 'medium' | 'high'
   });
 
   // Load tasks on component mount and when user/organization changes
@@ -186,7 +188,10 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       createdAt: new Date(),
       updatedAt: new Date(),
       dueDate: new Date(taskFormData.dueDate),
+      startDate: undefined,
+      completedAt: undefined,
       estimatedHours: taskFormData.estimatedHours,
+      actualHours: undefined,
       progress: 0,
       dependencies: [],
       subtasks: [],
@@ -194,13 +199,17 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       comments: [],
       evidence: [],
       approvalRequired: false,
-      tags: [taskFormData.type, taskFormData.nistFunction.toLowerCase()],
+      approvedBy: undefined,
+      approvedAt: undefined,
+      tags: taskFormData.tags ? taskFormData.tags.split(',').map(t => t.trim()).filter(Boolean) : [taskFormData.type, taskFormData.nistFunction.toLowerCase()],
+      workflowId: undefined,
+      stageId: undefined,
       metadata: {
-        businessImpact: 'medium',
-        technicalComplexity: 'medium',
+        businessImpact: taskFormData.businessImpact,
+        technicalComplexity: taskFormData.technicalComplexity,
         riskReduction: 10,
         complianceImpact: ['NIST CSF'],
-        successCriteria: []
+        successCriteria: ['Task completed on time', 'Deliverables approved']
       }
     };
 
@@ -223,7 +232,10 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
         nistSubcategory: '',
         assignedTo: '',
         dueDate: '',
-        estimatedHours: 8
+        estimatedHours: 8,
+        tags: '',
+        businessImpact: 'medium',
+        technicalComplexity: 'medium'
       });
     } catch (error) {
       console.error('Failed to create task:', error);
@@ -772,6 +784,10 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                     <option value="data-mapping">Data Mapping</option>
                     <option value="consent-management">Consent Management</option>
                     <option value="breach-response">Breach Response</option>
+                    <option value="dpia-creation">DPIA Creation</option>
+                    <option value="vendor-assessment">Vendor Assessment</option>
+                    <option value="cmmc-implementation">CMMC Implementation</option>
+                    <option value="cui-protection">CUI Protection</option>
                   </select>
                 </div>
                 

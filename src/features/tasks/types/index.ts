@@ -49,7 +49,15 @@ export type TaskType =
   | 'training'
   | 'review-approval'
   | 'monitoring'
-  | 'remediation';
+  | 'remediation'
+  | 'privacy-assessment'
+  | 'data-mapping'
+  | 'consent-management'
+  | 'breach-response'
+  | 'dpia-creation'
+  | 'vendor-assessment'
+  | 'cmmc-implementation'
+  | 'cui-protection';
 
 export type TaskPriority = 'low' | 'medium' | 'high' | 'critical';
 
