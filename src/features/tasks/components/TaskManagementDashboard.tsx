@@ -321,7 +321,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       </div>
 
       {/* Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-6 mb-8">
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
             <div>
@@ -387,7 +387,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
 
       {/* Filters and Controls */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 p-6">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0 mb-6">
+        <div className="flex flex-col space-y-4 mb-6">
           <div className="flex-1 max-w-lg">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -401,7 +401,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-between">
             <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
               {(['kanban', 'list', 'calendar'] as const).map((view) => (
                 <button
@@ -421,13 +421,13 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
         </div>
 
         {/* Quick Filters */}
-        <div className="flex flex-wrap gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <select
             onChange={(e) => setFilters(prev => ({ 
               ...prev, 
               nistFunction: e.target.value === 'all' ? undefined : [e.target.value] 
             }))}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="all">All Functions</option>
             <option value="Govern">Govern</option>
@@ -445,7 +445,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
               ...prev, 
               priority: e.target.value === 'all' ? undefined : [e.target.value as TaskPriority] 
             }))}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="all">All Priorities</option>
             <option value="critical">Critical</option>
@@ -461,7 +461,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
               ...prev, 
               status: e.target.value === 'all' ? undefined : [e.target.value as TaskStatus] 
             }))}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="all">All Status</option>
             <option value="not-started">Not Started</option>
@@ -470,15 +470,27 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
             <option value="review">Review</option>
             <option value="completed">Completed</option>
           </select>
+          
+          <select
+            onChange={(e) => setFilterAssignee(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            <option value="all">All Assignees</option>
+            <option value="user-001">Sarah Johnson (CISO)</option>
+            <option value="user-002">Mike Chen (Security Analyst)</option>
+            <option value="user-003">Emily Rodriguez (Compliance)</option>
+            <option value="team-security">Security Team</option>
+            <option value="team-compliance">Compliance Team</option>
+          </select>
         </div>
       </div>
 
       {/* Kanban Board */}
       {activeView === 'kanban' && (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6 overflow-x-auto">
             {kanbanColumns.map((column) => (
-              <div key={column.id} className="space-y-4">
+              <div key={column.id} className="space-y-4 min-w-[280px]">
                 <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                   <h3 className="font-semibold text-gray-900 dark:text-white">
                     {column.title}
@@ -490,13 +502,13 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
 
                 <div className="space-y-3 min-h-[400px]">
                   {column.tasks.map((task) => (
-                    <div key={task.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-800">
+                    <div key={task.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-800 break-words">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
-                          <h4 className="font-medium text-gray-900 dark:text-white mb-1">
+                          <h4 className="font-medium text-gray-900 dark:text-white mb-1 break-words">
                             {task.title}
                           </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 break-words">
                             {task.description}
                           </p>
                         </div>
@@ -609,32 +621,32 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       {/* List View */}
       {activeView === 'list' && (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto min-w-full">
             <table className="w-full">
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[200px]">
                     Task
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[100px]">
                     NIST Function
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[100px]">
                     Assignee
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[80px]">
                     Priority
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[100px]">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[100px]">
                     Due Date
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[120px]">
                     Progress
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-3 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider min-w-[120px]">
                     Actions
                   </th>
                 </tr>
@@ -642,20 +654,20 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
               <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {filteredTasks.map((task) => (
                   <tr key={task.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 lg:px-6 py-4">
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white">
+                        <div className="font-medium text-gray-900 dark:text-white break-words">
                           {task.title}
                         </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                        <div className="text-sm text-gray-500 dark:text-gray-400 break-words">
                           {task.nistSubcategory || task.relatedControlId || task.nistFunction}
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                    <td className="px-3 lg:px-6 py-4 text-gray-900 dark:text-white">
                       {task.nistFunction}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 lg:px-6 py-4">
                       <div className="flex -space-x-2">
                         {task.assignedTo.slice(0, 2).map((userId, index) => (
                           <div key={index} className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
@@ -664,20 +676,20 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                         ))}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 lg:px-6 py-4">
                       <span className={`font-medium ${getPriorityColor(task.priority)}`}>
                         {task.priority}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 lg:px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(task.status)}`}>
                         {task.status.replace('-', ' ')}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
+                    <td className="px-3 lg:px-6 py-4 text-gray-900 dark:text-white">
                       {task.dueDate.toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 lg:px-6 py-4">
                       <div className="flex items-center space-x-2">
                         <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                           <div
@@ -690,7 +702,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 lg:px-6 py-4">
                       <div className="flex space-x-2">
                         <button
                           onClick={() => addNotification('info', `Viewing task: ${task.title}`)}
@@ -723,12 +735,12 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       {/* Create Task Modal */}
       {showCreateTask && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-2xl w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-8 max-w-2xl w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               Create Compliance Task
             </h3>
             
-            <form onSubmit={handleCreateTask} className="space-y-4">
+            <form onSubmit={handleCreateTask} className="space-y-4 overflow-hidden">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Task Title *
@@ -738,7 +750,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                   required
                   value={taskFormData.title}
                   onChange={(e) => setTaskFormData(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent break-words"
                   placeholder="Enter task title"
                 />
               </div>
@@ -752,12 +764,12 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                   value={taskFormData.description}
                   onChange={(e) => setTaskFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none break-words"
                   placeholder="Describe the compliance task objectives and deliverables (Privacy, CMMC, or NIST CSF v2.0)"
                 />
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Task Type *
@@ -789,7 +801,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                   </select>
                 </div>
                 
-                <div>
+                <div className="mt-4">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Priority *
                   </label>
@@ -807,7 +819,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Compliance Framework *
@@ -829,7 +841,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                   </select>
                 </div>
                 
-                <div>
+                <div className="mt-4">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Framework Category
                   </label>
@@ -843,7 +855,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Control/Requirement ID
@@ -857,7 +869,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                   />
                 </div>
                 
-                <div>
+                <div className="mt-4">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Assigned To *
                   </label>
@@ -882,7 +894,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Due Date *
@@ -896,7 +908,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                   />
                 </div>
                 
-                <div>
+                <div className="mt-4">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Estimated Hours
                   </label>
@@ -910,7 +922,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                 </div>
               </div>
               
-              <div className="flex space-x-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <button
                   type="button"
                   onClick={() => {
@@ -928,13 +940,13 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       estimatedHours: 8
                     });
                   }}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="w-full sm:flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-medium"
+                  className="w-full sm:flex-1 px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-medium"
                 >
                   Create Task
                 </button>
