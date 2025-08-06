@@ -384,17 +384,6 @@ function AppContent() {
     );
   }
 
-  // Show error state if data loading failed
-  if (loading === false && savedAssessments.length === 0 && assets.length === 0) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
-        <div className="text-center">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Welcome to CyberCorrect™</h2>
-          <p className="text-gray-600 dark:text-gray-300">Start by creating your first assessment</p>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <ErrorBoundary>
