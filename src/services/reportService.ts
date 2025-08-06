@@ -404,21 +404,32 @@ export class ReportService {
     framework: Framework,
     options: ReportExportOptions
   ): Promise<void> {
-    const reportData = {
+    const reportData = this.generateReportData(assessment, framework);
+    const exportData = {
       assessment,
       framework: {
         id: framework.id,
         name: framework.name,
-        version: framework.version
+        version: framework.version,
+        description: framework.description
       },
+      reportData,
       exportedAt: new Date(),
-      options
+      options,
+      metadata: {
+        totalQuestions: reportData.totalQuestions,
+        answeredQuestions: reportData.answeredQuestions,
+        overallScore: reportData.overallScore,
+        completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100),
+        exportFormat: 'json',
+        exportVersion: '2.0.0'
+      }
     };
 
-    const dataStr = JSON.stringify(reportData, null, 2);
+    const dataStr = JSON.stringify(exportData, null, 2);
     this.downloadFile(
       dataStr,
-      `${framework.name}-report-${assessment.id}.json`,
+      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.json`,
       'application/json'
     );
   }
@@ -430,19 +441,61 @@ export class ReportService {
   ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
-    const csvContent = [
-      ['Section', 'Score', 'Questions Answered', 'Total Questions'],
-      ...reportData.sectionScores.map(section => [
+    // Enhanced CSV with more comprehensive data
+    const headers = [
+      'Section',
+      'Score (%)',
+      'Questions Answered',
+      'Total Questions',
+      'Completion Rate (%)',
+      'Performance Level',
+      'Gap to Target (75%)',
+      'Priority'
+    ];
+    
+    const csvRows = reportData.sectionScores.map((section: any) => [
         section.name,
         section.score.toString(),
         section.answered.toString(),
-        section.total.toString()
-      ])
-    ].map(row => row.join(',')).join('\n');
+        section.total.toString(),
+        section.total > 0 ? Math.round((section.answered / section.total) * 100).toString() : '0',
+        section.score >= 75 ? 'Satisfactory' : section.score >= 50 ? 'Needs Improvement' : 'Critical',
+        Math.max(0, 75 - section.score).toString(),
+        section.score < 50 ? 'High' : section.score < 75 ? 'Medium' : 'Low'
+    ]);
+    
+    // Add summary row
+    const summaryRow = [
+      'OVERALL SUMMARY',
+      reportData.overallScore.toString(),
+      reportData.answeredQuestions.toString(),
+      reportData.totalQuestions.toString(),
+      Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100).toString(),
+      reportData.overallScore >= 75 ? 'Satisfactory' : reportData.overallScore >= 50 ? 'Needs Improvement' : 'Critical',
+      Math.max(0, 75 - reportData.overallScore).toString(),
+      reportData.overallScore < 50 ? 'High' : reportData.overallScore < 75 ? 'Medium' : 'Low'
+    ];
+    
+    const csvContent = [
+      headers,
+      ...csvRows,
+      [], // Empty row
+      summaryRow
+    ].map(row => row.map(field => `"${field}"`).join(',')).join('\n');
+    // Add metadata header
+    const metadataHeader = [
+      `# ${framework.name} Assessment Report`,
+      `# Organization: ${assessment.organizationInfo?.name || 'Not specified'}`,
+      `# Generated: ${new Date().toLocaleDateString()}`,
+      `# Assessment ID: ${assessment.id}`,
+      `# Framework Version: ${framework.version}`,
+      '#',
+      ''
+    ].join('\n');
 
     this.downloadFile(
-      csvContent,
-      `${framework.name}-report-${assessment.id}.csv`,
+      metadataHeader + csvContent,
+      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.csv`,
       'text/csv'
     );
   }
