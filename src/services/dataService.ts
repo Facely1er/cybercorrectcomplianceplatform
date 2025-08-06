@@ -317,7 +317,6 @@ export class DataService {
 
   // Data Export/Import
   exportAllData(): AppData {
-    try {
     return {
       assessments: this.getAssessments(),
       userProfile: this.getUserProfile(),
@@ -431,12 +430,11 @@ export class DataService {
       };
     } catch (error) {
       console.error('Failed to calculate storage usage:', error);
-        version: this.CURRENT_VERSION,
-        exportMetadata: {
-          exportDate: new Date(),
-          totalItems: this.getAssessments().length + this.getAssets().length + this.getTasks().length,
-          dataTypes: ['assessments', 'assets', 'tasks', 'settings', 'userProfile']
-        }
+      return {
+        used: 0,
+        total: 0,
+        percentage: 0
+      };
     }
   }
 
@@ -489,10 +487,6 @@ export class DataService {
         backupType: 'manual',
         description: 'Manual backup created by user'
       };
-    } catch (error) {
-      console.error('Failed to export data:', error);
-      throw new Error('Failed to export data: ' + error);
-    }
 
       return JSON.stringify(backupData, null, 2);
     } catch (error) {
@@ -514,10 +508,7 @@ export class DataService {
       if (!data.assessments && !data.assets && !data.tasks) {
         throw new Error('Backup appears to be empty or corrupted');
       }
-      // Validate required properties
-      if (!data.assessments && !data.assets && !data.tasks) {
-        throw new Error('Invalid data format - no data to import');
-      }
+
       this.importAllData(data);
       
       auditLogger.log({
@@ -543,9 +534,7 @@ export class DataService {
       // Remove old versions of assessments (keep only last 5 versions per assessment)
       const assessments = this.getAssessments().map(assessment => ({
         ...assessment,
-        versionHistory: assessment.versionHistory?.slice(-5) || [],
-        importedVersion: data.version,
-        importedItems: (data.assessments?.length || 0) + (data.assets?.length || 0) + (data.tasks?.length || 0)
+        versionHistory: assessment.versionHistory?.slice(-5) || []
       }));
 
       this.saveAssessments(assessments);
@@ -717,7 +706,6 @@ export class DataService {
           }
         }
       ];
-}
 
       // Save demo data
       this.saveAssessments([demoAssessment]);
@@ -757,4 +745,6 @@ export class DataService {
       throw new Error('Failed to clear demo data');
     }
   }
+}
+
 export const dataService = DataService.getInstance();
