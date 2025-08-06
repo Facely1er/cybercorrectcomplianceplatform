@@ -36,7 +36,7 @@ export const getFramework = (frameworkId?: string) => { // Default to NIST CSF v
     name: 'NIST CSF v2.0 (Fallback)',
     description: 'Default NIST Cybersecurity Framework v2.0',
     version: '2.0',
-    functions: [],
+    sections: [],
     categories: [],
     subcategories: []
   };
