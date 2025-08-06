@@ -82,7 +82,7 @@ export const LandingPage: React.FC = () => {
       description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.',
       icon: Database,
       color: 'from-green-600 to-emerald-600',
-      assessmentPath: '/cui-assessment',
+      assessmentPath: '/cmmc-assessment',
       stats: { value: 'Level 2', label: 'CMMC certification ready' },
       industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'],
       framework: 'Built on NIST CSF v2.0 all 6 core functions'
