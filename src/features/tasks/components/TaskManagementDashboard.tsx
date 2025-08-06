@@ -15,6 +15,8 @@ interface TaskManagementDashboardProps {
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
+import { dataService } from '../../../services/dataService';
+
 export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
   onBack,
   addNotification
@@ -170,6 +172,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       return;
     }
     const newTask: Task = {
+      id: `task-${Date.now()}`,
       title: taskFormData.title,
       description: taskFormData.description,
       type: taskFormData.type,
@@ -181,6 +184,8 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       relatedControlId: taskFormData.nistSubcategory.toLowerCase().replace('.', '.'),
       assignedTo: [taskFormData.assignedTo],
       assignedBy: user.id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
       dueDate: new Date(taskFormData.dueDate),
       estimatedHours: taskFormData.estimatedHours,
       progress: 0,
@@ -201,10 +206,11 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     };
 
     try {
-      const createdTask = await taskService.createTask(newTask, user.id);
+      // Save using data service directly
+      dataService.saveTask(newTask);
       
-      setTasks(prev => [...prev, createdTask]);
-      addNotification('success', `Task "${createdTask.title}" created successfully`);
+      setTasks(prev => [...prev, newTask]);
+      addNotification('success', `Task "${newTask.title}" assigned to ${taskFormData.assignedTo} successfully`);
       setShowCreateTask(false);
       
       // Reset form
@@ -220,8 +226,9 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
         dueDate: '',
         estimatedHours: 8
       });
-    } catch (error: any) {
-      addNotification('error', error.message || 'Failed to create task');
+    } catch (error) {
+      console.error('Failed to create task:', error);
+      addNotification('error', 'Failed to assign task');
     }
   };
 
@@ -238,21 +245,22 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     }
 
     try {
-      const updatedTask = await taskService.updateTask(
-        { 
-          ...task, 
-          status: newStatus, 
-          updatedAt: new Date(),
-          completedAt: newStatus === 'completed' ? new Date() : task.completedAt,
-          progress: newStatus === 'completed' ? 100 : task.progress
-        },
-        user.id
-      );
+      const updatedTask = { 
+        ...task, 
+        status: newStatus, 
+        updatedAt: new Date(),
+        completedAt: newStatus === 'completed' ? new Date() : task.completedAt,
+        progress: newStatus === 'completed' ? 100 : task.progress
+      };
+      
+      // Save using data service directly
+      dataService.saveTask(updatedTask);
       
       setTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
       addNotification('success', `Task status updated to ${newStatus.replace('-', ' ')}`);
-    } catch (error: any) {
-      addNotification('error', error.message || 'Failed to update task');
+    } catch (error) {
+      console.error('Failed to update task:', error);
+      addNotification('error', 'Failed to update task status');
     }
   };
 
@@ -261,15 +269,13 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     
     if (window.confirm('Are you sure you want to delete this task?')) {
       try {
-        await taskService.deleteTask(taskId, user.id);
+        // Delete using data service directly
+        dataService.deleteTask(taskId);
         setTasks(prev => prev.filter(t => t.id !== taskId));
-        // Update tasks through data persistence hook would be better
-        // For now, add to local state
-        const updatedTasks = [...tasks, createdTask];
-        setTasks(updatedTasks);
-        
-      } catch (error: any) {
-        addNotification('error', error.message || 'Failed to delete task');
+        addNotification('success', 'Task deleted successfully');
+      } catch (error) {
+        console.error('Failed to delete task:', error);
+        addNotification('error', 'Failed to delete task');
       }
     }
   };
