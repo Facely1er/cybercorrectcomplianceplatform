@@ -3,11 +3,8 @@ import { errorMonitoring } from '../lib/errorMonitoring';
 
 export interface ReportExportOptions {
   format: 'pdf' | 'json' | 'csv';
-  includeExecutiveSummary?: boolean;
-  includeDetailedAnalysis?: boolean;
-  includeRecommendations?: boolean;
-  includeGapAnalysis?: boolean;
-  includeNextSteps?: boolean;
+  sections?: string[];
+  includeCharts?: boolean;
   branding?: {
     organizationName?: string;
     logo?: string;
@@ -400,10 +397,6 @@ export class ReportService {
         }, 1000);
       }, 500);
     };
-  }</parameter>
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
   }
 
   private async exportToJSON(
@@ -411,32 +404,21 @@ export class ReportService {
     framework: Framework,
     options: ReportExportOptions
   ): Promise<void> {
-    const reportData = this.generateReportData(assessment, framework);
-    const exportData = {
+    const reportData = {
       assessment,
       framework: {
         id: framework.id,
         name: framework.name,
-        version: framework.version,
-        description: framework.description
+        version: framework.version
       },
-      reportData,
       exportedAt: new Date(),
-      options,
-      metadata: {
-        totalQuestions: reportData.totalQuestions,
-        answeredQuestions: reportData.answeredQuestions,
-        overallScore: reportData.overallScore,
-        completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100),
-        exportFormat: 'json',
-        exportVersion: '2.0.0'
-      }
+      options
     };
 
-    const dataStr = JSON.stringify(exportData, null, 2);
+    const dataStr = JSON.stringify(reportData, null, 2);
     this.downloadFile(
       dataStr,
-      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.json`,
+      `${framework.name}-report-${assessment.id}.json`,
       'application/json'
     );
   }
@@ -448,61 +430,19 @@ export class ReportService {
   ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
-    // Enhanced CSV with more comprehensive data
-    const headers = [
-      'Section',
-      'Score (%)',
-      'Questions Answered',
-      'Total Questions',
-      'Completion Rate (%)',
-      'Performance Level',
-      'Gap to Target (75%)',
-      'Priority'
-    ];
-    
-    const csvRows = reportData.sectionScores.map((section: any) => [
+    const csvContent = [
+      ['Section', 'Score', 'Questions Answered', 'Total Questions'],
+      ...reportData.sectionScores.map(section => [
         section.name,
         section.score.toString(),
         section.answered.toString(),
-        section.total.toString(),
-        section.total > 0 ? Math.round((section.answered / section.total) * 100).toString() : '0',
-        section.score >= 75 ? 'Satisfactory' : section.score >= 50 ? 'Needs Improvement' : 'Critical',
-        Math.max(0, 75 - section.score).toString(),
-        section.score < 50 ? 'High' : section.score < 75 ? 'Medium' : 'Low'
-    ]);
-    
-    // Add summary row
-    const summaryRow = [
-      'OVERALL SUMMARY',
-      reportData.overallScore.toString(),
-      reportData.answeredQuestions.toString(),
-      reportData.totalQuestions.toString(),
-      Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100).toString(),
-      reportData.overallScore >= 75 ? 'Satisfactory' : reportData.overallScore >= 50 ? 'Needs Improvement' : 'Critical',
-      Math.max(0, 75 - reportData.overallScore).toString(),
-      reportData.overallScore < 50 ? 'High' : reportData.overallScore < 75 ? 'Medium' : 'Low'
-    ];
-    
-    const csvContent = [
-      headers,
-      ...csvRows,
-      [], // Empty row
-      summaryRow
-    ].map(row => row.map(field => `"${field}"`).join(',')).join('\n');
-    // Add metadata header
-    const metadataHeader = [
-      `# ${framework.name} Assessment Report`,
-      `# Organization: ${assessment.organizationInfo?.name || 'Not specified'}`,
-      `# Generated: ${new Date().toLocaleDateString()}`,
-      `# Assessment ID: ${assessment.id}`,
-      `# Framework Version: ${framework.version}`,
-      '#',
-      ''
-    ].join('\n');
+        section.total.toString()
+      ])
+    ].map(row => row.join(',')).join('\n');
 
     this.downloadFile(
-      metadataHeader + csvContent,
-      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.csv`,
+      csvContent,
+      `${framework.name}-report-${assessment.id}.csv`,
       'text/csv'
     );
   }
@@ -545,70 +485,16 @@ export class ReportService {
   }
 
   private downloadFile(content: string, filename: string, mimeType: string): void {
-    try {
-      // Add UTF-8 BOM for CSV files to ensure proper character encoding
-      const bom = mimeType === 'text/csv' ? '\uFEFF' : '';
-      const blob = new Blob([bom + content], { type: `${mimeType};charset=utf-8` });
-      
-      // Use modern download API if available
-      if ('showSaveFilePicker' in window) {
-        this.downloadWithAPI(blob, filename, mimeType);
-        return;
-      }
-      
-      // Fallback to traditional download
-      this.downloadWithLink(blob, filename);
-    } catch (error) {
-      console.error('Download failed:', error);
-      throw new Error(`Failed to download file: ${error}`);
-    }
-  }
-  
-  private async downloadWithAPI(blob: Blob, filename: string, mimeType: string): Promise<void> {
-    try {
-      const fileHandle = await (window as any).showSaveFilePicker({
-        suggestedName: filename,
-        types: [{
-          description: this.getFileTypeDescription(mimeType),
-          accept: { [mimeType]: [this.getFileExtension(filename)] }
-        }]
-      });
-      
-      const writable = await fileHandle.createWritable();
-      await writable.write(blob);
-      await writable.close();
-    } catch (error) {
-      // If API fails, fall back to link download
-      this.downloadWithLink(blob, filename);
-    }
-  }
-  
-  private downloadWithLink(blob: Blob, filename: string): void {
+    const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.download = filename;
-    link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   }
-  
-  private getFileTypeDescription(mimeType: string): string {
-    switch (mimeType) {
-      case 'application/json': return 'JSON Data';
-      case 'text/csv': return 'CSV Spreadsheet';
-      case 'text/html': return 'HTML Report';
-      case 'application/pdf': return 'PDF Document';
-      default: return 'File';
-    }
-  }
-  
-  private getFileExtension(filename: string): string {
-    const parts = filename.split('.');
-    return parts.length > 1 ? `.${parts[parts.length - 1]}` : '';
-  }</parameter>
 }
 
 export const reportService = ReportService.getInstance();
