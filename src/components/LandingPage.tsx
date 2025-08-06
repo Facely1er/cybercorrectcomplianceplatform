@@ -1,4 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { 
+  Shield, Target, BarChart3, FileText, Users, Calendar,
+  CheckCircle, ArrowRight, Play, TrendingUp, Award,
+  Zap, Star, Activity, Globe, Lock, Building,
+  Eye, Database, FileSearch, Scale, FileCheck,
+  Clock, DollarSign, Briefcase, HelpCircle, Settings,
+  Mail, ExternalLink
+} from 'lucide-react';
 
 // Text Carousel Component
 const TextCarousel: React.FC = () => {
@@ -50,17 +59,6 @@ const TextCarousel: React.FC = () => {
     </div>
   );
 };
-
-import { Link } from 'react-router-dom';
-import { cmmcFramework, privacyFramework, nistCSFv2Framework } from '../data/frameworks';
-import { 
-  Shield, Target, BarChart3, FileText, Users, Calendar,
-  CheckCircle, ArrowRight, Play, TrendingUp, Award,
-  Zap, Star, Activity, Globe, Lock, Building,
-  Eye, Database, FileSearch, Scale, FileCheck,
-  Clock, DollarSign, Briefcase, HelpCircle, Settings,
-  Mail, ExternalLink
-} from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
   // Main compliance paths - Both powered by NIST CSF v2.0
@@ -554,7 +552,7 @@ export const LandingPage: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <span className="text-primary-teal/80 dark:text-dark-primary/80">Initial Assessment</span>
                       <span className="text-primary-teal dark:text-dark-primary font-medium">
-                        {Math.round((cmmcFramework.estimatedTime + privacyFramework.estimatedTime + nistCSFv2Framework.estimatedTime) / 3)} minutes
+                        120 minutes
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
