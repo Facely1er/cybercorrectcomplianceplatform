@@ -576,12 +576,12 @@ export const LandingPage: React.FC = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="py-24 bg-gradient-primary">
+      <div className="py-12 bg-gradient-primary">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
             Ready to Strengthen Your Compliance Posture?
           </h2>
-          <p className="text-xl text-white/80 mb-10">
+          <p className="text-xl text-white/80 mb-8">
             Choose from three comprehensive NIST-based cybersecurity assessments
           </p>
           
