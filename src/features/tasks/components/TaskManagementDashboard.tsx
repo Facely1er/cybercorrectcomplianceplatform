@@ -40,8 +40,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     estimatedHours: 8,
     tags: '',
     businessImpact: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    technicalComplexity: 'medium' as 'low' | 'medium' | 'high',
-    framework: 'NIST CSF v2.0' as string
+    technicalComplexity: 'medium' as 'low' | 'medium' | 'high'
   });
 
   // Load tasks on component mount and when user/organization changes
@@ -200,12 +199,16 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       comments: [],
       evidence: [],
       approvalRequired: false,
+      approvedBy: undefined,
+      approvedAt: undefined,
       tags: taskFormData.tags ? taskFormData.tags.split(',').map(t => t.trim()).filter(Boolean) : [taskFormData.type, taskFormData.nistFunction.toLowerCase()],
+      workflowId: undefined,
+      stageId: undefined,
       metadata: {
         businessImpact: taskFormData.businessImpact,
         technicalComplexity: taskFormData.technicalComplexity,
         riskReduction: 10,
-        complianceImpact: [taskFormData.framework || 'NIST CSF v2.0'],
+        complianceImpact: ['NIST CSF'],
         successCriteria: ['Task completed on time', 'Deliverables approved']
       }
     };
@@ -924,7 +927,10 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       nistSubcategory: '',
                       assignedTo: '',
                       dueDate: '',
-                      estimatedHours: 8
+                      estimatedHours: 8,
+                      tags: '',
+                      businessImpact: 'medium',
+                      technicalComplexity: 'medium'
                     });
                   }}
                   className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
