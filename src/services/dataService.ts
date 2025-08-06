@@ -317,6 +317,7 @@ export class DataService {
 
   // Data Export/Import
   exportAllData(): AppData {
+    try {
     return {
       assessments: this.getAssessments(),
       userProfile: this.getUserProfile(),
@@ -369,8 +370,13 @@ export class DataService {
   }
 
   // Data Reset and Cleanup
-  resetAllData(): void {
+  resetAllData(preserveProfile: boolean = false): void {
     try {
+      // Store profile if preserving
+      const profileToKeep = preserveProfile ? this.getUserProfile() : null;
+      const settingsToKeep = preserveProfile ? this.getSettings() : null;
+      
+      // Remove all data
       Object.values(this.STORAGE_KEYS).forEach(key => {
         localStorage.removeItem(key);
       });
@@ -382,11 +388,20 @@ export class DataService {
       // Reinitialize
       this.initializeStorage();
       
+      // Restore profile and settings if preserving
+      if (preserveProfile && profileToKeep) {
+        this.saveUserProfile(profileToKeep);
+      }
+      if (preserveProfile && settingsToKeep) {
+        this.saveSettings(settingsToKeep);
+      }
+      
       auditLogger.log({
         userId: 'current-user',
         action: 'delete',
         resource: 'all-data',
-        resourceId: 'bulk-reset'
+        resourceId: 'bulk-reset',
+        metadata: { preservedProfile: preserveProfile }
       });
       
     } catch (error) {
@@ -416,7 +431,12 @@ export class DataService {
       };
     } catch (error) {
       console.error('Failed to calculate storage usage:', error);
-      return { used: 0, total: 0, percentage: 0 };
+        version: this.CURRENT_VERSION,
+        exportMetadata: {
+          exportDate: new Date(),
+          totalItems: this.getAssessments().length + this.getAssets().length + this.getTasks().length,
+          dataTypes: ['assessments', 'assets', 'tasks', 'settings', 'userProfile']
+        }
     }
   }
 
@@ -465,8 +485,14 @@ export class DataService {
       const backupData = {
         ...this.exportAllData(),
         backupDate: new Date(),
-        backupId: Date.now().toString()
+        backupId: Date.now().toString(),
+        backupType: 'manual',
+        description: 'Manual backup created by user'
       };
+    } catch (error) {
+      console.error('Failed to export data:', error);
+      throw new Error('Failed to export data: ' + error);
+    }
 
       return JSON.stringify(backupData, null, 2);
     } catch (error) {
@@ -484,13 +510,25 @@ export class DataService {
         throw new Error('Invalid backup format');
       }
 
+      // Additional validation for backup integrity
+      if (!data.assessments && !data.assets && !data.tasks) {
+        throw new Error('Backup appears to be empty or corrupted');
+      }
+      // Validate required properties
+      if (!data.assessments && !data.assets && !data.tasks) {
+        throw new Error('Invalid data format - no data to import');
+      }
       this.importAllData(data);
       
       auditLogger.log({
         userId: 'current-user',
         action: 'import',
         resource: 'backup',
-        resourceId: data.backupId || 'unknown'
+        resourceId: data.backupId || 'unknown',
+        metadata: { 
+          backupDate: data.backupDate,
+          itemsRestored: (data.assessments?.length || 0) + (data.assets?.length || 0) + (data.tasks?.length || 0)
+        }
       });
 
     } catch (error) {
@@ -506,7 +544,8 @@ export class DataService {
       const assessments = this.getAssessments().map(assessment => ({
         ...assessment,
         versionHistory: assessment.versionHistory?.slice(-5) || [],
-        changeLog: assessment.changeLog?.slice(-20) || []
+        importedVersion: data.version,
+        importedItems: (data.assessments?.length || 0) + (data.assets?.length || 0) + (data.tasks?.length || 0)
       }));
 
       this.saveAssessments(assessments);
@@ -518,6 +557,204 @@ export class DataService {
       console.error('Failed to optimize storage:', error);
     }
   }
+
+  // Demo data management
+  loadDemoData(): void {
+    try {
+      // Create demo assessment data
+      const demoAssessment: AssessmentData = {
+        id: 'demo-assessment-001',
+        frameworkId: 'nist-csf-v2',
+        frameworkName: 'NIST CSF v2.0 - Demo Assessment',
+        responses: {
+          'gv.oc-q1': 2,
+          'gv.oc-q2': 1,
+          'gv.rm-q1': 2,
+          'id.am-q1': 1,
+          'id.am-q2': 2,
+          'id.ra-q1': 1,
+          'pr.ac-q1': 2,
+          'pr.ac-q2': 1,
+          'pr.ds-q1': 2,
+          'de.ae-q1': 1,
+          'de.ae-q2': 0,
+          'de.cm-q1': 1,
+          'rs.rp-q1': 0,
+          'rs.rp-q2': 1,
+          'rc.rp-q1': 0,
+          'rc.rp-q2': 0
+        },
+        createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
+        lastModified: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+        isComplete: true,
+        version: '2.0',
+        organizationInfo: {
+          name: 'Demo Corporation',
+          industry: 'Technology',
+          size: 'Medium (51-500 employees)',
+          location: 'United States',
+          assessor: 'Demo User'
+        },
+        questionNotes: {
+          'gv.oc-q1': 'We have established basic governance but need to formalize processes.',
+          'rs.rp-q1': 'Incident response plan is in development.',
+          'rc.rp-q1': 'Recovery procedures need to be documented and tested.'
+        },
+        questionEvidence: {},
+        evidenceLibrary: [],
+        assessmentVersion: '1.0.0',
+        versionHistory: [],
+        changeLog: [],
+        tags: ['demo', 'nist-csf', 'baseline']
+      };
+
+      // Create demo assets
+      const demoAssets = [
+        {
+          id: 'demo-asset-001',
+          name: 'Primary Web Server',
+          description: 'Main production web server hosting customer applications',
+          category: 'hardware',
+          subcategory: 'server',
+          type: 'server',
+          owner: 'IT Operations Manager',
+          custodian: 'System Administrator',
+          location: {
+            type: 'physical',
+            building: 'Data Center A',
+            room: 'Server Room 1',
+            address: '123 Business Park Dr'
+          },
+          status: 'active',
+          criticality: 'critical',
+          informationClassification: 'confidential',
+          businessValue: 'mission-critical',
+          dependencies: [],
+          controls: [],
+          vulnerabilities: [],
+          riskAssessment: {
+            overallRisk: 'medium',
+            riskFactors: [],
+            threats: [],
+            impact: {
+              confidentiality: 'high',
+              integrity: 'high',
+              availability: 'critical',
+              financialImpact: 'Significant revenue impact if unavailable',
+              operationalImpact: 'Complete service disruption',
+              reputationalImpact: 'Customer trust impact',
+              legalImpact: 'Potential SLA violations'
+            },
+            likelihood: {
+              threatLevel: 'medium',
+              vulnerabilityLevel: 'medium',
+              exposureLevel: 'medium',
+              historicalIncidents: 0,
+              industryTrends: 'Increasing cyber threats'
+            },
+            riskTreatment: {
+              strategy: 'mitigate',
+              controls: ['firewall', 'monitoring', 'backup'],
+              residualRisk: 'low'
+            },
+            lastAssessment: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            nextAssessment: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
+            assessedBy: 'Security Team'
+          },
+          compliance: [],
+          lifecycle: {
+            phase: 'operation',
+            deploymentDate: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
+            maintenanceSchedule: {
+              frequency: 'monthly',
+              nextMaintenance: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+              maintenanceType: 'preventive',
+              assignedTo: 'System Administrator'
+            }
+          },
+          createdAt: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
+          updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+          lastReviewed: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+          nextReview: new Date(Date.now() + 335 * 24 * 60 * 60 * 1000),
+          tags: ['production', 'critical', 'web-server'],
+          metadata: { environment: 'production', vendor: 'Dell' }
+        }
+      ];
+
+      // Create demo tasks
+      const demoTasks = [
+        {
+          id: 'demo-task-001',
+          title: 'Complete Asset Inventory Review',
+          description: 'Review and update the comprehensive asset inventory to ensure all organizational assets are properly documented and classified',
+          type: 'assessment',
+          priority: 'high',
+          status: 'in-progress',
+          nistFunction: 'Identify',
+          nistCategory: 'Asset Management',
+          nistSubcategory: 'ID.AM-01',
+          relatedControlId: 'id.am-01',
+          assignedTo: ['IT Operations Manager'],
+          assignedBy: 'CISO',
+          createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+          updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+          dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          estimatedHours: 16,
+          progress: 60,
+          dependencies: [],
+          subtasks: [],
+          attachments: [],
+          comments: [],
+          evidence: [],
+          approvalRequired: false,
+          tags: ['demo', 'asset-management', 'quarterly'],
+          metadata: {
+            businessImpact: 'high',
+            technicalComplexity: 'medium',
+            riskReduction: 15,
+            complianceImpact: ['NIST CSF v2.0'],
+            successCriteria: ['Asset inventory updated', 'Classifications verified']
+          }
+        }
+      ];
 }
 
+      // Save demo data
+      this.saveAssessments([demoAssessment]);
+      this.saveAssets(demoAssets);
+      this.saveTasks(demoTasks);
+      
+      // Mark as demo data
+      localStorage.setItem('demo-data-loaded', new Date().toISOString());
+      
+    } catch (error) {
+      console.error('Failed to load demo data:', error);
+      throw new Error('Failed to load demo data');
+    }
+  }
+
+  isDemoDataLoaded(): boolean {
+    return !!localStorage.getItem('demo-data-loaded');
+  }
+
+  clearDemoData(): void {
+    try {
+      // Reset all data but preserve user profile and settings
+      this.resetAllData(true);
+      
+      // Remove demo data marker
+      localStorage.removeItem('demo-data-loaded');
+      
+      auditLogger.log({
+        userId: 'current-user',
+        action: 'delete',
+        resource: 'demo-data',
+        resourceId: 'demo-reset'
+      });
+      
+    } catch (error) {
+      console.error('Failed to clear demo data:', error);
+      throw new Error('Failed to clear demo data');
+    }
+  }
 export const dataService = DataService.getInstance();

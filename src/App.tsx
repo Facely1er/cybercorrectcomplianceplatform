@@ -133,6 +133,28 @@ function AppContent() {
       const assetData = dataService.getAssets();
       setSavedAssessments(assessments);
       setAssets(assetData);
+      
+      // Load demo data if this is first visit and no data exists
+      if (assessments.length === 0 && assetData.length === 0 && !dataService.isDemoDataLoaded()) {
+        const shouldLoadDemo = !localStorage.getItem('demo-declined') && window.confirm(
+          'Welcome to CyberCorrect™! Would you like to load demo data to explore the platform?\n\n' +
+          'Demo data includes:\n' +
+          '• Sample CMMC Level 2 assessment\n' +
+          '• Example assets and compliance tasks\n' +
+          '• Mock evidence collections\n\n' +
+          'You can clear this demo data anytime in Settings when ready for real business use.'
+        );
+        
+        if (shouldLoadDemo) {
+          dataService.loadDemoData();
+          setSavedAssessments(dataService.getAssessments());
+          setAssets(dataService.getAssets());
+          addNotification('info', 'Demo data loaded successfully! Go to Settings > Data Management to clear when ready for real business use.');
+        } else {
+          // Remember user declined demo data
+          localStorage.setItem('demo-declined', 'true');
+        }
+      }
     } catch (error) {
       console.error('Failed to load data:', error);
     } finally {

@@ -484,6 +484,23 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               
               <div className="flex flex-wrap gap-3">
                 <button
+                  onClick={() => {
+                    if (window.confirm('Reset to factory defaults? This will clear all data but preserve your profile and settings.')) {
+                      try {
+                        dataService.resetAllData(true);
+                        addNotification('success', 'Application reset to factory defaults. Reloading...');
+                        setTimeout(() => window.location.reload(), 1500);
+                      } catch (error) {
+                        addNotification('error', 'Failed to reset to factory defaults: ' + (error as Error).message);
+                      }
+                    }
+                  }}
+                  className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm"
+                >
+                  Factory Reset (Keep Profile)
+                </button>
+                
+                <button
                   onClick={clearAllData}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                     showDeleteConfirm 
@@ -503,17 +520,18 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   <span>Reload Application</span>
                 </button>
               </div>
+              
               <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
                 <strong>Warning:</strong> Clearing all data will permanently delete all assessments, 
                 settings, and profile information. This action cannot be undone.
               </p>
              
-             <div className="mt-3 p-3 bg-alert-coral/10 dark:bg-dark-alert/20 rounded-lg border border-alert-coral/20 dark:border-dark-alert/30">
-               <p className="text-xs text-alert-coral dark:text-dark-alert">
-                 <strong>CMMC Compliance Note:</strong> Resetting data will remove all CMMC assessment progress, 
-                 evidence collections, and compliance documentation. Ensure you have exported your data first.
-               </p>
-             </div>
+              <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                <p className="text-xs text-red-700 dark:text-red-300">
+                  <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, 
+                  evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
+                </p>
+              </div>
             </div>
           </div>
         </div>

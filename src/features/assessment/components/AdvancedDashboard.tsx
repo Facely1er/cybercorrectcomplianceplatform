@@ -238,9 +238,15 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             )}
           </div>
           <div className="mt-4 md:mt-0 flex space-x-3">
+            {dataService.isDemoDataLoaded() && (
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 px-4 py-2 rounded-lg flex items-center space-x-2">
+                <Info className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+                <span className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">Demo Mode</span>
+              </div>
+            )}
             <label className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 cursor-pointer flex items-center space-x-2 shadow-sm hover:shadow-md">
               <Upload className="w-4 h-4" />
-              <span className="font-medium">Import Assessment</span>
+              <span className="font-medium">Import Backup</span>
               <input
                 type="file"
                 accept=".json"
