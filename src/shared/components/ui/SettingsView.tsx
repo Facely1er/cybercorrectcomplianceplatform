@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, Download, Upload, Trash2, RefreshCw, AlertTriangle, CheckCircle } from 'lucide-react';
+import { ChevronLeft, Save, Download, Upload, Trash2, RefreshCw, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAssessments } from '../../hooks/useAssessments';
@@ -633,67 +633,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
             </div>
           </div>
         </div>
-                    }
-                  }}
-                  className="bg-alert-coral text-white px-4 py-2 rounded-lg hover:bg-alert-coral/90 transition-colors text-sm"
-                >
-                  Reset Assessment Data Only
-                </button>
-              </div>
-              
-              <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => {
-                    if (window.confirm('Reset to factory defaults? This will clear all data but preserve your profile and settings.')) {
-                      try {
-                        dataService.resetAllData(true);
-                        addNotification('success', 'Application reset to factory defaults. Reloading...');
-                        setTimeout(() => window.location.reload(), 1500);
-                      } catch (error) {
-                        addNotification('error', 'Failed to reset to factory defaults: ' + (error as Error).message);
-                      }
-                    }
-                  }}
-                  className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm"
-                >
-                  Factory Reset (Keep Profile)
-                </button>
-                
-                <button
-                  onClick={clearAllData}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                    showDeleteConfirm 
-                      ? 'bg-alert-coral/90 text-white' 
-                      : 'bg-alert-coral text-white hover:bg-alert-coral/90'
-                  }`}
-                >
-                  <Trash2 className="w-4 h-4" />
-                  <span>{showDeleteConfirm ? 'Click Again to Confirm' : 'Complete Data Reset'}</span>
-                </button>
-                
-                <button
-                  onClick={() => window.location.reload()}
-                  className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  <span>Reload Application</span>
-                </button>
-              </div>
-              
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                <strong>Warning:</strong> Clearing all data will permanently delete all assessments, 
-                settings, and profile information. This action cannot be undone.
-              </p>
-             
-              <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
-                <p className="text-xs text-red-700 dark:text-red-300">
-                  <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, 
-                  evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Demo Data Management - Prominent Section */}
         {dataService.isDemoDataLoaded() && (
@@ -720,6 +659,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   <span className="text-gray-700 dark:text-gray-300">Sample CMMC Level 2 assessment</span>
                 </div>
                 <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span className="text-gray-700 dark:text-gray-300">Mock compliance tasks</span>
+                </div>
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span className="text-gray-700 dark:text-gray-300">Demo evidence collections</span>
@@ -745,7 +687,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
             </button>
           </div>
         )}
-                  <span className="text-gray-700 dark:text-gray-300">Mock compliance tasks</span>
+
         {/* Save Button */}
         <div className="flex justify-end">
           <button
