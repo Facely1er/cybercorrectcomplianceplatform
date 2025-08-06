@@ -15,7 +15,6 @@ interface TaskManagementDashboardProps {
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
-import { dataService } from '../../../services/dataService';
 
 export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
   onBack,
