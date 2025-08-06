@@ -9,7 +9,7 @@ import { Framework, OrganizationInfo } from '../../../shared/types';
 
 interface AssessmentIntroScreenProps {
   frameworks: Framework[];
-  onStartAssessment: (organizationInfo?: OrganizationInfo) => void;
+  onStartAssessment: (organizationInfo?: OrganizationInfo, selectedFramework?: string) => void;
   onBack: () => void;
 }
 
