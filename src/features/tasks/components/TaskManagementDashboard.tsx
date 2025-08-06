@@ -40,7 +40,8 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     estimatedHours: 8,
     tags: '',
     businessImpact: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    technicalComplexity: 'medium' as 'low' | 'medium' | 'high'
+    technicalComplexity: 'medium' as 'low' | 'medium' | 'high',
+    framework: 'NIST CSF v2.0' as string
   });
 
   // Load tasks on component mount and when user/organization changes
@@ -199,16 +200,12 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       comments: [],
       evidence: [],
       approvalRequired: false,
-      approvedBy: undefined,
-      approvedAt: undefined,
       tags: taskFormData.tags ? taskFormData.tags.split(',').map(t => t.trim()).filter(Boolean) : [taskFormData.type, taskFormData.nistFunction.toLowerCase()],
-      workflowId: undefined,
-      stageId: undefined,
       metadata: {
         businessImpact: taskFormData.businessImpact,
         technicalComplexity: taskFormData.technicalComplexity,
         riskReduction: 10,
-        complianceImpact: ['NIST CSF'],
+        complianceImpact: [taskFormData.framework || 'NIST CSF v2.0'],
         successCriteria: ['Task completed on time', 'Deliverables approved']
       }
     };
