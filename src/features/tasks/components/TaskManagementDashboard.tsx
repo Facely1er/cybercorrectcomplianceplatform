@@ -27,6 +27,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
   const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(false);
+  const [filterAssignee, setFilterAssignee] = useState('all');
   const [taskFormData, setTaskFormData] = useState({
     title: '',
     description: '',
@@ -138,10 +139,11 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       const matchesType = !filters.type?.length || filters.type.includes(task.type);
       const matchesStatus = !filters.status?.length || filters.status.includes(task.status);
       const matchesPriority = !filters.priority?.length || filters.priority.includes(task.priority);
+      const matchesAssignee = filterAssignee === 'all' || task.assignedTo.includes(filterAssignee);
       
-      return matchesSearch && matchesFunction && matchesType && matchesStatus && matchesPriority;
+      return matchesSearch && matchesFunction && matchesType && matchesStatus && matchesPriority && matchesAssignee;
     });
-  }, [tasks, searchTerm, filters]);
+  }, [tasks, searchTerm, filters, filterAssignee]);
 
   const kanbanColumns = [
     { id: 'not-started', title: 'Not Started', tasks: filteredTasks.filter(t => t.status === 'not-started') },
@@ -421,13 +423,13 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
         </div>
 
         {/* Quick Filters */}
-        <div className="flex flex-wrap gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <select
             onChange={(e) => setFilters(prev => ({ 
               ...prev, 
               nistFunction: e.target.value === 'all' ? undefined : [e.target.value] 
             }))}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="all">All Functions</option>
             <option value="Govern">Govern</option>
@@ -445,7 +447,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
               ...prev, 
               priority: e.target.value === 'all' ? undefined : [e.target.value as TaskPriority] 
             }))}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="all">All Priorities</option>
             <option value="critical">Critical</option>
@@ -461,7 +463,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
               ...prev, 
               status: e.target.value === 'all' ? undefined : [e.target.value as TaskStatus] 
             }))}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="all">All Status</option>
             <option value="not-started">Not Started</option>
@@ -469,6 +471,18 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
             <option value="blocked">Blocked</option>
             <option value="review">Review</option>
             <option value="completed">Completed</option>
+          </select>
+          
+          <select
+            onChange={(e) => setFilterAssignee(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          >
+            <option value="all">All Assignees</option>
+            <option value="user-001">Sarah Johnson (CISO)</option>
+            <option value="user-002">Mike Chen (Security Analyst)</option>
+            <option value="user-003">Emily Rodriguez (Compliance)</option>
+            <option value="team-security">Security Team</option>
+            <option value="team-compliance">Compliance Team</option>
           </select>
         </div>
       </div>
