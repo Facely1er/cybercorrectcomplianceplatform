@@ -142,6 +142,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       return matchesSearch && matchesFunction && matchesType && matchesStatus && matchesPriority;
     });
   }, [tasks, searchTerm, filters]);
+  }, [tasks, searchTerm, filters, filterAssignee]);
 
   const kanbanColumns = [
     { id: 'not-started', title: 'Not Started', tasks: filteredTasks.filter(t => t.status === 'not-started') },
@@ -658,14 +659,9 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       <div className="flex -space-x-2">
                         {task.assignedTo.slice(0, 2).map((userId, index) => (
                           <div key={index} className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
-                            {typeof userId === 'string' ? userId.charAt(0).toUpperCase() : 'U'}
+                            {userId.charAt(userId.length - 1)}
                           </div>
                         ))}
-                        {task.assignedTo.length > 2 && (
-                          <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
-                            +{task.assignedTo.length - 2}
-                          </div>
-                        )}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
