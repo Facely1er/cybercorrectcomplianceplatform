@@ -521,19 +521,118 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 Danger Zone
               </h3>
               <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
-                <h4 className="font-medium text-red-800 dark:text-red-200 mb-2">Reset Assessment Data</h4>
+                <h4 className="font-medium text-red-800 dark:text-red-200 mb-2 flex items-center">
+                  <AlertTriangle className="w-4 h-4 mr-2" />
+                  Clear Demo Data for Business Use
+                </h4>
                 <p className="text-sm text-red-700 dark:text-red-300 mb-3">
-                  This will delete all your assessments, tasks, and related data. Your user profile and settings will be preserved.
+                  Ready to start using real business data? Clear demo assessments and sample data while preserving your settings and configuration.
                 </p>
-                <button
-                  onClick={async () => {
-                    if (window.confirm('Delete all assessment data? This cannot be undone.')) {
-                      try {
-                        await resetAllAssessments();
-                        alert('Assessment data reset successfully');
-                      } catch (error) {
-                        alert('Failed to reset assessment data');
+                {dataService.isDemoDataLoaded() && (
+                  <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded p-3 mb-3">
+                    <div className="flex items-center space-x-2 text-yellow-800 dark:text-yellow-200 text-sm">
+                      <Info className="w-4 h-4" />
+                      <span className="font-medium">Demo data is currently loaded</span>
+                    </div>
+                    <p className="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
+                      This includes sample CMMC assessments, demo assets, and example tasks for exploration.
+                    </p>
+                  </div>
+                )}
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => {
+                      if (window.confirm('Clear demo data and start fresh for real business use?\n\nThis will remove:\n• Sample assessments\n• Demo assets\n• Example tasks\n\nYour settings and preferences will be preserved.')) {
+                        try {
+                          dataService.clearDemoData();
+                          addNotification('success', 'Demo data cleared successfully. Ready for business use!');
+                          setTimeout(() => window.location.reload(), 1500);
+                        } catch (error) {
+                          addNotification('error', 'Failed to clear demo data: ' + (error as Error).message);
+                        }
                       }
+                    }}
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                  >
+                    Clear Demo Data & Start Fresh
+                  </button>
+                  
+                  <button
+                    onClick={async () => {
+                      if (window.confirm('Delete all assessment data? This cannot be undone.')) {
+                        try {
+                          await resetAllAssessments();
+                          addNotification('success', 'Assessment data reset successfully');
+                          setTimeout(() => window.location.reload(), 1500);
+                        } catch (error) {
+                          addNotification('error', 'Failed to reset assessment data: ' + (error as Error).message);
+                        }
+                      }
+                    }}
+                    className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm"
+                  >
+                    Reset Assessment Data Only
+                  </button>
+                </div>
+              </div>
+              
+              <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                <h4 className="font-medium text-red-800 dark:text-red-200 mb-2 flex items-center">
+                  <AlertTriangle className="w-4 h-4 mr-2" />
+                  Complete System Reset
+                </h4>
+                <p className="text-sm text-red-700 dark:text-red-300 mb-3">
+                  Advanced options for complete application reset. Use with caution.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => {
+                      if (window.confirm('Reset to factory defaults? This will clear all data but preserve your profile and settings.')) {
+                        try {
+                          dataService.resetAllData(true);
+                          addNotification('success', 'Application reset to factory defaults. Reloading...');
+                          setTimeout(() => window.location.reload(), 1500);
+                        } catch (error) {
+                          addNotification('error', 'Failed to reset to factory defaults: ' + (error as Error).message);
+                        }
+                      }
+                    }}
+                    className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm"
+                  >
+                    Factory Reset (Keep Profile)
+                  </button>
+                  
+                  <button
+                    onClick={clearAllData}
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                      showDeleteConfirm 
+                        ? 'bg-alert-coral/90 text-white' 
+                        : 'bg-alert-coral text-white hover:bg-alert-coral/90'
+                    }`}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    <span>{showDeleteConfirm ? 'Click Again to Confirm' : 'Complete Data Reset'}</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    <span>Reload Application</span>
+                  </button>
+                </div>
+              </div>
+              
+              <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                <p className="text-xs text-red-700 dark:text-red-300">
+                  <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, 
+                  evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
                     }
                   }}
                   className="bg-alert-coral text-white px-4 py-2 rounded-lg hover:bg-alert-coral/90 transition-colors text-sm"
@@ -596,6 +695,57 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           </div>
         </div>
 
+        {/* Demo Data Management - Prominent Section */}
+        {dataService.isDemoDataLoaded() && (
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl shadow-lg border-2 border-green-200 dark:border-green-800 p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
+                <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold text-green-900 dark:text-green-100">
+                  Ready for Business Use?
+                </h2>
+                <p className="text-green-700 dark:text-green-300">
+                  You're currently using demo data. Clear it when ready for real CMMC compliance work.
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4">
+              <h3 className="font-medium text-gray-900 dark:text-white mb-3">Demo Data Includes:</h3>
+              <div className="grid md:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span className="text-gray-700 dark:text-gray-300">Sample CMMC Level 2 assessment</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span className="text-gray-700 dark:text-gray-300">Demo evidence collections</span>
+                </div>
+              </div>
+            </div>
+            
+            <button
+              onClick={() => {
+                if (window.confirm('Clear all demo data and start fresh for business use?\n\nThis will remove all sample data while preserving your settings and preferences.\n\nContinue?')) {
+                  try {
+                    dataService.clearDemoData();
+                    addNotification('success', 'Demo data cleared! You\'re now ready for real business use.');
+                    setTimeout(() => window.location.reload(), 1500);
+                  } catch (error) {
+                    addNotification('error', 'Failed to clear demo data: ' + (error as Error).message);
+                  }
+                }
+              }}
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Clear Demo Data & Start Business Use
+            </button>
+          </div>
+        )}
+                  <span className="text-gray-700 dark:text-gray-300">Mock compliance tasks</span>
         {/* Save Button */}
         <div className="flex justify-end">
           <button

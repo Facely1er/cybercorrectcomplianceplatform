@@ -169,7 +169,37 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      onImportAssessment(file);
+      // Validate file type
+      if (!file.name.toLowerCase().endsWith('.json')) {
+        addNotification('error', 'Please select a valid JSON backup file');
+        return;
+      }
+      
+      // Read and import file
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const importedData = JSON.parse(e.target?.result as string);
+          
+          // Import using data service
+          if (importedData.backupDate || importedData.backupId) {
+            dataService.restoreFromBackup(e.target?.result as string);
+          } else {
+            dataService.importAllData(importedData);
+          }
+          
+          addNotification('success', 'Backup restored successfully');
+          setTimeout(() => window.location.reload(), 1500);
+        } catch (error) {
+          addNotification('error', `Failed to restore backup: ${(error as Error).message}`);
+        }
+      };
+      
+      reader.onerror = () => {
+        addNotification('error', 'Failed to read backup file');
+      };
+      
+      reader.readAsText(file);
       event.target.value = '';
     }
   };

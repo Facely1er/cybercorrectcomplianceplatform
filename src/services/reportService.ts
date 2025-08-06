@@ -3,8 +3,11 @@ import { errorMonitoring } from '../lib/errorMonitoring';
 
 export interface ReportExportOptions {
   format: 'pdf' | 'json' | 'csv';
-  sections?: string[];
-  includeCharts?: boolean;
+  includeExecutiveSummary?: boolean;
+  includeDetailedAnalysis?: boolean;
+  includeRecommendations?: boolean;
+  includeGapAnalysis?: boolean;
+  includeNextSteps?: boolean;
   branding?: {
     organizationName?: string;
     logo?: string;
