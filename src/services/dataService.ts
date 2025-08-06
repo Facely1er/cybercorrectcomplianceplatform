@@ -337,19 +337,64 @@ export class DataService {
 
       // Import each data type
       if (data.assessments && Array.isArray(data.assessments)) {
-        this.saveAssessments(data.assessments);
+        // Convert date strings back to Date objects
+        const assessments = data.assessments.map(assessment => ({
+          ...assessment,
+          createdAt: new Date(assessment.createdAt),
+          lastModified: new Date(assessment.lastModified)
+        }));
+        this.saveAssessments(assessments);
       }
 
       if (data.userProfile) {
-        this.saveUserProfile(data.userProfile);
+        // Convert date strings back to Date objects
+        const profile = {
+          ...data.userProfile,
+          createdAt: new Date(data.userProfile.createdAt),
+          lastLogin: new Date(data.userProfile.lastLogin)
+        };
+        this.saveUserProfile(profile);
       }
 
       if (data.assets && Array.isArray(data.assets)) {
-        this.saveAssets(data.assets);
+        // Convert date strings back to Date objects for assets
+        const assets = data.assets.map(asset => ({
+          ...asset,
+          createdAt: new Date(asset.createdAt),
+          updatedAt: new Date(asset.updatedAt),
+          lastReviewed: new Date(asset.lastReviewed),
+          nextReview: new Date(asset.nextReview),
+          riskAssessment: {
+            ...asset.riskAssessment,
+            lastAssessment: new Date(asset.riskAssessment.lastAssessment),
+            nextAssessment: new Date(asset.riskAssessment.nextAssessment)
+          },
+          lifecycle: {
+            ...asset.lifecycle,
+            deploymentDate: asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate) : undefined,
+            maintenanceSchedule: {
+              ...asset.lifecycle.maintenanceSchedule,
+              nextMaintenance: new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance),
+              lastMaintenance: asset.lifecycle.maintenanceSchedule.lastMaintenance ? 
+                new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) : undefined
+            }
+          }
+        }));
+        this.saveAssets(assets);
       }
 
       if (data.tasks && Array.isArray(data.tasks)) {
-        this.saveTasks(data.tasks);
+        // Convert date strings back to Date objects for tasks
+        const tasks = data.tasks.map(task => ({
+          ...task,
+          createdAt: new Date(task.createdAt),
+          updatedAt: new Date(task.updatedAt),
+          dueDate: new Date(task.dueDate),
+          startDate: task.startDate ? new Date(task.startDate) : undefined,
+          completedAt: task.completedAt ? new Date(task.completedAt) : undefined,
+          approvedAt: task.approvedAt ? new Date(task.approvedAt) : undefined
+        }));
+        this.saveTasks(tasks);
       }
 
       if (data.settings) {
@@ -485,7 +530,8 @@ export class DataService {
         backupDate: new Date(),
         backupId: Date.now().toString(),
         backupType: 'manual',
-        description: 'Manual backup created by user'
+        description: 'Manual backup created by user',
+        checksum: this.generateChecksum(JSON.stringify(this.exportAllData()))
       };
 
       return JSON.stringify(backupData, null, 2);
@@ -495,6 +541,17 @@ export class DataService {
     }
   }
 
+  private generateChecksum(data: string): string {
+    // Simple checksum for data integrity verification
+    let hash = 0;
+    for (let i = 0; i < data.length; i++) {
+      const char = data.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return hash.toString(16);
+  }
+
   restoreFromBackup(backupData: string): void {
     try {
       const data = JSON.parse(backupData);
@@ -502,6 +559,15 @@ export class DataService {
       // Validate backup structure
       if (!data.version || !data.backupDate) {
         throw new Error('Invalid backup format');
+      }
+
+      // Verify checksum if present
+      if (data.checksum) {
+        const { checksum, backupDate, backupId, backupType, description, ...dataForChecksum } = data;
+        const calculatedChecksum = this.generateChecksum(JSON.stringify(dataForChecksum));
+        if (checksum !== calculatedChecksum) {
+          console.warn('Backup checksum mismatch - data may be corrupted');
+        }
       }
 
       // Additional validation for backup integrity

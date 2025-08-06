@@ -40,19 +40,21 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const handleExportAllData = () => {
     try {
-      const allData = dataService.exportAllData();
-      const dataStr = JSON.stringify(allData, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const backupData = dataService.createBackup();
+      const dataBlob = new Blob([backupData], { type: 'application/json;charset=utf-8' });
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `cybersecurity-platform-backup-${new Date().toISOString().split('T')[0]}.json`;
+      link.download = `cyberCorrect-backup-${new Date().toISOString().split('T')[0]}-${Date.now()}.json`;
+      link.style.display = 'none';
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
       URL.revokeObjectURL(url);
       addNotification('success', 'Data exported successfully');
     } catch (error) {
       console.error('Export failed:', error);
-      addNotification('error', 'Failed to export data');
+      addNotification('error', `Failed to export data: ${(error as Error).message}`);
     }
   };
 
@@ -60,24 +62,77 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Validate file type
+    if (!file.name.toLowerCase().endsWith('.json')) {
+      addNotification('error', 'Please select a valid JSON backup file');
+      return;
+    }
+    
+    // Check file size (max 50MB)
+    if (file.size > 50 * 1024 * 1024) {
+      addNotification('error', 'File too large. Maximum size is 50MB');
+      return;
+    }
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       try {
         const importedData = JSON.parse(e.target?.result as string);
-        dataService.importAllData(importedData);
+        
+        // Validate imported data structure
+        if (!importedData.version && !importedData.assessments && !importedData.backupDate) {
+          throw new Error('Invalid backup file format');
+        }
+        
+        // Show confirmation dialog with import details
+        const itemCount = (importedData.assessments?.length || 0) + 
+                         (importedData.assets?.length || 0) + 
+                         (importedData.tasks?.length || 0);
+        
+        const confirmMessage = `Import ${itemCount} items from backup?\n\n` +
+          `• ${importedData.assessments?.length || 0} assessments\n` +
+          `• ${importedData.assets?.length || 0} assets\n` +
+          `• ${importedData.tasks?.length || 0} tasks\n` +
+          `• Backup date: ${importedData.backupDate ? new Date(importedData.backupDate).toLocaleDateString() : 'Unknown'}\n\n` +
+          `This will merge with existing data. Continue?`;
+        
+        if (!window.confirm(confirmMessage)) {
+          addNotification('info', 'Import cancelled by user');
+          return;
+        }
+        
+        // Use restore from backup if it's a backup file, otherwise use import
+        if (importedData.backupDate || importedData.backupId) {
+          dataService.restoreFromBackup(e.target?.result as string);
+        } else {
+          dataService.importAllData(importedData);
+        }
         
         // Reload settings
         setSettings(dataService.getSettings());
         
         setImportStatus('success');
-        addNotification('success', 'Data imported successfully');
+        addNotification('success', `Successfully imported ${itemCount} items`);
         setTimeout(() => setImportStatus('idle'), 3000);
+        
+        // Refresh page to show imported data
+        setTimeout(() => {
+          if (window.confirm('Data imported successfully! Refresh the page to see imported data?')) {
+            window.location.reload();
+          }
+        }, 1500);
+        
       } catch (error) {
+        console.error('Import error:', error);
         setImportStatus('error');
-        addNotification('error', 'Failed to import data');
+        addNotification('error', `Failed to import data: ${(error as Error).message}`);
         setTimeout(() => setImportStatus('idle'), 3000);
       }
     };
+    
+    reader.onerror = () => {
+      addNotification('error', 'Failed to read file');
+    };
+    
     reader.readAsText(file);
     event.target.value = '';
   };
@@ -423,18 +478,18 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 Data Export & Import
               </h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 mb-4">
                 <button
                   onClick={handleExportAllData}
                   className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Export All Data</span>
+                  <span>Create Backup</span>
                 </button>
                 
                 <label className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors cursor-pointer">
                   <Upload className="w-4 h-4" />
-                  <span>Import Data</span>
+                  <span>Restore Backup</span>
                   <input 
                     type="file" 
                     accept=".json" 
@@ -443,17 +498,22 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   />
                 </label>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                Export creates a backup of all your assessments, settings, and profile data. 
-                Import allows you to restore from a previous backup.
+              
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-4">
+                <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+                  Backup & Restore Information
+                </h4>
+                <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                  <li>• <strong>Create Backup:</strong> Downloads complete system backup including all assessments, assets, tasks, and settings</li>
+                  <li>• <strong>Restore Backup:</strong> Uploads and merges data from a previous backup file</li>
+                  <li>• <strong>File Format:</strong> JSON format with data validation and integrity checking</li>
+                  <li>• <strong>Data Safety:</strong> Backup before major changes or when transitioning devices</li>
+                </ul>
+              </div>
+              
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Regular backups ensure your CMMC compliance data is safely preserved and can be restored if needed.
               </p>
-             
-             <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-               <p className="text-xs text-blue-800 dark:text-blue-200">
-                 <strong>Tip:</strong> Regular backups ensure your CMMC compliance data is safely preserved. 
-                 Export your data before major updates or when changing devices.
-               </p>
-             </div>
             </div>
 
             <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
