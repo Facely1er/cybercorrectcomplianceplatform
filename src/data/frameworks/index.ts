@@ -30,8 +30,19 @@ export { privacyFramework };
 
 // Helper to get framework by ID
 export const getFramework = (frameworkId?: string) => { // Default to NIST CSF v2.0 Quick Check
-  if (!frameworkId) return nistCSFv2Framework;
-  return frameworks.find(f => f.id === frameworkId) || nistCSFv2Framework;
+  // Ensure we have a valid fallback framework
+  const fallbackFramework = nistCSFv2Framework || {
+    id: 'nist-csf-v2-fallback',
+    name: 'NIST CSF v2.0 (Fallback)',
+    description: 'Default NIST Cybersecurity Framework v2.0',
+    version: '2.0',
+    functions: [],
+    categories: [],
+    subcategories: []
+  };
+  
+  if (!frameworkId) return fallbackFramework;
+  return frameworks.find(f => f.id === frameworkId) || fallbackFramework;
 };
 
 // Helper to get the primary framework
