@@ -538,15 +538,69 @@ export class ReportService {
   }
 
   private downloadFile(content: string, filename: string, mimeType: string): void {
-    const blob = new Blob([content], { type: mimeType });
+    try {
+      // Add UTF-8 BOM for CSV files to ensure proper character encoding
+      const bom = mimeType === 'text/csv' ? '\uFEFF' : '';
+      const blob = new Blob([bom + content], { type: `${mimeType};charset=utf-8` });
+      
+      // Use modern download API if available
+      if ('showSaveFilePicker' in window) {
+        this.downloadWithAPI(blob, filename, mimeType);
+        return;
+      }
+      
+      // Fallback to traditional download
+      this.downloadWithLink(blob, filename);
+    } catch (error) {
+      console.error('Download failed:', error);
+      throw new Error(`Failed to download file: ${error}`);
+    }
+  }
+  
+  private async downloadWithAPI(blob: Blob, filename: string, mimeType: string): Promise<void> {
+    try {
+      const fileHandle = await (window as any).showSaveFilePicker({
+        suggestedName: filename,
+        types: [{
+          description: this.getFileTypeDescription(mimeType),
+          accept: { [mimeType]: [this.getFileExtension(filename)] }
+        }]
+      });
+      
+      const writable = await fileHandle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+    } catch (error) {
+      // If API fails, fall back to link download
+      this.downloadWithLink(blob, filename);
+    }
+  }
+  
+  private downloadWithLink(blob: Blob, filename: string): void {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.download = filename;
+    link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+  }
+  
+  private getFileTypeDescription(mimeType: string): string {
+    switch (mimeType) {
+      case 'application/json': return 'JSON Data';
+      case 'text/csv': return 'CSV Spreadsheet';
+      case 'text/html': return 'HTML Report';
+      case 'application/pdf': return 'PDF Document';
+      default: return 'File';
+    }
+  }
+  
+  private getFileExtension(filename: string): string {
+    const parts = filename.split('.');
+    return parts.length > 1 ? `.${parts[parts.length - 1]}` : '';
   }
 }
 
