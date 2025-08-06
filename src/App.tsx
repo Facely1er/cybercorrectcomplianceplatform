@@ -896,8 +896,8 @@ function AppContent() {
 
       {/* Footer */}
       {!isHomePage && (
-        <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Logo and Branding */}
               <div className="lg:col-span-1">
@@ -1057,7 +1057,7 @@ function AppContent() {
             </div>
 
             {/* Footer Bottom */}
-            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
               <div className="flex flex-col md:flex-row items-center justify-between">
                 <div className="flex items-center space-x-4 mb-4 md:mb-0">
                   <span className="text-sm text-gray-500 dark:text-gray-400">
