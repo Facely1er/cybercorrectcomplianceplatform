@@ -1,17 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { PRODUCTION_CONFIG } from './src/config/production';
 /// <reference types="vitest" />
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
   },
   build: {
-    sourcemap: process.env.NODE_ENV !== 'production' && !PRODUCTION_CONFIG.BUILD.SOURCE_MAPS,
-    minify: process.env.NODE_ENV === 'production' ? 'terser' : false,
+    sourcemap: mode !== 'production',
+    minify: mode === 'production' ? 'terser' : false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -29,15 +28,15 @@ export default defineConfig({
     target: 'es2022',
     terserOptions: {
       compress: {
-        drop_console: process.env.NODE_ENV === 'production',
+        drop_console: mode === 'production',
         drop_debugger: true,
-        pure_funcs: process.env.NODE_ENV === 'production' ? ['console.log', 'console.warn'] : []
+        pure_funcs: mode === 'production' ? ['console.log', 'console.warn'] : []
       },
       mangle: {
         safari10: true
       }
     },
-    chunkSizeWarningLimit: PRODUCTION_CONFIG.PERFORMANCE.BUNDLE_SIZE_LIMIT / 1024,
+    chunkSizeWarningLimit: 1000, // 1MB limit
     assetsInlineLimit: 4096, // 4KB
   },
   optimizeDeps: {
@@ -52,7 +51,7 @@ export default defineConfig({
       'X-Frame-Options': 'DENY',
       'X-XSS-Protection': '1; mode=block'
     },
-    host: process.env.NODE_ENV === 'development' ? 'localhost' : false,
+    host: mode === 'development' ? 'localhost' : false,
     port: 5173,
     strictPort: false
   },
@@ -62,4 +61,4 @@ export default defineConfig({
       'Cache-Control': 'public, max-age=600' // 10 minutes for preview
     }
   }
-});
+}));
