@@ -43,6 +43,78 @@ import { AssessmentData, NotificationMessage } from './shared/types';
 import { dataService } from './services/dataService';
 import { Analytics } from "@vercel/analytics/react";
 
+// Assessment Wrapper Component
+const AssessmentWrapper: React.FC<{
+  savedAssessments: AssessmentData[];
+  onSave: (assessment: AssessmentData) => void;
+  onGenerateReport: (assessment: AssessmentData) => void;
+  onBack: () => void;
+}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+  const { id } = useParams<{ id: string }>();
+  const assessment = savedAssessments.find(a => a.id === id);
+  
+  if (!assessment) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Assessment Not Found</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
+          <button 
+            onClick={onBack}
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <EnhancedAssessmentView
+      assessment={assessment}
+      onSave={onSave}
+      onGenerateReport={onGenerateReport}
+      onBack={onBack}
+    />
+  );
+};
+
+// Report Wrapper Component  
+const ReportWrapper: React.FC<{
+  savedAssessments: AssessmentData[];
+  onBack: () => void;
+  onExport: (assessment: AssessmentData, format: string) => void;
+}> = ({ savedAssessments, onBack, onExport }) => {
+  const { id } = useParams<{ id: string }>();
+  const assessment = savedAssessments.find(a => a.id === id);
+  
+  if (!assessment) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Report Not Found</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
+          <button 
+            onClick={onBack}
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <ReportView
+      assessment={assessment}
+      onBack={onBack}
+      onExport={onExport}
+    />
+  );
+};
+
 // Dropdown Navigation Component
 interface DropdownNavItemProps {
   label: string;
