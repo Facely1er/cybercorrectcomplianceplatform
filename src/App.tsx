@@ -799,4 +799,9 @@ function AppContent() {
         onRemove={removeNotification}
       />
       <Analytics />
+      </ErrorBoundary>
     </div>
+  );
+}
+
+export default AppContent;
