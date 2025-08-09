@@ -41,6 +41,7 @@ import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramewor
 import { assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage } from './shared/types';
 import { dataService } from './services/dataService';
+import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
 
 // Dropdown Navigation Component
@@ -106,6 +107,55 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
         </div>
       )}
     </div>
+  );
+};
+
+// Assessment Wrapper Component
+const AssessmentWrapper: React.FC<{
+  savedAssessments: AssessmentData[];
+  onSave: (assessment: AssessmentData) => void;
+  onGenerateReport: (assessment: AssessmentData) => void;
+  onBack: () => void;
+}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+  const { id } = useParams<{ id: string }>();
+  const assessment = savedAssessments.find(a => a.id === id);
+  
+  if (!assessment) {
+    return <ErrorState error="Assessment not found" onRetry={onBack} />;
+  }
+  
+  return (
+    <EnhancedAssessmentView
+      assessment={assessment}
+      framework={getFramework(assessment.frameworkId)}
+      onSave={onSave}
+      onGenerateReport={onGenerateReport}
+      onBack={onBack}
+    />
+  );
+};
+
+// Report Wrapper Component
+const ReportWrapper: React.FC<{
+  savedAssessments: AssessmentData[];
+  onBack: () => void;
+  onExport: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
+}> = ({ savedAssessments, onBack, onExport }) => {
+  const { id } = useParams<{ id: string }>();
+  const assessment = savedAssessments.find(a => a.id === id);
+  
+  if (!assessment) {
+    return <ErrorState error="Assessment not found" onRetry={onBack} />;
+  }
+  
+  return (
+    <ReportView
+      assessment={assessment}
+      framework={getFramework(assessment.frameworkId)}
+      onBack={onBack}
+      onExport={onExport}
+      userProfile={null}
+    />
   );
 };
 
@@ -880,7 +930,6 @@ function AppContent() {
           <Route path="/settings" element={
             <SettingsView
               onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
             />
           } />
           
@@ -892,6 +941,14 @@ function AppContent() {
         </Routes>
         </ErrorBoundary>
       </main>
+
+      {/* Asset Creation Modal */}
+      {showAssetForm && (
+        <AssetCreationForm
+          onSubmit={createAsset}
+          onCancel={() => setShowAssetForm(false)}
+        />
+      )}
 
       <NotificationSystem 
         notifications={notifications}
