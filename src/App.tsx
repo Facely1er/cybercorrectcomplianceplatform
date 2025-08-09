@@ -966,22 +966,26 @@ function AppContent() {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to="/compliance"
+                    <a
+                      href="https://www.toolkit.cybercorrect.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
                     >
-                      <Activity className="w-4 h-4" />
-                      <span>Compliance Status</span>
-                    </Link>
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Toolkit</span>
+                    </a>
                   </li>
                   <li>
-                    <Link
-                      to="/assets"
+                    <a
+                      href="https://www.resources.cybercorrect.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
                     >
-                      <Shield className="w-4 h-4" />
-                      <span>Asset Management</span>
-                    </Link>
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Resources</span>
+                    </a>
                   </li>
                 </ul>
               </div>
