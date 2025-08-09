@@ -788,8 +788,97 @@ function AppContent() {
           } />
           
           <Route path="/evidence" element={
-            <EvidenceCollectionDashboard />
+            <EvidenceCollectionDashboard
+              onBack={() => navigate('/dashboard')}
+              addNotification={addNotification}
+            />
           } />
+          
+          <Route path="/policies" element={
+            <PolicyManagementView
+              onBack={() => navigate('/dashboard')}
+              addNotification={addNotification}
+            />
+          } />
+          
+          <Route path="/controls" element={
+            <ControlsManagementView
+              onBack={() => navigate('/dashboard')}
+              addNotification={addNotification}
+            />
+          } />
+          
+          <Route path="/team" element={
+            <TeamCollaborationDashboard
+              onBack={() => navigate('/dashboard')}
+              addNotification={addNotification}
+            />
+          } />
+          
+          <Route path="/tasks" element={
+            <TaskManagementDashboard
+              onBack={() => navigate('/dashboard')}
+              addNotification={addNotification}
+            />
+          } />
+          
+          <Route path="/calendar" element={
+            <ComplianceCalendarView
+              onBack={() => navigate('/dashboard')}
+              addNotification={addNotification}
+            />
+          } />
+          
+          <Route path="/assets" element={
+            <AssetDashboard
+              assets={assets}
+              onViewAsset={() => addNotification('info', 'Asset view feature')}
+              onCreateAsset={() => setShowAssetForm(true)}
+              onViewInventory={() => addNotification('info', 'Asset inventory view')}
+              onViewCategories={() => addNotification('info', 'Asset categories view')}
+              onViewDependencies={() => addNotification('info', 'Asset dependencies view')}
+              onViewWorkflow={() => addNotification('info', 'Asset workflow view')}
+              onViewRoadmap={() => addNotification('info', 'Asset roadmap view')}
+              onViewActionPlan={() => addNotification('info', 'Asset action plan view')}
+            />
+          } />
+          
+          <Route path="/reports" element={
+            <AssessmentReportsPage
+              savedAssessments={savedAssessments}
+              onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+              onExportReport={(assessment, format) => {
+                try {
+                  const framework = getFramework(assessment.frameworkId);
+                  reportService.exportReport(assessment, framework, { format });
+                  addNotification('success', `Report exported as ${format.toUpperCase()}`);
+                } catch (error) {
+                  addNotification('error', 'Failed to export report');
+                }
+              }}
+              onStartAssessment={startAssessment}
+              userProfile={null}
+              addNotification={addNotification}
+            />
+          } />
+          
+          <Route path="/reports/advanced" element={
+            <AdvancedReportingDashboard
+              savedAssessments={savedAssessments}
+              userProfile={null}
+              onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+            />
+          } />
+          
+          <Route path="/reports/team" element={
+            <TeamTrackingReport
+              onBack={() => navigate('/dashboard')}
+              onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+            />
+          } />
+          
+          <Route path="/settings" element={
+            <SettingsView
         </Routes>
         </ErrorBoundary>
       </main>
@@ -803,5 +892,3 @@ function AppContent() {
     </div>
   );
 }
-
-export default AppContent;
