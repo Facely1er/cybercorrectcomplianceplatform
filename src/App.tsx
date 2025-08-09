@@ -21,6 +21,7 @@ import { AdvancedDashboard } from './features/assessment/components/AdvancedDash
 import { RealTimeComplianceStatus } from './features/compliance/components/RealTimeComplianceStatus';
 import { EvidenceCollectionDashboard } from './features/evidence/components/EvidenceCollectionDashboard';
 import { AdvancedReportingDashboard } from './features/reporting/components/AdvancedReportingDashboard';
+import { AssessmentReportsPage } from './features/reporting/components/AssessmentReportsPage';
 import { TeamTrackingReport } from './features/reporting/components/TeamTrackingReport';
 import { ComplianceCalendarView } from './features/calendar/components/ComplianceCalendarView';
 import { PolicyManagementView } from './features/policies';
@@ -856,10 +857,21 @@ function AppContent() {
           } />
           
           <Route path="/reports" element={
-            <AdvancedReportingDashboard
+            <AssessmentReportsPage
               savedAssessments={savedAssessments}
+              onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+              onExportReport={(assessment, format) => {
+                try {
+                  const framework = getFramework(assessment.frameworkId);
+                  reportService.exportReport(assessment, framework, { format });
+                  addNotification('success', `Assessment exported as ${format.toUpperCase()}`);
+                } catch (error) {
+                  addNotification('error', 'Failed to export assessment');
+                }
+              }}
+              onStartAssessment={startAssessment}
               userProfile={null}
-              onExportReport={() => addNotification('info', 'Export functionality implemented')}
+              addNotification={addNotification}
             />
           } />
           

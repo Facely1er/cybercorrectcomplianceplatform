@@ -1,4 +1,5 @@
 // Reporting Feature Exports - NIST CSF v2.0 Focus
+export { AssessmentReportsPage } from './components/AssessmentReportsPage';
 export { ReportView } from './components/ReportView';
 export { SmartRecommendationEngine } from './components/SmartRecommendationEngine';
 export { RemediationTimeline } from './components/RemediationTimeline';
