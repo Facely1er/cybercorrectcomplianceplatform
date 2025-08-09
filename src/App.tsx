@@ -35,6 +35,7 @@ import { ReportView } from './features/reporting/components/ReportView';
 import { NistStandardCompliancePage, NistExtendedCompliancePage, CmmcCompliancePage, PrivacyCompliancePage } from './features/compliance';
 import { SettingsView } from './shared/components/ui/SettingsView';
 import { HelpView } from './shared/components/ui/HelpView';
+import { ProductionReadinessWidget } from './components/ProductionReadinessWidget';
 import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
 import { assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage } from './shared/types';
@@ -1118,6 +1119,9 @@ function AppContent() {
         notifications={notifications}
         onRemove={removeNotification}
       />
+      
+      {/* Production Readiness Widget (Development/Staging Only) */}
+      <ProductionReadinessWidget />
       </ErrorBoundary>
     </div>
   );

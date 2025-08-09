@@ -7,23 +7,41 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
   
   # Content Security Policy
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
   
   # HSTS (only in production)
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   
   # Cache Control
   Cache-Control: public, max-age=0, must-revalidate
+  
+  # Additional Security Headers
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
 
 # Static Assets
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
 
 # Service Worker
 /sw.js
   Cache-Control: no-cache, no-store, must-revalidate
+  X-Content-Type-Options: nosniff
 
 # API Routes
 /api/*
   X-Robots-Tag: noindex
   Cache-Control: no-store, no-cache, must-revalidate
+  X-Content-Type-Options: nosniff
+  
+# Fonts
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Resource-Policy: cross-origin
+  
+# Images
+/images/*
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
