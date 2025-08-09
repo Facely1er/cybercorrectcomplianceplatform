@@ -288,7 +288,11 @@ export const SignInPage: React.FC = () => {
         <div className="max-w-lg text-white">
           <div className="flex items-center space-x-3 mb-8">
             <div className="p-3 bg-white/20 rounded-xl">
-              <Shield className="w-8 h-8" />
+             <img 
+      src="/cybercorrect.png" 
+      alt="CyberCorrect Logo" 
+      className="w-8 h-8 object-contain"
+    />
             </div>
             <div>
               <h1 className="text-2xl font-bold">CyberCorrect™</h1>
