@@ -787,4 +787,16 @@ function AppContent() {
             />
           } />
           
-          <Route path="/evidence
+          <Route path="/evidence" element={
+            <EvidenceCollectionDashboard />
+          } />
+        </Routes>
+        </ErrorBoundary>
+      </main>
+
+      <NotificationSystem 
+        notifications={notifications}
+        onRemove={removeNotification}
+      />
+      <Analytics />
+    </div>
