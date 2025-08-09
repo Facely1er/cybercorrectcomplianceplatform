@@ -879,6 +879,16 @@ function AppContent() {
           
           <Route path="/settings" element={
             <SettingsView
+              onBack={() => navigate('/dashboard')}
+              addNotification={addNotification}
+            />
+          } />
+          
+          <Route path="/help" element={
+            <HelpView
+              onBack={() => navigate('/dashboard')}
+            />
+          } />
         </Routes>
         </ErrorBoundary>
       </main>
@@ -892,3 +902,13 @@ function AppContent() {
     </div>
   );
 }
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+}
+
+export default App;
