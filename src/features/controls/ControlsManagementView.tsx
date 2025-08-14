@@ -1,4 +1,4 @@
-  Looking at this file, I can see it's missing the opening import statement and interface definitions. Here's the corrected file with the missing opening parts added:
+  Looking at this file, I can see it's missing the opening import statement and interface definitions. Here\'s the corrected file with the missing opening parts added:
 
 ```typescript
   ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye,
