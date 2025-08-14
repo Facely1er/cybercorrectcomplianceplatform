@@ -191,7 +191,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Asset Inventory
-                accept=".json,.csv,.xlsx"
+              </h1>
               <p className="text-gray-600 dark:text-gray-300 mt-1">
                 Manage and track all organizational assets
               </p>
@@ -335,30 +335,6 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               onClick={() => setViewMode('table')}
               className={`px-4 py-3 ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
             >
-            
-            <button
-              onClick={() => {
-                // Generate sample CSV template
-                const csvTemplate = [
-                  'name,description,category,type,owner,criticality,classification,status,building,room,tags',
-                  'Example Server,Production web server,hardware,server,IT Manager,high,confidential,active,Data Center,Server Room 1,production;critical;web',
-                  'Customer Database,Main customer database,software,database,Database Admin,critical,restricted,active,Data Center,Server Room 1,database;customer-data;production',
-                  'HR Files,Employee records,data,personal-data,HR Manager,medium,confidential,active,Office Building,HR Office,hr;personnel;confidential'
-                ].join('\n');
-                
-                const blob = new Blob([csvTemplate], { type: 'text/csv' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'asset-import-template.csv';
-                link.click();
-                URL.revokeObjectURL(url);
-              }}
-              className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              <span>Template</span>
-            </button>
               <BarChart3 className="w-4 h-4" />
             </button>
             <button
@@ -368,6 +344,39 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               <Shield className="w-4 h-4" />
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Template Download Button */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 p-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">Import Template</h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">Download a CSV template to import your assets</p>
+          </div>
+          <button
+            onClick={() => {
+              // Generate sample CSV template
+              const csvTemplate = [
+                'name,description,category,type,owner,criticality,classification,status,building,room,tags',
+                'Example Server,Production web server,hardware,server,IT Manager,high,confidential,active,Data Center,Server Room 1,production;critical;web',
+                'Customer Database,Main customer database,software,database,Database Admin,critical,restricted,active,Data Center,Server Room 1,database;customer-data;production',
+                'HR Files,Employee records,data,personal-data,HR Manager,medium,confidential,active,Office Building,HR Office,hr;personnel;confidential'
+              ].join('\n');
+              
+              const blob = new Blob([csvTemplate], { type: 'text/csv' });
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = 'asset-import-template.csv';
+              link.click();
+              URL.revokeObjectURL(url);
+            }}
+            className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            <Download className="w-4 h-4" />
+            <span>Template</span>
+          </button>
         </div>
       </div>
 
