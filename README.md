@@ -219,7 +219,7 @@ This platform provides organizations with a structured approach to achieve CMMC 
 
 ---
 
-**CMMC Cybersecurity Compliance Platform** - Streamline your CMMC certification journey with comprehensive assessment, evidence collection, and real-time readiness monitoring.
+**CMMC Cybersecurity Compliance Platform** - Streamline your Certification journey with comprehensive assessment, evidence collection, and real-time readiness monitoring.
 
 ## 🔧 Additional Framework Support
 
