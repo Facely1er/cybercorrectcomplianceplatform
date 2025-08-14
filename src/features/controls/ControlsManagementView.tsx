@@ -1,3 +1,6 @@
+  ```typescript
+import React, { useState, useEffect } from 'react';
+import {
   ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye,
   AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award,
   TrendingUp, Calendar, FileText, Users, ScrollText
@@ -1005,3 +1008,4 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     </div>
   );
 };
+```
