@@ -234,6 +234,135 @@ export class DataService {
     this.saveAssets(assets);
   }
 
+  // Enhanced asset export with classification data
+  exportAssetsWithClassification(): string {
+    try {
+      const assets = this.getAssets();
+      const exportData = {
+        timestamp: new Date().toISOString(),
+        version: '2.0.0',
+        metadata: {
+          totalAssets: assets.length,
+          exportType: 'full-classification',
+          categories: this.getAssetCategorySummary(assets),
+          classifications: this.getClassificationSummary(assets)
+        },
+        assets: assets.map(asset => ({
+          ...asset,
+          exportMetadata: {
+            exportedAt: new Date().toISOString(),
+            classification: {
+              level: asset.informationClassification,
+              businessValue: asset.businessValue,
+              criticality: asset.criticality,
+              riskLevel: asset.riskAssessment.overallRisk
+            }
+          }
+        }))
+      };
+      
+      return JSON.stringify(exportData, null, 2);
+    } catch (error) {
+      console.error('Failed to export assets with classification:', error);
+      throw new Error('Failed to export assets');
+    }
+  }
+  
+  // Import assets with enhanced validation
+  importAssetsWithValidation(importData: string): { success: boolean; imported: number; errors: string[] } {
+    try {
+      const data = JSON.parse(importData);
+      const errors: string[] = [];
+      let imported = 0;
+      
+      if (!data.assets || !Array.isArray(data.assets)) {
+        throw new Error('Invalid file format: missing assets array');
+      }
+      
+      const existingAssets = this.getAssets();
+      const validAssets: Asset[] = [];
+      
+      data.assets.forEach((importedAsset: any, index: number) => {
+        try {
+          // Validate required fields
+          if (!importedAsset.name || !importedAsset.owner || !importedAsset.category) {
+            errors.push(`Asset ${index + 1}: Missing required fields (name, owner, category)`);
+            return;
+          }
+          
+          // Validate classification levels
+          const validClassifications = ['public', 'internal', 'confidential', 'restricted', 'top-secret'];
+          if (importedAsset.informationClassification && !validClassifications.includes(importedAsset.informationClassification)) {
+            errors.push(`Asset ${index + 1}: Invalid classification level`);
+            return;
+          }
+          
+          // Convert dates
+          const processedAsset: Asset = {
+            ...importedAsset,
+            id: importedAsset.id || `imported-${Date.now()}-${index}`,
+            createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt) : new Date(),
+            updatedAt: new Date(),
+            lastReviewed: importedAsset.lastReviewed ? new Date(importedAsset.lastReviewed) : new Date(),
+            nextReview: importedAsset.nextReview ? new Date(importedAsset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+            riskAssessment: {
+              ...importedAsset.riskAssessment,
+              lastAssessment: importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment) : new Date(),
+              nextAssessment: importedAsset.riskAssessment?.nextAssessment ? new Date(importedAsset.riskAssessment.nextAssessment) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+            },
+            lifecycle: {
+              ...importedAsset.lifecycle,
+              deploymentDate: importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) : new Date(),
+              maintenanceSchedule: {
+                ...importedAsset.lifecycle?.maintenanceSchedule,
+                nextMaintenance: importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
+                  new Date(importedAsset.lifecycle.maintenanceSchedule.nextMaintenance) : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
+              }
+            }
+          };
+          
+          validAssets.push(processedAsset);
+          imported++;
+          
+        } catch (assetError) {
+          errors.push(`Asset ${index + 1}: ${(assetError as Error).message}`);
+        }
+      });
+      
+      // Save valid assets
+      if (validAssets.length > 0) {
+        this.saveAssets([...existingAssets, ...validAssets]);
+      }
+      
+      return {
+        success: validAssets.length > 0,
+        imported: validAssets.length,
+        errors
+      };
+      
+    } catch (error) {
+      return {
+        success: false,
+        imported: 0,
+        errors: [`Import failed: ${(error as Error).message}`]
+      };
+    }
+  }
+  
+  private getAssetCategorySummary(assets: Asset[]): Record<string, number> {
+    return assets.reduce((acc, asset) => {
+      acc[asset.category] = (acc[asset.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+  }
+  
+  private getClassificationSummary(assets: Asset[]): Record<string, number> {
+    return assets.reduce((acc, asset) => {
+      acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+  }
+
   deleteAsset(id: string): void {
     const assets = this.getAssets().filter(a => a.id !== id);
     this.saveAssets(assets);

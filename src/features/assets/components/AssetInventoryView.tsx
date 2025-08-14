@@ -191,7 +191,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Asset Inventory
-              </h1>
+                accept=".json,.csv,.xlsx"
               <p className="text-gray-600 dark:text-gray-300 mt-1">
                 Manage and track all organizational assets
               </p>
@@ -248,6 +248,18 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               { id: 'services', label: 'Services', value: 'services' },
               { id: 'documents', label: 'Documents', value: 'documents' },
               { id: 'intellectual-property', label: 'Intellectual Property', value: 'intellectual-property' }
+            ]
+          },
+          {
+            id: 'businessValue',
+            label: 'Business Value',
+            multiple: true,
+            options: [
+              { id: 'mission-critical', label: 'Mission Critical', value: 'mission-critical' },
+              { id: 'business-important', label: 'Business Important', value: 'business-important' },
+              { id: 'operational', label: 'Operational', value: 'operational' },
+              { id: 'developmental', label: 'Developmental', value: 'developmental' },
+              { id: 'administrative', label: 'Administrative', value: 'administrative' }
             ]
           },
           {
@@ -323,6 +335,30 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               onClick={() => setViewMode('table')}
               className={`px-4 py-3 ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
             >
+            
+            <button
+              onClick={() => {
+                // Generate sample CSV template
+                const csvTemplate = [
+                  'name,description,category,type,owner,criticality,classification,status,building,room,tags',
+                  'Example Server,Production web server,hardware,server,IT Manager,high,confidential,active,Data Center,Server Room 1,production;critical;web',
+                  'Customer Database,Main customer database,software,database,Database Admin,critical,restricted,active,Data Center,Server Room 1,database;customer-data;production',
+                  'HR Files,Employee records,data,personal-data,HR Manager,medium,confidential,active,Office Building,HR Office,hr;personnel;confidential'
+                ].join('\n');
+                
+                const blob = new Blob([csvTemplate], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'asset-import-template.csv';
+                link.click();
+                URL.revokeObjectURL(url);
+              }}
+              className="flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              <span>Template</span>
+            </button>
               <BarChart3 className="w-4 h-4" />
             </button>
             <button

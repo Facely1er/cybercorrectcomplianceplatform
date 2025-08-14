@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Save, X, Shield, Server, Database, Users, Building, 
-  FileText, Cloud, MapPin, Tag, Calendar, AlertTriangle
+  FileText, Cloud, MapPin, Tag, Calendar, AlertTriangle, 
+  Info, Lock, Eye, Globe, Key, Award
 } from 'lucide-react';
 import { 
   Asset, 
@@ -36,6 +37,12 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
     criticality: initialData?.criticality || 'medium' as CriticalityLevel,
     informationClassification: initialData?.informationClassification || 'internal' as InformationClassification,
     businessValue: initialData?.businessValue || 'operational' as BusinessValue,
+    dataClassification: {
+      sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
+      regulatoryRequirements: [] as string[],
+      dataTypes: [] as string[],
+      accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
+    },
     location: {
       type: 'physical' as const,
       building: '',
@@ -44,6 +51,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
     },
     tags: initialData?.tags?.join(', ') || ''
   });
+  
+  const [showClassificationHelp, setShowClassificationHelp] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -237,8 +246,15 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="flex items-center justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Information Classification *
+                <button
+                  type="button"
+                  onClick={() => setShowClassificationHelp(!showClassificationHelp)}
+                  className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  <Info className="w-4 h-4" />
+                </button>
               </label>
               <select
                 required
@@ -252,6 +268,18 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 <option value="restricted">Restricted</option>
                 <option value="top-secret">Top Secret</option>
               </select>
+              
+              {showClassificationHelp && (
+                <div className="mt-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <div className="text-xs text-blue-800 dark:text-blue-200 space-y-1">
+                    <div><strong>Public:</strong> Information intended for public access</div>
+                    <div><strong>Internal:</strong> Internal business information</div>
+                    <div><strong>Confidential:</strong> Sensitive business information</div>
+                    <div><strong>Restricted:</strong> Highly sensitive, regulated data</div>
+                    <div><strong>Top Secret:</strong> Maximum security classification</div>
+                  </div>
+                </div>
+              )}
             </div>
             
             <div>
@@ -271,6 +299,98 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 <option value="disposed">Disposed</option>
                 <option value="decommissioned">Decommissioned</option>
               </select>
+            </div>
+          </div>
+          
+          {/* Enhanced Data Classification Section */}
+          <div className="border border-blue-200 dark:border-blue-700 rounded-xl p-6 bg-blue-50 dark:bg-blue-900/20">
+            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4 flex items-center">
+              <Lock className="w-5 h-5 mr-2" />
+              Enhanced Data Classification
+            </h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                  Sensitivity Level
+                </label>
+                <select
+                  value={formData.dataClassification.sensitivityLevel}
+                  onChange={(e) => setFormData(prev => ({ 
+                    ...prev, 
+                    dataClassification: { 
+                      ...prev.dataClassification, 
+                      sensitivityLevel: e.target.value as any 
+                    } 
+                  }))}
+                  className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="low">Low Sensitivity</option>
+                  <option value="medium">Medium Sensitivity</option>
+                  <option value="high">High Sensitivity</option>
+                  <option value="critical">Critical Sensitivity</option>
+                </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                  Access Restrictions
+                </label>
+                <select
+                  value={formData.dataClassification.accessRestrictions}
+                  onChange={(e) => setFormData(prev => ({ 
+                    ...prev, 
+                    dataClassification: { 
+                      ...prev.dataClassification, 
+                      accessRestrictions: e.target.value as any 
+                    } 
+                  }))}
+                  className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="public">Public Access</option>
+                  <option value="standard">Standard Access</option>
+                  <option value="restricted">Restricted Access</option>
+                  <option value="highly-restricted">Highly Restricted</option>
+                </select>
+              </div>
+            </div>
+            
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                Regulatory Requirements (comma-separated)
+              </label>
+              <input
+                type="text"
+                value={formData.dataClassification.regulatoryRequirements.join(', ')}
+                onChange={(e) => setFormData(prev => ({ 
+                  ...prev, 
+                  dataClassification: { 
+                    ...prev.dataClassification, 
+                    regulatoryRequirements: e.target.value.split(',').map(r => r.trim()).filter(Boolean)
+                  } 
+                }))}
+                className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., GDPR, HIPAA, SOX, PCI-DSS"
+              />
+            </div>
+            
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                Data Types (comma-separated)
+              </label>
+              <input
+                type="text"
+                value={formData.dataClassification.dataTypes.join(', ')}
+                onChange={(e) => setFormData(prev => ({ 
+                  ...prev, 
+                  dataClassification: { 
+                    ...prev.dataClassification, 
+                    dataTypes: e.target.value.split(',').map(d => d.trim()).filter(Boolean)
+                  } 
+                }))}
+                className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., PII, PHI, Financial, Customer Data"
+              />
             </div>
           </div>
 
@@ -357,16 +477,141 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
 
           {/* Tags */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Tags (comma-separated)
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                Use for categorization and search
+              </div>
             </label>
             <input
               type="text"
               value={formData.tags}
               onChange={(e) => setFormData(prev => ({ ...prev, tags: e.target.value }))}
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="critical, production, finance"
+              placeholder="critical, production, finance, compliance, encrypted"
             />
+            <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+              Suggested tags: compliance, encryption, backup, critical-infrastructure, customer-data, financial, hr, legal
+            </div>
+          </div>
+          
+          {/* Quick Classification Presets */}
+          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+              <Award className="w-5 h-5 mr-2" />
+              Quick Classification Presets
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({
+                    ...prev,
+                    informationClassification: 'confidential',
+                    criticality: 'high',
+                    dataClassification: {
+                      ...prev.dataClassification,
+                      sensitivityLevel: 'high',
+                      regulatoryRequirements: ['GDPR', 'CCPA'],
+                      dataTypes: ['PII', 'Customer Data'],
+                      accessRestrictions: 'restricted'
+                    },
+                    tags: prev.tags + (prev.tags ? ', ' : '') + 'customer-data, privacy, high-risk'
+                  }));
+                }}
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600 transition-colors text-left"
+              >
+                <div className="font-medium text-gray-900 dark:text-white">Customer Data</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">PII, GDPR/CCPA protected</div>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({
+                    ...prev,
+                    informationClassification: 'restricted',
+                    criticality: 'critical',
+                    dataClassification: {
+                      ...prev.dataClassification,
+                      sensitivityLevel: 'critical',
+                      regulatoryRequirements: ['HIPAA', 'HITECH'],
+                      dataTypes: ['PHI', 'Medical Records'],
+                      accessRestrictions: 'highly-restricted'
+                    },
+                    tags: prev.tags + (prev.tags ? ', ' : '') + 'healthcare, phi, hipaa-protected'
+                  }));
+                }}
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 dark:hover:border-red-600 transition-colors text-left"
+              >
+                <div className="font-medium text-gray-900 dark:text-white">Healthcare Data</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">PHI, HIPAA protected</div>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({
+                    ...prev,
+                    informationClassification: 'confidential',
+                    criticality: 'high',
+                    dataClassification: {
+                      ...prev.dataClassification,
+                      sensitivityLevel: 'high',
+                      regulatoryRequirements: ['SOX', 'PCI-DSS'],
+                      dataTypes: ['Financial Data', 'Payment Information'],
+                      accessRestrictions: 'restricted'
+                    },
+                    tags: prev.tags + (prev.tags ? ', ' : '') + 'financial, payment-data, sox-compliance'
+                  }));
+                }}
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:border-yellow-300 dark:hover:border-yellow-600 transition-colors text-left"
+              >
+                <div className="font-medium text-gray-900 dark:text-white">Financial Data</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">SOX, PCI-DSS protected</div>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({
+                    ...prev,
+                    informationClassification: 'public',
+                    criticality: 'low',
+                    dataClassification: {
+                      ...prev.dataClassification,
+                      sensitivityLevel: 'low',
+                      regulatoryRequirements: [],
+                      dataTypes: ['Public Information'],
+                      accessRestrictions: 'public'
+                    },
+                    tags: prev.tags + (prev.tags ? ', ' : '') + 'public, non-sensitive'
+                  }));
+                }}
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 hover:border-green-300 dark:hover:border-green-600 transition-colors text-left"
+              >
+                <div className="font-medium text-gray-900 dark:text-white">Public Information</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">No access restrictions</div>
+              </button>
+            </div>
+          </div>
+          
+          {/* Business Value Classification */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Business Value Classification
+            </label>
+            <select
+              value={formData.businessValue}
+              onChange={(e) => setFormData(prev => ({ ...prev, businessValue: e.target.value as BusinessValue }))}
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="mission-critical">Mission Critical</option>
+              <option value="business-important">Business Important</option>
+              <option value="operational">Operational</option>
+              <option value="developmental">Developmental</option>
+              <option value="administrative">Administrative</option>
+            </select>
           </div>
 
           {/* Form Actions */}

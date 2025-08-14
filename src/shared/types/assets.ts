@@ -25,6 +25,27 @@ export interface Asset {
   nextReview: Date;
   tags: string[];
   metadata: Record<string, any>;
+  // Enhanced classification fields
+  dataClassification?: {
+    sensitivityLevel: 'low' | 'medium' | 'high' | 'critical';
+    regulatoryRequirements: string[];
+    dataTypes: string[];
+    accessRestrictions: 'public' | 'standard' | 'restricted' | 'highly-restricted';
+  };
+  importMetadata?: {
+    importedAt: string;
+    sourceFile: string;
+    originalId?: string;
+  };
+  exportMetadata?: {
+    exportedAt: string;
+    classification: {
+      level: InformationClassification;
+      businessValue: BusinessValue;
+      criticality: CriticalityLevel;
+      riskLevel: RiskLevel;
+    };
+  };
 }
 
 export type AssetCategory = 
