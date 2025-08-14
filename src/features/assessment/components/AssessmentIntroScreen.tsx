@@ -181,10 +181,21 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
         'Security control implementation evidence'
       ],
       'cmmc': [
-        'System Security Plan (SSP) documentation',
-        'CUI handling procedures and policies',
-        'Technical security control implementations',
-        'Personnel security and training records'
+        'System Security Plan (SSP) documentation', // Existing
+        'CUI handling procedures and policies', // Existing
+        'Technical security control implementations', // Existing
+        'Personnel security and training records', // Existing
+        'Incident Response Plan (IRP)',
+        'Configuration Management Plan',
+        'Risk Assessment Report',
+        'Security Assessment Report',
+        'Continuous Monitoring Plan',
+        'Physical Security Plan',
+        'Media Protection Plan',
+        'Supply Chain Risk Management Plan',
+        'Awareness and Training Records',
+        'Audit Logs and Review Records',
+        'Vulnerability Scan Reports and Penetration Test Reports'
       ],
       'privacy': [
         'Data inventory and mapping documentation',
