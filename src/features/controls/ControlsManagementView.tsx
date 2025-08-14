@@ -1,4 +1,3 @@
-import {
 import React, { useState, useEffect } from 'react';
 import {
   ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye,
