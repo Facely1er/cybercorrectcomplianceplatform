@@ -466,7 +466,40 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   };
 
   const handleViewControl = (control: any) => {
-    addNotification('info', `Viewing control details: ${control.controlId}`);
+    // Create a detailed modal or navigate to control detail view
+    const controlDetails = {
+      ...control,
+      implementationDetails: {
+        tools: control.implementation?.tools || [],
+        procedures: control.implementation?.procedures || [],
+        timeline: control.costs?.implementation?.timeline || 'TBD',
+        progress: control.effectiveness?.implementationScore || 0
+      },
+      riskMetrics: {
+        riskReduction: control.effectiveness?.riskReduction || 0,
+        costEffectiveness: control.effectiveness?.costEffectiveness || 0,
+        maturityLevel: control.effectiveness?.maturityLevel || 1
+      }
+    };
+    
+    // For now, show detailed information in a formatted notification
+    const detailsMessage = `Control Details:
+
+ID: ${control.controlId || control.nistSubcategory}
+Function: ${control.nistFunction}
+Category: ${control.nistCategory}
+Status: ${control.status}
+Owner: ${control.owner}
+Priority: ${control.priority}
+
+Implementation Score: ${control.effectiveness?.implementationScore || 0}%
+Risk Reduction: ${control.effectiveness?.riskReduction || 0}%
+Maturity Level: ${control.effectiveness?.maturityLevel || 1}/5
+
+Last Assessed: ${control.lastAssessed?.toLocaleDateString() || 'Never'}
+Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not scheduled'}`;
+
+    addNotification('info', detailsMessage);
   };
 
   const handleExportControls = () => {
