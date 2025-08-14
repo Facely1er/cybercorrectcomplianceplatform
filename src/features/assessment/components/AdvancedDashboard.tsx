@@ -6,10 +6,11 @@ import {
   FileText, Users, Shield, Target, Eye, Trash2, Edit3,
   Activity, Star, Flag, Bookmark, PieChart as PieChartIcon,
   Settings, RefreshCw, Bell, ArrowUp, ArrowDown, Info, Award, Zap, Building
+ ScrollText
 } from 'lucide-react';
 
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel, RelatedLinks } from '../../../shared/components/ui';
+import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { getFramework, cmmcFramework, privacyFramework, nistCSFv2Framework } from '../../../data/frameworks';
@@ -813,6 +814,17 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           links={contextualLinks}
           title="Recommended Next Steps"
           maxItems={4}
+        />
+        
+        {/* New Security Audit Logs Card */}
+        <InternalLinkCard
+          title="Security Audit Logs"
+          description="Review detailed audit trails for all system activities and user actions across compliance frameworks."
+          href="/audit-logs"
+          icon={ScrollText}
+          badge="New"
+          badgeColor="purple"
+          priority="high"
         />
       </div>
     </div>
