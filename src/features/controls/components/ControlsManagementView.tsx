@@ -8,7 +8,7 @@ import {  ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Tras
   Layers, Network, Code, Gauge, PieChart, LineChart, MapPin, Briefcase
 } from 'lucide-react';
 import { Control, ControlStatus, ImplementationStatus, ControlType, AssessmentFrequency } from '../types';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+ 
 
 interface ControlsManagementViewProps {
   onBack: () => void;
