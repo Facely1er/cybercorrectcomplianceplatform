@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye, AlertCircle, CheckCircle, Clock, XCircle, Target } from 'lucide-react';
-import { Control, ControlStatus, ImplementationStatus, ControlType, AssessmentFrequency } from '../types';
-
-interface ControlsManagementViewProps {
-  onBack: () => void;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
-}
+import { 
+  ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye,
+  AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award,
+  TrendingUp, Calendar, FileText, Users, ScrollText
+} from 'lucide-react';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   onBack,
