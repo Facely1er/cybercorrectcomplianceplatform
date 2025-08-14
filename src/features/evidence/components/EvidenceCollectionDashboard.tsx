@@ -399,7 +399,26 @@ export const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardPr
                 {/* Actions */}
                 <div className="flex space-x-3">
                   <button
-                    onClick={() => addNotification('info', `Viewing evidence for ${collection.name}`)}
+                    onClick={() => {
+                      const evidenceDetails = `Evidence Collection Details:
+
+Name: ${collection.name}
+Description: ${collection.description}
+Control ID: ${collection.controlId}
+Status: ${collection.collectionStatus}
+Progress: ${collection.completionPercentage}%
+Due Date: ${collection.dueDate.toLocaleDateString()}
+
+Required Evidence Types:
+${collection.requiredEvidenceTypes.map(type => `• ${type.replace('-', ' ')}`).join('\n')}
+
+Assigned Teams:
+${collection.assignedTo.map(team => `• ${team}`).join('\n')}
+
+Last Updated: ${collection.lastUpdated.toLocaleDateString()}`;
+                      
+                      addNotification('info', evidenceDetails);
+                    }}
                     className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     <Eye className="w-4 h-4" />

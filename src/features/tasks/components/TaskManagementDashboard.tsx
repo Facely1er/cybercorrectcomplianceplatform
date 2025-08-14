@@ -715,7 +715,32 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex space-x-2">
                         <button
-                          onClick={() => addNotification('info', `Viewing task: ${task.title}`)}
+                          onClick={() => {
+                            const taskDetails = `Task Details:
+
+Title: ${task.title}
+Description: ${task.description}
+Type: ${task.type}
+Priority: ${task.priority}
+Status: ${task.status}
+NIST Function: ${task.nistFunction}
+Control ID: ${task.relatedControlId}
+
+Assigned To: ${task.assignedTo.join(', ')}
+Assigned By: ${task.assignedBy}
+Due Date: ${task.dueDate.toLocaleDateString()}
+Progress: ${task.progress}%
+Estimated Hours: ${task.estimatedHours}
+
+Business Impact: ${task.metadata.businessImpact}
+Technical Complexity: ${task.metadata.technicalComplexity}
+Risk Reduction: ${task.metadata.riskReduction}%
+
+Created: ${task.createdAt.toLocaleDateString()}
+Updated: ${task.updatedAt.toLocaleDateString()}`;
+                            
+                            addNotification('info', taskDetails);
+                          }}
                           className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
                         >
                           <Eye className="w-4 h-4" />
