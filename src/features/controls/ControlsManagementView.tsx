@@ -1,3 +1,8 @@
+  Looking at this file, I can see it's missing the opening import statement and interface definitions. Here's the corrected file with the missing opening parts added:
+
+```typescript
+import React, { useState, useEffect } from 'react';
+import {
   ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye,
   AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award,
   TrendingUp, Calendar, FileText, Users, ScrollText
@@ -6,6 +11,15 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+
+interface ControlsManagementViewProps {
+  onBack: () => void;
+  addNotification: (type: 'success' | 'error' | 'info' | 'warning', message: string) => void;
+}
+
+type ControlStatus = 'not-implemented' | 'planned' | 'in-progress' | 'implemented' | 'operational';
+type ControlType = 'preventive' | 'detective' | 'corrective' | 'deterrent' | 'compensating' | 'administrative' | 'technical' | 'physical';
+type AssessmentFrequency = 'monthly' | 'quarterly' | 'semi-annually' | 'annually';
 
 export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   onBack,
