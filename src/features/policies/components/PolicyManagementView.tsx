@@ -405,7 +405,33 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
                 {/* Actions */}
                 <div className="flex space-x-3">
                   <button
-                    onClick={() => addNotification('info', `Viewing policy: ${policy.name}`)}
+                    onClick={() => {
+                      const policyDetails = `Policy Details:
+
+Name: ${policy.name}
+Description: ${policy.description}
+Type: ${policy.type.replace('-', ' ')}
+Status: ${policy.status.replace('-', ' ')}
+Version: ${policy.version}
+
+NIST Function: ${policy.nistFunction}
+Category: ${policy.nistCategory}
+Subcategories: ${policy.nistSubcategories.join(', ')}
+
+Owner: ${policy.owner}
+Approver: ${policy.approver}
+Effective Date: ${policy.effectiveDate.toLocaleDateString()}
+Last Reviewed: ${policy.lastReviewed.toLocaleDateString()}
+Next Review: ${policy.nextReview.toLocaleDateString()}
+Review Cycle: ${policy.reviewCycle}
+
+Risk Rating: ${policy.metadata.riskRating}
+Implementation Cost: ${policy.metadata.implementationCost}
+Technical Complexity: ${policy.metadata.technicalComplexity}
+Training Required: ${policy.metadata.trainingRequired ? 'Yes' : 'No'}`;
+                      
+                      addNotification('info', policyDetails);
+                    }}
                     className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     <Eye className="w-4 h-4" />

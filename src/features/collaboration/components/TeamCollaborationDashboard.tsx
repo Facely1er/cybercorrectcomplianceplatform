@@ -415,7 +415,36 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                 {/* Actions */}
                 <div className="flex space-x-2">
                   <button
-                    onClick={() => addNotification('info', `Viewing ${member.name}'s profile`)}
+                    onClick={() => {
+                      const memberDetails = `Team Member Details:
+
+Name: ${member.name}
+Email: ${member.email}
+Role: ${member.role}
+Department: ${member.department}
+
+NIST Functions: ${member.nistFunctions.join(', ')}
+Expertise: ${member.expertise.join(', ')}
+
+Task Statistics:
+• Assigned Tasks: ${member.assignedTasks}
+• Completed Tasks: ${member.completedTasks}
+• Completion Rate: ${Math.round((member.completedTasks / member.assignedTasks) * 100)}%
+• Current Workload: ${member.workload}%
+
+Activity:
+• Last Active: ${member.lastActive.toLocaleString()}
+• Status: Active
+
+Workload Assessment: ${
+  member.workload >= 90 ? 'Overloaded - needs support' :
+  member.workload >= 75 ? 'High workload - monitor closely' :
+  member.workload >= 50 ? 'Optimal workload' :
+  'Under-utilized - can take on more tasks'
+}`;
+                      
+                      addNotification('info', memberDetails);
+                    }}
                     className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
                   >
                     View Profile
