@@ -70,6 +70,47 @@ const AssessmentWrapper: React.FC<{
     );
   }
   
+  // Validate that the assessment has a valid framework
+  try {
+    const framework = getFramework(assessment.frameworkId);
+    if (!framework || !framework.sections || framework.sections.length === 0) {
+      return (
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Error</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
+              The framework for this assessment (ID: {assessment.frameworkId}) could not be loaded.
+            </p>
+            <button 
+              onClick={onBack}
+              className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+            >
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+      );
+    }
+  } catch (error) {
+    console.error('Framework validation error:', error);
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Loading Error</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            There was an error loading the framework data for this assessment.
+          </p>
+          <button 
+            onClick={onBack}
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <EnhancedAssessmentView
       assessment={assessment}
