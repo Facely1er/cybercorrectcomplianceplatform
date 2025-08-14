@@ -32,8 +32,6 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const [expandedControl, setExpandedControl] = useState<string | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
   
-  const { breadcrumbs } = useInternalLinking();
-
   const [formData, setFormData] = useState({
     controlId: '',
     name: '',
