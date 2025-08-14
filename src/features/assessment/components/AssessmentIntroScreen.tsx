@@ -485,17 +485,17 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 {currentFramework.id === 'nist-csf-v2-extended' ? (
                   <>
                     <strong>NIST CSF v2.0 Complete Assessment:</strong> This comprehensive assessment covers all 106 subcategories 
-                    across 6 functions for complete NIST CSF v2.0 implementation. Estimated time: 180 minutes.
+                    across 6 functions for complete NIST CSF v2.0 implementation. Estimated time: 120 minutes.
                   </>
                 ) : currentFramework.id === 'cmmc' ? (
                   <>
                     <strong>CMMC Level 2 Assessment:</strong> This comprehensive assessment covers all 110 CMMC controls 
-                    across 17 domains for complete DoD compliance evaluation. Estimated time: 240 minutes.
+                    across 17 domains for complete DoD compliance evaluation. Estimated time: 120 minutes.
                   </>
                 ) : currentFramework.id === 'privacy' ? (
                   <>
                     <strong>NIST Privacy Framework Assessment:</strong> This assessment covers 73 privacy questions 
-                    for GDPR, CCPA, and global privacy regulation compliance. Estimated time: 120 minutes.
+                    for GDPR, CCPA, and global privacy regulation compliance. Estimated time: 90 minutes.
                   </>
                 ) : (
                   <>
