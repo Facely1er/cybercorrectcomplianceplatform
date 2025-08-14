@@ -139,9 +139,38 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
 
   const getPreparationChecklist = (frameworkId: string) => {
     const checklists: Record<string, string[]> = {
-      'nist': [
+      'nist-csf-v2': [
         'Inventory of organizational assets and systems',
         'Current cybersecurity policies and procedures',
+        'Recent risk assessments or security audits',
+        'Incident response and business continuity plans'
+      ],
+      'nist-csf-v2-extended': [
+        'Complete asset inventory with detailed classifications',
+        'Current cybersecurity governance framework documentation',
+        'Existing risk management policies and procedures',
+        'Identity and access management documentation',
+        'Data protection and privacy impact assessments',
+        'Network architecture diagrams and security controls',
+        'Incident response plans and communication procedures',
+        'Business continuity and disaster recovery documentation',
+        'Vendor and supplier risk management documentation',
+        'Security awareness training program materials',
+        'Vulnerability management and patch management records',
+        'Security monitoring and logging infrastructure details',
+        'Physical security controls and facility documentation',
+        'Compliance and audit reports from the past 12 months',
+        'Organizational charts showing cybersecurity responsibilities'
+      ],
+      'nist-csf-v2-standard': [
+        'Inventory of organizational assets and systems',
+        'Current cybersecurity policies and procedures',
+        'Recent risk assessments or security audits',
+        'Incident response and business continuity plans'
+      ],
+      'nist': [
+        'Inventory of organizational assets and systems',
+        'Current cybersecurity policies and procedures', 
         'Recent risk assessments or security audits',
         'Incident response and business continuity plans'
       ],
