@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { 
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
   ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye, 
