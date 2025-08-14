@@ -4,6 +4,8 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAssessments } from '../../hooks/useAssessments';
 import { dataService } from '../../../services/dataService';
+import { Breadcrumbs } from '../layout/Breadcrumbs';
+import { useInternalLinking } from '../../hooks/useInternalLinking';
 
 interface SettingsViewProps {
   onBack: () => void;
@@ -13,6 +15,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const { theme, toggleTheme } = useTheme();
   const { user } = useAuth();
   const { resetAllAssessments } = useAssessments();
+  const { breadcrumbs } = useInternalLinking();
   const [settings, setSettings] = useState(dataService.getSettings());
   const [storageUsage, setStorageUsage] = useState(dataService.getStorageUsage());
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -185,6 +188,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   };
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

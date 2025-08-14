@@ -8,6 +8,8 @@ import {
 import { Task, TaskFilter, TaskMetrics, TaskStatus, TaskPriority, TaskType } from '../types';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { dataService } from '../../../services/dataService';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface TaskManagementDashboardProps {
   onBack: () => void;
@@ -20,6 +22,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
   addNotification
 }) => {
   const { user, currentOrganization } = useAuth();
+  const { breadcrumbs } = useInternalLinking();
   const [activeView, setActiveView] = useState<'kanban' | 'list' | 'calendar'>('kanban');
   const [filters, setFilters] = useState<TaskFilter>({});
   const [searchTerm, setSearchTerm] = useState('');
@@ -293,6 +296,11 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

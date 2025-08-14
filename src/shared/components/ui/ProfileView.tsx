@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, Save, User, Building, Mail, MapPin, Award, Calendar } from 'lucide-react';
+import { Breadcrumbs } from '../layout/Breadcrumbs';
+import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
 
 interface ProfileViewProps {
@@ -13,6 +15,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onUpdateProfile,
   onBack
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [formData, setFormData] = useState<Partial<UserProfile>>(
     userProfile || {
       name: '',
@@ -117,6 +120,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

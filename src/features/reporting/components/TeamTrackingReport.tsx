@@ -7,6 +7,8 @@ import {
 import { BarChart } from '../../../shared/components/charts/BarChart';
 import { LineChart } from '../../../shared/components/charts/LineChart';
 import { PieChart } from '../../../shared/components/charts/PieChart';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface TeamTrackingReportProps {
   onBack: () => void;
@@ -41,6 +43,7 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({
   onBack,
   onExportReport
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
   const [selectedMetric, setSelectedMetric] = useState<'productivity' | 'collaboration' | 'compliance'>('productivity');
 
@@ -158,6 +161,11 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

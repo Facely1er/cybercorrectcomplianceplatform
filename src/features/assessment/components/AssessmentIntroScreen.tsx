@@ -6,6 +6,8 @@ import {
   FileText, Lightbulb, TrendingUp, Lock, Eye
 } from 'lucide-react';
 import { Framework, OrganizationInfo } from '../../../shared/types';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface AssessmentIntroScreenProps {
   frameworks: Framework[];
@@ -18,6 +20,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
   onStartAssessment,
   onBack
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [showOrganizationForm, setShowOrganizationForm] = useState(false);
   const [selectedFramework, setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
   const [organizationInfo, setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
@@ -191,6 +194,11 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

@@ -4,6 +4,8 @@ import {
   Plus, Search, Filter, Eye, Edit3, Download, Calendar,
   Target, Award, Settings, Flag, Star
 } from 'lucide-react';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { Policy, PolicyStatus, PolicyType } from '../types';
 
 interface PolicyManagementViewProps {
@@ -15,6 +17,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
   onBack,
   addNotification
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<PolicyStatus | 'all'>('all');
   const [filterType, setFilterType] = useState<PolicyType | 'all'>('all');
@@ -187,6 +190,11 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

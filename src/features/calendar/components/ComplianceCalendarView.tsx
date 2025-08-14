@@ -5,6 +5,8 @@ import {
   Award, Shield, FileText, Eye, Edit3, Bell
 } from 'lucide-react';
 import { CalendarEvent, CalendarEventType, ActivityMetrics } from '../types';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface ComplianceCalendarViewProps {
   onBack: () => void;
@@ -15,6 +17,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
   onBack,
   addNotification
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'agenda'>('month');
   const [filterType, setFilterType] = useState<CalendarEventType | 'all'>('all');
@@ -265,6 +268,11 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

@@ -5,6 +5,8 @@ import {
   Plus, Search, Filter, Eye, Edit3, Trash2, Settings,
   ArrowRight, TrendingUp, AlertTriangle, CheckCircle
 } from 'lucide-react';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface TeamCollaborationDashboardProps {
   onBack: () => void;
@@ -30,6 +32,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
   onBack,
   addNotification
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterRole, setFilterRole] = useState('all');
   const [filterFunction, setFilterFunction] = useState('all');
@@ -160,6 +163,11 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

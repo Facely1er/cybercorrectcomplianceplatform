@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
   ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye, 
   AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award, 
   Users, Calendar, FileText, TrendingUp, Star, Flag, Activity, Zap, Bell, 
@@ -18,6 +20,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   onBack,
   addNotification
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [controls, setControls] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterFunction, setFilterFunction] = useState<string>('all');
@@ -1155,6 +1158,11 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Breadcrumbs */}
       <div className="mb-6">
         {/* Breadcrumbs component would go here */}

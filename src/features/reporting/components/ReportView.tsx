@@ -9,6 +9,8 @@ import { RadarChart } from '../../../shared/components/charts/RadarChart';
 import { RemediationTimeline } from './RemediationTimeline';
 import { SmartRecommendationEngine } from './SmartRecommendationEngine';
 import { reportService } from '../../../services/reportService';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface ReportViewProps {
   assessment: AssessmentData;
@@ -25,6 +27,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   onExport,
   userProfile
 }) => {
+  const { breadcrumbs } = useInternalLinking();
 
   // Calculate comprehensive metrics
   const metrics = useMemo(() => {
@@ -143,6 +146,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8 no-print">
         <div className="p-6">

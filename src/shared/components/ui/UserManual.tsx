@@ -4,6 +4,8 @@ import {
   ChevronDown, ChevronRight, Shield, Users, Settings, HelpCircle,
   Download, Upload, Eye, Edit3, Trash2, Filter, Search
 } from 'lucide-react';
+import { Breadcrumbs } from '../layout/Breadcrumbs';
+import { useInternalLinking } from '../../hooks/useInternalLinking';
 
 interface UserManualProps {
   onBack: () => void;
@@ -12,6 +14,7 @@ interface UserManualProps {
 export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
   const [activeSection, setActiveSection] = useState('getting-started');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const { breadcrumbs } = useInternalLinking();
 
   const sections = [
     {
@@ -440,6 +443,11 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

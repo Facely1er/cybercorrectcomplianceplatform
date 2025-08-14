@@ -4,6 +4,8 @@ import {
   Phone, ExternalLink, ChevronDown, ChevronRight, FileText,
   Play, Target, Users, Settings
 } from 'lucide-react';
+import { Breadcrumbs } from '../layout/Breadcrumbs';
+import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserManual } from './UserManual';
 
 interface HelpViewProps {
@@ -14,6 +16,7 @@ export const HelpView: React.FC<HelpViewProps> = ({ onBack }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [showUserManual, setShowUserManual] = useState(false);
+  const { breadcrumbs } = useInternalLinking();
 
   if (showUserManual) {
     return <UserManual onBack={() => setShowUserManual(false)} />;
@@ -92,6 +95,11 @@ export const HelpView: React.FC<HelpViewProps> = ({ onBack }) => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

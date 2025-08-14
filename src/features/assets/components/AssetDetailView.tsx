@@ -6,6 +6,8 @@ import {
   Eye, Download, Plus, Trash2, Link2, Target
 } from 'lucide-react';
 import { Asset, SecurityControl, AssetDependency, Vulnerability } from '../../../shared/types/assets';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface AssetDetailViewProps {
   asset: Asset;
@@ -22,6 +24,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
   onDelete,
   allAssets
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [isEditing, setIsEditing] = useState(false);
   const [editedAsset, setEditedAsset] = useState<Asset>(asset);
   const [activeTab, setActiveTab] = useState<'overview' | 'controls' | 'dependencies' | 'vulnerabilities' | 'risk'>('overview');
@@ -78,6 +81,11 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import { Asset, AssetInventoryFilter, AssetCategory, CriticalityLevel, AssetStatus, InformationClassification } from '../../../shared/types/assets';
 import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface AssetInventoryViewProps {
   assets: Asset[];
@@ -29,6 +31,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
   onImportAssets,
   onBack
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<AssetInventoryFilter>({});
   const [sortBy, setSortBy] = useState<'name' | 'category' | 'criticality' | 'status' | 'lastReviewed'>('name');
@@ -176,6 +179,11 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

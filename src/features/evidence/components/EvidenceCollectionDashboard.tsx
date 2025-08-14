@@ -4,6 +4,8 @@ import {
   Download, Eye, Search, Filter, Calendar, Users,
   BarChart3, Target, Award, Shield, Plus, Settings
 } from 'lucide-react';
+import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
+import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { Evidence, EvidenceCollection, EvidenceStatus } from '../types';
 
 interface EvidenceCollectionDashboardProps {
@@ -15,6 +17,7 @@ export const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardPr
   onBack,
   addNotification
 }) => {
+  const { breadcrumbs } = useInternalLinking();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<EvidenceStatus | 'all'>('all');
   const [filterType, setFilterType] = useState<string>('all');
@@ -162,6 +165,11 @@ export const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardPr
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Breadcrumbs */}
+      <div className="mb-6">
+        <Breadcrumbs items={breadcrumbs} />
+      </div>
+
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">
