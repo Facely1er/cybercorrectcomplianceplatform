@@ -1,0 +1,27 @@
+{
+  "name": "CyberCorrect™ - CMMC Compliance Platform",
+  "short_name": "CyberCorrect",
+  "description": "Comprehensive cybersecurity compliance platform for CMMC, NIST CSF, and privacy frameworks",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2A6F7F",
+  "theme_color": "#2A6F7F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/cybercorrect.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/cybercorrect-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "security"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
