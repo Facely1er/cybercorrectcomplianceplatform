@@ -628,4 +628,4 @@ includes the security headers configuration for complete protection.
 if (typeof window !== 'undefined') {
   window.securityValidator = securityValidator;
   window.productionReadinessChecklist = productionReadinessChecklist;
-}
+} 
