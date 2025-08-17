@@ -11,16 +11,31 @@ export default defineConfig(({ mode }) => ({
     minify: mode === 'production' ? 'terser' : false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          framework: ['@supabase/supabase-js'],
-          charts: ['chart.js', 'react-chartjs-2'],
-          router: ['react-router-dom'],
-          icons: ['lucide-react'],
-          ui: ['@headlessui/react'],
-          utils: ['zod', 'dompurify'],
-          security: ['bcryptjs', 'jose']
-        },
+      manualChunks: {
+  // Core React
+  vendor: ['react', 'react-dom'],
+  
+  // Backend & Data
+  framework: ['@supabase/supabase-js'],
+  
+  // Charts (heavy libraries)
+  charts: ['chart.js', 'react-chartjs-2', 'recharts'],
+  
+  // Routing
+  router: ['react-router-dom'],
+  
+  // Icons
+  icons: ['lucide-react'],
+  
+  // UI Components  
+  ui: ['@headlessui/react'],
+  
+  // Utilities (combine utils & security)
+  utils: ['zod', 'dompurify', 'bcryptjs', 'jose'],
+  
+  // Analytics
+  analytics: ['@vercel/analytics']
+},
       },
     },
     target: 'es2022',
