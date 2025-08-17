@@ -26,7 +26,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 }) => {
   return (
     <nav 
-      className={`flex items-center space-x-2 text-sm ${className}`} 
+      className={`flex items-center space-x-3 text-sm ${className}`} 
       aria-label="Breadcrumb navigation"
       role="navigation"
     >
@@ -38,7 +38,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
             aria-label="Go to dashboard"
           >
             <Home className="w-4 h-4" />
-            <span className="ml-1 sr-only sm:not-sr-only">{homeLabel}</span>
+            <span className="ml-2 sr-only sm:not-sr-only">{homeLabel}</span>
           </Link>
           {items.length > 0 && separator}
         </>
