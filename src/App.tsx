@@ -61,7 +61,7 @@ const AssessmentWrapper: React.FC<{
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
           <button 
             onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -83,7 +83,7 @@ const AssessmentWrapper: React.FC<{
             </p>
             <button 
               onClick={onBack}
-              className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+              className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
             >
               Back to Dashboard
             </button>
@@ -102,7 +102,7 @@ const AssessmentWrapper: React.FC<{
           </p>
           <button 
             onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -138,7 +138,7 @@ const ReportWrapper: React.FC<{
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
           <button 
             onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -181,31 +181,38 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
+        className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
           isActive
             ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
             : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
         }`}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
-        <Icon className="w-4 h-4" />
+        <Icon className="w-4 h-4" aria-hidden="true" />
         <span>{label}</span>
-        <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
       </button>
       
       {isOpen && (
-        <div className="absolute top-full left-0 w-64 bg-surface dark:bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark:border-dark-support py-2 z-50">
+        <div 
+          className="absolute top-full left-0 w-64 bg-surface dark:bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark:border-dark-support py-2 z-50"
+          role="menu"
+          aria-label={`${label} submenu`}
+        >
           {items.map((item) => (
             <Link
               key={item.href}
               to={item.href}
-              className={`flex items-center space-x-3 px-4 py-3 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 ${
+              className={`flex items-center space-x-3 px-4 py-3 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal ${
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                   : 'text-gray-700 dark:text-dark-text'
               }`}
               onClick={() => setIsOpen(false)}
+              role="menuitem"
             >
-              <item.icon className="w-4 h-4" />
+              <item.icon className="w-4 h-4" aria-hidden="true" />
               <div>
                 <div className="font-medium">{item.label}</div>
                 {item.description && (
@@ -523,15 +530,29 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Skip Links for Screen Readers */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-teal focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to main content
+      </a>
+      <a 
+        href="#navigation" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-20 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-teal focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to navigation
+      </a>
+      
       <ErrorBoundary>
       {/* Header - always visible */}
-      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
+      <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Left: Logo + Branding */}
             <Link
               to="/"
-              className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0"
+              className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
             >
               <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
               <div>
@@ -541,28 +562,28 @@ function AppContent() {
             </Link>
 
             {/* Center: Navigation */}
-            <nav className="hidden lg:flex items-center justify-center space-x-1 flex-1 max-w-2xl mx-8">
+            <nav className="hidden lg:flex items-center justify-center space-x-1 flex-1 max-w-2xl mx-8" role="navigation" aria-label="Main navigation">
               <Link
                 to="/"
-                className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
+                className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                   location.pathname === '/'
                     ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                     : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
                 }`}
               >
-                <Home className="w-4 h-4" />
+                <Home className="w-4 h-4" aria-hidden="true" />
                 <span>Home</span>
               </Link>
               
               <Link
                 to="/dashboard"
-                className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
+                className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                   location.pathname === '/dashboard'
                     ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                     : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
                 }`}
               >
-                <BarChart3 className="w-4 h-4" />
+                <BarChart3 className="w-4 h-4" aria-hidden="true" />
                 <span>Dashboard</span>
               </Link>
               
@@ -583,30 +604,36 @@ function AppContent() {
               <ThemeToggle />
               <Link
                 to="/signin"
-                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                 title="Sign In"
+                aria-label="Sign In"
               >
-                <Users className="w-5 h-5" />
+                <Users className="w-5 h-5" aria-hidden="true" />
               </Link>
               <Link
                 to="/settings"
-                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                aria-label="Settings"
               >
-                <Settings className="w-5 h-5" />
+                <Settings className="w-5 h-5" aria-hidden="true" />
               </Link>
               <Link
                 to="/help"
-                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                aria-label="Help"
               >
-                <HelpCircle className="w-5 h-5" />
+                <HelpCircle className="w-5 h-5" aria-hidden="true" />
               </Link>
               
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
+                aria-label="Toggle mobile menu"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
               </button>
             </div>
           </div>
@@ -614,23 +641,23 @@ function AppContent() {
         
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-surface dark:bg-dark-surface border-t border-support-gray dark:border-dark-support">
-            <div className="px-4 py-2 space-y-1">
+          <div id="mobile-menu" className="md:hidden bg-surface dark:bg-dark-surface border-t border-support-gray dark:border-dark-support">
+            <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Home className="w-4 h-4" />
+                <Home className="w-4 h-4" aria-hidden="true" />
                 <span>Home</span>
               </Link>
               
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <BarChart3 className="w-4 h-4" />
+                <BarChart3 className="w-4 h-4" aria-hidden="true" />
                 <span>Dashboard</span>
               </Link>
               
@@ -640,10 +667,10 @@ function AppContent() {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <item.icon className="w-4 h-4" />
+                    <item.icon className="w-4 h-4" aria-hidden="true" />
                     <span>{item.label}</span>
                   </Link>
                 ))
@@ -651,73 +678,73 @@ function AppContent() {
               
               <Link
                 to="/assessment-intro"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Target className="w-4 h-4" />
+                <Target className="w-4 h-4" aria-hidden="true" />
                 <span>Start Assessment</span>
               </Link>
               
               <Link
                 to="/nist-standard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Shield className="w-4 h-4" />
+                <Shield className="w-4 h-4" aria-hidden="true" />
                 <span>NIST CSF Standard</span>
               </Link>
               
               <Link
                 to="/nist-extended"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Award className="w-4 h-4" />
+                <Award className="w-4 h-4" aria-hidden="true" />
                 <span>NIST CSF Extended</span>
               </Link>
               
               <Link
                 to="/cmmc-assessment"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Building className="w-4 h-4" />
+                <Building className="w-4 h-4" aria-hidden="true" />
                 <span>CMMC Assessment</span>
               </Link>
               
               <Link
                 to="/privacy-assessment"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Eye className="w-4 h-4" />
+                <Eye className="w-4 h-4" aria-hidden="true" />
                 <span>Privacy Assessment</span>
               </Link>
               
               <Link
                 to="/signin"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Users className="w-4 h-4" />
+                <Users className="w-4 h-4" aria-hidden="true" />
                 <span>Sign In</span>
               </Link>
               
               <Link
                 to="/reports"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Award className="w-4 h-4" />
+                <Award className="w-4 h-4" aria-hidden="true" />
                 <span>Reports</span>
               </Link>
-            </div>
+            </nav>
           </div>
         )}
       </header>
 
       {/* Main Content */}
-      <main>
+      <main id="main-content" role="main">
         <ErrorBoundary>
         <Routes>
           {/* Homepage */}
