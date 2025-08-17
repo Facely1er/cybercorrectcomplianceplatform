@@ -24,7 +24,23 @@
     "test:run": "vitest run",
     "analyze": "npx vite-bundle-analyzer",
     "type-check": "tsc --noEmit"
+ "perf:lighthouse": "lighthouse http://localhost:4173 --output=html --output-path=./reports/lighthouse.html",
+    "perf:build-size": "npm run build && bundlesize",
+    "perf:load-test": "artillery quick --count 10 --num 50 http://localhost:4173"
+    
   },
+ "bundlesize": [
+    {
+      "path": "./dist/assets/*.js",
+      "maxSize": "500kb"
+    },
+    {
+      "path": "./dist/assets/*.css",
+      "maxSize": "50kb"
+    }
+  ]
+}
+
   "dependencies": {
     "@headlessui/react": "^2.2.7",
     "@supabase/supabase-js": "^2.53.0",
