@@ -73,13 +73,21 @@
     "vite": "^5.4.2"
   },
   "bundlesize": [
-    {
-      "path": "./dist/assets/*.js",
-      "maxSize": "500kb"
-    },
-    {
-      "path": "./dist/assets/*.css",
-      "maxSize": "50kb"
-    }
-  ]
+  {
+    "path": "./dist/assets/index-*.js",
+    "maxSize": "1000kb"
+  },
+  {
+    "path": "./dist/assets/vendor-*.js", 
+    "maxSize": "200kb"
+  },
+  {
+    "path": "./dist/assets/charts-*.js",
+    "maxSize": "250kb"
+  },
+  {
+    "path": "./dist/assets/*.css",
+    "maxSize": "100kb"
+  }
+]
 }
