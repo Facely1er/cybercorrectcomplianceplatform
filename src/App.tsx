@@ -181,7 +181,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+        className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
           isActive
             ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
             : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
@@ -565,7 +565,7 @@ function AppContent() {
             <nav className="hidden lg:flex items-center justify-center space-x-1 flex-1 max-w-2xl mx-8" role="navigation" aria-label="Main navigation">
               <Link
                 to="/"
-                className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                   location.pathname === '/'
                     ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                     : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
@@ -577,7 +577,7 @@ function AppContent() {
               
               <Link
                 to="/dashboard"
-                className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                   location.pathname === '/dashboard'
                     ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                     : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
