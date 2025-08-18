@@ -815,7 +815,7 @@ function AppContent() {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', `Assessment exported as ${format.toUpperCase()}`);
+                    addNotification('success', 'Assessment exported as ' + format.toUpperCase());
                   } catch (error) {
                     addNotification('error', 'Failed to export assessment');
                   }
