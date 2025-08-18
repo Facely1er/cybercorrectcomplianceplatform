@@ -203,8 +203,8 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
           {items.map((item) => (
             <Link
               key={item.href}
+              to={item.href}
               className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
-              className={`flex items-center space-x-1 px-0.5 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                   : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
@@ -562,7 +562,7 @@ function AppContent() {
               <nav className="hidden lg:flex items-center justify-center space-x-0 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
-                  className={`flex items-center space-x-1 px-0.5 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                  className={\`flex items-center space-x-1 px-0.5 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                     location.pathname === '/' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
@@ -574,7 +574,7 @@ function AppContent() {
                 
                 <Link
                   to="/dashboard"
-                  className={`flex items-center space-x-1 px-0.5 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                  className={\`flex items-center space-x-1 px-0.5 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                     location.pathname === '/dashboard' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
@@ -597,11 +597,11 @@ function AppContent() {
               </nav>
 
               {/* Right: Actions */}
-              <div className="flex items-center space-x-1 flex-shrink-0">
+              <div className="flex items-center space-x-2 flex-shrink-0">
                 <ThemeToggle />
                 <Link
                   to="/signin"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   title="Sign In"
                   aria-label="Sign In"
                 >
@@ -609,14 +609,14 @@ function AppContent() {
                 </Link>
                 <Link
                   to="/settings"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-label="Settings"
                 >
                   <Settings className="w-5 h-5" aria-hidden="true" />
                 </Link>
                 <Link
                   to="/help"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-label="Help"
                 >
                   <HelpCircle className="w-5 h-5" aria-hidden="true" />
@@ -625,7 +625,7 @@ function AppContent() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg:hidden p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-menu"
                   aria-label="Toggle mobile menu"
@@ -684,15 +684,21 @@ function AppContent() {
               </Link>
               
               <Link
+                to="/settings"
                 className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal ${
-                  location.pathname === '/reports'
-                    ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
-                }`}
+                onClick={() => setMobileMenuOpen(false)}
               >
-                <FileText className="w-4 h-4" aria-hidden="true" />
-                <span>Reports</span>
+                <Settings className\="w-4 h-4" aria-hidden="true" />
+                <span>Settings</span>
+              </Link>
+              
+              <Link
+                to="/help"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <HelpCircle className="w-4 h-4" aria-hidden="true" />
+                <span>Help</span>
               </Link>
             </nav>
           </div>
@@ -818,9 +824,9 @@ function AppContent() {
                         organizationName: assessment.organizationInfo?.name || 'Organization'
                       }
                     });
-                    addNotification('success', `Report exported as ${format.toUpperCase()}`);
+                    addNotification('success', \`Report exported as ${format.toUpperCase()}`);
                   } catch (error) {
-                    addNotification('error', `Failed to export report: ${(error as Error).message}`);
+                    addNotification('error', \`Failed to export report: ${(error as Error).message}`);
                   }
                 }}
               />
@@ -839,7 +845,7 @@ function AppContent() {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', `Assessment exported as ${format.toUpperCase()}`);
+                    addNotification('success', \`Assessment exported as ${format.toUpperCase()}`);
                   } catch (error) {
                     addNotification('error', 'Failed to export assessment');
                   }
@@ -947,7 +953,7 @@ function AppContent() {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', `Report exported as ${format.toUpperCase()}`);
+                    addNotification('success', \`Report exported as ${format.toUpperCase()}`);
                   } catch (error) {
                     addNotification('error', 'Failed to export report');
                   }
@@ -962,14 +968,14 @@ function AppContent() {
               <AdvancedReportingDashboard
                 savedAssessments={savedAssessments}
                 userProfile={null}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+                onExportReport={(format) => addNotification('info', \`Export ${format} feature`)}
               />
             } />
             
             <Route path="/reports/team" element={
               <TeamTrackingReport
                 onBack={() => navigate('/dashboard')}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+                onExportReport={(format) => addNotification('info', \`Export ${format} feature`)}
               />
             } />
             
