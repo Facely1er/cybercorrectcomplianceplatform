@@ -230,31 +230,6 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme } = useTheme();
-        <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              {/* Left: Logo */}
-              <Link
-                to="/"
-                className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
-              >
-                <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
-                <div>
-                  <h1 className="text-xl font-bold text-gray-900 dark:text-white">CyberCorrect™</h1>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">by ERMITS</p>
-                </div>
-              </Link>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-function AppContent() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { theme } = useTheme();
   
   // Enhanced state management with localStorage
   const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
