@@ -183,7 +183,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
       <button
         className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
           isActive
-            ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+            ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary' // Adjust spacing for dropdown trigger buttons
             : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
         }`}
         aria-expanded={isOpen}
@@ -563,7 +563,7 @@ function AppContent() {
                 <Link
                   to="/"
                   className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
-                    location.pathname === '/'
+                    location.pathname === '/' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
                   }`}
@@ -575,7 +575,7 @@ function AppContent() {
                 <Link
                   to="/dashboard"
                   className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
-                    location.pathname === '/dashboard'
+                    location.pathname === '/dashboard' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
                   }`}
@@ -686,10 +686,11 @@ function AppContent() {
               <Link
                 to="/reports"
                 className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Award className="w-4 h-4" aria-hidden="true" />
-                <span>Reports</span>
+                className={`flex items-center space-x-3 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                  location.pathname === '/reports'
+                    ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
+                }`}
               </Link>
             </nav>
           </div>
