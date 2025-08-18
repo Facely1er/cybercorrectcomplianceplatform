@@ -688,7 +688,7 @@ function AppContent() {
                 className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Settings className\="w-4 h-4" aria-hidden="true" />
+                <Settings className="w-4 h-4" aria-hidden="true" />
                 <span>Settings</span>
               </Link>
               
