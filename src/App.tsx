@@ -548,8 +548,8 @@ function AppContent() {
       {/* Header - always visible */}
       <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Left: Logo + Branding */}
+          {/* Center: Navigation - Properly centered between logo and actions */}
+          <nav className="hidden lg:flex items-center justify-center space-x-0.5 flex-1 mx-4" role="navigation" aria-label="Main navigation">
             <Link
               to="/"
               className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
