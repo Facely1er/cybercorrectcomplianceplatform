@@ -208,20 +208,20 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                   : 'text-gray-700 dark:text-dark-text'
-              }`}
-              onClick={() => setIsOpen(false)}
-              role="menuitem"
-            >
-              <item.icon className="w-4 h-4" aria-hidden="true" />
-              <div>
-                <div className="font-medium">{item.label}</div>
-                {item.description && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
-                    {item.description}
-                  </div>
-                )}
-              </div>
-            </Link>
+        <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              {/* Left: Logo */}
+              <Link
+                to="/"
+                className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
+              >
+                <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900 dark:text-white">CyberCorrect™</h1>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">by ERMITS</p>
+                </div>
+              </Link>
           ))}
         </div>
       )}
@@ -562,7 +562,7 @@ function AppContent() {
               </Link>
 
               {/* Center: Navigation */}
-              <nav className="hidden lg:flex items-center justify-center space-x-1 flex-1 max-w-2xl mx-8" role="navigation" aria-label="Main navigation">
+              <nav className="hidden lg:flex items-center justify-center space-x-0.5 flex-1 mx-4" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
                   className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
