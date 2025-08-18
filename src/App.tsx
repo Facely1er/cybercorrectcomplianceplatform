@@ -826,7 +826,7 @@ function AppContent() {
                     });
                     addNotification('success', \`Report exported as ${format.toUpperCase()}`);
                   } catch (error) {
-                    addNotification('error', \`Failed to export report: ${(error as Error).message}`);
+                    addNotification('error', 'Failed to export report: ' + (error as Error).message);
                   }
                 }}
               />
