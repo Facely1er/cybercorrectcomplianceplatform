@@ -639,6 +639,7 @@ function AppContent() {
           </nav>
           </div>
         </div>
+      </header>
         
         {/* Mobile Menu */}
         {mobileMenuOpen && (
