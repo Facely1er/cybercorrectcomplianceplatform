@@ -638,7 +638,6 @@ function AppContent() {
             </div>
           </nav>
           </div>
-        </div>
       </header>
         
         {/* Mobile Menu */}
