@@ -208,6 +208,28 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                   : 'text-gray-700 dark:text-dark-text'
+              }`}
+              role="menuitem"
+            >
+              <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
+              <div>
+                <div className="font-medium">{item.label}</div>
+                {item.description && (
+                  <div className="text-xs text-gray-500 dark:text-gray-400">{item.description}</div>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { theme } = useTheme();
         <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
