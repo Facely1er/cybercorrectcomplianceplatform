@@ -824,7 +824,7 @@ function AppContent() {
                         organizationName: assessment.organizationInfo?.name || 'Organization'
                       }
                     });
-                    addNotification('success', \`Report exported as ${format.toUpperCase()}`);
+                    addNotification('success', 'Report exported as ' + format.toUpperCase());
                   } catch (error) {
                     addNotification('error', 'Failed to export report: ' + (error as Error).message);
                   }
@@ -845,7 +845,7 @@ function AppContent() {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', \`Assessment exported as ${format.toUpperCase()}`);
+                    addNotification('success', `Assessment exported as ${format.toUpperCase()}`);
                   } catch (error) {
                     addNotification('error', 'Failed to export assessment');
                   }
@@ -953,7 +953,7 @@ function AppContent() {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', \`Report exported as ${format.toUpperCase()}`);
+                    addNotification('success', `Report exported as ${format.toUpperCase()}`);
                   } catch (error) {
                     addNotification('error', 'Failed to export report');
                   }
@@ -968,14 +968,14 @@ function AppContent() {
               <AdvancedReportingDashboard
                 savedAssessments={savedAssessments}
                 userProfile={null}
-                onExportReport={(format) => addNotification('info', \`Export ${format} feature`)}
+                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
               />
             } />
             
             <Route path="/reports/team" element={
               <TeamTrackingReport
                 onBack={() => navigate('/dashboard')}
-                onExportReport={(format) => addNotification('info', \`Export ${format} feature`)}
+                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
               />
             } />
             
