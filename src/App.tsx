@@ -636,6 +636,7 @@ function AppContent() {
                 {mobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
               </button>
             </div>
+          </nav>
           </div>
         </div>
         
