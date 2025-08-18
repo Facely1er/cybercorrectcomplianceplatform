@@ -684,13 +684,15 @@ function AppContent() {
               </Link>
               
               <Link
-                to="/reports"
                 className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                className={`flex items-center space-x-3 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal ${
                   location.pathname === '/reports'
                     ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                     : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
                 }`}
+              >
+                <FileText className="w-4 h-4" aria-hidden="true" />
+                <span>Reports</span>
               </Link>
             </nav>
           </div>
