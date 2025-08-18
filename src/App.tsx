@@ -562,7 +562,7 @@ function AppContent() {
               <nav className="hidden lg:flex items-center justify-center space-x-0 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
-                  className={\`flex items-center space-x-1 px-0.5 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                  className={`flex items-center space-x-1 px-0.5 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                     location.pathname === '/' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
