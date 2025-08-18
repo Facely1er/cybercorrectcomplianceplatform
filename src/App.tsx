@@ -284,95 +284,71 @@ function AppContent() {
   // Navigation menu structure
   const navigationMenus = [
     {
-     label: 'Assessment',
-     icon: Target,
+      label: 'Assessment',
+      icon: Target,
       items: [
         {
-         label: 'Start Assessment',
-         href: '/assessment-intro',
-         icon: Target,
-         description: 'Begin cybersecurity framework assessment'
+          label: 'Start Assessment',
+          href: '/assessment-intro',
+          icon: Target,
+          description: 'Begin cybersecurity framework assessment'
         },
         {
-         label: 'CMMC Assessment',
-         href: '/compliance/cmmc',
-         icon: Building,
-         description: 'CMMC Level 2 certification readiness'
+          label: 'CMMC Assessment',
+          href: '/compliance/cmmc',
+          icon: Building,
+          description: 'CMMC Level 2 certification readiness'
         },
         {
-         label: 'Privacy Assessment',
-         href: '/compliance/privacy',
-         icon: Eye,
-         description: 'GDPR, CCPA & privacy regulations'
-        },
-        {
-          label: 'NIST CSF v2.0',
-          href: '/compliance/nist-extended',
-          icon: Award,
-          description: 'Comprehensive 106-subcategory assessment'
+          label: 'Privacy Assessment',
+          href: '/compliance/privacy',
+          icon: Eye,
+          description: 'GDPR, CCPA & privacy regulations'
         }
       ]
     },
     {
-     label: 'Implementation',
-     icon: Settings,
-      items: [
-        {
-         label: 'Evidence Collection',
-         href: '/evidence',
-         icon: FileText,
-         description: 'Manage compliance documentation'
-        },
-        {
-         label: 'Policy Management',
-         href: '/policies',
-         icon: Shield,
-         description: 'Required policies and procedures'
-        },
-        {
-         label: 'Controls Management',
-         href: '/controls',
-         icon: CheckSquare,
-         description: 'Security controls implementation'
-        },
-        {
-         label: 'Asset Management',
-         href: '/assets',
-         icon: BarChart3,
-         description: 'Inventory and scope management'
-        }
-      ]
-    },
-    {
-     label: 'Monitoring',
-     icon: Activity,
+      label: 'Implementation',
+      icon: Shield,
       items: [
         {
           label: 'Compliance Status',
           href: '/compliance',
-         icon: Activity,
+          icon: Activity,
           description: 'Real-time implementation progress'
         },
         {
-         label: 'Real-Time Status',
-         href: '/compliance/status',
-         icon: TrendingUp,
-         description: 'Live compliance monitoring'
+          label: 'Evidence Collection',
+          href: '/evidence',
+          icon: FileText,
+          description: 'Manage compliance documentation'
         },
         {
-          label: 'Activity Calendar',
-          href: '/calendar',
-          icon: Calendar,
-          description: 'Schedule compliance activities'
+          label: 'Policy Management',
+          href: '/policies',
+          icon: Shield,
+          description: 'Required policies and procedures'
+        },
+        {
+          label: 'Controls Management',
+          href: '/controls',
+          icon: CheckSquare,
+          description: 'Security controls implementation'
+        },
+        {
+          label: 'Asset Management',
+          href: '/assets',
+          icon: BarChart3,
+          description: 'Inventory and scope management'
         }
       ]
     },
     {
-     label: 'Collaboration',
+      label: 'Team',
       icon: Users,
       items: [
         {
-         label: 'Team Collaboration',
+          label: 'Team Collaboration',
           href: '/team',
           icon: Users,
           description: 'Coordinate implementation efforts'
@@ -382,32 +358,26 @@ function AppContent() {
           href: '/tasks',
           icon: CheckSquare,
           description: 'Track tasks and deliverables'
+        },
+        {
+          label: 'Activity Calendar',
+          href: '/calendar',
+          icon: Calendar,
+          description: 'Schedule compliance activities'
+        },
+        {
+          label: 'Assessment Reports',
+          href: '/reports',
+          icon: FileText,
+          description: 'Generate detailed reports'
+        },
+        {
+          label: 'Advanced Analytics',
+          href: '/reports/advanced',
+          icon: BarChart3,
+          description: 'Comprehensive analytics dashboard'
         }
       ]
-    },
-    {
-     label: 'Reports',
-     icon: FileText,
-     items: [
-       {
-         label: 'Assessment Reports',
-         href: '/reports',
-         icon: FileText,
-         description: 'Generate detailed reports'
-       },
-       {
-         label: 'Advanced Analytics',
-         href: '/reports/advanced',
-         icon: BarChart3,
-         description: 'Comprehensive analytics dashboard'
-       },
-       {
-         label: 'Team Performance',
-         href: '/reports/team',
-         icon: Users,
-         description: 'Team productivity and tracking'
-       }
-     ]
     }
   ];
 
