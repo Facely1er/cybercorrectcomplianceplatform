@@ -545,101 +545,100 @@ function AppContent() {
       </a>
       
       <ErrorBoundary>
-      <>
-      {/* Header - always visible */}
-      <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Center: Navigation - Properly centered between logo and actions */}
-          <nav className="hidden lg:flex items-center justify-center space-x-0.5 flex-1 mx-4" role="navigation" aria-label="Main navigation">
-            <Link
-              to="/"
-              className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
-            >
-              <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">CyberCorrect™</h1>
-                <p className="text-xs text-gray-500 dark:text-gray-400">by ERMITS</p>
-              </div>
-            </Link>
-
-            {/* Center: Navigation */}
-            <nav className="hidden lg:flex items-center justify-center space-x-1 flex-1 max-w-2xl mx-8" role="navigation" aria-label="Main navigation">
+        {/* Header - always visible */}
+        <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              {/* Left: Logo */}
               <Link
                 to="/"
-                className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
-                  location.pathname === '/'
-                    ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
-                }`}
+                className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
               >
-                <Home className="w-4 h-4" aria-hidden="true" />
-                <span>Home</span>
+                <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900 dark:text-white">CyberCorrect™</h1>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">by ERMITS</p>
+                </div>
               </Link>
-              
-              <Link
-                to="/dashboard"
-                className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
-                  location.pathname === '/dashboard'
-                    ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
-                }`}
-              >
-                <BarChart3 className="w-4 h-4" aria-hidden="true" />
-                <span>Dashboard</span>
-              </Link>
-              
-              {/* Dropdown Menus */}
-              {navigationMenus.map((menu) => (
-                <DropdownNavItem
-                  key={menu.label}
-                  label={menu.label}
-                  icon={menu.icon}
-                  items={menu.items}
-                  currentPath={location.pathname}
-                />
-              ))}
-            </nav>
 
-            {/* Right: Actions */}
-            <div className="flex items-center space-x-2 flex-shrink-0">
-              <ThemeToggle />
-              <Link
-                to="/signin"
-                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                title="Sign In"
-                aria-label="Sign In"
-              >
-                <Users className="w-5 h-5" aria-hidden="true" />
-              </Link>
-              <Link
-                to="/settings"
-                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                aria-label="Settings"
-              >
-                <Settings className="w-5 h-5" aria-hidden="true" />
-              </Link>
-              <Link
-                to="/help"
-                className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                aria-label="Help"
-              >
-                <HelpCircle className="w-5 h-5" aria-hidden="true" />
-              </Link>
-              
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                aria-expanded={mobileMenuOpen}
-                aria-controls="mobile-menu"
-                aria-label="Toggle mobile menu"
-              >
-                {mobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
-              </button>
+              {/* Center: Navigation */}
+              <nav className="hidden lg:flex items-center justify-center space-x-1 flex-1 max-w-2xl mx-8" role="navigation" aria-label="Main navigation">
+                <Link
+                  to="/"
+                  className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                    location.pathname === '/'
+                      ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
+                  }`}
+                >
+                  <Home className="w-4 h-4" aria-hidden="true" />
+                  <span>Home</span>
+                </Link>
+                
+                <Link
+                  to="/dashboard"
+                  className={`flex items-center space-x-2 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
+                    location.pathname === '/dashboard'
+                      ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
+                  }`}
+                >
+                  <BarChart3 className="w-4 h-4" aria-hidden="true" />
+                  <span>Dashboard</span>
+                </Link>
+                
+                {/* Dropdown Menus */}
+                {navigationMenus.map((menu) => (
+                  <DropdownNavItem
+                    key={menu.label}
+                    label={menu.label}
+                    icon={menu.icon}
+                    items={menu.items}
+                    currentPath={location.pathname}
+                  />
+                ))}
+              </nav>
+
+              {/* Right: Actions */}
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <ThemeToggle />
+                <Link
+                  to="/signin"
+                  className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  title="Sign In"
+                  aria-label="Sign In"
+                >
+                  <Users className="w-5 h-5" aria-hidden="true" />
+                </Link>
+                <Link
+                  to="/settings"
+                  className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  aria-label="Settings"
+                >
+                  <Settings className="w-5 h-5" aria-hidden="true" />
+                </Link>
+                <Link
+                  to="/help"
+                  className="p-2 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  aria-label="Help"
+                >
+                  <HelpCircle className="w-5 h-5" aria-hidden="true" />
+                </Link>
+                
+                {/* Mobile Menu Button */}
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  aria-expanded={mobileMenuOpen}
+                  aria-controls="mobile-menu"
+                  aria-label="Toggle mobile menu"
+                >
+                  {mobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+                </button>
+              </div>
             </div>
-          </nav>
           </div>
-      </header>
+        </header>
         
         {/* Mobile Menu */}
         {mobileMenuOpen && (
@@ -679,51 +678,6 @@ function AppContent() {
               )}
               
               <Link
-                to="/assessment-intro"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Target className="w-4 h-4" aria-hidden="true" />
-                <span>Start Assessment</span>
-              </Link>
-              
-              <Link
-                to="/nist-standard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Shield className="w-4 h-4" aria-hidden="true" />
-                <span>NIST CSF Standard</span>
-              </Link>
-              
-              <Link
-                to="/nist-extended"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Award className="w-4 h-4" aria-hidden="true" />
-                <span>NIST CSF Extended</span>
-              </Link>
-              
-              <Link
-                to="/cmmc-assessment"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Building className="w-4 h-4" aria-hidden="true" />
-                <span>CMMC Assessment</span>
-              </Link>
-              
-              <Link
-                to="/privacy-assessment"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Eye className="w-4 h-4" aria-hidden="true" />
-                <span>Privacy Assessment</span>
-              </Link>
-              
-              <Link
                 to="/signin"
                 className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
@@ -743,296 +697,295 @@ function AppContent() {
             </nav>
           </div>
         )}
-      </>
-      </header>
+      </ErrorBoundary>
 
       {/* Main Content */}
       <main id="main-content" role="main">
         <ErrorBoundary>
-        <Routes>
-          {/* Homepage */}
-          <Route path="/" element={
-            <ErrorBoundary>
-              <LandingPage />
-            </ErrorBoundary>
-          } />
-          
-          {/* Authentication */}
-          <Route path="/signin" element={
-            <ErrorBoundary>
-              <SignInPage />
-            </ErrorBoundary>
-          } />
-          
-          {/* Assessment Flow */}
-          <Route path="/assessment-intro" element={
-            <ErrorBoundary>
-            <AssessmentIntroScreen
-              frameworks={assessmentFrameworks}
-              onStartAssessment={createAssessment}
-              onBack={() => navigate('/')}
-            />
-            </ErrorBoundary>
-          } />
-          
-          {/* Specific Framework Assessment Routes */}
-          <Route path="/nist-standard" element={
-            <AssessmentIntroScreen
-              frameworks={[nistCSFv2Framework]}
-              onStartAssessment={createAssessment}
-              onBack={() => navigate('/')}
-            />
-          } />
-          
-          <Route path="/nist-extended" element={
-            <AssessmentIntroScreen
-              frameworks={[nistCSFv2ExtendedFramework]}
-              onStartAssessment={createAssessment}
-              onBack={() => navigate('/')}
-            />
-          } />
-          
-          <Route path="/cmmc-assessment" element={
-            <AssessmentIntroScreen
-              frameworks={[cmmcFramework]}
-              onStartAssessment={createAssessment}
-              onBack={() => navigate('/')}
-            />
-          } />
-          
-          <Route path="/nist-lite" element={
-            <AssessmentIntroScreen
-              frameworks={[nistCSFv2Framework]}
-              onStartAssessment={createAssessment}
-              onBack={() => navigate('/')}
-            />
-          } />
-          
-          <Route path="/privacy-assessment" element={
-            <AssessmentIntroScreen
-              frameworks={[privacyFramework]}
-              onStartAssessment={createAssessment}
-              onBack={() => navigate('/')}
-            />
-          } />
-          
-          <Route path="/privacy-policy" element={
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Privacy Policy</h1>
-                <p className="text-gray-600 dark:text-gray-300">
-                  This application stores all data locally in your browser. No personal information is transmitted to external servers.
-                </p>
+          <Routes>
+            {/* Homepage */}
+            <Route path="/" element={
+              <ErrorBoundary>
+                <LandingPage />
+              </ErrorBoundary>
+            } />
+            
+            {/* Authentication */}
+            <Route path="/signin" element={
+              <ErrorBoundary>
+                <SignInPage />
+              </ErrorBoundary>
+            } />
+            
+            {/* Assessment Flow */}
+            <Route path="/assessment-intro" element={
+              <ErrorBoundary>
+              <AssessmentIntroScreen
+                frameworks={assessmentFrameworks}
+                onStartAssessment={createAssessment}
+                onBack={() => navigate('/')}
+              />
+              </ErrorBoundary>
+            } />
+            
+            {/* Specific Framework Assessment Routes */}
+            <Route path="/nist-standard" element={
+              <AssessmentIntroScreen
+                frameworks={[nistCSFv2Framework]}
+                onStartAssessment={createAssessment}
+                onBack={() => navigate('/')}
+              />
+            } />
+            
+            <Route path="/nist-extended" element={
+              <AssessmentIntroScreen
+                frameworks={[nistCSFv2ExtendedFramework]}
+                onStartAssessment={createAssessment}
+                onBack={() => navigate('/')}
+              />
+            } />
+            
+            <Route path="/cmmc-assessment" element={
+              <AssessmentIntroScreen
+                frameworks={[cmmcFramework]}
+                onStartAssessment={createAssessment}
+                onBack={() => navigate('/')}
+              />
+            } />
+            
+            <Route path="/nist-lite" element={
+              <AssessmentIntroScreen
+                frameworks={[nistCSFv2Framework]}
+                onStartAssessment={createAssessment}
+                onBack={() => navigate('/')}
+              />
+            } />
+            
+            <Route path="/privacy-assessment" element={
+              <AssessmentIntroScreen
+                frameworks={[privacyFramework]}
+                onStartAssessment={createAssessment}
+                onBack={() => navigate('/')}
+              />
+            } />
+            
+            <Route path="/privacy-policy" element={
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Privacy Policy</h1>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    This application stores all data locally in your browser. No personal information is transmitted to external servers.
+                  </p>
+                </div>
               </div>
-            </div>
-          } />
-          
-          <Route path="/terms" element={
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Terms of Service</h1>
-                <p className="text-gray-600 dark:text-gray-300">
-                  By using this application, you agree to use it for legitimate cybersecurity assessment purposes only.
-                </p>
+            } />
+            
+            <Route path="/terms" element={
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Terms of Service</h1>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    By using this application, you agree to use it for legitimate cybersecurity assessment purposes only.
+                  </p>
+                </div>
               </div>
-            </div>
-          } />
-          
-          <Route path="/assessment/:id" element={
-            <AssessmentWrapper 
-              savedAssessments={savedAssessments}
-              onSave={saveAssessment}
-              onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-              onBack={() => navigate('/dashboard')}
-            />
-          } />
-          
-          <Route path="/report/:id" element={
-            <ReportWrapper 
-              savedAssessments={savedAssessments}
-              onBack={() => navigate('/dashboard')}
-              onExport={(assessment, format) => {
-                try {
-                  const framework = getFramework(assessment.frameworkId);
-                  reportService.exportReport(assessment, framework, { 
-                    format,
-                    includeExecutiveSummary: true,
-                    includeDetailedAnalysis: true,
-                    includeRecommendations: true,
-                    includeGapAnalysis: true,
-                    includeNextSteps: true,
-                    branding: {
-                      organizationName: assessment.organizationInfo?.name || 'Organization'
-                    }
-                  });
-                  addNotification('success', `Report exported as ${format.toUpperCase()}`);
-                } catch (error) {
-                  addNotification('error', `Failed to export report: ${(error as Error).message}`);
-                }
-              }}
-            />
-          } />
-          
-          {/* Dashboard */}
-          <Route path="/dashboard" element={
-            <ErrorBoundary>
-            <AdvancedDashboard
-              savedAssessments={savedAssessments}
-              onStartAssessment={startAssessment}
-              onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
-              onDeleteAssessment={deleteAssessment}
-              onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-              onExportAssessment={(assessment, format) => {
-                try {
-                  const framework = getFramework(assessment.frameworkId);
-                  reportService.exportReport(assessment, framework, { format });
-                  addNotification('success', `Assessment exported as ${format.toUpperCase()}`);
-                } catch (error) {
-                  addNotification('error', 'Failed to export assessment');
-                }
-              }}
-              onImportAssessment={() => addNotification('info', 'Import feature')}
-              userProfile={null}
-              addNotification={addNotification}
-            />
-            </ErrorBoundary>
-          } />
-          
-          {/* New Compliance Pages */}
-          <Route path="/compliance/nist-standard" element={
-            <NistStandardCompliancePage />
-          } />
+            } />
+            
+            <Route path="/assessment/:id" element={
+              <AssessmentWrapper 
+                savedAssessments={savedAssessments}
+                onSave={saveAssessment}
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+                onBack={() => navigate('/dashboard')}
+              />
+            } />
+            
+            <Route path="/report/:id" element={
+              <ReportWrapper 
+                savedAssessments={savedAssessments}
+                onBack={() => navigate('/dashboard')}
+                onExport={(assessment, format) => {
+                  try {
+                    const framework = getFramework(assessment.frameworkId);
+                    reportService.exportReport(assessment, framework, { 
+                      format,
+                      includeExecutiveSummary: true,
+                      includeDetailedAnalysis: true,
+                      includeRecommendations: true,
+                      includeGapAnalysis: true,
+                      includeNextSteps: true,
+                      branding: {
+                        organizationName: assessment.organizationInfo?.name || 'Organization'
+                      }
+                    });
+                    addNotification('success', `Report exported as ${format.toUpperCase()}`);
+                  } catch (error) {
+                    addNotification('error', `Failed to export report: ${(error as Error).message}`);
+                  }
+                }}
+              />
+            } />
+            
+            {/* Dashboard */}
+            <Route path="/dashboard" element={
+              <ErrorBoundary>
+              <AdvancedDashboard
+                savedAssessments={savedAssessments}
+                onStartAssessment={startAssessment}
+                onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
+                onDeleteAssessment={deleteAssessment}
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+                onExportAssessment={(assessment, format) => {
+                  try {
+                    const framework = getFramework(assessment.frameworkId);
+                    reportService.exportReport(assessment, framework, { format });
+                    addNotification('success', `Assessment exported as ${format.toUpperCase()}`);
+                  } catch (error) {
+                    addNotification('error', 'Failed to export assessment');
+                  }
+                }}
+                onImportAssessment={() => addNotification('info', 'Import feature')}
+                userProfile={null}
+                addNotification={addNotification}
+              />
+              </ErrorBoundary>
+            } />
+            
+            {/* New Compliance Pages */}
+            <Route path="/compliance/nist-standard" element={
+              <NistStandardCompliancePage />
+            } />
 
-          <Route path="/compliance/nist-extended" element={
-            <NistExtendedCompliancePage />
-          } />
+            <Route path="/compliance/nist-extended" element={
+              <NistExtendedCompliancePage />
+            } />
 
-          <Route path="/compliance/cmmc" element={
-            <CmmcCompliancePage />
-          } />
+            <Route path="/compliance/cmmc" element={
+              <CmmcCompliancePage />
+            } />
 
-          <Route path="/compliance/privacy" element={
-            <PrivacyCompliancePage />
-          } />
+            <Route path="/compliance/privacy" element={
+              <PrivacyCompliancePage />
+            } />
 
-          {/* Existing Compliance Status page, now under /compliance/status */}
-          <Route path="/compliance/status" element={
-            <RealTimeComplianceStatus
-              onViewDetails={() => addNotification('info', 'View details')}
-              onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
-            />
-          } />
-          {/* Implementation Pages */}
-          <Route path="/compliance" element={
-            <RealTimeComplianceStatus
-              onViewDetails={() => addNotification('info', 'View details')}
-              onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
-            />
-          } />
-          
-          <Route path="/evidence" element={
-            <EvidenceCollectionDashboard
-              onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/policies" element={
-            <PolicyManagementView
-              onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/controls" element={
-            <ControlsManagementView
-              onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/team" element={
-            <TeamCollaborationDashboard
-              onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/tasks" element={
-            <TaskManagementDashboard
-              onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/calendar" element={
-            <ComplianceCalendarView
-              onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/assets" element={
-            <AssetDashboard
-              assets={assets}
-              onViewAsset={() => addNotification('info', 'Asset view feature')}
-              onCreateAsset={() => setShowAssetForm(true)}
-              onViewInventory={() => addNotification('info', 'Asset inventory view')}
-              onViewCategories={() => addNotification('info', 'Asset categories view')}
-              onViewDependencies={() => addNotification('info', 'Asset dependencies view')}
-              onViewWorkflow={() => addNotification('info', 'Asset workflow view')}
-              onViewRoadmap={() => addNotification('info', 'Asset roadmap view')}
-              onViewActionPlan={() => addNotification('info', 'Asset action plan view')}
-            />
-          } />
-          
-          <Route path="/reports" element={
-            <AssessmentReportsPage
-              savedAssessments={savedAssessments}
-              onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-              onExportReport={(assessment, format) => {
-                try {
-                  const framework = getFramework(assessment.frameworkId);
-                  reportService.exportReport(assessment, framework, { format });
-                  addNotification('success', `Report exported as ${format.toUpperCase()}`);
-                } catch (error) {
-                  addNotification('error', 'Failed to export report');
-                }
-              }}
-              onStartAssessment={startAssessment}
-              userProfile={null}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/reports/advanced" element={
-            <AdvancedReportingDashboard
-              savedAssessments={savedAssessments}
-              userProfile={null}
-              onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
-            />
-          } />
-          
-          <Route path="/reports/team" element={
-            <TeamTrackingReport
-              onBack={() => navigate('/dashboard')}
-              onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
-            />
-          } />
-          
-          <Route path="/settings" element={
-            <SettingsView
-              onBack={() => navigate('/dashboard')}
-              addNotification={addNotification}
-            />
-          } />
-          
-          <Route path="/help" element={
-            <HelpView
-              onBack={() => navigate('/dashboard')}
-            />
-          } />
-        </Routes>
+            {/* Existing Compliance Status page, now under /compliance/status */}
+            <Route path="/compliance/status" element={
+              <RealTimeComplianceStatus
+                onViewDetails={() => addNotification('info', 'View details')}
+                onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
+              />
+            } />
+            {/* Implementation Pages */}
+            <Route path="/compliance" element={
+              <RealTimeComplianceStatus
+                onViewDetails={() => addNotification('info', 'View details')}
+                onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
+              />
+            } />
+            
+            <Route path="/evidence" element={
+              <EvidenceCollectionDashboard
+                onBack={() => navigate('/dashboard')}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/policies" element={
+              <PolicyManagementView
+                onBack={() => navigate('/dashboard')}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/controls" element={
+              <ControlsManagementView
+                onBack={() => navigate('/dashboard')}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/team" element={
+              <TeamCollaborationDashboard
+                onBack={() => navigate('/dashboard')}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/tasks" element={
+              <TaskManagementDashboard
+                onBack={() => navigate('/dashboard')}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/calendar" element={
+              <ComplianceCalendarView
+                onBack={() => navigate('/dashboard')}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/assets" element={
+              <AssetDashboard
+                assets={assets}
+                onViewAsset={() => addNotification('info', 'Asset view feature')}
+                onCreateAsset={() => setShowAssetForm(true)}
+                onViewInventory={() => addNotification('info', 'Asset inventory view')}
+                onViewCategories={() => addNotification('info', 'Asset categories view')}
+                onViewDependencies={() => addNotification('info', 'Asset dependencies view')}
+                onViewWorkflow={() => addNotification('info', 'Asset workflow view')}
+                onViewRoadmap={() => addNotification('info', 'Asset roadmap view')}
+                onViewActionPlan={() => addNotification('info', 'Asset action plan view')}
+              />
+            } />
+            
+            <Route path="/reports" element={
+              <AssessmentReportsPage
+                savedAssessments={savedAssessments}
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+                onExportReport={(assessment, format) => {
+                  try {
+                    const framework = getFramework(assessment.frameworkId);
+                    reportService.exportReport(assessment, framework, { format });
+                    addNotification('success', `Report exported as ${format.toUpperCase()}`);
+                  } catch (error) {
+                    addNotification('error', 'Failed to export report');
+                  }
+                }}
+                onStartAssessment={startAssessment}
+                userProfile={null}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/reports/advanced" element={
+              <AdvancedReportingDashboard
+                savedAssessments={savedAssessments}
+                userProfile={null}
+                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+              />
+            } />
+            
+            <Route path="/reports/team" element={
+              <TeamTrackingReport
+                onBack={() => navigate('/dashboard')}
+                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+              />
+            } />
+            
+            <Route path="/settings" element={
+              <SettingsView
+                onBack={() => navigate('/dashboard')}
+                addNotification={addNotification}
+              />
+            } />
+            
+            <Route path="/help" element={
+              <HelpView
+                onBack={() => navigate('/dashboard')}
+              />
+            } />
+          </Routes>
         </ErrorBoundary>
       </main>
 
@@ -1041,7 +994,6 @@ function AppContent() {
         onRemove={removeNotification}
       />
       <Analytics />
-      </ErrorBoundary>
     </div>
   );
 }
@@ -1054,4 +1006,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
