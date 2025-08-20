@@ -42,6 +42,7 @@ import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramewor
 import { assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage } from './shared/types';
 import { dataService } from './services/dataService';
+import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
 
 // Assessment Wrapper Component
