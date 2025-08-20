@@ -278,7 +278,72 @@ export const useInternalLinking = () => {
   }, [location.pathname]);
 
   const breadcrumbs = useMemo(() => {
-    return getBreadcrumbsForPath(location.pathname);
+    const pathSegments = location.pathname.split('/').filter(Boolean);
+    const breadcrumbs = [];
+
+    // Define path to label mapping
+    const pathLabels: Record<string, string> = {
+      dashboard: 'Dashboard',
+      'assessment-intro': 'Assessment Setup',
+      assessment: 'Assessment',
+      'assessment/:id': 'Assessment',
+      compliance: 'Compliance Status',
+      evidence: 'Evidence Collection',
+      assets: 'Asset Management',
+      'assets/inventory': 'Asset Inventory',
+      'assets/categories': 'Asset Categories',
+      'assets/dependencies': 'Asset Dependencies',
+      'assets/workflow': 'Asset Workflow',
+      'assets/roadmap': 'Asset Roadmap', 
+      'assets/action-plan': 'Asset Action Plan',
+      team: 'Team Collaboration',
+      tasks: 'Task Management',
+      calendar: 'Activity Calendar',
+      policies: 'Policy Management',
+      controls: 'Controls Management',
+      'report/:id': 'Assessment Report',
+      reports: 'Team Reports',
+      'reports/advanced': 'Advanced Analytics',
+      'reports/compliance': 'Compliance Reports',
+      'reports/team': 'Team Performance',
+      settings: 'Settings',
+      help: 'Help & Support',
+      profile: 'User Profile',
+      home: 'Home',
+      signin: 'Sign In'
+    };
+
+    // Build breadcrumb trail
+    let currentPath = '';
+    pathSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      const isLast = index === pathSegments.length - 1;
+      
+      // Skip dynamic segments like IDs
+      if (segment.match(/^[a-f0-9-]{8,}$/i) || segment.match(/^\d+$/)) {
+        return;
+      }
+      
+      // Special handling for assessment routes
+      if (segment === 'assessment' && !isLast) {
+        breadcrumbs.push({
+          label: 'Assessment',
+          path: '/dashboard',
+          isActive: false
+        });
+        return;
+      }
+      
+      breadcrumbs.push({
+        label: pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
+               pathLabels[segment] || 
+               segment.charAt(0).toUpperCase() + segment.slice(1),
+        path: isLast ? undefined : currentPath,
+        isActive: isLast
+      });
+    });
+
+    return breadcrumbs;
   }, [location.pathname]);
 
   return {

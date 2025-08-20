@@ -1,3 +1,3 @@
 // Layout Component Exports
-export { Breadcrumbs } from './Breadcrumbs';
+export { Breadcrumbs, generateBreadcrumbs } from './Breadcrumbs';
 export { StartScreen } from './StartScreen';
