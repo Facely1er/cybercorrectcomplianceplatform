@@ -76,13 +76,18 @@ export class ErrorBoundary extends Component<Props, State> {
         timestamp: new Date().toISOString(),
         errorId: this.state.errorId
       },
-      componentStack: this.state.errorInfo?.componentStack
+      componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
-    navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
-      .then(() => alert('Error details copied to clipboard'))
-      .catch(() => console.log('Error details:', errorReport));
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
+        .then(() => alert('Error details copied to clipboard'))
+        .catch(() => console.log('Error details:', errorReport));
+    } else {
+      console.log('Error details:', errorReport);
+      alert('Error details logged to console');
+    }
   };
 
   render() {

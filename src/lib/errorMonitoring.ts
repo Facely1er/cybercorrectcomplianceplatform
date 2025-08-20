@@ -50,7 +50,7 @@ class ErrorMonitoring {
   private setupGlobalErrorHandlers() {
     // Handle unhandled promise rejections
     window.addEventListener('unhandledrejection', (event) => {
-      this.captureException(new Error(event.reason), {
+      this.captureException(new Error(String(event.reason)), {
         tags: { type: 'unhandledRejection' },
         level: 'error'
       });

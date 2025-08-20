@@ -6,63 +6,33 @@ export default defineConfig({
     react()
   ],
   
-  // 🌐 Base URL for production
-  base: './',
+  // Build Configuration
+  base: '/',
   
-  // 🔧 Build Configuration
   build: {
     target: 'esnext',
-    minify: 'terser',
+    minify: true,
     sourcemap: false, // Disable in production for security
-    assetsDir: 'assets',
-    cssCodeSplit: true,
     rollupOptions: {
       output: {
-        format: 'es',
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['@headlessui/react', 'lucide-react'],
-          charts: ['recharts'],
+          ui: ['lucide-react'],
+          charts: ['chart.js', 'react-chartjs-2'],
           utils: ['clsx', 'tailwind-merge']
         }
       }
-    },
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.log in production
-        drop_debugger: true
-      }
     }
   },
   
-  // 🔒 Development Server Security
   server: {
-    host: 'localhost',
     port: 3000,
-    headers: {
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'Referrer-Policy': 'strict-origin-when-cross-origin'
-    }
+    host: true
   },
   
-  // 📁 Path Resolution
-  resolve: {
-    alias: {
-      '@': '/src',
-      '@/components': '/src/components',
-      '@/modules': '/src/modules',
-      '@/lib': '/src/lib',
-      '@/types': '/src/types'
-    }
-  },
-  
-  // 🌍 Environment Variables
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
-    __BUILD_TIME__: JSON.stringify(new Date().toISOString())
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+    global: 'globalThis'
   }
 })

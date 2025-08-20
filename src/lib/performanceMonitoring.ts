@@ -39,22 +39,30 @@ class PerformanceMonitoring {
 
   private setupWebVitals() {
     // First Contentful Paint
-    new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (entry.name === 'first-contentful-paint') {
-          this.vitals.FCP = entry.startTime;
-          this.reportVital('FCP', entry.startTime);
+    try {
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.name === 'first-contentful-paint') {
+            this.vitals.FCP = entry.startTime;
+            this.reportVital('FCP', entry.startTime);
+          }
         }
-      }
-    }).observe({ entryTypes: ['paint'] });
+      }).observe({ entryTypes: ['paint'] });
+    } catch (error) {
+      console.warn('Performance Observer not supported');
+    }
 
     // Largest Contentful Paint
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      const lastEntry = entries[entries.length - 1];
-      this.vitals.LCP = lastEntry.startTime;
-      this.reportVital('LCP', lastEntry.startTime);
-    }).observe({ entryTypes: ['largest-contentful-paint'] });
+    try {
+      new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        this.vitals.LCP = lastEntry.startTime;
+        this.reportVital('LCP', lastEntry.startTime);
+      }).observe({ entryTypes: ['largest-contentful-paint'] });
+    } catch (error) {
+      console.warn('LCP Performance Observer not supported');
+    }
 
     // First Input Delay
     new PerformanceObserver((list) => {
