@@ -6,13 +6,22 @@ export default defineConfig({
     react()
   ],
   
+  // 🌐 Base URL for production
+  base: './',
+  
   // 🔧 Build Configuration
   build: {
     target: 'esnext',
     minify: 'terser',
     sourcemap: false, // Disable in production for security
+    assetsDir: 'assets',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
+        format: 'es',
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks: {
           vendor: ['react', 'react-dom'],
           ui: ['@headlessui/react', 'lucide-react'],
