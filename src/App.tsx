@@ -8,6 +8,7 @@ import {
 import { ThemeProvider, useTheme } from './shared/contexts/ThemeContext';
 import { ThemeToggle } from './shared/components/ui/ThemeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
+
 import { NotificationSystem } from './shared/components/ui/NotificationSystem';
 import { errorMonitoring } from './lib/errorMonitoring';
 import { performanceMonitoring } from './lib/performanceMonitoring';
