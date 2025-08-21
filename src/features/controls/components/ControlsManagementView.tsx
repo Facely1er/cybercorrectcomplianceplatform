@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import {  ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye, 
+import {  ArrowLeft, Plus, Search, Edit3, Trash2, Eye, 
   AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award, 
-  Users, Calendar, FileText, TrendingUp, Star, Flag, Activity, Zap, Bell, 
-  ChevronDown, ChevronRight, RefreshCw, Globe, Lock, Database, Server,
-  Layers, Network, Code, Gauge, PieChart, LineChart, MapPin, Briefcase
+  ChevronDown, ChevronRight, RefreshCw, Globe
 } from 'lucide-react';
-import { Control, ControlStatus, ImplementationStatus, ControlType, AssessmentFrequency } from '../types';
+import { Control, ControlStatus, ControlType, AssessmentFrequency } from '../types';
  
 
 interface ControlsManagementViewProps {
@@ -20,15 +18,15 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   addNotification
 }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [controls, setControls] = useState<any[]>([]);
+  const [controls, setControls] = useState<Control[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterFunction, setFilterFunction] = useState<string>('all');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterPriority, setFilterPriority] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'kanban'>('grid');
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [editingControl, setEditingControl] = useState<any | null>(null);
-  const [selectedControls, setSelectedControls] = useState<string[]>([]);
+  const [editingControl, setEditingControl] = useState<Control | null>(null);
+
   const [expandedControl, setExpandedControl] = useState<string | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
   
@@ -48,7 +46,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   // Enhanced mock data for demonstration
   useEffect(() => {
-    const mockControls: any[] = [
+    const mockControls: Control[] = [
       {
         id: 'ctrl-001',
         controlId: 'ID.AM-1',
@@ -946,7 +944,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setShowCreateForm(true);
   };
 
-  const handleEditControl = (control: any) => {
+  const handleEditControl = (control: Control) => {
     setEditingControl(control);
     setShowCreateForm(true);
   };
@@ -959,7 +957,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       return;
     }
 
-    const controlData: any = {
+    const controlData: Partial<Control> = {
       id: editingControl?.id || `ctrl-${Date.now()}`,
       controlId: formData.controlId,
       name: formData.name,
@@ -1070,14 +1068,9 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setEditingControl(null);
   };
 
-  const handleDeleteControl = (controlId: string) => {
-    if (window.confirm('Are you sure you want to delete this control?')) {
-      setControls(prev => prev.filter(c => c.id !== controlId));
-      addNotification('success', 'Control deleted successfully');
-    }
-  };
 
-  const handleViewControl = (control: any) => {
+
+  const handleViewControl = (control: Control) => {
     addNotification('info', `Viewing control details: ${control.controlId}`);
   };
 
@@ -1138,20 +1131,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   const implementationPercentage = controls.length > 0 ? Math.round(((stats.operational + stats.implemented) / controls.length) * 100) : 0;
 
-  // Chart data for function distribution
-  const functionDistribution = controls.reduce((acc, control) => {
-    acc[control.nistFunction] = (acc[control.nistFunction] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
 
-  const effectivenessDistribution = controls.reduce((acc, control) => {
-    const score = control.effectiveness.implementationScore;
-    const range = score >= 90 ? 'Excellent (90-100%)' :
-                  score >= 75 ? 'Good (75-89%)' :
-                  score >= 60 ? 'Fair (60-74%)' : 'Poor (<60%)';
-    acc[range] = (acc[range] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -1641,7 +1621,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                               Live Monitoring
                             </h4>
                             <div className="space-y-3">
-                              {control.monitoring.metrics.map((metric: any, index: number) => (
+                              {control.monitoring.metrics.map((metric, index: number) => (
                                 <div key={index} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -1669,7 +1649,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                               Testing Results
                             </h4>
                             <div className="space-y-3">
-                              {control.testing.results.slice(0, 2).map((result: any, index: number) => (
+                              {control.testing.results.slice(0, 2).map((result, index: number) => (
                                 <div key={index} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">

@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertTriangle, RefreshCw, Home, Bug, Mail, ExternalLink } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Home, Bug, Mail } from 'lucide-react';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
 

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { 
   ChevronLeft, Save, Edit3, X, Shield, AlertTriangle, 
-  CheckCircle, Clock, Users, MapPin, Settings, FileText,
-  Server, Database, Building, Cloud, Tag, Calendar,
-  Eye, Download, Plus, Trash2, Link2, Target
+  CheckCircle, Users, MapPin, FileText,
+  Server, Database, Building, Cloud, Plus, Trash2, Link2, Target
 } from 'lucide-react';
-import { Asset, SecurityControl, AssetDependency, Vulnerability } from '../../../shared/types/assets';
+import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 

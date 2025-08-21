@@ -2,19 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { 
   Shield, BarChart3, Settings, HelpCircle, Menu, X, Home, ChevronDown,
-  Activity, FileText, Calendar, Users, CheckSquare, Target, Award, Building, Eye,
-  Mail, ExternalLink, TrendingUp, Zap
+  Activity, FileText, Calendar, Users, CheckSquare, Target, Building, Eye
 } from 'lucide-react';
-import { ThemeProvider, useTheme } from './shared/contexts/ThemeContext';
+import { ThemeProvider } from './shared/contexts/ThemeContext';
 import { ThemeToggle } from './shared/components/ui/ThemeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
 import { NotificationSystem } from './shared/components/ui/NotificationSystem';
 import { errorMonitoring } from './lib/errorMonitoring';
 import { performanceMonitoring } from './lib/performanceMonitoring';
-import { enhancedDataService } from './services/enhancedDataService';
-import { assessmentService } from './services/assessmentService';
-import { ErrorState, EmptyState } from './shared/components/ui/LoadingStates';
+
 import { LandingPage } from './components/LandingPage';
 import { AssessmentIntroScreen } from './features/assessment/components/AssessmentIntroScreen';
 import { SignInPage } from './features/auth';
@@ -30,17 +27,15 @@ import { ControlsManagementView } from './features/controls/components/ControlsM
 import { TeamCollaborationDashboard } from './features/collaboration/components/TeamCollaborationDashboard';
 import { TaskManagementDashboard } from './features/tasks/components/TaskManagementDashboard';
 import { AssetDashboard } from './features/assets/components/AssetDashboard';
-import { AssetInventoryView } from './features/assets/components/AssetInventoryView';
-import { AssetCreationForm } from './features/assets/components/AssetCreationForm';
 import { EnhancedAssessmentView } from './features/assessment/components/EnhancedAssessmentView';
 import { ReportView } from './features/reporting/components/ReportView';
 import { NistStandardCompliancePage, NistExtendedCompliancePage, CmmcCompliancePage, PrivacyCompliancePage } from './features/compliance';
 import { SettingsView } from './shared/components/ui/SettingsView';
 import { HelpView } from './shared/components/ui/HelpView';
-import { ProductionReadinessWidget } from './components/ProductionReadinessWidget';
-import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
+import { getFramework, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
 import { assessmentFrameworks } from './data/frameworks';
-import { AssessmentData, NotificationMessage } from './shared/types';
+import { AssessmentData, NotificationMessage, OrganizationInfo } from './shared/types';
+import { Asset } from './shared/types/assets';
 import { dataService } from './services/dataService';
 import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
@@ -161,11 +156,11 @@ const ReportWrapper: React.FC<{
 // Dropdown Navigation Component
 interface DropdownNavItemProps {
   label: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   items: Array<{
     label: string;
     href: string;
-    icon: React.ComponentType<any>;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     description?: string;
   }>;
   currentPath: string;
@@ -231,16 +226,16 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { theme } = useTheme();
+
   
   // Enhanced state management with localStorage
   const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showAssetForm, setShowAssetForm] = useState(false);
+
 
   // Use local data service directly for better reliability
   const [savedAssessments, setSavedAssessments] = useState<AssessmentData[]>([]);
-  const [assets, setAssets] = useState<any[]>([]);
+  const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Initialize monitoring on app start
@@ -404,7 +399,7 @@ function AppContent() {
     navigate('/assessment-intro');
   };
 
-  const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => {
+  const createAssessment = async (organizationInfo?: OrganizationInfo, selectedFramework?: string) => {
     console.log('Creating new assessment');
     
     try {
@@ -465,25 +460,9 @@ function AppContent() {
   };
 
   // Asset management handlers
-  const createAsset = async (assetData: any) => {
-    try {
-      const newAsset = {
-        ...assetData,
-        id: Date.now().toString(),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-      
-      dataService.saveAsset(newAsset);
-      setAssets(prev => [...prev, newAsset]);
-      addNotification('success', 'Asset created successfully');
-    } catch (error) {
-      console.error('Failed to create asset:', error);
-      addNotification('error', 'Failed to create asset');
-    }
-  };
 
-  const isHomePage = location.pathname === '/';
+
+
   
   // Show loading screen while data loads
   if (loading) {
@@ -818,7 +797,7 @@ function AppContent() {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
-                  } catch (error) {
+                  } catch {
                     addNotification('error', 'Failed to export assessment');
                   }
                 }}
@@ -907,7 +886,7 @@ function AppContent() {
               <AssetDashboard
                 assets={assets}
                 onViewAsset={() => addNotification('info', 'Asset view feature')}
-                onCreateAsset={() => setShowAssetForm(true)}
+                onCreateAsset={() => addNotification('info', 'Asset creation feature coming soon')}
                 onViewInventory={() => addNotification('info', 'Asset inventory view')}
                 onViewCategories={() => addNotification('info', 'Asset categories view')}
                 onViewDependencies={() => addNotification('info', 'Asset dependencies view')}
@@ -926,7 +905,7 @@ function AppContent() {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
-                  } catch (error) {
+                  } catch {
                     addNotification('error', 'Failed to export report');
                   }
                 }}

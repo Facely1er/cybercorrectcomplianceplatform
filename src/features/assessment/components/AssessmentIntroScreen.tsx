@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { 
-  ChevronLeft, Play, Clock, Target, BarChart3, Shield, 
-  CheckCircle, AlertCircle, Info, BookOpen, Users, 
-  Building, Globe, Zap, Award, Star, ArrowRight,
-  FileText, Lightbulb, TrendingUp, Lock, Eye
+  ChevronLeft, Play, Target, BarChart3, Shield, 
+  CheckCircle, AlertCircle, BookOpen, Users, 
+  Building, Globe, Zap, Star, ArrowRight,
+  FileText, Lightbulb, Lock
 } from 'lucide-react';
 import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
@@ -85,9 +85,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     sum + section.categories.reduce((catSum, category) => 
       catSum + category.questions.length, 0), 0);
 
-  const highPriorityQuestions = currentFramework.sections.reduce((sum, section) => 
-    sum + section.categories.reduce((catSum, category) => 
-      catSum + category.questions.filter(q => q.priority === 'high').length, 0), 0);
+
 
   const getFrameworkBenefits = (frameworkId: string) => {
     const benefits: Record<string, string[]> = {
@@ -308,9 +306,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               {frameworks.map((framework) => {
                 const FrameworkIconComponent = getFrameworkIcon(framework.id);
                 const isSelected = selectedFramework === framework.id;
-                const isStandard = framework.id === 'nist-csf-v2-extended';
-                const isLite = framework.id === 'nist-csf-v2-standard';
-                const isQuickCheck = framework.id === 'nist-csf-v2';
+
                 
                 return (
                   <button
