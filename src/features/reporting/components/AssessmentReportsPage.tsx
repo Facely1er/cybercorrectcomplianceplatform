@@ -44,7 +44,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
   };
 
   const filteredAndSortedAssessments = useMemo(() => {
-    let filtered = savedAssessments.filter(assessment => {
+    const filtered = savedAssessments.filter(assessment => {
       const matchesSearch = assessment.frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
       const matchesFramework = filterFramework === 'all' || assessment.frameworkId === filterFramework;

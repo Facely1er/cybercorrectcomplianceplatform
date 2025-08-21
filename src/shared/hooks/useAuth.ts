@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useEffect } from 'react';
 import { Permission, ROLE_PERMISSIONS } from '../../lib/security';
 import { ENV } from '../../config/environment';
+import { loginValidation, signupValidation, validateAndSanitize } from '../../lib/productionValidation';
 import { 
   signUp as supabaseSignUp, 
   signIn as supabaseSignIn, 
@@ -191,15 +192,13 @@ export const useAuth = () => {
   };
 
   const signIn = useCallback(async (email: string, password: string) => {
-    // Input validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return { success: false, error: 'Invalid email format' };
+    // Production input validation
+    const validation = validateAndSanitize(loginValidation, { email, password });
+    if (!validation.success) {
+      return { success: false, error: validation.errors?.join(', ') || 'Invalid input' };
     }
     
-    if (password.length < 8) {
-      return { success: false, error: 'Password must be at least 8 characters' };
-    }
+    const { email: validatedEmail, password: validatedPassword } = validation.data!;
 
     if (!isSupabaseReady) {
       // Development mode with enhanced demo credentials
@@ -210,7 +209,7 @@ export const useAuth = () => {
       ];
       
       const isValidDemo = validDemoCredentials.some(
-        cred => cred.email === email.toLowerCase() && cred.password === password
+        cred => cred.email === validatedEmail && cred.password === validatedPassword
       );
       
       if (isValidDemo) {
@@ -227,10 +226,7 @@ export const useAuth = () => {
     try {
       setAuthState(prev => ({ ...prev, loading: true, error: null }));
       
-      // Sanitize email
-      const sanitizedEmail = email.toLowerCase().trim();
-      
-      const { data, error } = await supabaseSignIn(sanitizedEmail, password);
+      const { data, error } = await supabaseSignIn(validatedEmail, validatedPassword);
       
       if (error) {
         setAuthState(prev => ({ ...prev, loading: false, error: error.message }));

@@ -37,32 +37,59 @@ export const ENV = {
 
 // Validate required environment variables
 export const validateEnvironment = () => {
-  const requiredVars = [
-    'VITE_SUPABASE_URL',
-    'VITE_SUPABASE_ANON_KEY'
-  ];
+  const errors: string[] = [];
+  const warnings: string[] = [];
   
-  const productionOnlyVars = [
-    'VITE_SENTRY_DSN',
-    'VITE_JWT_SECRET'
-  ];
-  
-  const missing = requiredVars.filter(varName => !import.meta.env[varName]);
-  const missingProd = ENV.isProduction 
-    ? productionOnlyVars.filter(varName => !import.meta.env[varName])
-    : [];
-  
-  if (missing.length > 0) {
-    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  // Critical variables for Supabase
+  if (!ENV.SUPABASE_URL) {
+    errors.push('VITE_SUPABASE_URL is required for authentication');
+  } else if (!ENV.SUPABASE_URL.includes('supabase.co')) {
+    warnings.push('VITE_SUPABASE_URL should be a valid Supabase URL');
   }
   
-  if (missingProd.length > 0) {
-    console.warn(`Missing production environment variables: ${missingProd.join(', ')}`);
+  if (!ENV.SUPABASE_ANON_KEY) {
+    errors.push('VITE_SUPABASE_ANON_KEY is required for authentication');
+  } else if (ENV.SUPABASE_ANON_KEY.length < 100) {
+    warnings.push('VITE_SUPABASE_ANON_KEY appears to be invalid (too short)');
   }
   
-  // Validate JWT secret strength in production
-  if (ENV.isProduction && ENV.JWT_SECRET && ENV.JWT_SECRET.length < 32) {
-    throw new Error('JWT_SECRET must be at least 32 characters long in production');
+  // Production-specific validation
+  if (ENV.isProduction) {
+    if (!ENV.JWT_SECRET) {
+      errors.push('VITE_JWT_SECRET is required in production');
+    } else if (ENV.JWT_SECRET.length < 32) {
+      errors.push('VITE_JWT_SECRET must be at least 32 characters in production');
+    } else if (ENV.JWT_SECRET.includes('your-') || ENV.JWT_SECRET.includes('change-')) {
+      errors.push('VITE_JWT_SECRET must be changed from default value');
+    }
+    
+    if (!ENV.SENTRY_DSN) {
+      warnings.push('VITE_SENTRY_DSN recommended for production error monitoring');
+    }
+    
+    // Check for demo/default values in production
+    if (ENV.SUPABASE_URL.includes('your-project')) {
+      errors.push('VITE_SUPABASE_URL must be updated with your actual Supabase project URL');
+    }
+    
+    if (ENV.SUPABASE_ANON_KEY.includes('your-')) {
+      errors.push('VITE_SUPABASE_ANON_KEY must be updated with your actual Supabase anon key');
+    }
+  }
+  
+  // Log warnings
+  if (warnings.length > 0) {
+    console.warn('Environment warnings:', warnings);
+  }
+  
+  // Throw errors
+  if (errors.length > 0) {
+    throw new Error(`Environment configuration errors:\n${errors.map(e => `- ${e}`).join('\n')}`);
+  }
+  
+  // Success message
+  if (ENV.isProduction) {
+    console.log('✅ Production environment validation passed');
   }
 };
 

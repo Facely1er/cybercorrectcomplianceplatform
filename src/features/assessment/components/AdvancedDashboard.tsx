@@ -112,7 +112,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
   // Filter and sort assessments
   const filteredAndSortedAssessments = useMemo(() => {
-    let filtered = savedAssessments.filter(assessment => {
+    const filtered = savedAssessments.filter(assessment => {
       const matchesSearch = assessment.frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = filterStatus === 'all' || 

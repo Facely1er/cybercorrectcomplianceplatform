@@ -15,29 +15,33 @@ import { performanceMonitoring } from './lib/performanceMonitoring';
 import { enhancedDataService } from './services/enhancedDataService';
 import { assessmentService } from './services/assessmentService';
 import { ErrorState, EmptyState } from './shared/components/ui/LoadingStates';
-import { LandingPage } from './components/LandingPage';
-import { AssessmentIntroScreen } from './features/assessment/components/AssessmentIntroScreen';
-import { SignInPage } from './features/auth';
-import { AdvancedDashboard } from './features/assessment/components/AdvancedDashboard';
-import { RealTimeComplianceStatus } from './features/compliance/components/RealTimeComplianceStatus';
-import { EvidenceCollectionDashboard } from './features/evidence/components/EvidenceCollectionDashboard';
-import { AdvancedReportingDashboard } from './features/reporting/components/AdvancedReportingDashboard';
-import { AssessmentReportsPage } from './features/reporting/components/AssessmentReportsPage';
-import { TeamTrackingReport } from './features/reporting/components/TeamTrackingReport';
-import { ComplianceCalendarView } from './features/calendar/components/ComplianceCalendarView';
-import { PolicyManagementView } from './features/policies';
-import { ControlsManagementView } from './features/controls/components/ControlsManagementView';
-import { TeamCollaborationDashboard } from './features/collaboration/components/TeamCollaborationDashboard';
-import { TaskManagementDashboard } from './features/tasks/components/TaskManagementDashboard';
-import { AssetDashboard } from './features/assets/components/AssetDashboard';
-import { AssetInventoryView } from './features/assets/components/AssetInventoryView';
-import { AssetCreationForm } from './features/assets/components/AssetCreationForm';
-import { EnhancedAssessmentView } from './features/assessment/components/EnhancedAssessmentView';
-import { ReportView } from './features/reporting/components/ReportView';
-import { NistStandardCompliancePage, NistExtendedCompliancePage, CmmcCompliancePage, PrivacyCompliancePage } from './features/compliance';
-import { SettingsView } from './shared/components/ui/SettingsView';
-import { HelpView } from './shared/components/ui/HelpView';
-import { ProductionReadinessWidget } from './components/ProductionReadinessWidget';
+// Lazy load components for better code splitting
+const LandingPage = React.lazy(() => import('./components/LandingPage').then(m => ({ default: m.LandingPage })));
+const AssessmentIntroScreen = React.lazy(() => import('./features/assessment/components/AssessmentIntroScreen').then(m => ({ default: m.AssessmentIntroScreen })));
+const SignInPage = React.lazy(() => import('./features/auth').then(m => ({ default: m.SignInPage })));
+const AdvancedDashboard = React.lazy(() => import('./features/assessment/components/AdvancedDashboard').then(m => ({ default: m.AdvancedDashboard })));
+const RealTimeComplianceStatus = React.lazy(() => import('./features/compliance/components/RealTimeComplianceStatus').then(m => ({ default: m.RealTimeComplianceStatus })));
+const EvidenceCollectionDashboard = React.lazy(() => import('./features/evidence/components/EvidenceCollectionDashboard').then(m => ({ default: m.EvidenceCollectionDashboard })));
+const AdvancedReportingDashboard = React.lazy(() => import('./features/reporting/components/AdvancedReportingDashboard').then(m => ({ default: m.AdvancedReportingDashboard })));
+const AssessmentReportsPage = React.lazy(() => import('./features/reporting/components/AssessmentReportsPage').then(m => ({ default: m.AssessmentReportsPage })));
+const TeamTrackingReport = React.lazy(() => import('./features/reporting/components/TeamTrackingReport').then(m => ({ default: m.TeamTrackingReport })));
+const ComplianceCalendarView = React.lazy(() => import('./features/calendar/components/ComplianceCalendarView').then(m => ({ default: m.ComplianceCalendarView })));
+const PolicyManagementView = React.lazy(() => import('./features/policies').then(m => ({ default: m.PolicyManagementView })));
+const ControlsManagementView = React.lazy(() => import('./features/controls/components/ControlsManagementView').then(m => ({ default: m.ControlsManagementView })));
+const TeamCollaborationDashboard = React.lazy(() => import('./features/collaboration/components/TeamCollaborationDashboard').then(m => ({ default: m.TeamCollaborationDashboard })));
+const TaskManagementDashboard = React.lazy(() => import('./features/tasks/components/TaskManagementDashboard').then(m => ({ default: m.TaskManagementDashboard })));
+const AssetDashboard = React.lazy(() => import('./features/assets/components/AssetDashboard').then(m => ({ default: m.AssetDashboard })));
+const AssetInventoryView = React.lazy(() => import('./features/assets/components/AssetInventoryView').then(m => ({ default: m.AssetInventoryView })));
+const AssetCreationForm = React.lazy(() => import('./features/assets/components/AssetCreationForm').then(m => ({ default: m.AssetCreationForm })));
+const EnhancedAssessmentView = React.lazy(() => import('./features/assessment/components/EnhancedAssessmentView').then(m => ({ default: m.EnhancedAssessmentView })));
+const ReportView = React.lazy(() => import('./features/reporting/components/ReportView').then(m => ({ default: m.ReportView })));
+const NistStandardCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.NistStandardCompliancePage })));
+const NistExtendedCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.NistExtendedCompliancePage })));
+const CmmcCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.CmmcCompliancePage })));
+const PrivacyCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.PrivacyCompliancePage })));
+const SettingsView = React.lazy(() => import('./shared/components/ui/SettingsView').then(m => ({ default: m.SettingsView })));
+const HelpView = React.lazy(() => import('./shared/components/ui/HelpView').then(m => ({ default: m.HelpView })));
+const ProductionReadinessWidget = React.lazy(() => import('./components/ProductionReadinessWidget').then(m => ({ default: m.ProductionReadinessWidget })));
 import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
 import { assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage } from './shared/types';
@@ -680,7 +684,15 @@ function AppContent() {
       {/* Main Content */}
       <main id="main-content" role="main">
         <ErrorBoundary>
-          <Routes>
+          <React.Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-teal mx-auto mb-4"></div>
+                <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+              </div>
+            </div>
+          }>
+            <Routes>
             {/* Homepage */}
             <Route path="/" element={
               <ErrorBoundary>
@@ -963,7 +975,8 @@ function AppContent() {
                 onBack={() => navigate('/dashboard')}
               />
             } />
-          </Routes>
+            </Routes>
+          </React.Suspense>
         </ErrorBoundary>
       </main>
 

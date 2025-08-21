@@ -42,7 +42,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
 
   // Filter and sort assets
   const filteredAssets = React.useMemo(() => {
-    let filtered = assets.filter(asset => {
+    const filtered = assets.filter(asset => {
       // Search filter
       const searchLower = searchTerm.toLowerCase();
       const matchesSearch = asset.name.toLowerCase().includes(searchLower) ||
