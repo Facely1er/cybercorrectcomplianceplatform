@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { 
-  Search, Filter, Plus, Download, Upload, Eye, Edit3, Trash2,
+  Plus, Download, Upload, Eye, Edit3, Trash2,
   Shield, Server, Database, Users, Building, FileText, Cloud,
-  AlertTriangle, CheckCircle, Clock, Target, Settings,
-  ChevronDown, ChevronRight, BarChart3, Tag, MapPin
+  BarChart3
 } from 'lucide-react';
 import { Asset, AssetInventoryFilter, AssetCategory, CriticalityLevel, AssetStatus, InformationClassification } from '../../../shared/types/assets';
 import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
@@ -29,20 +28,17 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
   onCreateAsset,
   onExportAssets,
   onImportAssets,
-  onBack
 }) => {
   const { breadcrumbs } = useInternalLinking();
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<AssetInventoryFilter>({});
   const [sortBy, setSortBy] = useState<'name' | 'category' | 'criticality' | 'status' | 'lastReviewed'>('name');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
   const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
 
   // Filter and sort assets
   const filteredAssets = React.useMemo(() => {
-    let filtered = assets.filter(asset => {
+    const filtered = assets.filter(asset => {
       // Search filter
       const searchLower = searchTerm.toLowerCase();
       const matchesSearch = asset.name.toLowerCase().includes(searchLower) ||
@@ -76,32 +72,37 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     });
 
     // Sort assets
-    filtered.sort((a, b) => {
+    const sorted = [...filtered].sort((a, b) => {
       let comparison = 0;
       
       switch (sortBy) {
-        case 'name':
+        case 'name': {
           comparison = a.name.localeCompare(b.name);
           break;
-        case 'category':
+        }
+        case 'category': {
           comparison = a.category.localeCompare(b.category);
           break;
-        case 'criticality':
+        }
+        case 'criticality': {
           const criticalityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
           comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
           break;
-        case 'status':
+        }
+        case 'status': {
           comparison = a.status.localeCompare(b.status);
           break;
-        case 'lastReviewed':
+        }
+        case 'lastReviewed': {
           comparison = new Date(b.lastReviewed).getTime() - new Date(a.lastReviewed).getTime();
           break;
+        }
       }
       
-      return sortOrder === 'asc' ? comparison : -comparison;
+      return comparison;
     });
 
-    return filtered;
+    return sorted;
   }, [assets, searchTerm, filters, sortBy, sortOrder]);
 
   const getCategoryIcon = (category: AssetCategory) => {
@@ -146,12 +147,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     }
   };
 
-  const handleFilterChange = (filterType: keyof AssetInventoryFilter, value: any) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterType]: value
-    }));
-  };
+
 
   const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -321,7 +317,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           <div className="flex items-center space-x-3">
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+                                          onChange={(e) => setSortBy(e.target.value as 'name' | 'category' | 'criticality' | 'status' | 'lastReviewed')}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="name">Sort by Name</option>

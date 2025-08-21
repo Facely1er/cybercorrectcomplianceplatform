@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Asset } from '../../../shared/types/assets';
 import { AssetCreationForm } from './AssetCreationForm';
 

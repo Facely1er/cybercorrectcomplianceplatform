@@ -13,6 +13,7 @@ import {
   isSupabaseReady
 } from '../../lib/supabase';
 import { organizationService } from '../../services/organizationService';
+import { ENV } from '../../config/environment';
 
 interface AuthUser {
   id: string;
@@ -180,7 +181,10 @@ export const useAuth = () => {
 
   const signIn = useCallback(async (email: string, password: string) => {
     if (!isSupabaseReady) {
-      // Mock authentication for development
+      if (ENV.isProduction) {
+        return { success: false, error: 'Authentication not available in production' };
+      }
+      // Mock authentication for development only
       await loadUserData('demo-user-001');
       return { success: true, error: null };
     }
@@ -210,7 +214,10 @@ export const useAuth = () => {
 
   const signUp = useCallback(async (email: string, password: string, userData: any) => {
     if (!isSupabaseReady) {
-      // Mock sign up for development
+      if (ENV.isProduction) {
+        return { success: false, error: 'Authentication not available in production' };
+      }
+      // Mock sign up for development only
       await loadUserData('demo-user-001');
       return { success: true, error: null };
     }
@@ -241,6 +248,9 @@ export const useAuth = () => {
 
   const signOut = useCallback(async () => {
     if (!isSupabaseReady) {
+      if (ENV.isProduction) {
+        return { error: 'Authentication not available in production' };
+      }
       setAuthState({
         user: null,
         profile: null,

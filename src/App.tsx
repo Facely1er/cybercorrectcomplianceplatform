@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { 
   Shield, BarChart3, Settings, HelpCircle, Menu, X, Home, ChevronDown,
@@ -12,26 +12,31 @@ import { NotificationSystem } from './shared/components/ui/NotificationSystem';
 import { errorMonitoring } from './lib/errorMonitoring';
 import { performanceMonitoring } from './lib/performanceMonitoring';
 
-import { LandingPage } from './components/LandingPage';
-import { AssessmentIntroScreen } from './features/assessment/components/AssessmentIntroScreen';
-import { SignInPage } from './features/auth';
-import { AdvancedDashboard } from './features/assessment/components/AdvancedDashboard';
-import { RealTimeComplianceStatus } from './features/compliance/components/RealTimeComplianceStatus';
-import { EvidenceCollectionDashboard } from './features/evidence/components/EvidenceCollectionDashboard';
-import { AdvancedReportingDashboard } from './features/reporting/components/AdvancedReportingDashboard';
-import { AssessmentReportsPage } from './features/reporting/components/AssessmentReportsPage';
-import { TeamTrackingReport } from './features/reporting/components/TeamTrackingReport';
-import { ComplianceCalendarView } from './features/calendar/components/ComplianceCalendarView';
-import { PolicyManagementView } from './features/policies';
-import { ControlsManagementView } from './features/controls/components/ControlsManagementView';
-import { TeamCollaborationDashboard } from './features/collaboration/components/TeamCollaborationDashboard';
-import { TaskManagementDashboard } from './features/tasks/components/TaskManagementDashboard';
-import { AssetDashboard } from './features/assets/components/AssetDashboard';
-import { EnhancedAssessmentView } from './features/assessment/components/EnhancedAssessmentView';
-import { ReportView } from './features/reporting/components/ReportView';
-import { NistStandardCompliancePage, NistExtendedCompliancePage, CmmcCompliancePage, PrivacyCompliancePage } from './features/compliance';
-import { SettingsView } from './shared/components/ui/SettingsView';
-import { HelpView } from './shared/components/ui/HelpView';
+// Lazy load components for code splitting
+const LandingPage = lazy(() => import('./components/LandingPage').then(module => ({ default: module.LandingPage })));
+const AssessmentIntroScreen = lazy(() => import('./features/assessment/components/AssessmentIntroScreen').then(module => ({ default: module.AssessmentIntroScreen })));
+const SignInPage = lazy(() => import('./features/auth').then(module => ({ default: module.SignInPage })));
+const AdvancedDashboard = lazy(() => import('./features/assessment/components/AdvancedDashboard').then(module => ({ default: module.AdvancedDashboard })));
+const RealTimeComplianceStatus = lazy(() => import('./features/compliance/components/RealTimeComplianceStatus').then(module => ({ default: module.RealTimeComplianceStatus })));
+const EvidenceCollectionDashboard = lazy(() => import('./features/evidence/components/EvidenceCollectionDashboard').then(module => ({ default: module.EvidenceCollectionDashboard })));
+const AdvancedReportingDashboard = lazy(() => import('./features/reporting/components/AdvancedReportingDashboard').then(module => ({ default: module.AdvancedReportingDashboard })));
+const AssessmentReportsPage = lazy(() => import('./features/reporting/components/AssessmentReportsPage').then(module => ({ default: module.AssessmentReportsPage })));
+const TeamTrackingReport = lazy(() => import('./features/reporting/components/TeamTrackingReport').then(module => ({ default: module.TeamTrackingReport })));
+const ComplianceCalendarView = lazy(() => import('./features/calendar/components/ComplianceCalendarView').then(module => ({ default: module.ComplianceCalendarView })));
+const PolicyManagementView = lazy(() => import('./features/policies').then(module => ({ default: module.PolicyManagementView })));
+const ControlsManagementView = lazy(() => import('./features/controls/components/ControlsManagementView').then(module => ({ default: module.ControlsManagementView })));
+const TeamCollaborationDashboard = lazy(() => import('./features/collaboration/components/TeamCollaborationDashboard').then(module => ({ default: module.TeamCollaborationDashboard })));
+const TaskManagementDashboard = lazy(() => import('./features/tasks/components/TaskManagementDashboard').then(module => ({ default: module.TaskManagementDashboard })));
+const AssetDashboard = lazy(() => import('./features/assets/components/AssetDashboard').then(module => ({ default: module.AssetDashboard })));
+const EnhancedAssessmentView = lazy(() => import('./features/assessment/components/EnhancedAssessmentView').then(module => ({ default: module.EnhancedAssessmentView })));
+const ReportView = lazy(() => import('./features/reporting/components/ReportView').then(module => ({ default: module.ReportView })));
+const NistStandardCompliancePage = lazy(() => import('./features/compliance').then(module => ({ default: module.NistStandardCompliancePage })));
+const NistExtendedCompliancePage = lazy(() => import('./features/compliance').then(module => ({ default: module.NistExtendedCompliancePage })));
+const CmmcCompliancePage = lazy(() => import('./features/compliance').then(module => ({ default: module.CmmcCompliancePage })));
+const PrivacyCompliancePage = lazy(() => import('./features/compliance').then(module => ({ default: module.PrivacyCompliancePage })));
+const SettingsView = lazy(() => import('./shared/components/ui/SettingsView').then(module => ({ default: module.SettingsView })));
+const HelpView = lazy(() => import('./shared/components/ui/HelpView').then(module => ({ default: module.HelpView })));
+
 import { getFramework, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
 import { assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage, OrganizationInfo } from './shared/types';
@@ -39,6 +44,16 @@ import { Asset } from './shared/types/assets';
 import { dataService } from './services/dataService';
 import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
+
+// Loading component for Suspense fallback
+const LoadingSpinner: React.FC = () => (
+  <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-teal mx-auto mb-4"></div>
+      <p className="text-gray-600 dark:text-gray-300">Loading...</p>
+    </div>
+  </div>
+);
 
 // Assessment Wrapper Component
 const AssessmentWrapper: React.FC<{
@@ -466,14 +481,7 @@ function AppContent() {
   
   // Show loading screen while data loads
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin w-12 h-12 border-4 border-primary-teal border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading application data...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
@@ -662,27 +670,27 @@ function AppContent() {
           <Routes>
             {/* Homepage */}
             <Route path="/" element={
-              <ErrorBoundary>
+              <Suspense fallback={<LoadingSpinner />}>
                 <LandingPage />
-              </ErrorBoundary>
+              </Suspense>
             } />
             
             {/* Authentication */}
             <Route path="/signin" element={
-              <ErrorBoundary>
+              <Suspense fallback={<LoadingSpinner />}>
                 <SignInPage />
-              </ErrorBoundary>
+              </Suspense>
             } />
             
             {/* Assessment Flow */}
             <Route path="/assessment-intro" element={
-              <ErrorBoundary>
+              <Suspense fallback={<LoadingSpinner />}>
               <AssessmentIntroScreen
                 frameworks={assessmentFrameworks}
                 onStartAssessment={createAssessment}
                 onBack={() => navigate('/')}
               />
-              </ErrorBoundary>
+              </Suspense>
             } />
             
             {/* Specific Framework Assessment Routes */}
@@ -785,7 +793,7 @@ function AppContent() {
             
             {/* Dashboard */}
             <Route path="/dashboard" element={
-              <ErrorBoundary>
+              <Suspense fallback={<LoadingSpinner />}>
               <AdvancedDashboard
                 savedAssessments={savedAssessments}
                 onStartAssessment={startAssessment}
@@ -805,142 +813,178 @@ function AppContent() {
                 userProfile={null}
                 addNotification={addNotification}
               />
-              </ErrorBoundary>
+              </Suspense>
             } />
             
             {/* New Compliance Pages */}
             <Route path="/compliance/nist-standard" element={
-              <NistStandardCompliancePage />
+              <Suspense fallback={<LoadingSpinner />}>
+                <NistStandardCompliancePage />
+              </Suspense>
             } />
 
             <Route path="/compliance/nist-extended" element={
-              <NistExtendedCompliancePage />
+              <Suspense fallback={<LoadingSpinner />}>
+                <NistExtendedCompliancePage />
+              </Suspense>
             } />
 
             <Route path="/compliance/cmmc" element={
-              <CmmcCompliancePage />
+              <Suspense fallback={<LoadingSpinner />}>
+                <CmmcCompliancePage />
+              </Suspense>
             } />
 
             <Route path="/compliance/privacy" element={
-              <PrivacyCompliancePage />
+              <Suspense fallback={<LoadingSpinner />}>
+                <PrivacyCompliancePage />
+              </Suspense>
             } />
 
             {/* Existing Compliance Status page, now under /compliance/status */}
             <Route path="/compliance/status" element={
-              <RealTimeComplianceStatus
-                onViewDetails={() => addNotification('info', 'View details')}
-                onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <RealTimeComplianceStatus
+                  onViewDetails={() => addNotification('info', 'View details')}
+                  onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
+                />
+              </Suspense>
             } />
             {/* Implementation Pages */}
             <Route path="/compliance" element={
-              <RealTimeComplianceStatus
-                onViewDetails={() => addNotification('info', 'View details')}
-                onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <RealTimeComplianceStatus
+                  onViewDetails={() => addNotification('info', 'View details')}
+                  onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
+                />
+              </Suspense>
             } />
             
             <Route path="/evidence" element={
-              <EvidenceCollectionDashboard
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <EvidenceCollectionDashboard
+                  onBack={() => navigate('/dashboard')}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/policies" element={
-              <PolicyManagementView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <PolicyManagementView
+                  onBack={() => navigate('/dashboard')}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/controls" element={
-              <ControlsManagementView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <ControlsManagementView
+                  onBack={() => navigate('/dashboard')}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/team" element={
-              <TeamCollaborationDashboard
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <TeamCollaborationDashboard
+                  onBack={() => navigate('/dashboard')}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/tasks" element={
-              <TaskManagementDashboard
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <TaskManagementDashboard
+                  onBack={() => navigate('/dashboard')}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/calendar" element={
-              <ComplianceCalendarView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <ComplianceCalendarView
+                  onBack={() => navigate('/dashboard')}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/assets" element={
-              <AssetDashboard
-                assets={assets}
-                onViewAsset={() => addNotification('info', 'Asset view feature')}
-                onCreateAsset={() => addNotification('info', 'Asset creation feature coming soon')}
-                onViewInventory={() => addNotification('info', 'Asset inventory view')}
-                onViewCategories={() => addNotification('info', 'Asset categories view')}
-                onViewDependencies={() => addNotification('info', 'Asset dependencies view')}
-                onViewWorkflow={() => addNotification('info', 'Asset workflow view')}
-                onViewRoadmap={() => addNotification('info', 'Asset roadmap view')}
-                onViewActionPlan={() => addNotification('info', 'Asset action plan view')}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <AssetDashboard
+                  assets={assets}
+                  onViewAsset={() => addNotification('info', 'Asset view feature')}
+                  onCreateAsset={() => addNotification('info', 'Asset creation feature coming soon')}
+                  onViewInventory={() => addNotification('info', 'Asset inventory view')}
+                  onViewCategories={() => addNotification('info', 'Asset categories view')}
+                  onViewDependencies={() => addNotification('info', 'Asset dependencies view')}
+                  onViewWorkflow={() => addNotification('info', 'Asset workflow view')}
+                  onViewRoadmap={() => addNotification('info', 'Asset roadmap view')}
+                  onViewActionPlan={() => addNotification('info', 'Asset action plan view')}
+                />
+              </Suspense>
             } />
             
             <Route path="/reports" element={
-              <AssessmentReportsPage
-                savedAssessments={savedAssessments}
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportReport={(assessment, format) => {
-                  try {
-                    const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', `Report exported as ${format.toUpperCase()}`);
-                  } catch {
-                    addNotification('error', 'Failed to export report');
-                  }
-                }}
-                onStartAssessment={startAssessment}
-                userProfile={null}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <AssessmentReportsPage
+                  savedAssessments={savedAssessments}
+                  onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+                  onExportReport={(assessment, format) => {
+                    try {
+                      const framework = getFramework(assessment.frameworkId);
+                      reportService.exportReport(assessment, framework, { format });
+                      addNotification('success', `Report exported as ${format.toUpperCase()}`);
+                    } catch {
+                      addNotification('error', 'Failed to export report');
+                    }
+                  }}
+                  onStartAssessment={startAssessment}
+                  userProfile={null}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/reports/advanced" element={
-              <AdvancedReportingDashboard
-                savedAssessments={savedAssessments}
-                userProfile={null}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <AdvancedReportingDashboard
+                  savedAssessments={savedAssessments}
+                  userProfile={null}
+                  onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+                />
+              </Suspense>
             } />
             
             <Route path="/reports/team" element={
-              <TeamTrackingReport
-                onBack={() => navigate('/dashboard')}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <TeamTrackingReport
+                  onBack={() => navigate('/dashboard')}
+                  onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+                />
+              </Suspense>
             } />
             
             <Route path="/settings" element={
-              <SettingsView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <SettingsView
+                  onBack={() => navigate('/dashboard')}
+                  addNotification={addNotification}
+                />
+              </Suspense>
             } />
             
             <Route path="/help" element={
-              <HelpView
-                onBack={() => navigate('/dashboard')}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <HelpView
+                  onBack={() => navigate('/dashboard')}
+                />
+              </Suspense>
             } />
           </Routes>
         </ErrorBoundary>
