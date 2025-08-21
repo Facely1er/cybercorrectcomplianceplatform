@@ -11,15 +11,21 @@ export default defineConfig({
   
   build: {
     target: 'esnext',
-    minify: true,
-    sourcemap: false, // Disable in production for security
+    minify: 'terser',
+    sourcemap: false,
+    chunkSizeWarningLimit: 1200,
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
           ui: ['lucide-react'],
-          charts: ['chart.js', 'react-chartjs-2'],
-          utils: ['clsx', 'tailwind-merge']
+          charts: ['chart.js', 'react-chartjs-2']
         }
       }
     }
