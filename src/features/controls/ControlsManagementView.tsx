@@ -1052,4 +1052,3 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
     </div>
   );
 };
-```
