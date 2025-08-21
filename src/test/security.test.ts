@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import DOMPurify from 'dompurify';
+import { AssessmentResponseSchema } from '../lib/validation';
 
 describe('Security Tests', () => {
   describe('XSS Prevention', () => {
@@ -26,13 +27,10 @@ describe('Security Tests', () => {
     it('should validate assessment responses', () => {
       const validResponse = {
         questionId: 'q1',
-        value: 3,
-        notes: 'Implementation notes',
-        evidence: []
+        response: 3,
       };
-      
-      // Add Zod validation tests
-      expect(() => assessmentResponseSchema.parse(validResponse)).not.toThrow();
+
+      expect(() => AssessmentResponseSchema.parse(validResponse)).not.toThrow();
     });
   });
 
