@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useEffect } from 'react';
 import { Permission, ROLE_PERMISSIONS } from '../../lib/security';
+import { ENV } from '../../config/environment';
 import { 
   signUp as supabaseSignUp, 
   signIn as supabaseSignIn, 
@@ -85,28 +86,39 @@ export const useAuth = () => {
 
   const initializeAuth = async () => {
     if (!isSupabaseReady) {
-      // Use mock data for development
+      // Production: Require Supabase configuration
+      if (ENV.isProduction) {
+        setAuthState(prev => ({ 
+          ...prev, 
+          loading: false, 
+          error: 'Authentication service not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.' 
+        }));
+        return;
+      }
+      
+      // Development: Use demo data only in development
       setAuthState({
         user: {
           id: 'demo-user-001',
-          email: 'user@example.com',
+          email: 'demo@example.com',
           name: 'Demo User'
         },
         profile: {
           id: 'demo-user-001',
-          email: 'user@example.com',
+          email: 'demo@example.com',
           name: 'Demo User',
           organization: 'Demo Organization',
           role: 'admin',
           industry: 'Technology',
-          preferences: {}
+          preferences: {},
+          currentOrganizationId: 'demo-org-001'
         },
         loading: false,
         error: null,
         permissions: ROLE_PERMISSIONS.admin as string[],
         role: 'admin',
-        organizations: [],
-        currentOrganization: null
+        organizations: [{ id: 'demo-org-001', name: 'Demo Organization' }],
+        currentOrganization: { id: 'demo-org-001', name: 'Demo Organization' }
       });
       return;
     }
@@ -179,16 +191,46 @@ export const useAuth = () => {
   };
 
   const signIn = useCallback(async (email: string, password: string) => {
+    // Input validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return { success: false, error: 'Invalid email format' };
+    }
+    
+    if (password.length < 8) {
+      return { success: false, error: 'Password must be at least 8 characters' };
+    }
+
     if (!isSupabaseReady) {
-      // Mock authentication for development
-      await loadUserData('demo-user-001');
-      return { success: true, error: null };
+      // Development mode with enhanced demo credentials
+      const validDemoCredentials = [
+        { email: 'demo@example.com', password: 'Demo123!@#' },
+        { email: 'admin@demo.com', password: 'Admin123!@#' },
+        { email: 'user@demo.com', password: 'User123!@#' }
+      ];
+      
+      const isValidDemo = validDemoCredentials.some(
+        cred => cred.email === email.toLowerCase() && cred.password === password
+      );
+      
+      if (isValidDemo) {
+        await loadUserData('demo-user-001');
+        return { success: true, error: null };
+      } else {
+        return { 
+          success: false, 
+          error: 'Invalid credentials. Demo accounts: demo@example.com/Demo123!@#, admin@demo.com/Admin123!@#, user@demo.com/User123!@#' 
+        };
+      }
     }
 
     try {
       setAuthState(prev => ({ ...prev, loading: true, error: null }));
       
-      const { data, error } = await supabaseSignIn(email, password);
+      // Sanitize email
+      const sanitizedEmail = email.toLowerCase().trim();
+      
+      const { data, error } = await supabaseSignIn(sanitizedEmail, password);
       
       if (error) {
         setAuthState(prev => ({ ...prev, loading: false, error: error.message }));
@@ -196,6 +238,12 @@ export const useAuth = () => {
       }
 
       if (data.user) {
+        // Check if email is verified in production
+        if (ENV.isProduction && !data.user.email_confirmed_at) {
+          setAuthState(prev => ({ ...prev, loading: false, error: 'Please verify your email before signing in' }));
+          return { success: false, error: 'Please verify your email before signing in' };
+        }
+        
         await loadUserData(data.user.id);
         return { success: true, error: null };
       }
@@ -204,6 +252,7 @@ export const useAuth = () => {
     } catch (error: any) {
       const errorMessage = error.message || 'Authentication failed';
       setAuthState(prev => ({ ...prev, loading: false, error: errorMessage }));
+      console.error('Sign in error:', error);
       return { success: false, error: errorMessage };
     }
   }, []);
