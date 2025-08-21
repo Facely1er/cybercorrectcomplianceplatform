@@ -42,10 +42,27 @@ export const validateEnvironment = () => {
     'VITE_SUPABASE_ANON_KEY'
   ];
   
-  const missing = requiredVars.filter(varName => !import.meta.env[varName]);
+  const productionOnlyVars = [
+    'VITE_SENTRY_DSN',
+    'VITE_JWT_SECRET'
+  ];
   
-  if (missing.length > 0 && ENV.isProduction) {
+  const missing = requiredVars.filter(varName => !import.meta.env[varName]);
+  const missingProd = ENV.isProduction 
+    ? productionOnlyVars.filter(varName => !import.meta.env[varName])
+    : [];
+  
+  if (missing.length > 0) {
     throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+  }
+  
+  if (missingProd.length > 0) {
+    console.warn(`Missing production environment variables: ${missingProd.join(', ')}`);
+  }
+  
+  // Validate JWT secret strength in production
+  if (ENV.isProduction && ENV.JWT_SECRET && ENV.JWT_SECRET.length < 32) {
+    throw new Error('JWT_SECRET must be at least 32 characters long in production');
   }
 };
 
