@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { 
   ChevronLeft, Save, Edit3, X, Shield, AlertTriangle, 
-  CheckCircle, Clock, Users, MapPin, Settings, FileText,
-  Server, Database, Building, Cloud, Tag, Calendar,
-  Eye, Download, Plus, Trash2, Link2, Target
+  CheckCircle, Users, MapPin, FileText,
+  Server, Database, Building, Cloud, Plus, Trash2, Link2, Target
 } from 'lucide-react';
-import { Asset, SecurityControl, AssetDependency, Vulnerability } from '../../../shared/types/assets';
+import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
@@ -173,7 +172,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'overview' | 'details' | 'security' | 'compliance' | 'evidence' | 'dependencies' | 'vulnerabilities' | 'risk')}
                 className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
@@ -237,7 +236,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         {isEditing ? (
                           <select
                             value={editedAsset.category}
-                            onChange={(e) => setEditedAsset(prev => ({ ...prev, category: e.target.value as any }))}
+                            onChange={(e) => setEditedAsset(prev => ({ ...prev, category: e.target.value as Asset['category'] }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           >
                             <option value="hardware">Hardware</option>
@@ -261,7 +260,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         {isEditing ? (
                           <select
                             value={editedAsset.criticality}
-                            onChange={(e) => setEditedAsset(prev => ({ ...prev, criticality: e.target.value as any }))}
+                            onChange={(e) => setEditedAsset(prev => ({ ...prev, criticality: e.target.value as Asset['criticality'] }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           >
                             <option value="critical">Critical</option>
@@ -292,7 +291,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       {isEditing ? (
                         <select
                           value={editedAsset.informationClassification}
-                          onChange={(e) => setEditedAsset(prev => ({ ...prev, informationClassification: e.target.value as any }))}
+                                                      onChange={(e) => setEditedAsset(prev => ({ ...prev, informationClassification: e.target.value as Asset['informationClassification'] }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         >
                           <option value="public">Public</option>
@@ -357,7 +356,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       {isEditing ? (
                         <select
                           value={editedAsset.status}
-                          onChange={(e) => setEditedAsset(prev => ({ ...prev, status: e.target.value as any }))}
+                                                      onChange={(e) => setEditedAsset(prev => ({ ...prev, status: e.target.value as Asset['status'] }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         >
                           <option value="active">Active</option>

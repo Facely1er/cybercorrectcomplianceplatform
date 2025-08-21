@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Asset, AssetRelationship, AssetDependency } from '../../../shared/types/assets';
+import { Asset, AssetRelationship } from '../../../shared/types/assets';
 import { validateAndSanitize, AssetSchema } from '../../../lib/validation';
 import { dataService } from '../../../services/dataService';
 
@@ -36,7 +36,7 @@ export const useAssetManagement = () => {
       
       // Load relationships (keeping existing logic for now)
       const savedRelationships = localStorage.getItem('asset-relationships');
-      relationships = savedRelationships ? JSON.parse(savedRelationships).map((rel: any) => ({
+              relationships = savedRelationships ? JSON.parse(savedRelationships).map((rel: AssetRelationship) => ({
         ...rel,
         createdAt: new Date(rel.createdAt)
       })) : [];
@@ -60,8 +60,7 @@ export const useAssetManagement = () => {
   const saveAsset = useCallback(async (asset: Asset) => {
     try {
       // Validate and sanitize asset data
-      const validatedAsset = validateAndSanitize(AssetSchema, asset);
-      const isUpdate = state.assets.some(a => a.id === asset.id);
+      validateAndSanitize(AssetSchema, asset);
       
       // Store previous values for audit
       const previousAsset = state.assets.find(a => a.id === asset.id);

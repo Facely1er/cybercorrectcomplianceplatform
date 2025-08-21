@@ -1,11 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Plus, Search, Filter, Download, Upload, BarChart3, 
-  Calendar, Clock, CheckCircle, AlertCircle, TrendingUp,
-  FileText, Users, Shield, Target, Eye, Trash2, Edit3,
-  Activity, Star, Flag, Bookmark, PieChart as PieChartIcon,
-  Settings, RefreshCw, Bell, ArrowUp, ArrowDown, Info, Award, Zap, Building,
+  Plus, Search, CheckCircle, AlertCircle, TrendingUp,
+  FileText, Shield, Target, Eye, Trash2,
+  Activity, Star, ArrowUp, ArrowDown, Info, Building,
   ScrollText
 } from 'lucide-react';
 
@@ -36,7 +34,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   onDeleteAssessment,
   onGenerateReport,
   onExportAssessment,
-  onImportAssessment,
+
   userProfile,
   addNotification
 }) => {
@@ -45,7 +43,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const [filterRisk, setFilterRisk] = useState('all');
   const [sortBy, setSortBy] = useState<'date' | 'score' | 'name' | 'progress'>('date');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
   const [selectedAssessments, setSelectedAssessments] = useState<string[]>([]);
   
@@ -140,11 +138,12 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         case 'name':
           comparison = a.frameworkName.localeCompare(b.frameworkName);
           break;
-        case 'progress':
+        case 'progress': {
           const progressA = Object.keys(a.responses).length;
           const progressB = Object.keys(b.responses).length;
           comparison = progressB - progressA;
           break;
+        }
       }
       
       return sortOrder === 'asc' ? -comparison : comparison;
@@ -574,7 +573,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => setSortBy(e.target.value as 'date' | 'score' | 'name' | 'progress')}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="date">Sort by Date</option>

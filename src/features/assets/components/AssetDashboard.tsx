@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { 
   Shield, BarChart3, AlertTriangle, CheckCircle, Target,
   Server, Database, Users, Building, FileText, Cloud,
-  TrendingUp, TrendingDown, Clock, RefreshCw, Plus,
-  Filter, Search, Download, Upload, Eye, Settings, Calendar,
-  CheckSquare, ArrowRight, Map, ChevronLeft
+  Clock, Plus, Download, Upload, Eye, Calendar,
+  CheckSquare, ChevronLeft
 } from 'lucide-react';
 import { Asset, AssetMetrics } from '../../../shared/types/assets';
 import { PieChart } from '../../../shared/components/charts/PieChart';
@@ -35,12 +34,9 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
   onViewInventory,
   onViewCategories,
   onViewDependencies,
-  onViewWorkflow,
-  onViewRoadmap,
-  onViewActionPlan,
-  className = ''
+
 }) => {
-  const [selectedTimeframe, setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('30d');
+
   const [showImportModal, setShowImportModal] = useState(false);
   const [importFile, setImportFile] = useState<File | null>(null);
   const [importStatus, setImportStatus] = useState<'idle' | 'importing' | 'success' | 'error'>('idle');
@@ -196,7 +192,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
         }
 
         // Process imported assets
-        const processedAssets = importedData.assets.map((asset: any) => ({
+        const processedAssets = importedData.assets.map((asset: Partial<Asset>) => ({
           ...asset,
           id: asset.id || Date.now().toString() + Math.random().toString(36).substr(2, 9),
           createdAt: asset.createdAt ? new Date(asset.createdAt) : new Date(),
@@ -211,7 +207,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
         }));
 
         // Save imported assets using existing handlers
-        processedAssets.forEach((asset: any) => {
+        processedAssets.forEach(() => {
           // This would call the parent component's asset creation handler
           onCreateAsset();
         });

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { 
-  Upload, FileText, Image, Shield, Award, AlertCircle, 
-  CheckCircle, Calendar, User, Tag, Eye, Trash2, Link,
-  Plus, Search, Filter, Download, ExternalLink, Clock,
-  Star, Flag, Archive, RefreshCw
+  Upload, FileText, Image, Shield, Award, 
+  CheckCircle, Calendar, User, Eye, Trash2, Link,
+  Star
 } from 'lucide-react';
 import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
 

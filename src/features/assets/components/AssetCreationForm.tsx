@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Save, X, Shield, Server, Database, Users, Building, 
-  FileText, Cloud, MapPin, Tag, Calendar, AlertTriangle, 
-  Info, Lock, Eye, Globe, Key, Award
+  Save, X, Info, Lock, Award
 } from 'lucide-react';
 import { 
   Asset, 
@@ -139,27 +137,18 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
     onSubmit(newAsset);
   };
 
-  const categoryOptions: { value: AssetCategory; label: string; icon: any }[] = [
-    { value: 'hardware', label: 'Hardware', icon: Server },
-    { value: 'software', label: 'Software', icon: Database },
-    { value: 'data', label: 'Data', icon: FileText },
-    { value: 'personnel', label: 'Personnel', icon: Users },
-    { value: 'facilities', label: 'Facilities', icon: Building },
-    { value: 'services', label: 'Services', icon: Cloud },
-    { value: 'documents', label: 'Documents', icon: FileText },
-    { value: 'intellectual-property', label: 'Intellectual Property', icon: Shield }
+  const categoryOptions: { value: AssetCategory; label: string }[] = [
+    { value: 'hardware', label: 'Hardware' },
+    { value: 'software', label: 'Software' },
+    { value: 'data', label: 'Data' },
+    { value: 'personnel', label: 'Personnel' },
+    { value: 'facilities', label: 'Facilities' },
+    { value: 'services', label: 'Services' },
+    { value: 'documents', label: 'Documents' },
+    { value: 'intellectual-property', label: 'Intellectual Property' }
   ];
 
-  const typeOptions: Record<AssetCategory, AssetType[]> = {
-    'hardware': ['server', 'workstation', 'network-device', 'mobile-device'],
-    'software': ['application', 'database', 'operating-system'],
-    'data': ['personal-data', 'business-data', 'financial-data'],
-    'personnel': ['employee', 'contractor', 'vendor'],
-    'facilities': ['building', 'room'],
-    'services': ['cloud-service', 'saas-application'],
-    'documents': ['policy', 'procedure'],
-    'intellectual-property': ['patent', 'trademark']
-  };
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
@@ -320,7 +309,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     ...prev, 
                     dataClassification: { 
                       ...prev.dataClassification, 
-                      sensitivityLevel: e.target.value as any 
+                      sensitivityLevel: e.target.value as 'low' | 'medium' | 'high' | 'critical' 
                     } 
                   }))}
                   className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -342,7 +331,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     ...prev, 
                     dataClassification: { 
                       ...prev.dataClassification, 
-                      accessRestrictions: e.target.value as any 
+                      accessRestrictions: e.target.value as 'public' | 'standard' | 'restricted' | 'highly-restricted' 
                     } 
                   }))}
                   className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"

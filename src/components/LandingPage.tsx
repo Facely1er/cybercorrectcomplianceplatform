@@ -1,12 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Shield, Target, BarChart3, FileText, Users, Calendar,
-  CheckCircle, ArrowRight, Play, TrendingUp, Award,
-  Zap, Star, Activity, Globe, Lock, Building,
-  Eye, Database, FileSearch, Scale, FileCheck,
-  Clock, DollarSign, Briefcase, HelpCircle, Settings,
-  Mail, ExternalLink
+  Shield, Target, BarChart3, FileText, Calendar,
+  CheckCircle, ArrowRight, Activity, Building,
+  Eye, Database, Scale, Briefcase, HelpCircle, Settings
 } from 'lucide-react';
 
 // Text Carousel Component
@@ -302,7 +299,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {compliancePaths.map((path, index) => (
+            {compliancePaths.map((path) => (
               <div key={path.id} className="card-enhanced rounded-2xl p-8 group hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                 <div className="flex items-center justify-center mb-6">
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${path.color} flex items-center justify-center shadow-glow`}>
@@ -370,7 +367,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {keyFeatures.map((feature, index) => (
+            {keyFeatures.map((feature) => (
               <div key={index} className="card-enhanced rounded-2xl p-8 group">
                 <div className="flex items-center justify-center w-12 h-12 bg-primary-teal/10 dark:bg-dark-primary/20 rounded-xl mb-6 group-hover:bg-primary-teal/20 dark:group-hover:bg-dark-primary/30 transition-colors duration-300">
                   <feature.icon className="w-6 h-6 text-primary-teal dark:text-dark-primary" />
@@ -432,7 +429,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            {personas.map((persona, index) => (
+            {personas.map((persona) => (
               <div key={persona.id} className="card-enhanced rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                 <div className="flex items-start space-x-6">
                   <div className={`w-16 h-16 bg-gradient-to-br ${persona.color} rounded-2xl flex items-center justify-center shadow-glow flex-shrink-0`}>
@@ -518,7 +515,7 @@ export const LandingPage: React.FC = () => {
               </p>
               
               <div className="space-y-4">
-                {benefits.map((benefit, index) => (
+                {benefits.map((benefit) => (
                   <div key={index} className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-success-green dark:text-dark-success flex-shrink-0" />
                     <span className="text-gray-700 dark:text-dark-text">{benefit}</span>

@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
-  ChevronLeft, ChevronRight, Save, Eye, EyeOff, BookOpen, 
-  MessageSquare, FileText, CheckCircle, AlertTriangle, Info,
-  Clock, Target, Award, BarChart3, TrendingUp, Star, Flag,
-  Bookmark, Share2, Download, Upload, RefreshCw, Settings,
-  Home, HelpCircle, Lightbulb, ArrowRight, Plus, Minus
+  ChevronLeft, ChevronRight, Save, CheckCircle, AlertTriangle
 } from 'lucide-react';
 
-import { AssessmentData, Framework, Question, Section, Category } from '../../../shared/types';
+import { AssessmentData, Question } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -31,7 +27,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
   
   const [currentResponses, setCurrentResponses] = useState(assessment.responses);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showGuidance, setShowGuidance] = useState(true);
+
   const [notes, setNotes] = useState(assessment.questionNotes || {});
   const [lastSaved, setLastSaved] = useState<Date>(new Date());
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -99,25 +95,9 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
     }
   };
 
-  const getResponseLabel = (value: number) => {
-    switch (value) {
-      case 0: return 'Not Implemented';
-      case 1: return 'Partially Implemented';
-      case 2: return 'Largely Implemented';
-      case 3: return 'Fully Implemented';
-      default: return 'Not Answered';
-    }
-  };
 
-  const getResponseColor = (value: number) => {
-    switch (value) {
-      case 0: return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
-      case 1: return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
-      case 2: return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
-      case 3: return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
-      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
-    }
-  };
+
+
 
   if (!currentQuestion) {
     return (

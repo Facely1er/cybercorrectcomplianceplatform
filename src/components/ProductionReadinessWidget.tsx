@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Shield, AlertTriangle, CheckCircle, Info, X, 
-  Monitor, Database, Lock, Zap, BarChart3, Clock
+  Monitor, BarChart3
 } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';

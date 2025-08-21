@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 interface NavItem {
   label: string;
   href?: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   children?: NavItem[];
   description?: string;
 }
@@ -20,7 +20,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
   className = '' 
 }) => {
   const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
-  const [focusedItem, setFocusedItem] = useState<string | null>(null);
+
   const location = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
 
