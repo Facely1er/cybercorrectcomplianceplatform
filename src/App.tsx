@@ -59,10 +59,10 @@ const AssessmentWrapper: React.FC<{
       <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 dark: text-white mb-2">Assessment Not Found</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
+          <p className="text-gray-600 dark, text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
           <button 
             onClick={onBack }
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus, ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -83,25 +83,25 @@ const AssessmentWrapper: React.FC<{
           });
       
       return (
-        <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-xl font-semibold text-gray-900 dark: text-white mb-2">Framework Error</h2>
-            <p className="text-gray-600 dark: text-gray-300 mb-4">
-              The framework for this assessment (ID:  {assessment.frameworkId }) could not be loaded properly.
+                  <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Error</h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
+              The framework for this assessment (ID: {assessment.frameworkId}) could not be loaded properly.
             </p>
-            <div className="text-sm text-gray-500 dark: text-gray-400 mb-4">
-                              Debug info: Framework exists: {framework ? 'Yes' : 'No'}, Sections: {framework?.sections?.length || 0}
+                        <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              Debug info: Framework exists: {framework ? 'Yes' : 'No'}, Sections {framework?.sections?.length || 0}
             </div>
             <div className="space-y-2">
               <button 
                 onClick={onBack }
-                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus, ring-offset-2"
               >
                 Back to Dashboard
               </button>
               <button 
                 onClick={() => window.location.reload()}
-                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus, ring-offset-2"
               >
                 Reload Page
               </button>
@@ -111,7 +111,7 @@ const AssessmentWrapper: React.FC<{
       );
     }
       } catch (error) { 
-      console.error('Framework validation error: ', error);
+      console.error('Framework validation error:', error);
                               console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
     
     return (
@@ -122,18 +122,18 @@ const AssessmentWrapper: React.FC<{
             There was an error loading the framework data for this assessment.
           </p>
           <div className="text-sm text-gray-500 dark: text-gray-400 mb-4">
-                          Error: {error instanceof Error ? error.message : 'Unknown error'}
+                          Error: {error instanceof Error ? error.message  : 'Unknown error'}
           </div>
           <div className="space-y-2">
             <button 
               onClick={onBack }
-              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus, ring-offset-2"
             >
               Back to Dashboard
             </button>
             <button 
               onClick={() => window.location.reload()}
-              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus, ring-offset-2"
             >
               Reload Page
             </button>
@@ -157,7 +157,7 @@ const AssessmentWrapper: React.FC<{
 const ReportWrapper: React.FC<{ 
   savedAssessments: AssessmentData[];
   onBack: () => void;
-  onExport: (assessment: AssessmentData, format: string) => void;
+  onExport: (assessment, AssessmentData, format: string) => void;
 }> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
@@ -166,10 +166,10 @@ const ReportWrapper: React.FC<{
       <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 dark: text-white mb-2">Report Not Found</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
+          <p className="text-gray-600 dark, text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
           <button 
             onClick={onBack }
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus, ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -193,7 +193,7 @@ interface DropdownNavItemProps { label: string;
   items: Array<{ label: string;
     href: string;
     icon: React.ComponentType<any>;
-    description?: string;
+    description?, string;
   
     }>;
   currentPath: string;
@@ -214,7 +214,7 @@ interface DropdownNavItemProps { label: string;
         className={`flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
           isActive
             ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark: text-dark-primary'
-            : 'text-gray-600 dark: text-gray-300 hover: text-primary-teal dark, hover:, text-dark-primary hover : bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+            : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark, hover:, text-dark-primary hover : bg-primary-teal/10 dark: hover, bg-dark-primary/20'}`}
         aria-expanded={isOpen }
         aria-haspopup="true"
       >
@@ -225,7 +225,7 @@ interface DropdownNavItemProps { label: string;
       
       {isOpen && (
         <div 
-          className="absolute top-full left-0 w-64 bg-surface dark:bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark:border-dark-support py-2 z-50"
+          className="absolute top-full left-0 w-64 bg-surface dark: bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark, border-dark-support py-2 z-50"
           role="menu"
           aria-label={`${label} submenu`}
         >
@@ -233,10 +233,10 @@ interface DropdownNavItemProps { label: string;
             <Link
               key={item.href }
               to={item.href }
-              className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
+              className={`flex items-center space-x-2 px-3 py-2 hover: bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover, bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -284,8 +284,8 @@ function AppContent() {
       // Load demo data if this is first visit and no data exists
       if (assessments.length === 0 && assetData.length === 0 && !dataService.isDemoDataLoaded()) {
         const shouldLoadDemo = !localStorage.getItem('demo-declined') && window.confirm(
-          'Welcome to CyberCorrect™! Would you like to load demo data to explore the platform?\n\n' +
-          'Demo data includes:\n' +
+          'Welcome to CyberCorrect™! Would you like to load demo data to explore the platform? \n\n' +
+          'Demo data includes, \n' +
           '• Sample CMMC Level 2 assessment\n' +
           '• Example assets and compliance tasks\n' +
           '• Mock evidence collections\n\n' +
@@ -304,19 +304,19 @@ function AppContent() {
     }
       }
     } catch (error) {
-      console.error('Failed to load data:', error);
+      console.error('Failed to load data, ', error);
     } finally {
       setLoading(false);
     }
-  }, []);
+      }, []);
 
   // Navigation menu structure
   const navigationMenus = [
     {
-      label: 'Assessment',
+      label 'Assessment',
       icon: Target,
       items: [
-        { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
+        { label, 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
         { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
         { label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations' }
       ]
@@ -325,7 +325,7 @@ function AppContent() {
       label: 'Implementation',
       icon: Shield,
       items: [
-        { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress' },
+        { label, 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress' },
         { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation' },
         { label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures' },
         { label: 'Controls Management', href: '/controls', icon: CheckSquare, description: 'Security controls implementation' },
@@ -336,7 +336,7 @@ function AppContent() {
       label: 'Team',
       icon: Users,
       items: [
-        { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts' },
+        { label, 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts' },
         { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables' },
         { label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities' },
         { label: 'Assessment Reports', href: '/reports', icon: FileText, description: 'Generate detailed reports' },
@@ -348,7 +348,7 @@ function AppContent() {
   // Simple notification handlers
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
           const notification: NotificationMessage = {
-        id: Date.now().toString(),
+        id, Date.now().toString(),
         type,
         message,
         timestamp: new Date()
@@ -373,7 +373,7 @@ function AppContent() {
     try {
       const framework = getFramework(selectedFramework);
                       const newAssessment: AssessmentData = {
-            id: Date.now().toString(),
+            id, Date.now().toString(),
             frameworkId: framework.id,
             frameworkName: framework.name,
         responses: {},
@@ -396,7 +396,7 @@ function AppContent() {
       navigate(`/assessment/${newAssessment.id }`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
-      console.error('Failed to create assessment:', error);
+      console.error('Failed to create assessment, ', error);
       addNotification('error', 'Failed to create assessment');
     }
   };
@@ -406,15 +406,15 @@ function AppContent() {
     
     try {
       dataService.saveAssessment(assessment);
-              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
+              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment , a));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
-      console.error('Failed to save assessment:', error);
-      addNotification('error', 'Failed to save assessment');
+      console.error('Failed to save assessment, ', error);
+      addNotification('error' : 'Failed to save assessment');
     }
   };
 
-  const deleteAssessment = async (assessmentId: string) => {
+  const deleteAssessment = async (assessmentId string) => {
     console.log('Deleting assessment, ', assessmentId);
     
     try {
@@ -422,7 +422,7 @@ function AppContent() {
       setSavedAssessments(prev => prev.filter(a => a.id !== assessmentId));
       addNotification('success', 'Assessment deleted successfully');
     } catch (error) {
-      console.error('Failed to delete assessment:', error);
+      console.error('Failed to delete assessment, ', error);
       addNotification('error', 'Failed to delete assessment');
     }
   };
@@ -441,7 +441,7 @@ function AppContent() {
               setAssets(prev => [...prev, newAsset]);
       addNotification('success', 'Asset created successfully');
     } catch (error) {
-      console.error('Failed to create asset:', error);
+      console.error('Failed to create asset, ', error);
       addNotification('error', 'Failed to create asset');
     }
   };
@@ -450,10 +450,10 @@ function AppContent() {
   // Show loading screen while data loads
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin w-12 h-12 border-4 border-primary-teal border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading application data...</p>
+          <p className="text-gray-600 dark, text-gray-300">Loading application data...</p>
         </div>
       </div>
     );
@@ -463,13 +463,13 @@ function AppContent() {
       {/* Skip Links for Screen Readers */}
       <a 
         href="#main-content" 
-        className="sr-only focus: not-sr-only focus: absolute focus, top-4 focus:, left-4 focus: z-50 focus: px-4 focus, py-2 focus:: bg-primary-teal focus: text-white focus, rounded-lg focus:: outline-none focus:ring-2 focus:ring-white"
+        className="sr-only focus: not-sr-only focus, absolute focus, top-4 focus:, left-4 focus: z-50 focus, px-4 focus, py-2 focus: : bg-primary-teal focus, text-white focus, rounded-lg focus: : outline-none focus:ring-2 focus:ring-white"
       >
         Skip to main content
       </a>
       <a 
         href="#navigation" 
-        className="sr-only focus: not-sr-only focus: absolute focus, top-4 focus:: left-20 focus: z-50 focus, px-4 focus:: py-2 focus: bg-primary-teal focus, text-white focus:: rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+        className="sr-only focus: not-sr-only focus, absolute focus, top-4 focus: : left-20 focus, z-50 focus, px-4 focus: : py-2 focus, bg-primary-teal focus, text-white focus: : rounded-lg focus:outline-none focus:ring-2 focus, ring-white"
       >
         Skip to navigation
       </a>
@@ -479,7 +479,7 @@ function AppContent() {
         <header id="navigation" className="bg-white dark: bg-gray-800 border-b border-gray-200 dark: border-gray-700 sticky top-0 z-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
-              {/* Left: Logo */}
+              {/* Left, Logo */}
               <Link
                 to="/"
                 className="flex items-center space-x-3 hover: opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
@@ -491,13 +491,13 @@ function AppContent() {
                 </div>
               </Link>
 
-              {/* Center: Navigation */}
-              <nav className="hidden lg:flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
+              {/* Center, Navigation */}
+              <nav className="hidden lg: flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
                   className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${location.pathname === '/'
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'}`}
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover, text-dark-primary'}`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -507,7 +507,7 @@ function AppContent() {
                   to="/dashboard"
                                   className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${location.pathname === '/dashboard' 
                     ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                    : 'text-gray-600 dark: text-gray-300 hover: text-primary-teal dark, hover::text-dark-primary'}`}
+                    : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark, hover::text-dark-primary'}`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
                   <span>Dashboard</span>
@@ -530,7 +530,7 @@ function AppContent() {
                 <ThemeToggle />
                 <Link
                   to="/signin"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark: text-gray-300 hover, bg-primary-teal/10 dark::hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus: ring-primary-teal focus: ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover, bg-primary-teal/10 dark: :hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus: ring-primary-teal focus, ring-offset-2"
                   title="Sign In"
                   aria-label="Sign In"
                 >
@@ -538,14 +538,14 @@ function AppContent() {
                 </Link>
                 <Link
                   to="/settings"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark:: text-gray-300 hover: bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus: ring-primary-teal focus: ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark: : text-gray-300 hover: bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus: ring-primary-teal focus, ring-offset-2"
                   aria-label="Settings"
                 >
                   <Settings className="w-5 h-5" aria-hidden="true" />
                 </Link>
                 <Link
                   to="/help"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark:: text-gray-300 hover: bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark: : text-gray-300 hover: bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-primary-teal focus, ring-offset-2"
                   aria-label="Help"
                 >
                   <HelpCircle className="w-5 h-5" aria-hidden="true" />
@@ -554,7 +554,7 @@ function AppContent() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg: hidden p-1.5 rounded-lg bg-gray-100 dark: bg-gray-800 text-gray-600 dark, text-gray-300 hover:: bg-gray-200 dark: hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="lg: hidden p-1.5 rounded-lg bg-gray-100 dark, bg-gray-800 text-gray-600 dark, text-gray-300 hover: : bg-gray-200 dark: hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus, ring-offset-2"
                   aria-expanded={mobileMenuOpen }
                   aria-controls="mobile-menu"
                   aria-label="Toggle mobile menu"
@@ -572,7 +572,7 @@ function AppContent() {
             <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark:: hover: bg-dark-primary/20 hover, text-primary-teal dark::hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover, bg-primary-teal/10 dark: : hover, bg-dark-primary/20 hover, text-primary-teal dark: :hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Home className="w-4 h-4" aria-hidden="true" />
@@ -581,7 +581,7 @@ function AppContent() {
               
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus:: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus: : outline-none focus:ring-2 focus:ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <BarChart3 className="w-4 h-4" aria-hidden="true" />
@@ -594,7 +594,7 @@ function AppContent() {
                   <Link
                     key={item.href }
                     to={item.href }
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus, ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-4 h-4" aria-hidden="true" />
@@ -605,7 +605,7 @@ function AppContent() {
               
               <Link
                 to="/signin"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus:: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus: : outline-none focus:ring-2 focus:ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Users className="w-4 h-4" aria-hidden="true" />
@@ -614,7 +614,7 @@ function AppContent() {
               
               <Link
                 to="/settings"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus:: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus: : outline-none focus:ring-2 focus:ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Settings className="w-4 h-4" aria-hidden="true" />
@@ -623,7 +623,7 @@ function AppContent() {
               
               <Link
                 to="/help"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus:: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark, hover:, bg-dark-primary/20 hover: text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus: : outline-none focus:ring-2 focus:ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <HelpCircle className="w-4 h-4" aria-hidden="true" />
@@ -712,10 +712,10 @@ function AppContent() {
               />
             } />
             
-            <Route path="/privacy-policy" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg: px-8 py-8">
-                <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:: border-gray-700 p-8">
+            <Route path="/privacy-policy" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
+                <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: : border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark: text-white mb-4">Privacy Policy</h1>
-                  <p className="text-gray-600 dark: text-gray-300">
+                  <p className="text-gray-600 dark, text-gray-300">
                     This application stores all data locally in your browser. No personal information is transmitted to external servers.
                   </p>
                 </div>
@@ -726,7 +726,7 @@ function AppContent() {
                 <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark: text-white mb-4">Terms of Service</h1>
                   <p className="text-gray-600 dark: text-gray-300">
-                    By using this application: you agree to use it for legitimate cybersecurity assessment purposes only.
+                    By using this application, you agree to use it for legitimate cybersecurity assessment purposes only.
                   </p>
                 </div>
               </div>
@@ -755,13 +755,13 @@ function AppContent() {
                         includeRecommendations: true,
                         includeGapAnalysis: true,
                         includeNextSteps: true,
-                        branding: {
-                          organizationName: assessment.organizationInfo?.name || 'Organization'
+                        branding, {
+                          organizationName, assessment.organizationInfo? .name || 'Organization'
                         }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
                   } catch (error) {
-                    addNotification('error', 'Failed to export report: ' + (error as Error).message);
+                    addNotification('error', 'Failed to export report : ' + (error as Error).message);
                   }
                 }}
               />
@@ -776,7 +776,7 @@ function AppContent() {
                 onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
                 onDeleteAssessment={deleteAssessment }
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportAssessment={(assessment: format) => {
+                onExportAssessment={(assessment format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { format });

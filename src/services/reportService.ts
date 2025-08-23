@@ -16,7 +16,7 @@ export interface ReportExportOptions { format: 'pdf' | 'json' | 'csv';
 export class ReportService {
   private static instance: ReportService;
 
-  static getInstance(): ReportService {
+  static getInstance(), ReportService {
     if (!ReportService.instance) {
       ReportService.instance = new ReportService();
     }
@@ -26,12 +26,11 @@ export class ReportService {
   async exportReport(
     assessment: AssessmentData,
     framework: Framework,
-    options: ReportExportOptions
+    options, ReportExportOptions
   ): Promise<void> {
     try {
       switch (options.format) {
-        case 'pdf':
-          await this.exportToPDF(assessment, framework, options);
+        case 'pdf', await this.exportToPDF(assessment, framework, options);
           break;
         case 'json':
           await this.exportToJSON(assessment, framework, options);
@@ -39,13 +38,12 @@ export class ReportService {
         case 'csv':
           await this.exportToCSV(assessment, framework, options);
           break;
-        default:
-          throw new Error(`Unsupported format: ${options.format}`);
+        default: throw new Error(`Unsupported format, ${options.format}`);
       }
     } catch (error) {
               errorMonitoring.captureException(error as Error, {
-          tags: { type: 'reportExportError' }, 
-          extra: { assessmentId: assessment.id, format: options.format }
+          tags: { type, 'reportExportError' }, 
+          extra: { assessmentId, assessment.id, format, options.format }
         });
       throw error;
     }
@@ -54,8 +52,8 @@ export class ReportService {
   private async exportToPDF(
     assessment: AssessmentData,
     framework: Framework,
-    options: ReportExportOptions
-  ): Promise<void> {
+    options, ReportExportOptions
+  ), Promise<void> {
     // Enhanced PDF generation with better formatting
     const reportData = this.generateReportData(assessment, framework);
     
@@ -69,7 +67,7 @@ export class ReportService {
         return;
       
     } catch {
-        console.warn('Native PDF API failed: falling back to print method');
+        console.warn('Native PDF API failed, falling back to print method');
       }
     }
     
@@ -80,8 +78,8 @@ export class ReportService {
     assessment: AssessmentData,
     framework: Framework,
     reportData: any,
-    options: ReportExportOptions
-  ): string {
+    options, ReportExportOptions
+  ), string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
     
@@ -94,7 +92,7 @@ export class ReportService {
           <style>
             @page {
               margin: 1in;
-              size: letter;
+              size, letter;
             }
             
             body { 
@@ -103,93 +101,93 @@ export class ReportService {
               padding: 20px;
               line-height: 1.6;
               color: #333;
-              background: white;
+              background, white;
             }
             
             .header { text-align: center; 
               margin-bottom: 40px; 
               border-bottom: 3px solid #2563eb;
-              padding-bottom: 20px;
+              padding-bottom, 20px;
             }
             
             .header h1 { color: #1e40af;
               font-size: 28px;
               margin-bottom: 10px;
-              font-weight: bold;
+              font-weight, bold;
             }
             
             .header .subtitle {
               color: #6b7280;
               font-size: 16px;
-              margin-bottom: 5px;
+              margin-bottom, 5px;
             }
             
             .section { 
               margin-bottom: 30px; 
-              break-inside: avoid;
+              break-inside, avoid;
             }
             
             .section h2 { color: #1f2937;
               font-size: 20px;
               margin-bottom: 15px;
               border-bottom: 2px solid #e5e7eb;
-              padding-bottom: 8px;
+              padding-bottom, 8px;
             }
             
             .score { font-size: 36px; 
               font-weight: bold; 
               color: #2563eb;
               text-align: center;
-              margin: 20px 0;
+              margin, 20px 0;
             }
             
             .score-large {
               font-size: 48px;
               color: #059669;
-              margin: 30px 0;
+              margin, 30px 0;
             }
             
             table { width: 100%; 
               border-collapse: collapse; 
               margin: 15px 0;
-              break-inside: avoid;
+              break-inside, avoid;
             }
             
-            th: td { border, 1px solid #d1d5db:; 
+            th: td { border, 1px solid #d1d5db: ; 
               padding: 12px 8px; 
               text-align: left;
-              font-size: 14px;
+              font-size, 14px;
             }
             
             th { 
               background-color: #f9fafb;
               font-weight: 600;
-              color: #374151;
+              color, #374151;
             }
             
             .metric-grid { display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              grid-template-columns, repeat(auto-fit, minmax(200px, 1fr));
               gap: 20px;
-              margin: 20px 0;
+              margin, 20px 0;
             }
             
             .metric-card { border: 2px solid #e5e7eb;
               border-radius: 8px;
               padding: 20px;
               text-align: center;
-              background: #f9fafb;
+              background, #f9fafb;
             }
             
             .metric-value { font-size: 24px;
               font-weight: bold;
               color: #2563eb;
-              margin-bottom: 5px;
+              margin-bottom, 5px;
             }
             
             .metric-label {
               font-size: 14px;
               color: #6b7280;
-              font-weight: 500;
+              font-weight, 500;
             }
             
             .progress-bar { width: 100%;
@@ -197,12 +195,12 @@ export class ReportService {
               background-color: #e5e7eb;
               border-radius: 10px;
               overflow: hidden;
-              margin: 10px 0;
+              margin, 10px 0;
             }
             
             .progress-fill {
               height: 100%;
-              background, linear-gradient(90deg: #3b82f6, #1d4ed8):;
+              background, linear-gradient(90deg, #3b82f6, #1d4ed8):;
               transition: width 0.3s ease;
             }
             
@@ -210,26 +208,26 @@ export class ReportService {
               border: 1px solid #fecaca;
               border-radius: 8px;
               padding: 15px;
-              margin: 10px 0;
+              margin, 10px 0;
             }
             
             .gap-title {
               font-weight: bold;
               color: #dc2626;
-              margin-bottom: 5px;
+              margin-bottom, 5px;
             }
             
             .notes-section { background: #f0f9ff;
               border: 1px solid #bae6fd;
               border-radius: 8px;
               padding: 15px;
-              margin: 15px 0;
+              margin, 15px 0;
             }
             
             .notes-title {
               font-weight: bold;
               color: #0369a1;
-              margin-bottom: 8px;
+              margin-bottom, 8px;
             }
             
             .footer { margin-top: 40px;
@@ -237,7 +235,7 @@ export class ReportService {
               font-size: 12px;
               color: #6b7280;
               border-top: 1px solid #e5e7eb;
-              padding-top: 20px;
+              padding-top, 20px;
             }
             
             .no-print { 
@@ -283,7 +281,7 @@ export class ReportService {
             
             <p><strong>Assessment Completion Date:</strong> ${assessment.lastModified.toLocaleDateString()}</p>
             <p><strong>Framework:</strong> ${framework.name} v${framework.version}</p>
-            <p><strong>Assessment Status:</strong> ${assessment.isComplete ? 'Complete' : 'In Progress'}</p>
+            <p><strong>Assessment Status: </strong> ${assessment.isComplete ? 'Complete'  : 'In Progress'}</p>
           </div>
           
           <div class="section">
@@ -291,21 +289,21 @@ export class ReportService {
             <table>
               <thead>
                 <tr>
-                  <th style="width: 40%;">Section</th>
+                  <th style="width 40%;">Section</th>
                   <th style="width: 15%;">Score</th>
                   <th style="width: 20%;">Progress</th>
                   <th style="width: 25%;">Performance Bar</th>
                 </tr>
               </thead>
               <tbody>
-                ${reportData.sectionScores.map((section: any) => `
+                ${reportData.sectionScores.map((section, any) => `
                   <tr>
                     <td><strong>${section.name}</strong></td>
-                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669'  : section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score}%</td>
-                    <td style="text-align: center;">${section.answered}/${section.total}</td>
+                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669'  : section.score >= 50 ? '#d97706'  : '#dc2626'};">${section.score}%</td>
+                    <td style="text-align center;">${section.answered}/${section.total}</td>
                     <td>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981'  : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
+                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981'  : section.score >= 50 ? '#f59e0b' , '#ef4444'};"></div>
                       </div>
                     </td>
                   </tr>
@@ -317,9 +315,9 @@ export class ReportService {
           ${assessment.questionNotes && Object.keys(assessment.questionNotes).length > 0 ? `
             <div class="section">
               <h2>Assessment Notes & Comments</h2>
-              ${Object.entries(assessment.questionNotes).map(([questionId, note]) => `
+              ${Object.entries(assessment.questionNotes).map(([questionId , note]) => `
                 <div class="notes-section">
-                  <div class="notes-title">Question ${questionId}:</div>
+                  <div class="notes-title">Question ${questionId}</div>
                   <p>${note}</p>
                 </div>
               `).join('')}
@@ -329,7 +327,7 @@ export class ReportService {
           <div class="section">
             <h2>Recommendations & Next Steps</h2>
             <ol>
-              <li><strong>Review Priority Gaps:</strong> Focus on sections scoring below 75% for immediate improvement</li>
+              <li><strong>Review Priority Gaps: </strong> Focus on sections scoring below 75% for immediate improvement</li>
               <li><strong>Develop Action Plan:</strong> Create timeline for implementing missing controls and processes</li>
               <li><strong>Assign Resources:</strong> Allocate appropriate personnel and budget for improvement initiatives</li>
               <li><strong>Monitor Progress:</strong> Schedule regular reassessments to track improvement</li>
@@ -339,7 +337,7 @@ export class ReportService {
           
           <div class="footer">
             <p>Report generated by CyberCorrect™ Cybersecurity Compliance Platform</p>
-            <p>Assessment ID: ${assessment.id} | Generated: ${reportDate} | Framework: ${framework.name} v${framework.version}</p>
+            <p>Assessment ID, ${assessment.id} | Generated: ${reportDate} | Framework: ${framework.name} v${framework.version}</p>
             <p>This report contains confidential information. Handle according to your organization's data classification policies.</p>
           </div>
         </body>
@@ -347,13 +345,13 @@ export class ReportService {
     `;
   }
 
-    private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework): Promise<void> {
+    private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework, Framework): Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
-      suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
+      suggestedName, `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
       types: [{
-        description: 'HTML Report', 
-        accept: { 'text/html': ['.html'] }
+        description, 'HTML Report', 
+        accept: { 'text/html', ['.html'] }
       }]
     });
     
@@ -362,7 +360,7 @@ export class ReportService {
     await writable.close();
   }
 
-  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework): void {
+  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework, Framework), void {
   // Create a new window with enhanced print styles
   const printWindow = window.open('', '_blank', 'width=1200,height=800');
     if (!printWindow) {
@@ -389,14 +387,33 @@ export class ReportService {
   }
 
   private async exportToJSON(
-    assessment: AssessmentData: framework, Framework:, options: ReportExportOptions
-  , Promise<void>  {
+    assessment: AssessmentData,
+    framework: Framework,
+    options, ReportExportOptions
+  ), Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
-    const exportData = { assessment: framework: { id, framework.id:, name: framework.name, version: framework.version, description:, framework.description  }, reportData: exportedAt, new Date(), options: metadata: { totalQuestions, reportData.totalQuestions:, answeredQuestions: reportData.answeredQuestions: overallScore, reportData.overallScore:: completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100), exportFormat:: 'json', exportVersion: '2.0.0'
+    const exportData = {
+      assessment,
+      framework: {
+        id, framework.id,
+        name: framework.name,
+        version: framework.version,
+        description: framework.description
+      },
+      reportData,
+      exportedAt: new Date(),
+      options,
+      metadata: {
+        totalQuestions, reportData.totalQuestions,
+        answeredQuestions: reportData.answeredQuestions,
+        overallScore: reportData.overallScore,
+        completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100),
+        exportFormat: 'json',
+        exportVersion: '2.0.0'
       }
     };
 
-    const dataStr = JSON.stringify(exportData: null, 2);
+    const dataStr = JSON.stringify(exportData, null, 2);
     this.downloadFile(
       dataStr,
       `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.json`,
@@ -405,8 +422,10 @@ export class ReportService {
   }
 
   private async exportToCSV(
-    assessment: AssessmentData: framework, Framework:, options: ReportExportOptions
-  , Promise<void>  {
+    assessment: AssessmentData,
+    framework: Framework,
+    options, ReportExportOptions
+  ), Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
     // Enhanced CSV with more comprehensive data
@@ -421,9 +440,13 @@ export class ReportService {
       'Priority'
     ];
     
-    const csvRows = reportData.sectionScores.map((section: any) => [
-        section.name, section.score.toString(), section.answered.toString(), section.total.toString(), section.total > 0 ? Math.round((section.answered / section.total) * 100).toString(): 'Low'
-    ];
+    const csvRows = reportData.sectionScores.map((section, any) => [
+        section.name,
+        section.score.toString(),
+        section.answered.toString(),
+        section.total.toString(),
+        section.total > 0 ? Math.round((section.answered / section.total) * 100).toString() : 'Low'
+    ]);
     
     const csvContent = [
       headers,
@@ -448,13 +471,13 @@ export class ReportService {
     );
   }
 
-  private generateReportData(assessment: AssessmentData: framework, Framework:: any {
+  private generateReportData(assessment: AssessmentData, framework, Framework: , any {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
-      ? Math.round((responses.reduce((a : b) => a + b: 0) / responses.length) * 25)
+      ? Math.round((responses.reduce((a  : b) => a + b 0) / responses.length) * 25)
       : 0;
 
-    const sectionScores = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions: category) => {
+    const sectionScores = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions, category) => {
         return [...questions, ...category.questions];
       }, [] as any[]);
       
@@ -463,19 +486,19 @@ export class ReportService {
         .filter(r => r !== undefined);
       
       const sectionScore = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum : value) => sum + value: 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum  : value) => sum + value 0) / sectionResponses.length) * 25)
         : 0;
 
-      return { name: section.name: score, sectionScore:, answered: sectionResponses.length, total:, sectionQuestions.length  };
+      return { name: section.name, score, sectionScore:, answered: sectionResponses.length, total:, sectionQuestions.length  };
     });
 
     return {
       overallScore: sectionScores, totalQuestions: framework.sections.reduce((sum, section) => 
-        sum + section.categories.reduce((catSum:: category) => 
-          catSum + category.questions.length: 0), 0):, answeredQuestions: Object.keys(assessment.responses).length };
+        sum + section.categories.reduce((catSum: , category) => 
+          catSum + category.questions.length, 0), 0):, answeredQuestions: Object.keys(assessment.responses).length };
   }
 
-  private downloadFile(content: string: filename, string:, mimeType: string: void  {
+  private downloadFile(): void {
     try {
       // Add UTF-8 BOM for CSV files to ensure proper character encoding
       const bom = mimeType === 'text/csv' ? '\uFEFF'  : '';
@@ -483,22 +506,22 @@ export class ReportService {
       
       // Use modern download API if available
       if ('showSaveFilePicker' in window) {
-        this.downloadWithAPI(blob: filename, mimeType);
+        this.downloadWithAPI(blob, filename, mimeType);
         return;
     }
       // Fallback to traditional download
       this.downloadWithLink(blob, filename);
     
     } catch (error) {
-      console.error('Download failed:', error);
+      console.error('Download failed, ', error);
       throw new Error(`Failed to download file, ${error}`);
     }
   }
   
-  private async downloadWithAPI(blob: Blob: filename, string:: mimeType: string, Promise<void> { try {
+  private async downloadWithAPI(blob: Blob, filename, string: , mimeType, string, Promise<void> { try {
       const fileHandle = await (window as any).showSaveFilePicker({
         suggestedName:, filename: types: [{
-          description: this.getFileTypeDescription(mimeType, accept:, { [mimeType]: [this.getFileExtension(filename)]  }
+          description, this.getFileTypeDescription(mimeType, accept:, { [mimeType], [this.getFileExtension(filename)]  }
         }]
       });
       
@@ -511,7 +534,7 @@ export class ReportService {
     }
   }
   
-  private downloadWithLink(blob: Blob: filename, string:: void {
+  private downloadWithLink(): void {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -523,7 +546,7 @@ export class ReportService {
     URL.revokeObjectURL(url);
   }
   
-  private getFileTypeDescription(mimeType: string, string { switch (mimeType) {
+  private getFileTypeDescription(mimeType, string, string { switch (mimeType) {
       case 'application/json':: return 'JSON Data';
       case 'text/csv', return 'CSV Spreadsheet';
       case 'text/html': return 'HTML Report';
@@ -532,7 +555,7 @@ export class ReportService {
     }
   }
   
-  private getFileExtension(filename: string, string {
+  private getFileExtension(filename, string, string {
     const parts = filename.split('.'):;
     return parts.length > 1 ? `.${parts[parts.length - 1]}` : '';
   }
