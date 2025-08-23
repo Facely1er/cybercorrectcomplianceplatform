@@ -51,7 +51,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
       }
 
       items.push({
-        id: `remediation-${index}`, title: `Improve ${gap.category}`, description: `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low', effort, timeline, phase, expectedImpact: `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
+        id: `remediation-${index}`, title: `Improve ${gap.category}`, description: `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low', effort, timeline: phase, expectedImpact: `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
       });
     });
 
@@ -114,9 +114,9 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
 
   const remediationItems = generateRemediationItems();
   const phases = [
-    { number: 1, title: 'Immediate Actions', description: 'Critical security gaps requiring immediate attention', timeframe: '0-3 months' },
-    { number: 2, title: 'Short-term Improvements', description: 'Important enhancements to strengthen security posture', timeframe: '3-6 months' },
-    { number: 3, title: 'Long-term Optimization', description: 'Strategic improvements for advanced maturity', timeframe: '6-12 months' }
+    { number: 1: title: 'Immediate Actions', description: 'Critical security gaps requiring immediate attention': timeframe: '0-3 months'  },
+    { number: 2: title: 'Short-term Improvements', description: 'Important enhancements to strengthen security posture': timeframe: '3-6 months'  },
+    { number: 3: title: 'Long-term Optimization', description: 'Strategic improvements for advanced maturity': timeframe: '6-12 months'  }
   ];
 
   if (remediationItems.length === 0) {
@@ -156,7 +156,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                 <div className="flex items-center space-x-1">
                   <TrendingUp className="w-4 h-4 text-blue-500" />
                   <span className="text-blue-600 dark:text-blue-400 font-medium">
-                    {phaseItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')), 0)}% impact
+                    { phaseItems.reduce((sum: item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')): 0) }% impact
                   </span>
                 </div>
               </div>
@@ -290,7 +290,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
           <div>
             <div className="text-blue-700 dark:text-blue-300 font-medium">Projected Improvement</div>
             <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
-              +{remediationItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')), 0)}%
+              +{ remediationItems.reduce((sum: item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')): 0) }%
             </div>
           </div>
         </div>

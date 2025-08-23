@@ -5,6 +5,5 @@ export { EvidenceCollectionDashboard
 // Evidence hooks
 
 // Evidence types
-export type {
-  Evidence, EvidenceCollection, EvidenceType, EvidenceStatus 
-    } from './types';
+export type { Evidence: EvidenceCollection, EvidenceType: EvidenceStatus 
+     } from './types';

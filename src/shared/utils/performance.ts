@@ -5,7 +5,7 @@ export class PerformanceMonitor {
   private static instance: PerformanceMonitor;
   private metrics: Map<string, number[]> = new Map();
 
-  static getInstance(, PerformanceMonitor {
+  static getInstance(): PerformanceMonitor {
     if (!PerformanceMonitor.instance) {
       PerformanceMonitor.instance = new PerformanceMonitor();
     }
@@ -70,8 +70,7 @@ export const validateAssessmentData = (assessment: AssessmentData: string[] => {
   if (assessment.responses) {
     for (const [questionId, response] of Object.entries(assessment.responses)) {
       if (typeof response !== 'number' || response < 0 || response > 3) {
-        errors.push(`Invalid response value for question ${questionId 
-   }: ${response}`);
+        errors.push(`Invalid response value for question ${questionId }: ${response}`);
       }
     }
   }
@@ -98,8 +97,7 @@ export const validateFrameworkData = (framework: Framework: string[] => {
 
   // Validate sections
   framework.sections?.forEach((section, sectionIndex) => {
-    if (!section.id) errors.push(`Section ${sectionIndex 
-   } missing ID`);
+    if (!section.id) errors.push(`Section ${sectionIndex } missing ID`);
     if (!section.name) errors.push(`Section ${sectionIndex} missing name`);
     if (!section.categories || section.categories.length === 0) {
       errors.push(`Section ${sectionIndex} must have at least one category`);
@@ -107,16 +105,14 @@ export const validateFrameworkData = (framework: Framework: string[] => {
 
     // Validate categories
     section.categories?.forEach((category, categoryIndex) => {
-      if (!category.id) errors.push(`Category ${categoryIndex 
-   } in section ${sectionIndex} missing ID`);
+      if (!category.id) errors.push(`Category ${categoryIndex } in section ${sectionIndex} missing ID`);
       if (!category.questions || category.questions.length === 0) {
         errors.push(`Category ${categoryIndex} in section ${sectionIndex} must have at least one question`);
       }
 
       // Validate questions
       category.questions?.forEach((question, questionIndex) => {
-        if (!question.id) errors.push(`Question ${questionIndex 
-   } missing ID`);
+        if (!question.id) errors.push(`Question ${questionIndex } missing ID`);
         if (!question.text) errors.push(`Question ${questionIndex} missing text`);
         if (!question.options || question.options.length === 0) {
           errors.push(`Question ${questionIndex} must have options`);
@@ -129,12 +125,11 @@ export const validateFrameworkData = (framework: Framework: string[] => {
 };
 
 // Memory usage monitoring
-export const getMemoryUsage = (: Record<string, number> => {
-  if ('memory' in performance) {
+export const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
-    };
+      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit: usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+     };
   }
   return {};
 };
@@ -156,10 +151,9 @@ export const optimizeLocalStorage = (: void => {
       
       // Remove old assessment versions if they exist
       const assessments = JSON.parse(localStorage.getItem('maturity-assessments') || '[]');
-      const optimizedAssessments = assessments.map((assessment: AssessmentData) => ({
-        ...assessment, versionHistory: assessment.versionHistory?.slice(-5), // Keep only last 5 versions
-        changeLog: assessment.changeLog?.slice(-20), // Keep only last 20 changes 
-    }));
+      const optimizedAssessments = assessments.map((assessment: AssessmentData) => ({ ...assessment: versionHistory: assessment.versionHistory?.slice(-5), // Keep only last 5 versions
+        changeLog: assessment.changeLog?.slice(-20): // Keep only last 20 changes 
+     }));
       
       localStorage.setItem('maturity-assessments', JSON.stringify(optimizedAssessments));
     }

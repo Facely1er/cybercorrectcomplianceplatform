@@ -27,7 +27,7 @@ class ApiClient {
     this.defaultTimeout = ENV.API_TIMEOUT;
   }
 
-  static getInstance(, ApiClient {
+  static getInstance(): ApiClient {
     if (!ApiClient.instance) {
       ApiClient.instance = new ApiClient();
     }
@@ -53,8 +53,7 @@ class ApiClient {
 
     // Add auth token if available
     if (this.authToken) {
-      requestHeaders['Authorization'] = `Bearer ${this.authToken 
-   }`;
+      requestHeaders['Authorization'] = `Bearer ${this.authToken }`;
     }
 
     // Add CSRF token in production
@@ -81,8 +80,7 @@ class ApiClient {
 
       const data = await response.json();
 
-      return {
-        data, status: response.status, headers: response.headers, ok: response.ok };
+      return { data: status: response.status, headers: response.headers: ok: response.ok  };
 
     } catch (error) {
       clearTimeout(timeoutId);
@@ -128,20 +126,17 @@ class ApiClient {
     });
   }
 
-  async post<T>(endpoint: string, body?: any, config?: Omit<ApiRequestConfig, 'method'>: Promise<ApiResponse<T>> {
-    return this.makeRequest<T>(endpoint, { ...config, method: 'POST', body });
+  async post<T>(endpoint: string, body?: any, config?: Omit<ApiRequestConfig, 'method'>: Promise<ApiResponse<T>> { return this.makeRequest<T>(endpoint: { ...config, method: 'POST': body  });
   }
 
-  async put<T>(endpoint: string, body?: any, config?: Omit<ApiRequestConfig, 'method'>: Promise<ApiResponse<T>> {
-    return this.makeRequest<T>(endpoint, { ...config, method: 'PUT', body });
+  async put<T>(endpoint: string, body?: any, config?: Omit<ApiRequestConfig, 'method'>: Promise<ApiResponse<T>> { return this.makeRequest<T>(endpoint: { ...config, method: 'PUT': body  });
   }
 
   async delete<T>(endpoint: string, config?: Omit<ApiRequestConfig, 'method' | 'body'>: Promise<ApiResponse<T>> {
     return this.makeRequest<T>(endpoint, { ...config, method: 'DELETE' });
   }
 
-  async patch<T>(endpoint: string, body?: any, config?: Omit<ApiRequestConfig, 'method'>: Promise<ApiResponse<T>> {
-    return this.makeRequest<T>(endpoint, { ...config, method: 'PATCH', body });
+  async patch<T>(endpoint: string, body?: any, config?: Omit<ApiRequestConfig, 'method'>: Promise<ApiResponse<T>> { return this.makeRequest<T>(endpoint: { ...config, method: 'PATCH': body  });
   }
 }
 

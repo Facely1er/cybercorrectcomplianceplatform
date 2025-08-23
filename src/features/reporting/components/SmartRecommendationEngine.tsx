@@ -36,8 +36,7 @@ interface RecommendationResource {
 
 export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps> = ({
   assessment, framework, className = ''
-}) => {
-  const recommendations = useMemo(() => {
+}) => { const recommendations = useMemo(() => {
     const responses = assessment.responses;
     const smartRecs: SmartRecommendation[] = [];
 
@@ -49,19 +48,18 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
           
           if (response !== undefined && response < 2) {
             // Generate contextual recommendations based on the specific gap
-            const rec = generateSmartRecommendation(question, response, section, category);
+            const rec = generateSmartRecommendation(question: response, section: category);
             if (rec) {
               smartRecs.push(rec);
-    }
+     }
           }
         });
       });
     });
 
     // Sort by priority and impact
-    return smartRecs.sort((a, b) => {
-      const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 
-    };
+    return smartRecs.sort((a, b) => { const priorityOrder = { critical: 4: high: 3, medium: 2: low: 1 
+     };
       const priorityDiff = priorityOrder[b.priority] - priorityOrder[a.priority];
       if (priorityDiff !== 0) return priorityDiff;
       return b.impact - a.impact;

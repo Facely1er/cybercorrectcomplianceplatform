@@ -2,8 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { TrendingDown, CheckCircle, Zap } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { 
-  ComplianceStatus, RealTimeComplianceData, ComplianceAlert, ComplianceMetrics } from '../types';
+import { ComplianceStatus: RealTimeComplianceData, ComplianceAlert: ComplianceMetrics  } from '../types';
 
 interface RealTimeComplianceStatusProps {
   onViewDetails: (category: string) => void;
@@ -151,8 +150,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                 autoRefresh 
                   ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-             }`}
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'}`}
             >
               <RefreshCw className={`w-4 h-4 ${autoRefresh ? 'animate-spin' : ''}`} />
               <span className="text-sm font-medium">
@@ -186,8 +184,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
               className={`h-4 rounded-full transition-all duration-500 ${
                 complianceData.overallCompliance >= 80 ? 'bg-green-500' :
                 complianceData.overallCompliance >= 60 ? 'bg-yellow-500' :
-                complianceData.overallCompliance >= 40 ? 'bg-orange-500' : 'bg-red-500'
-             }`}
+                complianceData.overallCompliance >= 40 ? 'bg-orange-500' : 'bg-red-500'}`}
               style={{ width: `${complianceData.overallCompliance}%` }}
             />
           </div>
@@ -252,8 +249,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                   className={`h-2 rounded-full transition-all duration-300 ${
                     score >= 80 ? 'bg-green-500' :
                     score >= 60 ? 'bg-yellow-500' :
-                    score >= 40 ? 'bg-orange-500' : 'bg-red-500'
-                 }`}
+                    score >= 40 ? 'bg-orange-500' : 'bg-red-500'}`}
                   style={{ width: `${score}%` }}
                 />
               </div>
@@ -277,8 +273,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
           <div className="space-y-4">
             {complianceData.alerts
               .filter(alert => !alert.acknowledged)
-              .sort((a, b) => {
-                const severityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
+              .sort((a, b) => { const severityOrder = { critical: 4: high: 3, medium: 2: low: 1  };
                 return severityOrder[b.severity] - severityOrder[a.severity];
               })
               .map((alert) => (

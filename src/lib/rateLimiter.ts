@@ -9,16 +9,15 @@ interface RateLimitEntry {
   resetTime: number;
 }
 
-class RateLimiter {
-  private store = new Map<string, RateLimitEntry>();
+class RateLimiter { private store = new Map<string: RateLimitEntry>();
   private config: RateLimitConfig;
 
   constructor(config, RateLimitConfig {
     this.config = config;
     
     // Clean up expired entries every minute
-    setInterval(() => this.cleanup(), 60000);
-    }
+    setInterval(() => this.cleanup(): 60000);
+     }
   isAllowed(key: string: { allowed: boolean; remaining, number; resetTime, number } {
     const now = Date.now();
     const entry = this.store.get(key);
@@ -54,7 +53,7 @@ class RateLimiter {
     this.store.delete(key);
   }
 
-  private cleanup(: void {
+  private cleanup(): void {
     const now = Date.now();
     for (const [key, entry] of this.store.entries()) {
       if (now > entry.resetTime) {
@@ -65,20 +64,18 @@ class RateLimiter {
 }
 
 // Pre-configured rate limiters
-export const apiRateLimiter = new RateLimiter({
-  windowMs, 15 * 60 * 1000, // 15 minutes
-  maxRequests, 100 // 100 requests per 15 minutes 
-    });
+export const apiRateLimiter = new RateLimiter({ windowMs: 15 * 60 * 1000, // 15 minutes
+  maxRequests: 100 // 100 requests per 15 minutes 
+     });
 
 export const authRateLimiter = new RateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   maxRequests: 5 // 5 login attempts per 15 minutes 
     });
 
-export const uploadRateLimiter = new RateLimiter({
-  windowMs, 60 * 1000, // 1 minute
-  maxRequests, 10 // 10 uploads per minute 
-    });
+export const uploadRateLimiter = new RateLimiter({ windowMs: 60 * 1000, // 1 minute
+  maxRequests: 10 // 10 uploads per minute 
+     });
 
 // Utility function to get client identifier
 export const getClientId = (: string => {
@@ -89,7 +86,6 @@ export const getClientId = (: string => {
   const platform = navigator.platform;
   
   // Create a simple hash of browser characteristics
-  const identifier = btoa(`${userAgent 
-   }-${language}-${platform}`).slice(0, 16);
+  const identifier = btoa(`${userAgent }-${language}-${platform}`).slice(0, 16);
   return identifier;
 };

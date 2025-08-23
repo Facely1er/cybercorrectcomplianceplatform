@@ -1,19 +1,18 @@
 import { supabase } from './supabase';
 
-export interface AuditLogEntry {
-  id: string;
+export interface AuditLogEntry { id: string;
   userId: string;
   action: AuditAction;
   resource: string;
   resourceId: string;
-  changes?: Record<string, any>;
+  changes?: Record<string: any>;
   previousValues?: Record<string, any>;
-  metadata?: Record<string, any>;
+  metadata?: Record<string: any>;
   timestamp: Date;
   ipAddress?: string;
   userAgent?: string;
   sessionId?: string;
-}
+ }
 
 export type AuditAction = 
   | 'create' 
@@ -32,7 +31,7 @@ export class AuditLogger {
   private static instance: AuditLogger;
   private logs: AuditLogEntry[] = [];
 
-  static getInstance(, AuditLogger {
+  static getInstance(): AuditLogger {
     if (!AuditLogger.instance) {
       AuditLogger.instance = new AuditLogger();
     }
@@ -54,7 +53,7 @@ export class AuditLogger {
     action: AuditAction, assetId: string, userId: string, changes?: Record<string, any>, previousValues?: Record<string, any>
   : Promise<void> {
     await this.log({
-      userId, action, resource: 'asset', resourceId, assetId, changes, previousValues, metadata: {
+      userId: action, resource: 'asset', resourceId: assetId, changes: previousValues, metadata: {
         assetType: 'organizational_asset', source: 'web_application'
       }
     });
@@ -64,7 +63,7 @@ export class AuditLogger {
     action: AuditAction, assessmentId: string, userId: string, changes?: Record<string, any>
   : Promise<void> {
     await this.log({
-      userId, action, resource: 'assessment', resourceId: assessmentId, changes, metadata: {
+      userId: action, resource: 'assessment', resourceId: assessmentId: changes, metadata: {
         assessmentType: 'cybersecurity_maturity', source: 'web_application'
       }
     });
@@ -74,7 +73,7 @@ export class AuditLogger {
     action: AuditAction, userId: string, metadata?: Record<string, any>
   : Promise<void> {
     await this.log({
-      userId, action, resource: 'user', resourceId: userId, metadata: {
+      userId: action, resource: 'user', resourceId: userId, metadata: {
         ...metadata, source: 'web_application'
       }
     });
@@ -143,11 +142,11 @@ export class AuditLogger {
     // Database persistence disabled - using localStorage only
     console.log('Audit log entry (localStorage only: ', entry);
     }
-  private getClientIP(: string {
+  private getClientIP(): string {
     // In a production environment, this would be provided by the server
     return 'client-side-unknown';
     }
-  private getSessionId(: string {
+  private getSessionId(): string {
     let sessionId = sessionStorage.getItem('session-id');
     if (!sessionId) {
       sessionId = Date.now().toString() + Math.random().toString(36).substr(2, 9);

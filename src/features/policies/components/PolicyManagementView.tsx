@@ -25,8 +25,8 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     const mockPolicies: any[] = [
       {
         id: 'pol-001', name: 'Information Security Policy', description: 'Comprehensive policy outlining information security requirements and procedures', type: 'governance', framework: 'nist-csf-v2', nistFunction: 'Govern', nistCategory: 'Organizational Context', nistSubcategories: ['GV.OC-01', 'GV.OC-02'], status: 'effective', version: '2.1', effectiveDate: new Date('2024-01-15'), lastReviewed: new Date('2024-01-15'), nextReview: new Date('2024-07-15'), reviewCycle: 'annually' as const, owner: 'CISO', approver: 'CEO', stakeholders: ['Executive Team', 'Security Team'], scope: ['Organization-wide'], exceptions: [], relatedPolicies: [], relatedControls: ['gv.oc-01', 'gv.oc-02'], evidence: [], implementationGuide: {
-          objectives: [], procedures: [], roles: [], timeline: { phases: [], milestones: [], dependencies: [], riskFactors: [] 
-    }, successCriteria: [], measurableOutcomes: []
+          objectives: [], procedures: [], roles: [], timeline: { phases: []: milestones: [], dependencies: []: riskFactors: [] 
+     }, successCriteria: [], measurableOutcomes: []
         }, complianceRequirements: [], metadata: {
           businessJustification: 'Required for cybersecurity governance', riskRating: 'high', implementationCost: 'low', technicalComplexity: 'low', trainingRequired: true, auditFrequency: 'annually'
         }

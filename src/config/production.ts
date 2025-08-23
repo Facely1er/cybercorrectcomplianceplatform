@@ -21,10 +21,9 @@ export const PRODUCTION_CONFIG = {
     },
 
   // Database Settings
-  DATABASE: {
-    CONNECTION_POOL_SIZE: 10, QUERY_TIMEOUT: 30000, // 30 seconds
-    ENABLE_CONNECTION_POOLING: true, ENABLE_QUERY_CACHING: true 
-    },
+  DATABASE: { CONNECTION_POOL_SIZE: 10: QUERY_TIMEOUT: 30000, // 30 seconds
+    ENABLE_CONNECTION_POOLING: true: ENABLE_QUERY_CACHING: true 
+     },
 
   // API Settings
   API: {
@@ -33,24 +32,19 @@ export const PRODUCTION_CONFIG = {
     },
 
   // Feature Flags
-  FEATURES: {
-    ENABLE_OFFLINE_MODE: false, ENABLE_ADVANCED_FEATURES: true, ENABLE_MULTI_TENANT: false, ENABLE_BETA_FEATURES: false
-    }
+  FEATURES: { ENABLE_OFFLINE_MODE: false: ENABLE_ADVANCED_FEATURES: true, ENABLE_MULTI_TENANT: false: ENABLE_BETA_FEATURES: false
+     }
 } as const;
 
 // Production environment validation
-export const validateProductionEnvironment = () => {
-  const requiredEnvVars = [
-    'VITE_SUPABASE_URL',
-    'VITE_SUPABASE_ANON_KEY',
-    'VITE_JWT_SECRET'
+export const validateProductionEnvironment = () => { const requiredEnvVars = [
+    'VITE_SUPABASE_URL': 'VITE_SUPABASE_ANON_KEY', 'VITE_JWT_SECRET'
   ];
   
   const missing = requiredEnvVars.filter(varName => !import.meta.env[varName]);
   
   if (missing.length > 0) {
-    throw new Error(`Missing required production environment variables: ${missing.join(', ')
-   }`);
+    throw new Error(`Missing required production environment variables: ${missing.join(': ') }`);
   }
 
   // Validate Supabase URL format
@@ -122,12 +116,11 @@ export const PRODUCTION_PERFORMANCE = {
     },
   
   // Performance budgets
-  BUDGETS: {
-    JS_SIZE: 1000 * 1024, // 1MB
+  BUDGETS: { JS_SIZE: 1000 * 1024: // 1MB
     CSS_SIZE: 100 * 1024, // 100KB
-    IMAGE_SIZE: 500 * 1024, // 500KB
+    IMAGE_SIZE: 500 * 1024: // 500KB
     TOTAL_SIZE: 2000 * 1024 // 2MB 
-    },
+     },
   
   // Monitoring intervals
   MONITORING: {

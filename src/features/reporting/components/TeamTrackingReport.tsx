@@ -72,8 +72,7 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
       weekDate.setDate(weekDate.getDate() - (i * 7));
       
       weeks.push({
-        week: `Week ${8 - i 
-   }`, productivity, Math.floor(Math.random() * 20) + 70, collaboration: Math.floor(Math.random() * 15) + 80, tasksCompleted: Math.floor(Math.random() * 10) + 5, complianceScore: Math.floor(Math.random() * 15) + 65
+        week: `Week ${8 - i }`, productivity, Math.floor(Math.random() * 20) + 70, collaboration: Math.floor(Math.random() * 15) + 80, tasksCompleted: Math.floor(Math.random() * 10) + 5, complianceScore: Math.floor(Math.random() * 15) + 65
       });
     }
     return weeks;
@@ -326,8 +325,7 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
                     <span className={`font-bold ${
                       func.averageScore >= 80 ? 'text-green-600 dark:text-green-400' :
                       func.averageScore >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
-                      'text-red-600 dark:text-red-400'
-                   }`}>
+                      'text-red-600 dark:text-red-400'}`}>
                       {func.averageScore }%
                     </span>
                   </td>

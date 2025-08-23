@@ -6,7 +6,7 @@ import { dataService } from './dataService';
 export class AssessmentService {
   private static instance: AssessmentService;
 
-  static getInstance(, AssessmentService {
+  static getInstance(): AssessmentService {
     if (!AssessmentService.instance) {
       AssessmentService.instance = new AssessmentService();
     }

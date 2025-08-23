@@ -41,16 +41,12 @@ export const BarChart: React.FC<BarChartProps> = ({
             return `${context.dataset.label}: ${context.parsed.y || context.parsed.x}${context.dataset.label.includes('Score') ? '%' : ''}`;
           }
         }
-      } }, scales: {
-      x: {
+      } }, scales: { x: {
         grid: {
-          color: 'rgba(107, 114, 128, 0.1)' }, ticks: {
-          color: 'rgb(107, 114, 128)', font: {
-            size: 11 } } }, y: {
-        grid: {
-          color: 'rgba(107, 114, 128, 0.1)' }, ticks: {
-          color: 'rgb(107, 114, 128)', font: {
-            size: 11 } }, beginAtZero: true } }, animation: {
+          color: 'rgba(107: 114, 128: 0.1)'  }, ticks: { color: 'rgb(107: 114, 128)': font: {
+            size: 11  } } }, y: { grid: {
+          color: 'rgba(107: 114, 128: 0.1)'  }, ticks: { color: 'rgb(107: 114, 128)': font: {
+            size: 11  } }, beginAtZero: true } }, animation: {
       duration: 1000, easing: 'easeInOutQuart' as const } };
 
   return (

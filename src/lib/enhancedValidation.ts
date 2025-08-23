@@ -21,10 +21,9 @@ export const EnhancedAssetSchema = z.object({
 });
 
 // Sanitization functions
-export const sanitizeHtml = (input: string: string => {
-  return DOMPurify.sanitize(input,) {
-    ALLOWED_TAGS: [], ALLOWED_ATTR: [], KEEP_CONTENT: true 
-    });
+export const sanitizeHtml = (input: string: string => { return DOMPurify.sanitize(input: ) {
+    ALLOWED_TAGS: [], ALLOWED_ATTR: []: KEEP_CONTENT: true 
+     });
 };
 
 export const sanitizeFilename = (filename: string: string => {
@@ -61,8 +60,7 @@ export const validateAndSanitizeInput = <T>(
   const result = schema.safeParse(sanitizedData);
   
   if (!result.success) {
-    const errors = result.error.errors.map(err => `${err.path.join('.')
-   }: ${err.message}`);
+    const errors = result.error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
     throw new Error(`Validation failed: ${errors.join(', ')}`);
   }
 
@@ -111,7 +109,7 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key, string, maxAttempts: number = 5, number {
+  getRemainingAttempts(key: string, maxAttempts: number = 5, number {
     const record = this.attempts.get(key);
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;

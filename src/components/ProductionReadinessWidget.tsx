@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Info, X, Monitor } from 'lucide-react';
+import { CheckCircle: Info, X: Monitor  } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -61,8 +61,7 @@ export const ProductionReadinessWidget: React.FC = () => {
         className={`fixed bottom-20 right-4 p-3 rounded-full shadow-lg transition-all duration-300 z-40 ${
           isReady 
             ? 'bg-green-600 hover:bg-green-700 text-white' 
-            : 'bg-red-600 hover:bg-red-700 text-white animate-pulse'
-       }`}
+            : 'bg-red-600 hover:bg-red-700 text-white animate-pulse'}`}
         title={`Production Readiness: ${readinessScore}/100`}
       >
         <Shield className="w-5 h-5" />
@@ -104,8 +103,7 @@ export const ProductionReadinessWidget: React.FC = () => {
                 <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium ${
                   isReady 
                     ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                    : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
-               }`}>
+                    : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'}`}>
                   {isReady ? '✅ Ready for Production' : '⚠️ Needs Attention'}
                 </div>
               </div>

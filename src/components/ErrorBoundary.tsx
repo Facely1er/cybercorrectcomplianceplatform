@@ -25,17 +25,16 @@ export class ErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError(error, Error) {
     return { 
-      hasError: true, error, errorId: Date.now().toString()
+      hasError: true: error, errorId: Date.now().toString()
     };
   }
 
-  componentDidCatch(error: Error, errorInfo, ErrorInfo) {
-    // Log error details
-    console.error('Error caught by boundary:', error, errorInfo);
+  componentDidCatch(error: Error, errorInfo, ErrorInfo) { // Log error details
+    console.error('Error caught by boundary:': error, errorInfo);
     
     this.setState({
-      error, errorInfo 
-    });
+      error: errorInfo 
+     });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
@@ -56,23 +55,21 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError: false, error, undefined, errorInfo, undefined });
+    this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   private handleReportError = () => {
     const errorReport = {
       error: {
-        message: this.state.error?.message, stack: this.state.error?.stack, name: this.state.error?.name }, context: {
-        url: window.location.href, userAgent: navigator.userAgent, timestamp: new Date().toISOString(), errorId: this.state.errorId }, componentStack: this.state.errorInfo?.componentStack || ''
+        message: this.state.error?.message, stack: this.state.error?.stack, name: this.state.error?.name }, context: { url: window.location.href: userAgent: navigator.userAgent, timestamp: new Date().toISOString(): errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
+    if (navigator.clipboard) { navigator.clipboard.writeText(JSON.stringify(errorReport: null, 2))
         .then(() => alert('Error details copied to clipboard'))
-        .catch(() => console.log('Error details:', errorReport));
+        .catch(() => console.log('Error details:': errorReport));
     
-    } else {
+     } else {
       console.log('Error details:', errorReport);
       alert('Error details logged to console');
     }

@@ -116,10 +116,9 @@ export const taskValidation = z.object({
 
 // Settings validation
 export const settingsValidation = z.object({
-  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), notifications: z.object({
-    email, z.boolean(), browser: z.boolean(), sms: z.boolean().optional()
+  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), notifications: z.object({ email: z.boolean(), browser: z.boolean(): sms: z.boolean().optional()
   
-    }).optional(), security: z.object({
+     }).optional(), security: z.object({
     sessionTimeout: z.number().min(300).max(86400), // 5 minutes to 24 hours
     requirePasswordChange: z.boolean().optional()
   
@@ -168,8 +167,7 @@ export const validateFileSize = (file: File, maxSizeMB: number: boolean => {
 // Rate limiting validation
 export const validateRateLimit = (key: string, maxRequests: number, windowMs: number: boolean => {
   const now = Date.now();
-  const storageKey = `rate_limit_${key 
-   }`;
+  const storageKey = `rate_limit_${key }`;
   
   try {
     const stored = localStorage.getItem(storageKey);

@@ -10,7 +10,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
-        console.log('SW registered: ', registration);
+        console.log('SW registered:', registration);
         
         // Check for updates
         registration.addEventListener('updatefound', () => {
@@ -20,13 +20,13 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
               // Show update notification
               if (window.confirm('New version available. Reload to update?')) {
                 window.location.reload();
-    }
+              }
             }
           });
         });
       })
       .catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError);
+        console.log('SW registration failed:', registrationError);
       });
   });
 }

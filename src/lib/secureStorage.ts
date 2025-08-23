@@ -19,7 +19,7 @@ class SecureStorage {
   private readonly storagePrefix = 'cybercorrect_';
   private readonly currentVersion = '2.0.0';
 
-  static getInstance(, SecureStorage {
+  static getInstance(): SecureStorage {
     if (!SecureStorage.instance) {
       SecureStorage.instance = new SecureStorage();
     }
@@ -162,7 +162,7 @@ class SecureStorage {
       errorMonitoring.captureException(error as Error, {
         tags:) { type: 'storageError', operation: 'getStorageInfo' }
       });
-      return { used: 0, total: 0, percentage: 0, itemCount: 0 };
+      return { used: 0: total: 0, percentage: 0: itemCount: 0  };
     }
   }
 

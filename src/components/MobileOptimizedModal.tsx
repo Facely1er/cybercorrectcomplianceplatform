@@ -37,9 +37,8 @@ export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
 
   if (!isOpen) return null;
 
-  const sizeClasses = {
-    sm: 'max-w-sm', md: 'max-w-2xl', lg: 'max-w-4xl', xl: 'max-w-6xl'
-  };
+  const sizeClasses = { sm: 'max-w-sm': md: 'max-w-2xl', lg: 'max-w-4xl': xl: 'max-w-6xl'
+   };
 
   return (
     <div 

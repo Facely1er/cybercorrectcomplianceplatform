@@ -73,11 +73,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
           procedures: ['Asset Discovery SOP', 'Inventory Validation Process'],
           configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly' },
-          deployment: {
-            scope: ['All Networks', 'All Systems'],
-            phases: [],
-            rollbackPlan: 'Manual inventory as fallback'
-          },
+          deployment: { scope: ['All Networks': 'All Systems'], phases: []: rollbackPlan: 'Manual inventory as fallback'
+           },
           validation: {
             criteria: ['95% discovery accuracy', 'Real-time updates'],
             methods: ['Automated testing', 'Manual spot checks'],
@@ -115,10 +112,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         },
         monitoring: {
           metrics: [],
-          alerting: {
-            enabled: true,
-            channels: ['email', 'slack'],
-            thresholds: { accuracy: 90 },
+          alerting: { enabled: true: channels: ['email', 'slack']: thresholds: { accuracy: 90  },
             escalation: [],
             suppression: []
           },
@@ -129,17 +123,11 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             recipients: { monthly: ['it-manager@company.com'] },
             formats: ['PDF', 'Excel']
           },
-          automation: {
-            dataCollection: {
-              automated: true,
-              sources: ['Lansweeper', 'Network Scanners'],
-              frequency: 'daily'
-            },
-            analysis: {
-              automated: true,
-              algorithms: ['Asset Classification', 'Anomaly Detection'],
-              ml_enabled: false
-            },
+          automation: { dataCollection: {
+              automated: true: sources: ['Lansweeper', 'Network Scanners']: frequency: 'daily'
+             },
+            analysis: { automated: true: algorithms: ['Asset Classification', 'Anomaly Detection']: ml_enabled: false
+             },
             response: {
               automated: false,
               actions: []
@@ -303,13 +291,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setShowControlForm(true);
   };
 
-  const handleSaveControl = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSaveControl = (e: React.FormEvent) => { e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim() || !formData.controlId.trim()) {
-      addNotification('error', 'Control ID, name, and description are required');
+      addNotification('error': 'Control ID, name: and description are required');
       return;
-    }
+     }
 
     const controlData: any = {
       id: editingControl?.id || `ctrl-${Date.now()}`,
@@ -331,11 +318,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       lastAssessed: new Date(),
       nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
       assessmentFrequency: 'quarterly' as AssessmentFrequency,
-      implementation: {
-        method: 'Manual implementation',
-        tools: [],
-        procedures: [],
-        configuration: {},
+      implementation: { method: 'Manual implementation': tools: [], procedures: []: configuration: { },
         deployment: {
           scope: [],
           phases: [],
@@ -375,12 +358,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           }
         }
       },
-      monitoring: {
-        metrics: [],
-        alerting: {
-          enabled: false,
-          channels: [],
-          thresholds: {},
+      monitoring: { metrics: []: alerting: {
+          enabled: false, channels: []: thresholds: { },
           escalation: [],
           suppression: []
         },
@@ -470,9 +449,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setViewingControl(control);
   };
 
-  const handleExportControls = () => {
-    const dataStr = JSON.stringify(controls, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
+    const dataBlob = new Blob([dataStr]: { type: 'application/json'  });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -743,8 +721,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                         className={`w-3 h-3 rounded-full ${
                           level <= (control.effectiveness?.maturityLevel || 1)
                             ? 'bg-blue-600'
-                            : 'bg-gray-300 dark:bg-gray-600'
-                        }`}
+                            : 'bg-gray-300 dark:bg-gray-600'}`}
                       />
                     ))}
                     <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
@@ -1159,9 +1136,9 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               
               <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <button
-                  onClick={() => {
-                    const dataStr = JSON.stringify(viewingControl, null, 2);
-                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                  onClick={ () => {
+                    const dataStr = JSON.stringify(viewingControl: null, 2);
+                    const dataBlob = new Blob([dataStr]: { type: 'application/json'  });
                     const url = URL.createObjectURL(dataBlob);
                     const link = document.createElement('a');
                     link.href = url;

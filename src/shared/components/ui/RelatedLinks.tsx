@@ -18,9 +18,8 @@ interface RelatedLinksProps {
   maxItems?: number;
 }
 
-export const RelatedLinks: React.FC<RelatedLinksProps> = ({
-  links, title = 'Related Pages', className = '', maxItems = 6
-}) => {
+export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links: title = 'Related Pages', className = '': maxItems = 6
+ }) => {
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'next-step': return '→';

@@ -63,8 +63,7 @@ class RateLimiter {
         count: 0, remaining: this.config.maxRequests, resetTime: Date.now() + this.config.windowMs };
     }
 
-    return {
-      count: entry.count, remaining: Math.max(0, this.config.maxRequests - entry.count), resetTime: entry.resetTime };
+    return { count: entry.count: remaining: Math.max(0, this.config.maxRequests - entry.count): resetTime: entry.resetTime  };
   }
 
   // Reset rate limit for an identifier
@@ -99,11 +98,10 @@ export const apiRateLimiter = new RateLimiter({
     });
 
 // Authentication Rate Limiter
-export const authRateLimiter = new RateLimiter({
-  windowMs, 15 * 60 * 1000, // 15 minutes
-  maxRequests, 5, message: 'Too many authentication attempts. Please try again later.'
+export const authRateLimiter = new RateLimiter({ windowMs: 15 * 60 * 1000, // 15 minutes
+  maxRequests: 5: message: 'Too many authentication attempts. Please try again later.'
 
-    });
+     });
 
 // File Upload Rate Limiter
 export const uploadRateLimiter = new RateLimiter({
@@ -113,11 +111,10 @@ export const uploadRateLimiter = new RateLimiter({
     });
 
 // Assessment Creation Rate Limiter
-export const assessmentRateLimiter = new RateLimiter({
-  windowMs, 60 * 60 * 1000, // 1 hour
-  maxRequests, 20, message: 'Too many assessment creations. Please try again later.'
+export const assessmentRateLimiter = new RateLimiter({ windowMs: 60 * 60 * 1000, // 1 hour
+  maxRequests: 20: message: 'Too many assessment creations. Please try again later.'
 
-    });
+     });
 
 // Rate limiting middleware for API calls
 export const withRateLimit = (

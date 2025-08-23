@@ -23,10 +23,9 @@ describe('Security Tests', () => {
   });
 
   describe('Input Validation', () => {
-    it('should validate assessment responses', () => {
-      const validResponse = {
-        questionId: 'q1', value: 3, notes: 'Implementation notes', evidence: []
-      };
+    it('should validate assessment responses', () => { const validResponse = {
+        questionId: 'q1': value: 3, notes: 'Implementation notes': evidence: []
+       };
       
       // Add Zod validation tests
       expect(() => assessmentResponseSchema.parse(validResponse)).not.toThrow();

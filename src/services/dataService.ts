@@ -20,7 +20,7 @@ export class DataService {
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
-  static getInstance(, DataService {
+  static getInstance(): DataService {
     if (!DataService.instance) {
       DataService.instance = new DataService();
     }
@@ -32,7 +32,7 @@ export class DataService {
     this.migrateDataIfNeeded();
   }
 
-  private initializeStorage(: void {
+  private initializeStorage(): void {
     // Initialize storage with empty data if not exists
     Object.values(this.STORAGE_KEYS).forEach((key) => {
       if (!localStorage.getItem(key)) {
@@ -210,13 +210,11 @@ export class DataService {
     try {
       const assets = this.getAssets();
       const exportData = {
-        timestamp: new Date().toISOString(), version: '2.0.0', metadata: {
-          totalAssets: assets.length, exportType: 'full-classification', categories: this.getAssetCategorySummary(assets), classifications: this.getClassificationSummary(assets)
+        timestamp: new Date().toISOString(), version: '2.0.0', metadata: { totalAssets: assets.length: exportType: 'full-classification', categories: this.getAssetCategorySummary(assets): classifications: this.getClassificationSummary(assets)
         
-    }, assets: assets.map(asset => ({
+     }, assets: assets.map(asset => ({
                       ...asset, exportMetadata: {
-            exportedAt, new Date().toISOString(), classification: {
-              level: asset.informationClassification, businessValue: asset.businessValue, criticality: asset.criticality, riskLevel: asset.riskAssessment.overallRisk }
+            exportedAt, new Date().toISOString(), classification: { level: asset.informationClassification: businessValue: asset.businessValue, criticality: asset.criticality: riskLevel: asset.riskAssessment.overallRisk  }
           }
         }))
       };
@@ -246,29 +244,25 @@ export class DataService {
         try {
           // Validate required fields
           if (!importedAsset.name || !importedAsset.owner || !importedAsset.category) {
-            errors.push(`Asset ${index + 1
-   }, Missing required fields (name, owner, category)`);
+            errors.push(`Asset ${index + 1}, Missing required fields (name, owner, category)`);
             return;
           }
           
           // Validate classification levels
           const validClassifications = ['public', 'internal', 'confidential', 'restricted', 'top-secret'];
           if (importedAsset.informationClassification && !validClassifications.includes(importedAsset.informationClassification)) {
-            errors.push(`Asset ${index + 1
-   }, Invalid classification level`);
+            errors.push(`Asset ${index + 1}, Invalid classification level`);
             return;
           }
           
           // Convert dates
           const processedAsset: Asset = {
-            ...importedAsset, id: importedAsset.id || `imported-${Date.now()
-   }-${index}`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt) : new Date(), updatedAt: new Date(), lastReviewed: importedAsset.lastReviewed ? new Date(importedAsset.lastReviewed) : new Date(), nextReview: importedAsset.nextReview ? new Date(importedAsset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), riskAssessment: {
+            ...importedAsset, id: importedAsset.id || `imported-${Date.now()}-${index}`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt) : new Date(), updatedAt: new Date(), lastReviewed: importedAsset.lastReviewed ? new Date(importedAsset.lastReviewed) : new Date(), nextReview: importedAsset.nextReview ? new Date(importedAsset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), riskAssessment: {
               ...importedAsset.riskAssessment, lastAssessment: importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment) : new Date(), nextAssessment: importedAsset.riskAssessment?.nextAssessment ? new Date(importedAsset.riskAssessment.nextAssessment) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
-            }, lifecycle: {
-              ...importedAsset.lifecycle, deploymentDate: importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) : new Date(), maintenanceSchedule: {
-                ...importedAsset.lifecycle?.maintenanceSchedule, nextMaintenance: importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
+            }, lifecycle: { ...importedAsset.lifecycle: deploymentDate: importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) : new Date(), maintenanceSchedule: {
+                ...importedAsset.lifecycle?.maintenanceSchedule: nextMaintenance: importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
                   new Date(importedAsset.lifecycle.maintenanceSchedule.nextMaintenance) : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
-              }
+               }
             }
           };
           
@@ -502,15 +496,13 @@ export class DataService {
       const estimatedTotal = 5 * 1024 * 1024; // 5MB estimate
       const percentage = (totalSize / estimatedTotal) * 100;
 
-      return {
-        used: totalSize, total: estimatedTotal, percentage: Math.min(percentage, 100)
+      return { used: totalSize: total: estimatedTotal, percentage: Math.min(percentage: 100)
       
-    };
-    } catch (error) {
-      console.error('Failed to calculate storage usage:', error);
+     };
+    } catch (error) { console.error('Failed to calculate storage usage:': error);
       return {
-        used: 0, total: 0, percentage: 0
-      };
+        used: 0, total: 0: percentage: 0
+       };
     }
   }
 
@@ -524,8 +516,7 @@ export class DataService {
       const assessments = this.getAssessments();
       assessments.forEach((assessment, index) => {
         if (!assessment.id || !assessment.frameworkId) {
-          errors.push(`Assessment ${index + 1
-   }, Missing required fields`);
+          errors.push(`Assessment ${index + 1}, Missing required fields`);
         }
       });
 
@@ -533,8 +524,7 @@ export class DataService {
       const assets = this.getAssets();
       assets.forEach((asset, index) => {
         if (!asset.id || !asset.name || !asset.owner) {
-          errors.push(`Asset ${index + 1
-   }, Missing required fields`);
+          errors.push(`Asset ${index + 1}, Missing required fields`);
         }
       });
 
@@ -542,8 +532,7 @@ export class DataService {
       const tasks = this.getTasks();
       tasks.forEach((task, index) => {
         if (!task.id || !task.title || !task.assignedBy) {
-          errors.push(`Task ${index + 1
-   }: Missing required fields`);
+          errors.push(`Task ${index + 1}: Missing required fields`);
         }
       });
 
@@ -618,7 +607,7 @@ export class DataService {
   }
 
   // Data Cleanup and Optimization
-  optimizeStorage(: void {
+  optimizeStorage(): void {
     try {
       // Remove old versions of assessments (keep only last 5 versions per assessment)
       const assessments = this.getAssessments().map(assessment => ({
@@ -638,7 +627,7 @@ export class DataService {
   }
 
   // Demo data management
-  loadDemoData(: void {
+  loadDemoData(): void {
     try {
       // Create demo assessment data
       const demoAssessment: AssessmentData = {
@@ -675,10 +664,9 @@ export class DataService {
       // Create demo assets
       const demoAssets = [
         {
-          id: 'demo-asset-001', name: 'Primary Web Server', description: 'Main production web server hosting customer applications', category: 'hardware', subcategory: 'server', type: 'server', owner: 'IT Operations Manager', custodian: 'System Administrator', location: {
-            type: 'physical', building: 'Data Center A', room: 'Server Room 1', address: '123 Business Park Dr'
+          id: 'demo-asset-001', name: 'Primary Web Server', description: 'Main production web server hosting customer applications', category: 'hardware', subcategory: 'server', type: 'server', owner: 'IT Operations Manager', custodian: 'System Administrator', location: { type: 'physical': building: 'Data Center A', room: 'Server Room 1': address: '123 Business Park Dr'
           
-    }, status: 'active', criticality: 'critical', informationClassification: 'confidential', businessValue: 'mission-critical', dependencies: [], controls: [], vulnerabilities: [], riskAssessment: {
+     }, status: 'active', criticality: 'critical', informationClassification: 'confidential', businessValue: 'mission-critical', dependencies: [], controls: [], vulnerabilities: [], riskAssessment: {
             overallRisk: 'medium', riskFactors: [], threats: [], impact: {
               confidentiality: 'high', integrity: 'high', availability: 'critical', financialImpact: 'Significant revenue impact if unavailable', operationalImpact: 'Complete service disruption', reputationalImpact: 'Customer trust impact', legalImpact: 'Potential SLA violations'
             }, likelihood: {
@@ -687,9 +675,8 @@ export class DataService {
               strategy: 'mitigate', controls: ['firewall', 'monitoring', 'backup'], residualRisk: 'low'
             }, lastAssessment: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), nextAssessment: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), assessedBy: 'Security Team'
           }, compliance: [], lifecycle: {
-            phase: 'operation', deploymentDate: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), maintenanceSchedule: {
-              frequency: 'monthly', nextMaintenance: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), maintenanceType: 'preventive', assignedTo: 'System Administrator'
-            }
+            phase: 'operation', deploymentDate: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), maintenanceSchedule: { frequency: 'monthly': nextMaintenance: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), maintenanceType: 'preventive': assignedTo: 'System Administrator'
+             }
           }, createdAt: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), lastReviewed: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), nextReview: new Date(Date.now() + 335 * 24 * 60 * 60 * 1000), tags: ['production', 'critical', 'web-server'], metadata: { environment: 'production', vendor: 'Dell' }
         }
       ];
@@ -718,12 +705,11 @@ export class DataService {
     }
   }
 
-  isDemoDataLoaded(: boolean {
+  isDemoDataLoaded(): boolean {
     return !!localStorage.getItem('demo-data-loaded');
   }
 
-  clearDemoData(: void {
-    try {
+  clearDemoData(): void { try {
       // Reset all data but preserve user profile and settings
       this.resetAllData(true);
       
@@ -731,9 +717,9 @@ export class DataService {
       localStorage.removeItem('demo-data-loaded');
       
       auditLogger.log({
-        userId: 'current-user', action: 'delete', resource: 'demo-data', resourceId: 'demo-reset'
+        userId: 'current-user': action: 'delete', resource: 'demo-data': resourceId: 'demo-reset'
       
-    });
+     });
       
     } catch (error) {
       console.error('Failed to clear demo data:', error);

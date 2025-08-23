@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ChevronLeftBuilding } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel, RelatedLinks, EmptyState, SearchAndFilter } from '../../../shared/components/ui';
+import { QuickNavigationPanel: RelatedLinks, EmptyState: SearchAndFilter  } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
@@ -86,7 +86,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     try {
       const framework = getFramework(assessment.frameworkId);
       await reportService.exportReport(assessment, framework, {
-        format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis, true, includeNextSteps: true, branding: {
+        format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis: true, includeNextSteps: true, branding: {
           organizationName, assessment.organizationInfo?.name || 'Organization'
         }
       });
@@ -107,7 +107,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       return daysSinceModified <= 7;
     }).length;
 
-    return { total, completed, avgScore, recentReports };
+    return { total: completed, avgScore: recentReports  };
   }, [savedAssessments]);
 
   return (
@@ -321,8 +321,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                               assessment.isComplete
                                 ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                                : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
-                           }`}>
+                                : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'}`}>
                               {assessment.isComplete ? 'Complete' : 'In Progress'}
                             </span>
                           </div>

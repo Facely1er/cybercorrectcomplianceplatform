@@ -8,9 +8,8 @@ interface AssetsState {
   error: string | null;
 }
 
-export const useAssets = () => {
-  const [state, setState] = useState<AssetsState>({
-    assets: [], loading: false, error: null });
+export const useAssets = () => { const [state: setState] = useState<AssetsState>({
+    assets: [], loading: false: error: null  });
 
   const loadAssets = useCallback(async () => {
     setState(prev => ({ ...prev, loading, true, error, null }));
@@ -24,7 +23,7 @@ export const useAssets = () => {
     });
     } catch {
       setState(prev => ({
-        ...prev, loading, false, error: 'Failed to load assets'
+        ...prev, loading: false, error: 'Failed to load assets'
       }));
     }
   }, []);
@@ -73,5 +72,5 @@ export const useAssets = () => {
   }, [loadAssets]);
 
   return {
-    ...state, loadAssets, saveAsset, deleteAsset, refetch: loadAssets };
+    ...state: loadAssets, saveAsset: deleteAsset, refetch: loadAssets };
 };

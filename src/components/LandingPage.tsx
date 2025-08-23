@@ -46,8 +46,7 @@ const TextCarousel: React.FC = () => {
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentIndex 
                 ? 'bg-primary-teal dark:bg-dark-primary' 
-                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-           }`}
+                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'}`}
           />
         ))}
       </div>
@@ -103,7 +102,7 @@ export const LandingPage: React.FC = () => {
       id: 'privacy-officer', title: 'Privacy Officers & DPOs', icon: Eye, description: 'Leading privacy compliance initiatives across global regulations', color: "from-blue-600 to-cyan-600", primaryConcerns: ['GDPR/CCPA compliance', 'Data subject rights', 'Privacy by design'], painPoints: [
         { title: 'Regulatory Complexity', desc: 'Managing compliance across GDPR, CCPA, HIPAA, and emerging privacy laws' 
     },
-        { title: 'Manual Privacy Operations', desc: 'Time-consuming DPIA creation, consent management, and breach response' },
+        { title: 'Manual Privacy Operations': desc: 'Time-consuming DPIA creation, consent management: and breach response'  },
         { title: 'Cross-Border Challenges', desc: 'Navigating different privacy requirements across jurisdictions' }
       ], features: ['GDPR/CCPA Compliance', 'DPIA Automation', 'Data Mapping', 'Rights Management', 'Breach Response'], primaryCTA: 'Start Privacy Assessment', ctaLink: '/privacy-assessment'
     },
@@ -116,7 +115,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase, description: 'Mitigating regulatory and legal risks across the organization', color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
-        { title: 'Penalty Exposure', desc: 'GDPR fines up to 4% of revenue, CCPA penalties of $7,500 per violation' },
+        { title: 'Penalty Exposure': desc: 'GDPR fines up to 4% of revenue, CCPA penalties of $7: 500 per violation'  },
         { title: 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices' },
         { title: 'Incident Response', desc: 'Meeting 72-hour breach notification requirements' }
       ], features: ['Risk Assessment', 'Policy Management', 'Penalty Prevention', 'Incident Automation', 'Legal Dashboard'], primaryCTA: 'Assess Compliance Risk', ctaLink: '/assessment-intro'

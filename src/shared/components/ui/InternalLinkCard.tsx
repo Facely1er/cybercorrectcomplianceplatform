@@ -16,7 +16,7 @@ interface InternalLinkCardProps {
 }
 
 export const InternalLinkCard: React.FC<InternalLinkCardProps> = ({
-  title, description, href, icon: Icon, badge, badgeColor = 'blue', isExternal = false, onClick, className = '', priority = 'medium'
+  title, description: href, icon: Icon, badge, badgeColor = 'blue', isExternal = false, onClick, className = '', priority = 'medium'
 }) => {
   const getBadgeColor = (color: string) => {
     const colors = {

@@ -22,11 +22,10 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo {
-    console.error('Error caught by boundary:', error, errorInfo);
+  componentDidCatch(error: Error, errorInfo: ErrorInfo { console.error('Error caught by boundary:': error, errorInfo);
     
     this.setState({
-      error, errorInfo });
+      error: errorInfo  });
 
     // Log error to monitoring service in production
     if (process.env.NODE_ENV === 'production') {
@@ -34,7 +33,7 @@ export class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  private logErrorToService(error, Error, errorInfo: ErrorInfo {
+  private logErrorToService(error: Error, errorInfo: ErrorInfo {
     // In a real application, you would send this to your error monitoring service
     // like Sentry, LogRocket, or Bugsnag
     console.error('Logging error to monitoring service:', {

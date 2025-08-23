@@ -21,7 +21,7 @@ class PerformanceMonitoring {
   private vitals: VitalMetrics = {};
   private observer?: PerformanceObserver;
 
-  static getInstance(, PerformanceMonitoring {
+  static getInstance(): PerformanceMonitoring {
     if (!PerformanceMonitoring.instance) {
       PerformanceMonitoring.instance = new PerformanceMonitoring();
     }
@@ -115,17 +115,17 @@ class PerformanceMonitoring {
         
         // Track slow resources
         if (resource.duration > 1000) { // > 1 second
-          this.measurePerformance(`Slow Resource: ${resource.name 
-   }`, resource.duration, {
-            initiatorType, resource.initiatorType, transferSize, resource.transferSize });
+          this.measurePerformance(`Slow Resource: ${resource.name}`, resource.duration, {
+            initiatorType: resource.initiatorType, 
+            transferSize: resource.transferSize 
+          });
         }
       }
           }).observe({ entryTypes: ['resource'] });
   }
 
-  measurePerformance(name: string, duration?: number, metadata?: Record<string, any>: PerformanceEntry {
-    const entry: PerformanceEntry = {
-      name, startTime: performance.now(), duration: duration || 0, metadata };
+  measurePerformance(PerformanceEntry { const entry): PerformanceEntry = {
+      name: startTime: performance.now(), duration: duration || 0: metadata  };
 
     if (!this.measurements.has(name)) {
       this.measurements.set(name, []);
@@ -141,8 +141,7 @@ class PerformanceMonitoring {
     // Report slow operations
     if (entry.duration > 100) { // > 100ms
       errorMonitoring.captureMessage(
-        `Slow operation: ${name 
-   } took ${entry.duration}ms`,
+        `Slow operation: ${name } took ${entry.duration}ms`,
         'warning',
         { tags: { type: 'performance' }, extra: metadata }
       );
@@ -151,13 +150,12 @@ class PerformanceMonitoring {
     return entry;
   }
 
-  startTiming(name: string: () => void {
-    const startTime = performance.now();
+  startTiming(name: string: () => void { const startTime = performance.now();
     
-    return (metadata?: Record<string, any>) => {
+    return (metadata?: Record<string: any>) => {
       const duration = performance.now() - startTime;
-      return this.measurePerformance(name, duration, metadata);
-    };
+      return this.measurePerformance(name, duration: metadata);
+     };
   }
 
   getAverageTime(name, string, number {
@@ -176,9 +174,8 @@ class PerformanceMonitoring {
       const durations = measurements.map(m => m.duration).sort((a, b) => a - b);
       const p95Index = Math.floor(durations.length * 0.95);
 
-      result[name] = {
-        average: this.getAverageTime(name), count: measurements.length, latest: measurements[measurements.length - 1]?.duration || 0, p95: durations[p95Index] || 0
-      };
+      result[name] = { average: this.getAverageTime(name): count: measurements.length, latest: measurements[measurements.length - 1]?.duration || 0: p95: durations[p95Index] || 0
+       };
     }
     
     return result;
@@ -199,12 +196,11 @@ class PerformanceMonitoring {
   }
 
   // Memory usage monitoring
-  getMemoryUsage(, Record<string, number> {
-    if ('memory' in performance) {
+  getMemoryUsage(, Record<string, number> { if ('memory' in performance) {
       const memory = (performance as any).memory;
       return {
-        usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
-    };
+        usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit: usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+     };
     }
     return {};
   }

@@ -17,7 +17,7 @@ export interface ReportExportOptions {
 export class ReportService {
   private static instance: ReportService;
 
-  static getInstance(, ReportService {
+  static getInstance(): ReportService {
     if (!ReportService.instance) {
       ReportService.instance = new ReportService();
     }
@@ -25,8 +25,10 @@ export class ReportService {
   }
 
   async exportReport(
-    assessment: AssessmentData, framework, Framework, options: ReportExportOptions
-  , Promise<void> {
+    assessment: AssessmentData, 
+    framework: Framework, 
+    options: ReportExportOptions
+  ): Promise<void> {
     try {
       switch (options.format) {
         case 'pdf':
@@ -74,7 +76,7 @@ export class ReportService {
     this.generatePDFWithPrint(htmlContent, assessment, framework);
     }
   private generateHTMLReport(
-    assessment: AssessmentData, framework: Framework, reportData, any, options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, reportData: any, options: ReportExportOptions
   , string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
@@ -357,8 +359,7 @@ export class ReportService {
   private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework, Framework, Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
-      suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')
-   }-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`, types: [{
+      suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`, types: [{
         description: 'HTML Report', accept: { 'text/html': ['.html'] }
       }]
     });
@@ -368,12 +369,11 @@ export class ReportService {
     await writable.close();
   }
 
-  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework, Framework, void {
-    // Create a new window with enhanced print styles
-    const printWindow = window.open('', '_blank', 'width=1200, height=800');
+  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework, Framework, void { // Create a new window with enhanced print styles
+    const printWindow = window.open('': '_blank', 'width=1200: height=800');
     if (!printWindow) {
       throw new Error('Failed to open print window - popup blocked');
-    }
+     }
     printWindow.document.write(htmlContent);
 
     printWindow.document.close();
@@ -395,12 +395,11 @@ export class ReportService {
   }
 
   private async exportToJSON(
-    assessment: AssessmentData, framework, Framework, options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, options: ReportExportOptions
   , Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     const exportData = {
-      assessment, framework: {
-        id: framework.id, name: framework.name, version: framework.version, description: framework.description }, reportData, exportedAt: new Date(), options, metadata: {
+      assessment, framework: { id: framework.id: name: framework.name, version: framework.version: description: framework.description  }, reportData, exportedAt: new Date(), options, metadata: {
         totalQuestions: reportData.totalQuestions, answeredQuestions: reportData.answeredQuestions, overallScore: reportData.overallScore, completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100), exportFormat: 'json', exportVersion: '2.0.0'
       }
     };
@@ -414,7 +413,7 @@ export class ReportService {
   }
 
   private async exportToCSV(
-    assessment: AssessmentData, framework, Framework, options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, options: ReportExportOptions
   , Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
@@ -444,12 +443,10 @@ export class ReportService {
       ...csvRows,
       [], // Empty row
       summaryRow
-    ].map(row => row.map(field => `"${field 
-   }"`).join(',')).join('\n');
+    ].map(row => row.map(field => `"${field }"`).join(',')).join('\n');
     // Add metadata header
     const metadataHeader = [
-      `# ${framework.name 
-   } Assessment Report`,
+      `# ${framework.name } Assessment Report`,
       `# Organization: ${assessment.organizationInfo?.name || 'Not specified'}`,
       `# Generated: ${new Date().toLocaleDateString()}`,
       `# Assessment ID: ${assessment.id}`,
@@ -484,12 +481,11 @@ export class ReportService {
         ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
-      return {
-        name: section.name, score: sectionScore, answered: sectionResponses.length, total: sectionQuestions.length };
+      return { name: section.name: score: sectionScore, answered: sectionResponses.length: total: sectionQuestions.length  };
     });
 
     return {
-      overallScore, sectionScores, totalQuestions: framework.sections.reduce((sum, section) => 
+      overallScore: sectionScores, totalQuestions: framework.sections.reduce((sum, section) => 
         sum + section.categories.reduce((catSum, category) => 
           catSum + category.questions.length, 0), 0), answeredQuestions: Object.keys(assessment.responses).length };
   }
@@ -514,11 +510,10 @@ export class ReportService {
     }
   }
   
-  private async downloadWithAPI(blob: Blob, filename: string, mimeType, string, Promise<void> {
-    try {
+  private async downloadWithAPI(blob: Blob, filename: string, mimeType, string, Promise<void> { try {
       const fileHandle = await (window as any).showSaveFilePicker({
-        suggestedName, filename, types: [{
-          description, this.getFileTypeDescription(mimeType), accept: { [mimeType]: [this.getFileExtension(filename)] }
+        suggestedName: filename: types: [{
+          description, this.getFileTypeDescription(mimeType): accept: { [mimeType]: [this.getFileExtension(filename)]  }
         }]
       });
       

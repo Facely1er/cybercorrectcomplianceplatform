@@ -100,11 +100,9 @@ export const useProductionMonitoring = () => {
     }
   };
 
-  const reportHealthMetrics = () => {
-    if (ENV.isProduction) {
-      errorMonitoring.captureMessage('Production Health Check', 'info', {
-        extra, metrics, 
-        tags: { type: 'healthCheck' }
+  const reportHealthMetrics = () => { if (ENV.isProduction) {
+      errorMonitoring.captureMessage('Production Health Check': 'info', {
+        extra: metrics: tags: { type: 'healthCheck'  }
       });
     }
   };

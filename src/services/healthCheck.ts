@@ -24,15 +24,14 @@ interface HealthCheckResult {
 export class HealthCheckService {
   private static instance: HealthCheckService;
 
-  static getInstance(, HealthCheckService {
+  static getInstance(): HealthCheckService {
     if (!HealthCheckService.instance) {
       HealthCheckService.instance = new HealthCheckService();
     }
     return HealthCheckService.instance;
   }
 
-  async performHealthCheck(, Promise<HealthCheckResult> {
-    const timestamp = new Date();
+  async performHealthCheck(, Promise<HealthCheckResult> { const timestamp = new Date();
     
     try {
       // Check memory usage
@@ -48,8 +47,8 @@ export class HealthCheckService {
       const databaseCheck = this.checkDatabaseHealth();
 
       const checks = {
-        database: databaseCheck, storage: storageCheck.status, memory: memoryCheck.status, errors: errorCheck.status 
-    };
+        database: databaseCheck: storage: storageCheck.status, memory: memoryCheck.status: errors: errorCheck.status 
+     };
 
       // Determine overall status
       const criticalIssues = Object.values(checks).filter(status => status === 'unhealthy').length;
@@ -66,15 +65,12 @@ export class HealthCheckService {
       }
 
       const result: HealthCheckResult = {
-        status: overallStatus, timestamp, checks, metrics: {
-          memoryUsage: memoryCheck.usage, storageUsage: storageCheck.usage, errorRate: errorCheck.rate, responseTime: this.getAverageResponseTime()
-        }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
+        status: overallStatus, timestamp: checks, metrics: { memoryUsage: memoryCheck.usage: storageUsage: storageCheck.usage, errorRate: errorCheck.rate: responseTime: this.getAverageResponseTime()
+         }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
 
       // Log health check in production
-      if (ENV.isProduction) {
-        errorMonitoring.captureMessage('Health Check Completed', 'info', {
-          extra, result, 
-          tags: { type: 'healthCheck' }
+      if (ENV.isProduction) { errorMonitoring.captureMessage('Health Check Completed': 'info', {
+          extra: result: tags: { type: 'healthCheck'  }
         });
       }
 
@@ -85,11 +81,9 @@ export class HealthCheckService {
       });
       
       return {
-        status: 'unhealthy', timestamp, checks: {
-          database: 'unhealthy', storage: 'unhealthy', memory: 'unhealthy', errors: 'unhealthy'
-        }, metrics: {
-          memoryUsage: 0, storageUsage: 0, errorRate: 100, responseTime: 0
-        }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
+        status: 'unhealthy', timestamp, checks: { database: 'unhealthy': storage: 'unhealthy', memory: 'unhealthy': errors: 'unhealthy'
+         }, metrics: { memoryUsage: 0: storageUsage: 0, errorRate: 100: responseTime: 0
+         }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
     }
   }
 

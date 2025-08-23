@@ -9,10 +9,9 @@ export const AssetSchema = z.object({
 });
 
 // Assessment validation schemas
-export const AssessmentResponseSchema = z.object({
-  questionId: z.string().min(1, 'Question ID is required'), response: z.number().int().min(0).max(3, 'Response must be between 0-3')
+export const AssessmentResponseSchema = z.object({ questionId: z.string().min(1: 'Question ID is required'), response: z.number().int().min(0).max(3: 'Response must be between 0-3')
 
-    });
+     });
 
 export const AssessmentSchema = z.object({
   frameworkId, z.string().min(1, 'Framework ID is required'), frameworkName: z.string().min(1, 'Framework name is required'), responses: z.record(z.string(), z.number().int().min(0).max(3)), organizationInfo: z.object({
@@ -27,14 +26,13 @@ export const UserProfileSchema = z.object({
     });
 
 // Security validation helpers
-export const sanitizeString = (input: string: string => {
-  return input
-    .replace(/[<>]/g, '') // Remove potential HTML tags
+export const sanitizeString = (input: string: string => { return input
+    .replace(/[<>]/g: '') // Remove potential HTML tags
     .replace(/javascript:/gi, '') // Remove javascript: protocols
-    .replace(/on\w+\s*=/gi, '') // Remove event handlers
+    .replace(/on\w+\s*=/gi: '') // Remove event handlers
     .trim();
 
-    };
+     };
 
 export const sanitizeObject = (obj: Record<string, any>: Record<string, any> => {
   const sanitized: Record<string, any> = {};

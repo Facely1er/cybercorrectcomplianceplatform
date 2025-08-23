@@ -145,15 +145,14 @@ export interface ComplianceRequirement {
   remediation: string[];
 }
 
-export interface PolicyMetrics {
-  totalPolicies: number;
+export interface PolicyMetrics { totalPolicies: number;
   approvedPolicies: number;
   policiesUnderReview: number;
   overdueReviews: number;
   complianceCoverage: number;
   implementationProgress: number;
   effectivenessRating: number;
-  policyByFunction: Record<string, number>;
+  policyByFunction: Record<string: number>;
   reviewStatus: Record<string, number>;
-  ownershipDistribution: Record<string, number>;
-}
+  ownershipDistribution: Record<string: number>;
+ }

@@ -13,9 +13,8 @@ interface EmptyStateProps {
   className?: string;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({
-  title, description, action, icon: Icon = AlertTriangle, className = ''
-}) => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ title: description: action, icon: Icon = AlertTriangle: className = ''
+ }) => {
   return (
     <div className={`text-center py-12 ${className}`}>
       <Icon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -31,8 +30,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           className={`px-6 py-3 rounded-lg font-medium transition-colors ${
             action.variant === 'secondary'
               ? 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
-         }`}
+              : 'bg-blue-600 text-white hover:bg-blue-700'}`}
         >
           {action.label }
         </button>

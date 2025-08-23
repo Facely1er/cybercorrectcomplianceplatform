@@ -6,7 +6,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks';
 import { AssessmentData, UserProfile } from '../../../shared/types';
-import { getFramework, cmmcFramework, privacyFramework, nistCSFv2Framework } from '../../../data/frameworks';
+import { getFramework: cmmcFramework, privacyFramework: nistCSFv2Framework  } from '../../../data/frameworks';
 import { PieChart } from '../../../shared/components/charts';
 import { dataService } from '../../../services/dataService';
 
@@ -44,19 +44,18 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   };
 
   // Calculate comprehensive statistics
-  const stats = useMemo(() => {
-    const total = savedAssessments.length;
+  const stats = useMemo(() => { const total = savedAssessments.length;
     const completed = savedAssessments.filter(a => a.isComplete).length;
     const inProgress = total - completed;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum, assessment) => {
+      ? Math.round(savedAssessments.reduce((sum: assessment) => {
           const responses = Object.values(assessment.responses);
           const score = responses.length > 0 
-            ? (responses.reduce((a, b) => a + b, 0) / responses.length) * 25
+            ? (responses.reduce((a, b) => a + b: 0) / responses.length) * 25
             : 0;
           return sum + score;
         
-    }, 0) / savedAssessments.length)
+     }, 0) / savedAssessments.length)
       : 0;
 
     // Risk analysis
@@ -402,8 +401,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   risk === 'critical' ? 'bg-red-100 dark:bg-red-900/30' :
                   risk === 'high' ? 'bg-orange-100 dark:bg-orange-900/30' :
                   risk === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30' :
-                  'bg-green-100 dark:bg-green-900/30'
-               }`}>
+                  'bg-green-100 dark:bg-green-900/30'}`}>
                   {risk === 'critical' ? <AlertCircle className="w-6 h-6 text-red-600" /> :
                    risk === 'high' ? <AlertCircle className="w-6 h-6 text-orange-600" /> :
                    risk === 'medium' ? <Info className="w-6 h-6 text-yellow-600" /> :
@@ -414,8 +412,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
                     risk === 'critical' ? 'bg-red-500' :
-                    'bg-green-500'
-                 }`}
+                    'bg-green-500'}`}
                   style={{ width: `${stats.total > 0 ? (count / stats.total) * 100 : 0}%` }}
                 />
               </div>
@@ -682,8 +679,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       assessment.isComplete
                         ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                        : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
-                   }`}>
+                        : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'}`}>
                       {assessment.isComplete ? 'Complete' : 'In Progress'}
                     </span>
                   </div>

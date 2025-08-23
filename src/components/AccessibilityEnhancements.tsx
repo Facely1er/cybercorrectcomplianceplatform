@@ -26,8 +26,7 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
       announcement.setAttribute('aria-live', 'polite');
       announcement.setAttribute('aria-atomic', 'true');
       announcement.className = 'sr-only';
-      announcement.textContent = `Page loaded: ${document.title 
-   }`;
+      announcement.textContent = `Page loaded: ${document.title }`;
       document.body.appendChild(announcement);
       
       setTimeout(() => {

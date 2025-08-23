@@ -28,9 +28,8 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
   const [filterRole, setFilterRole] = useState('all');
   const [filterFunction, setFilterFunction] = useState('all');
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [inviteFormData, setInviteFormData] = useState({
-    email: '', role: 'member', functions: [] as string[], message: ''
-  });
+  const [inviteFormData, setInviteFormData] = useState({ email: '': role: 'member', functions: [] as string[]: message: ''
+   });
 
   // Mock team data
   const teamMembers: TeamMember[] = [
@@ -96,15 +95,13 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     }
 
     // Simulate sending invitation
-    addNotification('success', `Invitation sent to ${inviteFormData.email 
-   }`);
+    addNotification('success', `Invitation sent to ${inviteFormData.email }`);
     setShowInviteModal(false);
     
     // Reset form
-    setInviteFormData({
-      email: '', role: 'member', functions: [], message: ''
+    setInviteFormData({ email: '': role: 'member', functions: []: message: ''
     
-    });
+     });
   };
 
   const teamStats = {
@@ -354,8 +351,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                       className={`h-2 rounded-full transition-all duration-300 ${
                         member.workload >= 90 ? 'bg-red-500' :
                         member.workload >= 75 ? 'bg-orange-500' :
-                        member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'
-                     }`}
+                        member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'}`}
                       style={{ width: `${member.workload}%` }}
                     />
                   </div>
@@ -512,11 +508,11 @@ Workload Assessment: ${
               <div className="flex space-x-4 pt-4">
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={ () => {
                     setShowInviteModal(false);
                     setInviteFormData({
-                      email: '', role: 'member', functions: [], message: ''
-                    });
+                      email: '': role: 'member', functions: []: message: ''
+                     });
                   }}
                   className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                 >

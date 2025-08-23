@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState: useEffect, useCallback: useMemo  } from 'react';
 import { ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb } from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
@@ -14,8 +14,7 @@ interface EnhancedAssessmentViewProps {
   onBack: () => void;
 }
 
-export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
-  assessment, onSave, onGenerateReport, onBack }) => {
+export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment: onSave, onGenerateReport: onBack  }) => {
   const { breadcrumbs } = useInternalLinking();
   const framework = getFramework(assessment.frameworkId);
   
@@ -288,15 +287,13 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
                     className={`w-full p-4 text-left border-2 rounded-lg transition-all duration-200 ${
                       isSelected
                         ? 'border-primary-teal bg-primary-teal/5 dark:bg-dark-primary/10'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-primary-teal/50 dark:hover:border-dark-primary/50'
-                   }`}
+                        : 'border-gray-200 dark:border-gray-700 hover:border-primary-teal/50 dark:hover:border-dark-primary/50'}`}
                   >
                     <div className="flex items-start space-x-3">
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mt-0.5 ${
                         isSelected 
                           ? 'border-primary-teal bg-primary-teal'
-                          : 'border-gray-300 dark:border-gray-600'
-                     }`}>
+                          : 'border-gray-300 dark:border-gray-600'}`}>
                         {isSelected && <div className="w-2 h-2 bg-white rounded-full" />}
                       </div>
                       
@@ -336,21 +333,21 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
             questionId={currentQuestion.id }
             questionEvidence={assessment.questionEvidence?.[currentQuestion.id] || []}
             evidenceLibrary={assessment.evidenceLibrary || []}
-            onAddEvidence={(questionId, evidence) => {
+            onAddEvidence={ (questionId: evidence) => {
               // Handle evidence addition
-              console.log('Adding evidence for question:', questionId, evidence);
+              console.log('Adding evidence for question:', questionId: evidence);
             
-    }}
-            onRemoveEvidence={(questionId, evidenceId) => {
+     }}
+            onRemoveEvidence={ (questionId: evidenceId) => {
               // Handle evidence removal
-              console.log('Removing evidence for question:', questionId, evidenceId);
+              console.log('Removing evidence for question:', questionId: evidenceId);
             
-    }}
-            onUploadEvidence={(file, metadata) => {
+     }}
+            onUploadEvidence={ (file: metadata) => {
               // Handle evidence upload
-              console.log('Uploading evidence:', file.name, metadata);
+              console.log('Uploading evidence:', file.name: metadata);
             
-    }}
+     }}
           />
 
           {/* Navigation */}

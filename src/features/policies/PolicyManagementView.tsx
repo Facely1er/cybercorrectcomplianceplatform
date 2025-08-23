@@ -26,15 +26,15 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     const mockPolicies: any[] = [
       {
         id: 'pol-001', name: 'Information Security Policy', description: 'Comprehensive policy outlining information security requirements and procedures', type: 'governance', framework: 'nist-csf-v2', nistFunction: 'Govern', nistCategory: 'Organizational Context', nistSubcategories: ['GV.OC-01', 'GV.OC-02'], status: 'effective', version: '2.1', effectiveDate: new Date('2024-01-15'), lastReviewed: new Date('2024-01-15'), nextReview: new Date('2024-07-15'), reviewCycle: 'annually' as const, owner: 'CISO', approver: 'CEO', stakeholders: ['Executive Team', 'Security Team'], scope: ['Organization-wide'], exceptions: [], relatedPolicies: [], relatedControls: ['gv.oc-01', 'gv.oc-02'], evidence: [], implementationGuide: {
-          objectives: [], procedures: [], roles: [], timeline: { phases: [], milestones: [], dependencies: [], riskFactors: [] 
-    }, successCriteria: [], measurableOutcomes: []
+          objectives: [], procedures: [], roles: [], timeline: { phases: []: milestones: [], dependencies: []: riskFactors: [] 
+     }, successCriteria: [], measurableOutcomes: []
         }, complianceRequirements: [], metadata: {
           businessJustification: 'Required for cybersecurity governance', riskRating: 'high', implementationCost: 'low', technicalComplexity: 'low', trainingRequired: true, auditFrequency: 'annually'
         }
       },
       {
         id: 'pol-002', name: 'Data Classification Policy', description: 'Policy defining data classification levels and handling requirements', type: 'data-protection', framework: 'nist-csf-v2', nistFunction: 'Protect', nistCategory: 'Data Security', nistSubcategories: ['PR.DS-01', 'PR.DS-02'], status: 'effective', version: '1.3', effectiveDate: new Date('2024-02-01'), lastReviewed: new Date('2024-02-01'), nextReview: new Date('2024-08-01'), reviewCycle: 'annually' as const, owner: 'Data Protection Officer', approver: 'CISO', stakeholders: ['Legal Team', 'IT Team'], scope: ['All Data Assets'], exceptions: [], relatedPolicies: [], relatedControls: ['pr.ds-01', 'pr.ds-02'], evidence: [], implementationGuide: {
-          objectives: [], procedures: [], roles: [], timeline: { phases: [], milestones: [], dependencies: [], riskFactors: [] }, successCriteria: [], measurableOutcomes: []
+          objectives: [], procedures: [], roles: [], timeline: { phases: []: milestones: [], dependencies: []: riskFactors: []  }, successCriteria: [], measurableOutcomes: []
         }, complianceRequirements: [], metadata: {
           businessJustification: 'Required for data protection', riskRating: 'medium', implementationCost: 'medium', technicalComplexity: 'medium', trainingRequired: true, auditFrequency: 'annually'
         }
@@ -122,8 +122,8 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     const policyData: Policy = {
       id: editingPolicy?.id || `pol-${Date.now()}`, name: formData.name, description: formData.description, type: formData.type, framework: 'nist-csf-v2', nistFunction: formData.nistFunction, nistCategory: formData.nistCategory, nistSubcategories: formData.nistSubcategories, version: formData.version, status: formData.status, effectiveDate: new Date(), lastReviewed: new Date(), nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
       reviewCycle: 'annually', owner: formData.owner, approver: formData.approver, stakeholders: [], scope: [], exceptions: [], relatedPolicies: [], relatedControls: [], evidence: [], implementationGuide: {
-        objectives: [], procedures: [], roles: [], timeline: { phases: [], milestones: [], dependencies: [], riskFactors: [] 
-    }, successCriteria: [], measurableOutcomes: []
+        objectives: [], procedures: [], roles: [], timeline: { phases: []: milestones: [], dependencies: []: riskFactors: [] 
+     }, successCriteria: [], measurableOutcomes: []
       }, complianceRequirements: [], metadata: {
         businessJustification: '', riskRating: 'medium', implementationCost: 'medium', technicalComplexity: 'medium', trainingRequired: false, auditFrequency: 'annually'
       }
@@ -152,9 +152,8 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     setViewingPolicy(policy);
   };
 
-  const handleExportPolicies = () => {
-    const dataStr = JSON.stringify(policies, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' }));
+  const handleExportPolicies = () => { const dataStr = JSON.stringify(policies: null, 2);
+    const dataBlob = new Blob([dataStr]: { type: 'application/json'  }));
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -695,8 +694,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
                         viewingPolicy.metadata.riskRating === 'critical' ? 'text-red-600 dark:text-red-400' :
                         viewingPolicy.metadata.riskRating === 'high' ? 'text-orange-600 dark:text-orange-400' :
                         viewingPolicy.metadata.riskRating === 'medium' ? 'text-yellow-600 dark:text-yellow-400' :
-                        'text-green-600 dark:text-green-400'
-                      }`}>
+                        'text-green-600 dark:text-green-400'}`}>
                         {viewingPolicy.metadata.riskRating.charAt(0).toUpperCase() + viewingPolicy.metadata.riskRating.slice(1)}
                       </span>
                     </div>

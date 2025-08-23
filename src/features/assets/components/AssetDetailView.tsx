@@ -167,8 +167,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                 className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-               }`}
+                    : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'}`}
               >
                 <tab.icon className="w-4 h-4" />
                 <span>{tab.label }</span>

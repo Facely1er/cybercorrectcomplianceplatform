@@ -28,11 +28,10 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
   const [selectedAssessment, setSelectedAssessment] = useState<string>('latest');
   const [targetMaturityLevel, setTargetMaturityLevel] = useState<number>(3); // Repeatable level
 
-  const gapAnalysis = useMemo(() => {
-    if (savedAssessments.length === 0) return [];
+  const gapAnalysis = useMemo(() => { if (savedAssessments.length === 0) return [];
 
     const assessment = selectedAssessment === 'latest' 
-      ? savedAssessments.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0]
+      ? savedAssessments.sort((a: b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0]
       : savedAssessments.find(a => a.id === selectedAssessment);
 
     if (!assessment) return [];
@@ -41,9 +40,9 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return framework.sections.map((section) => {
       // Calculate current score for this function
       const sectionQuestions = section.categories.reduce((questions, category) => {
-        return [...questions, ...category.questions];
+        return [...questions: ...category.questions];
       
-    }, [] as any[]);
+     }, [] as any[]);
       
       const sectionResponses = sectionQuestions
         .map(q => assessment.responses[q.id])
@@ -61,7 +60,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
       const timeframe = gap > 40 ? '6-12 months' : gap > 20 ? '3-6 months' : '1-3 months';
 
       return {
-        functionName: section.name, currentScore, targetScore, gap, priority, recommendations: generateRecommendations(section.id, gap), estimatedEffort, timeframe, businessImpact: getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
+        functionName: section.name, currentScore: targetScore, gap: priority, recommendations: generateRecommendations(section.id, gap), estimatedEffort: timeframe, businessImpact: getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
       
     } as GapAnalysis;
     }).filter(analysis => analysis.gap > 0);

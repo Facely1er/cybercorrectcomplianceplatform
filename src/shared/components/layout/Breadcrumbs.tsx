@@ -79,8 +79,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
               className={`font-medium ${
                 item.isActive 
                   ? 'text-primary-teal dark:text-dark-primary' 
-                  : 'text-gray-900 dark:text-white'
-             }`}
+                  : 'text-gray-900 dark:text-white'}`}
               aria-current={item.isActive ? 'page' : undefined }
             >
               {item.label }

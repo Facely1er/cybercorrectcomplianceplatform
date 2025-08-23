@@ -6,7 +6,7 @@ import { dataService } from './dataService';
 export class TaskService {
   private static instance: TaskService;
 
-  static getInstance(, TaskService {
+  static getInstance(): TaskService {
     if (!TaskService.instance) {
       TaskService.instance = new TaskService();
     }
@@ -52,11 +52,10 @@ export class TaskService {
     return updatedTask;
   }
 
-  async deleteTask(taskId: string, userId: string: Promise<void> {
-    dataService.deleteTask(taskId);
+  async deleteTask(taskId: string, userId: string: Promise<void> { dataService.deleteTask(taskId);
     
     await auditLogger.log({
-      userId, action: 'delete', resource: 'task', resourceId: taskId });
+      userId: action: 'delete', resource: 'task': resourceId: taskId  });
   }
 
   async assignTasksFromAssessment(
@@ -66,7 +65,7 @@ export class TaskService {
 
     for (const questionId of questionIds) {
       const task: Omit<Task, 'id' | 'createdAt' | 'updatedAt'> = {
-        title: `Complete Assessment Question ${questionId}`, description: `Complete and provide evidence for assessment question ${questionId} in section ${sectionId}`, type: 'assessment', priority: 'medium', status: 'not-started', nistFunction: this.inferNistFunction(sectionId), nistCategory: sectionId, nistSubcategory: questionId, relatedControlId: questionId, assignedTo, assignedBy, dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+        title: `Complete Assessment Question ${questionId}`, description: `Complete and provide evidence for assessment question ${questionId} in section ${sectionId}`, type: 'assessment', priority: 'medium', status: 'not-started', nistFunction: this.inferNistFunction(sectionId), nistCategory: sectionId, nistSubcategory: questionId, relatedControlId: questionId, assignedTo: assignedBy, dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
         estimatedHours: 2, progress: 0, dependencies: [], subtasks: [], attachments: [], comments: [], evidence: [], approvalRequired: false, tags: ['assessment', 'auto-generated'], metadata: {
           businessImpact: 'medium', technicalComplexity: 'low', riskReduction: 10, complianceImpact: ['NIST CSF v2.0'], successCriteria: ['Question completed', 'Evidence provided']
     }

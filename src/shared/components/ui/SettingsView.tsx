@@ -39,8 +39,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     // This would normally come from props, but we'll implement it locally for now
-    console.log(`${type.toUpperCase()
-   }: ${message}`);
+    console.log(`${type.toUpperCase()}: ${message}`);
   };
 
   const handleExportAllData = () => {
@@ -91,8 +90,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                          (importedData.assets?.length || 0) + 
                          (importedData.tasks?.length || 0);
         
-        const confirmMessage = `Import ${itemCount 
-   } items from backup?\n\n` +
+        const confirmMessage = `Import ${itemCount } items from backup?\n\n` +
           `• ${importedData.assessments?.length || 0} assessments\n` +
           `• ${importedData.assets?.length || 0} assets\n` +
           `• ${importedData.tasks?.length || 0} tasks\n` +
@@ -116,8 +114,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         setSettings(dataService.getSettings());
         
         setImportStatus('success');
-        addNotification('success', `Successfully imported ${itemCount 
-   } items`);
+        addNotification('success', `Successfully imported ${itemCount } items`);
         setTimeout(() => setImportStatus('idle'), 3000);
         
         // Refresh page to show imported data
@@ -226,8 +223,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           <div className={`p-4 rounded-lg flex items-center space-x-3 ${
             importStatus === 'success' 
               ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' 
-              : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
-         }`}>
+              : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
             {importStatus === 'success' ? (
               <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
             ) : (
@@ -236,8 +232,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
             <span className={`font-medium ${
               importStatus === 'success' 
                 ? 'text-green-800 dark:text-green-200' 
-                : 'text-red-800 dark:text-red-200'
-           }`}>
+                : 'text-red-800 dark:text-red-200'}`}>
               {importStatus === 'success' 
                 ? 'Data imported successfully!' 
                 : 'Import failed. Please check the file format.'
@@ -265,13 +260,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               <button
                 onClick={toggleTheme }
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  theme === 'dark' ? 'bg-blue-600' : 'bg-gray-200'
-               }`}
+                  theme === 'dark' ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    theme === 'dark' ? 'translate-x-6' : 'translate-x-1'
-                 }`}
+                    theme === 'dark' ? 'translate-x-6' : 'translate-x-1'}`}
                 />
               </button>
             </div>
@@ -309,13 +302,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               <button
                 onClick={() => handleSettingChange('autoSave', !settings.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  settings.autoSave ? 'bg-blue-600' : 'bg-gray-200'
-               }`}
+                  settings.autoSave ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    settings.autoSave ? 'translate-x-6' : 'translate-x-1'
-                 }`}
+                    settings.autoSave ? 'translate-x-6' : 'translate-x-1'}`}
                 />
               </button>
             </div>
@@ -352,13 +343,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               <button
                 onClick={() => handleSettingChange('autoBackup', !settings.autoBackup)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  settings.autoBackup ? 'bg-blue-600' : 'bg-gray-200'
-               }`}
+                  settings.autoBackup ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    settings.autoBackup ? 'translate-x-6' : 'translate-x-1'
-                 }`}
+                    settings.autoBackup ? 'translate-x-6' : 'translate-x-1'}`}
                 />
               </button>
             </div>
@@ -403,8 +392,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   className={`h-2 rounded-full transition-all duration-300 ${
                     storageUsage.percentage > 80 ? 'bg-alert-coral' :
                     storageUsage.percentage > 60 ? 'bg-premium-gold' :
-                    'bg-success-green'
-                 }`}
+                    'bg-success-green'}`}
                   style={{ width: `${Math.min(storageUsage.percentage, 100)}%` }}
                 />
               </div>
@@ -440,13 +428,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               <button
                 onClick={() => handleSettingChange('emailNotifications', !settings.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'
-               }`}
+                  settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    settings.emailNotifications ? 'translate-x-6' : 'translate-x-1'
-                 }`}
+                    settings.emailNotifications ? 'translate-x-6' : 'translate-x-1'}`}
                 />
               </button>
             </div>
@@ -614,8 +600,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                     className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                       showDeleteConfirm 
                         ? 'bg-alert-coral/90 text-white' 
-                        : 'bg-alert-coral text-white hover:bg-alert-coral/90'
-                   }`}
+                        : 'bg-alert-coral text-white hover:bg-alert-coral/90'}`}
                   >
                     <Trash2 className="w-4 h-4" />
                     <span>{showDeleteConfirm ? 'Click Again to Confirm' : 'Complete Data Reset'}</span>

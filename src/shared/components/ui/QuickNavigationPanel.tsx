@@ -57,8 +57,7 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
   const filteredLinks = quickLinks.filter(link => link.href !== currentPage);
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 ${className 
-   }`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 ${className }`}>
       {showTitle && (
         <div className="flex items-center space-x-3 mb-6">
           <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />

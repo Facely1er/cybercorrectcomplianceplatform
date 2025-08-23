@@ -73,8 +73,7 @@ export const validateEnvironment = () => {
     }
   // Throw errors
   if (errors.length > 0) {
-    throw new Error(`Environment configuration errors:\n${errors.map(e => `- ${e 
-   }`).join('\n')}`);
+    throw new Error(`Environment configuration errors:\n${errors.map(e => `- ${e }`).join('\n')}`);
   }
   
   // Success message

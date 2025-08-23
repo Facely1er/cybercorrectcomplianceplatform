@@ -83,8 +83,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                   className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                     item.children?.some(child => child.href && isActive(child.href))
                       ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
-                 }`}
+                      : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'}`}
                   onKeyDown={(e) => handleKeyDown(e, item)}
                   aria-expanded={openDropdowns.has(item.label)}
                   aria-haspopup="true"
@@ -94,8 +93,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                   <span>{item.label }</span>
                   <ChevronDown 
                     className={`w-3 h-3 transition-transform ${
-                      openDropdowns.has(item.label) ? 'rotate-180' : ''
-                   }`} 
+                      openDropdowns.has(item.label) ? 'rotate-180' : ''}`} 
                     aria-hidden="true"
                   />
                 </button>
@@ -113,8 +111,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                         className={`flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
                           isActive(child.href!)
                             ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                            : 'text-gray-700 dark:text-gray-300'
-                       }`}
+                            : 'text-gray-700 dark:text-gray-300'}`}
                         role="menuitem"
                         aria-label={`${child.label}: ${child.description || ''}`}
                       >
@@ -138,8 +135,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                   isActive(item.href!)
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
-               }`}
+                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'}`}
                 role="menuitem"
                 aria-label={item.description || item.label }
               >

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, X, Info, Lock } from 'lucide-react';
+import { Save: X, Info: Lock  } from 'lucide-react';
 import { 
   Asset, AssetCategory, AssetType, CriticalityLevel, InformationClassification, AssetStatus, BusinessValue } from '../../../shared/types/assets';
 
@@ -12,11 +12,9 @@ interface AssetCreationFormProps {
 export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
   onSubmit, onCancel, initialData }) => {
   const [formData, setFormData] = useState({
-    name: initialData?.name || '', description: initialData?.description || '', category: initialData?.category || 'hardware' as AssetCategory, subcategory: initialData?.subcategory || '', type: initialData?.type || 'server' as AssetType, owner: initialData?.owner || '', custodian: initialData?.custodian || '', status: initialData?.status || 'active' as AssetStatus, criticality: initialData?.criticality || 'medium' as CriticalityLevel, informationClassification: initialData?.informationClassification || 'internal' as InformationClassification, businessValue, initialData?.businessValue || 'operational' as BusinessValue, dataClassification: {
-      sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical', regulatoryRequirements: [] as string[], dataTypes: [] as string[], accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
-    }, location: {
-      type: 'physical' as const, building: '', room: '', address: ''
-    }, tags, initialData?.tags?.join(', ') || ''
+    name: initialData?.name || '', description: initialData?.description || '', category: initialData?.category || 'hardware' as AssetCategory, subcategory: initialData?.subcategory || '', type: initialData?.type || 'server' as AssetType, owner: initialData?.owner || '', custodian: initialData?.custodian || '', status: initialData?.status || 'active' as AssetStatus, criticality: initialData?.criticality || 'medium' as CriticalityLevel, informationClassification: initialData?.informationClassification || 'internal' as InformationClassification, businessValue, initialData?.businessValue || 'operational' as BusinessValue, dataClassification: { sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical': regulatoryRequirements: [] as string[], dataTypes: [] as string[]: accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
+     }, location: { type: 'physical' as const: building: '', room: '': address: ''
+     }, tags, initialData?.tags?.join(', ') || ''
   });
   
   const [showClassificationHelp, setShowClassificationHelp] = useState(false);
@@ -50,10 +48,9 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
         }, lastAssessment: new Date(), nextAssessment: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
         assessedBy: formData.owner 
     }, compliance: [], lifecycle: {
-        phase: 'operation', deploymentDate: new Date(), maintenanceSchedule: {
-          frequency: 'quarterly', nextMaintenance: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-          maintenanceType: 'preventive', assignedTo: formData.custodian
-    }
+        phase: 'operation', deploymentDate: new Date(), maintenanceSchedule: { frequency: 'quarterly': nextMaintenance: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+          maintenanceType: 'preventive': assignedTo: formData.custodian
+     }
       }, lastReviewed: new Date(), nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
       tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean), metadata: {
     }
@@ -270,10 +267,10 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
               <input
                 type="text"
                 value={formData.dataClassification.regulatoryRequirements.join(', ')}
-                onChange={(e) => setFormData(prev => ({ 
-                  ...prev, dataClassification:) { 
-                    ...prev.dataClassification, regulatoryRequirements: e.target.value.split(',').map(r => r.trim()).filter(Boolean)
-                  } 
+                onChange={ (e) => setFormData(prev => ({ 
+                  ...prev: dataClassification:) { 
+                    ...prev.dataClassification, regulatoryRequirements: e.target.value.split(': ').map(r => r.trim()).filter(Boolean)
+                   } 
                 }))}
                 className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="e.g., GDPR, HIPAA, SOX, PCI-DSS"
@@ -287,10 +284,10 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
               <input
                 type="text"
                 value={formData.dataClassification.dataTypes.join(', ')}
-                onChange={(e) => setFormData(prev => ({ 
-                  ...prev, dataClassification:) { 
-                    ...prev.dataClassification, dataTypes: e.target.value.split(',').map(d => d.trim()).filter(Boolean)
-                  } 
+                onChange={ (e) => setFormData(prev => ({ 
+                  ...prev: dataClassification:) { 
+                    ...prev.dataClassification, dataTypes: e.target.value.split(': ').map(d => d.trim()).filter(Boolean)
+                   } 
                 }))}
                 className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="e.g., PII, PHI, Financial, Customer Data"

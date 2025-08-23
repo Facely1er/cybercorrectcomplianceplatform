@@ -87,7 +87,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
     const maturityLevel = getMaturityLevel(overallScore);
 
     return {
-      overallScore, maturityLevel, totalQuestions, answeredQuestions: responses.length, completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
+      overallScore, maturityLevel: totalQuestions, answeredQuestions: responses.length, completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
   }, [assessment, framework]);
 
   const getScoreColor = (score: number) => {
@@ -342,8 +342,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                         className={`h-2 rounded-full transition-all duration-300 ${
                           section.score >= 80 ? 'bg-green-500' :
                           section.score >= 60 ? 'bg-yellow-500' :
-                          section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'
-                       }`}
+                          section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'}`}
                         style={{ width: `${section.score}%` }}
                       />
                     </div>
@@ -414,8 +413,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         category.priority === 'high' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' :
                         category.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
-                        'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                     }`}>
+                        'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'}`}>
                         {category.priority }
                       </span>
                     </td>

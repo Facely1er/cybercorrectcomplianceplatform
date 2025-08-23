@@ -61,8 +61,7 @@ export const useComplianceMetrics = (assessments: AssessmentData[]: ComplianceMe
         ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum, score) => sum + score, 0) / monthAssessments.length)
         : 0;
 
-      trendData.push({
-        date, monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: monthScore, assessments: monthAssessments.length });
+      trendData.push({ date: monthDate.toLocaleDateString('en-US', { month: 'short': year: '2-digit'  }), score: monthScore, assessments: monthAssessments.length });
     }
 
     // Generate gap analysis

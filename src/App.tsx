@@ -52,7 +52,7 @@ const AssessmentWrapper: React.FC<{
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
 
-    }> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+    }> = ({ savedAssessments: onSave, onGenerateReport: onBack  }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -113,9 +113,9 @@ const AssessmentWrapper: React.FC<{
         </div>
       );
     }
-  } catch (error) {
-    console.error('Framework validation error:', error);
-                console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
+      } catch (error) { 
+      console.error('Framework validation error:', error);
+      console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -206,7 +206,7 @@ interface DropdownNavItemProps {
   currentPath: string;
 }
 
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
+const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon: Icon, items: currentPath  }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
@@ -221,8 +221,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
         className={`flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
           isActive
             ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-            : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
-       }`}
+            : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
         aria-expanded={isOpen }
         aria-haspopup="true"
       >
@@ -244,8 +243,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
               className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
-             }`}
+                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -323,13 +321,11 @@ function AppContent() {
   const navigationMenus = [
     {
       label: 'Assessment', icon: Target, items: [
-        {
-          label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment'
+        { label: 'Start Assessment': href: '/assessment-intro', icon: Target: description: 'Begin cybersecurity framework assessment'
         
-    },
-        {
-          label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness'
-        },
+     },
+        { label: 'CMMC Assessment': href: '/compliance/cmmc', icon: Building: description: 'CMMC Level 2 certification readiness'
+         },
         {
           label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations'
         }
@@ -337,40 +333,30 @@ function AppContent() {
     },
     {
       label: 'Implementation', icon: Shield, items: [
-        {
-          label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
-        },
-        {
-          label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation'
-        },
-        {
-          label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures'
-        },
-        {
-          label: 'Controls Management', href: '/controls', icon: CheckSquare, description: 'Security controls implementation'
-        },
-        {
-          label: 'Asset Management', href: '/assets', icon: BarChart3, description: 'Inventory and scope management'
-        }
+        { label: 'Compliance Status': href: '/compliance', icon: Activity: description: 'Real-time implementation progress'
+         },
+        { label: 'Evidence Collection': href: '/evidence', icon: FileText: description: 'Manage compliance documentation'
+         },
+        { label: 'Policy Management': href: '/policies', icon: Shield: description: 'Required policies and procedures'
+         },
+        { label: 'Controls Management': href: '/controls', icon: CheckSquare: description: 'Security controls implementation'
+         },
+        { label: 'Asset Management': href: '/assets', icon: BarChart3: description: 'Inventory and scope management'
+         }
       ]
     },
     {
       label: 'Team', icon: Users, items: [
-        {
-          label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts'
-        },
-        {
-          label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables'
-        },
-        {
-          label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities'
-        },
-        {
-          label: 'Assessment Reports', href: '/reports', icon: FileText, description: 'Generate detailed reports'
-        },
-        {
-          label: 'Advanced Analytics', href: '/reports/advanced', icon: BarChart3, description: 'Comprehensive analytics dashboard'
-        }
+        { label: 'Team Collaboration': href: '/team', icon: Users: description: 'Coordinate implementation efforts'
+         },
+        { label: 'Task Management': href: '/tasks', icon: CheckSquare: description: 'Track tasks and deliverables'
+         },
+        { label: 'Activity Calendar': href: '/calendar', icon: Calendar: description: 'Schedule compliance activities'
+         },
+        { label: 'Assessment Reports': href: '/reports', icon: FileText: description: 'Generate detailed reports'
+         },
+        { label: 'Advanced Analytics': href: '/reports/advanced', icon: BarChart3: description: 'Comprehensive analytics dashboard'
+         }
       ]
     }
   ];
@@ -378,7 +364,7 @@ function AppContent() {
   // Simple notification handlers
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     const notification: NotificationMessage = {
-              id: Date.now().toString(), type, message, timestamp: new Date()
+              id: Date.now().toString(), type: message, timestamp: new Date()
     
     };
     setNotifications(prev => [...prev, notification]);
@@ -395,20 +381,18 @@ function AppContent() {
   
     };
 
-  const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => {
-    console.log('Creating new assessment');
+  const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => { console.log('Creating new assessment');
     
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id: Date.now().toString(), frameworkId: framework.id, frameworkName: framework.name, responses: {}, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version, organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
+        id: Date.now().toString(): frameworkId: framework.id, frameworkName: framework.name: responses: { }, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version: organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
       };
 
       // Save using local data service directly
       dataService.saveAssessment(newAssessment);
       setSavedAssessments(prev => [...prev, newAssessment]);
-      navigate(`/assessment/${newAssessment.id 
-   }`);
+      navigate(`/assessment/${newAssessment.id }`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
       console.error('Failed to create assessment:', error);
@@ -443,12 +427,11 @@ function AppContent() {
   };
 
   // Asset management handlers
-  const createAsset = async (assetData: any) => {
-    try {
+  const createAsset = async (assetData: any) => { try {
       const newAsset = {
-                  ...assetData, id: Date.now().toString(), createdAt: new Date(), updatedAt: new Date()
+                  ...assetData: id: Date.now().toString(), createdAt: new Date(): updatedAt: new Date()
       
-    };
+     };
       
       dataService.saveAsset(newAsset);
       setAssets(prev => [...prev, newAsset]);
@@ -512,8 +495,7 @@ function AppContent() {
                     location.pathname === '/' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
-                  
-   }`}
+                  }`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -525,8 +507,7 @@ function AppContent() {
                     location.pathname === '/dashboard' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                                               : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
-                  
-   }`}
+                  }`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
                   <span>Dashboard</span>
@@ -797,10 +778,10 @@ function AppContent() {
                 onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
                 onDeleteAssessment={deleteAssessment }
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportAssessment={(assessment, format) => {
+                onExportAssessment={ (assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
+                    reportService.exportReport(assessment, framework: { format  });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
                   } catch {
                     addNotification('error', 'Failed to export assessment');
@@ -905,10 +886,10 @@ function AppContent() {
               <AssessmentReportsPage
                 savedAssessments={savedAssessments }
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportReport={(assessment, format) => {
+                onExportReport={ (assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
+                    reportService.exportReport(assessment, framework: { format  });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
                   } catch {
                     addNotification('error', 'Failed to export report');

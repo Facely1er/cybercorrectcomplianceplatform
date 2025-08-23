@@ -46,7 +46,7 @@ export const useReportGeneration = () => {
       
       // Generate report data
       const reportData = {
-        assessment, framework, config, generatedAt: new Date(), metadata: {
+        assessment, framework: config, generatedAt: new Date(), metadata: {
           totalQuestions: framework.sections.reduce((sum, section) => 
             sum + section.categories.reduce((catSum, category) => 
               catSum + category.questions.length, 0), 0), answeredQuestions: Object.keys(assessment.responses).length, overallScore: calculateOverallScore(assessment), recommendations: generateRecommendations(assessment, framework)

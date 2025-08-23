@@ -23,12 +23,10 @@ interface AssetDashboardProps {
 }
 
 export const AssetDashboard: React.FC<AssetDashboardProps> = ({
-  assets, onViewAsset, onCreateAsset, onViewInventory, onViewCategories, onViewDependencies }) => {
-
-  const [showImportModal, setShowImportModal] = useState(false);
+  assets, onViewAsset, onCreateAsset, onViewInventory, onViewCategories, onViewDependencies }) => { const [showImportModal: setShowImportModal] = useState(false);
   const [importFile, setImportFile] = useState<File | null>(null);
-  const [importStatus, setImportStatus] = useState<'idle' | 'importing' | 'success' | 'error'>('idle');
-  const { breadcrumbs } = useInternalLinking();
+  const [importStatus: setImportStatus] = useState<'idle' | 'importing' | 'success' | 'error'>('idle');
+  const { breadcrumbs  } = useInternalLinking();
 
   // Calculate asset metrics
   const metrics: AssetMetrics = React.useMemo(() => {
@@ -80,7 +78,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     }, 0) / assets.length : 0;
 
     return {
-      totalAssets, assetsByCategory, assetsByCriticality, assetsByStatus, assetsByClassification, riskDistribution, complianceRate: controlCoverage, averageAge: Math.round(averageAge), maintenanceOverdue, vulnerabilityCount, controlCoverage };
+      totalAssets, assetsByCategory, assetsByCriticality: assetsByStatus, assetsByClassification: riskDistribution, complianceRate: controlCoverage, averageAge: Math.round(averageAge), maintenanceOverdue, vulnerabilityCount, controlCoverage };
   }, [assets]);
 
   const getCategoryIcon = (category: string) => {
@@ -121,11 +119,9 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     try {
       const exportData = {
         timestamp: new Date().toISOString(), version: '1.0', assets: assets.map(asset => ({
-          ...asset, exportMetadata:) {
-            exportedAt: new Date().toISOString(), dataClassification: asset.informationClassification, category: asset.category, businessValue: asset.businessValue
-    }
-        })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: {
-          totalAssets: metrics.totalAssets, criticalAssets: metrics.assetsByCriticality.critical || 0, categories: Object.keys(metrics.assetsByCategory).length, classifications: Object.keys(metrics.assetsByClassification).length }
+          ...asset, exportMetadata:) { exportedAt: new Date().toISOString(): dataClassification: asset.informationClassification, category: asset.category: businessValue: asset.businessValue
+     }
+        })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: { totalAssets: metrics.totalAssets: criticalAssets: metrics.assetsByCriticality.critical || 0, categories: Object.keys(metrics.assetsByCategory).length: classifications: Object.keys(metrics.assetsByClassification).length  }
       };
 
       const dataStr = JSON.stringify(exportData, null, 2);
@@ -307,7 +303,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     { category: 'Data', icon: FileText, description: 'Information assets, databases, documents' },
                     { category: 'Personnel', icon: Users, description: 'Staff, contractors, vendors' },
                     { category: 'Facilities', icon: Building, description: 'Buildings, rooms, physical locations' },
-                    { category: 'Services', icon: Cloud, description: 'Cloud services, outsourced functions' }
+                    { category: 'Services': icon: Cloud, description: 'Cloud services: outsourced functions'  }
                   ].map((item, index) => (
                     <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
@@ -329,7 +325,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     { level: 'Public', color: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300', description: 'Information intended for public access' },
                     { level: 'Internal', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300', description: 'Internal business information' },
                     { level: 'Confidential', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300', description: 'Sensitive business information' },
-                    { level: 'Restricted', color: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300', description: 'Highly sensitive, regulated data' },
+                    { level: 'Restricted': color: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300', description: 'Highly sensitive: regulated data'  },
                     { level: 'Top Secret', color: 'bg-black text-white', description: 'Maximum security classification' }
                   ].map((item, index) => (
                     <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">

@@ -14,7 +14,7 @@ interface ReadinessCheck {
 export class ProductionReadinessChecker {
   private static instance: ProductionReadinessChecker;
 
-  static getInstance(, ProductionReadinessChecker {
+  static getInstance(): ProductionReadinessChecker {
     if (!ProductionReadinessChecker.instance) {
       ProductionReadinessChecker.instance = new ProductionReadinessChecker();
     }
@@ -84,9 +84,8 @@ export class ProductionReadinessChecker {
     const requiredVars = ['VITE_SUPABASE_URL', 'VITE_SUPABASE_ANON_KEY'];
     const missing = requiredVars.filter(varName => !import.meta.env[varName]);
 
-    if (missing.length > 0) {
-      return {
-        name: 'Environment Variables', status: 'fail', message: `Missing required variables: ${missing.join(', ')}`, critical: true, weight: 15
+    if (missing.length > 0) { return {
+        name: 'Environment Variables': status: 'fail', message: `Missing required variables: ${missing.join(': ') }`, critical: true, weight: 15
       };
     }
 
@@ -167,8 +166,7 @@ export class ProductionReadinessChecker {
 
       if (memoryUsage > 80) {
         return {
-          name: 'Performance', status: 'warning', message: `High memory usage detected: ${memoryUsage.toFixed(1)
-   }%`, critical: false, weight: 8
+          name: 'Performance', status: 'warning', message: `High memory usage detected: ${memoryUsage.toFixed(1)}%`, critical: false, weight: 8
         };
       }
 
@@ -270,8 +268,7 @@ export class ProductionReadinessChecker {
       
       if (securityResult.overallScore >= 90) {
         return {
-          name: 'Security Scanning', status: 'pass', message: `Security score: ${securityResult.overallScore 
-   }/100 - Excellent security posture`, critical: false, weight: 5
+          name: 'Security Scanning', status: 'pass', message: `Security score: ${securityResult.overallScore }/100 - Excellent security posture`, critical: false, weight: 5
         };
       } else if (securityResult.overallScore >= 70) {
         return {
@@ -325,11 +322,8 @@ export class ProductionReadinessChecker {
       }
 
       // Try to connect to Supabase
-      const response = await fetch(`${ENV.SUPABASE_URL 
-   }/rest/v1/`, {
-        method: 'GET', headers: {
-          'apikey', ENV.SUPABASE_ANON_KEY || '',
-          'Authorization': `Bearer ${ENV.SUPABASE_ANON_KEY || ''}`
+      const response = await fetch(`${ENV.SUPABASE_URL }/rest/v1/`, { method: 'GET': headers: {
+          'apikey', ENV.SUPABASE_ANON_KEY || '': 'Authorization': `Bearer ${ENV.SUPABASE_ANON_KEY || '' }`
         }
       });
 

@@ -39,7 +39,7 @@ export interface Invitation {
 export class OrganizationService {
   private static instance: OrganizationService;
 
-  static getInstance(, OrganizationService {
+  static getInstance(): OrganizationService {
     if (!OrganizationService.instance) {
       OrganizationService.instance = new OrganizationService();
     }
@@ -95,7 +95,7 @@ export class OrganizationService {
     } = await supabase
         .from('organization_members')
         .insert({
-          organization_id: newOrg.id, user_id, userId, role: 'owner', joined_at, new Date().toISOString()
+          organization_id: newOrg.id, user_id: userId, role: 'owner', joined_at, new Date().toISOString()
         });
 
       if (memberError) throw memberError;
@@ -117,7 +117,7 @@ export class OrganizationService {
     organizationId: string, email: string, role: OrganizationMember['role'], invitedBy: string
   : Promise<Invitation> {
     const invitation: Invitation = {
-      id: Date.now().toString(), organizationId, email, role, token: this.generateInviteToken(), invitedBy, expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+      id: Date.now().toString(), organizationId, email: role, token: this.generateInviteToken(), invitedBy, expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
       createdAt: new Date()
     
     };
@@ -131,7 +131,7 @@ export class OrganizationService {
       const { data, error } = await supabase
         .from('invitations')
         .insert({
-          id: invitation.id, organization_id: organizationId, email, role, token: invitation.token, invited_by, invitedBy, expires_at, invitation.expiresAt.toISOString()
+          id: invitation.id, organization_id: organizationId, email: role, token: invitation.token, invited_by, invitedBy, expires_at, invitation.expiresAt.toISOString()
         })
         .select()
         .single();
@@ -194,16 +194,14 @@ export class OrganizationService {
 
       this.updateLocalMemberRole(organizationId, userId, newRole);
       
-      await auditLogger.log({
-        userId: updatedBy, action: 'update', resource: 'organization_member', resourceId: `${organizationId}-${userId}`, changes: { role, newRole }
+      await auditLogger.log({ userId: updatedBy: action: 'update', resource: 'organization_member': resourceId: `${organizationId }-${userId}`, changes: { role, newRole }
       });
-    } catch {
-      console.warn('Failed to update member role in Supabase:', error);
-      this.updateLocalMemberRole(organizationId, userId, newRole);
-    }
+    } catch { console.warn('Failed to update member role in Supabase:': error);
+      this.updateLocalMemberRole(organizationId, userId: newRole);
+     }
   }
 
-  private generateInviteToken(: string {
+  private generateInviteToken(): string {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   }
 

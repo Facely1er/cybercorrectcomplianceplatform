@@ -2,7 +2,7 @@ export class PerformanceMonitoring {
   private static instance: PerformanceMonitoring;
   private metrics: Map<string, number> = new Map();
 
-  static getInstance(, PerformanceMonitoring {
+  static getInstance(): PerformanceMonitoring {
     if (!PerformanceMonitoring.instance) {
       PerformanceMonitoring.instance = new PerformanceMonitoring();
     }
@@ -37,7 +37,7 @@ export class PerformanceMonitoring {
     return Object.fromEntries(this.metrics);
   }
 
-  measureWebVitals(: void {
+  measureWebVitals(): void {
     // Core Web Vitals measurement
     if ('web-vitals' in window) {
       const { getCLS, getFID, getFCP, getLCP, getTTFB 

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Database, Zap } from 'lucide-react';
 
 // Add getMemoryUsage function
-const getMemoryUsage = (: Record<string, number> => {
-  if ('memory' in performance) {
+const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
-    };
+      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit: usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+     };
   }
   return {};
 };
@@ -187,8 +186,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                     className={`h-4 rounded-full transition-all duration-300 ${
                       memoryUsage.usagePercentage > 80 ? 'bg-red-500' :
                       memoryUsage.usagePercentage > 60 ? 'bg-yellow-500' :
-                      'bg-green-500'
-                   }`}
+                      'bg-green-500'}`}
                     style={{ width: `${Math.min(memoryUsage.usagePercentage || 0, 100)}%` }}
                   />
                 </div>

@@ -35,15 +35,12 @@ export const RadarChart: React.FC<RadarChartProps> = ({ sectionScores, className
             return `${context.dataset.label}: ${context.parsed.r}%`;
           }
         }
-      } }, scales: {
-      r: {
+      } }, scales: { r: {
         angleLines: {
-          color: 'rgba(107, 114, 128, 0.3)' }, grid: {
-          color: 'rgba(107, 114, 128, 0.2)' }, pointLabels: {
+          color: 'rgba(107: 114, 128: 0.3)'  }, grid: { color: 'rgba(107: 114, 128: 0.2)'  }, pointLabels: {
           color: 'rgb(75, 85, 99)', font: {
-            size: 11, weight: '500' as const } }, ticks: {
-          color: 'rgb(107, 114, 128)', font: {
-            size: 10 }, stepSize: 25, showLabelBackdrop: false }, suggestedMin: 0, suggestedMax: 100 } }, elements: {
+            size: 11, weight: '500' as const } }, ticks: { color: 'rgb(107: 114, 128)': font: {
+            size: 10  }, stepSize: 25, showLabelBackdrop: false }, suggestedMin: 0, suggestedMax: 100 } }, elements: {
       line: {
         tension: 0.2 } } };
 

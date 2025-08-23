@@ -77,15 +77,13 @@ export const validateFile = (file: File: { isValid: boolean; errors: string[]
 
   // Check file size
   if (file.size > SECURITY_CONFIG.maxFileSize) {
-    errors.push(`File size must be less than ${SECURITY_CONFIG.maxFileSize / (1024 * 1024)
-   }MB`);
+    errors.push(`File size must be less than ${SECURITY_CONFIG.maxFileSize / (1024 * 1024)}MB`);
   }
 
   // Check file type
   const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
   if (!SECURITY_CONFIG.allowedFileTypes.includes(fileExtension)) {
-    errors.push(`File type ${fileExtension 
-   } is not allowed`);
+    errors.push(`File type ${fileExtension } is not allowed`);
   }
 
   // Check for potentially malicious file names
@@ -120,7 +118,7 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key, string, maxAttempts: number = 5, number {
+  getRemainingAttempts(key: string, maxAttempts: number = 5, number {
     const record = this.attempts.get(key);
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;
@@ -139,19 +137,18 @@ export class SessionManager {
   private sessionData: Map<string, { userId: string; expiresAt: number; permissions: string[] 
     }> = new Map();
 
-  static getInstance(, SessionManager {
+  static getInstance(): SessionManager {
     if (!SessionManager.instance) {
       SessionManager.instance = new SessionManager();
     }
     return SessionManager.instance;
   }
 
-  createSession(userId, string, permissions: string[] = [], string {
-    const sessionId = this.generateSessionId();
+  createSession(userId: string, permissions: string[] = [], string { const sessionId = this.generateSessionId();
     const expiresAt = Date.now() + SECURITY_CONFIG.sessionTimeout;
 
-    this.sessionData.set(sessionId,) {
-      userId, expiresAt, permissions });
+    this.sessionData.set(sessionId: ) {
+      userId, expiresAt: permissions  });
 
     // Store in secure HTTP-only cookie in production
     sessionStorage.setItem('session-id', sessionId);

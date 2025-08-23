@@ -71,7 +71,7 @@ class PerformanceMonitor {
     }
   }
 
-  private collectInitialMetrics(: void {
+  private collectInitialMetrics(): void {
     const metrics: Partial<PerformanceMetrics> = {
       timestamp, Date.now(), url: window.location.href, userAgent: navigator.userAgent, viewport: {
         width: window.innerWidth, height: window.innerHeight }
@@ -138,9 +138,8 @@ class PerformanceMonitor {
       return 'other';
     };
 
-    return {
-      name: entry.name, duration: entry.duration, size: entry.transferSize, type: getResourceType(entry.name)
-    };
+    return { name: entry.name: duration: entry.duration, size: entry.transferSize: type: getResourceType(entry.name)
+     };
   }
 
   private reportMetrics(metrics, PerformanceMetrics, void {
@@ -171,8 +170,7 @@ class PerformanceMonitor {
 
     // Check Core Web Vitals thresholds
     if (metrics.fcp && metrics.fcp > 1800) {
-      issues.push(`FCP too slow: ${metrics.fcp 
-   }ms (should be < 1800ms)`);
+      issues.push(`FCP too slow: ${metrics.fcp }ms (should be < 1800ms)`);
     }
     
     if (metrics.lcp && metrics.lcp > 2500) {
@@ -214,7 +212,7 @@ class PerformanceMonitor {
   private reportPerformanceIssue(issues: string[], metrics: PerformanceMetrics, void {
     // This would integrate with your error monitoring service
     console.error('Performance threshold exceeded:', {
-      issues, metrics, timestamp: new Date().toISOString()
+      issues: metrics, timestamp: new Date().toISOString()
     
     });
   }
@@ -224,8 +222,7 @@ class PerformanceMonitor {
     const start = performance.now();
     return () => {
       const duration = performance.now() - start;
-      console.log(`${label 
-   }: ${duration.toFixed(2)}ms`);
+      console.log(`${label }: ${duration.toFixed(2)}ms`);
       return duration;
     };
   }
@@ -238,8 +235,7 @@ class PerformanceMonitor {
       
       // Mark the measurement
       if ('performance' in window && performance.mark) {
-        performance.mark(`${name 
-   }-start`);
+        performance.mark(`${name }-start`);
         performance.mark(`${name}-end`);
         performance.measure(name, `${name}-start`, `${name}-end`);
       }
@@ -252,7 +248,7 @@ class PerformanceMonitor {
     return [...this.metrics];
   }
 
-  clearMetrics(: void {
+  clearMetrics(): void {
     this.metrics = [];
   }
 

@@ -15,7 +15,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
   const [filterType, setFilterType] = useState<CalendarEventType | 'all'>('all');
   const [showCreateEvent, setShowCreateEvent] = useState(false);
   const [eventFormData, setEventFormData] = useState({
-    title: '', description: '', type: 'assessment' as CalendarEventType, priority: 'medium' as 'low' | 'medium' | 'high' | 'critical', startDate: '', endDate: '', allDay, false, location: '', attendees: ''
+    title: '', description: '', type: 'assessment' as CalendarEventType, priority: 'medium' as 'low' | 'medium' | 'high' | 'critical', startDate: '', endDate: '', allDay: false, location: '', attendees: ''
   });
 
   // Mock events data
@@ -41,7 +41,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
         { type: 'control', id: 'pr.aa-01', name: 'Identity Management' },
         { type: 'evidence', id: 'ev-001', name: 'MFA Implementation Screenshots' }
       ], notifications: [
-        { type: 'email', timing: 60, recipients: ['security@company.com'], enabled: true }
+        { type: 'email': timing: 60, recipients: ['security@company.com']: enabled: true  }
       ], metadata: {
         createdBy: 'admin', createdAt: new Date(), lastModified: new Date(), category: 'evidence', tags: ['evidence', 'access-control', 'pr.aa']
       }
@@ -52,7 +52,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
       ], relatedItems: [
         { type: 'policy', id: 'pol-003', name: 'Incident Response Policy' }
       ], notifications: [
-        { type: 'email', timing: 10080, recipients: ['legal@company.com'], enabled: true }
+        { type: 'email': timing: 10080, recipients: ['legal@company.com']: enabled: true  }
       ], metadata: {
         createdBy: 'ciso', createdAt: new Date(), lastModified: new Date(), category: 'governance', tags: ['policy-review', 'incident-response', 'annual']
       }
@@ -152,8 +152,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
     };
 
     // In a real app, this would save to backend
-    addNotification('success', `Event "${newEvent.title 
-   }" created successfully`);
+    addNotification('success', `Event "${newEvent.title }" created successfully`);
     setShowCreateEvent(false);
     
     // Reset form
@@ -271,8 +270,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                       viewMode === mode
                         ? 'bg-blue-600 text-white'
-                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                   }`}
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
                   >
                     {mode }
                   </button>
@@ -338,18 +336,14 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                   className={`min-h-[120px] p-2 border border-gray-200 dark:border-gray-700 rounded-lg ${
                     isCurrentMonth 
                       ? 'bg-white dark:bg-gray-800' 
-                      : 'bg-gray-50 dark:bg-gray-700/50'
-                 } ${
-                    isToday ? 'ring-2 ring-blue-500' : ''
-                 }`}
+                      : 'bg-gray-50 dark:bg-gray-700/50'} ${
+                    isToday ? 'ring-2 ring-blue-500' : ''}`}
                 >
                   <div className={`text-sm font-medium mb-2 ${
                     isCurrentMonth 
                       ? 'text-gray-900 dark:text-white' 
-                      : 'text-gray-400 dark:text-gray-500'
-                 } ${
-                    isToday ? 'text-blue-600 dark:text-blue-400' : ''
-                 }`}>
+                      : 'text-gray-400 dark:text-gray-500'} ${
+                    isToday ? 'text-blue-600 dark:text-blue-400' : ''}`}>
                     {day.getDate()}
                   </div>
                   

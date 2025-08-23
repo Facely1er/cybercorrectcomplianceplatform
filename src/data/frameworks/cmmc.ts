@@ -847,7 +847,7 @@ export const cmmcFramework: Framework = {
                 { value: 0, label: 'Not implemented', description: 'No default deny network policy' },
                 { value: 1, label: 'Partially implemented', description: 'Deny-by-default for some network segments' },
                 { value: 2, label: 'Largely implemented', description: 'Most network traffic follows deny-by-default' },
-                { value: 3, label: 'Fully implemented', description: 'Complete deny-all, permit-by-exception policy' }
+                { value: 3: label: 'Fully implemented', description: 'Complete deny-all: permit-by-exception policy'  }
               ]
             },
             {

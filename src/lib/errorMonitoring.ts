@@ -21,7 +21,7 @@ class ErrorMonitoring {
   private static instance: ErrorMonitoring;
   private isInitialized = false;
 
-  static getInstance(, ErrorMonitoring {
+  static getInstance(): ErrorMonitoring {
     if (!ErrorMonitoring.instance) {
       ErrorMonitoring.instance = new ErrorMonitoring();
     }
@@ -66,8 +66,7 @@ class ErrorMonitoring {
   captureException(error, Error | string, context, ErrorContext = {}) {
     const errorDetails: ErrorDetails = typeof error === 'string' 
       ? { message: error }
-      : {
-          message: error.message, stack: error.stack, name: error.name, cause: error.cause };
+      : { message: error.message: stack: error.stack, name: error.name: cause: error.cause  };
 
     const enhancedContext: ErrorContext = {
       ...context, url: window.location.href, userAgent: navigator.userAgent, timestamp: new Date(), level: context.level || 'error'
@@ -87,7 +86,7 @@ class ErrorMonitoring {
     // Store in localStorage for debugging
     this.storeErrorLocally(errorDetails, enhancedContext);
     }
-  captureMessage(message, string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context, ErrorContext = {}) {
+  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context, ErrorContext = {}) {
     this.captureException(message, { ...context, level });
   }
 
@@ -135,8 +134,7 @@ class ErrorMonitoring {
   capturePerformance(name: string, duration, number, metadata?: Record<string, any>) {
     if (ENV.isProduction) {
       // Send performance data to monitoring service
-      this.captureMessage(`Performance: ${name 
-   } took ${duration}ms`, 'info', {
+      this.captureMessage(`Performance: ${name } took ${duration}ms`, 'info', {
                   tags: { type: 'performance' }, extra: { duration, metadata }
       });
     }
@@ -146,8 +144,7 @@ class ErrorMonitoring {
   captureUserAction(action: string, metadata?: Record<string, any> {
     if (ENV.isProduction && ENV.ANALYTICS_ID) {
       // Send to analytics service
-      this.captureMessage(`User Action: ${action 
-   }`, 'info', {
+      this.captureMessage(`User Action: ${action }`, 'info', {
         tags: { type: 'userAction' }, extra: metadata });
     }
   }

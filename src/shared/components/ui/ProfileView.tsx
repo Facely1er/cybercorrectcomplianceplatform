@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, User, Building } from 'lucide-react';
+import { ChevronLeft: Save, User: Building  } from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
@@ -55,9 +55,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     e.preventDefault();
     
     const profile: UserProfile = {
-      id: userProfile?.id || Date.now().toString(), name: formData.name || '', email: formData.email || '', organization: formData.organization || '', role: formData.role || '', industry: formData.industry || '', certifications: formData.certifications || [], preferences: {
-        defaultFramework: formData.preferences?.defaultFramework, autoSave: formData.preferences?.autoSave ?? true, emailNotifications: formData.preferences?.emailNotifications ?? false, reportFormat: formData.preferences?.reportFormat || 'detailed'
-      }, createdAt: userProfile?.createdAt || new Date(), lastLogin: new Date()
+      id: userProfile?.id || Date.now().toString(), name: formData.name || '', email: formData.email || '', organization: formData.organization || '', role: formData.role || '', industry: formData.industry || '', certifications: formData.certifications || [], preferences: { defaultFramework: formData.preferences?.defaultFramework: autoSave: formData.preferences?.autoSave ?? true, emailNotifications: formData.preferences?.emailNotifications ?? false: reportFormat: formData.preferences?.reportFormat || 'detailed'
+       }, createdAt: userProfile?.createdAt || new Date(), lastLogin: new Date()
     };
 
     onUpdateProfile(profile);
@@ -282,13 +281,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 type="button"
                 onClick={() => handlePreferenceChange('autoSave', !formData.preferences?.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  formData.preferences?.autoSave ? 'bg-blue-600' : 'bg-gray-200'
-               }`}
+                  formData.preferences?.autoSave ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    formData.preferences?.autoSave ? 'translate-x-6' : 'translate-x-1'
-                 }`}
+                    formData.preferences?.autoSave ? 'translate-x-6' : 'translate-x-1'}`}
                 />
               </button>
             </div>
@@ -306,13 +303,11 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 type="button"
                 onClick={() => handlePreferenceChange('emailNotifications', !formData.preferences?.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  formData.preferences?.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'
-               }`}
+                  formData.preferences?.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    formData.preferences?.emailNotifications ? 'translate-x-6' : 'translate-x-1'
-                 }`}
+                    formData.preferences?.emailNotifications ? 'translate-x-6' : 'translate-x-1'}`}
                 />
               </button>
             </div>

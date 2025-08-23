@@ -16,7 +16,7 @@ interface SecurityScanResult {
 export class SecurityScanner {
   private static instance: SecurityScanner;
 
-  static getInstance(, SecurityScanner {
+  static getInstance(): SecurityScanner {
     if (!SecurityScanner.instance) {
       SecurityScanner.instance = new SecurityScanner();
     }
@@ -65,9 +65,8 @@ export class SecurityScanner {
 
     const recommendations = vulnerabilities.map(check => check.recommendation);
 
-    return {
-      overallScore: score, checks, vulnerabilities, recommendations 
-    };
+    return { overallScore: score: checks, vulnerabilities: recommendations 
+     };
   }
 
   private checkXSSProtection(, SecurityCheck {
@@ -281,8 +280,7 @@ export class SecurityScanner {
     
     const report = `
 # Security Scan Report
-Generated: ${new Date().toISOString()
-   }
+Generated: ${new Date().toISOString()}
 ## Overall Security Score: ${result.overallScore}/100
 
 ## Security Checks:

@@ -43,7 +43,7 @@ class ProductionAuthService {
   private refreshTimer: NodeJS.Timeout | null = null;
   private sessionCallbacks: ((session: AuthSession | null) => void)[] = [];
 
-  static getInstance(, ProductionAuthService {
+  static getInstance(): ProductionAuthService {
     if (!ProductionAuthService.instance) {
       ProductionAuthService.instance = new ProductionAuthService();
     }
@@ -86,8 +86,7 @@ class ProductionAuthService {
     
     if (!rateLimitResult.allowed) {
       return {
-        success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
-   } minutes.`
+        success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
       };
     }
 
@@ -138,10 +137,9 @@ class ProductionAuthService {
           
     };
 
-          const session: AuthSession = {
-            accessToken: await this.generateSecureToken(user), refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
+          const session: AuthSession = { accessToken: await this.generateSecureToken(user): refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000): // 8 hours
             user 
-    };
+     };
 
           await this.setSession(session);
           return { success: true };
@@ -178,7 +176,7 @@ class ProductionAuthService {
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.signUp({
-          email, password, options: {
+          email: password, options: {
             data: {
               name, organization, data.organization, role, data.role || 'user'
             }
@@ -216,8 +214,7 @@ class ProductionAuthService {
       id: supabaseSession.user.id, email: supabaseSession.user.email!, name: profile?.name || supabaseSession.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified: supabaseSession.user.email_confirmed_at !== null, lastLogin: new Date()
     };
 
-    const session: AuthSession = {
-      accessToken: supabaseSession.access_token, refreshToken: supabaseSession.refresh_token, expiresAt: supabaseSession.expires_at * 1000, user };
+    const session: AuthSession = { accessToken: supabaseSession.access_token: refreshToken: supabaseSession.refresh_token, expiresAt: supabaseSession.expires_at * 1000: user  };
 
     await this.setSession(session);
   }
@@ -367,7 +364,7 @@ class ProductionAuthService {
     return rolePermissions[role] || rolePermissions.user;
   }
 
-  private notifySessionChange(: void {
+  private notifySessionChange(): void {
     this.sessionCallbacks.forEach(callback => {
       try) {
         callback(this.currentSession);
@@ -385,7 +382,7 @@ class ProductionAuthService {
     return this.currentSession?.user || null;
   }
 
-  isAuthenticated(: boolean {
+  isAuthenticated(): boolean {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 

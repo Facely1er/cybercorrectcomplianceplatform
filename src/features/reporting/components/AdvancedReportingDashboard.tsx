@@ -53,18 +53,17 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
   }, [savedAssessments]);
 
   // Function-level analysis
-  const functionAnalysis = React.useMemo(() => {
-    if (savedAssessments.length === 0) return [];
+  const functionAnalysis = React.useMemo(() => { if (savedAssessments.length === 0) return [];
 
-    const latestAssessment = savedAssessments.sort((a, b) => 
+    const latestAssessment = savedAssessments.sort((a: b) => 
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
     )[0];
 
     return nistCSFv2Framework.sections.map((section) => {
       const sectionQuestions = section.categories.reduce((questions, category) => {
-        return [...questions, ...category.questions];
+        return [...questions: ...category.questions];
       
-    }, [] as any[]);
+     }, [] as any[]);
       
       const sectionResponses = sectionQuestions
         .map(q => latestAssessment.responses[q.id])
@@ -75,7 +74,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         : 0;
 
       return {
-        name: section.name, score, weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+        name: section.name: score, weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
   }, [savedAssessments]);
@@ -90,7 +89,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const complianceRate = avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100);
     
     return {
-      totalAssessments, completedAssessments, avgScore, complianceRate, improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
+      totalAssessments: completedAssessments, avgScore: complianceRate, improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
     };
   }, [savedAssessments, trendData]);
 
@@ -317,8 +316,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                       func.score >= 80 ? 'text-green-600 dark:text-green-400' :
                       func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       func.score >= 40 ? 'text-orange-600 dark:text-orange-400' :
-                      'text-red-600 dark:text-red-400'
-                   }`}>
+                      'text-red-600 dark:text-red-400'}`}>
                       {func.score }%
                     </span>
                   </td>
@@ -338,8 +336,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                       func.score >= 80 ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
                       func.score >= 60 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                       func.score >= 40 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
-                      'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
-                   }`}>
+                      'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'}`}>
                       {func.score >= 80 ? 'Adaptive' :
                        func.score >= 60 ? 'Repeatable' :
                        func.score >= 40 ? 'Risk Informed' : 'Partial'}

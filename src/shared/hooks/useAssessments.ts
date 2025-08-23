@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState: useEffect, useCallback: useMemo  } from 'react';
 import { AssessmentData } from '../types';
 import { assessmentService } from '../../services/assessmentService';
 import { dataService } from '../../services/dataService';
@@ -134,5 +134,5 @@ export const useAssessments = () => {
   }, [user, loadAssessments]);
 
   return {
-    assessments: filteredAssessments, loading: state.loading, error: state.error, loadAssessments, saveAssessment, removeAssessment, duplicateAssessment, resetAllAssessments, refresh: loadAssessments };
+    assessments: filteredAssessments, loading: state.loading, error: state.error, loadAssessments, saveAssessment: removeAssessment, duplicateAssessment: resetAllAssessments, refresh: loadAssessments };
 };

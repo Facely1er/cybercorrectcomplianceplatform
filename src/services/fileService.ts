@@ -13,7 +13,7 @@ export class FileService {
   private static instance: FileService;
   private readonly STORAGE_KEY = 'uploaded-files';
 
-  static getInstance(, FileService {
+  static getInstance(): FileService {
     if (!FileService.instance) {
       FileService.instance = new FileService();
     }
@@ -40,7 +40,7 @@ export class FileService {
     
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'fileUploadError' }, extra: { fileName, file.name, fileSize, file.size }
+        tags: { type: 'fileUploadError' }, extra: { fileName: file.name, fileSize: file.size  }
       });
       throw error;
     }
@@ -87,8 +87,7 @@ export class FileService {
     ];
 
     if (file.size > maxSize) {
-      throw new Error(`File size exceeds limit. Maximum size is ${maxSize / 1024 / 1024
-   }MB`);
+      throw new Error(`File size exceeds limit. Maximum size is ${maxSize / 1024 / 1024}MB`);
     }
 
     if (!allowedTypes.includes(file.type)) {
@@ -117,15 +116,14 @@ export class FileService {
     }
   }
 
-  getStorageUsage(: { used: number; total: number; percentage, number } {
-    try {
+  getStorageUsage(: { used: number; total: number; percentage, number } { try {
       const files = this.getStoredFiles();
-      const used = files.reduce((sum, file) => sum + file.size, 0);
+      const used = files.reduce((sum: file) => sum + file.size, 0);
       const total = 5 * 1024 * 1024; // 5MB estimate for localStorage
       return {
-        used, total, percentage: (used / total) * 100
+        used: total: percentage: (used / total) * 100
       
-    };
+     };
     } catch {
       return { used: 0, total: 0, percentage: 0 };
     }

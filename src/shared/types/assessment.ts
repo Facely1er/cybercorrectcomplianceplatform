@@ -150,14 +150,13 @@ export interface ReviewComment {
   resolvedBy?: string;
 }
 
-export interface RoleResponse {
-  questionId: string;
-  responses: Record<string, number>;
+export interface RoleResponse { questionId: string;
+  responses: Record<string: number>;
   consensus?: number;
   conflictResolution?: ConflictResolution;
   comments: Record<string, string>;
-  confidence: Record<string, number>;
-}
+  confidence: Record<string: number>;
+ }
 
 export interface ConflictResolution {
   method: 'average' | 'highest' | 'lowest' | 'manual' | 'reviewer-decision';

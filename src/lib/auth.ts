@@ -42,7 +42,7 @@ class AuthService {
   private currentSession: AuthSession | null = null;
   private refreshTimer: NodeJS.Timeout | null = null;
 
-  static getInstance(, AuthService {
+  static getInstance(): AuthService {
     if (!AuthService.instance) {
       AuthService.instance = new AuthService();
     }
@@ -74,8 +74,7 @@ class AuthService {
     
     if (!rateLimitResult.allowed) {
       return {
-        success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
-   } minutes.`
+        success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
       };
     }
 
@@ -122,8 +121,7 @@ class AuthService {
           id: data.user.id, email: data.user.email!, name: profile?.name || data.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified: data.user.email_confirmed_at !== null, lastLogin: new Date()
         };
 
-        const session: AuthSession = {
-          accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt: data.session.expires_at! * 1000, user };
+        const session: AuthSession = { accessToken: data.session.access_token: refreshToken: data.session.refresh_token, expiresAt: data.session.expires_at! * 1000: user  };
 
         result = { success: true, session };
       } else {
@@ -135,10 +133,9 @@ class AuthService {
     };
 
           // Generate JWT token for demo mode
-          const session: AuthSession = {
-            accessToken: await this.generateDemoToken(user), refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
+          const session: AuthSession = { accessToken: await this.generateDemoToken(user): refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000): // 8 hours
             user 
-    };
+     };
 
           result = { success: true, session };
         } else {
@@ -189,7 +186,7 @@ class AuthService {
 
       if (isSupabaseReady()) {
         const { data: authData, error } = await supabase.auth.signUp({
-          email, password, options: {
+          email: password, options: {
             data: {
               name, organization, data.organization, role, data.role || 'user'
             }
@@ -243,9 +240,8 @@ class AuthService {
           return false;
         }
 
-        const updatedSession: AuthSession = {
-          ...this.currentSession, accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt: data.session.expires_at! * 1000
-        };
+        const updatedSession: AuthSession = { ...this.currentSession: accessToken: data.session.access_token, refreshToken: data.session.refresh_token: expiresAt: data.session.expires_at! * 1000
+         };
 
         await this.setSession(updatedSession);
         return true;
@@ -362,7 +358,7 @@ class AuthService {
     return this.currentSession?.user || null;
   }
 
-  isAuthenticated(: boolean {
+  isAuthenticated(): boolean {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Building, Zap, Sparkles, Rocket } from 'lucide-react';
+import { Building: Zap, Sparkles: Rocket  } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 
@@ -50,24 +50,19 @@ export const StartScreen: React.FC<StartScreenProps> = ({
   ];
 
   const platformFeatures = [
-    {
-      title: "Assessment to Implementation", description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation", icon: Target, color: "blue"
-    },
-    {
-      title: "Evidence Collection", description: "Systematic collection and management of compliance evidence for all controls", icon: FileText, color: "green"
-    },
-    {
-      title: "Real-Time Compliance", description: "Live monitoring of implementation progress and compliance posture", icon: BarChart3, color: "purple"
-    },
+    { title: "Assessment to Implementation": description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation", icon: Target: color: "blue"
+     },
+    { title: "Evidence Collection": description: "Systematic collection and management of compliance evidence for all controls", icon: FileText: color: "green"
+     },
+    { title: "Real-Time Compliance": description: "Live monitoring of implementation progress and compliance posture", icon: BarChart3: color: "purple"
+     },
     {
       title: "Activity Calendar", description: "Automated scheduling of assessments, reviews, and compliance activities", icon: Calendar, color: "orange"
     },
-    {
-      title: "Assets in Scope", description: "Comprehensive asset inventory and scope management for compliance", icon: Shield, color: "indigo"
-    },
-    {
-      title: "Policies & Controls", description: "Required policies and security controls mapped to NIST CSF v2.0", icon: Award, color: "pink"
-    }
+    { title: "Assets in Scope": description: "Comprehensive asset inventory and scope management for compliance", icon: Shield: color: "indigo"
+     },
+    { title: "Policies & Controls": description: "Required policies and security controls mapped to NIST CSF v2.0", icon: Award: color: "pink"
+     }
   ];
 
   const getColorClasses = (color: string) => {

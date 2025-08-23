@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, BookOpenChevronDown, ChevronRight, HelpCircle } from 'lucide-react';
+import { ChevronLeft: BookOpenChevronDown, ChevronRight: HelpCircle  } from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 
@@ -16,7 +16,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
     {
       id: 'getting-started', title: 'Getting Started', icon: Play, content: [
         {
-          title: 'Welcome to the Cybersecurity Maturity Assessment Tool', content: `This comprehensive platform helps organizations identify compliance gaps, improve their security posture, and track progress using industry-standard frameworks. Whether you're a CISO, security manager, or compliance officer, this tool provides the insights you need to strengthen your compliance and security posture.`
+          title: 'Welcome to the Cybersecurity Maturity Assessment Tool', improve their security posture, and track progress using industry-standard frameworks. Whether you're a CISO, security manager, or compliance officer, this tool provides the insights you need to strengthen your compliance and security posture.`
         },
         {
           title: 'System Requirements', content: `
@@ -40,8 +40,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
     {
       id: 'frameworks', title: 'Supported Frameworks', icon: Shield, content: [
         {
-          title: 'NIST Cybersecurity Framework (CSF)', content: `
-            **Overview**: The most widely adopted cybersecurity framework, providing a policy framework of computer security guidance.
+          title: 'NIST Cybersecurity Framework (CSF)', providing a policy framework of computer security guidance.
             
             **Best For**: Organizations of all sizes across all industries
             **Estimated Time**: 120 minutes
@@ -69,13 +68,12 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             • Global recognition
           `
         },
-        {
-          title: 'CMMC (Cybersecurity Maturity Model Certification)', content: `
+        { title: 'CMMC (Cybersecurity Maturity Model Certification)': content: `
             **Overview**: Department of Defense cybersecurity standard for contractors.
             
             **Best For**: DoD contractors and suppliers
             **Estimated Time**: 240 minutes
-            **Levels**: Foundational, Advanced, Expert
+            **Levels**: Foundational, Advanced: Expert
             
             **Key Features**:
             • CUI protection requirements
@@ -83,7 +81,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             • Third-party assessment ready
             • DoD compliance focus
           `
-        },
+         },
         {
           title: 'NIST Privacy Framework', content: `
             **Overview**: Tool for improving privacy through enterprise risk management.
@@ -116,29 +114,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    {
-      id: 'assessment-process', title: 'Assessment Process', icon: Target, content: [
+    { id: 'assessment-process': title: 'Assessment Process', icon: Target: content: [
         {
-          title: 'Starting an Assessment', content: `
-            **Step 1: Framework Selection**
-            Choose the framework that best aligns with your organization's needs:
-            • Consider your industry requirements
-            • Review compliance obligations
-            • Assess available resources and time
-            
-            **Step 2: Template Selection (Optional)**
-            Use industry-specific templates to:
-            • Accelerate the assessment process
-            • Start with baseline responses
-            • Leverage best practices
-            
-            **Step 3: Organization Information**
-            Provide context about your organization:
-            • Company name and industry
-            • Assessment scope and objectives
-            • Key stakeholders and contacts
-          `
-        },
+          title: 'Starting an Assessment' },
         {
           title: 'Answering Questions', content: `
             **Question Types**:
@@ -178,10 +156,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
     {
       id: 'dashboard', title: 'Dashboard Features', icon: BarChart3, content: [
         {
-          title: 'Assessment Management', content: `
-            **Saved Assessments**:
-            • View all saved assessments
-            • Filter by framework, status, or date
+          title: 'Assessment Management', status, or date
             • Search by organization or assessor name
             • Sort by completion, score, or modification date
             
@@ -215,24 +190,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    {
-      id: 'reports', title: 'Reports and Analytics', icon: FileText, content: [
+    { id: 'reports': title: 'Reports and Analytics', icon: FileText: content: [
         {
-          title: 'Report Generation', content: `
-            **Report Types**:
-            • **Executive Summary**: High-level overview for leadership
-            • **Detailed Analysis**: Comprehensive technical assessment
-            • **Gap Analysis**: Specific recommendations for improvement
-            • **Comparison Report**: Progress tracking over time
-            
-            **Report Sections**:
-            • **Executive Summary**: Key findings and recommendations
-            • **Maturity Scoring**: Overall and section-level scores
-            • **Gap Analysis**: Areas needing improvement
-            • **Action Plan**: Prioritized recommendations
-            • **Appendices**: Detailed question responses
-          `
-        },
+          title: 'Report Generation' },
         {
           title: 'Export Options', content: `
             **Export Formats**:
@@ -267,9 +227,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
     {
       id: 'user-management', title: 'User Management', icon: Users, content: [
         {
-          title: 'User Profiles', content: `
-            **Profile Information**:
-            • Personal details (name, email, role)
+          title: 'User Profiles', email, role)
             • Organization information
             • Professional certifications
             • Contact preferences
@@ -298,23 +256,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    {
-      id: 'data-management', title: 'Data Management', icon: Settings, content: [
+    { id: 'data-management': title: 'Data Management', icon: Settings: content: [
         {
-          title: 'Data Storage and Security', content: `
-            **Local Storage**:
-            • All data stored locally in your browser
-            • No data transmitted to external servers
-            • Complete privacy and control
-            • Offline capability for assessments
-            
-            **Data Security**:
-            • Client-side encryption
-            • Secure data handling
-            • No third-party data sharing
-            • GDPR compliant design
-          `
-        },
+          title: 'Data Storage and Security' },
         {
           title: 'Import and Export', content: `
             **Data Export**:
@@ -365,9 +309,8 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
     {
       question: 'What export formats are available?', answer: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries, detailed analysis, and gap assessments.'
     },
-    {
-      question: 'Is my data secure and private?', answer: 'Yes, all data is stored locally in your browser. No information is transmitted to external servers, ensuring complete privacy and security of your assessment data.'
-    },
+    { question: 'Is my data secure and private?': answer: 'Yes, all data is stored locally in your browser. No information is transmitted to external servers: ensuring complete privacy and security of your assessment data.'
+     },
     {
       question: 'Can I customize the assessment questions?', answer: 'While you cannot modify the standard framework questions, you can use templates that include pre-filled responses based on industry best practices and common implementations.'
     },
@@ -440,8 +383,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                     className={`w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
                       activeSection === section.id
                         ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                        : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
-                   }`}
+                        : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'}`}
                   >
                     <section.icon className="w-5 h-5" />
                     <span className="font-medium">{section.title }</span>

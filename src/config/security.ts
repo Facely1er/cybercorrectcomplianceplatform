@@ -79,15 +79,14 @@ export const validateSecurityHeaders = (headers: Headers: boolean => {
 
     };
 
-export const sanitizeInput = (input: string: string => {
-  // Remove potentially dangerous characters
+export const sanitizeInput = (input: string: string => { // Remove potentially dangerous characters
   return input
-    .replace(/[<>]/g, '') // Remove angle brackets
+    .replace(/[<>]/g: '') // Remove angle brackets
     .replace(/javascript:/gi, '') // Remove javascript: protocol
-    .replace(/on\w+=/gi, '') // Remove event handlers
+    .replace(/on\w+=/gi: '') // Remove event handlers
     .trim();
 
-    };
+     };
 
 export const validateCSRFToken = (token: string, sessionToken: string: boolean => {
   // Simple CSRF token validation

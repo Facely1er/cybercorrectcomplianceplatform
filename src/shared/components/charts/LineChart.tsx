@@ -42,16 +42,12 @@ export const LineChart: React.FC<LineChartProps> = ({
             return `${context.dataset.label}: ${context.parsed.y}${context.dataset.label.includes('Score') ? '%' : ''}`;
           }
         }
-      } }, scales: {
-      x: {
+      } }, scales: { x: {
         grid: {
-          color: 'rgba(107, 114, 128, 0.1)' }, ticks: {
-          color: 'rgb(107, 114, 128)', font: {
-            size: 11 } } }, y: {
-        grid: {
-          color: 'rgba(107, 114, 128, 0.1)' }, ticks: {
-          color: 'rgb(107, 114, 128)', font: {
-            size: 11 } }, beginAtZero: true } }, elements: {
+          color: 'rgba(107: 114, 128: 0.1)'  }, ticks: { color: 'rgb(107: 114, 128)': font: {
+            size: 11  } } }, y: { grid: {
+          color: 'rgba(107: 114, 128: 0.1)'  }, ticks: { color: 'rgb(107: 114, 128)': font: {
+            size: 11  } }, beginAtZero: true } }, elements: {
       point: {
         radius: 4, hoverRadius: 6, borderWidth: 2 }, line: {
         borderWidth: 3 } }, animation: {

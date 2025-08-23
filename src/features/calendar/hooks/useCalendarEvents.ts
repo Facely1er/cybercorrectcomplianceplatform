@@ -19,8 +19,7 @@ export const useCalendarEvents = (tasks: Task[], assessments: AssessmentData[]) 
     // Add task events
     tasks.forEach((task) => {
       calendarEvents.push({
-        id: `task-${task.id 
-   }`, title: task.title, description: task.description, date: task.dueDate, type: 'task', priority: task.priority, assignees: [task.assignedTo], relatedId: task.id });
+        id: `task-${task.id }`, title: task.title, description: task.description, date: task.dueDate, type: 'task', priority: task.priority, assignees: [task.assignedTo], relatedId: task.id });
     });
 
     // Add assessment deadlines
@@ -31,8 +30,7 @@ export const useCalendarEvents = (tasks: Task[], assessments: AssessmentData[]) 
         deadline.setDate(deadline.getDate() + 30);
 
         calendarEvents.push({
-          id: `assessment-deadline-${assessment.id 
-   }`, title: `${assessment.frameworkName} Assessment Deadline`, description: `Complete assessment for ${assessment.organizationInfo?.name || 'organization'}`, date: deadline, type: 'deadline', priority: 'high', assignees: [], relatedId: assessment.id });
+          id: `assessment-deadline-${assessment.id }`, title: `${assessment.frameworkName} Assessment Deadline`, description: `Complete assessment for ${assessment.organizationInfo?.name || 'organization'}`, date: deadline, type: 'deadline', priority: 'high', assignees: [], relatedId: assessment.id });
       }
     });
 

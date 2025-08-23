@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Image, CheckCircle, User, Link } from 'lucide-react';
+import { Image: CheckCircle, User: Link  } from 'lucide-react';
 import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
 
-interface EvidenceManagerProps {
-  questionId: string;
+interface EvidenceManagerProps { questionId: string;
   questionEvidence: QuestionEvidence[];
   evidenceLibrary: EvidenceItem[];
-  onAddEvidence: (questionId: string, evidence: QuestionEvidence) => void;
+  onAddEvidence: (questionId: string: evidence: QuestionEvidence) => void;
   onRemoveEvidence: (questionId: string, evidenceId: string) => void;
-  onUploadEvidence: (file: File, metadata: Partial<EvidenceItem>) => void;
+  onUploadEvidence: (file: File: metadata: Partial<EvidenceItem>) => void;
   className?: string;
-}
+ }
 
 export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
   questionId, questionEvidence, evidenceLibrary, onAddEvidence, onRemoveEvidence, onUploadEvidence, className = ''

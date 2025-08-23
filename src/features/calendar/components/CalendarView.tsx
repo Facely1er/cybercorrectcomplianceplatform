@@ -19,9 +19,8 @@ interface CalendarViewProps {
   className?: string;
 }
 
-export const CalendarView: React.FC<CalendarViewProps> = ({
-  tasks, onEventClick, onCreateEvent, className = ''
-}) => {
+export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick, onCreateEvent: className = ''
+ }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month');
 
@@ -98,8 +97,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
                       ? 'bg-blue-600 text-white'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                 }`}
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
                 >
                   {mode }
                 </button>
@@ -157,18 +155,14 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   className={`min-h-[100px] p-2 border border-gray-200 dark:border-gray-700 rounded-lg ${
                     isCurrentMonth 
                       ? 'bg-white dark:bg-gray-800' 
-                      : 'bg-gray-50 dark:bg-gray-700/50'
-                 } ${
-                    isToday ? 'ring-2 ring-blue-500' : ''
-                 }`}
+                      : 'bg-gray-50 dark:bg-gray-700/50'} ${
+                    isToday ? 'ring-2 ring-blue-500' : ''}`}
                 >
                   <div className={`text-sm font-medium mb-2 ${
                     isCurrentMonth 
                       ? 'text-gray-900 dark:text-white' 
-                      : 'text-gray-400 dark:text-gray-500'
-                 } ${
-                    isToday ? 'text-blue-600 dark:text-blue-400' : ''
-                 }`}>
+                      : 'text-gray-400 dark:text-gray-500'} ${
+                    isToday ? 'text-blue-600 dark:text-blue-400' : ''}`}>
                     {day.getDate()}
                   </div>
                   

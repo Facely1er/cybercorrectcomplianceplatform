@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Server, Database, Building, Cloud } from 'lucide-react';
+import { Server: Database, Building: Cloud  } from 'lucide-react';
 import { Asset, AssetInventoryFilter, AssetCategory, CriticalityLevel, AssetStatus, InformationClassification } from '../../../shared/types/assets';
 import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
@@ -67,8 +67,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           comparison = a.category.localeCompare(b.category);
           break;
         }
-        case 'criticality': {
-          const criticalityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
+        case 'criticality': { const criticalityOrder = { critical: 4: high: 3, medium: 2: low: 1  };
           comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
           break;
         }
@@ -261,9 +260,9 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           }
         ]}
-        selectedFilters={{
-          categories: filters.categories || [], criticality: filters.criticality || [], status: filters.status || [], classification: filters.classification || []
-        }}
+        selectedFilters={ {
+          categories: filters.categories || []: criticality: filters.criticality || [], status: filters.status || []: classification: filters.classification || []
+         }}
         onFilterChange={(filterId, value) => {
           setFilters(prev => ({
             ...prev,
