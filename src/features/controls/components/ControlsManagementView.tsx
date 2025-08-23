@@ -464,7 +464,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   };
 
   const handleViewControl = (control: Control) => {
-    addNotification('info', `Viewing control details: ${control.controlId }`);
+    addNotification('info', `Viewing control details: ${control.controlId}`);
   };
 
   const handleExportControls = () => {
@@ -492,7 +492,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             const importedControls = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedControls)) {
               setControls(prev => [...prev, ...importedControls]);
-              addNotification('success', `Imported ${importedControls.length } controls`);
+              addNotification('success', `Imported ${importedControls.length} controls`);
             } else {
               addNotification('error', 'Invalid file format');
             }
@@ -568,7 +568,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 className={`p-2 rounded-lg transition-colors ${autoRefresh 
                   ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' 
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                }`}
+               }`}
                 title={autoRefresh ? 'Auto-refresh enabled' : 'Auto-refresh disabled'}
               >
                 <RefreshCw className={`w-5 h-5 ${autoRefresh ? 'animate-spin' : ''}`} />
@@ -675,7 +675,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-6">
             <div
               className="bg-gradient-to-r from-blue-500 to-green-500 h-4 rounded-full transition-all duration-500 shadow-sm"
-              style={{ width: `${implementationPercentage }%` }}
+              style={{ width: `${implementationPercentage}%` }}
             />
           </div>
           
@@ -733,7 +733,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     viewMode === mode
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
+                 }`}
                 >
                   {mode }
                 </button>
@@ -1044,7 +1044,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                                         result.outcome === 'pass' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
                                         result.outcome === 'partial' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                                         'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
-                                      }`}>
+                                     }`}>
                                         {result.outcome }
                                       </span>
                                       {result.score && (

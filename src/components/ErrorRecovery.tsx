@@ -14,7 +14,7 @@ export const ErrorRecovery: React.FC<ErrorRecoveryProps> = ({
   error, onRetry, onGoBack, onGoHome, showActions = true, className = ''
 }) => {
   return (
-    <div className={`text-center py-12 px-4 ${className }`}>
+    <div className={`text-center py-12 px-4 ${className}`}>
       <div className="max-w-md mx-auto">
         <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-red-100 dark:bg-red-900/30 rounded-full">
           <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />

@@ -58,7 +58,7 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
 
   return (
     <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 ${className 
-    }`}>
+   }`}>
       {showTitle && (
         <div className="flex items-center space-x-3 mb-6">
           <Zap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
@@ -74,7 +74,7 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
             key={index }
             to={link.href }
             className={`group p-4 rounded-lg border hover:shadow-md transition-all duration-200 ${getCategoryColor(link.category)}`}
-            aria-label={`Navigate to ${link.title }: ${link.description }`}
+            aria-label={`Navigate to ${link.title}: ${link.description}`}
           >
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-center space-x-2">

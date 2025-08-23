@@ -39,12 +39,13 @@ export class ReportService {
           await this.exportToCSV(assessment, framework, options);
           break;
         default:
-          throw new Error(`Unsupported format: ${options.format }`);
+          throw new Error(`Unsupported format: ${options.format}`);
       }
     } catch (error) {
-      errorMonitoring.captureException(error as Error, {
-        tags: { type): 'reportExportError' }, extra: { assessmentId: assessment.id, format: options.format }
-      });
+              errorMonitoring.captureException(error as Error, {
+          tags: { type: 'reportExportError' }, 
+          extra: { assessmentId: assessment.id, format: options.format }
+        });
       throw error;
     }
   }
@@ -82,7 +83,7 @@ export class ReportService {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>${framework.name } Assessment Report - ${organizationName }</title>
+          <title>${framework.name} Assessment Report - ${organizationName}</title>
           <meta charset="UTF-8">
           <style>
             @page {
@@ -260,35 +261,35 @@ export class ReportService {
         </head>
         <body>
           <div class="header">
-            <h1>${framework.name } Assessment Report</h1>
-            <div class="subtitle">Organization: ${organizationName }</div>
-            <div class="subtitle">Generated on ${reportDate }</div>
-            <div class="subtitle">Assessment ID: ${assessment.id }</div>
+            <h1>${framework.name} Assessment Report</h1>
+            <div class="subtitle">Organization: ${organizationName}</div>
+            <div class="subtitle">Generated on ${reportDate}</div>
+            <div class="subtitle">Assessment ID: ${assessment.id}</div>
           </div>
           
           <div class="section">
             <h2>Executive Summary</h2>
             <div class="metric-grid">
               <div class="metric-card">
-                <div class="metric-value">${reportData.overallScore }%</div>
+                <div class="metric-value">${reportData.overallScore}%</div>
                 <div class="metric-label">Overall Score</div>
               </div>
               <div class="metric-card">
-                <div class="metric-value">${reportData.answeredQuestions }/${reportData.totalQuestions }</div>
+                <div class="metric-value">${reportData.answeredQuestions}/${reportData.totalQuestions}</div>
                 <div class="metric-label">Questions Completed</div>
               </div>
               <div class="metric-card">
-                <div class="metric-value">${framework.name }</div>
+                <div class="metric-value">${framework.name}</div>
                 <div class="metric-label">Framework</div>
               </div>
               <div class="metric-card">
-                <div class="metric-value">v${framework.version }</div>
+                <div class="metric-value">v${framework.version}</div>
                 <div class="metric-label">Version</div>
               </div>
             </div>
             
             <p><strong>Assessment Completion Date:</strong> ${assessment.lastModified.toLocaleDateString()}</p>
-            <p><strong>Framework:</strong> ${framework.name } v${framework.version }</p>
+            <p><strong>Framework:</strong> ${framework.name} v${framework.version}</p>
             <p><strong>Assessment Status:</strong> ${assessment.isComplete ? 'Complete' : 'In Progress'}</p>
           </div>
           
@@ -306,12 +307,12 @@ export class ReportService {
               <tbody>
                 ${reportData.sectionScores.map((section: any) => `
                   <tr>
-                    <td><strong>${section.name }</strong></td>
-                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669' : section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score }%</td>
-                    <td style="text-align: center;">${section.answered }/${section.total }</td>
+                    <td><strong>${section.name}</strong></td>
+                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669' : section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score}%</td>
+                    <td style="text-align: center;">${section.answered}/${section.total}</td>
                     <td>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${section.score }%; background: ${section.score >= 75 ? '#10b981' : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
+                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981' : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
                       </div>
                     </td>
                   </tr>
@@ -325,8 +326,8 @@ export class ReportService {
               <h2>Assessment Notes & Comments</h2>
               ${Object.entries(assessment.questionNotes).map(([questionId, note]) => `
                 <div class="notes-section">
-                  <div class="notes-title">Question ${questionId }:</div>
-                  <p>${note }</p>
+                  <div class="notes-title">Question ${questionId}:</div>
+                  <p>${note}</p>
                 </div>
               `).join('')}
             </div>
@@ -345,7 +346,7 @@ export class ReportService {
           
           <div class="footer">
             <p>Report generated by CyberCorrect™ Cybersecurity Compliance Platform</p>
-            <p>Assessment ID: ${assessment.id } | Generated: ${reportDate } | Framework: ${framework.name } v${framework.version }</p>
+            <p>Assessment ID: ${assessment.id} | Generated: ${reportDate} | Framework: ${framework.name} v${framework.version}</p>
             <p>This report contains confidential information. Handle according to your organization's data classification policies.</p>
           </div>
         </body>
@@ -353,11 +354,11 @@ export class ReportService {
     `;
   }
 
-  private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework): Promise<void> {
+  private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework: Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
       suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')
-    }-report-${assessment.id }-${new Date().toISOString().split('T')[0]}.html`, types: [{
+   }-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`, types: [{
         description: 'HTML Report', accept: { 'text/html': ['.html'] }
       }]
     });
@@ -367,7 +368,7 @@ export class ReportService {
     await writable.close();
   }
 
-  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework): void {
+  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework: void {
     // Create a new window with enhanced print styles
     const printWindow = window.open('', '_blank', 'width=1200, height=800');
     if (!printWindow) {
@@ -407,7 +408,7 @@ export class ReportService {
     const dataStr = JSON.stringify(exportData, null, 2);
     this.downloadFile(
       dataStr,
-      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id }-${new Date().toISOString().split('T')[0]}.json`,
+      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.json`,
       'application/json'
     );
   }
@@ -444,27 +445,27 @@ export class ReportService {
       [], // Empty row
       summaryRow
     ].map(row => row.map(field => `"${field 
-    }"`).join(',')).join('\n');
+   }"`).join(',')).join('\n');
     // Add metadata header
     const metadataHeader = [
       `# ${framework.name 
-    } Assessment Report`,
+   } Assessment Report`,
       `# Organization: ${assessment.organizationInfo?.name || 'Not specified'}`,
       `# Generated: ${new Date().toLocaleDateString()}`,
-      `# Assessment ID: ${assessment.id }`,
-      `# Framework Version: ${framework.version }`,
+      `# Assessment ID: ${assessment.id}`,
+      `# Framework Version: ${framework.version}`,
       '#',
       ''
     ].join('\n');
 
     this.downloadFile(
       metadataHeader + csvContent,
-      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id }-${new Date().toISOString().split('T')[0]}.csv`,
+      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.csv`,
       'text/csv'
     );
   }
 
-  private generateReportData(assessment: AssessmentData, framework): Framework {
+  private generateReportData(assessment: AssessmentData, framework: Framework {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
       ? Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25)
@@ -493,12 +494,12 @@ export class ReportService {
           catSum + category.questions.length, 0), 0), answeredQuestions: Object.keys(assessment.responses).length };
   }
 
-  private downloadFile(content: string, filename: string, mimeType: string): void {
+  private downloadFile(content: string, filename: string, mimeType: string: void {
     try {
       // Add UTF-8 BOM for CSV files to ensure proper character encoding
       const bom = mimeType === 'text/csv' ? '\uFEFF' : '';
       const blob = new Blob([bom + content],) { type: `${mimeType 
-    };charset=utf-8` });
+   };charset=utf-8` });
       
       // Use modern download API if available
       if ('showSaveFilePicker' in window) {
@@ -510,11 +511,11 @@ export class ReportService {
     
     } catch (error) {
       console.error('Download failed:', error);
-      throw new Error(`Failed to download file: ${error }`);
+      throw new Error(`Failed to download file: ${error}`);
     }
   }
   
-  private async downloadWithAPI(blob: Blob, filename: string, mimeType: string): Promise<void> {
+  private async downloadWithAPI(blob: Blob, filename: string, mimeType: string: Promise<void> {
     try {
       const fileHandle = await (window as any).showSaveFilePicker({
         suggestedName: filename, types: [{
@@ -531,7 +532,7 @@ export class ReportService {
     }
   }
   
-  private downloadWithLink(blob: Blob, filename: string): void {
+  private downloadWithLink(blob: Blob, filename: string: void {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -543,7 +544,7 @@ export class ReportService {
     URL.revokeObjectURL(url);
   }
   
-  private getFileTypeDescription(mimeType: string): string {
+  private getFileTypeDescription(mimeType: string: string {
     switch (mimeType) {
       case 'application/json': return 'JSON Data';
       case 'text/csv': return 'CSV Spreadsheet';
@@ -553,7 +554,7 @@ export class ReportService {
     }
   }
   
-  private getFileExtension(filename: string): string {
+  private getFileExtension(filename: string: string {
     const parts = filename.split('.');
     return parts.length > 1 ? `.${parts[parts.length - 1]}` : '';
   }

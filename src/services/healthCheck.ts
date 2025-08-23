@@ -73,8 +73,8 @@ export class HealthCheckService {
       // Log health check in production
       if (ENV.isProduction) {
         errorMonitoring.captureMessage('Health Check Completed', 'info', {
-          extra): result, tags: { type: 'healthCheck'
-    }
+          extra: result, 
+          tags: { type: 'healthCheck' }
         });
       }
 

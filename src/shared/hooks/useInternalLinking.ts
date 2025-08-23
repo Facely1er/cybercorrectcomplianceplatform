@@ -101,7 +101,7 @@ export const useInternalLinking = () => {
     ]
   };
 
-  const getRelatedLinks = (currentPath: string): LinkSuggestion[] => {
+  const getRelatedLinks = (currentPath: string: LinkSuggestion[] => {
     return linkingMap[currentPath] || [];
   };
 
@@ -131,7 +131,7 @@ export const useInternalLinking = () => {
     let currentPath = '';
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment 
-    }`;
+   }`;
       const isLast = index === pathSegments.length - 1;
       
       // Special handling for assessment routes
@@ -182,7 +182,7 @@ export const useInternalLinking = () => {
     let currentPath = '';
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment 
-    }`;
+   }`;
       const isLast = index === pathSegments.length - 1;
       
       // Skip dynamic segments like IDs

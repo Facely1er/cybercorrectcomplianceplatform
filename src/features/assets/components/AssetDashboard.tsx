@@ -333,7 +333,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     { level: 'Top Secret', color: 'bg-black text-white', description: 'Maximum security classification' }
                   ].map((item, index) => (
                     <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${item.color }`}>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${item.color}`}>
                         {item.level }
                       </span>
                       <div className="text-sm text-gray-600 dark:text-gray-300">{item.description }</div>

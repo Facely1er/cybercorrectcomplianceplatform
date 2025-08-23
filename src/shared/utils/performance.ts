@@ -12,7 +12,7 @@ export class PerformanceMonitor {
     return PerformanceMonitor.instance;
   }
 
-  startTiming(operation: string): () => void {
+  startTiming(operation: string: () => void {
     const startTime = performance.now();
     
     return () => {
@@ -33,7 +33,7 @@ export class PerformanceMonitor {
     };
   }
 
-  getAverageTime(operation: string): number {
+  getAverageTime(operation: string: number {
     const measurements = this.metrics.get(operation);
     if (!measurements || measurements.length === 0) return 0;
     
@@ -57,7 +57,7 @@ export class PerformanceMonitor {
 }
 
 // Data validation utilities
-export const validateAssessmentData = (assessment: AssessmentData): string[] => {
+export const validateAssessmentData = (assessment: AssessmentData: string[] => {
   const errors: string[] = [];
 
   if (!assessment.id) errors.push('Assessment ID is required');
@@ -71,7 +71,7 @@ export const validateAssessmentData = (assessment: AssessmentData): string[] => 
     for (const [questionId, response] of Object.entries(assessment.responses)) {
       if (typeof response !== 'number' || response < 0 || response > 3) {
         errors.push(`Invalid response value for question ${questionId 
-    }: ${response }`);
+   }: ${response}`);
       }
     }
   }
@@ -86,7 +86,7 @@ export const validateAssessmentData = (assessment: AssessmentData): string[] => 
   return errors;
 };
 
-export const validateFrameworkData = (framework: Framework): string[] => {
+export const validateFrameworkData = (framework: Framework: string[] => {
   const errors: string[] = [];
 
   if (!framework.id) errors.push('Framework ID is required');
@@ -99,27 +99,27 @@ export const validateFrameworkData = (framework: Framework): string[] => {
   // Validate sections
   framework.sections?.forEach((section, sectionIndex) => {
     if (!section.id) errors.push(`Section ${sectionIndex 
-    } missing ID`);
-    if (!section.name) errors.push(`Section ${sectionIndex } missing name`);
+   } missing ID`);
+    if (!section.name) errors.push(`Section ${sectionIndex} missing name`);
     if (!section.categories || section.categories.length === 0) {
-      errors.push(`Section ${sectionIndex } must have at least one category`);
+      errors.push(`Section ${sectionIndex} must have at least one category`);
     }
 
     // Validate categories
     section.categories?.forEach((category, categoryIndex) => {
       if (!category.id) errors.push(`Category ${categoryIndex 
-    } in section ${sectionIndex } missing ID`);
+   } in section ${sectionIndex} missing ID`);
       if (!category.questions || category.questions.length === 0) {
-        errors.push(`Category ${categoryIndex } in section ${sectionIndex } must have at least one question`);
+        errors.push(`Category ${categoryIndex} in section ${sectionIndex} must have at least one question`);
       }
 
       // Validate questions
       category.questions?.forEach((question, questionIndex) => {
         if (!question.id) errors.push(`Question ${questionIndex 
-    } missing ID`);
-        if (!question.text) errors.push(`Question ${questionIndex } missing text`);
+   } missing ID`);
+        if (!question.text) errors.push(`Question ${questionIndex} missing text`);
         if (!question.options || question.options.length === 0) {
-          errors.push(`Question ${questionIndex } must have options`);
+          errors.push(`Question ${questionIndex} must have options`);
         }
       });
     });

@@ -46,7 +46,7 @@ export class OrganizationService {
     return OrganizationService.instance;
   }
 
-  async getUserOrganizations(userId: string): Promise<Organization[]> {
+  async getUserOrganizations(userId: string: Promise<Organization[]> {
     if (!isSupabaseReady) {
       return this.getLocalOrganizations(userId);
     }
@@ -141,7 +141,7 @@ export class OrganizationService {
       this.saveLocalInvitation(invitation);
       
       await auditLogger.log({
-        userId: invitedBy, action: 'create', resource: 'invitation', resourceId): invitation.id, changes: { email, role, organizationId }
+        userId: invitedBy, action: 'create', resource: 'invitation', resourceId: invitation.id, changes: { email, role, organizationId }
       });
 
       return invitation;
@@ -152,7 +152,7 @@ export class OrganizationService {
     }
   }
 
-  async getOrganizationMembers(organizationId: string): Promise<OrganizationMember[]> {
+  async getOrganizationMembers(organizationId: string: Promise<OrganizationMember[]> {
     if (!isSupabaseReady) {
       return this.getLocalMembers(organizationId);
     }
@@ -195,7 +195,7 @@ export class OrganizationService {
       this.updateLocalMemberRole(organizationId, userId, newRole);
       
       await auditLogger.log({
-        userId: updatedBy, action: 'update', resource: 'organization_member', resourceId): `${organizationId }-${userId }`, changes: { role: newRole }
+        userId: updatedBy, action: 'update', resource: 'organization_member', resourceId: `${organizationId}-${userId}`, changes: { role: newRole }
       });
     } catch {
       console.warn('Failed to update member role in Supabase:', error);
@@ -207,9 +207,9 @@ export class OrganizationService {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   }
 
-  private getLocalOrganizations(userId: string): Organization[] {
+  private getLocalOrganizations(userId: string: Organization[] {
     try {
-      const localData = localStorage.getItem(`organizations-${userId }`);
+      const localData = localStorage.getItem(`organizations-${userId}`);
       if (localData) {
         const parsed = JSON.parse(localData);
         return parsed.map((org: any) => ({
@@ -222,7 +222,7 @@ export class OrganizationService {
     return [];
   }
 
-  private saveLocalOrganization(organization: Organization, userId: string): Organization {
+  private saveLocalOrganization(organization: Organization, userId: string: Organization {
     try {
       const existingOrgs = this.getLocalOrganizations(userId);
       const orgIndex = existingOrgs.findIndex(o => o.id === organization.id);
@@ -233,7 +233,7 @@ export class OrganizationService {
         existingOrgs.push(organization);
       }
       
-      localStorage.setItem(`organizations-${userId }`, JSON.stringify(existingOrgs));
+      localStorage.setItem(`organizations-${userId}`, JSON.stringify(existingOrgs));
       return organization;
     } catch (error) {
       console.error('Failed to save organization locally:', error);
@@ -241,9 +241,9 @@ export class OrganizationService {
     }
   }
 
-  private saveLocalInvitation(invitation: Invitation): void {
+  private saveLocalInvitation(invitation: Invitation: void {
     try {
-      const key = `invitations-${invitation.organizationId }`;
+      const key = `invitations-${invitation.organizationId}`;
       const existing = JSON.parse(localStorage.getItem(key) || '[]');
       existing.push(invitation);
       localStorage.setItem(key, JSON.stringify(existing));
@@ -252,9 +252,9 @@ export class OrganizationService {
     }
   }
 
-  private getLocalMembers(organizationId: string): OrganizationMember[] {
+  private getLocalMembers(organizationId: string: OrganizationMember[] {
     try {
-      const localData = localStorage.getItem(`members-${organizationId }`);
+      const localData = localStorage.getItem(`members-${organizationId}`);
       if (localData) {
         const parsed = JSON.parse(localData);
         return parsed.map((member: any) => ({
@@ -267,25 +267,25 @@ export class OrganizationService {
     return [];
   }
 
-  private updateLocalMemberRole(organizationId: string, userId: string, newRole: string): void {
+  private updateLocalMemberRole(organizationId: string, userId: string, newRole: string: void {
     try {
       const members = this.getLocalMembers(organizationId);
       const updatedMembers = members.map(member => 
         member.userId === userId ?) { ...member, role: newRole as any } : member
       );
-      localStorage.setItem(`members-${organizationId }`, JSON.stringify(updatedMembers));
+      localStorage.setItem(`members-${organizationId}`, JSON.stringify(updatedMembers));
     } catch (error) {
       console.error('Failed to update member role locally:', error);
     }
   }
 
-  private transformOrganizationFromDatabase(dbOrg: any): Organization {
+  private transformOrganizationFromDatabase(dbOrg: any: Organization {
     return {
       id: dbOrg.id, name: dbOrg.name, slug: dbOrg.slug, description: dbOrg.description, logoUrl: dbOrg.logo_url, settings: dbOrg.settings || {}, plan: dbOrg.plan || 'free', createdBy: dbOrg.created_by, createdAt: new Date(dbOrg.created_at), updatedAt: new Date(dbOrg.updated_at)
     };
   }
 
-  private transformMemberFromDatabase(dbMember: any): OrganizationMember {
+  private transformMemberFromDatabase(dbMember: any: OrganizationMember {
     return {
       id: dbMember.id, organizationId: dbMember.organization_id, userId: dbMember.user_id, role: dbMember.role, invitedBy: dbMember.invited_by, joinedAt: new Date(dbMember.joined_at), createdAt: new Date(dbMember.created_at)
     };

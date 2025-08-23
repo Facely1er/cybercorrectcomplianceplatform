@@ -19,7 +19,7 @@ Object.defineProperty(window, 'sessionStorage',) {
 
 // Mock crypto for secure storage
 Object.defineProperty(window, 'crypto', {
-  value): {
+  value: {
     subtle: {
       digest: vi.fn(), generateKey: vi.fn(), encrypt: vi.fn(), decrypt: vi.fn()
     

@@ -54,7 +54,7 @@ export class AuditLogger {
     action: AuditAction, assetId: string, userId: string, changes?: Record<string, any>, previousValues?: Record<string, any>
   ): Promise<void> {
     await this.log({
-      userId, action, resource: 'asset', resourceId): assetId, changes, previousValues, metadata: {
+      userId, action, resource: 'asset', resourceId: assetId, changes, previousValues, metadata: {
         assetType: 'organizational_asset', source: 'web_application'
       }
     });
@@ -64,7 +64,7 @@ export class AuditLogger {
     action: AuditAction, assessmentId: string, userId: string, changes?: Record<string, any>
   ): Promise<void> {
     await this.log({
-      userId, action, resource: 'assessment', resourceId): assessmentId, changes, metadata: {
+      userId, action, resource: 'assessment', resourceId: assessmentId, changes, metadata: {
         assessmentType: 'cybersecurity_maturity', source: 'web_application'
       }
     });
@@ -74,7 +74,7 @@ export class AuditLogger {
     action: AuditAction, userId: string, metadata?: Record<string, any>
   ): Promise<void> {
     await this.log({
-      userId, action, resource: 'user', resourceId): userId, metadata: {
+      userId, action, resource: 'user', resourceId: userId, metadata: {
         ...metadata, source: 'web_application'
       }
     });
@@ -121,7 +121,7 @@ export class AuditLogger {
         headers.join(','),
         ...logs.map(log => [
           log.timestamp.toISOString(), log.userId, log.action, log.resource, log.resourceId, log.ipAddress || ''
-        ].map(field => `"${field }"`).join(','))
+        ].map(field => `"${field}"`).join(','))
       ].join('\n');
       
       return csvContent;
@@ -139,9 +139,9 @@ export class AuditLogger {
     }
   }
 
-  private async persistToDatabase(entry: AuditLogEntry): Promise<void> {
+  private async persistToDatabase(entry: AuditLogEntry: Promise<void> {
     // Database persistence disabled - using localStorage only
-    console.log('Audit log entry (localStorage only):', entry);
+    console.log('Audit log entry (localStorage only: ', entry);
     }
   private getClientIP(): string {
     // In a production environment, this would be provided by the server

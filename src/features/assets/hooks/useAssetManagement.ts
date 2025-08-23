@@ -168,7 +168,7 @@ export const useAssetManagement = () => {
   }, [state.assets, saveAsset]);
 
   // Helper method to calculate changes for audit logging
-  const getChanges = (previous: Asset | undefined, current: Asset): Record<string, any> => {
+  const getChanges = (previous: Asset | undefined, current: Asset: Record<string, any> => {
     if (!previous) return {
     };
     

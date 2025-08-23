@@ -175,7 +175,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           addNotification('success', 'Backup restored successfully');
           setTimeout(() => window.location.reload(), 1500);
         } catch (error) {
-          addNotification('error', `Failed to restore backup: ${(error as Error).message }`);
+          addNotification('error', `Failed to restore backup: ${(error as Error).message}`);
         }
       };
       
@@ -192,7 +192,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     if (selectedAssessments.length === 0) return;
     
     if (action === 'delete') {
-      if (window.confirm(`Delete ${selectedAssessments.length } selected assessments?`)) {
+      if (window.confirm(`Delete ${selectedAssessments.length} selected assessments?`)) {
         selectedAssessments.forEach(id => onDeleteAssessment(id));
         setSelectedAssessments([]);
       }
@@ -226,11 +226,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
-              {userProfile ? `Welcome back, ${userProfile.name }` : 'CMMC Cybersecurity Compliance'}
+              {userProfile ? `Welcome back, ${userProfile.name}` : 'CMMC Cybersecurity Compliance'}
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-300">
               {userProfile 
-                ? `Manage CMMC compliance for ${userProfile.organization }`
+                ? `Manage CMMC compliance for ${userProfile.organization}`
                 : 'Comprehensive CMMC certification readiness platform'
               }
             </p>
@@ -403,7 +403,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   risk === 'high' ? 'bg-orange-100 dark:bg-orange-900/30' :
                   risk === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30' :
                   'bg-green-100 dark:bg-green-900/30'
-                }`}>
+               }`}>
                   {risk === 'critical' ? <AlertCircle className="w-6 h-6 text-red-600" /> :
                    risk === 'high' ? <AlertCircle className="w-6 h-6 text-orange-600" /> :
                    risk === 'medium' ? <Info className="w-6 h-6 text-yellow-600" /> :
@@ -415,7 +415,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   className={`h-full rounded-full transition-all duration-500 ${
                     risk === 'critical' ? 'bg-red-500' :
                     'bg-green-500'
-                  }`}
+                 }`}
                   style={{ width: `${stats.total > 0 ? (count / stats.total) * 100 : 0}%` }}
                 />
               </div>
@@ -683,7 +683,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       assessment.isComplete
                         ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
                         : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
-                    }`}>
+                   }`}>
                       {assessment.isComplete ? 'Complete' : 'In Progress'}
                     </span>
                   </div>

@@ -27,7 +27,7 @@ export const UserProfileSchema = z.object({
     });
 
 // Security validation helpers
-export const sanitizeString = (input: string): string => {
+export const sanitizeString = (input: string: string => {
   return input
     .replace(/[<>]/g, '') // Remove potential HTML tags
     .replace(/javascript:/gi, '') // Remove javascript: protocols
@@ -56,7 +56,7 @@ export const sanitizeObject = (obj: Record<string, any>): Record<string, any> =>
   return sanitized;
 };
 
-export const validateAndSanitize = <T>(schema: z.ZodSchema<T>, data: unknown): T => {
+export const validateAndSanitize = <T>(schema: z.ZodSchema<T>, data: unknown: T => {
   // First sanitize if it's an object
   const sanitizedData = typeof data === 'object' && data !== null 
     ? sanitizeObject(data as Record<string, any>)

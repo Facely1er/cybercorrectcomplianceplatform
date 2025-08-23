@@ -82,7 +82,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   const today = new Date();
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 ${className }`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 ${className}`}>
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
@@ -99,7 +99,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                     viewMode === mode
                       ? 'bg-blue-600 text-white'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
+                 }`}
                 >
                   {mode }
                 </button>
@@ -158,17 +158,17 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                     isCurrentMonth 
                       ? 'bg-white dark:bg-gray-800' 
                       : 'bg-gray-50 dark:bg-gray-700/50'
-                  } ${
+                 } ${
                     isToday ? 'ring-2 ring-blue-500' : ''
-                  }`}
+                 }`}
                 >
                   <div className={`text-sm font-medium mb-2 ${
                     isCurrentMonth 
                       ? 'text-gray-900 dark:text-white' 
                       : 'text-gray-400 dark:text-gray-500'
-                  } ${
+                 } ${
                     isToday ? 'text-blue-600 dark:text-blue-400' : ''
-                  }`}>
+                 }`}>
                     {day.getDate()}
                   </div>
                   

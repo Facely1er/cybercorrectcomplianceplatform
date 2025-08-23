@@ -149,7 +149,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
 
   const handleViewPolicy = (policy: Policy) => {
     if (policy.documentUrl) {
-      addNotification('info', `Opening policy document: ${policy.name }`);
+      addNotification('info', `Opening policy document: ${policy.name}`);
     } else {
       addNotification('warning', 'No document available for this policy');
     }
@@ -180,7 +180,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
             const importedPolicies = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedPolicies)) {
               setPolicies(prev => [...prev, ...importedPolicies]);
-              addNotification('success', `Imported ${importedPolicies.length } policies`);
+              addNotification('success', `Imported ${importedPolicies.length} policies`);
             } else {
               addNotification('error', 'Invalid file format');
             }

@@ -68,7 +68,7 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     return [asset, ...dependentAssets];
   };
 
-  const getAssetDependencies = (assetId: string, depth = 3): Asset[] => {
+  const getAssetDependencies = (assetId: string, depth = 3: Asset[] => {
     const visited = new Set<string>();
     const result: Asset[] = [];
     
@@ -93,7 +93,7 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     return result.slice(1); // Remove the original asset 
     };
 
-  const calculateCriticalityScore = (assetId: string): number => {
+  const calculateCriticalityScore = (assetId: string: number => {
     const asset = assets.find(a => a.id === assetId);
     if (!asset) return 0;
     

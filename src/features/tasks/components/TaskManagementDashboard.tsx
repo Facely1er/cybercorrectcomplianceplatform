@@ -157,7 +157,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       
       setTasks(prev => [...prev, newTask]);
       addNotification('success', `Task "${newTask.title 
-    }" assigned to ${taskFormData.assignedTo } successfully`);
+   }" assigned to ${taskFormData.assignedTo} successfully`);
       setShowCreateTask(false);
       
       // Reset form
@@ -192,7 +192,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       
       setTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
       addNotification('success', `Task status updated to ${newStatus.replace('-', ' ')
-    }`);
+   }`);
     } catch (error) {
       console.error('Failed to update task:', error);
       addNotification('error', 'Failed to update task status');
@@ -343,7 +343,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                     activeView === view
                       ? 'bg-green-600 text-white'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
+                 }`}
                 >
                   {view }
                 </button>
@@ -478,7 +478,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
                         <div
                           className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${task.progress }%` }}
+                          style={{ width: `${task.progress}%` }}
                         />
                       </div>
 
@@ -501,23 +501,23 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                             onClick={() => {
                               const taskDetails = `Task Details:
 
-Title: ${task.title }
-Description: ${task.description }
-Type: ${task.type }
-Priority: ${task.priority }
-Status: ${task.status }
-NIST Function: ${task.nistFunction }
-Control ID: ${task.relatedControlId }
+Title: ${task.title}
+Description: ${task.description}
+Type: ${task.type}
+Priority: ${task.priority}
+Status: ${task.status}
+NIST Function: ${task.nistFunction}
+Control ID: ${task.relatedControlId}
 
 Assigned To: ${task.assignedTo.join(', ')}
-Assigned By: ${task.assignedBy }
+Assigned By: ${task.assignedBy}
 Due Date: ${task.dueDate.toLocaleDateString()}
-Progress: ${task.progress }%
-Estimated Hours: ${task.estimatedHours }
+Progress: ${task.progress}%
+Estimated Hours: ${task.estimatedHours}
 
-Business Impact: ${task.metadata.businessImpact }
-Technical Complexity: ${task.metadata.technicalComplexity }
-Risk Reduction: ${task.metadata.riskReduction }%
+Business Impact: ${task.metadata.businessImpact}
+Technical Complexity: ${task.metadata.technicalComplexity}
+Risk Reduction: ${task.metadata.riskReduction}%
 
 Created: ${task.createdAt.toLocaleDateString()}
 Updated: ${task.updatedAt.toLocaleDateString()}`;
@@ -648,7 +648,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                         <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                           <div
                             className="bg-green-500 h-2 rounded-full"
-                            style={{ width: `${task.progress }%` }}
+                            style={{ width: `${task.progress}%` }}
                           />
                         </div>
                         <span className="text-sm text-gray-600 dark:text-gray-300">
@@ -662,23 +662,23 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                           onClick={() => {
                             const taskDetails = `Task Details:
 
-Title: ${task.title }
-Description: ${task.description }
-Type: ${task.type }
-Priority: ${task.priority }
-Status: ${task.status }
-NIST Function: ${task.nistFunction }
-Control ID: ${task.relatedControlId }
+Title: ${task.title}
+Description: ${task.description}
+Type: ${task.type}
+Priority: ${task.priority}
+Status: ${task.status}
+NIST Function: ${task.nistFunction}
+Control ID: ${task.relatedControlId}
 
 Assigned To: ${task.assignedTo.join(', ')}
-Assigned By: ${task.assignedBy }
+Assigned By: ${task.assignedBy}
 Due Date: ${task.dueDate.toLocaleDateString()}
-Progress: ${task.progress }%
-Estimated Hours: ${task.estimatedHours }
+Progress: ${task.progress}%
+Estimated Hours: ${task.estimatedHours}
 
-Business Impact: ${task.metadata.businessImpact }
-Technical Complexity: ${task.metadata.technicalComplexity }
-Risk Reduction: ${task.metadata.riskReduction }%
+Business Impact: ${task.metadata.businessImpact}
+Technical Complexity: ${task.metadata.technicalComplexity}
+Risk Reduction: ${task.metadata.riskReduction}%
 
 Created: ${task.createdAt.toLocaleDateString()}
 Updated: ${task.updatedAt.toLocaleDateString()}`;

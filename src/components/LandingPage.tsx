@@ -47,7 +47,7 @@ const TextCarousel: React.FC = () => {
               index === currentIndex 
                 ? 'bg-primary-teal dark:bg-dark-primary' 
                 : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-            }`}
+           }`}
           />
         ))}
       </div>
@@ -236,7 +236,7 @@ export const LandingPage: React.FC = () => {
             {compliancePaths.map((path) => (
               <div key={path.id } className="card-enhanced rounded-2xl p-8 group hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                 <div className="flex items-center justify-center mb-6">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${path.color } flex items-center justify-center shadow-glow`}>
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${path.color} flex items-center justify-center shadow-glow`}>
                     <path.icon className="w-8 h-8 text-white" />
                   </div>
                 </div>
@@ -278,7 +278,7 @@ export const LandingPage: React.FC = () => {
 
                 <Link
                   to={path.assessmentPath }
-                  className={`bg-gradient-to-r ${path.color } text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-300 font-medium w-full block text-center hover:scale-105`}
+                  className={`bg-gradient-to-r ${path.color} text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-300 font-medium w-full block text-center hover:scale-105`}
                 >
                   Start {path.title } Assessment
                 </Link>
@@ -366,7 +366,7 @@ export const LandingPage: React.FC = () => {
             {personas.map((persona) => (
               <div key={persona.id } className="card-enhanced rounded-2xl p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
                 <div className="flex items-start space-x-6">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${persona.color } rounded-2xl flex items-center justify-center shadow-glow flex-shrink-0`}>
+                  <div className={`w-16 h-16 bg-gradient-to-br ${persona.color} rounded-2xl flex items-center justify-center shadow-glow flex-shrink-0`}>
                     <persona.icon className="w-8 h-8 text-white" />
                   </div>
                   
@@ -424,7 +424,7 @@ export const LandingPage: React.FC = () => {
                     
                     <Link
                       to={persona.ctaLink }
-                      className={`bg-gradient-to-r ${persona.color } text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-300 font-medium w-full block text-center hover:scale-105`}
+                      className={`bg-gradient-to-r ${persona.color} text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-300 font-medium w-full block text-center hover:scale-105`}
                     >
                       {persona.primaryCTA }
                     </Link>

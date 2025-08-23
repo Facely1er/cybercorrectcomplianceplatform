@@ -86,13 +86,13 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     try {
       const framework = getFramework(assessment.frameworkId);
       await reportService.exportReport(assessment, framework, {
-        format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis: true, includeNextSteps): true, branding: {
+        format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis: true, includeNextSteps: true, branding: {
           organizationName: assessment.organizationInfo?.name || 'Organization'
         }
       });
       addNotification('success', `Report exported as ${format.toUpperCase()}`);
     } catch (error) {
-      addNotification('error', `Failed to export report: ${(error as Error).message }`);
+      addNotification('error', `Failed to export report: ${(error as Error).message}`);
     }
   };
 
@@ -322,7 +322,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                               assessment.isComplete
                                 ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
                                 : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
-                            }`}>
+                           }`}>
                               {assessment.isComplete ? 'Complete' : 'In Progress'}
                             </span>
                           </div>
@@ -414,7 +414,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       {!assessment.isComplete && (
                         <Link
-                          to={`/assessment/${assessment.id }`}
+                          to={`/assessment/${assessment.id}`}
                           className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium"
                         >
                           <ArrowRight className="w-4 h-4" />

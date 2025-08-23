@@ -79,7 +79,7 @@ class ProductionAuthService {
     }
   }
 
-  async signIn(credentials: LoginCredentials): Promise<{ success: boolean; error?: string }> {
+  async signIn(credentials: LoginCredentials: Promise<{ success: boolean; error?: string }> {
     // Rate limiting check
     const clientId = getClientId();
     const rateLimitResult = authRateLimiter.isAllowed(clientId);
@@ -87,7 +87,7 @@ class ProductionAuthService {
     if (!rateLimitResult.allowed) {
       return {
         success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
-    } minutes.`
+   } minutes.`
       };
     }
 
@@ -155,7 +155,7 @@ class ProductionAuthService {
     }
   }
 
-  async signUp(data: SignupData): Promise<{ success: boolean; error?: string }> {
+  async signUp(data: SignupData: Promise<{ success: boolean; error?: string }> {
     try {
       // Sanitize inputs
       const email = sanitizeInput(data.email.toLowerCase().trim());
@@ -178,7 +178,7 @@ class ProductionAuthService {
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.signUp({
-          email, password, options): {
+          email, password, options: {
             data: {
               name, organization: data.organization, role: data.role || 'user'
             }
@@ -203,7 +203,7 @@ class ProductionAuthService {
     }
   }
 
-  private async createSessionFromSupabase(supabaseSession: any): Promise<void> {
+  private async createSessionFromSupabase(supabaseSession: any: Promise<void> {
     // Get user profile
     const { data: profile 
     } = await supabase
@@ -222,7 +222,7 @@ class ProductionAuthService {
     await this.setSession(session);
   }
 
-  private async setSession(session: AuthSession): Promise<void> {
+  private async setSession(session: AuthSession: Promise<void> {
     this.currentSession = session;
     this.scheduleTokenRefresh();
     this.notifySessionChange();
@@ -287,7 +287,7 @@ class ProductionAuthService {
     }
   }
 
-  private async generateSecureToken(user: AuthUser): Promise<string> {
+  private async generateSecureToken(user: AuthUser: Promise<string> {
     if (!ENV.JWT_SECRET) {
       throw new Error('JWT_SECRET is required for production authentication');
     }
@@ -310,7 +310,7 @@ class ProductionAuthService {
     }
   }
 
-  private isValidSession(session: AuthSession): boolean {
+  private isValidSession(session: AuthSession: boolean {
     return (
       session &&
       session.accessToken &&
@@ -319,12 +319,12 @@ class ProductionAuthService {
     );
   }
 
-  private isValidEmail(email: string): boolean {
+  private isValidEmail(email: string: boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email) && email.length <= 254;
   }
 
-  private isValidPassword(password: string): boolean {
+  private isValidPassword(password: string: boolean {
     // Production password requirements
     return (
       password.length >= 8 &&
@@ -336,7 +336,7 @@ class ProductionAuthService {
     );
   }
 
-  private getRolePermissions(role: string): string[] {
+  private getRolePermissions(role: string: string[] {
     const rolePermissions: Record<string, string[]> = {
       super_admin: ['*'], // All permissions
       admin: [
@@ -389,12 +389,12 @@ class ProductionAuthService {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 
-  hasPermission(permission: string): boolean {
+  hasPermission(permission: string: boolean {
     const userPermissions = this.currentSession?.user.permissions || [];
     return userPermissions.includes('*') || userPermissions.includes(permission);
   }
 
-  hasRole(role: string): boolean {
+  hasRole(role: string: boolean {
     return this.currentSession?.user.role === role;
   }
 
@@ -410,7 +410,7 @@ class ProductionAuthService {
     }
   }
 
-  onSessionChange(callback: (session: AuthSession | null) => void): () => void {
+  onSessionChange(callback: (session: AuthSession | null) => void: () => void {
     this.sessionCallbacks.push(callback);
     
     // Return unsubscribe function
@@ -456,7 +456,7 @@ class ProductionAuthService {
     }
   }
 
-  async changePassword(currentPassword: string, newPassword: string): Promise<{ success: boolean; error?: string }> {
+  async changePassword(currentPassword: string, newPassword: string: Promise<{ success: boolean; error?: string }> {
     try {
       if (!this.isAuthenticated()) {
         return { success: false, error: 'Not authenticated' };
@@ -486,7 +486,7 @@ class ProductionAuthService {
     }
   }
 
-  async requestPasswordReset(email: string): Promise<{ success: boolean; error?: string }> {
+  async requestPasswordReset(email: string: Promise<{ success: boolean; error?: string }> {
     try {
       const sanitizedEmail = sanitizeInput(email.toLowerCase().trim());
 
@@ -496,7 +496,7 @@ class ProductionAuthService {
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.resetPasswordForEmail(sanitizedEmail,) {
-          redirectTo: `${window.location.origin }/reset-password`
+          redirectTo: `${window.location.origin}/reset-password`
         });
 
         if (error) {
@@ -513,7 +513,7 @@ class ProductionAuthService {
     }
   }
 
-  async verifyToken(token: string): Promise<AuthUser | null> {
+  async verifyToken(token: string: Promise<AuthUser | null> {
     try {
       if (!ENV.JWT_SECRET) {
         throw new Error('JWT_SECRET is required for token verification');

@@ -18,18 +18,18 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props): Props {
+  constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error: State {
     return { 
       hasError: true, error, errorId: Date.now().toString()
     };
   }
 
-  componentDidCatch(error: Error, errorInfo): ErrorInfo {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo {
     // Log error details
     console.error('Error caught by boundary:', error, errorInfo);
     
@@ -39,8 +39,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
-      extra): errorInfo, tags: { type: 'reactError', boundary: 'ErrorBoundary' 
-    }, level: 'error'
+      extra: errorInfo, 
+      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
+      level: 'error'
     });
 
     // Call custom error handler if provided
@@ -161,7 +162,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 </button>
                 
                 <a
-                  href="mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId }"
+                  href="mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
                   className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Mail className="w-4 h-4" />
@@ -208,7 +209,7 @@ export const withErrorBoundary = <P extends object>(
     </ErrorBoundary>
   );
   
-  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name })`;
+  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
   
   return WrappedComponent;
 };

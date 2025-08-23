@@ -34,12 +34,12 @@ export const PieChart: React.FC<PieChartProps> = ({
           color: 'rgb(107, 114, 128)', font: {
             size: 12, weight: '500' as const }, padding: 20, usePointStyle: true, pointStyle: 'circle' } }, tooltip: {
         backgroundColor: 'rgba(17, 24, 39, 0.95)', titleColor: 'rgb(243, 244, 246)', bodyColor: 'rgb(243, 244, 246)', borderColor: 'rgba(75, 85, 99, 0.3)', borderWidth: 1, cornerRadius: 8, displayColors: true, callbacks: {
-          label: function(context): any {
+          label: function(context: any {
             const label = context.label || '';
             const value = context.parsed || 0;
             const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
             const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
-            return `${label }: ${value } (${percentage }%)`;
+            return `${label}: ${value} (${percentage}%)`;
           }
         }
       } }, elements: {
@@ -51,7 +51,7 @@ export const PieChart: React.FC<PieChartProps> = ({
   if (data.length === 0 || data.every(value => value === 0)) {
     return (
       <div className={`flex items-center justify-center h-full ${className 
-    }`}>
+   }`}>
         <div className="text-center">
           <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-3">
             <span className="text-gray-400 text-2xl">📊</span>
@@ -63,7 +63,7 @@ export const PieChart: React.FC<PieChartProps> = ({
   }
 
   return (
-    <div className={`relative ${className }`}>
+    <div className={`relative ${className}`}>
       {title && (
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">
           {title }

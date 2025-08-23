@@ -17,7 +17,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   title, description, action, icon: Icon = AlertTriangle, className = ''
 }) => {
   return (
-    <div className={`text-center py-12 ${className }`}>
+    <div className={`text-center py-12 ${className}`}>
       <Icon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
       <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
         {title }
@@ -32,7 +32,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             action.variant === 'secondary'
               ? 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
               : 'bg-blue-600 text-white hover:bg-blue-700'
-          }`}
+         }`}
         >
           {action.label }
         </button>
@@ -51,7 +51,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
   error, onRetry, className = ''
 }) => {
   return (
-    <div className={`text-center py-12 ${className }`}>
+    <div className={`text-center py-12 ${className}`}>
       <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
       <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
         Something went wrong
@@ -82,10 +82,10 @@ export const LoadingTable: React.FC<LoadingTableProps> = ({
   rows = 5, columns = 4, className = ''
 }) => {
   return (
-    <div className={`animate-pulse ${className }`}>
+    <div className={`animate-pulse ${className}`}>
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg">
         {/* Header */}
-        <div className="grid gap-4 p-4 border-b border-gray-200 dark:border-gray-600" style={{ gridTemplateColumns: `repeat(${columns }, 1fr)` }}>
+        <div className="grid gap-4 p-4 border-b border-gray-200 dark:border-gray-600" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
           {Array.from({ length: columns }).map((_, index) => (
             <div key={index } className="h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
           ))}
@@ -93,7 +93,7 @@ export const LoadingTable: React.FC<LoadingTableProps> = ({
         
         {/* Rows */}
         {Array.from({ length: rows }).map((_, rowIndex) => (
-          <div key={rowIndex } className="grid gap-4 p-4 border-b border-gray-100 dark:border-gray-600" style={{ gridTemplateColumns: `repeat(${columns }, 1fr)` }}>
+          <div key={rowIndex } className="grid gap-4 p-4 border-b border-gray-100 dark:border-gray-600" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
             {Array.from({ length: columns }).map((_, colIndex) => (
               <div key={colIndex } className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
             ))}
@@ -113,7 +113,7 @@ export const LoadingCard: React.FC<LoadingCardProps> = ({
   count = 3, className = ''
 }) => {
   return (
-    <div className={`grid gap-6 ${className }`}>
+    <div className={`grid gap-6 ${className}`}>
       {Array.from({ length: count }).map((_, index) => (
         <div key={index } className="animate-pulse bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-start space-x-4">

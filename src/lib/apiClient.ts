@@ -34,7 +34,7 @@ class ApiClient {
     return ApiClient.instance;
   }
 
-  setAuthToken(token): string | null {
+  setAuthToken(token: string | null {
     this.authToken = token;
   }
 
@@ -45,7 +45,7 @@ class ApiClient {
       method = 'GET', headers = {}, body, timeout = this.defaultTimeout, retries = 3
     } = config;
 
-    const url = `${this.baseURL }${endpoint }`;
+    const url = `${this.baseURL}${endpoint}`;
     
     const requestHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ class ApiClient {
     // Add auth token if available
     if (this.authToken) {
       requestHeaders['Authorization'] = `Bearer ${this.authToken 
-    }`;
+   }`;
     }
 
     // Add CSRF token in production
@@ -76,7 +76,7 @@ class ApiClient {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status }: ${response.statusText }`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       const data = await response.json();
@@ -88,7 +88,7 @@ class ApiClient {
       clearTimeout(timeoutId);
       
       if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error(`Request timeout after ${timeout }ms`);
+        throw new Error(`Request timeout after ${timeout}ms`);
       }
 
       // Retry logic for transient errors
@@ -100,7 +100,7 @@ class ApiClient {
 
       // Log error for monitoring
       errorMonitoring.captureException(error as Error, {
-        tags: { type): 'apiError', endpoint, method 
+        tags: { type: 'apiError', endpoint, method 
     }, extra: { url, body }
       });
 
@@ -108,13 +108,13 @@ class ApiClient {
     }
   }
 
-  private isRetryableError(error: any): boolean {
+  private isRetryableError(error: any: boolean {
     // Retry on network errors and 5xx status codes
     return error.message.includes('fetch') || 
            error.message.includes('timeout') ||
            error.message.includes('50');
     }
-  private delay(ms: number): Promise<void> {
+  private delay(ms: number: Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 

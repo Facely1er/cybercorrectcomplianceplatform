@@ -34,10 +34,9 @@ export class DataService {
 
   private initializeStorage(): void {
     // Initialize storage with empty data if not exists
-    Object.values(this.STORAGE_KEYS).forEach(key =>) {
+    Object.values(this.STORAGE_KEYS).forEach((key) => {
       if (!localStorage.getItem(key)) {
-        const defaultValue = key.includes('settings') ? '{
-    }' : 
+        const defaultValue = key.includes('settings') ? '{}' : 
                            key.includes('profile') ? 'null' : '[]';
         localStorage.setItem(key, defaultValue);
       }
@@ -57,8 +56,8 @@ export class DataService {
     }
   }
 
-  private performDataMigration(fromVersion: string | null): void {
-    console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION }`);
+  private performDataMigration(fromVersion: string | null: void {
+    console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions
     if (!fromVersion) {
@@ -70,7 +69,7 @@ export class DataService {
       // Example: Migrate old assessment format
       const oldAssessments = this.getAssessments();
       const migratedAssessments = oldAssessments.map(assessment => ({
-        ...assessment, assessmentVersion: assessment.assessmentVersion || '1.0.0', evidenceLibrary: assessment.evidenceLibrary || [], questionEvidence): assessment.questionEvidence || {
+        ...assessment, assessmentVersion: assessment.assessmentVersion || '1.0.0', evidenceLibrary: assessment.evidenceLibrary || [], questionEvidence: assessment.questionEvidence || {
     }, versionHistory: assessment.versionHistory || []
       }));
       
@@ -103,7 +102,7 @@ export class DataService {
     try {
       localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify(assessments));
       auditLogger.log({
-        userId: 'current-user', action: 'update', resource: 'assessments', resourceId): 'bulk', changes: { count: assessments.length }
+        userId: 'current-user', action: 'update', resource: 'assessments', resourceId: 'bulk', changes: { count: assessments.length }
       });
     } catch (error) {
       console.error('Failed to save assessments:', error);
@@ -111,12 +110,12 @@ export class DataService {
     }
   }
 
-  getAssessment(id: string): AssessmentData | null {
+  getAssessment(id: string: AssessmentData | null {
     const assessments = this.getAssessments();
     return assessments.find(a => a.id === id) || null;
   }
 
-  saveAssessment(assessment: AssessmentData): void {
+  saveAssessment(assessment: AssessmentData: void {
     const assessments = this.getAssessments();
     const index = assessments.findIndex(a => a.id === assessment.id);
     
@@ -129,7 +128,7 @@ export class DataService {
     this.saveAssessments(assessments);
   }
 
-  deleteAssessment(id: string): void {
+  deleteAssessment(id: string: void {
     const assessments = this.getAssessments().filter(a => a.id !== id);
     this.saveAssessments(assessments);
   }
@@ -151,7 +150,7 @@ export class DataService {
     }
   }
 
-  saveUserProfile(profile: UserProfile): void {
+  saveUserProfile(profile: UserProfile: void {
     try {
       localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, JSON.stringify(profile));
     } catch (error) {
@@ -193,7 +192,7 @@ export class DataService {
     }
   }
 
-  saveAsset(asset: Asset): void {
+  saveAsset(asset: Asset: void {
     const assets = this.getAssets();
     const index = assets.findIndex(a => a.id === asset.id);
     
@@ -230,7 +229,7 @@ export class DataService {
   }
   
   // Import assets with enhanced validation
-  importAssetsWithValidation(importData: string): { success: boolean; imported: number; errors: string[] 
+  importAssetsWithValidation(importData: string: { success: boolean; imported: number; errors: string[] 
     } {
     try {
       const data = JSON.parse(importData);
@@ -249,7 +248,7 @@ export class DataService {
           // Validate required fields
           if (!importedAsset.name || !importedAsset.owner || !importedAsset.category) {
             errors.push(`Asset ${index + 1
-    }: Missing required fields (name, owner, category)`);
+   }: Missing required fields (name, owner, category)`);
             return;
           }
           
@@ -257,14 +256,14 @@ export class DataService {
           const validClassifications = ['public', 'internal', 'confidential', 'restricted', 'top-secret'];
           if (importedAsset.informationClassification && !validClassifications.includes(importedAsset.informationClassification)) {
             errors.push(`Asset ${index + 1
-    }: Invalid classification level`);
+   }: Invalid classification level`);
             return;
           }
           
           // Convert dates
           const processedAsset: Asset = {
             ...importedAsset, id: importedAsset.id || `imported-${Date.now()
-    }-${index }`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt) : new Date(), updatedAt: new Date(), lastReviewed: importedAsset.lastReviewed ? new Date(importedAsset.lastReviewed) : new Date(), nextReview: importedAsset.nextReview ? new Date(importedAsset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), riskAssessment: {
+   }-${index}`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt) : new Date(), updatedAt: new Date(), lastReviewed: importedAsset.lastReviewed ? new Date(importedAsset.lastReviewed) : new Date(), nextReview: importedAsset.nextReview ? new Date(importedAsset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), riskAssessment: {
               ...importedAsset.riskAssessment, lastAssessment: importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment) : new Date(), nextAssessment: importedAsset.riskAssessment?.nextAssessment ? new Date(importedAsset.riskAssessment.nextAssessment) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
             }, lifecycle: {
               ...importedAsset.lifecycle, deploymentDate: importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) : new Date(), maintenanceSchedule: {
@@ -278,7 +277,7 @@ export class DataService {
           imported++;
           
         } catch (assetError) {
-          errors.push(`Asset ${index + 1}: ${(assetError as Error).message }`);
+          errors.push(`Asset ${index + 1}: ${(assetError as Error).message}`);
         }
       });
       
@@ -291,7 +290,7 @@ export class DataService {
       
     } catch (error) {
       return {
-        success: false, imported: 0, errors: [`Import failed: ${(error as Error).message }`]
+        success: false, imported: 0, errors: [`Import failed: ${(error as Error).message}`]
       };
     }
   }
@@ -310,7 +309,7 @@ export class DataService {
     }, {} as Record<string, number>);
   }
 
-  deleteAsset(id: string): void {
+  deleteAsset(id: string: void {
     const assets = this.getAssets().filter(a => a.id !== id);
     this.saveAssets(assets);
   }
@@ -340,7 +339,7 @@ export class DataService {
     }
   }
 
-  saveTask(task: Task): void {
+  saveTask(task: Task: void {
     const tasks = this.getTasks();
     const index = tasks.findIndex(t => t.id === task.id);
     
@@ -353,7 +352,7 @@ export class DataService {
     this.saveTasks(tasks);
   }
 
-  deleteTask(id: string): void {
+  deleteTask(id: string: void {
     const tasks = this.getTasks().filter(t => t.id !== id);
     this.saveTasks(tasks);
   }
@@ -388,7 +387,7 @@ export class DataService {
     };
   }
 
-  importAllData(data: AppData): void {
+  importAllData(data: AppData: void {
     try {
       // Validate data structure
       if (!data.version) {
@@ -452,14 +451,14 @@ export class DataService {
   }
 
   // Data Reset and Cleanup
-  resetAllData(preserveProfile: boolean = false): void {
+  resetAllData(preserveProfile: boolean = false: void {
     try {
       // Store profile if preserving
       const profileToKeep = preserveProfile ? this.getUserProfile() : null;
       const settingsToKeep = preserveProfile ? this.getSettings() : null;
       
       // Remove all data
-      Object.values(this.STORAGE_KEYS).forEach(key =>) {
+      Object.values(this.STORAGE_KEYS).forEach((key) => {
         localStorage.removeItem(key);
       
     });
@@ -480,7 +479,7 @@ export class DataService {
       }
       
       auditLogger.log({
-        userId: 'current-user', action: 'delete', resource: 'all-data', resourceId): 'bulk-reset', metadata: { preservedProfile: preserveProfile }
+        userId: 'current-user', action: 'delete', resource: 'all-data', resourceId: 'bulk-reset', metadata: { preservedProfile: preserveProfile }
       });
       
     } catch (error) {
@@ -527,7 +526,7 @@ export class DataService {
       assessments.forEach((assessment, index) => {
         if (!assessment.id || !assessment.frameworkId) {
           errors.push(`Assessment ${index + 1
-    }: Missing required fields`);
+   }: Missing required fields`);
         }
       });
 
@@ -536,7 +535,7 @@ export class DataService {
       assets.forEach((asset, index) => {
         if (!asset.id || !asset.name || !asset.owner) {
           errors.push(`Asset ${index + 1
-    }: Missing required fields`);
+   }: Missing required fields`);
         }
       });
 
@@ -545,12 +544,12 @@ export class DataService {
       tasks.forEach((task, index) => {
         if (!task.id || !task.title || !task.assignedBy) {
           errors.push(`Task ${index + 1
-    }: Missing required fields`);
+   }: Missing required fields`);
         }
       });
 
     } catch (error) {
-      errors.push(`Data validation error: ${error }`);
+      errors.push(`Data validation error: ${error}`);
     }
 
     return {
@@ -572,7 +571,7 @@ export class DataService {
     }
   }
 
-  private generateChecksum(data: string): string {
+  private generateChecksum(data: string: string {
     // Simple checksum for data integrity verification
     let hash = 0;
     for (let i = 0; i < data.length; i++) {
@@ -583,7 +582,7 @@ export class DataService {
     return hash.toString(16);
   }
 
-  restoreFromBackup(backupData: string): void {
+  restoreFromBackup(backupData: string: void {
     try {
       const data = JSON.parse(backupData);
       
@@ -608,7 +607,7 @@ export class DataService {
       this.importAllData(data);
       
       auditLogger.log({
-        userId: 'current-user', action: 'import', resource: 'backup', resourceId): data.backupId || 'unknown', metadata: { 
+        userId: 'current-user', action: 'import', resource: 'backup', resourceId: data.backupId || 'unknown', metadata: { 
           backupDate: data.backupDate, itemsRestored: (data.assessments?.length || 0) + (data.assets?.length || 0) + (data.tasks?.length || 0)
         }
       });

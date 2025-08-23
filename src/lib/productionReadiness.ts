@@ -168,13 +168,13 @@ export class ProductionReadinessChecker {
       if (memoryUsage > 80) {
         return {
           name: 'Performance', status: 'warning', message: `High memory usage detected: ${memoryUsage.toFixed(1)
-    }%`, critical: false, weight: 8
+   }%`, critical: false, weight: 8
         };
       }
 
       if (totalScripts > 10) {
         return {
-          name: 'Performance', status: 'warning', message: `Many script files (${totalScripts }) - consider bundling optimization`, critical: false, weight: 8
+          name: 'Performance', status: 'warning', message: `Many script files (${totalScripts}) - consider bundling optimization`, critical: false, weight: 8
         };
       }
 
@@ -271,15 +271,15 @@ export class ProductionReadinessChecker {
       if (securityResult.overallScore >= 90) {
         return {
           name: 'Security Scanning', status: 'pass', message: `Security score: ${securityResult.overallScore 
-    }/100 - Excellent security posture`, critical: false, weight: 5
+   }/100 - Excellent security posture`, critical: false, weight: 5
         };
       } else if (securityResult.overallScore >= 70) {
         return {
-          name: 'Security Scanning', status: 'warning', message: `Security score: ${securityResult.overallScore }/100 - Good security but needs improvement`, critical: false, weight: 5
+          name: 'Security Scanning', status: 'warning', message: `Security score: ${securityResult.overallScore}/100 - Good security but needs improvement`, critical: false, weight: 5
         };
       } else {
         return {
-          name: 'Security Scanning', status: 'fail', message: `Security score: ${securityResult.overallScore }/100 - Critical security issues found`, critical: true, weight: 5
+          name: 'Security Scanning', status: 'fail', message: `Security score: ${securityResult.overallScore}/100 - Critical security issues found`, critical: true, weight: 5
         };
       }
     } catch {
@@ -326,8 +326,8 @@ export class ProductionReadinessChecker {
 
       // Try to connect to Supabase
       const response = await fetch(`${ENV.SUPABASE_URL 
-    }/rest/v1/`, {
-        method): 'GET', headers: {
+   }/rest/v1/`, {
+        method: 'GET', headers: {
           'apikey': ENV.SUPABASE_ANON_KEY || '',
           'Authorization': `Bearer ${ENV.SUPABASE_ANON_KEY || ''}`
         }
@@ -376,31 +376,31 @@ export class ProductionReadinessChecker {
 Generated: ${new Date().toISOString()}
 
 ## Overall Status: ${ready ? '✅ READY' : '⚠️ NEEDS ATTENTION'}
-## Readiness Score: ${score }/100
-## Security Score: ${securityResult.overallScore }/100
+## Readiness Score: ${score}/100
+## Security Score: ${securityResult.overallScore}/100
 
 ## Detailed Checks:
 ${checks.map(check => `
-### ${check.name }
+### ${check.name}
 - Status: ${check.status === 'pass' ? '✅ PASS' : check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
 - Critical: ${check.critical ? 'Yes' : 'No'}
-- Weight: ${check.weight }
-- Message: ${check.message }
+- Weight: ${check.weight}
+- Message: ${check.message}
 `).join('')}
 
 ## Security Scan Results:
-- Overall Security Score: ${securityResult.overallScore }/100
-- Vulnerabilities Found: ${securityResult.vulnerabilities.length }
-- Security Checks: ${securityResult.checks.length }
+- Overall Security Score: ${securityResult.overallScore}/100
+- Vulnerabilities Found: ${securityResult.vulnerabilities.length}
+- Security Checks: ${securityResult.checks.length}
 
 ## Recommendations:
 ${checks.filter(c => c.status !== 'pass').map(check => `
-- **${check.name }**: ${check.message }
+- **${check.name}**: ${check.message}
 `).join('')}
 
 ## Security Recommendations:
 ${securityResult.recommendations.map(rec => `
-- **Security**: ${rec }
+- **Security**: ${rec}
 `).join('')}
 
 ## Next Steps:
@@ -433,6 +433,6 @@ export const productionReadinessChecker = ProductionReadinessChecker.getInstance
 if (ENV.isDevelopment) {
   productionReadinessChecker.performReadinessCheck().then(({ ready, score 
     }) => {
-    console.log(`🔍 Production Readiness: ${score }/100 (${ready ? 'Ready' : 'Needs Attention'})`);
+    console.log(`🔍 Production Readiness: ${score}/100 (${ready ? 'Ready' : 'Needs Attention'})`);
   });
 }

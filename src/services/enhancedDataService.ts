@@ -65,7 +65,7 @@ export class EnhancedDataService {
         
     } catch (validationError) {
           errorMonitoring.captureException(validationError as Error, {
-            tags: { type: 'validationError', resource): 'assessment' }, extra: { assessmentId: assessment.id }
+            tags: { type: 'validationError', resource: 'assessment' }, extra: { assessmentId: assessment.id }
           });
           return null;
         }
@@ -83,7 +83,7 @@ export class EnhancedDataService {
     }
   }
 
-  async saveAssessment(assessment: AssessmentData): Promise<void> {
+  async saveAssessment(assessment: AssessmentData: Promise<void> {
     const endTiming = performanceMonitoring.startTiming('saveAssessment');
     
     try {
@@ -108,13 +108,13 @@ export class EnhancedDataService {
     } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation): 'saveAssessment' }, extra: { assessmentId: assessment.id }
+        tags: { type: 'dataError', operation: 'saveAssessment' }, extra: { assessmentId: assessment.id }
       });
       throw error;
     }
   }
 
-  async deleteAssessment(assessmentId: string): Promise<void> {
+  async deleteAssessment(assessmentId: string: Promise<void> {
     const endTiming = performanceMonitoring.startTiming('deleteAssessment');
     
     try {
@@ -129,7 +129,7 @@ export class EnhancedDataService {
     } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation): 'deleteAssessment' }, extra: { assessmentId }
+        tags: { type: 'dataError', operation: 'deleteAssessment' }, extra: { assessmentId }
       });
       throw error;
     }
@@ -161,7 +161,7 @@ export class EnhancedDataService {
     }
   }
 
-  async saveUserProfile(profile: UserProfile): Promise<void> {
+  async saveUserProfile(profile: UserProfile: Promise<void> {
     const endTiming = performanceMonitoring.startTiming('saveUserProfile');
     
     try {
@@ -175,7 +175,7 @@ export class EnhancedDataService {
     } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation): 'saveUserProfile' }, extra: { profileId: profile.id }
+        tags: { type: 'dataError', operation: 'saveUserProfile' }, extra: { profileId: profile.id }
       });
       throw error;
     }
@@ -194,7 +194,7 @@ export class EnhancedDataService {
         
     } catch (validationError) {
           errorMonitoring.captureException(validationError as Error, {
-            tags: { type: 'validationError', resource): 'asset' }, extra: { assetId: asset.id }
+            tags: { type: 'validationError', resource: 'asset' }, extra: { assetId: asset.id }
           });
           return null;
         }
@@ -212,7 +212,7 @@ export class EnhancedDataService {
     }
   }
 
-  async saveAsset(asset: Asset): Promise<void> {
+  async saveAsset(asset: Asset: Promise<void> {
     const endTiming = performanceMonitoring.startTiming('saveAsset');
     
     try {
@@ -235,7 +235,7 @@ export class EnhancedDataService {
     } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation): 'saveAsset' }, extra: { assetId: asset.id }
+        tags: { type: 'dataError', operation: 'saveAsset' }, extra: { assetId: asset.id }
       });
       throw error;
     }
@@ -275,7 +275,7 @@ export class EnhancedDataService {
   }
 
   // Data Import with Validation
-  async importAllData(data: string): Promise<void> {
+  async importAllData(data: string: Promise<void> {
     const endTiming = performanceMonitoring.startTiming('importAllData');
     
     try {
@@ -369,7 +369,7 @@ export class EnhancedDataService {
           validateAndSanitizeInput(EnhancedAssessmentSchema, assessment, false);
         
     } catch {
-          errors.push(`Assessment ${index + 1}: ${error }`);
+          errors.push(`Assessment ${index + 1}: ${error}`);
         }
       });
 
@@ -380,7 +380,7 @@ export class EnhancedDataService {
           validateAndSanitizeInput(EnhancedUserProfileSchema, userProfile, false);
         
     } catch (error) {
-          errors.push(`User Profile: ${error }`);
+          errors.push(`User Profile: ${error}`);
         }
       }
 
@@ -391,7 +391,7 @@ export class EnhancedDataService {
           validateAndSanitizeInput(EnhancedAssetSchema, asset, false);
         
     } catch {
-          errors.push(`Asset ${index + 1}: ${error }`);
+          errors.push(`Asset ${index + 1}: ${error}`);
         }
       });
 
@@ -399,21 +399,21 @@ export class EnhancedDataService {
       const storageInfo = secureStorage.getStorageInfo();
       if (storageInfo.percentage > 80) {
         warnings.push(`Storage usage is ${storageInfo.percentage.toFixed(1)
-    }% - consider cleanup`);
+   }% - consider cleanup`);
       }
 
       // Check for orphaned data
       const orphanedItems = await this.findOrphanedItems();
       if (orphanedItems.length > 0) {
         warnings.push(`Found ${orphanedItems.length 
-    } orphaned data items`);
+   } orphaned data items`);
       }
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
         tags:) { type: 'validationError', operation: 'validateDataIntegrity' }
       });
-      errors.push(`Validation failed: ${error }`);
+      errors.push(`Validation failed: ${error}`);
     }
 
     return {
@@ -425,7 +425,7 @@ export class EnhancedDataService {
     // For now, return empty array
     return [];
     }
-  private async generateChecksum(data: string): Promise<string> {
+  private async generateChecksum(data: string: Promise<string> {
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(data);
     const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);

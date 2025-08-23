@@ -152,7 +152,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({,
 
     // In a real app, this would save to backend
     addNotification('success', `Event "${newEvent.title 
-    }" created successfully`);
+   }" created successfully`);
     setShowCreateEvent(false);
     
     // Reset form
@@ -271,7 +271,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({,
                       viewMode === mode
                         ? 'bg-blue-600 text-white'
                         : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }`}
+                   }`}
                   >
                     {mode }
                   </button>
@@ -338,17 +338,17 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({,
                     isCurrentMonth 
                       ? 'bg-white dark:bg-gray-800' 
                       : 'bg-gray-50 dark:bg-gray-700/50'
-                  } ${
+                 } ${
                     isToday ? 'ring-2 ring-blue-500' : ''
-                  }`}
+                 }`}
                 >
                   <div className={`text-sm font-medium mb-2 ${
                     isCurrentMonth 
                       ? 'text-gray-900 dark:text-white' 
                       : 'text-gray-400 dark:text-gray-500'
-                  } ${
+                 } ${
                     isToday ? 'text-blue-600 dark:text-blue-400' : ''
-                  }`}>
+                 }`}>
                     {day.getDate()}
                   </div>
                   
@@ -358,7 +358,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({,
                         key={event.id }
                         className={`p-1 rounded text-xs cursor-pointer hover:opacity-80 transition-opacity text-white border-l-4 ${getEventTypeColor(event.type)} ${getPriorityColor(event.priority)}`}
                         title={event.title }
-                        onClick={() => addNotification('info', `Viewing event: ${event.title }`)}
+                        onClick={() => addNotification('info', `Viewing event: ${event.title}`)}
                       >
                         <div className="font-medium">
                           {event.title.length > 20 ? `${event.title.substring(0, 20)}...` : event.title }
@@ -397,7 +397,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({,
                 <div
                   key={event.id }
                   className={`border-l-4 ${getPriorityColor(event.priority)} bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer`}
-                  onClick={() => addNotification('info', `Viewing event: ${event.title }`)}
+                  onClick={() => addNotification('info', `Viewing event: ${event.title}`)}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -426,7 +426,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({,
                           <Clock className="w-4 h-4" />
                           <span>
                             {event.startDate.toLocaleTimeString('en-US',) { hour: 'numeric', minute: '2-digit' })}
-                            {!event.allDay && ` - ${event.endDate.toLocaleTimeString('en-US',) { hour: 'numeric', minute: '2-digit' })}`}
+                            {!event.allDay && ` - ${event.endDate.toLocaleTimeString('en-US',) { hour: 'numeric', minute: '2-digit'})}`}
                           </span>
                         </div>
                         <div className="flex items-center space-x-1">

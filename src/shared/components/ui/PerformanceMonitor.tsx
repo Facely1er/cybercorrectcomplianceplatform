@@ -109,13 +109,13 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                       <h4 className="font-medium text-gray-900 dark:text-white capitalize">
                         {operation.replace(/([A-Z])/g, ' $1').trim()}
                       </h4>
-                      <StatusIcon className={`w-4 h-4 ${status.color }`} />
+                      <StatusIcon className={`w-4 h-4 ${status.color}`} />
                     </div>
                     
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600 dark:text-gray-300">Average:</span>
-                        <span className={`font-medium ${status.color }`}>
+                        <span className={`font-medium ${status.color}`}>
                           {formatTime(data.average)}
                         </span>
                       </div>
@@ -134,7 +134,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                     </div>
                     
                     <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                      <span className={`text-xs font-medium ${status.color }`}>
+                      <span className={`text-xs font-medium ${status.color}`}>
                         {status.label }
                       </span>
                     </div>
@@ -188,7 +188,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                       memoryUsage.usagePercentage > 80 ? 'bg-red-500' :
                       memoryUsage.usagePercentage > 60 ? 'bg-yellow-500' :
                       'bg-green-500'
-                    }`}
+                   }`}
                     style={{ width: `${Math.min(memoryUsage.usagePercentage || 0, 100)}%` }}
                   />
                 </div>

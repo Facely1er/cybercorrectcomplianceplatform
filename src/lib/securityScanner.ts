@@ -282,26 +282,26 @@ export class SecurityScanner {
     const report = `
 # Security Scan Report
 Generated: ${new Date().toISOString()
-    }
-## Overall Security Score: ${result.overallScore }/100
+   }
+## Overall Security Score: ${result.overallScore}/100
 
 ## Security Checks:
 ${result.checks.map(check => `
-### ${check.name }
+### ${check.name}
 - Status: ${check.status === 'pass' ? '✅ PASS' : check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
 - Severity: ${check.severity.toUpperCase()}
-- Message: ${check.message }
-- Recommendation: ${check.recommendation }
+- Message: ${check.message}
+- Recommendation: ${check.recommendation}
 `).join('')}
 
-## Vulnerabilities Found: ${result.vulnerabilities.length }
+## Vulnerabilities Found: ${result.vulnerabilities.length}
 ${result.vulnerabilities.map(vuln => `
-- **${vuln.name }** (${vuln.severity }): ${vuln.message }
+- **${vuln.name}** (${vuln.severity}): ${vuln.message}
 `).join('')}
 
 ## Recommendations:
 ${result.recommendations.map(rec => `
-- ${rec }
+- ${rec}
 `).join('')}
 
 ## Next Steps:
@@ -322,6 +322,6 @@ export const securityScanner = SecurityScanner.getInstance();
 if (import.meta.env.DEV) {
   securityScanner.performSecurityScan().then(({ overallScore 
     }) => {
-    console.log(`🔒 Security Score: ${overallScore }/100`);
+    console.log(`🔒 Security Score: ${overallScore}/100`);
   });
 }

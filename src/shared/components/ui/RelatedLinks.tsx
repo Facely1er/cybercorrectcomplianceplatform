@@ -49,7 +49,7 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({
   if (sortedLinks.length === 0) return null;
 
   return (
-    <div className={`bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700/50 dark:to-blue-900/10 rounded-xl p-6 border border-gray-200 dark:border-gray-600 ${className }`}>
+    <div className={`bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700/50 dark:to-blue-900/10 rounded-xl p-6 border border-gray-200 dark:border-gray-600 ${className}`}>
       <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center space-x-2">
         <span>🔗</span>
         <span>{title }</span>
@@ -64,7 +64,7 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200"
-                aria-label={`Open ${link.title } in new tab`}
+                aria-label={`Open ${link.title} in new tab`}
               >
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-1">
@@ -88,7 +88,7 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({
               <Link
                 to={link.href }
                 className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200"
-                aria-label={`Navigate to ${link.title }`}
+                aria-label={`Navigate to ${link.title}`}
               >
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-1">

@@ -168,7 +168,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                     : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                }`}
+               }`}
               >
                 <tab.icon className="w-4 h-4" />
                 <span>{tab.label }</span>
@@ -370,8 +370,8 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         <div className="flex items-center space-x-2">
                           <MapPin className="w-4 h-4 text-gray-500" />
                           <span className="text-sm text-gray-900 dark:text-white">
-                            {asset.location.building ? `${asset.location.building }` : 'No building specified'}
-                            {asset.location.room && ` - Room ${asset.location.room }`}
+                            {asset.location.building ? `${asset.location.building}` : 'No building specified'}
+                            {asset.location.room && ` - Room ${asset.location.room}`}
                           </span>
                         </div>
                         {asset.location.address && (

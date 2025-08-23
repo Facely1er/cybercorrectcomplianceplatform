@@ -63,7 +63,7 @@ class ErrorMonitoring {
     });
   }
 
-  captureException(error: Error | string, context): ErrorContext = {}) {
+  captureException(error: Error | string, context: ErrorContext = {}) {
     const errorDetails: ErrorDetails = typeof error === 'string' 
       ? { message: error }
       : {
@@ -87,15 +87,15 @@ class ErrorMonitoring {
     // Store in localStorage for debugging
     this.storeErrorLocally(errorDetails, enhancedContext);
     }
-  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context): ErrorContext = {}) {
+  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context: ErrorContext = {}) {
     this.captureException(message,) { ...context, level });
   }
 
-  private sendToMonitoringService(error: ErrorDetails, context): ErrorContext {
+  private sendToMonitoringService(error: ErrorDetails, context: ErrorContext {
     // In production, this would send to Sentry, LogRocket, etc.
     try {
       fetch('/api/errors', {
-        method): 'POST', headers: { 'Content-Type': 'application/json' 
+        method: 'POST', headers: { 'Content-Type': 'application/json' 
     }, body: JSON.stringify({ error, context })
       }).catch(fetchError =>) {
         console.error('Failed to send error to monitoring service:', fetchError);
@@ -105,7 +105,7 @@ class ErrorMonitoring {
     }
   }
 
-  private storeErrorLocally(error: ErrorDetails, context): ErrorContext {
+  private storeErrorLocally(error: ErrorDetails, context: ErrorContext {
     try {
       const stored = JSON.parse(localStorage.getItem('error-logs') || '[]');
       stored.push({ error, context });
@@ -136,8 +136,8 @@ class ErrorMonitoring {
     if (ENV.isProduction) {
       // Send performance data to monitoring service
       this.captureMessage(`Performance: ${name 
-    } took ${duration }ms`, 'info', {
-        tags: { type): 'performance' }, extra: { duration, metadata }
+   } took ${duration}ms`, 'info', {
+        tags: { type: 'performance' }, extra: { duration, metadata }
       });
     }
   }
@@ -146,8 +146,8 @@ class ErrorMonitoring {
   captureUserAction(action: string, metadata?): Record<string, any> {
     if (ENV.isProduction && ENV.ANALYTICS_ID) {
       // Send to analytics service
-      this.captureMessage(`User Action): ${action 
-    }`, 'info', {
+      this.captureMessage(`User Action: ${action 
+   }`, 'info', {
         tags: { type: 'userAction' }, extra: metadata });
     }
   }

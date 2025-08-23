@@ -61,7 +61,7 @@ export const getFramework = (frameworkId?: string) => {
   
   if (!foundFramework) {
     console.warn(`Framework with id '${frameworkId 
-    }' not found, using fallback`);
+   }' not found, using fallback`);
     console.log('Available framework IDs:', frameworks.map(f => f.id));
     return createFallbackFramework();
   }
@@ -69,12 +69,12 @@ export const getFramework = (frameworkId?: string) => {
   // Validate that the found framework has required properties
   if (!foundFramework.sections || !Array.isArray(foundFramework.sections)) {
     console.warn(`Framework '${frameworkId 
-    }' has invalid sections, using fallback`);
+   }' has invalid sections, using fallback`);
     console.log('Framework sections:', foundFramework.sections);
     return createFallbackFramework();
   }
   
-  console.log(`Successfully loaded framework '${frameworkId }' with ${foundFramework.sections.length } sections`);
+  console.log(`Successfully loaded framework '${frameworkId}' with ${foundFramework.sections.length} sections`);
   return foundFramework;
 };
 

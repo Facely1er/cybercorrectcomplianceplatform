@@ -68,8 +68,8 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     }).slice(0, 10); // Top 10 recommendations 
     }, [assessment, framework]);
 
-  const generateSmartRecommendation = (question: any, response: number, section: any, category: any): SmartRecommendation | null => {
-    const baseId = `${section.id }-${category.id }-${question.id }`;
+  const generateSmartRecommendation = (question: any, response: number, section: any, category: any: SmartRecommendation | null => {
+    const baseId = `${section.id}-${category.id}-${question.id}`;
     
     // Framework-specific recommendation logic
     if (framework.id === 'nist') {
@@ -84,7 +84,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     return generateGenericRecommendation(baseId, question, response, section, category);
   };
 
-  const generateNISTRecommendation = (id: string, question: any, response: number, section: any, category: any): SmartRecommendation => {
+  const generateNISTRecommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
     const recommendations: Record<string, Partial<SmartRecommendation>> = {
       'identify-asset-management': {
         title: 'Implement Comprehensive Asset Management', description: 'Deploy an automated asset discovery and inventory management system to maintain real-time visibility of all organizational assets.', priority: 'high', effort: 'medium', timeframe: '3-6 months', cost: 'medium', impact: 15, resources: [
@@ -118,7 +118,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
       }
     };
 
-    const key = `${section.id }-${category.id }`;
+    const key = `${section.id}-${category.id}`;
     const template = recommendations[key] || recommendations['protect-access-control'];
     
     return {
@@ -126,9 +126,9 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
       ...template } as SmartRecommendation;
   };
 
-  const generateISO27001Recommendation = (id: string, question: any, response: number, section: any, category: any): SmartRecommendation => {
+  const generateISO27001Recommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
     return {
-      id, title: `Enhance ${category.name } Controls`, description: `Implement ISO 27001 compliant controls for ${category.name.toLowerCase()} to meet certification requirements.`, priority: response === 0 ? 'critical' : 'high', effort: 'medium', timeframe: '2-6 months', cost: 'medium', impact: response === 0 ? 20 : 12, category: category.name, resources: [
+      id, title: `Enhance ${category.name} Controls`, description: `Implement ISO 27001 compliant controls for ${category.name.toLowerCase()} to meet certification requirements.`, priority: response === 0 ? 'critical' : 'high', effort: 'medium', timeframe: '2-6 months', cost: 'medium', impact: response === 0 ? 20 : 12, category: category.name, resources: [
         {
           type: 'documentation', name: 'ISO 27001 Control Templates', description: 'Ready-to-use policy and procedure templates'
         },
@@ -145,9 +145,9 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     };
   };
 
-  const generateCMMCRecommendation = (id: string, question: any, response: number, section: any, category: any): SmartRecommendation => {
+  const generateCMMCRecommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
     return {
-      id, title: `Achieve CMMC ${category.name } Requirements`, description: `Implement CMMC Level 2 controls for ${category.name.toLowerCase()} to maintain DoD contract eligibility.`, priority: 'critical', effort: 'high', timeframe: '3-9 months', cost: 'high', impact: response === 0 ? 25 : 15, category: category.name, resources: [
+      id, title: `Achieve CMMC ${category.name} Requirements`, description: `Implement CMMC Level 2 controls for ${category.name.toLowerCase()} to maintain DoD contract eligibility.`, priority: 'critical', effort: 'high', timeframe: '3-9 months', cost: 'high', impact: response === 0 ? 25 : 15, category: category.name, resources: [
         {
           type: 'consultant', name: 'CMMC Consultant', description: 'Certified CMMC Professional guidance'
         },
@@ -164,9 +164,9 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     };
   };
 
-  const generateGenericRecommendation = (id: string, question: any, response: number, section: any, category: any): SmartRecommendation => {
+  const generateGenericRecommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
     return {
-      id, title: `Improve ${category.name }`, description: `Address gaps in ${category.name.toLowerCase()} to enhance overall security posture.`, priority: response === 0 ? 'high' : 'medium', effort: 'medium', timeframe: '1-3 months', cost: 'low', impact: response === 0 ? 15 : 8, category: category.name, resources: [
+      id, title: `Improve ${category.name}`, description: `Address gaps in ${category.name.toLowerCase()} to enhance overall security posture.`, priority: response === 0 ? 'high' : 'medium', effort: 'medium', timeframe: '1-3 months', cost: 'low', impact: response === 0 ? 15 : 8, category: category.name, resources: [
         {
           type: 'documentation', name: 'Best Practices Guide', description: `Industry best practices for ${category.name.toLowerCase()}`
         }
@@ -209,7 +209,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
 
   if (recommendations.length === 0) {
     return (
-      <div className={`bg-green-50 dark:bg-green-900/20 rounded-xl p-8 text-center ${className }`}>
+      <div className={`bg-green-50 dark:bg-green-900/20 rounded-xl p-8 text-center ${className}`}>
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">
           Excellent Security Posture

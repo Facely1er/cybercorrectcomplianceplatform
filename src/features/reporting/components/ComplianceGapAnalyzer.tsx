@@ -67,7 +67,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     }).filter(analysis => analysis.gap > 0);
   }, [savedAssessments, selectedAssessment, targetMaturityLevel]);
 
-  const generateRecommendations = (functionId: string, gap: number): string[] => {
+  const generateRecommendations = (functionId: string, gap: number: string[] => {
     const recommendations: Record<string, string[]> = {
       'govern': [
         'Establish formal cybersecurity governance framework',
@@ -110,7 +110,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return recommendations[functionId] || [];
   };
 
-  const getBusinessImpact = (functionId: string, gap: number): string => {
+  const getBusinessImpact = (functionId: string, gap: number: string => {
     const impacts: Record<string, string> = {
       'govern': 'Lack of governance increases regulatory compliance risks and reduces executive oversight of cybersecurity initiatives',
       'identify': 'Poor asset and risk visibility increases likelihood of undetected vulnerabilities and compliance gaps',
@@ -123,7 +123,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return impacts[functionId] || 'Implementation gap increases overall cybersecurity risk exposure';
   };
 
-  const getRequiredActions = (functionId: string, gap: number): string[] => {
+  const getRequiredActions = (functionId: string, gap: number: string[] => {
     const actions: Record<string, string[]> = {
       'govern': [
         'Appoint cybersecurity governance committee',

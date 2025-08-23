@@ -45,7 +45,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         : 0;
 
       months.push({
-        month): monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore, assessments: monthAssessments.length, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
+        month: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore, assessments: monthAssessments.length, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
       });
     }
     
@@ -318,7 +318,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                       func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       func.score >= 40 ? 'text-orange-600 dark:text-orange-400' :
                       'text-red-600 dark:text-red-400'
-                    }`}>
+                   }`}>
                       {func.score }%
                     </span>
                   </td>
@@ -339,7 +339,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                       func.score >= 60 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                       func.score >= 40 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
                       'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
-                    }`}>
+                   }`}>
                       {func.score >= 80 ? 'Adaptive' :
                        func.score >= 60 ? 'Repeatable' :
                        func.score >= 40 ? 'Risk Informed' : 'Partial'}

@@ -223,7 +223,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
           isActive
             ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
             : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
-        }`}
+       }`}
         aria-expanded={isOpen }
         aria-haspopup="true"
       >
@@ -236,7 +236,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
         <div 
           className="absolute top-full left-0 w-64 bg-surface dark:bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark:border-dark-support py-2 z-50"
           role="menu"
-          aria-label={`${label } submenu`}
+          aria-label={`${label} submenu`}
         >
           {items.map((item) => (
             <Link
@@ -246,7 +246,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                   : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
-              }`}
+             }`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -409,7 +409,7 @@ function AppContent() {
       dataService.saveAssessment(newAssessment);
       setSavedAssessments(prev => [...prev, newAssessment]);
       navigate(`/assessment/${newAssessment.id 
-    }`);
+   }`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
       console.error('Failed to create assessment:', error);
@@ -514,7 +514,7 @@ function AppContent() {
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
                   
-    }`}
+   }`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -527,7 +527,7 @@ function AppContent() {
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
                   
-    }`}
+   }`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
                   <span>Dashboard</span>
@@ -758,7 +758,7 @@ function AppContent() {
               <AssessmentWrapper 
                 savedAssessments={savedAssessments }
                 onSave={saveAssessment }
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id }`)}
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
                 onBack={() => navigate('/dashboard')}
               />
             } />
@@ -771,7 +771,13 @@ function AppContent() {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { 
-                      format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis: true, includeNextSteps): true, branding: {
+                      format, 
+                      includeExecutiveSummary: true, 
+                      includeDetailedAnalysis: true, 
+                      includeRecommendations: true, 
+                      includeGapAnalysis: true, 
+                      includeNextSteps: true, 
+                      branding: {
                         organizationName: assessment.organizationInfo?.name || 'Organization'
                       }
                     });
@@ -789,13 +795,13 @@ function AppContent() {
               <AdvancedDashboard
                 savedAssessments={savedAssessments }
                 onStartAssessment={startAssessment }
-                onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id }`)}
+                onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
                 onDeleteAssessment={deleteAssessment }
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id }`)}
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
                 onExportAssessment={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework,) { format });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
                   } catch {
                     addNotification('error', 'Failed to export assessment');
@@ -899,11 +905,11 @@ function AppContent() {
             <Route path="/reports" element={
               <AssessmentReportsPage
                 savedAssessments={savedAssessments }
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id }`)}
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
                 onExportReport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework,) { format });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
                   } catch {
                     addNotification('error', 'Failed to export report');
@@ -919,14 +925,14 @@ function AppContent() {
               <AdvancedReportingDashboard
                 savedAssessments={savedAssessments }
                 userProfile={null }
-                onExportReport={(format) => addNotification('info', `Export ${format } feature`)}
+                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
               />
             } />
             
             <Route path="/reports/team" element={
               <TeamTrackingReport
                 onBack={() => navigate('/dashboard')}
-                onExportReport={(format) => addNotification('info', `Export ${format } feature`)}
+                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
               />
             } />
             

@@ -66,7 +66,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
   return (
     <nav 
       ref={navRef }
-      className={`${className }`}
+      className={`${className}`}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -84,7 +84,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                     item.children?.some(child => child.href && isActive(child.href))
                       ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
                       : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
-                  }`}
+                 }`}
                   onKeyDown={(e) => handleKeyDown(e, item)}
                   aria-expanded={openDropdowns.has(item.label)}
                   aria-haspopup="true"
@@ -95,7 +95,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                   <ChevronDown 
                     className={`w-3 h-3 transition-transform ${
                       openDropdowns.has(item.label) ? 'rotate-180' : ''
-                    }`} 
+                   }`} 
                     aria-hidden="true"
                   />
                 </button>
@@ -104,7 +104,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                   <div 
                     className="absolute top-full left-0 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50"
                     role="menu"
-                    aria-label={`${item.label } submenu`}
+                    aria-label={`${item.label} submenu`}
                   >
                     {item.children.map((child) => (
                       <Link
@@ -114,9 +114,9 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                           isActive(child.href!)
                             ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
                             : 'text-gray-700 dark:text-gray-300'
-                        }`}
+                       }`}
                         role="menuitem"
-                        aria-label={`${child.label }: ${child.description || ''}`}
+                        aria-label={`${child.label}: ${child.description || ''}`}
                       >
                         <child.icon className="w-4 h-4" aria-hidden="true" />
                         <div>
@@ -139,7 +139,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                   isActive(item.href!)
                     ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
                     : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
-                }`}
+               }`}
                 role="menuitem"
                 aria-label={item.description || item.label }
               >

@@ -35,7 +35,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   );
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 ${className }`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 ${className}`}>
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
         {/* Search */}
         <div className="flex-1 max-w-lg">
@@ -76,7 +76,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
               hasActiveFilters
                 ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
                 : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
-            }`}
+           }`}
           >
             <Filter className="w-4 h-4" />
             <span>Filters</span>

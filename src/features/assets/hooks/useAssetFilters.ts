@@ -31,7 +31,7 @@ export const useAssetFilters = (assets: Asset[], filters: AssetInventoryFilter) 
       // Location filter
       if (filters.locations && filters.locations.length > 0) {
         const locationString = `${asset.location.building || ''
-    } ${asset.location.room || ''}`.toLowerCase();
+   } ${asset.location.room || ''}`.toLowerCase();
         const hasMatchingLocation = filters.locations.some(location => 
           locationString.includes(location.toLowerCase())
         );

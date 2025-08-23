@@ -16,7 +16,7 @@ class RateLimiter {
   private store: RateLimitStore = {};
   private config: RateLimitConfig;
 
-  constructor(config): RateLimitConfig {
+  constructor(config: RateLimitConfig {
     this.config = {
       windowMs: 15 * 60 * 1000, // 15 minutes default
       maxRequests: 100, message: 'Too many requests, please try again later.', statusCode: 429,
@@ -25,7 +25,7 @@ class RateLimiter {
   }
 
   // Check if request is allowed
-  isAllowed(identifier: string): { allowed: boolean; remaining: number; resetTime: number 
+  isAllowed(identifier: string: { allowed: boolean; remaining: number; resetTime: number 
     } {
     const now = Date.now();
     const key = this.getKey(identifier);
@@ -53,7 +53,7 @@ class RateLimiter {
   }
 
   // Get rate limit info
-  getInfo(identifier: string): { count: number; remaining: number; resetTime: number 
+  getInfo(identifier: string: { count: number; remaining: number; resetTime: number 
     } {
     const key = this.getKey(identifier);
     const entry = this.store[key];
@@ -68,7 +68,7 @@ class RateLimiter {
   }
 
   // Reset rate limit for an identifier
-  reset(identifier: string): void {
+  reset(identifier: string: void {
     const key = this.getKey(identifier);
     delete this.store[key];
     }
@@ -86,8 +86,8 @@ class RateLimiter {
   getSize(): number {
     return Object.keys(this.store).length;
     }
-  private getKey(identifier: string): string {
-    return `rate_limit:${identifier }`;
+  private getKey(identifier: string: string {
+    return `rate_limit:${identifier}`;
   }
 }
 

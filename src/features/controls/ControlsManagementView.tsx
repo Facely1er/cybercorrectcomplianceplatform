@@ -260,12 +260,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     const detailsMessage = `Control Details:
 
 ID: ${control.controlId || control.nistSubcategory
-    }
-Function: ${control.nistFunction }
-Category: ${control.nistCategory }
-Status: ${control.status }
-Owner: ${control.owner }
-Priority: ${control.priority }
+   }
+Function: ${control.nistFunction}
+Category: ${control.nistCategory}
+Status: ${control.status}
+Owner: ${control.owner}
+Priority: ${control.priority}
 
 Implementation Score: ${control.effectiveness?.implementationScore || 0}%
 Risk Reduction: ${control.effectiveness?.riskReduction || 0}%
@@ -302,7 +302,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             const importedControls = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedControls)) {
               setControls(prev => [...prev, ...importedControls]);
-              addNotification('success', `Imported ${importedControls.length } controls`);
+              addNotification('success', `Imported ${importedControls.length} controls`);
             } else {
               addNotification('error', 'Invalid file format');
             }
@@ -437,7 +437,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
             <div
               className="bg-blue-600 h-3 rounded-full transition-all duration-300"
-              style={{ width: `${implementationPercentage }%` }}
+              style={{ width: `${implementationPercentage}%` }}
             ></div>
           </div>
         </div>
@@ -547,7 +547,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                           level <= (control.effectiveness?.maturityLevel || 1)
                             ? 'bg-blue-600'
                             : 'bg-gray-300 dark:bg-gray-600'
-                        }`}
+                       }`}
                       />
                     ))}
                     <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">

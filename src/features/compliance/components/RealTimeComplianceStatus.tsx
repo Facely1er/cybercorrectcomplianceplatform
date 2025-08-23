@@ -106,7 +106,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
 
   if (!complianceData) {
     return (
-      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center ${className }`}>
+      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center ${className}`}>
         <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
         <p className="text-gray-600 dark:text-gray-300">Loading real-time compliance data...</p>
       </div>
@@ -114,7 +114,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
   }
 
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className }`}>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className}`}>
       {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />
@@ -152,7 +152,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                 autoRefresh 
                   ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-              }`}
+             }`}
             >
               <RefreshCw className={`w-4 h-4 ${autoRefresh ? 'animate-spin' : ''}`} />
               <span className="text-sm font-medium">
@@ -187,8 +187,8 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                 complianceData.overallCompliance >= 80 ? 'bg-green-500' :
                 complianceData.overallCompliance >= 60 ? 'bg-yellow-500' :
                 complianceData.overallCompliance >= 40 ? 'bg-orange-500' : 'bg-red-500'
-              }`}
-              style={{ width: `${complianceData.overallCompliance }%` }}
+             }`}
+              style={{ width: `${complianceData.overallCompliance}%` }}
             />
           </div>
           
@@ -253,8 +253,8 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                     score >= 80 ? 'bg-green-500' :
                     score >= 60 ? 'bg-yellow-500' :
                     score >= 40 ? 'bg-orange-500' : 'bg-red-500'
-                  }`}
-                  style={{ width: `${score }%` }}
+                 }`}
+                  style={{ width: `${score}%` }}
                 />
               </div>
               
@@ -416,7 +416,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${complianceData.controlImplementationProgress }%` }}
+                  style={{ width: `${complianceData.controlImplementationProgress}%` }}
                 />
               </div>
             </div>
@@ -431,7 +431,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${complianceData.evidenceCollectionProgress }%` }}
+                  style={{ width: `${complianceData.evidenceCollectionProgress}%` }}
                 />
               </div>
             </div>

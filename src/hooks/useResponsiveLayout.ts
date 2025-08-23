@@ -17,7 +17,7 @@ export const useResponsiveLayout = (): BreakpointState => {
   });
 
   useEffect(() => {
-    const getBreakpoint = (width: number): BreakpointSize => {
+    const getBreakpoint = (width: number: BreakpointSize => {
       if (width < 640) return 'xs';
       if (width < 768) return 'sm';
       if (width < 1024) return 'md';

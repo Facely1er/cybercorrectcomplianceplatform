@@ -22,7 +22,7 @@ export const SECURITY_HEADERS = {
     };
 
 // Input sanitization
-export const sanitizeHtml = (input: string): string => {
+export const sanitizeHtml = (input: string: string => {
   return input
     .replace(/[<>]/g, '') // Remove HTML tags
     .replace(/javascript:/gi, '') // Remove javascript: protocols
@@ -32,7 +32,7 @@ export const sanitizeHtml = (input: string): string => {
 
     };
 
-export const sanitizeFileName = (fileName: string): string => {
+export const sanitizeFileName = (fileName: string: string => {
   return fileName
     .replace(/[^a-zA-Z0-9.-]/g, '_') // Replace special chars with underscore
     .replace(/_{2 
@@ -41,12 +41,12 @@ export const sanitizeFileName = (fileName: string): string => {
     };
 
 // Password validation
-export const validatePassword = (password: string): { isValid: boolean; errors: string[] 
+export const validatePassword = (password: string: { isValid: boolean; errors: string[] 
     } => {
   const errors: string[] = [];
 
   if (password.length < SECURITY_CONFIG.passwordMinLength) {
-    errors.push(`Password must be at least ${SECURITY_CONFIG.passwordMinLength } characters`);
+    errors.push(`Password must be at least ${SECURITY_CONFIG.passwordMinLength} characters`);
   }
 
   if (SECURITY_CONFIG.requireNumbers && !/\d/.test(password)) {
@@ -71,21 +71,21 @@ export const validatePassword = (password: string): { isValid: boolean; errors: 
 };
 
 // File validation
-export const validateFile = (file: File): { isValid: boolean; errors: string[] 
+export const validateFile = (file: File: { isValid: boolean; errors: string[] 
     } => {
   const errors: string[] = [];
 
   // Check file size
   if (file.size > SECURITY_CONFIG.maxFileSize) {
     errors.push(`File size must be less than ${SECURITY_CONFIG.maxFileSize / (1024 * 1024)
-    }MB`);
+   }MB`);
   }
 
   // Check file type
   const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
   if (!SECURITY_CONFIG.allowedFileTypes.includes(fileExtension)) {
     errors.push(`File type ${fileExtension 
-    } is not allowed`);
+   } is not allowed`);
   }
 
   // Check for potentially malicious file names
@@ -101,7 +101,7 @@ export class RateLimiter {
   private attempts: Map<string, { count: number; resetTime: number 
     }> = new Map();
 
-  isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000): boolean {
+  isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000: boolean {
     const now = Date.now();
     const record = this.attempts.get(key);
 
@@ -120,7 +120,7 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key: string, maxAttempts: number = 5): number {
+  getRemainingAttempts(key: string, maxAttempts: number = 5: number {
     const record = this.attempts.get(key);
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;
@@ -128,7 +128,7 @@ export class RateLimiter {
     return Math.max(0, maxAttempts - record.count);
   }
 
-  reset(key: string): void {
+  reset(key: string: void {
     this.attempts.delete(key);
   }
 }
@@ -159,7 +159,7 @@ export class SessionManager {
 
     return sessionId;
     }
-  validateSession(sessionId: string): { isValid: boolean; userId?: string; permissions?: string[] } {
+  validateSession(sessionId: string: { isValid: boolean; userId?: string; permissions?: string[] } {
     const session = this.sessionData.get(sessionId);
     
     if (!session || Date.now() > session.expiresAt) {
@@ -171,7 +171,7 @@ export class SessionManager {
       isValid: true, userId: session.userId, permissions: session.permissions };
   }
 
-  refreshSession(sessionId: string): boolean {
+  refreshSession(sessionId: string: boolean {
     const session = this.sessionData.get(sessionId);
     if (!session) return false;
 
@@ -180,7 +180,7 @@ export class SessionManager {
     return true;
   }
 
-  destroySession(sessionId: string): void {
+  destroySession(sessionId: string: void {
     this.sessionData.delete(sessionId);
     sessionStorage.removeItem('session-id');
     sessionStorage.removeItem('session-expires');
@@ -216,12 +216,12 @@ export const ROLE_PERMISSIONS = {
   ]
 };
 
-export const hasPermission = (userPermissions: string[], requiredPermission: Permission): boolean => {
+export const hasPermission = (userPermissions: string[], requiredPermission: Permission: boolean => {
   return userPermissions.includes(requiredPermission);
 };
 
 // Secure random token generation
-export const generateSecureToken = (length: number = 32): string => {
+export const generateSecureToken = (length: number = 32: string => {
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
   return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');

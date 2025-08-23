@@ -56,13 +56,13 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation): 'setItem' }, extra: { key, hasValue: !!value }
+        tags: { type: 'storageError', operation: 'setItem' }, extra: { key, hasValue: !!value }
       });
-      throw new Error(`Failed to store data: ${error }`);
+      throw new Error(`Failed to store data: ${error}`);
     }
   }
 
-  async getItem<T>(key: string): Promise<T | null> {
+  async getItem<T>(key: string: Promise<T | null> {
     try {
       const storageKey = this.storagePrefix + key;
       const stored = localStorage.getItem(storageKey);
@@ -106,19 +106,19 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation): 'getItem' }, extra: { key }
+        tags: { type: 'storageError', operation: 'getItem' }, extra: { key }
       });
       return null;
     }
   }
 
-  removeItem(key: string): void {
+  removeItem(key: string: void {
     try {
       const storageKey = this.storagePrefix + key;
       localStorage.removeItem(storageKey);
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation): 'removeItem' }, extra: { key }
+        tags: { type: 'storageError', operation: 'removeItem' }, extra: { key }
       });
     }
   }
@@ -183,7 +183,7 @@ class SecureStorage {
     }
   }
 
-  private async encrypt(data: string): Promise<string> {
+  private async encrypt(data: string: Promise<string> {
     // Simple base64 encoding for development
     // In production, use proper encryption like Web Crypto API
     if (ENV.isDevelopment) {
@@ -215,7 +215,7 @@ class SecureStorage {
     }
   }
 
-  private async decrypt(encryptedData: string): Promise<string> {
+  private async decrypt(encryptedData: string: Promise<string> {
     // Simple base64 decoding for development
     if (ENV.isDevelopment && encryptedData.startsWith('encrypted:')) {
       return atob(encryptedData.substring(10));
@@ -223,12 +223,12 @@ class SecureStorage {
     // Production decryption logic would go here
     return encryptedData;
     }
-  private async compress(data: string): Promise<string> {
+  private async compress(data: string: Promise<string> {
     // Simple compression placeholder
     // In production, use CompressionStream or similar
     return 'compressed:' + data;
     }
-  private async decompress(compressedData: string): Promise<string> {
+  private async decompress(compressedData: string: Promise<string> {
     // Simple decompression placeholder
     return compressedData;
     }

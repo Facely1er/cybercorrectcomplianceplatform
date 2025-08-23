@@ -50,7 +50,7 @@ export const validateProductionEnvironment = () => {
   
   if (missing.length > 0) {
     throw new Error(`Missing required production environment variables: ${missing.join(', ')
-    }`);
+   }`);
   }
 
   // Validate Supabase URL format

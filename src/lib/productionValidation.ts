@@ -136,20 +136,20 @@ export const validateAndSanitize = <T>(
     return { success: true, data: result };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const errors = error.errors.map(err => `${err.path.join('.')}: ${err.message }`);
+      const errors = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
       return { success: false, errors };
     }
     return { success: false, errors: ['Validation failed'] };
   }
 };
 
-export const sanitizeHtml = (html: string): string => {
+export const sanitizeHtml = (html: string: string => {
   return DOMPurify.sanitize(html,) {
     ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'p', 'br', 'ul', 'ol', 'li'], ALLOWED_ATTR: []
   });
 };
 
-export const sanitizeFileName = (fileName: string): string => {
+export const sanitizeFileName = (fileName: string: string => {
   return fileName
     .replace(/[^a-zA-Z0-9.-]/g, '_')
     .replace(/_{2 }/g, '_')
@@ -161,15 +161,15 @@ export const validateFileType = (file: File, allowedTypes: string[]): boolean =>
   return allowedTypes.includes(file.type);
 };
 
-export const validateFileSize = (file: File, maxSizeMB: number): boolean => {
+export const validateFileSize = (file: File, maxSizeMB: number: boolean => {
   return file.size <= maxSizeMB * 1024 * 1024;
 };
 
 // Rate limiting validation
-export const validateRateLimit = (key: string, maxRequests: number, windowMs: number): boolean => {
+export const validateRateLimit = (key: string, maxRequests: number, windowMs: number: boolean => {
   const now = Date.now();
   const storageKey = `rate_limit_${key 
-    }`;
+   }`;
   
   try {
     const stored = localStorage.getItem(storageKey);

@@ -68,7 +68,7 @@ export const getSecurityConfig = (): SecurityConfig => {
 };
 
 // Security validation functions
-export const validateSecurityHeaders = (headers: Headers): boolean => {
+export const validateSecurityHeaders = (headers: Headers: boolean => {
   const requiredHeaders = [
     'x-content-type-options',
     'x-frame-options',
@@ -79,7 +79,7 @@ export const validateSecurityHeaders = (headers: Headers): boolean => {
 
     };
 
-export const sanitizeInput = (input: string): string => {
+export const sanitizeInput = (input: string: string => {
   // Remove potentially dangerous characters
   return input
     .replace(/[<>]/g, '') // Remove angle brackets
@@ -89,13 +89,13 @@ export const sanitizeInput = (input: string): string => {
 
     };
 
-export const validateCSRFToken = (token: string, sessionToken: string): boolean => {
+export const validateCSRFToken = (token: string, sessionToken: string: boolean => {
   // Simple CSRF token validation
   // In production, use a more robust implementation
   return token === btoa(sessionToken + 'csrf-salt');
 
     };
 
-export const generateCSRFToken = (sessionToken: string): string => {
+export const generateCSRFToken = (sessionToken: string: string => {
   return btoa(sessionToken + 'csrf-salt');
 };

@@ -95,7 +95,7 @@ class PerformanceMonitor {
     this.reportMetrics(metrics as PerformanceMetrics);
   }
 
-  private processPerformanceEntry(entry: PerformanceEntry): void {
+  private processPerformanceEntry(entry: PerformanceEntry: void {
     const metrics: Partial<PerformanceMetrics> = {
       timestamp: Date.now(), url: window.location.href, userAgent: navigator.userAgent, viewport: {
         width: window.innerWidth, height: window.innerHeight }
@@ -128,8 +128,8 @@ class PerformanceMonitor {
     }
   }
 
-  private mapResourceEntry(entry: PerformanceResourceTiming): ResourceTiming {
-    const getResourceType = (name: string): ResourceTiming['type'] => {
+  private mapResourceEntry(entry: PerformanceResourceTiming: ResourceTiming {
+    const getResourceType = (name: string: ResourceTiming['type'] => {
       if (name.includes('.js')) return 'script';
       if (name.includes('.css')) return 'stylesheet';
       if (name.match(/\.(png|jpg|jpeg|gif|svg|webp)$/)) return 'image';
@@ -143,7 +143,7 @@ class PerformanceMonitor {
     };
   }
 
-  private reportMetrics(metrics: PerformanceMetrics): void {
+  private reportMetrics(metrics: PerformanceMetrics: void {
     this.metrics.push(metrics);
     
     // Send to monitoring service in production
@@ -166,25 +166,25 @@ class PerformanceMonitor {
     }
   }
 
-  private checkPerformanceThresholds(metrics: PerformanceMetrics): void {
+  private checkPerformanceThresholds(metrics: PerformanceMetrics: void {
     const issues: string[] = [];
 
     // Check Core Web Vitals thresholds
     if (metrics.fcp && metrics.fcp > 1800) {
       issues.push(`FCP too slow: ${metrics.fcp 
-    }ms (should be < 1800ms)`);
+   }ms (should be < 1800ms)`);
     }
     
     if (metrics.lcp && metrics.lcp > 2500) {
-      issues.push(`LCP too slow: ${metrics.lcp }ms (should be < 2500ms)`);
+      issues.push(`LCP too slow: ${metrics.lcp}ms (should be < 2500ms)`);
     }
     
     if (metrics.fid && metrics.fid > 100) {
-      issues.push(`FID too slow: ${metrics.fid }ms (should be < 100ms)`);
+      issues.push(`FID too slow: ${metrics.fid}ms (should be < 100ms)`);
     }
     
     if (metrics.cls && metrics.cls > 0.1) {
-      issues.push(`CLS too high: ${metrics.cls } (should be < 0.1)`);
+      issues.push(`CLS too high: ${metrics.cls} (should be < 0.1)`);
     }
 
     if (issues.length > 0) {
@@ -197,11 +197,11 @@ class PerformanceMonitor {
     }
   }
 
-  private async sendToAnalytics(metrics: PerformanceMetrics): Promise<void> {
+  private async sendToAnalytics(metrics: PerformanceMetrics: Promise<void> {
     try {
       // Send to analytics service
       await fetch('/api/analytics/performance', {
-        method): 'POST', headers: {
+        method: 'POST', headers: {
           'Content-Type': 'application/json'
         
     }, body: JSON.stringify(metrics)
@@ -211,7 +211,7 @@ class PerformanceMonitor {
     }
   }
 
-  private reportPerformanceIssue(issues: string[], metrics: PerformanceMetrics): void {
+  private reportPerformanceIssue(issues: string[], metrics: PerformanceMetrics: void {
     // This would integrate with your error monitoring service
     console.error('Performance threshold exceeded:',) {
       issues, metrics, timestamp: new Date().toISOString()
@@ -220,12 +220,12 @@ class PerformanceMonitor {
   }
 
   // Public API
-  startTiming(label: string): () => void {
+  startTiming(label: string: () => void {
     const start = performance.now();
     return () => {
       const duration = performance.now() - start;
       console.log(`${label 
-    }: ${duration.toFixed(2)}ms`);
+   }: ${duration.toFixed(2)}ms`);
       return duration;
     };
   }
@@ -239,9 +239,9 @@ class PerformanceMonitor {
       // Mark the measurement
       if ('performance' in window && performance.mark) {
         performance.mark(`${name 
-    }-start`);
-        performance.mark(`${name }-end`);
-        performance.measure(name, `${name }-start`, `${name }-end`);
+   }-start`);
+        performance.mark(`${name}-end`);
+        performance.measure(name, `${name}-start`, `${name}-end`);
       }
       
       resolve(duration);
@@ -280,6 +280,6 @@ export const measurePageLoad = (): void => {
   });
 };
 
-export const measureRouteChange = (routeName: string): (() => void) => {
-  return performanceMonitor.startTiming(`Route: ${routeName }`);
+export const measureRouteChange = (routeName: string: (() => void) => {
+  return performanceMonitor.startTiming(`Route: ${routeName}`);
 };

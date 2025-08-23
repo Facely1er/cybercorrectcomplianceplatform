@@ -20,7 +20,7 @@ export class FileService {
     return FileService.instance;
   }
 
-  async uploadFile(file: File): Promise<FileUploadResult> {
+  async uploadFile(file: File: Promise<FileUploadResult> {
     try {
       // Validate file
       this.validateFile(file);
@@ -40,38 +40,38 @@ export class FileService {
     
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type): 'fileUploadError' }, extra: { fileName: file.name, fileSize: file.size }
+        tags: { type: 'fileUploadError' }, extra: { fileName: file.name, fileSize: file.size }
       });
       throw error;
     }
   }
 
-  async getFile(fileId: string): Promise<FileUploadResult | null> {
+  async getFile(fileId: string: Promise<FileUploadResult | null> {
     try {
       const files = this.getStoredFiles();
       return files.find(f => f.id === fileId) || null;
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type): 'fileRetrievalError' }, extra: { fileId }
+        tags: { type: 'fileRetrievalError' }, extra: { fileId }
       });
       return null;
     }
   }
 
-  async deleteFile(fileId: string): Promise<void> {
+  async deleteFile(fileId: string: Promise<void> {
     try {
       const files = this.getStoredFiles();
       const filteredFiles = files.filter(f => f.id !== fileId);
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filteredFiles));
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type): 'fileDeletionError' }, extra: { fileId }
+        tags: { type: 'fileDeletionError' }, extra: { fileId }
       });
       throw error;
     }
   }
 
-  private validateFile(file: File): void {
+  private validateFile(file: File: void {
     const maxSize = 10 * 1024 * 1024; // 10MB
     const allowedTypes = [
       'application/pdf',
@@ -88,15 +88,15 @@ export class FileService {
 
     if (file.size > maxSize) {
       throw new Error(`File size exceeds limit. Maximum size is ${maxSize / 1024 / 1024
-    }MB`);
+   }MB`);
     }
 
     if (!allowedTypes.includes(file.type)) {
-      throw new Error(`File type ${file.type } is not allowed`);
+      throw new Error(`File type ${file.type} is not allowed`);
     }
   }
 
-  private async convertToBase64(file: File): Promise<string> {
+  private async convertToBase64(file: File: Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result as string);

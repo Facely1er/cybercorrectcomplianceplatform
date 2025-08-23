@@ -13,13 +13,13 @@ class RateLimiter {
   private store = new Map<string, RateLimitEntry>();
   private config: RateLimitConfig;
 
-  constructor(config): RateLimitConfig {
+  constructor(config: RateLimitConfig {
     this.config = config;
     
     // Clean up expired entries every minute
     setInterval(() => this.cleanup(), 60000);
     }
-  isAllowed(key: string): { allowed: boolean; remaining: number; resetTime: number } {
+  isAllowed(key: string: { allowed: boolean; remaining: number; resetTime: number } {
     const now = Date.now();
     const entry = this.store.get(key);
 
@@ -50,7 +50,7 @@ class RateLimiter {
     };
   }
 
-  reset(key: string): void {
+  reset(key: string: void {
     this.store.delete(key);
   }
 
@@ -90,6 +90,6 @@ export const getClientId = (): string => {
   
   // Create a simple hash of browser characteristics
   const identifier = btoa(`${userAgent 
-    }-${language }-${platform }`).slice(0, 16);
+   }-${language}-${platform}`).slice(0, 16);
   return identifier;
 };

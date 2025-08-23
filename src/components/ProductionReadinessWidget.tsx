@@ -62,8 +62,8 @@ export const ProductionReadinessWidget: React.FC = () => {
           isReady 
             ? 'bg-green-600 hover:bg-green-700 text-white' 
             : 'bg-red-600 hover:bg-red-700 text-white animate-pulse'
-        }`}
-        title={`Production Readiness: ${readinessScore }/100`}
+       }`}
+        title={`Production Readiness: ${readinessScore}/100`}
       >
         <Shield className="w-5 h-5" />
       </button>
@@ -105,7 +105,7 @@ export const ProductionReadinessWidget: React.FC = () => {
                   isReady 
                     ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
                     : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
-                }`}>
+               }`}>
                   {isReady ? '✅ Ready for Production' : '⚠️ Needs Attention'}
                 </div>
               </div>

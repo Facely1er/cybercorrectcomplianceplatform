@@ -38,8 +38,8 @@ export const LineChart: React.FC<LineChartProps> = ({
           size: 16, weight: '600' as const }, padding: {
           top: 10, bottom: 30 } }, tooltip: {
         backgroundColor: 'rgba(17, 24, 39, 0.95)', titleColor: 'rgb(243, 244, 246)', bodyColor: 'rgb(243, 244, 246)', borderColor: 'rgba(75, 85, 99, 0.3)', borderWidth: 1, cornerRadius: 8, displayColors: true, callbacks: {
-          label: function(context): any {
-            return `${context.dataset.label }: ${context.parsed.y }${context.dataset.label.includes('Score') ? '%' : ''}`;
+          label: function(context: any {
+            return `${context.dataset.label}: ${context.parsed.y}${context.dataset.label.includes('Score') ? '%' : ''}`;
           }
         }
       } }, scales: {
@@ -58,7 +58,7 @@ export const LineChart: React.FC<LineChartProps> = ({
       duration: 1000, easing: 'easeInOutQuart' as const } };
 
   return (
-    <div className={`relative ${className }`} style={{ height: `${height }px` }}>
+    <div className={`relative ${className}`} style={{ height: `${height}px` }}>
       <Line data={data } options={options } />
     </div>
   );

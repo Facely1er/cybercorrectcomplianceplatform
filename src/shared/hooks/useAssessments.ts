@@ -35,7 +35,7 @@ export const useAssessments = () => {
     }
   }, [user, currentOrganization]);
 
-  const saveAssessment = useCallback(async (assessment: AssessmentData): Promise<AssessmentData> => {
+  const saveAssessment = useCallback(async (assessment: AssessmentData: Promise<AssessmentData> => {
     if (!user) throw new Error('User not authenticated');
 
     try {
@@ -83,7 +83,7 @@ export const useAssessments = () => {
     }
   }, [user]);
 
-  const duplicateAssessment = useCallback(async (assessmentId: string, newName?: string): Promise<AssessmentData> => {
+  const duplicateAssessment = useCallback(async (assessmentId: string, newName?: string: Promise<AssessmentData> => {
     if (!user) throw new Error('User not authenticated');
 
     try {

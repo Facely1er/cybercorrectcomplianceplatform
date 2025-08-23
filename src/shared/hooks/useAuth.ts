@@ -79,7 +79,7 @@ export const useAuth = () => {
         
     }, profile: {
           id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', organization: 'Demo Organization', role: 'admin', industry: 'Technology', preferences: {}, currentOrganizationId: 'demo-org-001'
-        }, loading: false, error: null, permissions: ROLE_PERMISSIONS.admin as string[], role: 'admin', organizations: [{ id: 'demo-org-001', name): 'Demo Organization' }], currentOrganization: { id: 'demo-org-001', name: 'Demo Organization' }
+        }, loading: false, error: null, permissions: ROLE_PERMISSIONS.admin as string[], role: 'admin', organizations: [{ id: 'demo-org-001', name: 'Demo Organization' }], currentOrganization: { id: 'demo-org-001', name: 'Demo Organization' }
       });
       return;
     }
@@ -120,7 +120,7 @@ export const useAuth = () => {
         user: {
           id: userId, email: profile?.email || '', name: profile?.name 
     }, profile: profile ? {
-          id: profile.id, email: profile.email, name: profile.name, organization: profile.organization, role: profile.role, industry: profile.industry, certifications: profile.certifications, preferences): profile.preferences || {}, currentOrganizationId: currentOrganization?.id } : null, loading: false, error: null, permissions: permissions as string[], role, organizations, currentOrganization });
+          id: profile.id, email: profile.email, name: profile.name, organization: profile.organization, role: profile.role, industry: profile.industry, certifications: profile.certifications, preferences: profile.preferences || {}, currentOrganizationId: currentOrganization?.id } : null, loading: false, error: null, permissions: permissions as string[], role, organizations, currentOrganization });
     } catch (error) {
       console.error('Failed to load user data:', error);
       setAuthState(prev => ({ 
@@ -255,7 +255,7 @@ export const useAuth = () => {
         if (error) throw error;
 
         setAuthState(prev => ({
-          ...prev, profile): prev.profile ? { ...prev.profile, ...updates } : null }));
+          ...prev, profile: prev.profile ? { ...prev.profile, ...updates } : null }));
       }
 
       return { success: true, error: null };
@@ -276,7 +276,7 @@ export const useAuth = () => {
       }
 
       setAuthState(prev => ({
-        ...prev, currentOrganization: organization, profile): prev.profile ? { ...prev.profile, currentOrganizationId: organizationId } : null }));
+        ...prev, currentOrganization: organization, profile: prev.profile ? { ...prev.profile, currentOrganizationId: organizationId } : null }));
 
       return { success: true, error: null };
     } catch (error: any) {
@@ -284,7 +284,7 @@ export const useAuth = () => {
     }
   }, [authState.user, authState.organizations]);
 
-  const checkPermission = useCallback((permission: Permission): boolean => {
+  const checkPermission = useCallback((permission: Permission: boolean => {
     return authState.permissions.includes(permission);
   }, [authState.permissions]);
 
@@ -298,11 +298,11 @@ export const useAuth = () => {
     }
   }, [authState.user]);
 
-  const hasRole = useCallback((role: string): boolean => {
+  const hasRole = useCallback((role: string: boolean => {
     return authState.role === role;
   }, [authState.role]);
 
-  const hasOrganizationRole = useCallback((organizationId: string, role: string): boolean => {
+  const hasOrganizationRole = useCallback((organizationId: string, role: string: boolean => {
     if (!authState.currentOrganization) return false;
     return authState.currentOrganization.id === organizationId && hasRole(role);
   }, []);

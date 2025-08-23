@@ -21,20 +21,20 @@ export const EnhancedAssetSchema = z.object({
 });
 
 // Sanitization functions
-export const sanitizeHtml = (input: string): string => {
+export const sanitizeHtml = (input: string: string => {
   return DOMPurify.sanitize(input,) {
     ALLOWED_TAGS: [], ALLOWED_ATTR: [], KEEP_CONTENT: true 
     });
 };
 
-export const sanitizeFilename = (filename: string): string => {
+export const sanitizeFilename = (filename: string: string => {
   return filename
     .replace(/[^a-zA-Z0-9.-]/g, '_')
     .replace(/_{2 }/g, '_')
     .substring(0, 255);
 };
 
-export const sanitizeUrl = (url: string): string => {
+export const sanitizeUrl = (url: string: string => {
   try {
     const parsed = new URL(url);
     // Only allow http and https protocols
@@ -62,7 +62,7 @@ export const validateAndSanitizeInput = <T>(
   
   if (!result.success) {
     const errors = result.error.errors.map(err => `${err.path.join('.')
-    }: ${err.message }`);
+   }: ${err.message}`);
     throw new Error(`Validation failed: ${errors.join(', ')}`);
   }
 
@@ -94,7 +94,7 @@ export class RateLimiter {
   private attempts: Map<string, { count: number; resetTime: number 
     }> = new Map();
 
-  isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000): boolean {
+  isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000: boolean {
     const now = Date.now();
     const record = this.attempts.get(key);
 
@@ -111,7 +111,7 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key: string, maxAttempts: number = 5): number {
+  getRemainingAttempts(key: string, maxAttempts: number = 5: number {
     const record = this.attempts.get(key);
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;

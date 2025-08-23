@@ -232,7 +232,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div
                 className="bg-gradient-to-r from-primary-teal to-secondary-teal h-2 rounded-full transition-all duration-300"
-                style={{ width: `${progress }%` }}
+                style={{ width: `${progress}%` }}
               />
             </div>
           </div>
@@ -289,14 +289,14 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
                       isSelected
                         ? 'border-primary-teal bg-primary-teal/5 dark:bg-dark-primary/10'
                         : 'border-gray-200 dark:border-gray-700 hover:border-primary-teal/50 dark:hover:border-dark-primary/50'
-                    }`}
+                   }`}
                   >
                     <div className="flex items-start space-x-3">
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mt-0.5 ${
                         isSelected 
                           ? 'border-primary-teal bg-primary-teal'
                           : 'border-gray-300 dark:border-gray-600'
-                      }`}>
+                     }`}>
                         {isSelected && <div className="w-2 h-2 bg-white rounded-full" />}
                       </div>
                       

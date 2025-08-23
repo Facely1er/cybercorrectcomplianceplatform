@@ -67,7 +67,7 @@ class AuthService {
     }
   }
 
-  async signIn(credentials: LoginCredentials): Promise<{ success: boolean; error?: string }> {
+  async signIn(credentials: LoginCredentials: Promise<{ success: boolean; error?: string }> {
     // Rate limiting check
     const clientId = getClientId();
     const rateLimitResult = authRateLimiter.isAllowed(clientId);
@@ -75,7 +75,7 @@ class AuthService {
     if (!rateLimitResult.allowed) {
       return {
         success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
-    } minutes.`
+   } minutes.`
       };
     }
 
@@ -166,7 +166,7 @@ class AuthService {
     }
   }
 
-  async signUp(data: SignupData): Promise<{ success: boolean; error?: string }> {
+  async signUp(data: SignupData: Promise<{ success: boolean; error?: string }> {
     try {
       // Sanitize inputs
       const email = sanitizeInput(data.email.toLowerCase().trim());
@@ -189,7 +189,7 @@ class AuthService {
 
       if (isSupabaseReady()) {
         const { data: authData, error } = await supabase.auth.signUp({
-          email, password, options): {
+          email, password, options: {
             data: {
               name, organization: data.organization, role: data.role || 'user'
             }
@@ -266,7 +266,7 @@ class AuthService {
     }
   }
 
-  private async setSession(session: AuthSession): Promise<void> {
+  private async setSession(session: AuthSession: Promise<void> {
     this.currentSession = session;
     
     // Store in secure storage
@@ -303,7 +303,7 @@ class AuthService {
     }, refreshTime);
   }
 
-  private isValidSession(session: AuthSession): boolean {
+  private isValidSession(session: AuthSession: boolean {
     return (
       session &&
       session.accessToken &&
@@ -312,16 +312,16 @@ class AuthService {
     );
   }
 
-  private isValidEmail(email: string): boolean {
+  private isValidEmail(email: string: boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 
-  private isValidPassword(password: string): boolean {
+  private isValidPassword(password: string: boolean {
     // At least 8 characters, contains letters and numbers
     return password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
     }
-  private getRolePermissions(role: string): string[] {
+  private getRolePermissions(role: string: string[] {
     const rolePermissions: Record<string, string[]> = {
       admin: ['read', 'write', 'delete', 'manage_users', 'manage_settings'], manager: ['read', 'write', 'manage_team'], user: ['read', 'write'], viewer: ['read']
     };
@@ -329,7 +329,7 @@ class AuthService {
     return rolePermissions[role] || rolePermissions.user;
   }
 
-  private async generateDemoToken(user: AuthUser): Promise<string> {
+  private async generateDemoToken(user: AuthUser: Promise<string> {
     if (!ENV.JWT_SECRET) {
       // Fallback demo token
       return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) 
@@ -366,11 +366,11 @@ class AuthService {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 
-  hasPermission(permission: string): boolean {
+  hasPermission(permission: string: boolean {
     return this.currentSession?.user.permissions.includes(permission) || false;
   }
 
-  hasRole(role: string): boolean {
+  hasRole(role: string: boolean {
     return this.currentSession?.user.role === role;
   }
 
@@ -407,7 +407,7 @@ class AuthService {
     }
   }
 
-  async changePassword(currentPassword: string, newPassword: string): Promise<{ success: boolean; error?: string }> {
+  async changePassword(currentPassword: string, newPassword: string: Promise<{ success: boolean; error?: string }> {
     try {
       if (!this.isAuthenticated()) {
         return { success: false, error: 'Not authenticated' };
@@ -435,7 +435,7 @@ class AuthService {
     }
   }
 
-  async requestPasswordReset(email: string): Promise<{ success: boolean; error?: string }> {
+  async requestPasswordReset(email: string: Promise<{ success: boolean; error?: string }> {
     try {
       const sanitizedEmail = sanitizeInput(email.toLowerCase().trim());
 
@@ -445,7 +445,7 @@ class AuthService {
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.resetPasswordForEmail(sanitizedEmail,) {
-          redirectTo: `${window.location.origin }/reset-password`
+          redirectTo: `${window.location.origin}/reset-password`
         });
 
         if (error) {
@@ -462,7 +462,7 @@ class AuthService {
     }
   }
 
-  async verifyToken(token: string): Promise<AuthUser | null> {
+  async verifyToken(token: string: Promise<AuthUser | null> {
     try {
       if (!ENV.JWT_SECRET) {
         // Fallback demo token verification
@@ -485,7 +485,7 @@ class AuthService {
   }
 
   // Session management
-  onSessionChange(callback: (session: AuthSession | null) => void): () => void {
+  onSessionChange(callback: (session: AuthSession | null) => void: () => void {
     const interval = setInterval(() => {
       callback(this.currentSession);
     
@@ -499,7 +499,7 @@ class AuthService {
 export const authService = AuthService.getInstance();
 
 // Utility functions
-export const requireAuth = (component: React.ComponentType): React.ComponentType => {
+export const requireAuth = (component: React.ComponentType: React.ComponentType => {
   return (props: any) => {
     const isAuthenticated = authService.isAuthenticated();
     
@@ -512,7 +512,7 @@ export const requireAuth = (component: React.ComponentType): React.ComponentType
   };
 };
 
-export const requirePermission = (permission: string) => (component: React.ComponentType): React.ComponentType => {
+export const requirePermission = (permission: string) => (component: React.ComponentType: React.ComponentType => {
   return (props: any) => {
     const hasPermission = authService.hasPermission(permission);
     

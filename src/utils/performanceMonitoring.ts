@@ -9,8 +9,8 @@ export class PerformanceMonitoring {
     return PerformanceMonitoring.instance;
   }
 
-  measureComponentRender(componentName: string, renderTime: number): void {
-    const key = `component_${componentName }_render`;
+  measureComponentRender(componentName: string, renderTime: number: void {
+    const key = `component_${componentName}_render`;
     this.metrics.set(key, renderTime);
     
     // Report to analytics if available
@@ -22,8 +22,8 @@ export class PerformanceMonitoring {
     }
   }
 
-  measureAssessmentLoad(assessmentId: string, loadTime: number): void {
-    const key = `assessment_${assessmentId }_load`;
+  measureAssessmentLoad(assessmentId: string, loadTime: number: void {
+    const key = `assessment_${assessmentId}_load`;
     this.metrics.set(key, loadTime);
     
     if (typeof gtag !== 'undefined') {
@@ -51,7 +51,7 @@ export class PerformanceMonitoring {
     }
   }
 
-  private sendToAnalytics(metric: any): void {
+  private sendToAnalytics(metric: any: void {
     if (typeof gtag !== 'undefined') {
       gtag('event', metric.name,) {
         event_category: 'Web Vitals', value: Math.round(metric.value), custom_parameter_1: metric.id });

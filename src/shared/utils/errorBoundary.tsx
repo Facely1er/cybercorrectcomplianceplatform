@@ -13,16 +13,16 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props): Props {
+  constructor(props: Props {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error: State {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo): ErrorInfo {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo {
     console.error('Error caught by boundary:', error, errorInfo);
     
     this.setState({
@@ -34,7 +34,7 @@ export class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  private logErrorToService(error: Error, errorInfo): ErrorInfo {
+  private logErrorToService(error: Error, errorInfo: ErrorInfo {
     // In a real application, you would send this to your error monitoring service
     // like Sentry, LogRocket, or Bugsnag
     console.error('Logging error to monitoring service:',) {
@@ -147,7 +147,7 @@ export const withErrorBoundary = <P extends object>(
     </ErrorBoundary>
   );
   
-  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name })`;
+  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
   
   return WrappedComponent;
 };

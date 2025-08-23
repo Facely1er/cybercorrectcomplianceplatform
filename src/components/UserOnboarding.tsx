@@ -85,7 +85,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
                 key={index }
                 className={`w-2 h-2 rounded-full transition-colors ${
                   index <= currentStep ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
-                }`}
+               }`}
               />
             ))}
           </div>

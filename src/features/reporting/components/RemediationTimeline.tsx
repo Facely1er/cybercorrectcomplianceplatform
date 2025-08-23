@@ -51,14 +51,14 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
       }
 
       items.push({
-        id: `remediation-${index }`, title: `Improve ${gap.category }`, description: `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low', effort, timeline, phase, expectedImpact: `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
+        id: `remediation-${index}`, title: `Improve ${gap.category}`, description: `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low', effort, timeline, phase, expectedImpact: `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
       });
     });
 
     return items.sort((a, b) => a.phase - b.phase || (a.priority === 'critical' ? -1 : 1));
   };
 
-  const getResourcesForCategory = (category: string): string[] => {
+  const getResourcesForCategory = (category: string: string[] => {
     const resourceMap: Record<string, string[]> = {
       'Asset Management': ['IT Team', 'Security Team', 'Asset Management Tool'],
       'Business Environment': ['Executive Team', 'Risk Manager', 'Compliance Officer'],
@@ -121,7 +121,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
 
   if (remediationItems.length === 0) {
     return (
-      <div className={`bg-green-50 dark:bg-green-900/20 rounded-xl p-8 text-center ${className }`}>
+      <div className={`bg-green-50 dark:bg-green-900/20 rounded-xl p-8 text-center ${className}`}>
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">
           Excellent Security Posture

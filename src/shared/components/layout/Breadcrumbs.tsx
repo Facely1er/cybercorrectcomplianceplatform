@@ -34,7 +34,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 
   return (
     <nav 
-      className={`flex items-center space-x-3 text-sm ${className }`} 
+      className={`flex items-center space-x-3 text-sm ${className}`} 
       aria-label="Breadcrumb navigation"
       role="navigation"
     >
@@ -62,7 +62,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
             <Link
               to={item.path }
               className="text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
-              aria-label={`Go to ${item.label }`}
+              aria-label={`Go to ${item.label}`}
             >
               {item.label }
             </Link>
@@ -70,7 +70,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
             <button
               onClick={item.onClick }
               className="text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
-              aria-label={`Go to ${item.label }`}
+              aria-label={`Go to ${item.label}`}
             >
               {item.label }
             </button>
@@ -80,7 +80,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
                 item.isActive 
                   ? 'text-primary-teal dark:text-dark-primary' 
                   : 'text-gray-900 dark:text-white'
-              }`}
+             }`}
               aria-current={item.isActive ? 'page' : undefined }
             >
               {item.label }
@@ -99,7 +99,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 };
 
 // Default breadcrumb generator
-export const generateBreadcrumbs = (pathname: string): BreadcrumbItem[] => {
+export const generateBreadcrumbs = (pathname: string: BreadcrumbItem[] => {
   const segments = pathname.split('/').filter(Boolean);
   const breadcrumbs: BreadcrumbItem[] = [];
   
@@ -127,7 +127,7 @@ export const generateBreadcrumbs = (pathname: string): BreadcrumbItem[] => {
   
   let currentPath = '';
   segments.forEach((segment, index) => {
-    currentPath += `/${segment }`;
+    currentPath += `/${segment}`;
     const isLast = index === segments.length - 1;
     
     // Skip dynamic segments like assessment IDs

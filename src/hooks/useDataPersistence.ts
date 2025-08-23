@@ -38,12 +38,12 @@ export function useDataPersistence<T extends { id: string }>(
         tags:) { type: 'dataPersistenceError', operation: 'load', dataType }
       });
       setState(prev => ({ 
-        ...prev, loading: false, error: `Failed to load ${dataType }` 
+        ...prev, loading: false, error: `Failed to load ${dataType}` 
       }));
     }
   }, [dataType, userId]);
 
-  const saveItem = useCallback(async (item: T): Promise<T> => {
+  const saveItem = useCallback(async (item: T: Promise<T> => {
     setState(prev => ({ ...prev, saving: true }));
     
     try {
@@ -73,7 +73,7 @@ export function useDataPersistence<T extends { id: string }>(
     }
   }, [dataType]);
 
-  const deleteItem = useCallback(async (itemId: string): Promise<void> => {
+  const deleteItem = useCallback(async (itemId: string: Promise<void> => {
     try {
       switch (dataType) {
         case 'assessments':

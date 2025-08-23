@@ -13,7 +13,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
   onSubmit, onCancel, initialData }) => {
   const [formData, setFormData] = useState({
     name: initialData?.name || '', description: initialData?.description || '', category: initialData?.category || 'hardware' as AssetCategory, subcategory: initialData?.subcategory || '', type: initialData?.type || 'server' as AssetType, owner: initialData?.owner || '', custodian: initialData?.custodian || '', status: initialData?.status || 'active' as AssetStatus, criticality: initialData?.criticality || 'medium' as CriticalityLevel, informationClassification: initialData?.informationClassification || 'internal' as InformationClassification, businessValue: initialData?.businessValue || 'operational' as BusinessValue, dataClassification: {
-      sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical', regulatoryRequirements: [] as string[], dataTypes: [] as string[], accessRestrictions): 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
+      sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical', regulatoryRequirements: [] as string[], dataTypes: [] as string[], accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
     }, location: {
       type: 'physical' as const, building: '', room: '', address: ''
     }, tags: initialData?.tags?.join(', ') || ''
@@ -407,7 +407,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'confidential', criticality): 'high', dataClassification: {
+                    ...prev, informationClassification: 'confidential', criticality: 'high', dataClassification: {
                       ...prev.dataClassification, sensitivityLevel: 'high', regulatoryRequirements: ['GDPR', 'CCPA'], dataTypes: ['PII', 'Customer Data'], accessRestrictions: 'restricted'
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'customer-data, privacy, high-risk'
                   }));
@@ -422,7 +422,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'restricted', criticality): 'critical', dataClassification: {
+                    ...prev, informationClassification: 'restricted', criticality: 'critical', dataClassification: {
                       ...prev.dataClassification, sensitivityLevel: 'critical', regulatoryRequirements: ['HIPAA', 'HITECH'], dataTypes: ['PHI', 'Medical Records'], accessRestrictions: 'highly-restricted'
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'healthcare, phi, hipaa-protected'
                   }));
@@ -437,7 +437,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'confidential', criticality): 'high', dataClassification: {
+                    ...prev, informationClassification: 'confidential', criticality: 'high', dataClassification: {
                       ...prev.dataClassification, sensitivityLevel: 'high', regulatoryRequirements: ['SOX', 'PCI-DSS'], dataTypes: ['Financial Data', 'Payment Information'], accessRestrictions: 'restricted'
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'financial, payment-data, sox-compliance'
                   }));
@@ -452,7 +452,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'public', criticality): 'low', dataClassification: {
+                    ...prev, informationClassification: 'public', criticality: 'low', dataClassification: {
                       ...prev.dataClassification, sensitivityLevel: 'low', regulatoryRequirements: [], dataTypes: ['Public Information'], accessRestrictions: 'public'
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'public, non-sensitive'
                   }));

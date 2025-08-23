@@ -96,7 +96,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
 
     // Simulate sending invitation
     addNotification('success', `Invitation sent to ${inviteFormData.email 
-    }`);
+   }`);
     setShowInviteModal(false);
     
     // Reset form
@@ -354,8 +354,8 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                         member.workload >= 90 ? 'bg-red-500' :
                         member.workload >= 75 ? 'bg-orange-500' :
                         member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'
-                      }`}
-                      style={{ width: `${member.workload }%` }}
+                     }`}
+                      style={{ width: `${member.workload}%` }}
                     />
                   </div>
                 </div>
@@ -366,19 +366,19 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                     onClick={() => {
                       const memberDetails = `Team Member Details:
 
-Name: ${member.name }
-Email: ${member.email }
-Role: ${member.role }
-Department: ${member.department }
+Name: ${member.name}
+Email: ${member.email}
+Role: ${member.role}
+Department: ${member.department}
 
 NIST Functions: ${member.nistFunctions.join(', ')}
 Expertise: ${member.expertise.join(', ')}
 
 Task Statistics:
-• Assigned Tasks: ${member.assignedTasks }
-• Completed Tasks: ${member.completedTasks }
+• Assigned Tasks: ${member.assignedTasks}
+• Completed Tasks: ${member.completedTasks}
 • Completion Rate: ${Math.round((member.completedTasks / member.assignedTasks) * 100)}%
-• Current Workload: ${member.workload }%
+• Current Workload: ${member.workload}%
 
 Activity:
 • Last Active: ${member.lastActive.toLocaleString()}
@@ -388,8 +388,7 @@ Workload Assessment: ${
   member.workload >= 90 ? 'Overloaded - needs support' :
   member.workload >= 75 ? 'High workload - monitor closely' :
   member.workload >= 50 ? 'Optimal workload' :
-  'Under-utilized - can take on more tasks'
-}`;
+  'Under-utilized - can take on more tasks'}`;
                       
                       addNotification('info', memberDetails);
                     }}
@@ -398,13 +397,13 @@ Workload Assessment: ${
                     View Profile
                   </button>
                   <button
-                    onClick={() => addNotification('info', `Messaging ${member.name }`)}
+                    onClick={() => addNotification('info', `Messaging ${member.name}`)}
                     className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
                   >
                     <MessageSquare className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => addNotification('info', `Assigning tasks to ${member.name }`)}
+                    onClick={() => addNotification('info', `Assigning tasks to ${member.name}`)}
                     className="p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
                   >
                     <CheckSquare className="w-4 h-4" />

@@ -115,8 +115,8 @@ class PerformanceMonitoring {
         
         // Track slow resources
         if (resource.duration > 1000) { // > 1 second
-          this.measurePerformance(`Slow Resource): ${resource.name 
-    }`, resource.duration, {
+          this.measurePerformance(`Slow Resource: ${resource.name 
+   }`, resource.duration, {
             initiatorType: resource.initiatorType, transferSize: resource.transferSize });
         }
       }
@@ -141,8 +141,8 @@ class PerformanceMonitoring {
     // Report slow operations
     if (entry.duration > 100) { // > 100ms
       errorMonitoring.captureMessage(
-        `Slow operation): ${name 
-    } took ${entry.duration }ms`,
+        `Slow operation: ${name 
+   } took ${entry.duration}ms`,
         'warning',
         { tags: { type: 'performance' }, extra: metadata }
       );
@@ -151,7 +151,7 @@ class PerformanceMonitoring {
     return entry;
   }
 
-  startTiming(name: string): () => void {
+  startTiming(name: string: () => void {
     const startTime = performance.now();
     
     return (metadata?: Record<string, any>) => {
@@ -160,7 +160,7 @@ class PerformanceMonitoring {
     };
   }
 
-  getAverageTime(name: string): number {
+  getAverageTime(name: string: number {
     const measurements = this.measurements.get(name);
     if (!measurements || measurements.length === 0) return 0;
     
@@ -188,12 +188,12 @@ class PerformanceMonitoring {
     return { ...this.vitals };
   }
 
-  private reportVital(name: string, value): number {
+  private reportVital(name: string, value: number: void {
     if (ENV.isProduction) {
       // Send to analytics service
-      errorMonitoring.captureMessage(`Web Vital: ${name 
-    } = ${value }`, 'info', {
-        tags: { type: 'webVital', vital): name }, extra: { value }
+      errorMonitoring.captureMessage(`Web Vital: ${name} = ${value}`, 'info', {
+        tags: { type: 'webVital', vital: name }, 
+        extra: { value }
       });
     }
   }

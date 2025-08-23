@@ -35,7 +35,7 @@ export const InternalLinkCard: React.FC<InternalLinkCardProps> = ({
   };
 
   const content = (
-    <div className={`group relative p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer ${getPriorityIndicator(priority)} ${className }`}>
+    <div className={`group relative p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer ${getPriorityIndicator(priority)} ${className}`}>
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
           {Icon && (
@@ -80,7 +80,7 @@ export const InternalLinkCard: React.FC<InternalLinkCardProps> = ({
         target="_blank"
         rel="noopener noreferrer"
         onClick={onClick }
-        aria-label={`Open ${title } in new tab`}
+        aria-label={`Open ${title} in new tab`}
       >
         {content }
       </a>
@@ -91,7 +91,7 @@ export const InternalLinkCard: React.FC<InternalLinkCardProps> = ({
     <Link 
       to={href }
       onClick={onClick }
-      aria-label={`Navigate to ${title }`}
+      aria-label={`Navigate to ${title}`}
     >
       {content }
     </Link>

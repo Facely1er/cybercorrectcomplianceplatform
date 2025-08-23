@@ -306,19 +306,19 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                       isSelected
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-lg'
                         : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'
-                    }`}
+                   }`}
                   >
                     <div className="flex items-start space-x-4">
                       <div className={`p-3 rounded-xl ${
                         isSelected 
                           ? 'bg-blue-100 dark:bg-blue-900/30' 
                           : 'bg-gray-100 dark:bg-gray-700'
-                      }`}>
+                     }`}>
                         <FrameworkIconComponent className={`w-8 h-8 ${
                           isSelected 
                             ? 'text-blue-600 dark:text-blue-400' 
                             : 'text-gray-600 dark:text-gray-400'
-                        }`} />
+                       }`} />
                       </div>
                       
                       <div className="flex-1">
@@ -327,7 +327,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                             isSelected 
                               ? 'text-blue-900 dark:text-blue-100' 
                               : 'text-gray-900 dark:text-white'
-                          }`}>
+                         }`}>
                             {framework.name }
                           </h3>
                           {framework.id === 'nist-csf-v2-extended' && (
@@ -354,7 +354,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                           isSelected 
                             ? 'text-blue-700 dark:text-blue-300' 
                             : 'text-gray-600 dark:text-gray-300'
-                        }`}>
+                       }`}>
                           {framework.description }
                         </p>
                         
@@ -364,7 +364,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                               isSelected 
                                 ? 'text-blue-600 dark:text-blue-400' 
                                 : 'text-gray-900 dark:text-white'
-                            }`}>
+                           }`}>
                               {framework?.estimatedTime || 'N/A'}min
                             </div>
                             <div className="text-gray-600 dark:text-gray-400">Duration</div>
@@ -374,7 +374,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                               isSelected 
                                 ? 'text-blue-600 dark:text-blue-400' 
                                 : 'text-gray-900 dark:text-white'
-                            }`}>
+                           }`}>
                               {framework?.sections?.length || 0}
                             </div>
                             <div className="text-gray-600 dark:text-gray-400">Domains</div>
@@ -384,7 +384,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                               isSelected 
                                 ? 'text-blue-600 dark:text-blue-400' 
                                 : 'text-gray-900 dark:text-white'
-                            }`}>
+                           }`}>
                               {framework.id === 'cmmc' ? '110' : 
                                framework.id === 'privacy' ? '73' :
                                framework.id === 'nist-csf-v2-extended' ? '106' : '0'}

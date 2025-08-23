@@ -107,7 +107,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const exportReport = (format: 'json' | 'csv' | 'pdf') => {
     try {
       reportService.exportReport(assessment, framework, {
-        format, sections: ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts): true, branding: {
+        format, sections: ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts: true, branding: {
           organizationName: assessment.organizationInfo?.name }
       });
     } catch (error) {
@@ -343,8 +343,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           section.score >= 80 ? 'bg-green-500' :
                           section.score >= 60 ? 'bg-yellow-500' :
                           section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'
-                        }`}
-                        style={{ width: `${section.score }%` }}
+                       }`}
+                        style={{ width: `${section.score}%` }}
                       />
                     </div>
                     
@@ -415,7 +415,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                         category.priority === 'high' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' :
                         category.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                         'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
-                      }`}>
+                     }`}>
                         {category.priority }
                       </span>
                     </td>

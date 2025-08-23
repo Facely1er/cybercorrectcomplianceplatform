@@ -79,7 +79,7 @@ export const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardPr
 
     // In a real app, this would save to backend
     addNotification('success', `Evidence "${newEvidence.name 
-    }" uploaded successfully`);
+   }" uploaded successfully`);
     setShowUploadModal(false);
     
     // Reset form
@@ -291,8 +291,8 @@ export const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardPr
                     className={`h-3 rounded-full transition-all duration-300 ${
                       collection.completionPercentage === 100 ? 'bg-green-500' :
                       collection.completionPercentage > 0 ? 'bg-blue-500' : 'bg-gray-300'
-                    }`}
-                    style={{ width: `${collection.completionPercentage }%` }}
+                   }`}
+                    style={{ width: `${collection.completionPercentage}%` }}
                   />
                 </div>
                 
@@ -332,18 +332,18 @@ export const EvidenceCollectionDashboard: React.FC<EvidenceCollectionDashboardPr
                     onClick={() => {
                       const evidenceDetails = `Evidence Collection Details:
 
-Name: ${collection.name }
-Description: ${collection.description }
-Control ID: ${collection.controlId }
-Status: ${collection.collectionStatus }
-Progress: ${collection.completionPercentage }%
+Name: ${collection.name}
+Description: ${collection.description}
+Control ID: ${collection.controlId}
+Status: ${collection.collectionStatus}
+Progress: ${collection.completionPercentage}%
 Due Date: ${collection.dueDate.toLocaleDateString()}
 
 Required Evidence Types:
 ${collection.requiredEvidenceTypes.map(type => `• ${type.replace('-', ' ')}`).join('\n')}
 
 Assigned Teams:
-${collection.assignedTo.map(team => `• ${team }`).join('\n')}
+${collection.assignedTo.map(team => `• ${team}`).join('\n')}
 
 Last Updated: ${collection.lastUpdated.toLocaleDateString()}`;
                       

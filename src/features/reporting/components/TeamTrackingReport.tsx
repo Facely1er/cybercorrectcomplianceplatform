@@ -73,7 +73,7 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({, onExpor
       
       weeks.push({
         week: `Week ${8 - i 
-    }`, productivity: Math.floor(Math.random() * 20) + 70, collaboration: Math.floor(Math.random() * 15) + 80, tasksCompleted: Math.floor(Math.random() * 10) + 5, complianceScore: Math.floor(Math.random() * 15) + 65
+   }`, productivity: Math.floor(Math.random() * 20) + 70, collaboration: Math.floor(Math.random() * 15) + 80, tasksCompleted: Math.floor(Math.random() * 10) + 5, complianceScore: Math.floor(Math.random() * 15) + 65
       });
     }
     return weeks;
@@ -313,7 +313,7 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({, onExpor
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
                       <div
                         className="bg-blue-500 h-2 rounded-full"
-                        style={{ width: `${func.completionRate }%` }}
+                        style={{ width: `${func.completionRate}%` }}
                       />
                     </div>
                   </td>
@@ -327,7 +327,7 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({, onExpor
                       func.averageScore >= 80 ? 'text-green-600 dark:text-green-400' :
                       func.averageScore >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       'text-red-600 dark:text-red-400'
-                    }`}>
+                   }`}>
                       {func.averageScore }%
                     </span>
                   </td>

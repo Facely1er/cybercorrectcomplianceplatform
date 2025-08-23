@@ -62,7 +62,7 @@ export const useComplianceMetrics = (assessments: AssessmentData[]): ComplianceM
         : 0;
 
       trendData.push({
-        date): monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: monthScore, assessments: monthAssessments.length });
+        date: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: monthScore, assessments: monthAssessments.length });
     }
 
     // Generate gap analysis

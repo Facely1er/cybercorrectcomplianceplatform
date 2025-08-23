@@ -161,21 +161,21 @@ export const settingsSchema = z.object({
 });
 
 // Validation helper functions
-export const validateAndSanitize = <T>(schema: z.ZodSchema<T>, data: unknown): { success: boolean; data?: T; errors?: string[] 
+export const validateAndSanitize = <T>(schema: z.ZodSchema<T>, data: unknown: { success: boolean; data?: T; errors?: string[] 
     } => {
   try {
     const result = schema.parse(data);
     return { success: true, data: result };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const errors = error.errors.map(err => `${err.path.join('.')}: ${err.message }`);
+      const errors = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
       return { success: false, errors };
     }
     return { success: false, errors: ['Validation failed'] };
   }
 };
 
-export const sanitizeHtml = (html: string): string => {
+export const sanitizeHtml = (html: string: string => {
   // Remove script tags and dangerous attributes
   return html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
@@ -185,7 +185,7 @@ export const sanitizeHtml = (html: string): string => {
 
     };
 
-export const sanitizeFileName = (fileName: string): string => {
+export const sanitizeFileName = (fileName: string: string => {
   return fileName
     .replace(/[^a-zA-Z0-9.-]/g, '_')
     .replace(/_{2 }/g, '_')

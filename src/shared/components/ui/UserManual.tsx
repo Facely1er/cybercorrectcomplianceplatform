@@ -147,10 +147,10 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             • **Risk Questions**: Identify and assess risks
             
             **Response Options**:
-            • **Not Implemented** (0 points): Control not in place
-            • **Partially Implemented** (1 point): Basic implementation
-            • **Largely Implemented** (2 points): Comprehensive implementation
-            • **Fully Implemented** (3 points): Complete implementation with optimization
+            • **Not Implemented** (0 points: Control not in place
+            • **Partially Implemented** (1 point: Basic implementation
+            • **Largely Implemented** (2 points: Comprehensive implementation
+            • **Fully Implemented** (3 points: Complete implementation with optimization
             
             **Using Guidance**:
             • Click "Show Guidance" for detailed explanations
@@ -441,7 +441,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                       activeSection === section.id
                         ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
                         : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
-                    }`}
+                   }`}
                   >
                     <section.icon className="w-5 h-5" />
                     <span className="font-medium">{section.title }</span>
