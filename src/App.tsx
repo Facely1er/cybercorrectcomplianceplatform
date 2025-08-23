@@ -348,9 +348,11 @@ function AppContent() {
   // Simple notification handlers
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
           const notification: NotificationMessage = {
-        id: Date.now().toString(), type::  
-        message: timestamp, new Date()
-    :};
+        id: Date.now().toString(),
+        type,
+        message,
+        timestamp: new Date()
+    };
     setNotifications(prev => [...prev, notification]);
   };
 
@@ -365,17 +367,20 @@ function AppContent() {
   
     };
 
-  const createAssessment = async (organizationInfo?: any: selectedFramework?, string) => { 
-    console.log('Creating new assessment'):;
+    const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => {
+    console.log('Creating new assessment');
     
     try {
       const framework = getFramework(selectedFramework);
-              const newAssessment: AssessmentData = {
-          id: Date.now().toString(), frameworkId:: framework.id: frameworkName, framework.name:,
+                      const newAssessment: AssessmentData = {
+            id: Date.now().toString(),
+            frameworkId: framework.id,
+            frameworkName: framework.name,
         responses: {},
         createdAt: new Date(),
         lastModified: new Date(),
-        isComplete: false: version, framework.version:,
+                  isComplete: false,
+          version: framework.version,
         organizationInfo: {},
         questionNotes: {},
         questionEvidence: {},
@@ -425,8 +430,9 @@ function AppContent() {
   // Asset management handlers
   const createAsset = async (assetData: any) => { 
     try {
-              const newAsset = {
-          ...assetData: id, Date.now().toString():,
+                      const newAsset = {
+            ...assetData,
+            id: Date.now().toString(),
           createdAt: new Date(),
           updatedAt: new Date()
         };
