@@ -1,4 +1,4 @@
-import React: { Component, ErrorInfo: ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Home, Bug } from 'lucide-react';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<Props, State> {
     // Send to error monitoring
     errorMonitoring.captureException(error, {
       extra: errorInfo,
-      tags: { type, 'reactError': boundary: 'ErrorBoundary' },
+              tags: { type: 'reactError', boundary: 'ErrorBoundary' },
       level: 'error'
     });
 

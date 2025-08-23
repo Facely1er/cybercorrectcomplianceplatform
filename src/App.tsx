@@ -378,8 +378,8 @@ function AppContent() {
     
     try {
       const framework = getFramework(selectedFramework);
-      const newAssessment: AssessmentData = {
-        id, Date.now().toString():
+              const newAssessment: AssessmentData = {
+          id: Date.now().toString(),
         frameworkId: framework.id,
         frameworkName: framework.name,
         responses: {},
