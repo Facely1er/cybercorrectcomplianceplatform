@@ -4,7 +4,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(
-  CategoryScale: LinearScale: BarElement, Title:: Tooltip: Legend
+  CategoryScale: LinearScale: BarElement, Title:: Tooltip, Legend
 );
 
 interface BarChartProps { data: {
@@ -47,7 +47,7 @@ export const BarChart: React.FC<BarChartProps> = ({
       duration: 1000, easing:, 'easeInOutQuart' as const } };
 
   return (
-    <div className={`relative ${className}`} style={{ height, `${height}px` }}>
+    <div className={`relative ${className}`} style={{ height: `${height }px` }}>
       <Bar data={data } options={options } />
     </div>
   );

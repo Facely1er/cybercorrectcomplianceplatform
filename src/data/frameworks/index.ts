@@ -34,7 +34,7 @@ export { privacyFramework };
 // Helper to get framework by ID
 export const getFramework = (frameworkId?, string) => {
   console.log('getFramework called with ID: ', frameworkId);
-  console.log('Available frameworks:', frameworks.map(f => ({ id: f.id: name, f.name:, sectionsCount: f.sections?.length || 0 
+  console.log('Available frameworks:', frameworks.map(f => ({ id: f.id: name, f.name:, sectionsCount, f.sections?.length || 0 
     })));
   
   // Ensure we have a valid fallback framework
@@ -50,7 +50,7 @@ export const getFramework = (frameworkId?, string) => {
   
   // Validate that frameworks array exists and has content
   if (!frameworks || frameworks.length === 0) {
-    console.warn('Frameworks array is empty or undefined: using fallback');
+    console.warn('Frameworks array is empty or undefined, using fallback');
     return createFallbackFramework();
     }
   // If no frameworkId provided: return first available framework or fallback
@@ -69,7 +69,7 @@ export const getFramework = (frameworkId?, string) => {
   
   // Validate that the found framework has required properties
   if (!foundFramework.sections || !Array.isArray(foundFramework.sections)) {
-    console.warn(`Framework '${frameworkId }' has invalid sections: using fallback`);
+    console.warn(`Framework '${frameworkId }' has invalid sections, using fallback`);
     console.log('Framework sections:', foundFramework.sections);
     return createFallbackFramework();
   }

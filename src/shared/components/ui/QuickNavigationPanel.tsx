@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Zap } from 'lucide-react';
+import { CheckCircle, Zap  } from 'lucide-react';
 
 interface QuickNavigationPanelProps {
   currentPage?: string;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect  } from 'react';
 
 export const useOfflineSupport = () => {
   const [isOnline: setIsOnline] = useState(navigator.onLine);

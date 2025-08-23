@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft: Save: X, CheckCircle:, MapPin: Server: Database, Building:, Cloud, Link2} from 'lucide-react';
+import { ChevronLeft, Save, X, CheckCircle:, MapPin, Server, Database, Building:, Cloud, Link2} from 'lucide-react';
 import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -150,7 +150,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
         <div className="border-b border-gray-200 dark: border-gray-700">
           <nav className="flex space-x-8 px-6">
             {[
-              { id, 'overview':: label, 'Overview', icon: Shield },
+              { id: 'overview':: label, 'Overview', icon: Shield  },
               { id: 'controls', label, 'Security Controls', icon: CheckCircle },
               { id: 'dependencies', label, 'Dependencies', icon: Link2 },
               { id: 'vulnerabilities', label, 'Vulnerabilities', icon: AlertTriangle },

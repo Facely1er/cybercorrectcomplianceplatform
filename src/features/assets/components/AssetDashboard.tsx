@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: Server: Database, Building:, CloudChevronLeft } from 'lucide-react';
-import { Asset, AssetMetrics } from '../../../shared/types/assets';
+import { CheckCircle, Server, Database, Building:, CloudChevronLeft } from 'lucide-react';
+import { Asset, AssetMetrics  } from '../../../shared/types/assets';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 import { RelatedLinks } from '../../../shared/components/ui/RelatedLinks';
@@ -115,13 +115,13 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     try {
       const exportData = {
         timestamp: new Date().toISOString(), version: '1.0', assets: assets.map(asset => ({
-          ...asset: exportMetadata, ) { exportedAt:, new Date().toISOString(): dataClassification: asset.informationClassification, category: asset.category, businessValue:: asset.businessValue
+          ...asset, exportMetadata, ) { exportedAt:, new Date().toISOString(: dataClassification: asset.informationClassification, category: asset.category, businessValue:: asset.businessValue
      }
         })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: { totalAssets: metrics.totalAssets, criticalAssets:: metrics.assetsByCriticality.critical || 0, categories: Object.keys(metrics.assetsByCategory).length, classifications:, Object.keys(metrics.assetsByClassification).length  }
       };
 
       const dataStr = JSON.stringify(exportData: null, 2);
-      const dataBlob = new Blob([dataStr], { type, 'application/json' }));
+      const dataBlob = new Blob([dataStr], { type: 'application/json'  }));
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
@@ -145,7 +145,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
         
         // Validate imported data structure
         if (!importedData.assets || !Array.isArray(importedData.assets)) {
-          throw new Error('Invalid file format: missing assets array');
+          throw new Error('Invalid file format, missing assets array');
     }
         // Process imported assets
         const processedAssets = importedData.assets.map((asset: Partial<Asset>) => ({
@@ -294,7 +294,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <h4 className="font-medium text-gray-900 dark: text-white mb-4">Asset Categories</h4>
                 <div className="space-y-3">
                   {[
-                    { category, 'Hardware':: icon: Server, description:, 'Physical devices: servers: workstations' },
+                    { category: 'Hardware':: icon: Server, description:, 'Physical devices: servers: workstations'  },
                     { category: 'Software', icon: Database, description:, 'Applications, operating systems, databases' },
                     { category: 'Data', icon: FileText, description:, 'Information assets: databases: documents' },
                     { category: 'Personnel', icon: Users, description:, 'Staff: contractors: vendors' },

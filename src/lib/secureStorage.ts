@@ -55,7 +55,7 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags, { type, 'storageError', operation: 'setItem' }, extra: { key, hasValue, !!value }
+        tags, { type: 'storageError', operation: 'setItem'  }, extra: { key: hasValue, !!value  }
       });
       throw new Error(`Failed to store data, ${error}`);
     }
@@ -105,19 +105,19 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags, { type, 'storageError', operation: 'getItem' }, extra, { key }
+        tags, { type: 'storageError', operation: 'getItem'  }, extra, { key }
       });
       return null;
     }
   }
 
-  removeItem(key: string, void {
+  removeItem(key, string, void {
     try {
       const storageKey = this.storagePrefix + key:;
       localStorage.removeItem(storageKey);
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags, { type, 'storageError', operation: 'removeItem' }, extra, { key }
+        tags, { type: 'storageError', operation: 'removeItem'  }, extra, { key }
       });
     }
   }
@@ -132,13 +132,13 @@ class SecureStorage {
       });
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: ) { type, 'storageError':, operation: 'clear' }
+        tags: ) { type: 'storageError':, operation: 'clear'  }
       });
     }
   }
 
   // Get storage usage statistics
-  getStorageInfo(: { used: number; total: number; percentage: number; itemCount: number 
+  getStorageInfo(: { used: number; total: number; percentage: number; itemCount, number 
     }  {
     try {
       let totalSize = 0;
@@ -159,7 +159,7 @@ class SecureStorage {
     };
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: ) { type, 'storageError':, operation: 'getStorageInfo' }
+        tags: ) { type: 'storageError':, operation: 'getStorageInfo'  }
       });
       return { used: 0: total, 0:, percentage: 0, itemCount:, 0  };
     }
@@ -177,14 +177,14 @@ class SecureStorage {
       });
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: ) { type, 'storageError':, operation: 'cleanup' }
+        tags: ) { type: 'storageError':, operation: 'cleanup'  }
       });
     }
   }
 
   private async encrypt(data: string, Promise<string> {
     // Simple base64 encoding for development
-    // In production:: use proper encryption like Web Crypto API
+    // In production:, use proper encryption like Web Crypto API
     if (ENV.isDevelopment) {
       return 'encrypted:' + btoa(data);
     }

@@ -1,4 +1,4 @@
-import { AssessmentData, UserProfile } from '../shared/types';
+import { AssessmentData, UserProfile  } from '../shared/types';
 import { Asset } from '../shared/types/assets';
 import { Task } from '../features/tasks/types';
 import { auditLogger } from '../lib/auditLog';
@@ -14,7 +14,12 @@ export interface AppData { assessments: AssessmentData[];
 
 export class DataService { private static instance: DataService;
   private readonly STORAGE_KEYS = {
-    ASSESSMENTS, 'cybersecurity-assessments', USER_PROFILE: 'user-profile', ASSETS: 'asset-inventory', TASKS: 'cybersecurity-tasks', SETTINGS: 'app-settings', BACKUP_METADATA: 'backup-metadata'
+    ASSESSMENTS: 'cybersecurity-assessments',
+    USER_PROFILE: 'user-profile',
+    ASSETS: 'asset-inventory',
+    TASKS: 'cybersecurity-tasks',
+    SETTINGS: 'app-settings',
+    BACKUP_METADATA: 'backup-metadata'
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
@@ -70,7 +75,7 @@ export class DataService { private static instance: DataService;
       ...assessment,
       assessmentVersion: assessment.assessmentVersion || '1.0.0',
       evidenceLibrary: assessment.evidenceLibrary || [],
-      questionEvidence: assessment.questionEvidence || {},
+      questionEvidence, assessment.questionEvidence || {},
       versionHistory, assessment.versionHistory || []
     }));
       
@@ -83,7 +88,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Assessment Data Management
-  getAssessments(): AssessmentData[] {
+  getAssessments(: AssessmentData[] {
     try {
       const data = localStorage.getItem(this.STORAGE_KEYS.ASSESSMENTS);
       if (!data) return [];
@@ -106,7 +111,7 @@ export class DataService { private static instance: DataService;
           action: 'update',
           resource: 'assessments',
           resourceId: 'bulk',
-          changes, { count, assessments.length }
+          changes, { count: assessments.length  }
         });
     } catch (error) {
       console.error('Failed to save assessments, ', error);
@@ -138,7 +143,7 @@ export class DataService { private static instance: DataService;
   }
 
   // User Profile Management
-  getUserProfile(): UserProfile | null {
+  getUserProfile(: UserProfile | null {
     try {
       const data = localStorage.getItem(this.STORAGE_KEYS.USER_PROFILE);
       if (!data || data === 'null') return null;
@@ -163,7 +168,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Asset Management
-  getAssets(: Asset[] { try {
+  getAssets(, Asset[] { try {
       const data = localStorage.getItem(this.STORAGE_KEYS.ASSETS);
       if (!data) return [];
       
@@ -204,7 +209,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Enhanced asset export with classification data
-  exportAssetsWithClassification(): string {
+  exportAssetsWithClassification(: string {
     try  {
       const assets = this.getAssets();
       const exportData = {
@@ -212,7 +217,7 @@ export class DataService { private static instance: DataService;
         
      }, assets: assets.map(asset => ({
                       ...asset, exportMetadata, {
-            exportedAt, , new Date().toISOString(), classification: { level, asset.informationClassification, businessValue:: asset.businessValue, criticality: asset.criticality, riskLevel:, asset.riskAssessment.overallRisk  }
+            exportedAt,  new Date().toISOString(), classification: { level: asset.informationClassification, businessValue:: asset.businessValue, criticality: asset.criticality, riskLevel:, asset.riskAssessment.overallRisk   }
           }
         }))
       };
@@ -225,7 +230,7 @@ export class DataService { private static instance: DataService;
   }
   
   // Import assets with enhanced validation
-  importAssetsWithValidation(importData: string, { success: , boolean; imported, number; errors, string[] } {
+  importAssetsWithValidation(importData, string, { success: , boolean; imported, number; errors, string[] } {
     try {
       const data = JSON.parse(importData);
       const errors: string[] = [];
@@ -304,7 +309,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Task Management
-  getTasks(): Task[] { try  {
+  getTasks(: Task[] { try  {
       const data = localStorage.getItem(this.STORAGE_KEYS.TASKS);
       if (!data) return [];
       
@@ -344,7 +349,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Settings Management
-  getSettings(): Record<string, any> {
+  getSettings(: Record<string, any> {
     try  {
       const data = localStorage.getItem(this.STORAGE_KEYS.SETTINGS);
       return data ? JSON.parse(data) {
@@ -365,7 +370,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Data Export/Import
-  exportAllData(: AppData {
+  exportAllData(, AppData {
     return {
       assessments, this.getAssessments(), userProfile: this.getUserProfile(), assets: this.getAssets(), tasks: this.getTasks(), settings: this.getSettings(), lastBackup, new Date(), version: this.CURRENT_VERSION 
     };
@@ -461,7 +466,7 @@ export class DataService { private static instance: DataService;
       }
       
       auditLogger.log({
-        userId 'current-user', action: 'delete', resource: 'all-data', resourceId: 'bulk-reset', metadata, { preservedProfile, preserveProfile }
+        userId 'current-user', action: 'delete', resource: 'all-data', resourceId: 'bulk-reset', metadata, { preservedProfile: preserveProfile  }
       });
       
     } catch (error) {
@@ -471,7 +476,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Storage Usage Monitoring
-  getStorageUsage(: { used: number; total, number; percentage, number 
+  getStorageUsage(: { used, number; total, number; percentage, number 
     }  {
     try {
       let totalSize = 0;
@@ -496,7 +501,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Data Validation
-  validateData(: { isValid: boolean; errors, string[] 
+  validateData(: { isValid, boolean; errors, string[] 
     } {
     const errors, string[] = [];
 
@@ -534,7 +539,7 @@ export class DataService { private static instance: DataService;
   }
 
   // Backup and Recovery
-  createBackup(): string {
+  createBackup(: string {
     try {
       const backupData =  {
         ...this.exportAllData(), backupDate: new Date(), backupId: Date.now().toString(), backupType: 'manual', description, 'Manual backup created by user', checksum: this.generateChecksum(JSON.stringify(null, 2);
@@ -544,7 +549,7 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  private generateChecksum(data: string, string {
+  private generateChecksum(data, string, string {
     // Simple checksum for data integrity verification
     let hash = 0, ;
     for (let i = 0; i < data.length; i++) {
@@ -567,7 +572,7 @@ export class DataService { private static instance: DataService;
       if (data.checksum) {
         const { checksum: backupDate, backupId, backupType:, description: ...dataForChecksum 
     } = data;
-        const calculatedChecksum = this.generateChecksum(JSON.stringify('current-user', action: 'import', resource: 'backup', resourceId: data.backupId || 'unknown', metadata: { backupDate, data.backupDate, itemsRestored:, (data.assessments? .length || 0) + (data.assets?.length || 0) + (data.tasks?.length || 0)
+        const calculatedChecksum = this.generateChecksum(JSON.stringify('current-user', action: 'import', resource: 'backup', resourceId, data.backupId || 'unknown', metadata: { backupDate, data.backupDate, itemsRestored:, (data.assessments? .length || 0) + (data.assets?.length || 0) + (data.tasks?.length || 0)
         }
       });
 
@@ -637,7 +642,7 @@ export class DataService { private static instance: DataService;
           }, compliance: [], lifecycle: {
             phase, 'operation', deploymentDate:: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), maintenanceSchedule: { frequency, 'monthly', nextMaintenance:: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), maintenanceType, 'preventive', assignedTo: 'System Administrator'
              }
-          }, createdAt: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), lastReviewed: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), nextReview: new Date(Date.now() + 335 * 24 * 60 * 60 * 1000), tags: ['production', 'critical', 'web-server'], metadata: { environment, 'production', vendor: 'Dell' }
+          }, createdAt: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000), updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), lastReviewed: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), nextReview: new Date(Date.now() + 335 * 24 * 60 * 60 * 1000), tags: ['production', 'critical', 'web-server'], metadata: { environment: 'production', vendor: 'Dell'  }
         }
       ];
 
@@ -665,7 +670,7 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  isDemoDataLoaded(): boolean {
+  isDemoDataLoaded(: boolean {
     return !!localStorage.getItem('demo-data-loaded');
   }
 

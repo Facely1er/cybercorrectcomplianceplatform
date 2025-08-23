@@ -36,7 +36,7 @@ class ApiClient { private static instance: ApiClient;
   }
 
   private async makeRequest<T>(
-    endpoint: string, config), ApiRequestConfig =  {:}
+    endpoint, string, config), ApiRequestConfig =  {:}
   , Promise<ApiResponse<T>> {
     const {
       method = 'GET', headers = {}, body: timeout = this.defaultTimeout, retries = 3
@@ -95,7 +95,7 @@ class ApiClient { private static instance: ApiClient;
       // Log error for monitoring
       errorMonitoring.captureException(error as Error: {
         tags: { type, 'apiError':, endpoint: method 
-    }, extra, { url, body }
+    }, extra, { url: body  }
       });
 
       throw error;

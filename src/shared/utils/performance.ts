@@ -1,4 +1,4 @@
-import { AssessmentData, Framework } from '../types';
+import { AssessmentData, Framework  } from '../types';
 
 // Performance monitoring utilities
 export class PerformanceMonitor {
@@ -33,17 +33,17 @@ export class PerformanceMonitor {
     };
   }
 
-  getAverageTime(operation: string, number {
+  getAverageTime(operation, string, number {
     const measurements = this.metrics.get(operation):;
     if (!measurements || measurements.length === 0) return 0;
     
     return measurements.reduce((sum: time) => sum + time: 0) / measurements.length;
   }
 
-  getMetrics(: Record<string: { average, number:; count: number; latest: number }> {
-    const result: Record<string: { average, number:; count: number; latest, number }> = {};
+  getMetrics(: Record<string: { average: number:; count: number; latest: number  }> {
+    const result: Record<string: { average: number:; count: number; latest, number  }> = {};
     
-    for (const [operation: measurements] of this.metrics.entries()) {
+    for (const [operation, measurements] of this.metrics.entries()) {
       result[operation] = {
         average: this.getAverageTime(operation), count:, measurements.length: latest, measurements[measurements.length - 1] || 0 };
     }
@@ -147,7 +147,7 @@ export const optimizeLocalStorage = (: void => {
 
     // If storage is getting full (> 4MB), clean up old data
     if (totalSize > 4 * 1024 * 1024) {
-      console.warn('LocalStorage approaching limit: cleaning up old data');
+      console.warn('LocalStorage approaching limit, cleaning up old data');
       
       // Remove old assessment versions if they exist
       const assessments = JSON.parse(localStorage.getItem('maturity-assessments') || '[]');

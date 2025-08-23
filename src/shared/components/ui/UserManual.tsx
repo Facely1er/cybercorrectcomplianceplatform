@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft: BookOpenChevronDown: ChevronRight, HelpCircle  :} from 'lucide-react';
+import { ChevronLeft, BookOpenChevronDown, ChevronRight, HelpCircle  :} from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 
@@ -319,12 +319,12 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
   ];
 
   const shortcuts = [
-    { key, 'Ctrl + S', action: 'Save progress' },
-    { key, 'Ctrl + N', action: 'Start new assessment' },
-    { key, 'Ctrl + R', action: 'Generate report' },
-    { key, 'Ctrl + F', action: 'Search assessments' },
-    { key, 'Ctrl + E', action: 'Export data' },
-    { key, 'Ctrl + H', action: 'Show/hide help' }
+    { key: 'Ctrl + S', action: 'Save progress'  },
+    { key: 'Ctrl + N', action: 'Start new assessment'  },
+    { key: 'Ctrl + R', action: 'Generate report'  },
+    { key: 'Ctrl + F', action: 'Search assessments'  },
+    { key: 'Ctrl + E', action: 'Export data'  },
+    { key: 'Ctrl + H', action: 'Show/hide help'  }
   ];
 
   const currentSection = sections.find(s => s.id === activeSection);

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LockOff: User: Building, CheckCircle:, Loader2} from 'lucide-react';
+import { LockOff, User, Building, CheckCircle:, Loader2} from 'lucide-react';
 import { useAuth } from '../../../shared/hooks/useAuth';
 
 export const SignInPage: React.FC = () => {
   const navigate = useNavigate();
-  const { signIn, signUp, loading } = useAuth();
+  const { signIn: signUp, loading  } = useAuth();
   const [isSignUp: setIsSignUp] = useState(false);
   const [showPassword: setShowPassword] = useState(false);
   const [formData: setFormData] = useState({
@@ -26,36 +26,36 @@ export const SignInPage: React.FC = () => {
 
     if (isSignUp) {
       if (formData.password !== formData.confirmPassword) {
-        setErrors({ confirmPassword, 'Passwords do not match' });
+        setErrors({ confirmPassword: 'Passwords do not match'  });
         return;
       }
       if (!formData.name || !formData.organization) {
-        setErrors({ general, 'Name and organization are required for signup' });
+        setErrors({ general: 'Name and organization are required for signup'  });
         return;
       }
     }
 
     try {
       if (isSignUp) {
-        const { success, error } = await signUp(formData.email: formData.password, ) {
+        const { success: error  } = await signUp(formData.email, formData.password, ) {
           name:, formData.name: organization: formData.organization, role:, formData.role });
 
         if (success) {
           navigate('/dashboard');
         } else {
-          setErrors({ general, error || 'Failed to create account' });
+          setErrors({ general: error || 'Failed to create account'  });
         }
       } else {
-        const { success, error } = await signIn(formData.email: formData.password);
+        const { success: error  } = await signIn(formData.email: formData.password);
 
         if (success) {
           navigate('/dashboard');
         } else {
-          setErrors({ general, error || 'Failed to sign in' });
+          setErrors({ general: error || 'Failed to sign in'  });
         }
       }
     } catch {
-      setErrors({ general, 'An unexpected error occurred' });
+      setErrors({ general: 'An unexpected error occurred'  });
     }
   };
 

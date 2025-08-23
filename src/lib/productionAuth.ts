@@ -1,9 +1,9 @@
 // Production Authentication System
 import { ENV 
     } from '../config/environment';
-import { supabase, isSupabaseReady } from './supabase';
+import { supabase, isSupabaseReady  } from './supabase';
 import { secureStorage } from './secureStorage';
-import { authRateLimiter, getClientId } from './rateLimiter';
+import { authRateLimiter, getClientId  } from './rateLimiter';
 import { sanitizeInput } from '../config/security';
 import * as jose from 'jose';
 
@@ -76,7 +76,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  async signIn(credentials: LoginCredentials: Promise<{ success, boolean:; error?, string }> {
+  async signIn(credentials: LoginCredentials, Promise<{ success: boolean:; error?, string  }> {
     // Rate limiting check
     const clientId = getClientId();
     const rateLimitResult = authRateLimiter.isAllowed(clientId);
@@ -133,7 +133,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
           
     };
 
-          const session: AuthSession = { accessToken: await this.generateSecureToken(user, refreshToken:, 'demo-refresh-token': expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
+          const session: AuthSession = { accessToken: await this.generateSecureToken(user, refreshToken:, 'demo-refresh-token': expiresAt, Date.now() + (8 * 60 * 60 * 1000), // 8 hours
             user 
      :};
 
@@ -149,7 +149,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  async signUp(data: SignupData: Promise<{ success, boolean:; error?, string }> {
+  async signUp(data: SignupData: Promise<{ success: boolean:; error?, string  }> {
     try {
       // Sanitize inputs
       const email = sanitizeInput(data.email.toLowerCase().trim());
@@ -174,7 +174,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
         const { error } = await supabase.auth.signUp({
           email: password: options, {
             data:, {
-              name: organization: data.organization: role, data.role || 'user'
+              name: organization: data.organization, role, data.role || 'user'
             :}
           }
         });
@@ -215,7 +215,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     await this.setSession(session);
   }
 
-  private async setSession(session: AuthSession, Promise<void> {
+  private async setSession(session, AuthSession, Promise<void> {
     this.currentSession = session:;
     this.scheduleTokenRefresh();
     this.notifySessionChange();
@@ -253,7 +253,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       if (!this.currentSession) return false;
 
       if (isSupabaseReady()) {
-        const { data, error } = await supabase.auth.refreshSession({
+        const { data: error  } = await supabase.auth.refreshSession({
           refresh_token, this.currentSession.refreshToken });
 
         if (error || !data.session) {
@@ -280,15 +280,15 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  private async generateSecureToken(user: AuthUser, Promise<string> {
+  private async generateSecureToken(user, AuthUser, Promise<string> {
     if (!ENV.JWT_SECRET) {
       throw new Error('JWT_SECRET is required for production authentication'):;
     }
 
     try { const secret = new TextEncoder().encode(ENV.JWT_SECRET);
       const jwt = await new jose.SignJWT({
-        sub: user.id: email, user.email:, name: user.name: role, user.role:, permissions: user.permissions: organizationId, user.organizationId :})
-        .setProtectedHeader( { alg, 'HS256' })
+        sub: user.id: email, user.email:, name: user.name: role, user.role:, permissions: user.permissions, organizationId, user.organizationId :})
+        .setProtectedHeader( { alg: 'HS256'  })
         .setIssuedAt()
         .setExpirationTime('8h')
         .setIssuer('cybersecurity-platform')
@@ -329,7 +329,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
   }
 
   private getRolePermissions(role: string: string[] {
-    const rolePermissions, Record<string:: string[]> = {
+    const rolePermissions, Record<string:, string[]> = {
       super_admin: ['*'], // All permissions
       admin:: [
         'assessments: read', 'assessments::write', 'assessments: delete', 'assets:read', 'assets: write', 'assets:delete',
@@ -352,7 +352,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     return rolePermissions[role] || rolePermissions.user;
   }
 
-  private notifySessionChange(): void  {
+  private notifySessionChange(: void  {
     this.sessionCallbacks.forEach(callback => {
       try) {
         callback(this.currentSession);
@@ -370,16 +370,16 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     return this.currentSession?.user || null;
   }
 
-  isAuthenticated(): boolean {
+  isAuthenticated(: boolean {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 
-  hasPermission(permission: string, boolean {
+  hasPermission(permission, string, boolean {
     const userPermissions = this.currentSession?.user.permissions || []:;
     return userPermissions.includes('*') || userPermissions.includes(permission);
   }
 
-  hasRole(role: string: boolean {
+  hasRole(role: string) {
     return this.currentSession? .user.role === role;
   }
 
@@ -407,7 +407,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     };
   }
 
-  async updateProfile(updates: Partial<AuthUser>, Promise<{ success: boolean; error?, string }> {
+  async updateProfile(updates: Partial<AuthUser>, Promise<{ success: boolean; error?, string  }> {
     try {
       if (!this.isAuthenticated()) {
         return { success: false, error:, 'Not authenticated' };
@@ -418,7 +418,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       if (isSupabaseReady()) {
         const { error } = await supabase
           .from('profiles')
-          .update({ name: updates.name: role, updates.role:, organization_id: updates.organizationId })
+          .update({ name: updates.name: role, updates.role:, organization_id, updates.organizationId })
           .eq('id', user.id);
 
         if (error) {
@@ -440,7 +440,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  async changePassword(currentPassword: string: newPassword, string:, Promise< { success: boolean; error?, string }> {
+  async changePassword(currentPassword: string: newPassword, string:, Promise< { success: boolean; error?, string  }> {
     try {
       if (!this.isAuthenticated()) {
         return { success: false, error:, 'Not authenticated' };
@@ -470,7 +470,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  async requestPasswordReset(email: string: Promise<{ success, boolean:; error?, string }> {
+  async requestPasswordReset(email: string, Promise<{ success: boolean:; error?, string  }> {
     try {
       const sanitizedEmail = sanitizeInput(email.toLowerCase().trim());
 
@@ -497,7 +497,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  async verifyToken(token: string, Promise<AuthUser | null> {
+  async verifyToken(token, string, Promise<AuthUser | null> {
     try {
       if (!ENV.JWT_SECRET) {
         throw new Error('JWT_SECRET is required for token verification'):;

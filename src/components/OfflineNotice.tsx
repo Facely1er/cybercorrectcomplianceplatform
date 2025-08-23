@@ -1,12 +1,12 @@
 import React from 'react';
-import { WifiOff, Wifi } from 'lucide-react';
+import { WifiOff, Wifi  } from 'lucide-react';
 
 interface OfflineNoticeProps {
   isOnline: boolean;
   showNotice: boolean;
 }
 
-export const OfflineNotice: React.FC<OfflineNoticeProps> = ({ isOnline, showNotice }) => {
+export const OfflineNotice: React.FC<OfflineNoticeProps> = ({ isOnline: showNotice  }) => {
   if (!showNotice && isOnline) return null;
 
   return (

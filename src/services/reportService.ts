@@ -1,4 +1,4 @@
-import { AssessmentData, Framework } from '../shared/types';
+import { AssessmentData, Framework  } from '../shared/types';
 import { errorMonitoring } from '../lib/errorMonitoring';
 
 export interface ReportExportOptions { format: 'pdf' | 'json' | 'csv';
@@ -16,7 +16,7 @@ export interface ReportExportOptions { format: 'pdf' | 'json' | 'csv';
 export class ReportService {
   private static instance: ReportService;
 
-  static getInstance(), ReportService {
+  static getInstance(): ReportService {
     if (!ReportService.instance) {
       ReportService.instance = new ReportService();
     }
@@ -25,12 +25,13 @@ export class ReportService {
 
   async exportReport(
     assessment: AssessmentData,
-    framework: Framework,
+    framework, Framework,
     options, ReportExportOptions
-  ): Promise<void> {
+  : Promise<void> {
     try {
       switch (options.format) {
-        case 'pdf', await this.exportToPDF(assessment, framework, options);
+        case 'pdf':
+          await this.exportToPDF(assessment, framework, options);
           break;
         case 'json':
           await this.exportToJSON(assessment, framework, options);
@@ -42,8 +43,8 @@ export class ReportService {
       }
     } catch (error) {
               errorMonitoring.captureException(error as Error, {
-          tags: { type, 'reportExportError' }, 
-          extra: { assessmentId, assessment.id, format, options.format }
+                  tags: { type: 'reportExportError' }, 
+        extra: { assessmentId: assessment.id, format: options.format }
         });
       throw error;
     }
@@ -77,7 +78,7 @@ export class ReportService {
   private generateHTMLReport(
     assessment: AssessmentData,
     framework: Framework,
-    reportData: any,
+    reportData, any,
     options, ReportExportOptions
   ), string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
@@ -345,7 +346,7 @@ export class ReportService {
     `;
   }
 
-    private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework, Framework): Promise<void> {
+    private async generatePDFWithAPI(htmlContent: string, assessment, AssessmentData, framework, Framework: Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
       suggestedName, `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
@@ -360,7 +361,7 @@ export class ReportService {
     await writable.close();
   }
 
-  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework, Framework), void {
+  private generatePDFWithPrint(htmlContent: string, assessment, AssessmentData, framework, Framework), void {
   // Create a new window with enhanced print styles
   const printWindow = window.open('', '_blank', 'width=1200,height=800');
     if (!printWindow) {
@@ -388,7 +389,7 @@ export class ReportService {
 
   private async exportToJSON(
     assessment: AssessmentData,
-    framework: Framework,
+    framework, Framework,
     options, ReportExportOptions
   ), Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
@@ -423,7 +424,7 @@ export class ReportService {
 
   private async exportToCSV(
     assessment: AssessmentData,
-    framework: Framework,
+    framework, Framework,
     options, ReportExportOptions
   ), Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
@@ -471,7 +472,7 @@ export class ReportService {
     );
   }
 
-  private generateReportData(assessment: AssessmentData, framework, Framework: , any {
+  private generateReportData(assessment, AssessmentData, framework, Framework: , any {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
       ? Math.round((responses.reduce((a  : b) => a + b 0) / responses.length) * 25)
@@ -502,7 +503,7 @@ export class ReportService {
     try {
       // Add UTF-8 BOM for CSV files to ensure proper character encoding
       const bom = mimeType === 'text/csv' ? '\uFEFF'  : '';
-              const blob = new Blob([bom + content], { type, `${mimeType};charset=utf-8` });
+              const blob = new Blob([bom + content], { type: `${mimeType };charset=utf-8` });
       
       // Use modern download API if available
       if ('showSaveFilePicker' in window) {
@@ -518,9 +519,9 @@ export class ReportService {
     }
   }
   
-  private async downloadWithAPI(blob: Blob, filename, string: , mimeType, string, Promise<void> { try {
+  private async downloadWithAPI(blob, Blob, filename, string: , mimeType, string, Promise<void> { try {
       const fileHandle = await (window as any).showSaveFilePicker({
-        suggestedName:, filename: types: [{
+        suggestedName:, filename, types: [{
           description, this.getFileTypeDescription(mimeType, accept:, { [mimeType], [this.getFileExtension(filename)]  }
         }]
       });

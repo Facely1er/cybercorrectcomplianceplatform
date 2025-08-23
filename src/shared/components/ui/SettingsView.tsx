@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, SaveCheckCircle, Info } from 'lucide-react';
+import { ChevronLeft, SaveCheckCircle, Info  } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAssessments } from '../../hooks/useAssessments';
@@ -12,7 +12,7 @@ interface SettingsViewProps {
 }
 
 export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme: toggleTheme  } = useTheme();
   const { user } = useAuth();
   const { resetAllAssessments } = useAssessments();
   const { breadcrumbs } = useInternalLinking();

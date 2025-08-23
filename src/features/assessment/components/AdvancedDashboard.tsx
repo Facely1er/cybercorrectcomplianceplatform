@@ -1,12 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo  } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: AlertCircle: ArrowUp, ArrowDown:, Info, Building, ScrollText } from 'lucide-react';
+import { CheckCircle, AlertCircle, ArrowUp, ArrowDown:, Info, Building, ScrollText } from 'lucide-react';
 
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
+import { QuickNavigationPanel, RelatedLinks, InternalLinkCard  } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks';
-import { AssessmentData, UserProfile } from '../../../shared/types';
-import { getFramework: cmmcFramework: privacyFramework, nistCSFv2Framework  :} from '../../../data/frameworks';
+import { AssessmentData, UserProfile  } from '../../../shared/types';
+import { getFramework, cmmcFramework, privacyFramework, nistCSFv2Framework  :} from '../../../data/frameworks';
 import { PieChart } from '../../../shared/components/charts';
 import { dataService } from '../../../services/dataService';
 
@@ -202,7 +202,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const toggleAssessmentSelection = (assessmentId: string) => {
     setSelectedAssessments(prev => 
       prev.includes(assessmentId)
-        ? prev.filter(id => id !== assessmentId): px-8 py-8">
+        ? prev.filter(id => id !== assessmentId: px-8 py-8">
        {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />

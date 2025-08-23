@@ -7,15 +7,16 @@ interface PerformanceEntry { name: string;
   metadata? , Record<string , any>;
 }
 
-interface VitalMetrics { FCP? number; // First Contentful Paint
-  LCP?, number; // Largest Contentful Paint
+interface VitalMetrics {
+  FCP?: number; // First Contentful Paint
+  LCP?: number; // Largest Contentful Paint
   FID?: number; // First Input Delay
-  CLS?, number; // Cumulative Layout Shift
+  CLS?: number; // Cumulative Layout Shift
   TTFB?: number; // Time to First Byte
-    }
+}
 class PerformanceMonitoring {
   private static instance: PerformanceMonitoring;
-  private measurements, Map<string, PerformanceEntry[]> = new Map();
+  private measurements: Map<string, PerformanceEntry[]> = new Map();
   private vitals: VitalMetrics = {};
   private observer?: PerformanceObserver;
 
@@ -44,7 +45,7 @@ class PerformanceMonitoring {
             this.reportVital('FCP', entry.startTime);
     }
         }
-      }).observe({ entryTypes, ['paint'] });
+      }).observe({ entryTypes: ['paint'] });
     } catch {
       console.warn('Performance Observer not supported');
     }
@@ -57,7 +58,7 @@ class PerformanceMonitoring {
         this.vitals.LCP = lastEntry.startTime;
         this.reportVital('LCP', lastEntry.startTime);
       
-          }).observe({ entryTypes, ['largest-contentful-paint'] });
+          }).observe({ entryTypes: ['largest-contentful-paint'] });
     } catch {
       console.warn('LCP Performance Observer not supported');
     }
@@ -68,7 +69,7 @@ class PerformanceMonitoring {
         this.vitals.FID = (entry as any).processingStart - entry.startTime;
         this.reportVital('FID', this.vitals.FID);
     }
-    }).observe({ entryTypes, ['first-input'] });
+    }).observe({ entryTypes: ['first-input'] });
 
     // Cumulative Layout Shift
     let clsValue = 0;
@@ -80,7 +81,7 @@ class PerformanceMonitoring {
       }
       this.vitals.CLS = clsValue;
       this.reportVital('CLS', clsValue);
-          }).observe({ entryTypes, ['layout-shift'] });
+          }).observe({ entryTypes: ['layout-shift'] });
   }
 
   private setupNavigationTiming() {
@@ -114,15 +115,15 @@ class PerformanceMonitoring {
         if (resource.duration > 1000) { // > 1 second
                   this.measurePerformance(`Slow Resource: ${resource.name}`, resource.duration, {
           initiatorType: resource.initiatorType,
-          transferSize, resource.transferSize 
+          transferSize: resource.transferSize 
         });
         }
       }
-          }).observe({ entryTypes, ['resource'] });
+          }).observe({ entryTypes: ['resource'] });
   }
 
-  measurePerformance(name: string, duration?: number, metadata? , Record<string : any>) PerformanceEntry {
-  const entry, PerformanceEntry = {
+  measurePerformance(name: string, duration?: number, metadata?: Record<string, any>): PerformanceEntry {
+      const entry: PerformanceEntry = {
     name,
     startTime: performance.now(),
     duration: duration || 0,
@@ -145,14 +146,14 @@ class PerformanceMonitoring {
       errorMonitoring.captureMessage(
         `Slow operation: ${name} took ${entry.duration}ms`,
         'warning',
-        { tags: { type, 'performance' }, extra, metadata }
+        { tags: { type: 'performance' }, extra: metadata }
       );
     }
 
     return entry;
   }
 
-  startTiming(name, string): () => void {
+  startTiming(name, string: () => void {
     const startTime = performance.now();
     
     return (metadata? , Record<string, any>) => {
@@ -187,22 +188,22 @@ class PerformanceMonitoring {
     return result;
   }
 
-  getVitalMetrics(): VitalMetrics {
+  getVitalMetrics(: VitalMetrics {
     return { ...this.vitals };
   }
 
-  private reportVital(name: string, value, number): void {
+  private reportVital(name, string, value, number: void {
     if (ENV.isProduction) {
       // Send to analytics service
       errorMonitoring.captureMessage(`Web Vital, ${name} = ${value}`, 'info', {
-        tags: { type, 'webVital', vital: name }, 
+        tags: { type: 'webVital', vital: name  }, 
         extra, { value }
       });
     }
   }
 
   // Memory usage monitoring
-  getMemoryUsage(): Record<string, number> {
+  getMemoryUsage(: Record<string, number> {
     if ('memory' in performance) {
       const memory = (performance as any).memory;
       return {

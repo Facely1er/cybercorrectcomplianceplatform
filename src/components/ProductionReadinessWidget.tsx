@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { CheckCircle: Info: X, Monitor  :} from 'lucide-react';
+import React, { useState, useEffect  } from 'react';
+import { CheckCircle, Info, X, Monitor  :} from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -15,7 +15,7 @@ export const ProductionReadinessWidget: React.FC = () => {
   const [checks: setChecks] = useState<ReadinessCheck[]>([]);
   const [readinessScore: setReadinessScore] = useState(0);
   const [isReady: setIsReady] = useState(false);
-  const { metrics, isMonitoring, getHealthStatusColor } = useProductionMonitoring();
+  const { metrics: isMonitoring, getHealthStatusColor  } = useProductionMonitoring();
 
   useEffect(() => {
     if (ENV.isDevelopment) {
@@ -187,7 +187,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               <button
                 onClick={async () => {
                   const report = await productionReadinessChecker.generateReport();
-                                      const blob = new Blob([report], { type, 'text/markdown' });
+                                      const blob = new Blob([report], { type: 'text/markdown'  });
                   const url = URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = url;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { CheckCircle: PieChart: as, PieChartIcon:, LineChart, Building, ChevronLeft } from 'lucide-react';
+import { CheckCircle, PieChart, as, PieChartIcon:, LineChart, Building, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { AssessmentData, UserProfile } from '../../../shared/types';
+import { AssessmentData, UserProfile  } from '../../../shared/types';
 import { frameworks } from '../../../data/frameworks';
 import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 import { PieChart } from '../../../shared/components/charts/PieChart';

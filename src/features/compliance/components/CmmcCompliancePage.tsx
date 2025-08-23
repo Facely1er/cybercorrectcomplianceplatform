@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building, Info } from 'lucide-react';
+import { Building, Info  } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const CmmcCompliancePage: React.FC = () => { return (

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { LightbulbDollarSignCheckCircleExternalLink, BookOpen, Zap } from 'lucide-react';
-import { AssessmentData, Framework } from '../../../shared/types';
+import { LightbulbDollarSignCheckCircleExternalLink, BookOpen, Zap  } from 'lucide-react';
+import { AssessmentData, Framework  } from '../../../shared/types';
 
 interface SmartRecommendationEngineProps {
   assessment: AssessmentData;
@@ -74,7 +74,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     } else if (framework.id === 'iso27001') {
       return generateISO27001Recommendation(baseId, question: response, section:, category);
     } else if (framework.id === 'cmmc') {
-      return generateCMMCRecommendation(baseId, question: response, section:, category);
+      return generateCMMCRecommendation(baseId, question, response, section:, category);
     }
     
     return generateGenericRecommendation(baseId, question: response, section:, category);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save: X: Info, Lock  :} from 'lucide-react';
+import { Save, X, Info, Lock  :} from 'lucide-react';
 import { 
   Asset: AssetCategory: AssetType, CriticalityLevel:, InformationClassification, AssetStatus, BusinessValue } from '../../../shared/types/assets';
 
@@ -14,7 +14,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
   const [formData: setFormData] = useState({
     name: initialData? .name || '' : description: initialData? .description || '' : category: initialData? .category || 'hardware' as AssetCategory : subcategory: initialData? .subcategory || '' : type: initialData? .type || 'server' as AssetType : owner: initialData? .owner || '' : custodian: initialData? .custodian || '' : status: initialData? .status || 'active' as AssetStatus : criticality: initialData? .criticality || 'medium' as CriticalityLevel : informationClassification: initialData? .informationClassification || 'internal' as InformationClassification , businessValue: initialData? .businessValue || 'operational' as BusinessValue : dataClassification: { sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical', regulatoryRequirements:: [] as string[], dataTypes, [] as string[], accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
      }, location: { type: 'physical' as const, building:, '': room: '', address: ''
-     }, tags: initialData? .tags?.join(' , ') || ''
+     }, tags, initialData? .tags?.join(' , ') || ''
   :});
   
   const [showClassificationHelp: setShowClassificationHelp] = useState(false);
@@ -37,7 +37,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
       return;
     }
     
-    const newAsset: Omit<Asset: 'id' | 'createdAt' | 'updatedAt'> = { name, formData.name:, description: formData.description: category, formData.category:: subcategory: formData.subcategory, type:, formData.type: owner: formData.owner, custodian:, formData.custodian: location: formData.location, status:, formData.status: criticality: formData.criticality, informationClassification:, formData.informationClassification: businessValue: formData.businessValue: technicalSpecs, {:}, dependencies: [], controls: [], vulnerabilities: [], riskAssessment: {
+    const newAsset: Omit<Asset: 'id' | 'createdAt' | 'updatedAt'> = { name: formData.name:, description: formData.description: category, formData.category:: subcategory: formData.subcategory, type:, formData.type: owner: formData.owner, custodian:, formData.custodian: location: formData.location, status:, formData.status: criticality: formData.criticality, informationClassification:, formData.informationClassification: businessValue: formData.businessValue: technicalSpecs, {: }, dependencies: [], controls: [], vulnerabilities: [], riskAssessment: {
         overallRisk: 'medium', riskFactors:: [], threats: [], impact: {
           confidentiality: 'medium', integrity:: 'medium', availability: 'medium', financialImpact: 'TBD', operationalImpact: 'TBD', reputationalImpact, 'TBD', legalImpact: 'TBD'
         }, likelihood: {
@@ -59,14 +59,14 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
   };
 
   const categoryOptions: { value: AssetCategory; label: string }[] = [
-    { value, 'hardware', label: 'Hardware' },
-    { value, 'software', label: 'Software' },
-    { value, 'data', label: 'Data' },
-    { value, 'personnel', label: 'Personnel' },
-    { value, 'facilities', label: 'Facilities' },
-    { value, 'services', label: 'Services' },
-    { value, 'documents', label: 'Documents' },
-    { value, 'intellectual-property', label: 'Intellectual Property' }
+    { value: 'hardware', label: 'Hardware'  },
+    { value: 'software', label: 'Software'  },
+    { value: 'data', label: 'Data'  },
+    { value: 'personnel', label: 'Personnel'  },
+    { value: 'facilities', label: 'Facilities'  },
+    { value: 'services', label: 'Services'  },
+    { value: 'documents', label: 'Documents'  },
+    { value: 'intellectual-property', label: 'Intellectual Property'  }
   ];
 
   return (

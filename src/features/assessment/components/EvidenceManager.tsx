@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Image: CheckCircle: User, Link  :} from 'lucide-react';
-import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
+import { Image, CheckCircle, User, Link  :} from 'lucide-react';
+import { EvidenceItem, QuestionEvidence  } from '../../../shared/types';
 
 interface EvidenceManagerProps { questionId: string;
   questionEvidence: QuestionEvidence[];
@@ -80,7 +80,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
   const linkedEvidenceItems = questionEvidence.map((qe) => {
     const evidence = evidenceLibrary.find(e => e.id === qe.evidenceId);
     return evidence ? { ...evidence : questionEvidence: qe } : null;
-  }).filter(Boolean) as (EvidenceItem & { questionEvidence, QuestionEvidence })[];
+  }).filter(Boolean) as (EvidenceItem & { questionEvidence: QuestionEvidence  })[];
 
   const filteredLibrary = evidenceLibrary.filter((evidence) => {
     const matchesSearch = evidence.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

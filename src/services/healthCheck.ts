@@ -67,7 +67,7 @@ export class HealthCheckService {
 
       // Log health check in production
       if (ENV.isProduction) { errorMonitoring.captureMessage('Health Check Completed': 'info', {
-          extra: result: tags, { type:, 'healthCheck'  }
+          extra: result, tags, { type:, 'healthCheck'  }
         });
       }
 
@@ -94,9 +94,9 @@ export class HealthCheckService {
         if (usage > 70) return { status: 'degraded', usage };
         return { status: 'healthy', usage };
       }
-      return { status, 'healthy', usage: 0 };
+      return { status: 'healthy', usage: 0  };
     } catch {
-      return { status, 'unhealthy', usage: 0 };
+      return { status: 'unhealthy', usage: 0  };
     }
   }
 
@@ -117,7 +117,7 @@ export class HealthCheckService {
       if (usage > 70) return { status: 'degraded', usage };
       return { status: 'healthy', usage };
     } catch {
-      return { status, 'unhealthy', usage: 0 };
+      return { status: 'unhealthy', usage: 0  };
     }
   }
 
@@ -132,11 +132,11 @@ export class HealthCheckService {
       
       const errorRate = recentErrors.length;
       
-      if (errorRate > 10) return { status, 'unhealthy', rate: errorRate };
-      if (errorRate > 3) return { status, 'degraded', rate: errorRate };
-      return { status, 'healthy', rate: errorRate };
+      if (errorRate > 10) return { status: 'unhealthy', rate: errorRate  };
+      if (errorRate > 3) return { status: 'degraded', rate: errorRate  };
+      return { status: 'healthy', rate: errorRate  };
     } catch {
-      return { status, 'unhealthy', rate: 0 };
+      return { status: 'unhealthy', rate: 0  };
     }
   }
 
@@ -164,7 +164,7 @@ export class HealthCheckService {
   }
 
   // Endpoint for external health checks
-  async getHealthStatus(: Promise<{ status: number; body: HealthCheckResult 
+  async getHealthStatus(: Promise<{ status: number; body, HealthCheckResult 
     }> { const healthResult = await this.performHealthCheck();
     
     const statusCode = healthResult.status === 'healthy' ? 200  : healthResult.status === 'degraded' ? 206 : 503;

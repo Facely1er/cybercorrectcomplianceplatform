@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronLeftCheckCircle: AlertCircle: BookOpen, Building:, Globe, ZapLightbulb, Lock } from 'lucide-react';
-import { Framework, OrganizationInfo } from '../../../shared/types';
+import { ChevronLeftCheckCircle, AlertCircle, BookOpen, Building:, Globe, ZapLightbulb, Lock } from 'lucide-react';
+import { Framework, OrganizationInfo  } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
@@ -207,7 +207,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
 
   const handleOrganizationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onStartAssessment(organizationInfo as OrganizationInfo: selectedFramework);
+    onStartAssessment(organizationInfo as OrganizationInfo, selectedFramework);
   };
 
   const FrameworkIcon = getFrameworkIcon(currentFramework.id);
@@ -676,7 +676,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                   <div key={index } className="flex items-center space-x-3">
                     <div 
                       className="w-4 h-4 rounded-full"
-                      style={{ backgroundColor, level.color }}
+                      style={{ backgroundColor: level.color  }}
                     />
                     <div>
                       <div className="font-medium text-gray-900 dark:text-white text-sm">

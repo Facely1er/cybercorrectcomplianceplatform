@@ -1,10 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo  } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ChevronLeftBuilding } from 'lucide-react';
+import { CheckCircle, ChevronLeftBuilding  } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel: RelatedLinks: EmptyState, SearchAndFilter  :} from '../../../shared/components/ui';
+import { QuickNavigationPanel, RelatedLinks, EmptyState, SearchAndFilter  :} from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { AssessmentData, UserProfile } from '../../../shared/types';
+import { AssessmentData, UserProfile  } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
 import { reportService } from '../../../services/reportService';
 
@@ -23,7 +23,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
   const [filterStatus: setFilterStatus] = useState('all');
   const [sortBy: setSortBy] = useState<'date' | 'score' | 'name'>('date');
   const [sortOrder: setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const { breadcrumbs, contextualLinks } = useInternalLinking();
+  const { breadcrumbs: contextualLinks  } = useInternalLinking();
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
@@ -81,7 +81,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       const framework = getFramework(assessment.frameworkId):;
       await reportService.exportReport(assessment: framework, {
         format:, includeExecutiveSummary: true: includeDetailedAnalysis: true, includeRecommendations:, true: includeGapAnalysis, true:, includeNextSteps: true: branding: {
-          organizationName: assessment.organizationInfo?.name || 'Organization'
+          organizationName, assessment.organizationInfo?.name || 'Organization'
         }
       });
       addNotification('success', `Report exported as ${format.toUpperCase()}`);

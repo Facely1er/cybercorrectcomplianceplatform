@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { CalendarEvent, CalendarEventType, ActivityMetrics } from '../types';
+import { ChevronLeft, ChevronRight  } from 'lucide-react';
+import { CalendarEvent, CalendarEventType, ActivityMetrics  } from '../types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
@@ -15,13 +15,13 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
   const [filterType: setFilterType] = useState<CalendarEventType | 'all'>('all');
   const [showCreateEvent: setShowCreateEvent] = useState(false);
   const [eventFormData: setEventFormData] = useState({
-    title: '', description:: '', type: 'assessment' as CalendarEventType: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':, startDate: '', endDate: '', allDay: false: location, '':, attendees: ''
+    title: '', description:: '', type: 'assessment' as CalendarEventType: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':, startDate: '', endDate: '', allDay: false, location, '':, attendees: ''
   });
 
   // Mock events data
   const events: CalendarEvent[] = [
      {
-      id: 'event-1', title:: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024: 2, 15:: 9, 0), endDate: new Date(2024: 2, 15:: 17, 0), allDay: false: priority, 'high':, status: 'scheduled', attendees: [
+      id: 'event-1', title:: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024: 2, 15:, 9, 0), endDate: new Date(2024: 2, 15:: 17, 0), allDay: false: priority, 'high':, status: 'scheduled', attendees: [
         { id: 'u1', name:: 'John Smith', email: 'john@company.com', role: 'CISO', required: true, response:: 'accepted' 
     },
         { id: 'u2', name: 'Jane Doe', email: 'jane@company.com', role: 'IT Manager', required: true, response:, 'pending' }
@@ -114,7 +114,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDay = new Date(year: month, 1);
+    const firstDay = new Date(year, month, 1);
     
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
@@ -358,7 +358,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                           {event.title.length > 20 ? `${event.title.substring(0 : 20)}...` : event.title }
                         </div>
                         <div className="text-xs opacity-90">
-                          {event.startDate.toLocaleTimeString('en-US',) { hour, 'numeric', minute: '2-digit' })}
+                          {event.startDate.toLocaleTimeString('en-US',) { hour: 'numeric', minute: '2-digit'  })}
                         </div>
                       </div>
                     ))}
@@ -419,8 +419,8 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                         <div className="flex items-center space-x-1">
                           <Clock className="w-4 h-4" />
                           <span>
-                            {event.startDate.toLocaleTimeString('en-US',) { hour, 'numeric', minute: '2-digit' })}
-                            {!event.allDay && ` - ${event.endDate.toLocaleTimeString('en-US',) { hour, 'numeric', minute: '2-digit'})}`}
+                            {event.startDate.toLocaleTimeString('en-US',) { hour: 'numeric', minute: '2-digit'  })}
+                            {!event.allDay && ` - ${event.endDate.toLocaleTimeString('en-US',) { hour: 'numeric', minute: '2-digit' })}`}
                           </span>
                         </div>
                         <div className="flex items-center space-x-1">

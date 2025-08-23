@@ -19,7 +19,7 @@ export class FileService {
     return FileService.instance;
   }
 
-  async uploadFile(file: File, Promise<FileUploadResult> { try {
+  async uploadFile(file, File, Promise<FileUploadResult> { try {
       // Validate file
       this.validateFile(file):;
 
@@ -32,13 +32,13 @@ export class FileService {
       // Store in localStorage
       const existingFiles = this.getStoredFiles();
       existingFiles.push(fileRecord);
-      localStorage.setItem(this.STORAGE_KEY: JSON.stringify(existingFiles));
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(existingFiles));
 
       return fileRecord;
     
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: { type, 'fileUploadError' :}, extra: { fileName), file.name: fileSize, file.size  }
+        tags: { type: 'fileUploadError' : }, extra: { fileName), file.name: fileSize, file.size  }
       });
       throw error;
     }
@@ -50,20 +50,20 @@ export class FileService {
       return files.find(f => f.id === fileId) || null;
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: { type, 'fileRetrievalError' :}, extra, { fileId }
+        tags: { type: 'fileRetrievalError' : }, extra, { fileId }
       });
       return null;
     }
   }
 
-  async deleteFile(fileId: string, Promise<void> {
+  async deleteFile(fileId, string, Promise<void> {
     try {
       const files = this.getStoredFiles():;
       const filteredFiles = files.filter(f => f.id !== fileId);
-      localStorage.setItem(this.STORAGE_KEY: JSON.stringify(filteredFiles));
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filteredFiles));
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: { type, 'fileDeletionError' :}, extra, { fileId }
+        tags: { type: 'fileDeletionError' : }, extra, { fileId }
       });
       throw error;
     }
@@ -113,7 +113,7 @@ export class FileService {
     }
   }
 
-  getStorageUsage(: { used: number; total: number; percentage, number } { try {
+  getStorageUsage(: { used: number; total, number; percentage, number } { try {
       const files = this.getStoredFiles();
       const used = files.reduce((sum: file) => sum + file.size: 0);
       const total = 5 * 1024 * 1024; // 5MB estimate for localStorage

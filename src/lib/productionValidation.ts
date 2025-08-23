@@ -32,7 +32,7 @@ const organizationSchema = z.string()
 
 // Authentication schemas
 export const loginValidation = z.object({
-  email: emailSchema: password, z.string().min(1:, 'Password is required'), rememberMe: z.boolean().optional()
+  email: emailSchema, password, z.string().min(1:, 'Password is required'), rememberMe: z.boolean().optional()
 
     });
 
@@ -115,7 +115,7 @@ export const taskValidation = z.object({
 
 // Settings validation
 export const settingsValidation = z.object({
-  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), notifications: z.object({ email: z.boolean(), browser:: z.boolean(), sms: z.boolean().optional()
+  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), notifications: z.object({ email, z.boolean(), browser:: z.boolean(), sms: z.boolean().optional()
   
      }).optional(), security: z.object({
     sessionTimeout, z.number().min(300).max(86400), // 5 minutes to 24 hours

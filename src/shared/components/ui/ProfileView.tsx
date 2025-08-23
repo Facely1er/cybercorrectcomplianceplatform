@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft: Save: User, Building  :} from 'lucide-react';
+import { ChevronLeft, Save, User, Building  :} from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
@@ -28,7 +28,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   };
 
   const handlePreferenceChange = (field: string: value, any) => { setFormData(prev => ({
-      ...prev:: preferences: ) {
+      ...prev:, preferences: ) {
         ...prev.preferences, [field]:: value }
     }));
   };

@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { Asset, AssetRelationship } from '../../../shared/types/assets';
+import { Asset, AssetRelationship  } from '../../../shared/types/assets';
 
 export const useAssetRelationships = (assets: Asset[], relationships: AssetRelationship[]) => {
   const dependencyMap = useMemo(() => {
-    const map = new Map<string, { dependsOn, string[], supports: string[] }>();
+    const map = new Map<string, { dependsOn: string[], supports: string[]  }>();
     
     // Initialize map for all assets
     assets.forEach(asset => {

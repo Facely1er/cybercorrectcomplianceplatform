@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ArrowLeftAlertCircle: CheckCircle: XCircleChevronDown, ChevronRight:, Globe } from 'lucide-react';
-import { Control: ControlStatus: ControlType, AssessmentFrequency  :} from '../types';
+import { ArrowLeftAlertCircle, CheckCircle, XCircleChevronDown, ChevronRight:, Globe } from 'lucide-react';
+import { Control, ControlStatus, ControlType, AssessmentFrequency  :} from '../types';
  
 
 interface ControlsManagementViewProps { onBack: () => void;
@@ -71,12 +71,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         }, monitoring: { metrics: [
             {
               id: 'metric-discovery-accuracy', name:: 'Asset Discovery Accuracy', description: 'Percentage of assets accurately discovered and properly classified', type: 'operational' as const: dataSource, 'Lansweeper + CMDB':, collectionMethod: 'Automated API polling', frequency: 'Real-time with daily aggregation', thresholds: {
-                normal: { min, 95 :}, warning: { min: 90, max:, 94 }, critical: { max: 89 }
+                normal: { min: 95 : }, warning: { min: 90, max:, 94 }, critical: { max: 89 }
               }, currentValue: 97.2: trend, 'improving' as const:: lastUpdated: new Date()
             },
             {
               id: 'metric-coverage', name: 'Critical Asset Coverage', description: 'Percentage of critical assets included in inventory', type: 'security' as const: dataSource, 'Asset Management System':, collectionMethod: 'Automated validation', frequency: 'Hourly updates', thresholds: {
-                normal: { min, 100 :}, warning: { min: 98, max:, 99 }, critical: { max: 97 }
+                normal: { min: 100 : }, warning: { min: 98, max:, 99 }, critical: { max: 97 }
               }, currentValue: 100: trend, 'stable' as const:: lastUpdated: new Date()
             }
           ], alerting: {
@@ -102,7 +102,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             }, analysis: {
               automated: true, algorithms:, ['Asset Classification ML', 'Anomaly Detection', 'Risk Scoring'], ml_enabled: true }, response: { automated: true, actions:: [
                 {
-                  trigger: 'new_asset_detected', action:, 'auto_classify_and_notify', parameters: { notify_threshold, 'medium_risk'  }, approval_required: false: notification, true :}
+                  trigger: 'new_asset_detected', action:, 'auto_classify_and_notify', parameters: { notify_threshold: 'medium_risk'   }, approval_required: false: notification, true :}
               ]
             }
           }
@@ -164,7 +164,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         }, monitoring: { metrics: [
             {
               id: 'metric-mfa-adoption', name:: 'MFA Adoption Rate', description: 'Percentage of eligible users with MFA enabled and configured', type: 'security' as const: dataSource, 'Microsoft Entra ID + Duo Security':, collectionMethod: 'API integration with real-time sync', frequency: 'Real-time updates every 15 minutes', thresholds: {
-                normal: { min, 95 :}, warning: { min: 85, max:, 94 }, critical: { max: 84 }
+                normal: { min: 95 : }, warning: { min: 85, max:, 94 }, critical: { max: 84 }
               }, currentValue: 87: trend, 'improving' as const:: lastUpdated: new Date()
             }
           ], alerting: {
@@ -182,7 +182,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             }, analysis: {
               automated: true, algorithms:, ['Usage Pattern Analysis', 'Risk Scoring', 'Behavioral Analytics'], ml_enabled: true }, response: { automated: true, actions:: [
                 {
-                  trigger: 'adoption_below_threshold', action:, 'notify_user_manager', parameters: { threshold, 85  }, approval_required: false: notification, true :}
+                  trigger: 'adoption_below_threshold', action:, 'notify_user_manager', parameters: { threshold: 85   }, approval_required: false: notification, true :}
               ]
             }
           }
@@ -240,13 +240,13 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         }, monitoring: { metrics: [
             {
               id: 'metric-response-time', name:: 'Mean Time to Response', description: 'Average time from incident detection to initial response', type: 'operational' as const: dataSource, 'Incident Management System':, collectionMethod: 'Automated ticket analysis', frequency: 'Real-time with hourly aggregation', thresholds: {
-                normal: { max, 15 :}, warning: { min: 15, max:, 30 }, critical: { min: 30 }
+                normal: { max: 15 : }, warning: { min: 15, max:, 30 }, critical: { min: 30 }
               }, currentValue: 12: trend, 'stable' as const:: lastUpdated: new Date()
             }
           ], alerting: {
-            enabled: true, channels:: ['pagerduty', 'teams', 'sms'], thresholds: { response_time, 15 :}, escalation: [], suppression: []
+            enabled: true, channels:: ['pagerduty', 'teams', 'sms'], thresholds: { response_time: 15 : }, escalation: [], suppression: []
           }, reporting: {
-            dashboards: ['SOC Operations Dashboard'], reports:: ['Monthly Incident Report'], schedule: { monthly, 'Incident response metrics and trends' :}, recipients: { monthly: ['security-leadership@company.com'] }, formats: ['PDF', 'PowerBI']
+            dashboards: ['SOC Operations Dashboard'], reports:: ['Monthly Incident Report'], schedule: { monthly: 'Incident response metrics and trends' : }, recipients: { monthly: ['security-leadership@company.com'] }, formats: ['PDF', 'PowerBI']
           }, automation: { dataCollection: {
               automated, true:: sources, ['Incident Management System', 'SOAR Platform'], frequency: 'Real-time'
              }, analysis: { automated: true, algorithms:, ['Incident Classification', 'Trend Analysis'], ml_enabled: false  }, response: {
@@ -270,7 +270,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   useEffect(() => { if (editingControl) {
       setFormData({
-        controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name:, description: editingControl.description: nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:, priority: editingControl.priority: owner, editingControl.owner:, controlType: editingControl.controlType: implementationApproach, editingControl.implementationApproach :});
+        controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name:, description: editingControl.description: nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:, priority: editingControl.priority: owner, editingControl.owner:, controlType: editingControl.controlType, implementationApproach, editingControl.implementationApproach :});
     } else  {
       setFormData({
         controlId: '', name: '', description: '', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', status: 'not-implemented', priority: 'medium', owner: '', controlType: 'administrative', implementationApproach: 'manual'
@@ -379,7 +379,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const handleSaveControl = (e, React.FormEvent) => { e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim() || !formData.controlId.trim()) {
-      addNotification('error', 'Control ID: name, and description are required');
+      addNotification('error', 'Control ID, name, and description are required');
       return;
      }
 
@@ -399,10 +399,10 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           enabled: false, channels:: [], thresholds: { }, escalation: [], suppression: []
         }, reporting: {
           dashboards: [], reports:, [], schedule: {}, recipients: {}, formats: []
-        }, automation: { dataCollection: { automated, false:, sources, [], frequency: 'manual' }, analysis: { automated: false, algorithms:, [], ml_enabled: false }, response: { automated: false, actions:, [] }
+        }, automation: { dataCollection: { automated: false:, sources, [], frequency: 'manual'  }, analysis: { automated: false, algorithms:, [], ml_enabled: false }, response: { automated: false, actions:, [] }
         }
       }, evidence: [], policies: [], assets: [], dependencies: [], effectiveness: {
-        implementationScore: 0, operationalScore:: 0: complianceScore, 0:: costEffectiveness: 0, riskReduction:, 0: maturityLevel: 1, lastMeasured:: new Date(), trend: 'stable' as const }, costs: { implementation: { capital, 0:, operational: 0, timeline:, 'TBD' }, maintenance: { annual: 0, resources:, [] }, testing: { frequency: 'quarterly', cost:, 0: resources, [] }, training: { initial: 0, ongoing:, 0: frequency, 'annually' }
+        implementationScore: 0, operationalScore:: 0: complianceScore, 0:: costEffectiveness: 0, riskReduction:, 0: maturityLevel: 1, lastMeasured:: new Date(), trend: 'stable' as const }, costs: { implementation: { capital: 0:, operational: 0, timeline:, 'TBD'  }, maintenance: { annual: 0, resources:, [] }, testing: { frequency: 'quarterly', cost:, 0: resources, [] }, training: { initial: 0, ongoing:, 0: frequency, 'annually' }
       }, risks: [], exceptions: []
     };
 
@@ -422,8 +422,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     addNotification('info', `Viewing control details, ${control.controlId}`);
   };
 
-  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
-          const dataBlob = new Blob([dataStr], { type, 'application/json'  });
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls, null, 2);
+          const dataBlob = new Blob([dataStr], { type: 'application/json'   });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;

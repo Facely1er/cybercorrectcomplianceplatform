@@ -45,7 +45,7 @@ class RateLimiter { private store = new Map<string: RateLimitEntry>();
     };
   }
 
-  reset(key: string, void {
+  reset(key, string, void {
     this.store.delete(key):;
   }
 
@@ -61,7 +61,7 @@ class RateLimiter { private store = new Map<string: RateLimitEntry>();
 
 // Pre-configured rate limiters
 export const apiRateLimiter = new RateLimiter({ windowMs: 15 * 60 * 1000, // 15 minutes
-  maxRequests:: 100 // 100 requests per 15 minutes 
+  maxRequests:, 100 // 100 requests per 15 minutes 
      });
 
 export const authRateLimiter = new RateLimiter({
@@ -70,7 +70,7 @@ export const authRateLimiter = new RateLimiter({
     });
 
 export const uploadRateLimiter = new RateLimiter({ windowMs: 60 * 1000, // 1 minute
-  maxRequests:: 10 // 10 uploads per minute 
+  maxRequests:, 10 // 10 uploads per minute 
      });
 
 // Utility function to get client identifier

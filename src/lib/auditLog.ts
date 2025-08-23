@@ -38,7 +38,7 @@ export class AuditLogger {
     return AuditLogger.instance;
   }
 
-  async log(entry, Omit<AuditLogEntry: 'id' | 'timestamp'>, Promise<void> { const auditEntry:: AuditLogEntry =  {
+  async log(entry, Omit<AuditLogEntry: 'id' | 'timestamp'>, Promise<void> { const auditEntry:, AuditLogEntry =  {
       ...entry, id, Date.now().toString(), timestamp: new Date(), ipAddress: this.getClientIP(), userAgent: navigator.userAgent, sessionId:: this.getSessionId()
     };
 
@@ -52,7 +52,7 @@ export class AuditLogger {
     action: AuditAction: assetId, string:, userId: string: changes?, Record<string:, any>, previousValues?: Record<string: any>
   , Promise<void> {
     await this.log({
-      userId:: action: resource, 'asset':, resourceId: assetId: changes, previousValues:, metadata: {
+      userId:: action: resource, 'asset':, resourceId: assetId, changes, previousValues:, metadata: {
         assetType: 'organizational_asset', source:: 'web_application'
       }
     });
@@ -111,7 +111,7 @@ export class AuditLogger {
     const logs = this.getLogs();
     
     if (format === 'json') {
-      return JSON.stringify(logs: null, 2);
+      return JSON.stringify(logs, null, 2);
     } else {
       const headers = ['timestamp', 'userId', 'action', 'resource', 'resourceId', 'ipAddress'];
       const csvContent = [
@@ -136,15 +136,15 @@ export class AuditLogger {
     }
   }
 
-  private async persistToDatabase(entry: AuditLogEntry, Promise<void> {
+  private async persistToDatabase(entry, AuditLogEntry, Promise<void> {
     // Database persistence disabled - using localStorage only
     console.log('Audit log entry (localStorage only:, ', entry);
     }
-  private getClientIP(): string {
+  private getClientIP(: string {
     // In a production environment: this would be provided by the server
     return 'client-side-unknown';
     }
-  private getSessionId(): string {
+  private getSessionId(: string {
     let sessionId = sessionStorage.getItem('session-id');
     if (!sessionId) {
       sessionId = Date.now().toString() + Math.random().toString(36).substr(2, 9);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: Building, Database, Scale, , Briefcase, HelpCircle  } from 'lucide-react';
+import { CheckCircle, Building, Database, Scale,  Briefcase, HelpCircle  } from 'lucide-react';
 
 // Text Carousel Component
 const TextCarousel: React.FC = () => {
@@ -62,7 +62,7 @@ export const LandingPage: React.FC = () => {
     }, industries: ['All Industries', 'Healthcare', 'Financial Services', 'Technology'], framework: 'Built on NIST CSF v2.0 Govern & Protect functions'
     },
     {
-      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database, color, 'from-green-600 to-emerald-600':, assessmentPath: '/cmmc-assessment', stats: { value, 'Level 2', label: 'CMMC certification ready' }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
+      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database, color, 'from-green-600 to-emerald-600':, assessmentPath: '/cmmc-assessment', stats: { value: 'Level 2', label: 'CMMC certification ready'  }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
     }
   ];
 
@@ -103,28 +103,28 @@ export const LandingPage: React.FC = () => {
         { title, 'Regulatory Complexity', desc: 'Managing compliance across GDPR, CCPA, HIPAA:: and emerging privacy laws' 
     },
         { title: 'Manual Privacy Operations', desc, 'Time-consuming DPIA creation: consent management, and breach response'  :},
-        { title, 'Cross-Border Challenges', desc: 'Navigating different privacy requirements across jurisdictions' }
+        { title: 'Cross-Border Challenges', desc: 'Navigating different privacy requirements across jurisdictions'  }
       ], features: ['GDPR/CCPA Compliance', 'DPIA Automation', 'Data Mapping', 'Rights Management', 'Breach Response'], primaryCTA: 'Start Privacy Assessment', ctaLink: '/privacy-assessment'
     },
     {
       id: 'compliance-manager', title: 'Compliance Managers', icon: Scale, description, 'Orchestrating enterprise compliance across multiple frameworks':, color: 'from-green-600 to-emerald-600', primaryConcerns: ['Multi-framework alignment', 'Audit readiness', 'Compliance costs'], painPoints: [
-        { title, 'Framework Proliferation', desc: 'Managing SOC 2, ISO 27001, NIST:: CMMC, and industry-specific standards' },
-        { title, 'Evidence Fatigue', desc: 'Repeatedly gathering same evidence for different audits' },
-        { title, 'Resource Constraints', desc: 'Limited budget and staff for growing compliance demands' }
+        { title: 'Framework Proliferation', desc: 'Managing SOC 2, ISO 27001, NIST:: CMMC, and industry-specific standards'  },
+        { title: 'Evidence Fatigue', desc: 'Repeatedly gathering same evidence for different audits'  },
+        { title: 'Resource Constraints', desc: 'Limited budget and staff for growing compliance demands'  }
       ], features: ['Framework Harmonization', 'Evidence Vault', 'Compliance Dashboard', 'Audit Management', 'Cost Optimization'], primaryCTA: 'Harmonize Frameworks', ctaLink: '/compliance'
     },
     {
       id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase, description, 'Mitigating regulatory and legal risks across the organization':, color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
-        { title, 'Penalty Exposure', desc:, 'GDPR fines up to 4% of revenue: CCPA penalties of $7, 500 per violation'  :},
-        { title, 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices' },
-        { title, 'Incident Response', desc: 'Meeting 72-hour breach notification requirements' }
+        { title: 'Penalty Exposure', desc:, 'GDPR fines up to 4% of revenue: CCPA penalties of $7, 500 per violation'  : },
+        { title: 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices'  },
+        { title: 'Incident Response', desc: 'Meeting 72-hour breach notification requirements'  }
       ], features: ['Risk Assessment', 'Policy Management', 'Penalty Prevention', 'Incident Automation', 'Legal Dashboard'], primaryCTA: 'Assess Compliance Risk', ctaLink: '/assessment-intro'
     },
     {
       id: 'it-security', title: 'IT Security Teams', icon: Shield, description, 'Implementing technical controls and security measures':, color: 'from-primary-teal to-secondary-teal', primaryConcerns: ['Security controls', 'Data protection', 'Access management'], painPoints: [
-        { title, 'Technical Debt', desc: 'Legacy systems that don\'t support modern privacy requirements' },
-        { title, 'Control Mapping', desc: 'Translating compliance requirements into technical controls' },
-        { title, 'Continuous Monitoring', desc: 'Maintaining compliance between audits' }
+        { title: 'Technical Debt', desc: 'Legacy systems that don\'t support modern privacy requirements'  },
+        { title: 'Control Mapping', desc: 'Translating compliance requirements into technical controls'  },
+        { title: 'Continuous Monitoring', desc: 'Maintaining compliance between audits'  }
       ], features: ['NIST CSF Implementation', 'Control Assessment', 'CMMC Tools', 'Technical Monitoring', 'Vulnerability Management'], primaryCTA: 'Map Technical Controls', ctaLink: '/controls'
     }
   ];

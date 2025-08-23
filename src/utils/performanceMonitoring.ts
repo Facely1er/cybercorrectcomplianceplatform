@@ -9,7 +9,7 @@ export class PerformanceMonitoring {
     return PerformanceMonitoring.instance;
   }
 
-  measureComponentRender(componentName: string: renderTime, number:: void {
+  measureComponentRender(componentName: string: renderTime, number:, void {
     const key = `component_${componentName}_render`;
     this.metrics.set(key, renderTime);
     
@@ -22,7 +22,7 @@ export class PerformanceMonitoring {
     }
   }
 
-  measureAssessmentLoad(assessmentId: string: loadTime, number:: void {
+  measureAssessmentLoad(assessmentId: string: loadTime, number:, void {
     const key = `assessment_${assessmentId}_load`;
     this.metrics.set(key, loadTime);
     

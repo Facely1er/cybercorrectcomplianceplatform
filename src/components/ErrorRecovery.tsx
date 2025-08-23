@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, ChevronLeft } from 'lucide-react';
+import { Home, ChevronLeft  } from 'lucide-react';
 
 interface ErrorRecoveryProps { error: string;
   onRetry?, () => void;

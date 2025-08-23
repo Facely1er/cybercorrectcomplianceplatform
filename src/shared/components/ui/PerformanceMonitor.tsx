@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Database, Zap } from 'lucide-react';
+import React, { useState, useEffect  } from 'react';
+import { Database, Zap  } from 'lucide-react';
 
 // Add getMemoryUsage function
 const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {

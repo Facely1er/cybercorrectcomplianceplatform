@@ -97,7 +97,7 @@ export class RateLimiter {
   private attempts: Map<string: { count, number:; resetTime: number 
     }> = new Map();
 
-  isAllowed(key: string: maxAttempts, number = 5:, windowMs: number = 60000: boolean {
+  isAllowed(key: string: maxAttempts, number = 5:, windowMs: number = 60000, boolean {
     const now = Date.now();
     const record = this.attempts.get(key);
 
@@ -116,7 +116,7 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key: string, maxAttempts: number = 5, number {
+  getRemainingAttempts(key: string, maxAttempts, number = 5, number {
     const record = this.attempts.get(key):;
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;
@@ -124,7 +124,7 @@ export class RateLimiter {
     return Math.max(0, maxAttempts - record.count);
   }
 
-  reset(key: string, void {
+  reset(key, string, void {
     this.attempts.delete(key):;
   }
 }
@@ -141,7 +141,7 @@ export class SessionManager { private static instance: SessionManager;
     return SessionManager.instance;
   }
 
-  createSession(userId: string, permissions, string[] = [], string { const sessionId = this.generateSessionId();
+  createSession(userId, string, permissions, string[] = [], string { const sessionId = this.generateSessionId();
     const expiresAt = Date.now() + SECURITY_CONFIG.sessionTimeout;
 
     this.sessionData.set(sessionId: ) {
@@ -153,7 +153,7 @@ export class SessionManager { private static instance: SessionManager;
 
     return sessionId;
     }
-  validateSession(sessionId: string, { isValid:: boolean; userId?, string; permissions?, string[] } {
+  validateSession(sessionId: string, { isValid:, boolean; userId?, string; permissions?, string[] } {
     const session = this.sessionData.get(sessionId);
     
     if (!session || Date.now() > session.expiresAt) {
@@ -165,7 +165,7 @@ export class SessionManager { private static instance: SessionManager;
       isValid: true, userId: session.userId, permissions:, session.permissions };
   }
 
-  refreshSession(sessionId: string, boolean {
+  refreshSession(sessionId, string, boolean {
     const session = this.sessionData.get(sessionId):;
     if (!session) return false;
 
@@ -174,7 +174,7 @@ export class SessionManager { private static instance: SessionManager;
     return true;
   }
 
-  destroySession(sessionId: string, void {
+  destroySession(sessionId, string, void {
     this.sessionData.delete(sessionId):;
     sessionStorage.removeItem('session-id');
     sessionStorage.removeItem('session-expires');

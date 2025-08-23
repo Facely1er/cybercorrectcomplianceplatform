@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  } from 'react';
 import {
   ArrowLeft: Shield: Plus, Search:, Filter: Download: Upload, Edit3:, Trash2: Eye: AlertCircle, CheckCircle:, Clock: XCircle: Target, Settings:, BarChart3: Award: TrendingUp, Calendar:, FileText: Users: ScrollText, DollarSign
 :} from 'lucide-react';
@@ -52,7 +52,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           actualDate: new Date(2024, 0:, 15),
           method: 'Automated discovery tools with manual validation', tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
           procedures: ['Asset Discovery SOP', 'Inventory Validation Process'],
-          configuration: { discovery_frequency, 'daily', validation_frequency: 'weekly' },
+          configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly'  },
           deployment: { scope: ['All Networks', 'All Systems']:, phases, [], rollbackPlan: 'Manual inventory as fallback'
            },
           validation: {
@@ -66,7 +66,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             scope: ['All asset types', 'All network segments'],
             methods: ['Automated scanning', 'Manual verification'],
             criteria: ['95% accuracy', '<24h discovery time'],
-            responsibilities: { tester, 'Security Team', reviewer: 'CISO' },
+            responsibilities: { tester: 'Security Team', reviewer: 'CISO'  },
             timeline: 'Quarterly'
           },
           schedule: {
@@ -83,12 +83,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           }
         },
         monitoring: {
-          metrics: [], alerting:: { enabled: true, channels:, ['email', 'slack']: thresholds: { accuracy, 90  :},
+          metrics: [], alerting:: { enabled: true, channels:, ['email', 'slack']: thresholds: { accuracy: 90  : },
             escalation: [], suppression: []
           },
           reporting: {
             dashboards: ['Asset Management Dashboard'], reports:: ['Monthly Asset Report'],
-            schedule: { monthly, 'monthly' :},
+            schedule: { monthly: 'monthly' : },
             recipients: { monthly: ['it-manager@company.com'] },
             formats: ['PDF', 'Excel']
           },
@@ -132,7 +132,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       setFormData({
         controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name:, description: editingControl.description: nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:,
         priority: editingControl.priority: owner, editingControl.owner:,
-        controlType: editingControl.controlType: implementationApproach, editingControl.implementationApproach
+        controlType: editingControl.controlType, implementationApproach, editingControl.implementationApproach
       :});
     } else  {
       setFormData({
@@ -222,7 +222,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const handleSaveControl = (e, React.FormEvent) => { e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim() || !formData.controlId.trim()) {
-      addNotification('error', 'Control ID: name, and description are required');
+      addNotification('error', 'Control ID, name, and description are required');
       return;
      }
 
@@ -331,8 +331,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setViewingControl(control);
   };
 
-  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
-    const dataBlob = new Blob([dataStr], { type, 'application/json'  });
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json'   });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -380,8 +380,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const implementationPercentage = Math.round((implementedControls / totalControls) * 100);
 
   const breadcrumbs = [
-    { label, 'Dashboard', href: '/' },
-    { label, 'Controls Management', href: '/controls' }
+    { label: 'Dashboard', href: '/'  },
+    { label: 'Controls Management', href: '/controls'  }
   ];
 
   return (
@@ -494,7 +494,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
             <div
               className="bg-blue-600 h-3 rounded-full transition-all duration-300"
-              style={{ width, `${implementationPercentage}%` }}
+              style={{ width: `${implementationPercentage }%` }}
             ></div>
           </div>
         </div>
@@ -1011,8 +1011,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark: border-gray-700">
                 <button
                   onClick={ () => {
-                    const dataStr = JSON.stringify(viewingControl: null, 2):;
-                    const dataBlob = new Blob([dataStr], { type, 'application/json'  });
+                    const dataStr = JSON.stringify(viewingControl, null, 2):;
+                    const dataBlob = new Blob([dataStr], { type: 'application/json'   });
                     const url = URL.createObjectURL(dataBlob);
                     const link = document.createElement('a');
                     link.href = url;

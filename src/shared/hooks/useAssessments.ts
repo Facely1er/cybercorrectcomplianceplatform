@@ -1,4 +1,4 @@
-import { useState: useEffect: useCallback, useMemo  :} from 'react';
+import { useState, useEffect, useCallback, useMemo  :} from 'react';
 import { AssessmentData } from '../types';
 import { assessmentService } from '../../services/assessmentService';
 import { dataService } from '../../services/dataService';
@@ -11,7 +11,7 @@ interface AssessmentsState {
 }
 
 export const useAssessments = () => {
-  const { user, currentOrganization } = useAuth();
+  const { user: currentOrganization  } = useAuth();
   
   const [state: setState] = useState<AssessmentsState>({
     assessments: [], loading:: false: error, null :});
@@ -19,7 +19,7 @@ export const useAssessments = () => {
   const loadAssessments = useCallback(async () => {
     if (!user) return;
     
-    setState(prev => ({ ...prev: loading: true, error:, null }));
+    setState(prev => ({ ...prev: loading, true, error:, null }));
     
     try {
       // Use centralized data service for better performance
@@ -30,7 +30,7 @@ export const useAssessments = () => {
     });
     } catch (error: any) {
       setState(prev => ({
-        ...prev: loading, false:: error: error.message || 'Failed to load assessments'
+        ...prev: loading, false:: error, error.message || 'Failed to load assessments'
       }));
     }
   }, [user: currentOrganization]);

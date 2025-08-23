@@ -4,7 +4,7 @@ import {
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
-  CategoryScale: LinearScale: PointElement, LineElement:, Title: Tooltip, Legend:: Filler
+  CategoryScale: LinearScale: PointElement, LineElement:, Title: Tooltip, Legend:, Filler
 );
 
 interface LineChartProps { data: {
@@ -50,7 +50,7 @@ export const LineChart: React.FC<LineChartProps> = ({
       duration: 1000, easing:, 'easeInOutQuart' as const } };
 
   return (
-    <div className={`relative ${className}`} style={{ height, `${height}px` }}>
+    <div className={`relative ${className}`} style={{ height: `${height }px` }}>
       <Line data={data } options={options } />
     </div>
   );
