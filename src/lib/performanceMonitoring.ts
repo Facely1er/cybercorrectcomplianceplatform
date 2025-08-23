@@ -4,7 +4,7 @@ import { errorMonitoring } from './errorMonitoring';
 interface PerformanceEntry { name: string;
   startTime: number;
   duration: number;
-  metadata?: Record<string: any>;
+  metadata?: Record<string, any>;
 }
 
 interface VitalMetrics { FCP?: number; // First Contentful Paint

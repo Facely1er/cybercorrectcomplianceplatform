@@ -15,7 +15,7 @@ interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
   onLoadAssessment: (assessment: AssessmentData) => void;
   onDeleteAssessment: (assessmentId: string) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
-  onExportAssessment: (assessment: AssessmentData: format, 'json' | 'csv' | 'pdf') => void;
+  onExportAssessment: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
   onImportAssessment: (file: File) => void;
   userProfile: UserProfile | null;
   addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
