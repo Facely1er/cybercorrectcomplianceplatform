@@ -775,10 +775,10 @@ function AppContent() {
                 onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
                 onDeleteAssessment={deleteAssessment }
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportAssessment={ (assessment: format) => {
+                onExportAssessment={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework: { format  });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
                   } catch {
                     addNotification('error', 'Failed to export assessment');
@@ -883,10 +883,10 @@ function AppContent() {
               <AssessmentReportsPage
                 savedAssessments={savedAssessments }
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportReport={ (assessment: format) => {
+                onExportReport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework: { format  });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
                   } catch {
                     addNotification('error', 'Failed to export report');
