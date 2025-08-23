@@ -74,12 +74,13 @@ const AssessmentWrapper: React.FC<{
   // Validate that the assessment has a valid framework
   try { const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
-        console.error('Framework validation failed:', {
-          frameworkId: assessment.frameworkId,
-          framework: hasFramework, !!framework:,
-                      hasSections: framework?.sections ? true , false:
-          sectionsLength: framework?.sections?.length || 0
-        });
+                  console.error('Framework validation failed:', {
+            frameworkId: assessment.frameworkId,
+            framework,
+            hasFramework: !!framework,
+            hasSections: framework?.sections ? true : false,
+            sectionsLength: framework?.sections?.length || 0
+          });
       
       return (
         <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
