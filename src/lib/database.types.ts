@@ -3,15 +3,12 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json | undefined }
+  | { [key, string]: Json | undefined }
   | Json[]
 
-export interface Database {
-  public: {
-    Tables: {
-      profiles: {
-        Row: {
-          id: string
+export interface Database { public: {
+    Tables, { profiles, { Row: {
+          id, string
           email: string
           name: string
           organization: string
@@ -24,11 +21,10 @@ export interface Database {
           phone_number: string | null
           department: string | null
           manager: string | null
-          created_at: string
+          created_at, string
           updated_at: string }
-        Insert: {
-          id: string
-          email: string
+        Insert: { id: string
+          email, string
           name?: string
           organization?: string
           role?: string
@@ -40,11 +36,10 @@ export interface Database {
           phone_number?: string | null
           department?: string | null
           manager?: string | null
-          created_at?: string
+          created_at?, string
           updated_at?: string }
-        Update: {
-          id?: string
-          email?: string
+        Update: { id?: string
+          email?, string
           name?: string
           organization?: string
           role?: string
@@ -56,12 +51,11 @@ export interface Database {
           phone_number?: string | null
           department?: string | null
           manager?: string | null
-          created_at?: string
+          created_at?, string
           updated_at?: string }
       }
-      assessments: {
-        Row: {
-          id: string
+      assessments: { Row: {
+          id, string
           user_id: string
           framework_id: string
           framework_name: string
@@ -83,11 +77,10 @@ export interface Database {
           business_impact: string | null
           compliance_requirements: string[]
           assessment_version: string
-          created_at: string
+          created_at, string
           updated_at: string }
-        Insert: {
-          id?: string
-          user_id: string
+        Insert: { id?: string
+          user_id, string
           framework_id: string
           framework_name: string
           responses?: Json
@@ -108,11 +101,10 @@ export interface Database {
           business_impact?: string | null
           compliance_requirements?: string[]
           assessment_version?: string
-          created_at?: string
+          created_at?, string
           updated_at?: string }
-        Update: {
-          id?: string
-          user_id?: string
+        Update: { id?: string
+          user_id?, string
           framework_id?: string
           framework_name?: string
           responses?: Json
@@ -133,12 +125,11 @@ export interface Database {
           business_impact?: string | null
           compliance_requirements?: string[]
           assessment_version?: string
-          created_at?: string
+          created_at?, string
           updated_at?: string }
       }
-      assessment_versions: {
-        Row: {
-          id: string
+      assessment_versions: { Row: {
+          id, string
           assessment_id: string
           version_number: string
           version_type: string
@@ -151,11 +142,10 @@ export interface Database {
           approval_status: string
           approved_by: string | null
           approved_at: string | null
-          created_by: string
+          created_by, string
           created_at: string }
-        Insert: {
-          id?: string
-          assessment_id: string
+        Insert: { id?: string
+          assessment_id, string
           version_number: string
           version_type?: string
           description: string
@@ -167,11 +157,10 @@ export interface Database {
           approval_status?: string
           approved_by?: string | null
           approved_at?: string | null
-          created_by: string
+          created_by, string
           created_at?: string }
-        Update: {
-          id?: string
-          assessment_id?: string
+        Update: { id?: string
+          assessment_id?, string
           version_number?: string
           version_type?: string
           description?: string
@@ -183,7 +172,7 @@ export interface Database {
           approval_status?: string
           approved_by?: string | null
           approved_at?: string | null
-          created_by?: string
+          created_by?, string
           created_at?: string }
       }
     }

@@ -9,9 +9,8 @@ let isSupabaseReady = false;
 
 try {
   if (supabaseUrl && supabaseAnonKey) {
-    supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+    supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, { auth, {
+        autoRefreshToken: true, persistSession, true, detectSessionInUrl, true }
     });
     isSupabaseReady = true;
   } else {
@@ -26,22 +25,22 @@ try {
 export { supabase, isSupabaseReady };
 
 // Auth helpers
-export const signUp = async (email: string, password: string, metadata?: any) => {
+export const signUp = async (email: string, password: string, metadata?, any) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Authentication not available in local-only mode') 
+    return { data, null, error: new Error('Authentication not available in local-only mode') 
     };
   }
   
   const { data, error } = await supabase.auth.signUp({
-    email: password, options:) {
+    email, password, options:) {
       data: metadata }
   });
   return { data, error };
 };
 
-export const signIn = async (email: string, password: string) => {
+export const signIn = async (email: string, password, string) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Authentication not available in local-only mode') };
+    return { data, null, error: new Error('Authentication not available in local-only mode') };
   }
   
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -60,7 +59,7 @@ export const signOut = async () => {
 
 export const getCurrentUser = async () => {
   if (!isSupabaseReady || !supabase) {
-    return { user: null, error: null };
+    return { user, null, error: null };
   }
   
   const { data: { user }, error } = await supabase.auth.getUser();
@@ -69,7 +68,7 @@ export const getCurrentUser = async () => {
 
 export const getCurrentSession = async () => {
   if (!isSupabaseReady || !supabase) {
-    return { session: null, error: null };
+    return { session, null, error: null };
   }
   
   const { data: { session }, error } = await supabase.auth.getSession();
@@ -77,9 +76,9 @@ export const getCurrentSession = async () => {
 };
 
 // Profile helpers
-export const getProfile = async (userId: string) => {
+export const getProfile = async (userId, string) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Profile management not available in local-only mode') 
+    return { data, null, error: new Error('Profile management not available in local-only mode') 
     };
   }
   
@@ -91,9 +90,9 @@ export const getProfile = async (userId: string) => {
   return { data, error };
 };
 
-export const updateProfile = async (userId: string, updates: any) => {
+export const updateProfile = async (userId: string, updates, any) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Profile management not available in local-only mode') };
+    return { data, null, error: new Error('Profile management not available in local-only mode') };
   }
   
   const { data, error } = await supabase
@@ -106,9 +105,9 @@ export const updateProfile = async (userId: string, updates: any) => {
 };
 
 // Assessment helpers
-export const getAssessments = async (userId: string) => {
+export const getAssessments = async (userId, string) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: [], error: null 
+    return { data, [], error: null 
     };
   }
   
@@ -120,9 +119,9 @@ export const getAssessments = async (userId: string) => {
   return { data, error };
 };
 
-export const createAssessment = async (assessment: any) => {
+export const createAssessment = async (assessment, any) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Assessment sync not available in local-only mode') };
+    return { data, null, error: new Error('Assessment sync not available in local-only mode') };
   }
   
   const { data, error } = await supabase
@@ -133,9 +132,9 @@ export const createAssessment = async (assessment: any) => {
   return { data, error };
 };
 
-export const updateAssessment = async (assessmentId: string, updates: any) => {
+export const updateAssessment = async (assessmentId: string, updates, any) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Assessment sync not available in local-only mode') };
+    return { data, null, error: new Error('Assessment sync not available in local-only mode') };
   }
   
   const { data, error } = await supabase
@@ -147,7 +146,7 @@ export const updateAssessment = async (assessmentId: string, updates: any) => {
   return { data, error };
 };
 
-export const deleteAssessment = async (assessmentId: string) => {
+export const deleteAssessment = async (assessmentId, string) => {
   if (!isSupabaseReady || !supabase) {
     return { error: null };
   }
@@ -160,9 +159,9 @@ export const deleteAssessment = async (assessmentId: string) => {
 };
 
 // Assessment versions helpers
-export const getAssessmentVersions = async (assessmentId: string) => {
+export const getAssessmentVersions = async (assessmentId, string) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: [], error: null 
+    return { data, [], error: null 
     };
   }
   
@@ -174,9 +173,9 @@ export const getAssessmentVersions = async (assessmentId: string) => {
   return { data, error };
 };
 
-export const createAssessmentVersion = async (version: any) => {
+export const createAssessmentVersion = async (version, any) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Version management not available in local-only mode') };
+    return { data, null, error: new Error('Version management not available in local-only mode') };
   }
   
   const { data, error } = await supabase

@@ -8,11 +8,10 @@ import { reportService } from '../../../services/reportService';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface ReportViewProps {
-  assessment: AssessmentData;
-  framework: Framework;
+interface ReportViewProps { assessment: AssessmentData;
+  framework, Framework;
   onBack: () => void;
-  onExport: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
+  onExport: (assessment, AssessmentData, format, 'json' | 'csv' | 'pdf') => void;
   userProfile: UserProfile | null;
 }
 
@@ -33,8 +32,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
       : 0;
 
     // Section analysis
-    const sectionAnalysis = framework.sections.map((section) => {
-      const sectionQuestions = section.categories.reduce((questions, category) => {
+    const sectionAnalysis = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions: category) => {
         return [...questions, ...category.questions];
       
     }, [] as any[]);
@@ -48,7 +46,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
         : 0;
 
       return {
-        section: section.name, score: sectionScore, questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+        section: section.name, score: sectionScore, questionsAnswered: sectionResponses.length, totalQuestions, sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
 
@@ -63,8 +61,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           ? Math.round((categoryResponses.reduce((sum, value) => sum + value, 0) / categoryResponses.length) * 25)
           : 0;
 
-        return {
-          section: section.name, category: category.name, score: categoryScore, questionsAnswered: categoryResponses.length, totalQuestions: category.questions.length, priority: section.priority 
+        return { section: section.name, category: category.name, score: categoryScore, questionsAnswered: categoryResponses.length, totalQuestions, category.questions.length, priority: section.priority 
     };
       })
     );
@@ -76,7 +73,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
       .slice(0, 10); // Top 10 gaps
 
     // Maturity level determination
-    const getMaturityLevel = (score: number) => {
+    const getMaturityLevel = (score, number) => {
       const level = framework.maturityLevels.find(ml => 
         score >= ml.minScore && score <= ml.maxScore
       ) || framework.maturityLevels[0];
@@ -87,32 +84,30 @@ export const ReportView: React.FC<ReportViewProps> = ({
     const maturityLevel = getMaturityLevel(overallScore);
 
     return {
-      overallScore, maturityLevel: totalQuestions, answeredQuestions: responses.length, completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
+      overallScore, maturityLevel: totalQuestions, answeredQuestions, responses.length, completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
   }, [assessment, framework]);
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 dark:text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
+  const getScoreColor = (score, number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
+    if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-100 dark:bg-green-900/30';
-    if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30';
+  const getScoreBgColor = (score, number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30';
+    if (score >= 60) return 'bg-yellow-100 dark, bg-yellow-900/30';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30';
     return 'bg-red-100 dark:bg-red-900/30';
   };
 
-  const exportReport = (format: 'json' | 'csv' | 'pdf') => {
+  const exportReport = (format, 'json' | 'csv' | 'pdf') => {
     try {
       reportService.exportReport(assessment, framework, {
-        format, sections: ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts: true, branding: {
-          organizationName: assessment.organizationInfo?.name }
+        format, sections: ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts): true, branding,  {
+          organizationName, assessment.organizationInfo?.name }
       });
     } catch (error) {
       console.error('Failed to export report:', error);
-      alert('Failed to export report: ' + (error as Error).message);
+      alert('Failed to export report, ' + (error as Error).message);
     }
   };
 
@@ -130,7 +125,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -231,8 +226,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
         </div>
 
         {/* Organization Information */}
-        {(assessment.organizationInfo || userProfile) && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+        { (assessment.organizationInfo || userProfile) && (
+          <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
               <Building className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
               Organization Information
@@ -305,8 +300,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
               </h4>
               <div className="h-80">
                 <RadarChart 
-                  sectionScores={metrics.sectionAnalysis.map(section => ({
-                    name: section.section, score: section.score }))}
+                  sectionScores={ metrics.sectionAnalysis.map(section => ({
+                    name: section.section, score, section.score }))}
                   className="h-full"
                 />
               </div>
@@ -339,10 +334,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
                     
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                       <div
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                          section.score >= 80 ? 'bg-green-500' :
-                          section.score >= 60 ? 'bg-yellow-500' :
-                          section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'}`}
+                        className={ `h-2 rounded-full transition-all duration-300 ${
+                          section.score >= 80 ? 'bg-green-500' : section.score >= 60 ? 'bg-yellow-500' , section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'}`}
                         style={{ width: `${section.score}%` }}
                       />
                     </div>
@@ -366,7 +359,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           
           <RemediationTimeline 
             gaps={metrics.gaps.map(gap => ({
-              category: gap.category, score: gap.score, priority: gap.priority }))}
+              category: gap.category, score, gap.score, priority, gap.priority }))}
           />
         </div>
 
@@ -410,8 +403,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
                       {category.questionsAnswered }/{category.totalQuestions }
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        category.priority === 'high' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' :
+                      <span className={ `px-2 py-1 rounded-full text-xs font-medium ${
+                        category.priority === 'high' ? 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300' :
                         category.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                         'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'}`}>
                         {category.priority }
@@ -425,8 +418,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
         </div>
 
         {/* Gap Analysis */}
-        {metrics.gaps.length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+        { metrics.gaps.length > 0 && (
+          <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
               <AlertTriangle className="w-6 h-6 mr-3 text-orange-600 dark:text-orange-400" />
               Gap Analysis
@@ -441,7 +434,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                     </h4>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm text-gray-600 dark:text-gray-300">
-                        Current: 
+                        Current, 
                       </span>
                       <span className={`font-bold ${getScoreColor(gap.score)}`}>
                         {gap.score }%
@@ -476,10 +469,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 </div>
                 <div className="flex-1">
                   <p className="text-gray-700 dark:text-gray-300">
-                    Step {step }: {
-                      step === 1 ? 'Review and prioritize identified gaps' :
-                      step === 2 ? 'Develop remediation plans for high-priority items' :
-                      step === 3 ? 'Allocate resources and assign responsibilities' :
+                    Step {step }, { step === 1 ? 'Review and prioritize identified gaps' : step === 2 ? 'Develop remediation plans for high-priority items' , step === 3 ? 'Allocate resources and assign responsibilities' :
                       step === 4 ? 'Implement security improvements and controls' :
                       'Schedule follow-up assessment to measure progress'
                     }
@@ -491,8 +481,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
         </div>
 
         {/* Assessment Notes */}
-        {assessment.questionNotes && Object.keys(assessment.questionNotes).length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+        { assessment.questionNotes && Object.keys(assessment.questionNotes).length > 0 && (
+          <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
               <MessageCircle className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
               Assessment Notes & Comments
@@ -516,7 +506,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                         {question.text }
                       </h4>
                       <div className="text-sm text-gray-600 dark:text-gray-300">
-                        Question ID: {questionId }
+                        Question ID, {questionId }
                       </div>
                     </div>
                     <div className="bg-white dark:bg-gray-700 rounded-lg p-4 border border-blue-200 dark:border-blue-600">

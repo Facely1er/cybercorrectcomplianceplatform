@@ -21,12 +21,12 @@ export const ENV = {
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL || '/api', API_TIMEOUT: parseInt(import.meta.env.VITE_API_TIMEOUT || '30000'), // 30 seconds
   
   // Validation
-  isProduction: import.meta.env.NODE_ENV === 'production', isDevelopment: import.meta.env.NODE_ENV === 'development', isTest: import.meta.env.NODE_ENV === 'test' 
+  isProduction: import.meta.env.NODE_ENV === 'production', isDevelopment, import.meta.env.NODE_ENV === 'development', isTest: import.meta.env.NODE_ENV === 'test' 
     } as const;
 
 // Validate required environment variables
 export const validateEnvironment = () => {
-  const errors: string[] = [];
+  const errors, string[] = [];
   const warnings: string[] = [];
   
   // Critical variables for Supabase

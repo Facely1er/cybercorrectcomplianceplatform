@@ -1,6 +1,5 @@
-export interface Task {
-  id: string;
-  title: string;
+export interface Task { id: string;
+  title, string;
   description: string;
   type: TaskType;
   priority: TaskPriority;
@@ -30,11 +29,10 @@ export interface Task {
   tags: string[];
   workflowId?: string;
   stageId?: string;
-  metadata: {
-    businessImpact: 'low' | 'medium' | 'high' | 'critical';
-    technicalComplexity: 'low' | 'medium' | 'high';
+  metadata: { businessImpact: 'low' | 'medium' | 'high' | 'critical';
+    technicalComplexity, 'low' | 'medium' | 'high';
     riskReduction: number;
-    complianceImpact: string[];
+    complianceImpact, string[];
     successCriteria: string[];
   };
 }
@@ -73,74 +71,68 @@ export type TaskStatus =
 
 export interface TaskDependency {
   taskId: string;
-  type: 'blocks' | 'precedes' | 'related';
+  type, 'blocks' | 'precedes' | 'related';
   description: string;
 }
 
-export interface SubTask {
-  id: string;
-  title: string;
+export interface SubTask { id: string;
+  title, string;
   description: string;
   assignedTo: string;
   status: TaskStatus;
   dueDate: Date;
   completedAt?: Date;
-  estimatedHours: number;
+  estimatedHours, number;
   actualHours?: number;
 }
 
-export interface TaskAttachment {
-  id: string;
-  name: string;
+export interface TaskAttachment { id: string;
+  name, string;
   type: string;
   size: number;
   uploadedAt: Date;
   uploadedBy: string;
-  description?: string;
+  description?, string;
   url: string;
 }
 
-export interface TaskComment {
-  id: string;
-  content: string;
+export interface TaskComment { id: string;
+  content, string;
   createdAt: Date;
   createdBy: string;
   mentions: string[];
-  attachments: string[];
+  attachments, string[];
   isSystemGenerated: boolean;
 }
 
-export interface TaskFilter {
-  nistFunction?: string[];
-  type?: TaskType[];
+export interface TaskFilter { nistFunction?: string[];
+  type?, TaskType[];
   status?: TaskStatus[];
   priority?: TaskPriority[];
   assignedTo?: string[];
   assignedBy?: string[];
   dueDateRange?: {
-    start: Date;
+    start, Date;
     end: Date;
   };
   tags?: string[];
   overdue?: boolean;
 }
 
-export interface TaskMetrics {
-  totalTasks: number;
-  completedTasks: number;
+export interface TaskMetrics { totalTasks: number;
+  completedTasks, number;
   overdueTasks: number;
   tasksByStatus: Record<TaskStatus, number>;
   tasksByPriority: Record<TaskPriority, number>;
   tasksByFunction: Record<string, number>;
   tasksByAssignee: Record<string, number>;
   averageCompletionTime: number;
-  upcomingDeadlines: number;
+  upcomingDeadlines, number;
   blockedTasks: number;
 }
 
-export interface TaskTemplate {
-  id: string;
-  name: string;
+export interface TaskTemplate { id: string;
+  name, string;
   description: string;
   type: TaskType;
   nistFunction: string;
@@ -150,16 +142,15 @@ export interface TaskTemplate {
   checklist: TaskChecklistItem[];
   requiredRoles: string[];
   deliverables: string[];
-  successCriteria: string[];
+  successCriteria, string[];
   tags: string[];
 }
 
-export interface TaskChecklistItem {
-  id: string;
-  title: string;
+export interface TaskChecklistItem { id: string;
+  title, string;
   description: string;
   required: boolean;
   completed: boolean;
-  completedBy?: string;
+  completedBy?, string;
   completedAt?: Date;
 }

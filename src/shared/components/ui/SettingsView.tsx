@@ -31,13 +31,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string, value: any) => {
+  const handleSettingChange = (key: string, value, any) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
   };
 
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message, string) => {
     // This would normally come from props, but we'll implement it locally for now
     console.log(`${type.toUpperCase()}: ${message}`);
   };
@@ -45,7 +45,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const handleExportAllData = () => {
     try {
       const backupData = dataService.createBackup();
-              const dataBlob = new Blob([backupData], { type: 'application/json;charset=utf-8' });
+              const dataBlob = new Blob([backupData], { type, 'application/json;charset=utf-8' });
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
@@ -58,11 +58,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
       addNotification('success', 'Data exported successfully');
     } catch (error) {
       console.error('Export failed:', error);
-      addNotification('error', `Failed to export data: ${(error as Error).message}`);
+      addNotification('error', `Failed to export data, ${(error as Error).message}`);
     }
   };
 
-  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImport = (event, React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -127,7 +127,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
       } catch (error) {
         console.error('Import error:', error);
         setImportStatus('error');
-        addNotification('error', `Failed to import data: ${(error as Error).message}`);
+        addNotification('error', `Failed to import data, ${(error as Error).message}`);
         setTimeout(() => setImportStatus('idle'), 3000);
       }
     };
@@ -170,15 +170,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true, emailNotifications: false, reportFormat: 'detailed' as const, dataRetention: '12' as const, autoBackup: false, backupFrequency: 'weekly' as const };
+      autoSave: true, emailNotifications: false, reportFormat: 'detailed' as const, dataRetention: '12' as const, autoBackup, false, backupFrequency: 'weekly' as const };
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
 
   // Storage usage display
-  const getStorageStatusColor = (percentage: number) => {
-    if (percentage > 80) return 'text-red-600 dark:text-red-400';
-    if (percentage > 60) return 'text-yellow-600 dark:text-yellow-400';
+  const getStorageStatusColor = (percentage, number) => { if (percentage > 80) return 'text-red-600 dark: text-red-400';
+    if (percentage > 60) return 'text-yellow-600 dark, text-yellow-400';
     return 'text-green-600 dark:text-green-400';
   
     };
@@ -219,20 +218,20 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
       <div className="space-y-8">
         {/* Import Status */}
-        {importStatus !== 'idle' && (
+        { importStatus !== 'idle' && (
           <div className={`p-4 rounded-lg flex items-center space-x-3 ${
             importStatus === 'success' 
-              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' 
-              : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
-            {importStatus === 'success' ? (
-              <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
-            ) : (
+              ? 'bg-green-50 dark, bg-green-900/20 border border-green-200 dark: border-green-800' 
+              , 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
+            { importStatus === 'success' ? (
+              <CheckCircle className="w-5 h-5 text-green-600 dark: text-green-400" />
+            ) , (
               <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
             )}
-            <span className={`font-medium ${
+            <span className={ `font-medium ${
               importStatus === 'success' 
-                ? 'text-green-800 dark:text-green-200' 
-                : 'text-red-800 dark:text-red-200'}`}>
+                ? 'text-green-800 dark: text-green-200' 
+                , 'text-red-800 dark:text-red-200'}`}>
               {importStatus === 'success' 
                 ? 'Data imported successfully!' 
                 : 'Import failed. Please check the file format.'
@@ -521,8 +520,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 <p className="text-sm text-red-700 dark:text-red-300 mb-3">
                   Ready to start using real business data? Clear demo assessments and sample data while preserving your settings and configuration.
                 </p>
-                {dataService.isDemoDataLoaded() && (
-                  <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded p-3 mb-3">
+                { dataService.isDemoDataLoaded() && (
+                  <div className="bg-yellow-50 dark: bg-yellow-900/20 border border-yellow-200 dark, border-yellow-800 rounded p-3 mb-3">
                     <div className="flex items-center space-x-2 text-yellow-800 dark:text-yellow-200 text-sm">
                       <Info className="w-4 h-4" />
                       <span className="font-medium">Demo data is currently loaded</span>
@@ -541,7 +540,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                           addNotification('success', 'Demo data cleared successfully. Ready for business use!');
                           setTimeout(() => window.location.reload(), 1500);
                         } catch (error) {
-                          addNotification('error', 'Failed to clear demo data: ' + (error as Error).message);
+                          addNotification('error', 'Failed to clear demo data, ' + (error as Error).message);
                         }
                       }
                     }}
@@ -558,7 +557,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                           addNotification('success', 'Assessment data reset successfully');
                           setTimeout(() => window.location.reload(), 1500);
                         } catch (error) {
-                          addNotification('error', 'Failed to reset assessment data: ' + (error as Error).message);
+                          addNotification('error', 'Failed to reset assessment data, ' + (error as Error).message);
                         }
                       }
                     }}
@@ -586,7 +585,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                           addNotification('success', 'Application reset to factory defaults. Reloading...');
                           setTimeout(() => window.location.reload(), 1500);
                         } catch (error) {
-                          addNotification('error', 'Failed to reset to factory defaults: ' + (error as Error).message);
+                          addNotification('error', 'Failed to reset to factory defaults, ' + (error as Error).message);
                         }
                       }
                     }}
@@ -626,8 +625,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         </div>
 
         {/* Demo Data Management - Prominent Section */}
-        {dataService.isDemoDataLoaded() && (
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl shadow-lg border-2 border-green-200 dark:border-green-800 p-6">
+        { dataService.isDemoDataLoaded() && (
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark: from-green-900/20 dark, to-emerald-900/20 rounded-xl shadow-lg border-2 border-green-200 dark:border-green-800 p-6">
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
                 <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
@@ -668,7 +667,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                     addNotification('success', 'Demo data cleared! You\'re now ready for real business use.');
                     setTimeout(() => window.location.reload(), 1500);
                   } catch (error) {
-                    addNotification('error', 'Failed to clear demo data: ' + (error as Error).message);
+                    addNotification('error', 'Failed to clear demo data, ' + (error as Error).message);
                   }
                 }
               }}

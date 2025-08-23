@@ -1,14 +1,12 @@
-export interface ReportConfig {
-  includeExecutiveSummary: boolean;
-  includeDetailedAnalysis: boolean;
+export interface ReportConfig { includeExecutiveSummary: boolean;
+  includeDetailedAnalysis, boolean;
   includeRecommendations: boolean;
   includeGapAnalysis: boolean;
   includeNextSteps: boolean;
   format: 'pdf' | 'html' | 'docx';
-  branding?: {
-    logo?: string;
+  branding?: { logo?, string;
     colors?: {
-      primary: string;
+      primary, string;
       secondary: string;
     };
     companyName?: string;
@@ -19,17 +17,15 @@ export interface ReportConfig {
   confidentialityLevel?: 'public' | 'internal' | 'confidential' | 'restricted';
 }
 
-export interface ReportSection {
-  id: string;
-  title: string;
+export interface ReportSection { id: string;
+  title, string;
   content: string;
-  order: number;
+  order, number;
   required: boolean;
 }
 
-export interface GapAnalysis {
-  category: string;
-  currentScore: number;
+export interface GapAnalysis { category: string;
+  currentScore, number;
   targetScore: number;
   gap: number;
   priority: 'high' | 'medium' | 'low';
@@ -37,34 +33,30 @@ export interface GapAnalysis {
   estimatedEffort: 'low' | 'medium' | 'high';
   timeframe: string;
   dependencies: string[];
-  riskIfNotAddressed: string;
+  riskIfNotAddressed, string;
   businessImpact: string;
 }
 
-export interface ComparisonData {
-  assessments: any[];
-  metrics: {
+export interface ComparisonData { assessments: any[];
+  metrics, {
     averageScore: number;
     improvementTrend: number;
     gapAnalysis: GapAnalysis[];
-    benchmarkData?: BenchmarkData;
+    benchmarkData?, BenchmarkData;
     riskAnalysis?: RiskAnalysis;
   };
 }
 
-export interface BenchmarkData {
-  industryAverage: number;
+export interface BenchmarkData { industryAverage, number;
   peerComparison: number;
-  bestPractice: number;
+  bestPractice, number;
   percentile: number;
 }
 
-export interface RiskAnalysis {
-  overallRisk: 'low' | 'medium' | 'high' | 'critical';
-  riskFactors: {
-    category: string;
+export interface RiskAnalysis { overallRisk: 'low' | 'medium' | 'high' | 'critical';
+  riskFactors, { category, string;
     risk: 'low' | 'medium' | 'high' | 'critical';
-    impact: string;
+    impact, string;
     mitigation: string;
   }[];
   riskTrend: 'improving' | 'stable' | 'declining';

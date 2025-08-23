@@ -30,7 +30,7 @@ const TextCarousel: React.FC = () => {
           key={currentIndex }
           className="text-center animate-slide-up"
           style={{
-            animation: 'slideUp 0.5s ease-out'
+            animation, 'slideUp 0.5s ease-out'
           }}
         >
           {messages[currentIndex]}
@@ -46,7 +46,7 @@ const TextCarousel: React.FC = () => {
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentIndex 
                 ? 'bg-primary-teal dark:bg-dark-primary' 
-                : 'bg-gray-300 dark:bg-gray-600 hover: bg-gray-400 dark, hover:bg-gray-500'}`}
+                , 'bg-gray-300 dark:bg-gray-600 hover: bg-gray-400 dark, hover:bg-gray-500'}`}
           />
         ))}
       </div>
@@ -58,73 +58,73 @@ export const LandingPage: React.FC = () => {
   // Main compliance paths - Both powered by NIST CSF v2.0
   const compliancePaths = [
     {
-      id: 'privacy-compliance', title: 'Privacy Compliance', subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws | Powered by NIST CSF v2.0', description: 'Comprehensive privacy program management built on NIST CSF v2.0 foundations with automated DPIAs, data mapping, and rights management.', icon: Eye, color: 'from-blue-600 to-cyan-600', assessmentPath: '/privacy-assessment', stats: { value: '72hr', label: 'Breach notification ready' 
+      id: 'privacy-compliance', title: 'Privacy Compliance', subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws | Powered by NIST CSF v2.0', description: 'Comprehensive privacy program management built on NIST CSF v2.0 foundations with automated DPIAs, data mapping, and rights management.', icon: Eye, color: 'from-blue-600 to-cyan-600', assessmentPath: '/privacy-assessment', stats: { value, '72hr', label: 'Breach notification ready' 
     }, industries: ['All Industries', 'Healthcare', 'Financial Services', 'Technology'], framework: 'Built on NIST CSF v2.0 Govern & Protect functions'
     },
     {
-      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database, color: 'from-green-600 to-emerald-600', assessmentPath: '/cmmc-assessment', stats: { value: 'Level 2', label: 'CMMC certification ready' }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
+      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database, color: 'from-green-600 to-emerald-600', assessmentPath: '/cmmc-assessment', stats: { value, 'Level 2', label: 'CMMC certification ready' }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
     }
   ];
 
   const keyFeatures = [
     {
-      icon: Target, title: "Intelligent Assessments", description: "Role-specific assessments across NIST CSF v2.0, Privacy, and CUI that provide actionable insights in 25 minutes or less"
+      icon: Target, title, "Intelligent Assessments", description: "Role-specific assessments across NIST CSF v2.0, Privacy, and CUI that provide actionable insights in 25 minutes or less"
     },
     {
-      icon: FileText, title: "Evidence Collection & Management", description: "Systematic collection and validation of cybersecurity and privacy compliance evidence for audits and assessments"
+      icon: FileText, title, "Evidence Collection & Management", description: "Systematic collection and validation of cybersecurity and privacy compliance evidence for audits and assessments"
     },
     {
-      icon: BarChart3, title: "Real-Time Compliance Status", description: "Live compliance dashboards showing NIST CSF v2.0, Privacy, and CMMC implementation progress and maturity tracking"
+      icon: BarChart3, title, "Real-Time Compliance Status", description: "Live compliance dashboards showing NIST CSF v2.0, Privacy, and CMMC implementation progress and maturity tracking"
     },
     {
-      icon: Calendar, title: "Activity Calendar", description: "Automated scheduling of cybersecurity assessments, privacy reviews, and implementation milestones"
+      icon: Calendar, title, "Activity Calendar", description: "Automated scheduling of cybersecurity assessments, privacy reviews, and implementation milestones"
     },
     {
-      icon: Shield, title: "Asset Management & Scope", description: "Comprehensive inventory and scope management for organizational assets, data flows, and systems"
+      icon: Shield, title, "Asset Management & Scope", description: "Comprehensive inventory and scope management for organizational assets, data flows, and systems"
     },
     {
-      icon: Award, title: "Required Policies & Controls", description: "Essential policies and security controls mapped to NIST CSF v2.0, Privacy laws, and CMMC framework"
+      icon: Award, title, "Required Policies & Controls", description: "Essential policies and security controls mapped to NIST CSF v2.0, Privacy laws, and CMMC framework"
     }
   ];
 
   const nistFunctions = [
-    { name: "Govern (GV)", description: "Establish cybersecurity governance and risk management strategy", color: "blue" },
-    { name: "Identify (ID)", description: "Develop organizational understanding of cybersecurity risk", color: "green" },
-    { name: "Protect (PR)", description: "Implement appropriate safeguards to ensure delivery of services", color: "purple" },
-    { name: "Detect (DE)", description: "Develop and implement activities to identify cybersecurity events", color: "orange" },
-    { name: "Respond (RS)", description: "Develop and implement appropriate response activities", color: "red" },
-    { name: "Recover (RC)", description: "Develop and implement activities for resilience and recovery", color: "indigo" }
+    { name: "Govern (GV)", description, "Establish cybersecurity governance and risk management strategy", color: "blue" },
+    { name: "Identify (ID)", description, "Develop organizational understanding of cybersecurity risk", color: "green" },
+    { name: "Protect (PR)", description, "Implement appropriate safeguards to ensure delivery of services", color: "purple" },
+    { name: "Detect (DE)", description, "Develop and implement activities to identify cybersecurity events", color: "orange" },
+    { name: "Respond (RS)", description, "Develop and implement appropriate response activities", color: "red" },
+    { name: "Recover (RC)", description, "Develop and implement activities for resilience and recovery", color: "indigo" }
   ];
 
   // Enhanced role-based solutions with personas
   const personas = [
     {
       id: 'privacy-officer', title: 'Privacy Officers & DPOs', icon: Eye, description: 'Leading privacy compliance initiatives across global regulations', color: "from-blue-600 to-cyan-600", primaryConcerns: ['GDPR/CCPA compliance', 'Data subject rights', 'Privacy by design'], painPoints: [
-        { title: 'Regulatory Complexity', desc: 'Managing compliance across GDPR, CCPA, HIPAA, and emerging privacy laws' 
+        { title, 'Regulatory Complexity', desc: 'Managing compliance across GDPR, CCPA, HIPAA, and emerging privacy laws' 
     },
-        { title: 'Manual Privacy Operations', desc: 'Time-consuming DPIA creation, consent management: and breach response'  },
-        { title: 'Cross-Border Challenges', desc: 'Navigating different privacy requirements across jurisdictions' }
+        { title: 'Manual Privacy Operations', desc, 'Time-consuming DPIA creation, consent management: and breach response'  },
+        { title, 'Cross-Border Challenges', desc: 'Navigating different privacy requirements across jurisdictions' }
       ], features: ['GDPR/CCPA Compliance', 'DPIA Automation', 'Data Mapping', 'Rights Management', 'Breach Response'], primaryCTA: 'Start Privacy Assessment', ctaLink: '/privacy-assessment'
     },
     {
       id: 'compliance-manager', title: 'Compliance Managers', icon: Scale, description: 'Orchestrating enterprise compliance across multiple frameworks', color: 'from-green-600 to-emerald-600', primaryConcerns: ['Multi-framework alignment', 'Audit readiness', 'Compliance costs'], painPoints: [
-        { title: 'Framework Proliferation', desc: 'Managing SOC 2, ISO 27001, NIST, CMMC, and industry-specific standards' },
-        { title: 'Evidence Fatigue', desc: 'Repeatedly gathering same evidence for different audits' },
-        { title: 'Resource Constraints', desc: 'Limited budget and staff for growing compliance demands' }
+        { title, 'Framework Proliferation', desc: 'Managing SOC 2, ISO 27001, NIST, CMMC, and industry-specific standards' },
+        { title, 'Evidence Fatigue', desc: 'Repeatedly gathering same evidence for different audits' },
+        { title, 'Resource Constraints', desc: 'Limited budget and staff for growing compliance demands' }
       ], features: ['Framework Harmonization', 'Evidence Vault', 'Compliance Dashboard', 'Audit Management', 'Cost Optimization'], primaryCTA: 'Harmonize Frameworks', ctaLink: '/compliance'
     },
     {
       id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase, description: 'Mitigating regulatory and legal risks across the organization', color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
-        { title: 'Penalty Exposure', desc: 'GDPR fines up to 4% of revenue, CCPA penalties of $7: 500 per violation'  },
-        { title: 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices' },
-        { title: 'Incident Response', desc: 'Meeting 72-hour breach notification requirements' }
+        { title: 'Penalty Exposure', desc, 'GDPR fines up to 4% of revenue, CCPA penalties of $7: 500 per violation'  },
+        { title, 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices' },
+        { title, 'Incident Response', desc: 'Meeting 72-hour breach notification requirements' }
       ], features: ['Risk Assessment', 'Policy Management', 'Penalty Prevention', 'Incident Automation', 'Legal Dashboard'], primaryCTA: 'Assess Compliance Risk', ctaLink: '/assessment-intro'
     },
     {
       id: 'it-security', title: 'IT Security Teams', icon: Shield, description: 'Implementing technical controls and security measures', color: 'from-primary-teal to-secondary-teal', primaryConcerns: ['Security controls', 'Data protection', 'Access management'], painPoints: [
-        { title: 'Technical Debt', desc: 'Legacy systems that don\'t support modern privacy requirements' },
-        { title: 'Control Mapping', desc: 'Translating compliance requirements into technical controls' },
-        { title: 'Continuous Monitoring', desc: 'Maintaining compliance between audits' }
+        { title, 'Technical Debt', desc: 'Legacy systems that don\'t support modern privacy requirements' },
+        { title, 'Control Mapping', desc: 'Translating compliance requirements into technical controls' },
+        { title, 'Continuous Monitoring', desc: 'Maintaining compliance between audits' }
       ], features: ['NIST CSF Implementation', 'Control Assessment', 'CMMC Tools', 'Technical Monitoring', 'Vulnerability Management'], primaryCTA: 'Map Technical Controls', ctaLink: '/controls'
     }
   ];
@@ -185,7 +185,7 @@ export const LandingPage: React.FC = () => {
               
               <Link
                 to="/dashboard"
-                className="border-2 border-primary-teal text-primary-teal dark:text-dark-primary px-8 py-4 rounded-xl font-semibold text-lg hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 transition-all duration-300 hover,scale-105 flex items-center justify-center space-x-3"
+                className="border-2 border-primary-teal text-primary-teal dark:text-dark-primary px-8 py-4 rounded-xl font-semibold text-lg hover: bg-primary-teal/10 dark, hover, bg-dark-primary/20 transition-all duration-300 hover,scale-105 flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-6 h-6" />
                 <span>View Dashboard</span>

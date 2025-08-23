@@ -1,17 +1,16 @@
 import React from 'react';
 import { Loader2} from 'lucide-react';
 
-interface LoadingSpinnerProps {
-  size?: 'sm' | 'md' | 'lg';
+interface LoadingSpinnerProps { size?, 'sm' | 'md' | 'lg';
   text?: string;
-  fullScreen?: boolean;
+  fullScreen?, boolean;
   className?: string;
 }
 
-export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 'md': text, fullScreen = false: className = '' 
+export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 'md', text, fullScreen = false, className = '' 
  }) => {
   const sizeClasses = {
-    sm: 'w-4 h-4', md: 'w-8 h-8', lg: 'w-12 h-12'
+    sm: 'w-4 h-4', md, 'w-8 h-8', lg: 'w-12 h-12'
   };
 
   const Spinner = () => (
@@ -25,10 +24,9 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 'md': tex
     </div>
   );
 
-  if (fullScreen) {
-    return (
-      <div className="fixed inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm flex items-center justify-center z-50">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
+  if (fullScreen) { return (
+      <div className="fixed inset-0 bg-white/80 dark: bg-gray-900/80 backdrop-blur-sm flex items-center justify-center z-50">
+        <div className="bg-white dark, bg-gray-800 rounded-xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700">
           <Spinner />
         </div>
       </div>

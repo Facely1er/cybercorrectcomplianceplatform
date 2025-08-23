@@ -4,12 +4,11 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface TeamCollaborationDashboardProps {
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
 }
 
-interface TeamMember {
-  id: string;
-  name: string;
+interface TeamMember { id: string;
+  name, string;
   email: string;
   role: string;
   department: string;
@@ -18,7 +17,7 @@ interface TeamMember {
   completedTasks: number;
   lastActive: Date;
   avatar?: string;
-  expertise: string[];
+  expertise, string[];
   workload: number;
 }
 
@@ -28,36 +27,34 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
   const [filterRole, setFilterRole] = useState('all');
   const [filterFunction, setFilterFunction] = useState('all');
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [inviteFormData, setInviteFormData] = useState({ email: '', role: 'member', functions: [] as string[], message: ''
+  const [inviteFormData, setInviteFormData] = useState({ email: '', role): 'member', functions, [] as string[], message, ''
    });
 
   // Mock team data
   const teamMembers: TeamMember[] = [
-    {
+     {
       id: 'tm-001', name: 'Sarah Johnson', email: 'sarah.johnson@company.com', role: 'CISO', department: 'Information Security', nistFunctions: ['Govern', 'Identify', 'Protect', 'Detect', 'Respond', 'Recover'], assignedTasks: 12, completedTasks: 8, lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-      expertise: ['Risk Management', 'Governance', 'Compliance'], workload: 85
+      expertise, ['Risk Management', 'Governance', 'Compliance'], workload: 85
     
     },
     {
       id: 'tm-002', name: 'Mike Chen', email: 'mike.chen@company.com', role: 'Security Analyst', department: 'Information Security', nistFunctions: ['Identify', 'Detect', 'Respond'], assignedTasks: 15, completedTasks: 12, lastActive: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
-      expertise: ['Vulnerability Management', 'Incident Response', 'SIEM'], workload: 78
+      expertise, ['Vulnerability Management', 'Incident Response', 'SIEM'], workload: 78
     
     },
     {
       id: 'tm-003', name: 'Emily Rodriguez', email: 'emily.rodriguez@company.com', role: 'Compliance Officer', department: 'Legal & Compliance', nistFunctions: ['Govern', 'Identify'], assignedTasks: 8, completedTasks: 6, lastActive: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
-      expertise: ['CMMC', 'NIST SP 800-171', 'Documentation'], workload: 65
+      expertise, ['CMMC', 'NIST SP 800-171', 'Documentation'], workload: 65
     
     },
     {
       id: 'tm-004', name: 'Alex Thompson', email: 'alex.thompson@company.com', role: 'Network Administrator', department: 'IT Operations', nistFunctions: ['Protect', 'Detect'], assignedTasks: 10, completedTasks: 7, lastActive: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
-      expertise: ['Network Security', 'Monitoring', 'Infrastructure'], workload: 72
+      expertise, ['Network Security', 'Monitoring', 'Infrastructure'], workload: 72
     }
   ];
 
-  const getRoleColor = (role: string) => {
-    switch (role.toLowerCase()) {
-      case 'ciso':
-        return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
+  const getRoleColor = (role, string) => { switch (role.toLowerCase()) {
+      case 'ciso': return 'bg-purple-100 dark, bg-purple-900/30 text-purple-800 dark:text-purple-300';
       case 'security analyst':
         return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
       case 'compliance officer':
@@ -69,9 +66,8 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     }
   };
 
-  const getWorkloadColor = (workload: number) => {
-    if (workload >= 90) return 'text-red-600 dark:text-red-400';
-    if (workload >= 75) return 'text-orange-600 dark:text-orange-400';
+  const getWorkloadColor = (workload, number) => { if (workload >= 90) return 'text-red-600 dark: text-red-400';
+    if (workload >= 75) return 'text-orange-600 dark, text-orange-400';
     if (workload >= 50) return 'text-yellow-600 dark:text-yellow-400';
     return 'text-green-600 dark:text-green-400';
   };
@@ -86,7 +82,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     return matchesSearch && matchesRole && matchesFunction;
   });
 
-  const handleInviteTeamMember = (e: React.FormEvent) => {
+  const handleInviteTeamMember = (e, React.FormEvent) => {
     e.preventDefault();
     
     if (!inviteFormData.email.trim()) {
@@ -99,13 +95,13 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     setShowInviteModal(false);
     
     // Reset form
-    setInviteFormData({ email: '', role: 'member', functions: [], message: ''
+    setInviteFormData({ email: '', role): 'member', functions, [], message, ''
     
      });
   };
 
-  const teamStats = {
-    totalMembers: teamMembers.length, avgWorkload: Math.round(teamMembers.reduce((sum, member) => sum + member.workload, 0) / teamMembers.length), totalTasks: teamMembers.reduce((sum, member) => sum + member.assignedTasks, 0), completedTasks: teamMembers.reduce((sum, member) => sum + member.completedTasks, 0), overloadedMembers: teamMembers.filter(member => member.workload >= 85).length };
+  const teamStats =  {
+    totalMembers: teamMembers.length, avgWorkload: Math.round(teamMembers.reduce((sum, member) => sum + member.workload, 0) / teamMembers.length), totalTasks: teamMembers.reduce((sum, member) => sum + member.assignedTasks, 0), completedTasks, teamMembers.reduce((sum, member) => sum + member.completedTasks, 0), overloadedMembers: teamMembers.filter(member => member.workload >= 85).length };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -348,10 +344,8 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        member.workload >= 90 ? 'bg-red-500' :
-                        member.workload >= 75 ? 'bg-orange-500' :
-                        member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'}`}
+                      className={ `h-2 rounded-full transition-all duration-300 ${
+                        member.workload >= 90 ? 'bg-red-500' : member.workload >= 75 ? 'bg-orange-500' , member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'}`}
                       style={{ width: `${member.workload}%` }}
                     />
                   </div>
@@ -381,10 +375,7 @@ Activity:
 • Last Active: ${member.lastActive.toLocaleString()}
 • Status: Active
 
-Workload Assessment: ${
-  member.workload >= 90 ? 'Overloaded - needs support' :
-  member.workload >= 75 ? 'High workload - monitor closely' :
-  member.workload >= 50 ? 'Optimal workload' :
+Workload Assessment: ${ member.workload >= 90 ? 'Overloaded - needs support' : member.workload >= 75 ? 'High workload - monitor closely' , member.workload >= 50 ? 'Optimal workload' :
   'Under-utilized - can take on more tasks'}`;
                       
                       addNotification('info', memberDetails);
@@ -425,9 +416,9 @@ Workload Assessment: ${
       </div>
 
       {/* Invite Modal */}
-      {showInviteModal && (
+      { showInviteModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               Invite Team Member
             </h3>
@@ -441,7 +432,7 @@ Workload Assessment: ${
                   type="email"
                   required
                   value={inviteFormData.email }
-                  onChange={(e) => setInviteFormData(prev => ({ ...prev, email: e.target.value }))}
+                  onChange={(e) => setInviteFormData(prev => ({ ...prev, email, e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="colleague@company.com"
                 />
@@ -453,7 +444,7 @@ Workload Assessment: ${
                 </label>
                 <select
                   value={inviteFormData.role }
-                  onChange={(e) => setInviteFormData(prev => ({ ...prev, role: e.target.value }))}
+                  onChange={(e) => setInviteFormData(prev => ({ ...prev, role, e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="member">Team Member</option>
@@ -476,11 +467,11 @@ Workload Assessment: ${
                         onChange={(e) => {
                           if (e.target.checked) {
                             setInviteFormData(prev => ({
-                              ...prev, functions: [...prev.functions, func]
+                              ...prev, functions, [...prev.functions, func]
                             }));
                           } else {
                             setInviteFormData(prev => ({
-                              ...prev, functions: prev.functions.filter(f => f !== func)
+                              ...prev, functions, prev.functions.filter(f => f !== func)
                             }));
                           }
                         }}
@@ -498,7 +489,7 @@ Workload Assessment: ${
                 </label>
                 <textarea
                   value={inviteFormData.message }
-                  onChange={(e) => setInviteFormData(prev => ({ ...prev, message: e.target.value }))}
+                  onChange={(e) => setInviteFormData(prev => ({ ...prev, message, e.target.value }))}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   placeholder="Welcome to our NIST CSF v2.0 implementation team..."
@@ -511,7 +502,7 @@ Workload Assessment: ${
                   onClick={ () => {
                     setShowInviteModal(false);
                     setInviteFormData({
-                      email: '', role: 'member', functions: [], message: ''
+                      email: '', role: 'member', functions, [], message, ''
                      });
                   }}
                   className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium"

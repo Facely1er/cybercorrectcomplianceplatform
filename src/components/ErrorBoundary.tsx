@@ -3,17 +3,15 @@ import { Home, Bug } from 'lucide-react';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
 
-interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
-      onError?: (error: Error, errorInfo: ErrorInfo) => void;
+interface Props { children: ReactNode;
+  fallback?, ReactNode;
+      onError?: (error, Error, errorInfo, ErrorInfo) => void;
   showErrorDetails?: boolean;
 }
 
-interface State {
-  hasError: boolean;
+interface State { hasError, boolean;
       error?: Error;
-  errorInfo?: ErrorInfo;
+  errorInfo?, ErrorInfo;
   errorId?: string;
 }
 
@@ -24,28 +22,26 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error, Error) {
-    return { hasError, true: error, errorId: Date.now().toString()
+    return { hasError, true, error, errorId: Date.now().toString()
     };
   }
 
   componentDidCatch(error: Error, errorInfo, ErrorInfo) { // Log error details
-    console.error('Error caught by boundary:': error, errorInfo);
+          console.error('Error caught by boundary:', error, errorInfo);
     
-    this.setState({
-      error: errorInfo 
-     });
+    this.setState({ error, error, errorInfo, errorInfo });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
       extra: errorInfo, 
-      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
-      level: 'error'
+      tags: { type, 'reactError', boundary): 'ErrorBoundary' },
+      level, 'error'
     });
 
     // Call custom error handler if provided
     this.props.onError?.(error, errorInfo);
     }
-  private handleReload = () => {
+  private handleReload = () =>  {
     window.location.reload();
   };
 
@@ -54,19 +50,18 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null });
+    this.setState({ hasError: false, error, null, errorInfo, null });
   };
 
-  private handleReportError = () => {
-    const errorReport = {
-      error: {
-        message: this.state.error?.message, stack: this.state.error?.stack, name: this.state.error?.name }, context: { url: window.location.href, userAgent: navigator.userAgent, timestamp: new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
+  private handleReportError = () => { const errorReport = {
+      error, {
+        message: this.state.error?.message, stack, this.state.error?.stack, name: this.state.error?.name }, context: { url: window.location.href, userAgent: navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
-    if (navigator.clipboard) { navigator.clipboard.writeText(JSON.stringify(errorReport: null, 2))
+    if (navigator.clipboard) { navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
         .then(() => alert('Error details copied to clipboard'))
-        .catch(() => console.log('Error details:': errorReport));
+        .catch(() => console.log('Error details:', errorReport));
     
      } else {
       console.log('Error details:', errorReport);
@@ -95,9 +90,9 @@ export class ErrorBoundary extends Component<Props, State> {
               We're sorry, but something unexpected happened. Our team has been notified and is working on a fix.
             </p>
 
-            {this.props.showErrorDetails && ENV.isDevelopment && this.state.error && (
-              <details className="mb-6 text-left bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-                <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            { this.props.showErrorDetails && ENV.isDevelopment && this.state.error && (
+              <details className="mb-6 text-left bg-gray-100 dark: bg-gray-700 rounded-lg p-4">
+                <summary className="cursor-pointer text-sm font-medium text-gray-700 dark, text-gray-300 mb-2">
                   Error Details (Development Mode)
                 </summary>
                 <div className="text-xs font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-40 bg-gray-50 dark:bg-gray-800 p-3 rounded border">
@@ -169,12 +164,12 @@ export class ErrorBoundary extends Component<Props, State> {
             
             {this.state.errorId && (
               <p className="text-xs text-gray-500 dark,text-gray-400 mt-6">
-                Error ID: {this.state.errorId }
+                Error ID, {this.state.errorId }
               </p>
             )}
 
-            {ENV.isProduction && (
-              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+            { ENV.isProduction && (
+              <div className="mt-6 p-4 bg-blue-50 dark: bg-blue-900/20 rounded-lg border border-blue-200 dark, border-blue-800">
                 <p className="text-sm text-blue-800 dark:text-blue-200">
                   Our monitoring systems have been automatically notified. 
                   If this issue persists, please contact support with the Error ID above.
@@ -192,9 +187,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping routes with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error, errorInfo: ErrorInfo) => void
+  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error, errorInfo, ErrorInfo) => void
 ) => {
-  const WrappedComponent = (props: P) => (
+  const WrappedComponent = (props, P) => (
     <ErrorBoundary 
       fallback={errorFallback
     }

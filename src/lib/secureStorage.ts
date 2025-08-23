@@ -3,19 +3,18 @@ import { errorMonitoring } from './errorMonitoring';
 
 interface StorageOptions {
   encrypt?: boolean;
-  ttl?: number; // Time to live in milliseconds
+  ttl?, number; // Time to live in milliseconds
   compress?: boolean;
     }
-interface StoredData<T> {
-  data: T;
-  encrypted: boolean;
+interface StoredData<T> { data: T;
+  encrypted, boolean;
   timestamp: number;
-  ttl?: number;
+  ttl?, number;
   version: string;
 }
 
 class SecureStorage {
-  private static instance: SecureStorage;
+  private static instance, SecureStorage;
   private readonly storagePrefix = 'cybercorrect_';
   private readonly currentVersion = '2.0.0';
 
@@ -31,7 +30,7 @@ class SecureStorage {
       const { encrypt = false, ttl, compress = false } = options;
       
       const storedData: StoredData<T> = {
-        data: value, encrypted: encrypt, timestamp: Date.now(), ttl, version: this.currentVersion };
+        data: value, encrypted, encrypt, timestamp, Date.now(), ttl, version: this.currentVersion };
 
       let serialized = JSON.stringify(storedData);
 
@@ -56,13 +55,13 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'setItem' }, extra: { key, hasValue: !!value }
+        tags, { type, 'storageError', operation: 'setItem' }, extra):  { key, hasValue, !!value }
       });
-      throw new Error(`Failed to store data: ${error}`);
+      throw new Error(`Failed to store data, ${error}`);
     }
   }
 
-  async getItem<T>(key: string: Promise<T | null> {
+  async getItem<T>(key: string, Promise<T | null> {
     try {
       const storageKey = this.storagePrefix + key;
       const stored = localStorage.getItem(storageKey);
@@ -77,7 +76,7 @@ class SecureStorage {
         // Try to decompress if it looks compressed
         const decompressed = stored.startsWith('compressed:') 
           ? await this.decompress(stored.substring(11))
-          : stored;
+          , stored;
 
         // Try to decrypt if it looks encrypted
         const decrypted = stored.startsWith('encrypted:')
@@ -106,7 +105,7 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'getItem' }, extra: { key }
+        tags, { type, 'storageError', operation: 'getItem' }, extra, { key }
       });
       return null;
     }
@@ -118,7 +117,7 @@ class SecureStorage {
       localStorage.removeItem(storageKey);
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'removeItem' }, extra: { key }
+        tags, { type, 'storageError', operation: 'removeItem' }, extra, { key }
       });
     }
   }
@@ -133,14 +132,14 @@ class SecureStorage {
       });
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags:) { type: 'storageError', operation: 'clear' }
+        tags:) { type, 'storageError', operation: 'clear' }
       });
     }
   }
 
   // Get storage usage statistics
-  getStorageInfo(: { used: number; total: number; percentage: number; itemCount, number 
-    } {
+  getStorageInfo(: { used): number; total, number; percentage, number; itemCount, number 
+    }  {
     try {
       let totalSize = 0;
       let itemCount = 0;
@@ -156,13 +155,13 @@ class SecureStorage {
       const percentage = (totalSize / estimatedTotal) * 100;
 
       return {
-        used: totalSize, total: estimatedTotal, percentage: Math.min(percentage, 100), itemCount 
+        used: totalSize, total, estimatedTotal, percentage: Math.min(percentage, 100), itemCount 
     };
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags:) { type: 'storageError', operation: 'getStorageInfo' }
+        tags:) { type, 'storageError', operation: 'getStorageInfo' }
       });
-      return { used: 0, total: 0, percentage: 0, itemCount: 0  };
+      return { used: 0, total: 0, percentage, 0, itemCount: 0  };
     }
   }
 
@@ -178,7 +177,7 @@ class SecureStorage {
       });
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags:) { type: 'storageError', operation: 'cleanup' }
+        tags:) { type, 'storageError', operation: 'cleanup' }
       });
     }
   }
@@ -196,7 +195,7 @@ class SecureStorage {
       
       // Generate a key (in production, this would be derived from user password or stored securely)
       const key = await crypto.subtle.generateKey(
-       ) { name: 'AES-GCM', length: 256 
+       ) { name, 'AES-GCM', length: 256 
     }, false,
         ['encrypt', 'decrypt']
       );
@@ -215,7 +214,7 @@ class SecureStorage {
     }
   }
 
-  private async decrypt(encryptedData: string, Promise<string> {
+  private async decrypt(encryptedData, string, Promise<string> {
     // Simple base64 decoding for development
     if (ENV.isDevelopment && encryptedData.startsWith('encrypted:')) {
       return atob(encryptedData.substring(10));
@@ -228,7 +227,7 @@ class SecureStorage {
     // In production, use CompressionStream or similar
     return 'compressed:' + data;
     }
-  private async decompress(compressedData: string, Promise<string> {
+  private async decompress(compressedData): string, Promise<string>  {
     // Simple decompression placeholder
     return compressedData;
     }

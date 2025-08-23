@@ -1,19 +1,18 @@
 import React from 'react';
 ;
 
-interface EmptyStateProps {
-  title: string;
-  description: string;
+interface EmptyStateProps { title: string;
+  description, string;
   action?: {
     label: string;
-    onClick: () => void;
+    onClick, () => void;
     variant?: 'primary' | 'secondary';
   };
   icon?: React.ComponentType<any>;
   className?: string;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ title, description: action, icon: Icon = AlertTriangle: className = ''
+export const EmptyState: React.FC<EmptyStateProps> = ({ title, description: action, icon, Icon = AlertTriangle, className = ''
  }) => {
   return (
     <div className={`text-center py-12 ${className}`}>
@@ -27,9 +26,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ title, description: acti
       {action && (
         <button
           onClick={action.onClick }
-          className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+          className={ `px-6 py-3 rounded-lg font-medium transition-colors ${
             action.variant === 'secondary'
-              ? 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover: bg-gray-50 dark, hover: bg-gray-700'
+              ? 'border border-gray-300 dark, border-gray-600 text-gray-700 dark: text-gray-300 hover, bg-gray-50 dark, hover, bg-gray-700'
               , 'bg-blue-600 text-white hover:bg-blue-700'}`}
         >
           {action.label }
@@ -41,7 +40,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ title, description: acti
 
 interface ErrorStateProps {
   error: string;
-  onRetry?: () => void;
+  onRetry?, () => void;
   className?: string;
 }
 
@@ -72,7 +71,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
 
 interface LoadingTableProps {
   rows?: number;
-  columns?: number;
+  columns?, number;
   className?: string;
 }
 
@@ -83,16 +82,16 @@ export const LoadingTable: React.FC<LoadingTableProps> = ({
     <div className={`animate-pulse ${className}`}>
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg">
         {/* Header */}
-        <div className="grid gap-4 p-4 border-b border-gray-200 dark:border-gray-600" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
-          {Array.from({ length: columns }).map((_, index) => (
+        <div className="grid gap-4 p-4 border-b border-gray-200 dark:border-gray-600" style={{ gridTemplateColumns, `repeat(${columns}, 1fr)` }}>
+          {Array.from({ length, columns }).map((_, index) => (
             <div key={index } className="h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
           ))}
         </div>
         
         {/* Rows */}
-        {Array.from({ length: rows }).map((_, rowIndex) => (
-          <div key={rowIndex } className="grid gap-4 p-4 border-b border-gray-100 dark:border-gray-600" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
-            {Array.from({ length: columns }).map((_, colIndex) => (
+        {Array.from({ length, rows }).map((_, rowIndex) => (
+          <div key={rowIndex } className="grid gap-4 p-4 border-b border-gray-100 dark:border-gray-600" style={{ gridTemplateColumns, `repeat(${columns}, 1fr)` }}>
+            {Array.from({ length, columns }).map((_, colIndex) => (
               <div key={colIndex } className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
             ))}
           </div>
@@ -103,7 +102,7 @@ export const LoadingTable: React.FC<LoadingTableProps> = ({
 };
 
 interface LoadingCardProps {
-  count?: number;
+  count?, number;
   className?: string;
 }
 
@@ -112,7 +111,7 @@ export const LoadingCard: React.FC<LoadingCardProps> = ({
 }) => {
   return (
     <div className={`grid gap-6 ${className}`}>
-      {Array.from({ length: count }).map((_, index) => (
+      {Array.from({ length, count }).map((_, index) => (
         <div key={index } className="animate-pulse bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-start space-x-4">
             <div className="w-12 h-12 bg-gray-300 dark:bg-gray-600 rounded-lg"></div>

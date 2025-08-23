@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Asset, AssetInventoryFilter } from '../../../shared/types/assets';
 
-export const useAssetFilters = (assets: Asset[], filters: AssetInventoryFilter) => {
+export const useAssetFilters = (assets: Asset[], filters, AssetInventoryFilter) => {
   const filteredAssets = useMemo(() => {
     return assets.filter((asset) => {
       // Category filter
@@ -52,8 +52,7 @@ export const useAssetFilters = (assets: Asset[], filters: AssetInventoryFilter) 
     });
   }, [assets, filters]);
 
-  const assetMetrics = useMemo(() => {
-    return {
+  const assetMetrics = useMemo(() => { return {
       total: filteredAssets.length, byCategory: filteredAssets.reduce((acc, asset) => {
         acc[asset.category] = (acc[asset.category] || 0) + 1;
         return acc;

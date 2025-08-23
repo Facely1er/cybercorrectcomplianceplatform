@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft: Construction, Clock: ArrowRight  } from 'lucide-react';
+import { ChevronLeft, Construction, Clock, ArrowRight  } from 'lucide-react';
 
-interface ComingSoonProps {
-  title?: string;
-  description?: string;
+interface ComingSoonProps { title?: string;
+  description?, string;
   backPath?: string;
   backLabel?: string;
-  expectedCompletion?: string;
+  expectedCompletion?, string;
   features?: string[];
 }
 
@@ -18,11 +17,10 @@ export const ComingSoon: React.FC<ComingSoonProps> = ({
   backLabel = 'Back to Dashboard',
   expectedCompletion = 'Q2 2024',
   features = []
-}) => {
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4">
+}) => { return (
+    <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 text-center">
+        <div className="bg-white dark, bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 text-center">
           {/* Icon */}
           <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-full">
             <Construction className="w-10 h-10 text-blue-600 dark:text-blue-400" />
