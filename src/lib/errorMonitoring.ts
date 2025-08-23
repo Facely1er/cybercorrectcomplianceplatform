@@ -1,23 +1,23 @@
 import { ENV } from '../config/environment';
 
 interface ErrorContext {
-  user?: { id, string; email: string };
+  user?: { id: string; email: string };
   url?: string;
   userAgent?: string;
   timestamp?: Date;
-  extra?: Record<string, any>;
-  tags?: Record<string, string>;
+  extra?: Record<string: any>;
+  tags?: Record<string: string>;
   level?: 'error' | 'warning' | 'info' | 'debug';
 }
 
-interface ErrorDetails { message, string;
+interface ErrorDetails { message: string;
   stack?: string;
   name?, string;
   cause?: any;
 }
 
 class ErrorMonitoring {
-  private static instance, ErrorMonitoring;
+  private static instance: ErrorMonitoring;
   private isInitialized = false;
 
   static getInstance(): ErrorMonitoring {
@@ -57,7 +57,7 @@ class ErrorMonitoring {
       this.captureException(event.error || new Error(event.message), {
         tags, { type: 'globalError' 
     }, level: 'error', extra: {
-          filename: event.filename, lineno, event.lineno, colno: event.colno }
+          filename: event.filename, lineno, event.lineno: colno, event.colno }
       });
     });
   }
@@ -65,9 +65,9 @@ class ErrorMonitoring {
   captureException(error, Error | string, context, ErrorContext = {}) {
     const errorDetails, ErrorDetails = typeof error === 'string' 
       ? { message: error }
-      : { message: error.message, stack: error.stack, name, error.name, cause: error.cause  };
+      : { message: error.message: stack, error.stack, name, error.name: cause, error.cause  };
 
-    const enhancedContext: ErrorContext = { ...context, url: window.location.href, userAgent: navigator.userAgent, timestamp, new Date(), level: context.level || 'error'
+    const enhancedContext: ErrorContext = { ...context: url, window.location.href: userAgent, navigator.userAgent, timestamp, new Date(), level: context.level || 'error'
     };
 
     // Log to console in development
@@ -79,10 +79,10 @@ class ErrorMonitoring {
     }
     // Send to monitoring service in production
     if (ENV.isProduction) {
-      this.sendToMonitoringService(errorDetails, enhancedContext);
+      this.sendToMonitoringService(errorDetails: enhancedContext);
     }
     // Store in localStorage for debugging
-    this.storeErrorLocally(errorDetails, enhancedContext);
+    this.storeErrorLocally(errorDetails: enhancedContext);
     }
   captureMessage(message: string, level, 'error' | 'warning' | 'info' | 'debug' = 'info', context, ErrorContext = {}) { this.captureException(message: { ...context, level });
   }
@@ -115,7 +115,7 @@ class ErrorMonitoring {
     }
   }
 
-  getStoredErrors(: Array<{ error, ErrorDetails; context, ErrorContext }> {
+  getStoredErrors(: Array<{ error: ErrorDetails; context, ErrorContext }> {
     try {
       return JSON.parse(localStorage.getItem('error-logs') || '[]');
     } catch {

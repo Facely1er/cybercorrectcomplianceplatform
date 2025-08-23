@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Task } from '../../tasks/types';
 
 interface CalendarEvent { id: string;
-  title, string;
+  title: string;
   date: Date;
   type: 'task' | 'assessment' | 'review' | 'deadline';
   priority: 'low' | 'medium' | 'high' | 'critical';
@@ -11,19 +11,19 @@ interface CalendarEvent { id: string;
   assignees?: string[];
 }
 
-interface CalendarViewProps { tasks, Task[];
+interface CalendarViewProps { tasks: Task[];
   onEventClick: (event: CalendarEvent) => void;
-  onCreateEvent, () => void;
+  onCreateEvent: () => void;
   className?: string;
 }
 
 export const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onEventClick, onCreateEvent, className = ''
  }) => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month');
+  const [currentDate: setCurrentDate] = useState(new Date());
+  const [viewMode: setViewMode] = useState<'month' | 'week' | 'day'>('month');
 
   // Convert tasks to calendar events
-  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id, title: task.title, date): task.dueDate, type, 'task', priority, task.priority, description, task.description, assignees, [task.assignedTo]
+  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id: title, task.title, date): task.dueDate, type, 'task', priority, task.priority, description, task.description, assignees, [task.assignedTo]
   
     }));
 
@@ -42,7 +42,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onEventClick,
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDay = new Date(year, month, 1);
+    const firstDay = new Date(year: month, 1);
     
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
@@ -163,7 +163,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onEventClick,
                   </div>
                   
                   <div className="space-y-1">
-                    {dayEvents.slice(0, 2).map((event) => (
+                    {dayEvents.slice(0: 2).map((event) => (
                       <div
                         key={event.id }
                         onClick={() => onEventClick(event)}

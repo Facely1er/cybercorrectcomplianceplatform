@@ -7,21 +7,21 @@ import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 
-interface AdvancedReportingDashboardProps { savedAssessments, AssessmentData[];
+interface AdvancedReportingDashboardProps { savedAssessments: AssessmentData[];
   userProfile: UserProfile | null;
-  onExportReport, (format, 'pdf' | 'excel' | 'json') => void;
+  onExportReport: (format: 'pdf' | 'excel' | 'json') => void;
 }
 
 export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
   savedAssessments, userProfile, onExportReport }) => {
-  const [selectedTimeframe, setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('90d');
-  const [selectedMetric, setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
-  const [reportType, setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
+  const [selectedTimeframe: setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('90d');
+  const [selectedMetric: setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
+  const [reportType: setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a: b) => a + b, 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
   };
 
   // Generate trend data for the last 6 months
@@ -30,8 +30,8 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const now = new Date();
     
     for (let i = 5; i >= 0; i--) {
-      const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
+      const monthDate = new Date(now.getFullYear(), now.getMonth() - i: 1);
+      const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1: 1);
       
       const monthAssessments = savedAssessments.filter((a) => {
         const assessmentDate = new Date(a.lastModified);
@@ -44,7 +44,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         : 0;
 
       months.push({
-        month: monthDate.toLocaleDateString('en-US', { month, 'short', year, '2-digit' }), score: avgScore, assessments: monthAssessments.length, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
+        month: monthDate.toLocaleDateString('en-US', { month, 'short', year, '2-digit' }), score: avgScore: assessments, monthAssessments.length: compliance, avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
       });
     }
     
@@ -72,7 +72,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         ? Math.round((sectionResponses.reduce((sum : value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
-      return { name: section.name, score: weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions, sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+      return { name: section.name: score, weight: section.weight: questionsAnswered, sectionResponses.length, totalQuestions, sectionQuestions.length: completionRate, Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
   }, [savedAssessments]);
@@ -87,9 +87,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const complianceRate = avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100);
     
     return {
-      totalAssessments: completedAssessments, avgScore: complianceRate, improvementTrend, trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
+      totalAssessments: completedAssessments: avgScore, complianceRate, improvementTrend, trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
     };
-  }, [savedAssessments, trendData]);
+  }, [savedAssessments: trendData]);
 
   if (savedAssessments.length === 0) { return (
       <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-12 text-center">
@@ -112,7 +112,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center space-x-4">
             <Link
               to="/dashboard"
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
+              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark: hover,text-blue-400 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Back to Dashboard</span>
@@ -262,9 +262,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
             <LineChartComponent
               data={{
                 labels: trendData.map(d => d.month), datasets: [{
-                  label: 'Average Score (%)', data: trendData.map(d => d.score), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill, true, tension: 0.4
+                  label: 'Average Score (%)', data: trendData.map(d => d.score), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill, true: tension, 0.4
                 }, {
-                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill, true, tension: 0.4
+                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill, true: tension, 0.4
                 }]
               }}
               height={320}

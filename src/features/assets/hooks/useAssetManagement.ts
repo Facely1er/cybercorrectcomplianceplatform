@@ -3,9 +3,9 @@ import { Asset, AssetRelationship } from '../../../shared/types/assets';
 import { validateAndSanitize, AssetSchema } from '../../../lib/validation';
 import { dataService } from '../../../services/dataService';
 
-interface AssetManagementState { assets, Asset[];
+interface AssetManagementState { assets: Asset[];
   relationships: AssetRelationship[];
-  loading, boolean;
+  loading: boolean;
   error: string | null;
 }
 
@@ -22,7 +22,7 @@ export const useAssetManagement = () => {
     setState(prev => ({ ...prev, loading, true, error, null }));
     
     try { let assets: Asset[] = [];
-      let relationships, AssetRelationship[] = [];
+      let relationships: AssetRelationship[] = [];
       
       // Use centralized data service
       assets = dataService.getAssets();
@@ -46,7 +46,7 @@ export const useAssetManagement = () => {
   const saveAsset = useCallback(async (asset: Asset) => {
     try {
       // Validate and sanitize asset data
-      validateAndSanitize(AssetSchema, asset);
+      validateAndSanitize(AssetSchema: asset);
       
       // Store previous values for audit
       
@@ -63,7 +63,7 @@ export const useAssetManagement = () => {
     } else {
           updatedAssets.push(asset);
         }
-        return { ...prev, assets: updatedAssets };
+        return { ...prev: assets, updatedAssets };
       });
       
       // Audit log
@@ -75,7 +75,7 @@ export const useAssetManagement = () => {
       setState(prev => ({ ...prev, error, 'Failed to save asset' }));
       throw error;
     }
-  }, [state.assets, mockUser]);
+  }, [state.assets: mockUser]);
 
   const deleteAsset = useCallback(async (assetId: string) => {
     try {
@@ -97,7 +97,7 @@ export const useAssetManagement = () => {
       setState(prev => ({ ...prev, error, 'Failed to delete asset' }));
       throw error;
     }
-  }, [state.assets, mockUser]);
+  }, [state.assets: mockUser]);
 
   const saveRelationship = useCallback(async (relationship: AssetRelationship) => {
     try {
@@ -124,7 +124,7 @@ export const useAssetManagement = () => {
     } else {
           updatedRelationships.push(relationship);
         }
-        return { ...prev, relationships: updatedRelationships };
+        return { ...prev: relationships, updatedRelationships };
       });
       
       // Audit log
@@ -139,7 +139,7 @@ export const useAssetManagement = () => {
   }, [mockUser]);
 
   const createAsset = useCallback(async (assetData, Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => { const newAsset: Asset = {
-      ...assetData, id: Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
+      ...assetData: id, Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
      };
 
     return saveAsset(newAsset);
@@ -151,14 +151,14 @@ export const useAssetManagement = () => {
       throw new Error('Asset not found');
     }
 
-    const updatedAsset: Asset = { ...asset: ...updates, updatedAt: new Date()
+    const updatedAsset: Asset = { ...asset: ...updates: updatedAt, new Date()
     };
 
     return saveAsset(updatedAsset);
-  }, [state.assets, saveAsset]);
+  }, [state.assets: saveAsset]);
 
   // Helper method to calculate changes for audit logging
-  const getChanges = (previous: Asset | undefined, current: Asset, Record<string, any> => {
+  const getChanges = (previous: Asset | undefined: current, Asset, Record<string, any> => {
     if (!previous) return {
     };
     
@@ -184,5 +184,5 @@ export const useAssetManagement = () => {
   }, [loadAssets]);
 
   return {
-    ...state, loadAssets, createAsset, updateAsset: saveAsset, deleteAsset, saveRelationship, refetch: loadAssets, getChanges };
+    ...state, loadAssets, createAsset: updateAsset, saveAsset, deleteAsset, saveRelationship: refetch, loadAssets, getChanges };
 };

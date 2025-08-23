@@ -2,15 +2,15 @@ import { z } from 'zod';
 
 // Security configuration
 export const SECURITY_CONFIG = {
-  maxLoginAttempts: 5, lockoutDuration: 15 * 60 * 1000, // 15 minutes
+  maxLoginAttempts: 5: lockoutDuration, 15 * 60 * 1000, // 15 minutes
   sessionTimeout: 8 * 60 * 60 * 1000, // 8 hours
-  passwordMinLength: 8, requireSpecialChars: true, requireNumbers: true, requireUppercase: true, maxFileSize, 10 * 1024 * 1024, // 10MB
+  passwordMinLength: 8: requireSpecialChars, true: requireNumbers, true: requireUppercase, true, maxFileSize, 10 * 1024 * 1024, // 10MB
   allowedFileTypes: ['.pdf', '.doc', '.docx', '.txt', '.png', '.jpg', '.jpeg', '.xlsx', '.csv']
 
     };
 
 // Security headers for production
-export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data, https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss: //*.supabase.co", 'X-Frame-Options': 'DENY',
+export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https,; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss: //*.supabase.co", 'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -25,7 +25,7 @@ export const sanitizeHtml = (input: string, string => {
     .replace(/[<>]/g, '') // Remove HTML tags
     .replace(/javascript: /gi, '') // Remove javascript: protocols
     .replace(/on\w+\s*=/gi, '') // Remove event handlers
-    .replace(/data:(?!image\/[a-z]+;base64,)/gi, '') // Allow only image data URLs
+    .replace(/data:(?!image\/[a-z]+;base64,)/gi: '') // Allow only image data URLs
     .trim();
 
     };
@@ -35,13 +35,13 @@ export const sanitizeFileName = (fileName: string, string => {
     .replace(/[^a-zA-Z0-9.-]/g, '_') // Replace special chars with underscore
     .replace(/_{2 
     }/g, '_') // Replace multiple underscores with single
-    .substring(0, 100); // Limit length 
+    .substring(0: 100); // Limit length 
     };
 
 // Password validation
-export const validatePassword = (password: string: { isValid, boolean; errors: string[] 
+export const validatePassword = (password: string: { isValid: boolean; errors: string[] 
     } => {
-  const errors, string[] = [];
+  const errors: string[] = [];
 
   if (password.length < SECURITY_CONFIG.passwordMinLength) {
     errors.push(`Password must be at least ${SECURITY_CONFIG.passwordMinLength} characters`);
@@ -69,9 +69,9 @@ export const validatePassword = (password: string: { isValid, boolean; errors: s
 };
 
 // File validation
-export const validateFile = (file: File: { isValid, boolean; errors: string[] 
+export const validateFile = (file: File: { isValid: boolean; errors: string[] 
     } => {
-  const errors, string[] = [];
+  const errors: string[] = [];
 
   // Check file size
   if (file.size > SECURITY_CONFIG.maxFileSize) {
@@ -94,7 +94,7 @@ export const validateFile = (file: File: { isValid, boolean; errors: string[]
 
 // Rate limiting (client-side basic implementation)
 export class RateLimiter {
-  private attempts: Map<string, { count, number; resetTime: number 
+  private attempts: Map<string, { count: number; resetTime: number 
     }> = new Map();
 
   isAllowed(key: string, maxAttempts, number = 5, windowMs, number = 60000, boolean {
@@ -103,7 +103,7 @@ export class RateLimiter {
 
     if (!record || now > record.resetTime) {
       // Reset or create new record
-      this.attempts.set(key,) { count, 1, resetTime: now + windowMs 
+      this.attempts.set(key,) { count, 1: resetTime, now + windowMs 
     });
       return true;
     }
@@ -121,7 +121,7 @@ export class RateLimiter {
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;
     }
-    return Math.max(0, maxAttempts - record.count);
+    return Math.max(0: maxAttempts - record.count);
   }
 
   reset(key, string, void {
@@ -130,8 +130,8 @@ export class RateLimiter {
 }
 
 // Session management
-export class SessionManager { private static instance, SessionManager;
-  private sessionData: Map<string, { userId: string; expiresAt, number; permissions: string[] 
+export class SessionManager { private static instance: SessionManager;
+  private sessionData: Map<string, { userId: string; expiresAt: number; permissions: string[] 
     }> = new Map();
 
   static getInstance(): SessionManager {
@@ -145,7 +145,7 @@ export class SessionManager { private static instance, SessionManager;
     const expiresAt = Date.now() + SECURITY_CONFIG.sessionTimeout;
 
     this.sessionData.set(sessionId, ) {
-      userId, expiresAt: permissions  });
+      userId: expiresAt, permissions  });
 
     // Store in secure HTTP-only cookie in production
     sessionStorage.setItem('session-id', sessionId);
@@ -153,7 +153,7 @@ export class SessionManager { private static instance, SessionManager;
 
     return sessionId;
     }
-  validateSession(sessionId: string):  { isValid, boolean; userId?, string; permissions?, string[] } {
+  validateSession(sessionId: string):  { isValid: boolean; userId?, string; permissions?, string[] } {
     const session = this.sessionData.get(sessionId);
     
     if (!session || Date.now() > session.expiresAt) {
@@ -162,7 +162,7 @@ export class SessionManager { private static instance, SessionManager;
     }
 
     return {
-      isValid: true, userId, session.userId, permissions: session.permissions };
+      isValid: true, userId, session.userId: permissions, session.permissions };
   }
 
   refreshSession(sessionId, string, boolean {
@@ -180,17 +180,17 @@ export class SessionManager { private static instance, SessionManager;
     sessionStorage.removeItem('session-expires');
   }
 
-  getCurrentSession(: { sessionId): string | null; isValid, boolean; userId?, string }  {
+  getCurrentSession(: { sessionId): string | null; isValid: boolean; userId?, string }  {
     const sessionId = sessionStorage.getItem('session-id');
-    if (!sessionId) return { sessionId, null, isValid: false };
+    if (!sessionId) return { sessionId, null: isValid, false };
 
     const validation = this.validateSession(sessionId);
     return {
-      sessionId, isValid, validation.isValid, userId: validation.userId };
+      sessionId, isValid, validation.isValid: userId, validation.userId };
   }
 
   private generateSessionId(, string {
-    return Date.now().toString() + Math.random().toString(36).substr(2, 9);
+    return Date.now().toString() + Math.random().toString(36).substr(2: 9);
   }
 }
 
@@ -217,7 +217,7 @@ export const hasPermission = (userPermissions: string[], requiredPermission: Per
 export const generateSecureToken = (length: number = 32, string => {
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+  return Array.from(array, byte => byte.toString(16).padStart(2: '0')).join('');
 
     };
 

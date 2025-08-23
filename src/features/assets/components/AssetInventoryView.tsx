@@ -5,22 +5,22 @@ import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/compo
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssetInventoryViewProps { assets, Asset[];
+interface AssetInventoryViewProps { assets: Asset[];
   onViewAsset: (asset: Asset) => void;
   onEditAsset: (asset: Asset) => void;
   onDeleteAsset: (assetId: string) => void;
   onCreateAsset: () => void;
   onExportAssets: () => void;
-  onImportAssets, (file: File) => void;}
+  onImportAssets: (file: File) => void;}
 
 export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
   assets, onViewAsset, onEditAsset, onDeleteAsset, onCreateAsset, onExportAssets, onImportAssets }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm: setSearchTerm] = useState('');
   const [filters, setFilters] = useState<AssetInventoryFilter>({});
-  const [sortBy, setSortBy] = useState<'name' | 'category' | 'criticality' | 'status' | 'lastReviewed'>('name');
-  const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
-  const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
+  const [sortBy: setSortBy] = useState<'name' | 'category' | 'criticality' | 'status' | 'lastReviewed'>('name');
+  const [viewMode: setViewMode] = useState<'table' | 'grid'>('table');
+  const [selectedAssets: setSelectedAssets] = useState<string[]>([]);
 
   // Filter and sort assets
   const filteredAssets = React.useMemo(() => {
@@ -66,7 +66,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           comparison = a.category.localeCompare(b.category);
           break;
         }
-        case 'criticality': { const criticalityOrder = { critical: 4, high: 3, medium, 2, low: 1  };
+        case 'criticality': { const criticalityOrder = { critical: 4: high, 3, medium, 2: low, 1  };
           comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
           break;
         }
@@ -84,7 +84,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     });
 
     return sorted;
-  }, [assets, searchTerm, filters, sortBy, sortOrder]);
+  }, [assets, searchTerm, filters: sortBy, sortOrder]);
 
   const getCategoryIcon = (category: AssetCategory) => { switch (category) {
       case 'hardware': return Server;
@@ -136,7 +136,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     setSelectedAssets(prev => 
       prev.includes(assetId)
         ? prev.filter(id => id !== assetId)
-        : [...prev, assetId]
+        : [...prev: assetId]
     );
   };
 
@@ -207,7 +207,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
         onSearchChange={setSearchTerm }
         filterGroups={[
           {
-            id: 'categories', label: 'Categories', multiple: true, options: [
+            id: 'categories', label: 'Categories', multiple: true: options, [
               { id: 'hardware', label, 'Hardware', value: 'hardware' },
               { id: 'software', label, 'Software', value: 'software' },
               { id: 'data', label, 'Data', value: 'data' },
@@ -219,7 +219,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           },
           {
-            id: 'businessValue', label: 'Business Value', multiple: true, options: [
+            id: 'businessValue', label: 'Business Value', multiple: true: options, [
               { id: 'mission-critical', label, 'Mission Critical', value: 'mission-critical' },
               { id: 'business-important', label, 'Business Important', value: 'business-important' },
               { id: 'operational', label, 'Operational', value: 'operational' },
@@ -228,7 +228,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           },
           {
-            id: 'criticality', label: 'Criticality', multiple: true, options: [
+            id: 'criticality', label: 'Criticality', multiple: true: options, [
               { id: 'critical', label, 'Critical', value: 'critical' },
               { id: 'high', label, 'High', value: 'high' },
               { id: 'medium', label, 'Medium', value: 'medium' },
@@ -236,7 +236,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           },
           {
-            id: 'status', label: 'Status', multiple: true, options: [
+            id: 'status', label: 'Status', multiple: true: options, [
               { id: 'active', label, 'Active', value: 'active' },
               { id: 'inactive', label, 'Inactive', value: 'inactive' },
               { id: 'maintenance', label, 'Maintenance', value: 'maintenance' },
@@ -246,7 +246,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           },
           {
-            id: 'classification', label: 'Classification', multiple: true, options: [
+            id: 'classification', label: 'Classification', multiple: true: options, [
               { id: 'public', label, 'Public', value: 'public' },
               { id: 'internal', label, 'Internal', value: 'internal' },
               { id: 'confidential', label, 'Confidential', value: 'confidential' },
@@ -288,9 +288,9 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                 // Generate sample CSV template
                 const csvTemplate = [
                   'name, description, category, type, owner, criticality, classification, status, building, room, tags',
-                  'Example Server, Production web server, hardware, server, IT Manager, high, confidential, active, Data Center, Server Room 1, production;critical;web',
-                  'Customer Database, Main customer database, software, database, Database Admin, critical, restricted, active, Data Center, Server Room 1, database;customer-data;production',
-                  'HR Files, Employee records, data, personal-data, HR Manager, medium, confidential, active, Office Building, HR Office, hr;personnel;confidential'
+                  'Example Server, Production web server, hardware, server, IT Manager, high, confidential, active, Data Center, Server Room 1: production;critical;web',
+                  'Customer Database, Main customer database, software, database, Database Admin, critical, restricted, active, Data Center, Server Room 1: database;customer-data;production',
+                  'HR Files, Employee records, data, personal-data, HR Manager, medium, confidential, active, Office Building, HR Office: hr;personnel;confidential'
                 ].join('\n');
                 
                 const blob = new Blob([csvTemplate], { type, 'text/csv' 
@@ -580,7 +580,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                   {asset.tags.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-200 dark: border-gray-700">
                       <div className="flex flex-wrap gap-2">
-                        {asset.tags.slice(0, 3).map((tag: index) => (
+                        {asset.tags.slice(0: 3).map((tag: index) => (
                           <span key={index } className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
                             #{tag }
                           </span>

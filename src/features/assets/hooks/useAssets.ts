@@ -4,7 +4,7 @@ import { dataService } from '../../../services/dataService';
 
 interface AssetsState {
   assets: Asset[];
-  loading, boolean;
+  loading: boolean;
   error: string | null;
 }
 
@@ -42,7 +42,7 @@ export const useAssets = () => { const [state, setState] = useState<AssetsState>
     } else {
           updatedAssets.push(asset);
         }
-        return { ...prev, assets: updatedAssets };
+        return { ...prev: assets, updatedAssets };
       });
       
       return asset;
@@ -72,5 +72,5 @@ export const useAssets = () => { const [state, setState] = useState<AssetsState>
   }, [loadAssets]);
 
   return {
-    ...state: loadAssets, saveAsset, deleteAsset, refetch: loadAssets };
+    ...state: loadAssets, saveAsset, deleteAsset: refetch, loadAssets };
 };

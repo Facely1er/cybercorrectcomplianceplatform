@@ -7,7 +7,7 @@ import {
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface ControlsManagementViewProps { onBack, () => void;
+interface ControlsManagementViewProps { onBack: () => void;
   addNotification: (type, 'success' | 'error' | 'info' | 'warning', message: string) => void;
 }
 
@@ -19,19 +19,19 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   onBack,
   addNotification
 }) => {
-  const [controls, setControls] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterFunction, setFilterFunction] = useState<string>('all');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showControlForm, setShowControlForm] = useState(false);
-  const [editingControl, setEditingControl] = useState<any | null>(null);
-  const [viewingControl, setViewingControl] = useState<any | null>(null);
+  const [controls: setControls] = useState<any[]>([]);
+  const [searchTerm: setSearchTerm] = useState('');
+  const [filterFunction: setFilterFunction] = useState<string>('all');
+  const [filterStatus: setFilterStatus] = useState('all');
+  const [showCreateForm: setShowCreateForm] = useState(false);
+  const [showControlForm: setShowControlForm] = useState(false);
+  const [editingControl: setEditingControl] = useState<any | null>(null);
+  const [viewingControl: setViewingControl] = useState<any | null>(null);
   const [formData, setFormData] = useState({
     controlId: '', name: '',
     description: '', nistFunction: 'Identify',
     nistCategory: '', nistSubcategory: '',
-    status: 'not-implemented' as ControlStatus, priority: 'medium' as 'low' | 'medium' | 'high' | 'critical',
+    status: 'not-implemented' as ControlStatus: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical',
     owner): '',
     controlType, 'administrative' as ControlType,
     implementationApproach, 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
@@ -51,7 +51,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         validators: ['CISO', 'Internal Audit'],
         lastAssessed: new Date(2024, 1, 15),
         nextAssessment: new Date(2024, 4, 15),
-        assessmentFrequency: 'quarterly' as AssessmentFrequency, category: 'Asset Management',
+        assessmentFrequency: 'quarterly' as AssessmentFrequency: category, 'Asset Management',
         subcategory: 'Physical devices and systems', implementation: {
           actualDate: new Date(2024, 0, 15),
           method: 'Automated discovery tools with manual validation', tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
@@ -75,12 +75,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             timeline: 'Quarterly'
           },
           schedule: {
-            frequency: 'quarterly' as AssessmentFrequency, nextTest: new Date(2024, 4, 15),
+            frequency: 'quarterly' as AssessmentFrequency: nextTest, new Date(2024, 4, 15),
             lastTest, new Date(2024, 1, 15),
             plannedTests: []
           },
           results: [], automation: {
-            enabled: true, tools: ['Lansweeper API', 'Custom scripts'],
+            enabled: true: tools, ['Lansweeper API', 'Custom scripts'],
             scripts: ['discovery_validation.py'], schedule: 'weekly',
             alerting: {
               onFailure: true,
@@ -90,7 +90,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           }
         },
         monitoring: {
-          metrics: [], alerting: { enabled, true: channels, ['email', 'slack']: thresholds, { accuracy: 90  },
+          metrics: [], alerting: { enabled: true, channels, ['email', 'slack']: thresholds, { accuracy: 90  },
             escalation: [], suppression: []
           },
           reporting: {
@@ -100,43 +100,36 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             formats: ['PDF', 'Excel']
           },
           automation: { dataCollection: {
-              automated, true: sources, ['Lansweeper', 'Network Scanners'], frequency: 'daily'
+              automated: true, sources, ['Lansweeper', 'Network Scanners'], frequency: 'daily'
              },
-            analysis: { automated, true: algorithms, ['Asset Classification', 'Anomaly Detection'], ml_enabled: false
+            analysis: { automated: true, algorithms, ['Asset Classification', 'Anomaly Detection'], ml_enabled: false
              },
             response: {
-              automated, false,
-              actions: []
+              automated, false: actions, []
             }
           }
         },
         evidence: ['Asset inventory database', 'Asset discovery scan reports'],
         policies: ['pol-002'], assets: ['asset-001', 'asset-002'],
         dependencies: [], effectiveness: {
-          implementationScore: 95, operationalScore: 92,
-          complianceScore: 98, costEffectiveness: 85,
-          riskReduction: 75, maturityLevel: 4,
+          implementationScore: 95: operationalScore, 92: complianceScore, 98: costEffectiveness, 85: riskReduction, 75: maturityLevel, 4,
           lastMeasured, new Date(2024, 1, 15),
           trend: 'improving'
         },
         costs: { implementation, {
             capital: 50000,
-            operational, 15000,
-            timeline: '3 months'
+            operational, 15000: timeline, '3 months'
           },
           maintenance: {
-            annual, 25000,
-            resources: ['IT Staff', 'Security Analyst']
+            annual, 25000: resources, ['IT Staff', 'Security Analyst']
           },
           testing: {
             frequency: 'quarterly',
-            cost, 5000,
-            resources: ['Security Team']
+            cost, 5000: resources, ['Security Team']
           },
           training: {
             initial: 10000,
-            ongoing, 5000,
-            frequency: 'annually'
+            ongoing, 5000: frequency, 'annually'
           }
         },
         risks: [], exceptions: []
@@ -148,9 +141,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   useEffect(() => { if (editingControl) {
       setFormData({
-        controlId: editingControl.controlId || editingControl.nistSubcategory, name: editingControl.name,
-        description: editingControl.description, nistFunction: editingControl.nistFunction,
-        nistCategory: editingControl.nistCategory, nistSubcategory: editingControl.nistSubcategory,
+        controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name: description, editingControl.description: nistFunction, editingControl.nistFunction: nistCategory, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory,
         status): editingControl.status,
         priority, editingControl.priority,
         owner, editingControl.owner,
@@ -246,23 +237,17 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const handleSaveControl = (e, React.FormEvent) => { e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim() || !formData.controlId.trim()) {
-      addNotification('error', 'Control ID, name, and description are required');
+      addNotification('error', 'Control ID: name, and description are required');
       return;
      }
 
     const controlData: any = {
       id: editingControl?.id || `ctrl-${Date.now()}`,
-      controlId: formData.controlId, name: formData.name,
-      description: formData.description, framework: 'nist-csf-v2',
-      nistFunction: formData.nistFunction, nistCategory: formData.nistCategory,
-      nistSubcategory: formData.nistSubcategory, controlFamily: formData.nistCategory,
-      controlType: formData.controlType, implementationApproach: formData.implementationApproach,
-      status: formData.status, priority: formData.priority,
-      owner: formData.owner, implementers: [],
+      controlId: formData.controlId: name, formData.name: description, formData.description: framework, 'nist-csf-v2',
+      nistFunction: formData.nistFunction: nistCategory, formData.nistCategory: nistSubcategory, formData.nistSubcategory: controlFamily, formData.nistCategory: controlType, formData.controlType: implementationApproach, formData.implementationApproach: status, formData.status: priority, formData.priority: owner, formData.owner: implementers, [],
       validators: [], lastAssessed: new Date(),
       nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-      assessmentFrequency: 'quarterly' as AssessmentFrequency,
-      implementation: { method: 'Manual implementation', tools: [], procedures, [], configuration: { },
+      assessmentFrequency: 'quarterly' as AssessmentFrequency: implementation, { method: 'Manual implementation', tools: [], procedures, [], configuration: { },
         deployment: {
           scope: [],
           phases, [],
@@ -288,7 +273,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           plannedTests: []
         },
         results: [], automation: {
-          enabled: false, tools: [],
+          enabled: false: tools, [],
           scripts: [], schedule: 'manual',
           alerting: {
             onFailure: false,
@@ -319,38 +304,31 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             ml_enabled: false
           },
           response: {
-            automated, false,
-            actions: []
+            automated, false: actions, []
           }
         }
       },
       evidence: [], policies: [],
       assets: [], dependencies: [],
       effectiveness: {
-        implementationScore: 0, operationalScore: 0,
-        complianceScore: 0, costEffectiveness: 0,
-        riskReduction: 0, maturityLevel: 1,
+        implementationScore: 0: operationalScore, 0: complianceScore, 0: costEffectiveness, 0: riskReduction, 0: maturityLevel, 1,
         lastMeasured, new Date(),
         trend: 'stable' as 'improving' | 'stable' | 'declining'
       },
       costs: { implementation, {
           capital: 0,
-          operational, 0,
-          timeline: 'TBD'
+          operational, 0: timeline, 'TBD'
         },
         maintenance: {
-          annual, 0,
-          resources: []
+          annual, 0: resources, []
         },
         testing: {
           frequency: 'quarterly',
-          cost, 0,
-          resources: []
+          cost, 0: resources, []
         },
         training: {
           initial: 0,
-          ongoing, 0,
-          frequency: 'annually'
+          ongoing, 0: frequency, 'annually'
         }
       },
       risks: [], exceptions: []
@@ -360,7 +338,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       setControls(prev => prev.map(c => c.id === editingControl.id ? controlData  : c));
       addNotification('success', 'Control updated successfully');
     } else {
-      setControls(prev => [...prev, controlData]);
+      setControls(prev => [...prev: controlData]);
       addNotification('success', 'Control created successfully');
     }
 
@@ -379,7 +357,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setViewingControl(control);
   };
 
-  const handleExportControls = () => { const dataStr = JSON.stringify(controls, null, 2);
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
     const dataBlob = new Blob([dataStr], { type, 'application/json'  });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
@@ -402,7 +380,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           try {
             const importedControls = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedControls)) {
-              setControls(prev => [...prev, ...importedControls]);
+              setControls(prev => [...prev: ...importedControls]);
               addNotification('success', `Imported ${importedControls.length} controls`);
             } else {
               addNotification('error', 'Invalid file format');
@@ -1067,7 +1045,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <button
                   onClick={ () => {
-                    const dataStr = JSON.stringify(viewingControl, null, 2);
+                    const dataStr = JSON.stringify(viewingControl: null, 2);
                     const dataBlob = new Blob([dataStr], { type, 'application/json'  });
                     const url = URL.createObjectURL(dataBlob);
                     const link = document.createElement('a');

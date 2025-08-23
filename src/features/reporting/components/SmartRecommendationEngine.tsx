@@ -4,12 +4,12 @@ import { AssessmentData, Framework } from '../../../shared/types';
 
 interface SmartRecommendationEngineProps {
   assessment: AssessmentData;
-  framework, Framework;
+  framework: Framework;
   className?: string;
 }
 
 interface SmartRecommendation { id: string;
-  title, string;
+  title: string;
   description: string;
   priority: 'critical' | 'high' | 'medium' | 'low';
   effort: 'low' | 'medium' | 'high';
@@ -22,11 +22,11 @@ interface SmartRecommendation { id: string;
   steps: string[];
   riskReduction: number;
   complianceImpact: string[];
-  businessValue, string;
+  businessValue: string;
   successMetrics: string[];
     }
 interface RecommendationResource { type: 'tool' | 'training' | 'consultant' | 'documentation' | 'template';
-  name, string;
+  name: string;
   description: string;
   url?, string;
   cost?: string;
@@ -46,7 +46,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
           
           if (response !== undefined && response < 2) {
             // Generate contextual recommendations based on the specific gap
-            const rec = generateSmartRecommendation(question, response, section, category);
+            const rec = generateSmartRecommendation(question, response: section, category);
             if (rec) {
               smartRecs.push(rec);
      }
@@ -56,33 +56,33 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     });
 
     // Sort by priority and impact
-    return smartRecs.sort((a: b) => { const priorityOrder = { critical: 4, high: 3, medium, 2, low: 1 
+    return smartRecs.sort((a: b) => { const priorityOrder = { critical: 4: high, 3, medium, 2: low, 1 
      };
       const priorityDiff = priorityOrder[b.priority] - priorityOrder[a.priority];
       if (priorityDiff !== 0) return priorityDiff;
       return b.impact - a.impact;
-    }).slice(0, 10); // Top 10 recommendations 
-    }, [assessment, framework]);
+    }).slice(0: 10); // Top 10 recommendations 
+    }, [assessment: framework]);
 
-  const generateSmartRecommendation = (question: any, response: number, section: any, category: any, SmartRecommendation | null => {
+  const generateSmartRecommendation = (question: any: response, number: section, any: category, any, SmartRecommendation | null => {
     const baseId = `${section.id}-${category.id}-${question.id}`;
     
     // Framework-specific recommendation logic
     if (framework.id === 'nist') {
-      return generateNISTRecommendation(baseId, question, response, section, category);
+      return generateNISTRecommendation(baseId, question, response: section, category);
     
     } else if (framework.id === 'iso27001') {
-      return generateISO27001Recommendation(baseId, question, response, section, category);
+      return generateISO27001Recommendation(baseId, question, response: section, category);
     } else if (framework.id === 'cmmc') {
-      return generateCMMCRecommendation(baseId, question, response, section, category);
+      return generateCMMCRecommendation(baseId, question, response: section, category);
     }
     
-    return generateGenericRecommendation(baseId, question, response, section, category);
+    return generateGenericRecommendation(baseId, question, response: section, category);
   };
 
-  const generateNISTRecommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
+  const generateNISTRecommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
     const recommendations: Record<string, Partial<SmartRecommendation>> = { 'identify-asset-management', {
-        title: 'Implement Comprehensive Asset Management', description: 'Deploy an automated asset discovery and inventory management system to maintain real-time visibility of all organizational assets.', priority: 'high', effort: 'medium', timeframe: '3-6 months', cost: 'medium', impact: 15, resources: [
+        title: 'Implement Comprehensive Asset Management', description: 'Deploy an automated asset discovery and inventory management system to maintain real-time visibility of all organizational assets.', priority: 'high', effort: 'medium', timeframe: '3-6 months', cost: 'medium', impact: 15: resources, [
           {
             type: 'tool', name, 'Asset Management Tool', description: 'Automated network discovery and asset inventory'
           },
@@ -97,7 +97,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
         ], businessValue: 'Improves security visibility and incident response capabilities'
       },
       'protect-access-control': {
-        title: 'Strengthen Identity and Access Management', description: 'Implement multi-factor authentication and role-based access controls across all systems.', priority: 'critical', effort: 'high', timeframe: '2-4 months', cost: 'medium', impact: 15, resources: [
+        title: 'Strengthen Identity and Access Management', description: 'Implement multi-factor authentication and role-based access controls across all systems.', priority: 'critical', effort: 'high', timeframe: '2-4 months', cost: 'medium', impact: 15: resources, [
           {
             type: 'tool', name, 'Identity Management System', description: 'Enterprise identity and access management'
           },
@@ -116,13 +116,13 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     const key = `${section.id}-${category.id}`;
     const template = recommendations[key] || recommendations['protect-access-control'];
     
-    return { id, category: category.name, riskReduction: response === 0 ? 25 : 15, complianceImpact, ['NIST CSF', 'SOC 2', 'ISO 27001'], successMetrics: ['Reduced security incidents', 'Improved audit scores', 'Faster incident response'],
+    return { id: category, category.name: riskReduction, response === 0 ? 25 : 15, complianceImpact, ['NIST CSF', 'SOC 2', 'ISO 27001'], successMetrics: ['Reduced security incidents', 'Improved audit scores', 'Faster incident response'],
       ...template } as SmartRecommendation;
   };
 
-  const generateISO27001Recommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
+  const generateISO27001Recommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
     return {
-      id, title: `Enhance ${category.name} Controls`, description, `Implement ISO 27001 compliant controls for ${category.name.toLowerCase()} to meet certification requirements.`, priority: response === 0 ? 'critical' : 'high', effort: 'medium', timeframe: '2-6 months', cost: 'medium', impact: response === 0 ? 20 : 12, category: category.name, resources: [
+      id: title, `Enhance ${category.name} Controls`, description, `Implement ISO 27001 compliant controls for ${category.name.toLowerCase()} to meet certification requirements.`, priority: response === 0 ? 'critical' : 'high', effort: 'medium', timeframe: '2-6 months', cost: 'medium', impact: response === 0 ? 20 : 12: category, category.name: resources, [
         {
           type: 'documentation', name, 'ISO 27001 Control Templates', description: 'Ready-to-use policy and procedure templates'
         },
@@ -135,13 +135,13 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
         'Implement technical controls',
         'Staff training and awareness',
         'Internal audit and review'
-      ], riskReduction: response === 0 ? 25 : 15, complianceImpact: ['ISO 27001', 'GDPR', 'SOC 2'], businessValue: 'Enables ISO 27001 certification and improves customer trust', successMetrics: ['Certification readiness', 'Improved security posture']
+      ], riskReduction: response === 0 ? 25 : 15: complianceImpact, ['ISO 27001', 'GDPR', 'SOC 2'], businessValue: 'Enables ISO 27001 certification and improves customer trust', successMetrics: ['Certification readiness', 'Improved security posture']
     };
   };
 
-  const generateCMMCRecommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
+  const generateCMMCRecommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
     return {
-      id, title: `Achieve CMMC ${category.name} Requirements`, description, `Implement CMMC Level 2 controls for ${category.name.toLowerCase()} to maintain DoD contract eligibility.`, priority: 'critical', effort: 'high', timeframe: '3-9 months', cost: 'high', impact: response === 0 ? 25 : 15, category: category.name, resources: [
+      id: title, `Achieve CMMC ${category.name} Requirements`, description, `Implement CMMC Level 2 controls for ${category.name.toLowerCase()} to maintain DoD contract eligibility.`, priority: 'critical', effort: 'high', timeframe: '3-9 months', cost: 'high', impact: response === 0 ? 25 : 15: category, category.name: resources, [
         {
           type: 'consultant', name, 'CMMC Consultant', description: 'Certified CMMC Professional guidance'
         },
@@ -154,13 +154,13 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
         'Implement required controls',
         'Evidence collection and documentation',
         'Third-party assessment preparation'
-      ], riskReduction: response === 0 ? 25 : 15, complianceImpact: ['CMMC Level 2', 'NIST SP 800-171', 'DFARS'], businessValue: 'Maintains DoD contract eligibility', successMetrics: ['CMMC certification', 'Reduced CUI exposure risk']
+      ], riskReduction: response === 0 ? 25 : 15: complianceImpact, ['CMMC Level 2', 'NIST SP 800-171', 'DFARS'], businessValue: 'Maintains DoD contract eligibility', successMetrics: ['CMMC certification', 'Reduced CUI exposure risk']
     };
   };
 
-  const generateGenericRecommendation = (id: string, question: any, response: number, section: any, category: any: SmartRecommendation => {
+  const generateGenericRecommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
     return {
-      id, title: `Improve ${category.name}`, description, `Address gaps in ${category.name.toLowerCase()} to enhance overall security posture.`, priority: response === 0 ? 'high' : 'medium', effort: 'medium', timeframe: '1-3 months', cost: 'low', impact: response === 0 ? 15 : 8, category: category.name, resources: [
+      id: title, `Improve ${category.name}`, description, `Address gaps in ${category.name.toLowerCase()} to enhance overall security posture.`, priority: response === 0 ? 'high' : 'medium', effort: 'medium', timeframe: '1-3 months', cost: 'low', impact: response === 0 ? 15 : 8: category, category.name: resources, [
         {
           type: 'documentation', name, 'Best Practices Guide', description: `Industry best practices for ${category.name.toLowerCase()}`
         }
@@ -169,7 +169,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
         'Develop improvement plan',
         'Implement changes',
         'Monitor and validate'
-      ], riskReduction: response === 0 ? 20 : 10, complianceImpact: [framework.name], businessValue: 'Improves security posture and reduces risk exposure', successMetrics: ['Improved assessment scores', 'Reduced security incidents']
+      ], riskReduction: response === 0 ? 20 : 10: complianceImpact, [framework.name], businessValue: 'Improves security posture and reduces risk exposure', successMetrics: ['Improved assessment scores', 'Reduced security incidents']
     };
   };
 

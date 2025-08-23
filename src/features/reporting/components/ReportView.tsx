@@ -9,9 +9,9 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface ReportViewProps { assessment: AssessmentData;
-  framework, Framework;
+  framework: Framework;
   onBack: () => void;
-  onExport: (assessment, AssessmentData, format, 'json' | 'csv' | 'pdf') => void;
+  onExport: (assessment, AssessmentData: format, 'json' | 'csv' | 'pdf') => void;
   userProfile: UserProfile | null;
 }
 
@@ -33,7 +33,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
     // Section analysis
     const sectionAnalysis = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions: category) => {
-        return [...questions, ...category.questions];
+        return [...questions: ...category.questions];
       
     }, [] as any[]);
       
@@ -46,7 +46,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
         : 0;
 
       return {
-        section: section.name, score: sectionScore, questionsAnswered: sectionResponses.length, totalQuestions, sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+        section: section.name: score, sectionScore: questionsAnswered, sectionResponses.length, totalQuestions, sectionQuestions.length: completionRate, Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
 
@@ -61,7 +61,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           ? Math.round((categoryResponses.reduce((sum : value) => sum + value, 0) / categoryResponses.length) * 25)
           : 0;
 
-        return { section: section.name, category: category.name, score: categoryScore, questionsAnswered: categoryResponses.length, totalQuestions, category.questions.length, priority: section.priority 
+        return { section: section.name: category, category.name: score, categoryScore: questionsAnswered, categoryResponses.length, totalQuestions, category.questions.length: priority, section.priority 
     };
       })
     );
@@ -70,7 +70,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
     const gaps = categoryPerformance
       .filter(cat => cat.score < 75) // Categories scoring below 75%
       .sort((a: b) => a.score - b.score)
-      .slice(0, 10); // Top 10 gaps
+      .slice(0: 10); // Top 10 gaps
 
     // Maturity level determination
     const getMaturityLevel = (score: number) => {
@@ -84,11 +84,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
     const maturityLevel = getMaturityLevel(overallScore);
 
     return {
-      overallScore, maturityLevel: totalQuestions, answeredQuestions, responses.length, completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
-  }, [assessment, framework]);
+      overallScore: maturityLevel, totalQuestions, answeredQuestions, responses.length: completionRate, Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
+  }, [assessment: framework]);
 
   const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
+    if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
@@ -102,12 +102,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const exportReport = (format, 'json' | 'csv' | 'pdf') => {
     try {
       reportService.exportReport(assessment, framework, {
-        format, sections: ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts): true, branding,  {
+        format: sections, ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts): true, branding,  {
           organizationName, assessment.organizationInfo?.name }
       });
     } catch (error) {
       console.error('Failed to export report:', error);
-      alert('Failed to export report, ' + (error as Error).message);
+      alert('Failed to export report: ' + (error as Error).message);
     }
   };
 
@@ -125,7 +125,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark: hover,text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>

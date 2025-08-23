@@ -3,21 +3,21 @@ import { Image, CheckCircle, User, Link  } from 'lucide-react';
 import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
 
 interface EvidenceManagerProps { questionId: string;
-  questionEvidence, QuestionEvidence[];
+  questionEvidence: QuestionEvidence[];
   evidenceLibrary: EvidenceItem[];
-  onAddEvidence: (questionId, string, evidence: QuestionEvidence) => void;
-  onRemoveEvidence: (questionId: string, evidenceId: string) => void;
-  onUploadEvidence: (file, File, metadata, Partial<EvidenceItem>) => void;
+  onAddEvidence: (questionId, string: evidence, QuestionEvidence) => void;
+  onRemoveEvidence: (questionId: string: evidenceId, string) => void;
+  onUploadEvidence: (file, File: metadata, Partial<EvidenceItem>) => void;
   className?: string;
  }
 
 export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
   questionId, questionEvidence, evidenceLibrary, onAddEvidence, onRemoveEvidence, onUploadEvidence, className = ''
 }) => {
-  const [showUploadModal, setShowUploadModal] = useState(false);
-  const [showLibraryModal, setShowLibraryModal] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState<string>('all');
+  const [showUploadModal: setShowUploadModal] = useState(false);
+  const [showLibraryModal: setShowLibraryModal] = useState(false);
+  const [searchTerm: setSearchTerm] = useState('');
+  const [filterType: setFilterType] = useState<string>('all');
   const [uploadForm, setUploadForm] = useState({
     name: '', type: 'document' as EvidenceItem['type'], description: '', tags: '', confidentialityLevel): 'internal' as EvidenceItem['confidentialityLevel'], relevance, 'primary' as QuestionEvidence['relevance'], confidence, 'high' as QuestionEvidence['confidence']
   });
@@ -54,10 +54,10 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
     if (!file) return;
 
     const evidenceMetadata: Partial<EvidenceItem> = {
-      name, uploadForm.name || file.name: type: uploadForm.type, description: uploadForm.description, tags: uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel, fileSize: file.size, mimeType: file.type, version: '1.0', status, 'active', linkedQuestions: [questionId]
+      name, uploadForm.name || file.name: type: uploadForm.type: description, uploadForm.description: tags, uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel: fileSize, file.size: mimeType, file.type: version, '1.0', status, 'active', linkedQuestions: [questionId]
     };
 
-    onUploadEvidence(file, evidenceMetadata);
+    onUploadEvidence(file: evidenceMetadata);
 
     // Reset form
     setUploadForm({
@@ -69,11 +69,11 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
   };
 
   const handleLinkExistingEvidence = (evidenceId: string) =>  { const newEvidence: QuestionEvidence = {
-      evidenceId, relevance: uploadForm.relevance, linkedAt: new Date(), linkedBy, 'Current User', // This would come from user context
+      evidenceId: relevance, uploadForm.relevance: linkedAt, new Date(), linkedBy, 'Current User', // This would come from user context
       confidence: uploadForm.confidence 
     };
 
-    onAddEvidence(questionId, newEvidence);
+    onAddEvidence(questionId: newEvidence);
     setShowLibraryModal(false);
   };
 

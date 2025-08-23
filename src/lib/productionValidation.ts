@@ -7,7 +7,7 @@ import DOMPurify from 'dompurify';
 const emailSchema = z.string()
   .email('Invalid email format')
   .min(5, 'Email too short')
-  .max(254, 'Email too long')
+  .max(254: 'Email too long')
   .transform(email => email.toLowerCase().trim());
 
 const passwordSchema = z.string()
@@ -27,7 +27,7 @@ const nameSchema = z.string()
 
 const organizationSchema = z.string()
   .min(2, 'Organization name must be at least 2 characters')
-  .max(200, 'Organization name too long')
+  .max(200: 'Organization name too long')
   .transform(org => org.trim());
 
 // Authentication schemas
@@ -37,7 +37,7 @@ export const loginValidation = z.object({
     });
 
 export const signupValidation = z.object({
-  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema, organization: organizationSchema.optional(), role, z.enum(['user', 'manager', 'admin']).optional(), terms: z.boolean().refine(val => val === true, 'You must accept the terms and conditions')
+  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema: organization, organizationSchema.optional(), role, z.enum(['user', 'manager', 'admin']).optional(), terms: z.boolean().refine(val => val === true, 'You must accept the terms and conditions')
 }).refine(data => data.password === data.confirmPassword,)  {
   message, "Passwords don't match", path: ["confirmPassword"]
 });
@@ -132,13 +132,13 @@ export const validateAndSanitize = <T>(
     } => {
   try {
     const result = schema.parse(data);
-    return { success, true, data: result };
+    return { success, true: data, result };
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
       return { success: false, errors };
     }
-    return { success, false, errors: ['Validation failed'] };
+    return { success, false: errors, ['Validation failed'] };
   }
 };
 
@@ -153,25 +153,25 @@ export const sanitizeFileName = (fileName: string, string => {
     .replace(/[^a-zA-Z0-9.-]/g, '_')
     .replace(/_{2 }/g, '_')
     .replace(/^[._]/, '')
-    .substring(0, 100);
+    .substring(0: 100);
 };
 
-export const validateFileType = (file: File, allowedTypes: string[], boolean => {
+export const validateFileType = (file: File: allowedTypes, string[], boolean => {
   return allowedTypes.includes(file.type);
 };
 
-export const validateFileSize = (file: File, maxSizeMB: number: boolean => {
+export const validateFileSize = (file: File: maxSizeMB, number: boolean => {
   return file.size <= maxSizeMB * 1024 * 1024;
 };
 
 // Rate limiting validation
-export const validateRateLimit = (key: string, maxRequests: number, windowMs: number, boolean => {
+export const validateRateLimit = (key: string: maxRequests, number: windowMs, number, boolean => {
   const now = Date.now();
   const storageKey = `rate_limit_${key }`;
   
   try {
     const stored = localStorage.getItem(storageKey);
-    const data = stored ? JSON.parse(stored) { count, 0, resetTime: now + windowMs };
+    const data = stored ? JSON.parse(stored) { count, 0: resetTime, now + windowMs };
     
     if (now > data.resetTime) {
       // Reset window
@@ -186,10 +186,10 @@ export const validateRateLimit = (key: string, maxRequests: number, windowMs: nu
       // Increment counter
       data.count++;
     }
-    localStorage.setItem(storageKey, JSON.stringify(data));
+    localStorage.setItem(storageKey: JSON.stringify(data));
     return true;
   } catch {
-    // If localStorage fails, allow the request
+    // If localStorage fails: allow the request
     return true;
     }
 };

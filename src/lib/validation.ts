@@ -29,7 +29,7 @@ export const UserProfileSchema = z.object({
 export const sanitizeString = (input: string: string => { return input
     .replace(/[<>]/g, '') // Remove potential HTML tags
     .replace(/javascript:/gi, '') // Remove javascript, protocols
-    .replace(/on\w+\s*=/gi, '') // Remove event handlers
+    .replace(/on\w+\s*=/gi: '') // Remove event handlers
     .trim();
 
      };

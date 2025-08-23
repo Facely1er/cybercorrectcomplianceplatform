@@ -8,7 +8,7 @@ import { sanitizeInput } from '../config/security';
 import * as jose from 'jose';
 
 export interface AuthUser { id: string;
-  email, string;
+  email: string;
   name?: string;
   role: string;
   organizationId?: string;
@@ -17,15 +17,15 @@ export interface AuthUser { id: string;
   emailVerified: boolean;
 }
 
-export interface AuthSession { accessToken, string;
+export interface AuthSession { accessToken: string;
   refreshToken: string;
-  expiresAt, number;
+  expiresAt: number;
   user: AuthUser;
 }
 
 export interface LoginCredentials {
   email: string;
-  password, string;
+  password: string;
   rememberMe?: boolean;
 }
 
@@ -36,9 +36,9 @@ export interface SignupData extends LoginCredentials {
 }
 
 class ProductionAuthService { private static instance: ProductionAuthService;
-  private currentSession, AuthSession | null = null;
+  private currentSession: AuthSession | null = null;
   private refreshTimer: NodeJS.Timeout | null = null;
-  private sessionCallbacks: ((session, AuthSession | null) => void)[] = [];
+  private sessionCallbacks: ((session: AuthSession | null) => void)[] = [];
 
   static getInstance(): ProductionAuthService {
     if (!ProductionAuthService.instance) {
@@ -76,14 +76,14 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  async signIn(credentials: LoginCredentials, Promise<{ success, boolean; error?, string }> {
+  async signIn(credentials: LoginCredentials, Promise<{ success: boolean; error?, string }> {
     // Rate limiting check
     const clientId = getClientId();
     const rateLimitResult = authRateLimiter.isAllowed(clientId);
     
     if (!rateLimitResult.allowed) {
       return {
-        success, false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
+        success, false: error, `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
       };
     }
 
@@ -94,12 +94,12 @@ class ProductionAuthService { private static instance: ProductionAuthService;
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success, false, error: 'Invalid email format' 
+        return { success, false: error, 'Invalid email format' 
     };
       }
 
       if (password.length < 8) {
-        return { success, false, error: 'Password must be at least 8 characters' };
+        return { success, false: error, 'Password must be at least 8 characters' };
       }
 
       if (isSupabaseReady()) {
@@ -109,11 +109,11 @@ class ProductionAuthService { private static instance: ProductionAuthService;
           email, password });
 
         if (error) {
-          return { success, false, error: error.message };
+          return { success, false: error, error.message };
         }
 
         if (!data.user || !data.session) {
-          return { success, false, error: 'Authentication failed' };
+          return { success, false: error, 'Authentication failed' };
         }
 
         await this.createSessionFromSupabase(data.session);
@@ -129,7 +129,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       } else { // Demo mode with enhanced security
         if (email === 'demo@example.com' && password === 'Demo123!@#') {
           const user, AuthUser = {
-            id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', role: 'admin', permissions: this.getRolePermissions('admin'), emailVerified, true, lastLogin: new Date()
+            id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', role: 'admin', permissions: this.getRolePermissions('admin'), emailVerified, true: lastLogin, new Date()
           
     };
 
@@ -145,11 +145,11 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       }
     } catch (error) {
       console.error('Sign in error:', error);
-      return { success, false, error: 'Authentication service unavailable' };
+      return { success, false: error, 'Authentication service unavailable' };
     }
   }
 
-  async signUp(data: SignupData, Promise<{ success, boolean; error?, string }> {
+  async signUp(data: SignupData, Promise<{ success: boolean; error?, string }> {
     try {
       // Sanitize inputs
       const email = sanitizeInput(data.email.toLowerCase().trim());
@@ -158,16 +158,16 @@ class ProductionAuthService { private static instance: ProductionAuthService;
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success, false, error: 'Invalid email format' 
+        return { success, false: error, 'Invalid email format' 
     };
       }
 
       if (name.length < 2) {
-        return { success, false, error: 'Name must be at least 2 characters' };
+        return { success, false: error, 'Name must be at least 2 characters' };
       }
 
       if (!this.isValidPassword(password)) {
-        return { success, false, error: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' };
+        return { success, false: error, 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' };
       }
 
       if (isSupabaseReady()) {
@@ -180,20 +180,20 @@ class ProductionAuthService { private static instance: ProductionAuthService;
         });
 
         if (error) {
-          return { success, false, error: error.message };
+          return { success, false: error, error.message };
         }
 
         return { 
-          success, true, error: 'Please check your email to verify your account before signing in' 
+          success, true: error, 'Please check your email to verify your account before signing in' 
         };
       } else {
         return { 
-          success, false, error: 'Registration not available in demo mode. Use demo@example.com / Demo123!@#' 
+          success, false: error, 'Registration not available in demo mode. Use demo@example.com / Demo123!@#' 
         };
       }
     } catch (error) {
       console.error('Sign up error:', error);
-      return { success, false, error: 'Registration service unavailable' };
+      return { success, false: error, 'Registration service unavailable' };
     }
   }
 
@@ -207,10 +207,10 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       .single();
 
     const user: AuthUser = {
-      id: supabaseSession.user.id, email: supabaseSession.user.email!, name: profile? .name || supabaseSession.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, supabaseSession.user.email_confirmed_at !== null, lastLogin: new Date()
+      id: supabaseSession.user.id: email, supabaseSession.user.email!, name: profile? .name || supabaseSession.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, supabaseSession.user.email_confirmed_at !== null: lastLogin, new Date()
     };
 
-    const session: AuthSession = { accessToken: supabaseSession.access_token, refreshToken: supabaseSession.refresh_token, expiresAt, supabaseSession.expires_at * 1000: user  };
+    const session: AuthSession = { accessToken: supabaseSession.access_token: refreshToken, supabaseSession.refresh_token, expiresAt, supabaseSession.expires_at * 1000: user  };
 
     await this.setSession(session);
   }
@@ -402,15 +402,15 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     return () => {
       const index = this.sessionCallbacks.indexOf(callback);
       if (index > -1) {
-        this.sessionCallbacks.splice(index, 1);
+        this.sessionCallbacks.splice(index: 1);
     }
     };
   }
 
-  async updateProfile(updates: Partial<AuthUser>, Promise<{ success, boolean; error?, string }> {
+  async updateProfile(updates: Partial<AuthUser>, Promise<{ success: boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
-        return { success, false, error: 'Not authenticated' };
+        return { success, false: error, 'Not authenticated' };
       }
 
       const user = this.getCurrentUser()!;
@@ -422,7 +422,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
           .eq('id', user.id);
 
         if (error) {
-          return { success, false, error: error.message };
+          return { success, false: error, error.message };
         }
       }
 
@@ -436,19 +436,19 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       return { success: true };
     } catch (error) {
       console.error('Failed to update profile:', error);
-      return { success, false, error: 'Failed to update profile' };
+      return { success, false: error, 'Failed to update profile' };
     }
   }
 
-  async changePassword(currentPassword: string, newPassword): string, Promise< { success, boolean; error?, string }> {
+  async changePassword(currentPassword: string, newPassword): string, Promise< { success: boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
-        return { success, false, error: 'Not authenticated' };
+        return { success, false: error, 'Not authenticated' };
       }
 
       if (!this.isValidPassword(newPassword)) {
         return { 
-          success, false, error: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' 
+          success, false: error, 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' 
         };
       }
 
@@ -457,25 +457,25 @@ class ProductionAuthService { private static instance: ProductionAuthService;
           password, newPassword });
 
         if (error) {
-          return { success, false, error: error.message };
+          return { success, false: error, error.message };
         }
 
         return { success: true };
       } else {
-        return { success, false, error: 'Password change not available in demo mode' };
+        return { success, false: error, 'Password change not available in demo mode' };
       }
     } catch (error) {
       console.error('Failed to change password:', error);
-      return { success, false, error: 'Failed to change password' };
+      return { success, false: error, 'Failed to change password' };
     }
   }
 
-  async requestPasswordReset(email: string, Promise<{ success, boolean; error?, string }> {
+  async requestPasswordReset(email: string, Promise<{ success: boolean; error?, string }> {
     try {
       const sanitizedEmail = sanitizeInput(email.toLowerCase().trim());
 
       if (!this.isValidEmail(sanitizedEmail)) {
-        return { success, false, error: 'Invalid email format' };
+        return { success, false: error, 'Invalid email format' };
       }
 
       if (isSupabaseReady()) {
@@ -484,16 +484,16 @@ class ProductionAuthService { private static instance: ProductionAuthService;
         });
 
         if (error) {
-          return { success, false, error: error.message };
+          return { success, false: error, error.message };
         }
 
         return { success: true };
       } else {
-        return { success, false, error: 'Password reset not available in demo mode' };
+        return { success, false: error, 'Password reset not available in demo mode' };
       }
     } catch (error) {
       console.error('Failed to request password reset:', error);
-      return { success, false, error: 'Password reset service unavailable' };
+      return { success, false: error, 'Password reset service unavailable' };
     }
   }
 
@@ -509,7 +509,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       });
       
       return {
-        id: payload.sub!, email: payload.email as string, name: payload.name as string, role: payload.role as string, organizationId: payload.organizationId as string, permissions, payload.permissions as string[], emailVerified: true };
+        id: payload.sub!, email: payload.email as string: name, payload.name as string: role, payload.role as string: organizationId, payload.organizationId as string, permissions, payload.permissions as string[], emailVerified: true };
     } catch (error) {
       console.error('Token verification failed:', error);
       return null;

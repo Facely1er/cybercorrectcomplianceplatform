@@ -1,5 +1,5 @@
 export interface TeamMember { id: string;
-  userId, string;
+  userId: string;
   name: string;
   email: string;
   role: TeamRole;
@@ -12,11 +12,11 @@ export interface TeamMember { id: string;
   permissions: TeamPermission[];
   status: 'active' | 'inactive' | 'pending';
   certifications: string[];
-  workload, number; // percentage
+  workload: number; // percentage
   timezone: string;
     }
 export interface TeamRole { id: string;
-  name, string;
+  name: string;
   description: string;
   nistFunctionMapping: NistFunctionMapping[];
   defaultPermissions: TeamPermission[];
@@ -25,33 +25,33 @@ export interface TeamRole { id: string;
   canAssignTasks: boolean;
   canReviewAssessments: boolean;
   canApproveReports: boolean;
-  canManageTeam, boolean;
+  canManageTeam: boolean;
   workflowStage: string[];
 }
 
 export interface NistFunctionMapping { function: 'Govern' | 'Identify' | 'Protect' | 'Detect' | 'Respond' | 'Recover';
-  categories, string[];
+  categories: string[];
   subcategories: string[];
-  responsibility, 'owner' | 'contributor' | 'reviewer' | 'approver';
+  responsibility: 'owner' | 'contributor' | 'reviewer' | 'approver';
   priority: 'primary' | 'secondary' | 'supporting';
 }
 
-export interface ExpertiseArea { domain, 'governance' | 'risk-management' | 'technical-controls' | 'policy-development' | 'audit' | 'incident-response';
+export interface ExpertiseArea { domain: 'governance' | 'risk-management' | 'technical-controls' | 'policy-development' | 'audit' | 'incident-response';
   level: 'novice' | 'intermediate' | 'expert' | 'subject-matter-expert';
-  frameworks, string[];
+  frameworks: string[];
   certifications: string[];
 }
 
 export interface TeamPermission { id: string;
-  name, string;
+  name: string;
   description: string;
   resource: 'assessments' | 'evidence' | 'policies' | 'controls' | 'reports' | 'team' | 'calendar';
-  action, 'create' | 'read' | 'update' | 'delete' | 'approve' | 'assign';
+  action: 'create' | 'read' | 'update' | 'delete' | 'approve' | 'assign';
   scope: 'own' | 'team' | 'organization';
 }
 
 export interface CollaborationWorkflow { id: string;
-  name, string;
+  name: string;
   description: string;
   type: 'assessment' | 'evidence-collection' | 'policy-review' | 'control-implementation';
   stages: WorkflowStage[];
@@ -59,12 +59,12 @@ export interface CollaborationWorkflow { id: string;
   currentStage: string;
   status: 'not-started' | 'in-progress' | 'review' | 'approved' | 'completed';
   dueDate: Date;
-  priority, 'low' | 'medium' | 'high' | 'critical';
+  priority: 'low' | 'medium' | 'high' | 'critical';
   relatedItems: string[];
 }
 
 export interface WorkflowStage { id: string;
-  name, string;
+  name: string;
   description: string;
   order: number;
   requiredRoles: string[];
@@ -79,15 +79,15 @@ export interface WorkflowStage { id: string;
 }
 
 export interface WorkflowParticipant { userId: string;
-  role, string;
+  role: string;
   responsibility: 'owner' | 'contributor' | 'reviewer' | 'approver';
   assignedTasks: string[];
-  status, 'assigned' | 'in-progress' | 'completed' | 'overdue';
+  status: 'assigned' | 'in-progress' | 'completed' | 'overdue';
   progress: number;
 }
 
 export interface ResponsibilityMatrix { id: string;
-  nistFunction, string;
+  nistFunction: string;
   nistCategory: string;
   nistSubcategory: string;
   controlId: string;
@@ -99,6 +99,6 @@ export interface ResponsibilityMatrix { id: string;
   currentStatus: 'not-assigned' | 'assigned' | 'in-progress' | 'review' | 'approved' | 'implemented';
   estimatedEffort: string;
   actualEffort?: string;
-  dependencies, string[];
+  dependencies: string[];
   riskLevel: 'low' | 'medium' | 'high' | 'critical';
 }

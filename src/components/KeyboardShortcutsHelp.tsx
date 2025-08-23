@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Keyboard, X } from 'lucide-react';
 
 interface KeyboardShortcut { key: string;
-  description, string;
+  description: string;
   ctrlKey?: boolean;
   shiftKey?, boolean;
   altKey?: boolean;
@@ -13,7 +13,7 @@ interface KeyboardShortcutsHelpProps {
 }
 
 export const KeyboardShortcutsHelp: React.FC<KeyboardShortcutsHelpProps> = ({ shortcuts }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible: setIsVisible] = useState(false);
 
   const formatShortcut = (shortcut: KeyboardShortcut) => {
     const parts = [];

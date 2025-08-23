@@ -1,5 +1,5 @@
 export interface Evidence { id: string;
-  name, string;
+  name: string;
   description: string;
   type: EvidenceType;
   controlIds: string[];
@@ -15,12 +15,12 @@ export interface Evidence { id: string;
   confidentialityLevel: 'public' | 'internal' | 'confidential' | 'restricted';
   retention: {
     period: number; // months
-    reason, string;
+    reason: string;
     disposalDate: Date;
   
     };
   metadata: { version: string;
-    source, string;
+    source: string;
     validFrom: Date;
     validTo?: Date;
     approvalRequired: boolean;
@@ -55,23 +55,23 @@ export type EvidenceStatus =
   | 'archived';
 
 export interface LinkedControl { controlId: string;
-  controlName, string;
+  controlName: string;
   linkType: 'implementation' | 'testing' | 'monitoring' | 'documentation';
   effectiveness: 'high' | 'medium' | 'low' | 'unknown';
-  lastValidated, Date;
+  lastValidated: Date;
   validatedBy: string;
 }
 
 export interface ComplianceMapping { framework: 'nist-csf-v2';
-  function, string;
+  function: string;
   category: string;
   subcategory: string;
-  requirement, string;
+  requirement: string;
   mappingType: 'direct' | 'supporting' | 'related';
 }
 
 export interface EvidenceCollection { id: string;
-  name, string;
+  name: string;
   description: string;
   controlId: string;
   requiredEvidenceTypes: EvidenceType[];
@@ -79,22 +79,22 @@ export interface EvidenceCollection { id: string;
   dueDate: Date;
   assignedTo: string[];
   evidence: Evidence[];
-  completionPercentage, number;
+  completionPercentage: number;
   lastUpdated: Date;
 }
 
 export interface EvidenceValidation { id: string;
-  evidenceId, string;
+  evidenceId: string;
   validationType: 'automated' | 'manual' | 'peer-review' | 'expert-review';
   status: 'pending' | 'passed' | 'failed' | 'requires-attention';
   validatedBy: string;
   validatedAt: Date;
-  findings, ValidationFinding[];
+  findings: ValidationFinding[];
   nextValidation: Date;
 }
 
 export interface ValidationFinding { type: 'issue' | 'recommendation' | 'observation';
-  severity, 'critical' | 'high' | 'medium' | 'low' | 'info';
+  severity: 'critical' | 'high' | 'medium' | 'low' | 'info';
   description: string;
   remediation?: string;
   dueDate?, Date;

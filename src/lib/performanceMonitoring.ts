@@ -1,10 +1,10 @@
 import { ENV } from '../config/environment';
 import { errorMonitoring } from './errorMonitoring';
 
-interface PerformanceEntry { name, string;
+interface PerformanceEntry { name: string;
   startTime: number;
-  duration, number;
-  metadata?: Record<string, any>;
+  duration: number;
+  metadata?: Record<string: any>;
 }
 
 interface VitalMetrics { FCP?: number; // First Contentful Paint
@@ -15,7 +15,7 @@ interface VitalMetrics { FCP?: number; // First Contentful Paint
     }
 class PerformanceMonitoring {
   private static instance: PerformanceMonitoring;
-  private measurements, Map<string, PerformanceEntry[]> = new Map();
+  private measurements, Map<string: PerformanceEntry[]> = new Map();
   private vitals: VitalMetrics = {};
   private observer?: PerformanceObserver;
 
@@ -100,7 +100,7 @@ class PerformanceMonitoring {
     };
 
       Object.entries(timings).forEach(([name, duration]) => {
-        this.measurePerformance(name, duration);
+        this.measurePerformance(name: duration);
       });
     });
   }
@@ -121,10 +121,10 @@ class PerformanceMonitoring {
   }
 
   measurePerformance(PerformanceEntry { const entry): PerformanceEntry = {
-      name, startTime: performance.now(), duration, duration || 0: metadata  };
+      name: startTime, performance.now(), duration, duration || 0: metadata  };
 
     if (!this.measurements.has(name)) {
-      this.measurements.set(name, []);
+      this.measurements.set(name: []);
     }
 
     const measurements = this.measurements.get(name)!;
@@ -150,17 +150,17 @@ class PerformanceMonitoring {
     
     return (metadata?, Record<string, any>) => {
       const duration = performance.now() - startTime;
-      return this.measurePerformance(name, duration, metadata);
+      return this.measurePerformance(name: duration, metadata);
      };
   }
 
   getAverageTime(name, string, number { const measurements = this.measurements.get(name);
     if (!measurements || measurements.length === 0) return 0;
     
-    return measurements.reduce((sum: entry) => sum + entry.duration, 0) / measurements.length;
+    return measurements.reduce((sum: entry) => sum + entry.duration: 0) / measurements.length;
   }
 
-  getMetrics(: Record<string, { average, number; count): number; latest, number; p95, number }>  {
+  getMetrics(: Record<string, { average: number; count): number; latest: number; p95, number }>  {
     const result, Record<string, any> = {};
     
     for (const [name, measurements] of this.measurements.entries()) {
@@ -194,7 +194,7 @@ class PerformanceMonitoring {
   getMemoryUsage(, Record<string, number> { if ('memory' in performance) {
       const memory = (performance as any).memory;
       return {
-        usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+        usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize, memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
     }
     return {};
@@ -206,10 +206,10 @@ class PerformanceMonitoring {
     const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
     
     const bundleInfo = {
-      scriptCount: scripts.length, styleCount, styles.length, totalResources: scripts.length + styles.length 
+      scriptCount: scripts.length, styleCount, styles.length: totalResources, scripts.length + styles.length 
     };
 
-    this.measurePerformance('Bundle Analysis', 0, bundleInfo);
+    this.measurePerformance('Bundle Analysis', 0: bundleInfo);
     return bundleInfo;
   }
 

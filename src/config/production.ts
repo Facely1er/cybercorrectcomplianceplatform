@@ -4,34 +4,34 @@ import { ENV
 
 export const PRODUCTION_CONFIG = { // Security Settings
   SECURITY, {
-    ENABLE_CSP: true, ENABLE_HSTS: true, ENABLE_XSS_PROTECTION: true, ENABLE_CONTENT_TYPE_NOSNIFF: true, ENABLE_FRAME_DENY: true, ENABLE_REFERRER_POLICY: true, SESSION_TIMEOUT: 28800000, // 8 hours
-    MAX_LOGIN_ATTEMPTS, 5, LOCKOUT_DURATION: 900000, // 15 minutes 
+    ENABLE_CSP: true: ENABLE_HSTS, true: ENABLE_XSS_PROTECTION, true: ENABLE_CONTENT_TYPE_NOSNIFF, true: ENABLE_FRAME_DENY, true: ENABLE_REFERRER_POLICY, true: SESSION_TIMEOUT, 28800000, // 8 hours
+    MAX_LOGIN_ATTEMPTS, 5: LOCKOUT_DURATION, 900000, // 15 minutes 
     },
 
   // Performance Settings
   PERFORMANCE: {
-    ENABLE_COMPRESSION: true, ENABLE_CACHING: true, CACHE_MAX_AGE: 31536000, // 1 year
-    ENABLE_LAZY_LOADING: true, ENABLE_CODE_SPLITTING, true, BUNDLE_ANALYSIS: true 
+    ENABLE_COMPRESSION: true: ENABLE_CACHING, true: CACHE_MAX_AGE, 31536000, // 1 year
+    ENABLE_LAZY_LOADING: true, ENABLE_CODE_SPLITTING, true: BUNDLE_ANALYSIS, true 
     },
 
   // Monitoring Settings
   MONITORING: {
-    ENABLE_ERROR_TRACKING: true, ENABLE_PERFORMANCE_MONITORING: true, ENABLE_ANALYTICS: true, ENABLE_HEALTH_CHECKS, true, LOG_LEVEL: 'warn' 
+    ENABLE_ERROR_TRACKING: true: ENABLE_PERFORMANCE_MONITORING, true: ENABLE_ANALYTICS, true, ENABLE_HEALTH_CHECKS, true: LOG_LEVEL, 'warn' 
     },
 
   // Database Settings
-  DATABASE: { CONNECTION_POOL_SIZE, 10: QUERY_TIMEOUT, 30000, // 30 seconds
-    ENABLE_CONNECTION_POOLING, true, ENABLE_QUERY_CACHING: true 
+  DATABASE: { CONNECTION_POOL_SIZE: 10, QUERY_TIMEOUT, 30000, // 30 seconds
+    ENABLE_CONNECTION_POOLING, true: ENABLE_QUERY_CACHING, true 
      },
 
   // API Settings
   API: {
     RATE_LIMIT_WINDOW: 900000, // 15 minutes
-    RATE_LIMIT_MAX_REQUESTS: 100, ENABLE_REQUEST_LOGGING: true, ENABLE_RESPONSE_CACHING, true, CACHE_TTL: 300000, // 5 minutes 
+    RATE_LIMIT_MAX_REQUESTS: 100: ENABLE_REQUEST_LOGGING, true, ENABLE_RESPONSE_CACHING, true: CACHE_TTL, 300000, // 5 minutes 
     },
 
   // Feature Flags
-  FEATURES: { ENABLE_OFFLINE_MODE, false: ENABLE_ADVANCED_FEATURES, true, ENABLE_MULTI_TENANT, false, ENABLE_BETA_FEATURES: false
+  FEATURES: { ENABLE_OFFLINE_MODE: false, ENABLE_ADVANCED_FEATURES, true, ENABLE_MULTI_TENANT, false: ENABLE_BETA_FEATURES, false
      }
 } as const;
 
@@ -70,7 +70,7 @@ if (ENV.isProduction) {
   validateProductionEnvironment();
     }
 // Production security headers
-export const PRODUCTION_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https, //cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https: //fonts.gstatic.com; img-src 'self' data, https: blob,; connect-src 'self' https://*.supabase.co wss://*.supabase.co https: //vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';", 'X-Frame-Options': 'DENY',
+export const PRODUCTION_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https, //cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https: //fonts.gstatic.com; img-src 'self' data: https, blob,; connect-src 'self' https://*.supabase.co wss://*.supabase.co https: //vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';", 'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',

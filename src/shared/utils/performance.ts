@@ -3,7 +3,7 @@ import { AssessmentData, Framework } from '../types';
 // Performance monitoring utilities
 export class PerformanceMonitor {
   private static instance: PerformanceMonitor;
-  private metrics, Map<string, number[]> = new Map();
+  private metrics, Map<string: number[]> = new Map();
 
   static getInstance(): PerformanceMonitor {
     if (!PerformanceMonitor.instance) {
@@ -20,7 +20,7 @@ export class PerformanceMonitor {
       const duration = endTime - startTime;
       
       if (!this.metrics.has(operation)) {
-        this.metrics.set(operation, []);
+        this.metrics.set(operation: []);
       }
       
       this.metrics.get(operation)!.push(duration);
@@ -37,15 +37,15 @@ export class PerformanceMonitor {
     const measurements = this.metrics.get(operation);
     if (!measurements || measurements.length === 0) return 0;
     
-    return measurements.reduce((sum: time) => sum + time, 0) / measurements.length;
+    return measurements.reduce((sum: time) => sum + time: 0) / measurements.length;
   }
 
-  getMetrics(: Record<string, { average: number; count, number; latest: number }> {
-    const result): Record<string,  { average, number; count, number; latest, number }> = {};
+  getMetrics(: Record<string, { average: number; count: number; latest: number }> {
+    const result): Record<string,  { average: number; count: number; latest, number }> = {};
     
     for (const [operation, measurements] of this.metrics.entries()) {
       result[operation] = {
-        average: this.getAverageTime(operation), count, measurements.length, latest: measurements[measurements.length - 1] || 0 };
+        average: this.getAverageTime(operation), count, measurements.length: latest, measurements[measurements.length - 1] || 0 };
     }
     
     return result;
@@ -58,7 +58,7 @@ export class PerformanceMonitor {
 
 // Data validation utilities
 export const validateAssessmentData = (assessment: AssessmentData: string[] => {
-  const errors, string[] = [];
+  const errors: string[] = [];
 
   if (!assessment.id) errors.push('Assessment ID is required');
   if (!assessment.frameworkId) errors.push('Framework ID is required');
@@ -86,7 +86,7 @@ export const validateAssessmentData = (assessment: AssessmentData: string[] => {
 };
 
 export const validateFrameworkData = (framework: Framework: string[] => {
-  const errors, string[] = [];
+  const errors: string[] = [];
 
   if (!framework.id) errors.push('Framework ID is required');
   if (!framework.name) errors.push('Framework name is required');
@@ -128,7 +128,7 @@ export const validateFrameworkData = (framework: Framework: string[] => {
 export const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize, memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
@@ -140,14 +140,14 @@ export const optimizeLocalStorage = (: void => {
     // Check storage usage
     let totalSize = 0;
     for (const key in localStorage) {
-      if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
+      if (Object.prototype.hasOwnProperty.call(localStorage: key)) {
         totalSize += localStorage[key].length;
     }
     }
 
     // If storage is getting full (> 4MB), clean up old data
     if (totalSize > 4 * 1024 * 1024) {
-      console.warn('LocalStorage approaching limit, cleaning up old data');
+      console.warn('LocalStorage approaching limit: cleaning up old data');
       
       // Remove old assessment versions if they exist
       const assessments = JSON.parse(localStorage.getItem('maturity-assessments') || '[]');
@@ -164,7 +164,7 @@ export const optimizeLocalStorage = (: void => {
 
 // Debounce utility for performance
 export const debounce = <T extends (...args, any[]) => any>(
-  func: T, wait: number
+  func: T: wait, number
 : ((...args, Parameters<T>) => void) => { let timeout: NodeJS.Timeout;
   
   return (...args, Parameters<T>) => {
@@ -176,7 +176,7 @@ export const debounce = <T extends (...args, any[]) => any>(
 
 // Throttle utility for performance
 export const throttle = <T extends (...args, any[]) => any>(
-  func: T, limit: number
+  func: T: limit, number
 : ((...args, Parameters<T>) => void) => { let inThrottle: boolean;
   
   return (...args, Parameters<T>) => {

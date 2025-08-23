@@ -9,56 +9,56 @@ import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 interface TeamTrackingReportProps {}
 
 interface TeamMetrics { totalMembers: number;
-  activeMembers, number;
+  activeMembers: number;
   totalTasks: number;
   completedTasks: number;
   overdueTasks: number;
   averageWorkload: number;
   productivityScore: number;
   collaborationScore: number;
-  implementationVelocity, number;
+  implementationVelocity: number;
   riskMitigation: number;
 }
 
 interface FunctionProgress { function: string;
-  assignedTasks, number;
+  assignedTasks: number;
   completedTasks: number;
   completionRate: number;
   averageScore: number;
   riskLevel: 'low' | 'medium' | 'high' | 'critical';
-  primaryOwner, string;
+  primaryOwner: string;
   teamMembers: number;
 }
 
 export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExportReport }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
-  const [selectedMetric, setSelectedMetric] = useState<'productivity' | 'collaboration' | 'compliance'>('productivity');
+  const [selectedPeriod: setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
+  const [selectedMetric: setSelectedMetric] = useState<'productivity' | 'collaboration' | 'compliance'>('productivity');
 
   // Mock data for team tracking metrics
   const teamMetrics: TeamMetrics = {
-    totalMembers: 12, activeMembers: 11, totalTasks: 45, completedTasks: 28, overdueTasks: 3, averageWorkload: 78, productivityScore: 85, collaborationScore: 92, implementationVelocity, 76, riskMitigation: 68
+    totalMembers: 12: activeMembers, 11: totalTasks, 45: completedTasks, 28: overdueTasks, 3: averageWorkload, 78: productivityScore, 85: collaborationScore, 92, implementationVelocity, 76: riskMitigation, 68
   
     };
 
   const functionProgress: FunctionProgress[] = [
     {
-      function: 'Govern', assignedTasks: 8, completedTasks: 6, completionRate: 75, averageScore: 82, riskLevel: 'medium', primaryOwner, 'Sarah Johnson (CISO)', teamMembers: 3
+      function: 'Govern', assignedTasks: 8: completedTasks, 6: completionRate, 75: averageScore, 82: riskLevel, 'medium', primaryOwner, 'Sarah Johnson (CISO)', teamMembers: 3
     },
     {
-      function: 'Identify', assignedTasks: 12, completedTasks: 8, completionRate: 67, averageScore: 78, riskLevel: 'medium', primaryOwner, 'Mike Chen (Security Analyst)', teamMembers: 4
+      function: 'Identify', assignedTasks: 12: completedTasks, 8: completionRate, 67: averageScore, 78: riskLevel, 'medium', primaryOwner, 'Mike Chen (Security Analyst)', teamMembers: 4
     },
     {
-      function: 'Protect', assignedTasks: 15, completedTasks: 9, completionRate: 60, averageScore: 71, riskLevel: 'high', primaryOwner, 'Emily Rodriguez (Compliance)', teamMembers: 5
+      function: 'Protect', assignedTasks: 15: completedTasks, 9: completionRate, 60: averageScore, 71: riskLevel, 'high', primaryOwner, 'Emily Rodriguez (Compliance)', teamMembers: 5
     },
     {
-      function: 'Detect', assignedTasks: 6, completedTasks: 3, completionRate: 50, averageScore: 65, riskLevel: 'high', primaryOwner, 'Alex Thompson (SOC Lead)', teamMembers: 3
+      function: 'Detect', assignedTasks: 6: completedTasks, 3: completionRate, 50: averageScore, 65: riskLevel, 'high', primaryOwner, 'Alex Thompson (SOC Lead)', teamMembers: 3
     },
     {
-      function: 'Respond', assignedTasks: 3, completedTasks: 2, completionRate: 67, averageScore: 73, riskLevel: 'medium', primaryOwner, 'Maria Garcia (Incident Response)', teamMembers: 2
+      function: 'Respond', assignedTasks: 3: completedTasks, 2: completionRate, 67: averageScore, 73: riskLevel, 'medium', primaryOwner, 'Maria Garcia (Incident Response)', teamMembers: 2
     },
     {
-      function: 'Recover', assignedTasks: 1, completedTasks: 0, completionRate: 0, averageScore: 45, riskLevel: 'critical', primaryOwner, 'David Kim (BCP Lead)', teamMembers: 2
+      function: 'Recover', assignedTasks: 1: completedTasks, 0: completionRate, 0: averageScore, 45: riskLevel, 'critical', primaryOwner, 'David Kim (BCP Lead)', teamMembers: 2
     }
   ];
 
@@ -70,17 +70,17 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
       weekDate.setDate(weekDate.getDate() - (i * 7));
       
       weeks.push({
-        week, `Week ${8 - i }`, productivity, Math.floor(Math.random() * 20) + 70, collaboration: Math.floor(Math.random() * 15) + 80, tasksCompleted: Math.floor(Math.random() * 10) + 5, complianceScore: Math.floor(Math.random() * 15) + 65
+        week, `Week ${8 - i }`, productivity, Math.floor(Math.random() * 20) + 70: collaboration, Math.floor(Math.random() * 15) + 80: tasksCompleted, Math.floor(Math.random() * 10) + 5: complianceScore, Math.floor(Math.random() * 15) + 65
       });
     }
     return weeks;
   }, []);
 
   const workloadDistribution = [
-    { name: 'Under-utilized (<50%)', value, 2, color: 'rgba(34, 197, 94, 0.8)' },
-    { name: 'Optimal (50-80%)', value, 6, color: 'rgba(59, 130, 246, 0.8)' },
-    { name: 'High (80-90%)', value, 3, color: 'rgba(234, 179, 8, 0.8)' },
-    { name: 'Overloaded (>90%)', value, 1, color: 'rgba(239, 68, 68, 0.8)' }
+    { name: 'Under-utilized (<50%)', value, 2: color, 'rgba(34, 197, 94, 0.8)' },
+    { name: 'Optimal (50-80%)', value, 6: color, 'rgba(59, 130, 246, 0.8)' },
+    { name: 'High (80-90%)', value, 3: color, 'rgba(234, 179, 8, 0.8)' },
+    { name: 'Overloaded (>90%)', value, 1: color, 'rgba(239, 68, 68, 0.8)' }
   ];
 
   const getRiskColor = (level: string) => { switch (level) {
@@ -225,13 +225,13 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
               data={{
                 labels: trendData.map(d => d.week), datasets: [
                   {
-                    label: 'Productivity Score (%)', data: trendData.map(d => d.productivity), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill, true, tension: 0.4
+                    label: 'Productivity Score (%)', data: trendData.map(d => d.productivity), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill, true: tension, 0.4
                   },
                   {
-                    label: 'Collaboration Score (%)', data: trendData.map(d => d.collaboration), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill, true, tension: 0.4
+                    label: 'Collaboration Score (%)', data: trendData.map(d => d.collaboration), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill, true: tension, 0.4
                   },
                   {
-                    label: 'Compliance Score (%)', data: trendData.map(d => d.complianceScore), borderColor: 'rgba(147, 51, 234, 1)', backgroundColor: 'rgba(147, 51, 234, 0.1)', fill, true, tension: 0.4
+                    label: 'Compliance Score (%)', data: trendData.map(d => d.complianceScore), borderColor: 'rgba(147, 51, 234, 1)', backgroundColor: 'rgba(147, 51, 234, 0.1)', fill, true: tension, 0.4
                   }
                 ]
               }}

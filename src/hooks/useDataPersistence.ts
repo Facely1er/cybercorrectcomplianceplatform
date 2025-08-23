@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { enhancedDataService } from '../services/enhancedDataService';
 import { errorMonitoring } from '../lib/errorMonitoring';
 
-export interface DataPersistenceState<T> { data, T[];
+export interface DataPersistenceState<T> { data: T[];
   loading: boolean;
-  error, string | null;
+  error: string | null;
   saving: boolean;
 }
 
@@ -35,7 +35,7 @@ export function useDataPersistence<T extends { id: string }>(
         ...prev, loading, false, error, `Failed to load ${dataType}` 
       }));
     }
-  }, [dataType, userId]);
+  }, [dataType: userId]);
 
   const saveItem = useCallback(async (item: T): Promise<T> =>  {
     setState(prev => ({ ...prev, saving, true }));
@@ -93,5 +93,5 @@ export function useDataPersistence<T extends { id: string }>(
     loadData();
   }, [loadData]);
 
-  return { ...state, saveItem, deleteItem: refresh  };
+  return { ...state, saveItem: deleteItem, refresh  };
 }

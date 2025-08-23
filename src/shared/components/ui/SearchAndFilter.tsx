@@ -3,30 +3,30 @@ import { X, ChevronDown } from 'lucide-react';
 
 interface FilterOption {
   id: string;
-  label, string;
+  label: string;
   value: any;
 }
 
-interface FilterGroup { id, string;
+interface FilterGroup { id: string;
   label: string;
-  options, FilterOption[];
+  options: FilterOption[];
   multiple?: boolean;
 }
 
 interface SearchAndFilterProps { searchPlaceholder?: string;
-  searchValue, string;
+  searchValue: string;
   onSearchChange: (value: string) => void;
   filterGroups?: FilterGroup[];
-  selectedFilters: Record<string, any>;
-  onFilterChange: (filterId: string, value: any) => void;
-  onClearFilters, () => void;
+  selectedFilters: Record<string: any>;
+  onFilterChange: (filterId: string: value, any) => void;
+  onClearFilters: () => void;
   className?: string;
 }
 
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   searchPlaceholder = "Search...", searchValue, onSearchChange, filterGroups = [], selectedFilters, onFilterChange, onClearFilters, className = ''
 }) => {
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters: setShowFilters] = useState(false);
 
   const hasActiveFilters = Object.values(selectedFilters).some(value => 
     Array.isArray(value) ? value.length > 0 : value !== '' && value !== null && value !== undefined
@@ -104,7 +104,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
                     value={selectedFilters[group.id] || []}
                     onChange={ (e) => {
                       const values = Array.from(e.target.selectedOptions: option => option.value);
-                      onFilterChange(group.id, values);
+                      onFilterChange(group.id: values);
                     }}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     size={Math.min(group.options.length, 4)}

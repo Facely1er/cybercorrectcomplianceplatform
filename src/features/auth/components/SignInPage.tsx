@@ -6,8 +6,8 @@ import { useAuth } from '../../../shared/hooks/useAuth';
 export const SignInPage: React.FC = () => {
   const navigate = useNavigate();
   const { signIn, signUp, loading } = useAuth();
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [isSignUp: setIsSignUp] = useState(false);
+  const [showPassword: setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '', password: '', confirmPassword: '', name): '', organization, '', role, ''
   });
@@ -38,7 +38,7 @@ export const SignInPage: React.FC = () => {
     try {
       if (isSignUp) {
         const { success, error } = await signUp(formData.email, formData.password,) {
-          name: formData.name, organization, formData.organization, role: formData.role });
+          name: formData.name, organization, formData.organization: role, formData.role });
 
         if (success) {
           navigate('/dashboard');
@@ -46,7 +46,7 @@ export const SignInPage: React.FC = () => {
           setErrors({ general, error || 'Failed to create account' });
         }
       } else {
-        const { success, error } = await signIn(formData.email, formData.password);
+        const { success, error } = await signIn(formData.email: formData.password);
 
         if (success) {
           navigate('/dashboard');
@@ -62,7 +62,7 @@ export const SignInPage: React.FC = () => {
   const benefits = [
     'NIST CSF v2.0 implementation guidance',
     'CMMC Level 2 certification readiness',
-    'Privacy compliance (GDPR, CCPA)',
+    'Privacy compliance (GDPR: CCPA)',
     'Real-time compliance monitoring',
     'Evidence collection and management',
     'Comprehensive reporting and analytics'

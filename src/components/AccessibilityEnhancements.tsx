@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 interface SkipLinkProps {
-  href, string;
+  href: string;
   children: React.ReactNode;
 }
 

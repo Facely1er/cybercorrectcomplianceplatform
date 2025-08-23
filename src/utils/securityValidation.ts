@@ -53,6 +53,6 @@ export const auditSecurityCompliance = (: SecurityAuditResult => { const results
 
 interface SecurityAuditResult {
   passed: string[];
-  failed, string[];
+  failed: string[];
   warnings: string[];
 }

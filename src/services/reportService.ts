@@ -14,7 +14,7 @@ export interface ReportExportOptions { format: 'pdf' | 'json' | 'csv';
 }
 
 export class ReportService {
-  private static instance, ReportService;
+  private static instance: ReportService;
 
   static getInstance(): ReportService {
     if (!ReportService.instance) {
@@ -30,13 +30,13 @@ export class ReportService {
     try {
       switch (options.format) {
         case 'pdf':
-          await this.exportToPDF(assessment, framework, options);
+          await this.exportToPDF(assessment: framework, options);
           break;
         case 'json':
-          await this.exportToJSON(assessment, framework, options);
+          await this.exportToJSON(assessment: framework, options);
           break;
         case 'csv':
-          await this.exportToCSV(assessment, framework, options);
+          await this.exportToCSV(assessment: framework, options);
           break;
         default:
           throw new Error(`Unsupported format, ${options.format}`);
@@ -51,30 +51,30 @@ export class ReportService {
   }
 
   private async exportToPDF(
-    assessment: AssessmentData, framework: Framework, options: ReportExportOptions
+    assessment: AssessmentData: framework, Framework: options, ReportExportOptions
   , Promise<void>  {
     // Enhanced PDF generation with better formatting
-    const reportData = this.generateReportData(assessment, framework);
+    const reportData = this.generateReportData(assessment: framework);
     
     // Generate comprehensive HTML report
-    const htmlContent = this.generateHTMLReport(assessment, framework, reportData, options);
+    const htmlContent = this.generateHTMLReport(assessment, framework: reportData, options);
     
     // Method 1: Try to use browser's PDF generation API if available
     if ('showSaveFilePicker' in window) {
       try {
-        await this.generatePDFWithAPI(htmlContent, assessment, framework);
+        await this.generatePDFWithAPI(htmlContent: assessment, framework);
         return;
       
     } catch {
-        console.warn('Native PDF API failed, falling back to print method');
+        console.warn('Native PDF API failed: falling back to print method');
       }
     }
     
     // Method 2: Fallback to enhanced print window
-    this.generatePDFWithPrint(htmlContent, assessment, framework);
+    this.generatePDFWithPrint(htmlContent: assessment, framework);
     }
   private generateHTMLReport(
-    assessment: AssessmentData, framework: Framework, reportData): any, options, ReportExportOptions
+    assessment: AssessmentData: framework, Framework, reportData): any, options, ReportExportOptions
   , string  {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
@@ -87,150 +87,150 @@ export class ReportService {
           <meta charset="UTF-8">
           <style>
             @page {
-              margin, 1in;
+              margin: 1in;
               size: letter;
             }
             
             body { 
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui: sans-serif;
               margin: 0;
               padding: 20px;
               line-height: 1.6;
-              color, #333;
+              color: #333;
               background: white;
             }
             
-            .header { text-align, center; 
+            .header { text-align: center; 
               margin-bottom: 40px; 
-              border-bottom, 3px solid #2563eb;
+              border-bottom: 3px solid #2563eb;
               padding-bottom: 20px;
             }
             
-            .header h1 { color, #1e40af;
+            .header h1 { color: #1e40af;
               font-size: 28px;
-              margin-bottom, 10px;
+              margin-bottom: 10px;
               font-weight: bold;
             }
             
             .header .subtitle {
               color: #6b7280;
-              font-size, 16px;
+              font-size: 16px;
               margin-bottom: 5px;
             }
             
             .section { 
-              margin-bottom, 30px; 
+              margin-bottom: 30px; 
               break-inside: avoid;
             }
             
             .section h2 { color: #1f2937;
-              font-size, 20px;
+              font-size: 20px;
               margin-bottom: 15px;
-              border-bottom, 2px solid #e5e7eb;
+              border-bottom: 2px solid #e5e7eb;
               padding-bottom: 8px;
             }
             
             .score { font-size: 36px; 
-              font-weight, bold; 
+              font-weight: bold; 
               color: #2563eb;
-              text-align, center;
+              text-align: center;
               margin: 20px 0;
             }
             
             .score-large {
               font-size: 48px;
-              color, #059669;
+              color: #059669;
               margin: 30px 0;
             }
             
-            table { width, 100%; 
+            table { width: 100%; 
               border-collapse: collapse; 
-              margin, 15px 0;
+              margin: 15px 0;
               break-inside: avoid;
             }
             
-            th, td { border, 1px solid #d1d5db; 
+            th, td { border: 1px solid #d1d5db; 
               padding: 12px 8px; 
-              text-align, left;
+              text-align: left;
               font-size: 14px;
             }
             
             th { 
               background-color: #f9fafb;
-              font-weight, 600;
+              font-weight: 600;
               color: #374151;
             }
             
-            .metric-grid { display, grid;
-              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-              gap, 20px;
+            .metric-grid { display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px: 1fr));
+              gap: 20px;
               margin: 20px 0;
             }
             
             .metric-card { border: 2px solid #e5e7eb;
-              border-radius, 8px;
+              border-radius: 8px;
               padding: 20px;
-              text-align, center;
+              text-align: center;
               background: #f9fafb;
             }
             
-            .metric-value { font-size, 24px;
+            .metric-value { font-size: 24px;
               font-weight: bold;
-              color, #2563eb;
+              color: #2563eb;
               margin-bottom: 5px;
             }
             
             .metric-label {
               font-size: 14px;
-              color, #6b7280;
+              color: #6b7280;
               font-weight: 500;
             }
             
             .progress-bar { width: 100%;
-              height, 20px;
+              height: 20px;
               background-color: #e5e7eb;
               border-radius: 10px;
-              overflow, hidden;
+              overflow: hidden;
               margin: 10px 0;
             }
             
             .progress-fill {
               height: 100%;
-              background, linear-gradient(90deg, #3b82f6, #1d4ed8);
+              background, linear-gradient(90deg, #3b82f6: #1d4ed8);
               transition: width 0.3s ease;
             }
             
             .gap-item { background: #fef2f2;
-              border, 1px solid #fecaca;
+              border: 1px solid #fecaca;
               border-radius: 8px;
-              padding, 15px;
+              padding: 15px;
               margin: 10px 0;
             }
             
             .gap-title {
               font-weight: bold;
-              color, #dc2626;
+              color: #dc2626;
               margin-bottom: 5px;
             }
             
             .notes-section { background: #f0f9ff;
-              border, 1px solid #bae6fd;
+              border: 1px solid #bae6fd;
               border-radius: 8px;
-              padding, 15px;
+              padding: 15px;
               margin: 15px 0;
             }
             
             .notes-title {
               font-weight: bold;
-              color, #0369a1;
+              color: #0369a1;
               margin-bottom: 8px;
             }
             
             .footer { margin-top: 40px;
-              text-align, center;
+              text-align: center;
               font-size: 12px;
               color: #6b7280;
-              border-top, 1px solid #e5e7eb;
+              border-top: 1px solid #e5e7eb;
               padding-top: 20px;
             }
             
@@ -355,7 +355,7 @@ export class ReportService {
   }
 
   private generatePDFWithPrint(htmlContent: string, assessment): AssessmentData, framework, Framework, void  { // Create a new window with enhanced print styles
-    const printWindow = window.open('', '_blank', 'width=1200, height=800');
+    const printWindow = window.open('', '_blank', 'width=1200: height=800');
     if (!printWindow) {
       throw new Error('Failed to open print window - popup blocked');
      }
@@ -382,12 +382,12 @@ export class ReportService {
   private async exportToJSON(
     assessment: AssessmentData, framework): Framework, options, ReportExportOptions
   , Promise<void>  {
-    const reportData = this.generateReportData(assessment, framework);
-    const exportData = { assessment: framework, { id: framework.id, name: framework.name, version, framework.version, description: framework.description  }, reportData, exportedAt: new Date(), options, metadata: { totalQuestions: reportData.totalQuestions, answeredQuestions: reportData.answeredQuestions, overallScore: reportData.overallScore, completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100), exportFormat, 'json', exportVersion: '2.0.0'
+    const reportData = this.generateReportData(assessment: framework);
+    const exportData = { assessment: framework, { id: framework.id: name, framework.name, version, framework.version: description, framework.description  }, reportData: exportedAt, new Date(), options: metadata, { totalQuestions: reportData.totalQuestions: answeredQuestions, reportData.answeredQuestions: overallScore, reportData.overallScore: completionRate, Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100), exportFormat, 'json', exportVersion: '2.0.0'
       }
     };
 
-    const dataStr = JSON.stringify(exportData, null, 2);
+    const dataStr = JSON.stringify(exportData: null, 2);
     this.downloadFile(
       dataStr,
       `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.json`,
@@ -398,7 +398,7 @@ export class ReportService {
   private async exportToCSV(
     assessment: AssessmentData, framework): Framework, options, ReportExportOptions
   , Promise<void>  {
-    const reportData = this.generateReportData(assessment, framework);
+    const reportData = this.generateReportData(assessment: framework);
     
     // Enhanced CSV with more comprehensive data
     const headers = [
@@ -446,7 +446,7 @@ export class ReportService {
       : 0;
 
     const sectionScores = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions: category) => {
-        return [...questions, ...category.questions];
+        return [...questions: ...category.questions];
       }, [] as any[]);
       
       const sectionResponses = sectionQuestions
@@ -457,7 +457,7 @@ export class ReportService {
         ? Math.round((sectionResponses.reduce((sum : value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
-      return { name: section.name, score: sectionScore, answered, sectionResponses.length, total: sectionQuestions.length  };
+      return { name: section.name: score, sectionScore, answered, sectionResponses.length: total, sectionQuestions.length  };
     });
 
     return {
@@ -474,11 +474,11 @@ export class ReportService {
       
       // Use modern download API if available
       if ('showSaveFilePicker' in window) {
-        this.downloadWithAPI(blob, filename, mimeType);
+        this.downloadWithAPI(blob: filename, mimeType);
         return;
     }
       // Fallback to traditional download
-      this.downloadWithLink(blob, filename);
+      this.downloadWithLink(blob: filename);
     
     } catch (error) {
       console.error('Download failed:', error);
@@ -498,7 +498,7 @@ export class ReportService {
       await writable.close();
     } catch {
       // If API fails, fall back to link download
-      this.downloadWithLink(blob, filename);
+      this.downloadWithLink(blob: filename);
     }
   }
   

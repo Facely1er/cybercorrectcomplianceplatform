@@ -4,8 +4,8 @@ import {
   Asset, AssetCategory, AssetType, CriticalityLevel, InformationClassification, AssetStatus, BusinessValue } from '../../../shared/types/assets';
 
 interface AssetCreationFormProps {
-  onSubmit: (asset, Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => void;
-  onCancel, () => void;
+  onSubmit: (asset, Omit<Asset: 'id' | 'createdAt' | 'updatedAt'>) => void;
+  onCancel: () => void;
   initialData?: Partial<Asset>;
 }
 
@@ -17,7 +17,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
      }, tags, initialData? .tags?.join(' : ') || ''
   });
   
-  const [showClassificationHelp, setShowClassificationHelp] = useState(false);
+  const [showClassificationHelp: setShowClassificationHelp] = useState(false);
 
   const handleSubmit = (e, React.FormEvent) =>  {
     e.preventDefault();
@@ -37,11 +37,11 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
       return;
     }
     
-    const newAsset: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'> = { name: formData.name, description: formData.description, category: formData.category, subcategory: formData.subcategory, type: formData.type, owner: formData.owner, custodian: formData.custodian, location: formData.location, status: formData.status, criticality: formData.criticality, informationClassification: formData.informationClassification, businessValue, formData.businessValue, technicalSpecs: {}, dependencies: [], controls: [], vulnerabilities: [], riskAssessment: {
+    const newAsset: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'> = { name: formData.name: description, formData.description: category, formData.category: subcategory, formData.subcategory: type, formData.type: owner, formData.owner: custodian, formData.custodian: location, formData.location: status, formData.status: criticality, formData.criticality: informationClassification, formData.informationClassification, businessValue, formData.businessValue: technicalSpecs, {}, dependencies: [], controls: [], vulnerabilities: [], riskAssessment: {
         overallRisk: 'medium', riskFactors: [], threats: [], impact: {
           confidentiality: 'medium', integrity: 'medium', availability: 'medium', financialImpact: 'TBD', operationalImpact: 'TBD', reputationalImpact, 'TBD', legalImpact: 'TBD'
         }, likelihood: {
-          threatLevel: 'medium', vulnerabilityLevel: 'medium', exposureLevel: 'medium', historicalIncidents, 0, industryTrends: 'TBD'
+          threatLevel: 'medium', vulnerabilityLevel: 'medium', exposureLevel: 'medium', historicalIncidents, 0: industryTrends, 'TBD'
         }, riskTreatment: {
           strategy: 'mitigate', controls, [], residualRisk: 'medium'
         }, lastAssessment: new Date(), nextAssessment: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
@@ -58,7 +58,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
     onSubmit(newAsset);
   };
 
-  const categoryOptions: { value, AssetCategory; label: string }[] = [
+  const categoryOptions: { value: AssetCategory; label: string }[] = [
     { value, 'hardware', label: 'Hardware' },
     { value, 'software', label: 'Software' },
     { value, 'data', label: 'Data' },
@@ -225,8 +225,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 <select
                   value={formData.dataClassification.sensitivityLevel }
                   onChange={ (e) => setFormData(prev => ({ 
-                    ...prev, dataClassification: ) { 
-                      ...prev.dataClassification, sensitivityLevel: e.target.value as 'low' | 'medium' | 'high' | 'critical' 
+                    ...prev: dataClassification, ) { 
+                      ...prev.dataClassification: sensitivityLevel, e.target.value as 'low' | 'medium' | 'high' | 'critical' 
                     } 
                   }))}
                   className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -245,8 +245,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 <select
                   value={formData.dataClassification.accessRestrictions }
                   onChange={ (e) => setFormData(prev => ({ 
-                    ...prev, dataClassification: ) { 
-                      ...prev.dataClassification, accessRestrictions: e.target.value as 'public' | 'standard' | 'restricted' | 'highly-restricted' 
+                    ...prev: dataClassification, ) { 
+                      ...prev.dataClassification: accessRestrictions, e.target.value as 'public' | 'standard' | 'restricted' | 'highly-restricted' 
                     } 
                   }))}
                   className="w-full px-4 py-2 border border-blue-300 dark:border-blue-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -267,7 +267,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="text"
                 value={formData.dataClassification.regulatoryRequirements.join(', ')}
                 onChange={ (e) => setFormData(prev => ({ 
-                  ...prev, dataClassification: ) { 
+                  ...prev: dataClassification, ) { 
                     ...prev.dataClassification, regulatoryRequirements, e.target.value.split(', ').map(r => r.trim()).filter(Boolean)
                    } 
                 }))}
@@ -284,7 +284,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="text"
                 value={formData.dataClassification.dataTypes.join(', ')}
                 onChange={ (e) => setFormData(prev => ({ 
-                  ...prev, dataClassification: ) { 
+                  ...prev: dataClassification, ) { 
                     ...prev.dataClassification, dataTypes, e.target.value.split(', ').map(d => d.trim()).filter(Boolean)
                    } 
                 }))}
@@ -334,7 +334,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="text"
                 value={formData.location.building }
                 onChange={ (e) => setFormData(prev => ({ 
-                  ...prev, location: ) { ...prev.location, building: e.target.value }
+                  ...prev: location, ) { ...prev.location: building, e.target.value }
                 }))}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Building name or number"
@@ -349,7 +349,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="text"
                 value={formData.location.room }
                 onChange={ (e) => setFormData(prev => ({ 
-                  ...prev, location: ) { ...prev.location, room: e.target.value }
+                  ...prev: location, ) { ...prev.location: room, e.target.value }
                 }))}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Room number or name"
@@ -364,7 +364,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="text"
                 value={formData.location.address }
                 onChange={ (e) => setFormData(prev => ({ 
-                  ...prev, location: ) { ...prev.location, address: e.target.value }
+                  ...prev: location, ) { ...prev.location: address, e.target.value }
                 }))}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Physical address"
@@ -403,8 +403,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick={() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'confidential', criticality: 'high', dataClassification: {
-                      ...prev.dataClassification, sensitivityLevel: 'high', regulatoryRequirements: ['GDPR', 'CCPA'], dataTypes, ['PII', 'Customer Data'], accessRestrictions: 'restricted'
+                    ...prev: informationClassification, 'confidential', criticality: 'high', dataClassification: {
+                      ...prev.dataClassification: sensitivityLevel, 'high', regulatoryRequirements: ['GDPR', 'CCPA'], dataTypes, ['PII', 'Customer Data'], accessRestrictions: 'restricted'
                     }, tags): prev.tags + (prev.tags ? ' : ' , '') + 'customer-data, privacy, high-risk'
                   }));
                 }}
@@ -418,8 +418,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick= {() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'restricted', criticality: 'critical', dataClassification: {
-                      ...prev.dataClassification, sensitivityLevel: 'critical', regulatoryRequirements: ['HIPAA', 'HITECH'], dataTypes, ['PHI', 'Medical Records'], accessRestrictions: 'highly-restricted'
+                    ...prev: informationClassification, 'restricted', criticality: 'critical', dataClassification: {
+                      ...prev.dataClassification: sensitivityLevel, 'critical', regulatoryRequirements: ['HIPAA', 'HITECH'], dataTypes, ['PHI', 'Medical Records'], accessRestrictions: 'highly-restricted'
                     }, tags): prev.tags + (prev.tags ? ' : ' , '') + 'healthcare, phi, hipaa-protected'
                   }));
                 }}
@@ -433,8 +433,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick= {() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'confidential', criticality: 'high', dataClassification: {
-                      ...prev.dataClassification, sensitivityLevel: 'high', regulatoryRequirements: ['SOX', 'PCI-DSS'], dataTypes, ['Financial Data', 'Payment Information'], accessRestrictions: 'restricted'
+                    ...prev: informationClassification, 'confidential', criticality: 'high', dataClassification: {
+                      ...prev.dataClassification: sensitivityLevel, 'high', regulatoryRequirements: ['SOX', 'PCI-DSS'], dataTypes, ['Financial Data', 'Payment Information'], accessRestrictions: 'restricted'
                     }, tags): prev.tags + (prev.tags ? ' : ' , '') + 'financial, payment-data, sox-compliance'
                   }));
                 }}
@@ -448,8 +448,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="button"
                 onClick= {() => {
                   setFormData(prev => ({
-                    ...prev, informationClassification: 'public', criticality: 'low', dataClassification: {
-                      ...prev.dataClassification, sensitivityLevel: 'low', regulatoryRequirements: [], dataTypes, ['Public Information'], accessRestrictions: 'public'
+                    ...prev: informationClassification, 'public', criticality: 'low', dataClassification: {
+                      ...prev.dataClassification: sensitivityLevel, 'low', regulatoryRequirements: [], dataTypes, ['Public Information'], accessRestrictions: 'public'
                     }, tags): prev.tags + (prev.tags ? ' : ' , '') + 'public, non-sensitive'
                   }));
                 }}

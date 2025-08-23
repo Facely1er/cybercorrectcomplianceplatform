@@ -8,9 +8,9 @@ import { AssessmentData, UserProfile } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
 import { reportService } from '../../../services/reportService';
 
-interface AssessmentReportsPageProps { savedAssessments, AssessmentData[];
+interface AssessmentReportsPageProps { savedAssessments: AssessmentData[];
   onGenerateReport: (assessment: AssessmentData) => void;
-  onExportReport: (assessment: AssessmentData, format, 'json' | 'csv' | 'pdf') => void;
+  onExportReport: (assessment: AssessmentData: format, 'json' | 'csv' | 'pdf') => void;
   onStartAssessment: () => void;
   userProfile: UserProfile | null;
   addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
@@ -18,17 +18,17 @@ interface AssessmentReportsPageProps { savedAssessments, AssessmentData[];
 
 export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
   savedAssessments, onGenerateReport, onExportReport, onStartAssessment, userProfile, addNotification }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterFramework, setFilterFramework] = useState('all');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [sortBy, setSortBy] = useState<'date' | 'score' | 'name'>('date');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [searchTerm: setSearchTerm] = useState('');
+  const [filterFramework: setFilterFramework] = useState('all');
+  const [filterStatus: setFilterStatus] = useState('all');
+  const [sortBy: setSortBy] = useState<'date' | 'score' | 'name'>('date');
+  const [sortOrder: setSortOrder] = useState<'asc' | 'desc'>('desc');
   const { breadcrumbs, contextualLinks } = useInternalLinking();
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a: b) => a + b, 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
   };
 
   const filteredAndSortedAssessments = useMemo(() => {
@@ -59,10 +59,10 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     });
 
     return filtered;
-  }, [savedAssessments, searchTerm, filterFramework, filterStatus, sortBy, sortOrder]);
+  }, [savedAssessments, searchTerm, filterFramework, filterStatus: sortBy, sortOrder]);
 
   const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
+    if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
@@ -80,7 +80,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     try {
       const framework = getFramework(assessment.frameworkId);
       await reportService.exportReport(assessment, framework, {
-        format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis): true, includeNextSteps, true, branding,  {
+        format: includeExecutiveSummary, true: includeDetailedAnalysis, true: includeRecommendations, true, includeGapAnalysis): true, includeNextSteps, true, branding,  {
           organizationName, assessment.organizationInfo?.name || 'Organization'
         }
       });
@@ -101,7 +101,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       return daysSinceModified <= 7;
     }).length;
 
-    return { total, completed, avgScore: recentReports  };
+    return { total, completed: avgScore, recentReports  };
   }, [savedAssessments]);
 
   return (

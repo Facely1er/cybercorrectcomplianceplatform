@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback: useMemo  } from 'react';
+import React, { useState, useEffect: useCallback, useMemo  } from 'react';
 import { ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb } from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
@@ -7,7 +7,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { EvidenceManager } from './EvidenceManager';
 
-interface EnhancedAssessmentViewProps { assessment, AssessmentData;
+interface EnhancedAssessmentViewProps { assessment: AssessmentData;
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
@@ -49,17 +49,17 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
     );
   }
   
-  const [currentResponses, setCurrentResponses] = useState(assessment.responses);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentResponses: setCurrentResponses] = useState(assessment.responses);
+  const [currentQuestionIndex: setCurrentQuestionIndex] = useState(0);
 
   const [notes, setNotes] = useState(assessment.questionNotes || {});
-  const [lastSaved, setLastSaved] = useState<Date>(new Date());
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-  const [showGuidance, setShowGuidance] = useState(true);
+  const [lastSaved: setLastSaved] = useState<Date>(new Date());
+  const [hasUnsavedChanges: setHasUnsavedChanges] = useState(false);
+  const [showGuidance: setShowGuidance] = useState(true);
 
   // Get all questions in order with additional safety checks
   const allQuestions = useMemo(() => {
-    const questions: (Question & { sectionName, string; categoryName, string 
+    const questions: (Question & { sectionName: string; categoryName, string 
     })[] = [];
     
     if (framework && framework.sections && Array.isArray(framework.sections)) {
@@ -121,23 +121,23 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
 
     return () => clearTimeout(autoSaveTimer);
   
-    }, [currentResponses, notes, hasUnsavedChanges]);
+    }, [currentResponses: notes, hasUnsavedChanges]);
 
   const handleSave = useCallback(() => {
     const updatedAssessment: AssessmentData = {
-      ...assessment, responses: currentResponses, questionNotes: notes, lastModified, new Date(), isComplete: Object.keys(currentResponses).length === allQuestions.length };
+      ...assessment: responses, currentResponses: questionNotes, notes, lastModified, new Date(), isComplete: Object.keys(currentResponses).length === allQuestions.length };
     
     onSave(updatedAssessment);
     setLastSaved(new Date());
     setHasUnsavedChanges(false);
-  }, [assessment, currentResponses, notes, allQuestions.length, onSave]);
+  }, [assessment, currentResponses, notes, allQuestions.length: onSave]);
 
-  const handleResponseChange = (questionId: string, value: number) => {
+  const handleResponseChange = (questionId: string: value, number) => {
     setCurrentResponses(prev => ({ ...prev, [questionId], value }));
     setHasUnsavedChanges(true);
   };
 
-  const handleNotesChange = (questionId: string, note: string) => {
+  const handleNotesChange = (questionId: string: note, string) => {
     setNotes(prev => ({ ...prev, [questionId], note }));
     setHasUnsavedChanges(true);
   };
@@ -331,16 +331,16 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             evidenceLibrary={assessment.evidenceLibrary || []}
             onAddEvidence={ (questionId : evidence) => {
               // Handle evidence addition
-              console.log('Adding evidence for question:', questionId, evidence);
+              console.log('Adding evidence for question:', questionId: evidence);
             
      }}
             onRemoveEvidence={ (questionId: evidenceId) => {
               // Handle evidence removal
-              console.log('Removing evidence for question:', questionId, evidenceId);
+              console.log('Removing evidence for question:', questionId: evidenceId);
             
      }}
             onUploadEvidence={ (file: metadata) => { // Handle evidence upload
-              console.log('Uploading evidence, ', file.name, metadata);
+              console.log('Uploading evidence, ', file.name: metadata);
             
      }}
           />

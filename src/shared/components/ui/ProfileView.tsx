@@ -4,7 +4,7 @@ import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
 
-interface ProfileViewProps { userProfile, UserProfile | null;
+interface ProfileViewProps { userProfile: UserProfile | null;
   onUpdateProfile: (profile: UserProfile) => void;
   onBack: () => void;
 }
@@ -19,16 +19,16 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     }
   );
 
-  const [newCertification, setNewCertification] = useState('');
+  const [newCertification: setNewCertification] = useState('');
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string: value, any) => {
     setFormData(prev => ({
       ...prev,
       [field], value }));
   };
 
-  const handlePreferenceChange = (field: string, value: any) => { setFormData(prev => ({
-      ...prev, preferences: ) {
+  const handlePreferenceChange = (field: string: value, any) => { setFormData(prev => ({
+      ...prev: preferences, ) {
         ...prev.preferences, [field]: value }
     }));
   };
@@ -98,7 +98,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark: hover,text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>

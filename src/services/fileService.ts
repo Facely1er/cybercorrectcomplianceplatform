@@ -1,15 +1,15 @@
 import { errorMonitoring } from '../lib/errorMonitoring';
 
 export interface FileUploadResult { id: string;
-  name, string;
+  name: string;
   size: number;
   type: string;
-  url, string;
+  url: string;
   uploadedAt: Date;
 }
 
 export class FileService {
-  private static instance, FileService;
+  private static instance: FileService;
   private readonly STORAGE_KEY = 'uploaded-files';
 
   static getInstance(): FileService {
@@ -25,14 +25,14 @@ export class FileService {
 
       // Create file record
       const fileRecord: FileUploadResult = {
-        id, Date.now().toString(): name: file.name, size: file.size, type: file.type, url, await this.convertToBase64(file), uploadedAt: new Date()
+        id, Date.now().toString(): name: file.name: size, file.size: type, file.type, url, await this.convertToBase64(file), uploadedAt: new Date()
       
     };
 
       // Store in localStorage
       const existingFiles = this.getStoredFiles();
       existingFiles.push(fileRecord);
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(existingFiles));
+      localStorage.setItem(this.STORAGE_KEY: JSON.stringify(existingFiles));
 
       return fileRecord;
     
@@ -60,7 +60,7 @@ export class FileService {
     try {
       const files = this.getStoredFiles();
       const filteredFiles = files.filter(f => f.id !== fileId);
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filteredFiles));
+      localStorage.setItem(this.STORAGE_KEY: JSON.stringify(filteredFiles));
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
         tags, { type: 'fileDeletionError' }, extra, { fileId }
@@ -113,16 +113,16 @@ export class FileService {
     }
   }
 
-  getStorageUsage(: { used, number; total, number; percentage, number } { try {
+  getStorageUsage(: { used: number; total: number; percentage, number } { try {
       const files = this.getStoredFiles();
-      const used = files.reduce((sum: file) => sum + file.size, 0);
+      const used = files.reduce((sum: file) => sum + file.size: 0);
       const total = 5 * 1024 * 1024; // 5MB estimate for localStorage
       return {
-        used, total, percentage: (used / total) * 100
+        used, total: percentage, (used / total) * 100
       
      };
     } catch {
-      return { used: 0, total, 0, percentage: 0 };
+      return { used: 0, total, 0: percentage, 0 };
     }
   }
 }

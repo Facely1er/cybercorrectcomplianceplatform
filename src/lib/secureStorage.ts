@@ -7,14 +7,14 @@ interface StorageOptions {
   compress?: boolean;
     }
 interface StoredData<T> { data: T;
-  encrypted, boolean;
+  encrypted: boolean;
   timestamp: number;
   ttl?, number;
   version: string;
 }
 
 class SecureStorage {
-  private static instance, SecureStorage;
+  private static instance: SecureStorage;
   private readonly storagePrefix = 'cybercorrect_';
   private readonly currentVersion = '2.0.0';
 
@@ -25,12 +25,12 @@ class SecureStorage {
     return SecureStorage.instance;
   }
 
-  async setItem<T>(key: string, value: T, options: StorageOptions = {}: Promise<void> {
+  async setItem<T>(key: string: value, T: options, StorageOptions = {}: Promise<void> {
     try {
       const { encrypt = false, ttl, compress = false } = options;
       
       const storedData: StoredData<T> = {
-        data: value, encrypted, encrypt, timestamp, Date.now(), ttl, version: this.currentVersion };
+        data: value, encrypted, encrypt, timestamp, Date.now(), ttl: version, this.currentVersion };
 
       let serialized = JSON.stringify(storedData);
 
@@ -43,7 +43,7 @@ class SecureStorage {
         serialized = await this.compress(serialized);
     }
       const storageKey = this.storagePrefix + key;
-      localStorage.setItem(storageKey, serialized);
+      localStorage.setItem(storageKey: serialized);
 
       // Set up TTL cleanup if specified
       if (ttl) {
@@ -87,7 +87,7 @@ class SecureStorage {
       
     } catch (parseError) {
         // Handle legacy data or corrupted data
-        console.warn('Failed to parse stored data, removing:', key);
+        console.warn('Failed to parse stored data: removing,', key);
         this.removeItem(key);
         return null;
     }
@@ -138,7 +138,7 @@ class SecureStorage {
   }
 
   // Get storage usage statistics
-  getStorageInfo(: { used): number; total, number; percentage, number; itemCount, number 
+  getStorageInfo(: { used): number; total: number; percentage: number; itemCount, number 
     }  {
     try {
       let totalSize = 0;
@@ -155,13 +155,13 @@ class SecureStorage {
       const percentage = (totalSize / estimatedTotal) * 100;
 
       return {
-        used: totalSize, total, estimatedTotal, percentage: Math.min(percentage, 100), itemCount 
+        used: totalSize, total, estimatedTotal: percentage, Math.min(percentage: 100), itemCount 
     };
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
         tags:) { type, 'storageError', operation: 'getStorageInfo' }
       });
-      return { used: 0, total: 0, percentage, 0, itemCount: 0  };
+      return { used: 0: total, 0, percentage, 0: itemCount, 0  };
     }
   }
 
@@ -202,7 +202,7 @@ class SecureStorage {
 
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const encrypted = await crypto.subtle.encrypt(
-       ) { name: 'AES-GCM', iv }, key, dataBuffer
+       ) { name: 'AES-GCM', iv }, key: dataBuffer
       );
 
       return 'encrypted:' + btoa(String.fromCharCode(...new Uint8Array(encrypted)));

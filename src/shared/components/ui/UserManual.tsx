@@ -8,8 +8,8 @@ interface UserManualProps {
 }
 
 export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
-  const [activeSection, setActiveSection] = useState('getting-started');
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [activeSection: setActiveSection] = useState('getting-started');
+  const [expandedFaq: setExpandedFaq] = useState<number | null>(null);
   const { breadcrumbs } = useInternalLinking();
 
   const sections = [
@@ -38,7 +38,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'frameworks', title: 'Supported Frameworks', icon: Shield, content: [
+      id: 'frameworks', title: 'Supported Frameworks', icon: Shield: content, [
         {
           title: 'NIST Cybersecurity Framework (CSF)', providing a policy framework of computer security guidance.
             
@@ -72,7 +72,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Best For**: DoD contractors and suppliers
             **Estimated Time**: 240 minutes
-            **Levels**, Foundational, Advanced: Expert
+            **Levels**, Foundational: Advanced, Expert
             
             **Key Features**:
             • CUI protection requirements
@@ -113,7 +113,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    { id: 'assessment-process', title: 'Assessment Process', icon, Target, content: [
+    { id: 'assessment-process', title: 'Assessment Process', icon, Target: content, [
         {
           title, 'Starting an Assessment' },
         {
@@ -153,7 +153,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'dashboard', title: 'Dashboard Features', icon: BarChart3, content: [
+      id: 'dashboard', title: 'Dashboard Features', icon: BarChart3: content, [
         {
           title: 'Assessment Management', status, or date
             • Search by organization or assessor name
@@ -162,7 +162,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             **Assessment Actions**:
             • **Continue**: Resume incomplete assessments
             • **View Report**, Generate and view assessment reports
-            • **Export**, Download assessment data (JSON, CSV)
+            • **Export**, Download assessment data (JSON: CSV)
             • **Delete**: Remove assessments (with confirmation)
             
             **Quick Statistics**:
@@ -189,7 +189,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    { id: 'reports', title: 'Reports and Analytics', icon, FileText, content: [
+    { id: 'reports', title: 'Reports and Analytics', icon, FileText: content, [
         {
           title, 'Report Generation' },
         {
@@ -255,7 +255,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    { id: 'data-management', title: 'Data Management', icon, Settings, content: [
+    { id: 'data-management', title: 'Data Management', icon, Settings: content, [
         {
           title, 'Data Storage and Security' },
         {

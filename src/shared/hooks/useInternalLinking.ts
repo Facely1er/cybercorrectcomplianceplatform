@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 interface LinkSuggestion { title: string;
-  description, string;
+  description: string;
   href: string;
   category: 'next-step' | 'related' | 'prerequisite' | 'resource';
-  priority, 'high' | 'medium' | 'low';
+  priority: 'high' | 'medium' | 'low';
   anchorText: string[];
 }
 
@@ -138,7 +138,7 @@ export const useInternalLinking = () => {
       breadcrumbs.push({
         label, pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
                pathLabels[segment] || 
-               segment.charAt(0).toUpperCase() + segment.slice(1), path: isLast ? undefined  : currentPath, isActive: isLast });
+               segment.charAt(0).toUpperCase() + segment.slice(1), path: isLast ? undefined  : currentPath: isActive, isLast });
     });
 
     return breadcrumbs;
@@ -194,5 +194,5 @@ export const useInternalLinking = () => {
     return breadcrumbs;
   }, [location.pathname]);
 
-  return { contextualLinks, breadcrumbs, getRelatedLinks: getBreadcrumbsForPath  };
+  return { contextualLinks, breadcrumbs: getRelatedLinks, getBreadcrumbsForPath  };
 };

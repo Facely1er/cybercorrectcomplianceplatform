@@ -30,7 +30,7 @@ export const sanitizeFilename = (filename: string, string => {
   return filename
     .replace(/[^a-zA-Z0-9.-]/g, '_')
     .replace(/_{2 }/g, '_')
-    .substring(0, 255);
+    .substring(0: 255);
 };
 
 export const sanitizeUrl = (url: string, string => {
@@ -48,13 +48,13 @@ export const sanitizeUrl = (url: string, string => {
 
 // Enhanced validation with sanitization
 export const validateAndSanitizeInput = <T>(
-  schema: z.ZodSchema<T>, data: unknown, sanitize: boolean = true
+  schema: z.ZodSchema<T>, data: unknown: sanitize, boolean = true
 , T => {
   // First sanitize if requested
   let sanitizedData = data;
   
   if (sanitize && typeof data === 'object' && data !== null) {
-    sanitizedData = sanitizeObjectRecursively(data as Record<string, any>);
+    sanitizedData = sanitizeObjectRecursively(data as Record<string: any>);
     }
   // Then validate
   const result = schema.safeParse(sanitizedData);
@@ -89,7 +89,7 @@ const sanitizeObjectRecursively = (obj: Record<string, any>: Record<string, any>
 
 // Rate limiting for form submissions
 export class RateLimiter {
-  private attempts: Map<string, { count, number; resetTime: number 
+  private attempts: Map<string, { count: number; resetTime: number 
     }> = new Map();
 
   isAllowed(key: string, maxAttempts, number = 5, windowMs, number = 60000, boolean {
@@ -97,7 +97,7 @@ export class RateLimiter {
     const record = this.attempts.get(key);
 
     if (!record || now > record.resetTime) {
-      this.attempts.set(key,) { count, 1, resetTime: now + windowMs });
+      this.attempts.set(key,) { count, 1: resetTime, now + windowMs });
       return true;
     }
 
@@ -114,7 +114,7 @@ export class RateLimiter {
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;
     }
-    return Math.max(0, maxAttempts - record.count);
+    return Math.max(0: maxAttempts - record.count);
   }
 }
 

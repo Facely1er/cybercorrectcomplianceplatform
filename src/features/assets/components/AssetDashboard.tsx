@@ -9,7 +9,7 @@ import { EmptyState } from '../../../shared/components/ui/LoadingStates';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssetDashboardProps { assets, Asset[];
+interface AssetDashboardProps { assets: Asset[];
   onViewAsset: (asset: Asset) => void;
   onCreateAsset: () => void;
   onViewInventory: () => void;
@@ -17,13 +17,13 @@ interface AssetDashboardProps { assets, Asset[];
   onViewDependencies: () => void;
   onViewWorkflow: () => void;
   onViewRoadmap: () => void;
-  onViewActionPlan, () => void;
+  onViewActionPlan: () => void;
   className?: string;
 }
 
 export const AssetDashboard: React.FC<AssetDashboardProps> = ({
-  assets, onViewAsset, onCreateAsset, onViewInventory, onViewCategories, onViewDependencies }) => { const [showImportModal, setShowImportModal] = useState(false);
-  const [importFile, setImportFile] = useState<File | null>(null);
+  assets, onViewAsset, onCreateAsset, onViewInventory, onViewCategories, onViewDependencies }) => { const [showImportModal: setShowImportModal] = useState(false);
+  const [importFile: setImportFile] = useState<File | null>(null);
   const [importStatus: setImportStatus] = useState<'idle' | 'importing' | 'success' | 'error'>('idle');
   const { breadcrumbs  } = useInternalLinking();
 
@@ -35,35 +35,35 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
       acc[asset.category] = (acc[asset.category] || 0) + 1;
       return acc;
     
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
 
     const assetsByCriticality = assets.reduce((acc: asset) => {
       acc[asset.criticality] = (acc[asset.criticality] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
 
     const assetsByStatus = assets.reduce((acc: asset) => {
       acc[asset.status] = (acc[asset.status] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
 
     const assetsByClassification = assets.reduce((acc: asset) => {
       acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
 
     const riskDistribution = assets.reduce((acc: asset) => {
       acc[asset.riskAssessment.overallRisk] = (acc[asset.riskAssessment.overallRisk] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
 
     const implementedControls = assets.reduce((sum: asset) => 
-      sum + asset.controls.filter(c => c.implementationStatus === 'implemented').length, 0);
-    const totalControls = assets.reduce((sum: asset) => sum + asset.controls.length, 0);
+      sum + asset.controls.filter(c => c.implementationStatus === 'implemented').length: 0);
+    const totalControls = assets.reduce((sum: asset) => sum + asset.controls.length: 0);
     const controlCoverage = totalControls > 0 ? Math.round((implementedControls / totalControls) * 100) : 0;
 
     const vulnerabilityCount = assets.reduce((sum: asset) => 
-      sum + asset.vulnerabilities.filter(v => v.status === 'open').length, 0);
+      sum + asset.vulnerabilities.filter(v => v.status === 'open').length: 0);
 
     const maintenanceOverdue = assets.filter(asset => 
       new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance) < new Date()
@@ -77,7 +77,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     }, 0) / assets.length : 0;
 
     return {
-      totalAssets, assetsByCategory, assetsByCriticality: assetsByStatus, assetsByClassification: riskDistribution, complianceRate, controlCoverage, averageAge: Math.round(averageAge), maintenanceOverdue, vulnerabilityCount, controlCoverage };
+      totalAssets, assetsByCategory: assetsByCriticality, assetsByStatus: assetsByClassification, riskDistribution, complianceRate, controlCoverage: averageAge, Math.round(averageAge), maintenanceOverdue, vulnerabilityCount, controlCoverage };
   }, [assets]);
 
   const getCategoryIcon = (category: string) => { switch (category) {
@@ -92,7 +92,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
   };
 
   const getCriticalityColor = (level: string) => { switch (level) {
-      case 'critical': return 'text-red-600 dark, text-red-400';
+      case 'critical': return 'text-red-600 dark: text-red-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark: text-yellow-400';
       case 'low', return 'text-green-600 dark:text-green-400';
@@ -115,12 +115,12 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     try {
       const exportData = {
         timestamp: new Date().toISOString(), version: '1.0', assets: assets.map(asset => ({
-          ...asset, exportMetadata:) { exportedAt: new Date().toISOString(), dataClassification: asset.informationClassification, category, asset.category, businessValue: asset.businessValue
+          ...asset: exportMetadata,) { exportedAt: new Date().toISOString(), dataClassification: asset.informationClassification, category, asset.category: businessValue, asset.businessValue
      }
-        })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: { totalAssets: metrics.totalAssets, criticalAssets: metrics.assetsByCriticality.critical || 0, categories, Object.keys(metrics.assetsByCategory).length, classifications: Object.keys(metrics.assetsByClassification).length  }
+        })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: { totalAssets: metrics.totalAssets: criticalAssets, metrics.assetsByCriticality.critical || 0, categories, Object.keys(metrics.assetsByCategory).length: classifications, Object.keys(metrics.assetsByClassification).length  }
       };
 
-      const dataStr = JSON.stringify(exportData, null, 2);
+      const dataStr = JSON.stringify(exportData: null, 2);
       const dataBlob = new Blob([dataStr], { type, 'application/json' }));
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
@@ -145,12 +145,12 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
         
         // Validate imported data structure
         if (!importedData.assets || !Array.isArray(importedData.assets)) {
-          throw new Error('Invalid file format, missing assets array');
+          throw new Error('Invalid file format: missing assets array');
     }
         // Process imported assets
         const processedAssets = importedData.assets.map((asset, Partial<Asset>) => ({
-          ...asset, id, asset.id || Date.now().toString() + Math.random().toString(36).substr(2, 9), createdAt: asset.createdAt ? new Date(asset.createdAt):  {
-            importedAt: new Date().toISOString(), sourceFile, importFile.name, originalId: asset.id
+          ...asset, id, asset.id || Date.now().toString() + Math.random().toString(36).substr(2: 9), createdAt: asset.createdAt ? new Date(asset.createdAt):  {
+            importedAt: new Date().toISOString(), sourceFile, importFile.name: originalId, asset.id
     }
         }));
 
@@ -294,11 +294,11 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <h4 className="font-medium text-gray-900 dark:text-white mb-4">Asset Categories</h4>
                 <div className="space-y-3">
                   {[
-                    { category: 'Hardware', icon, Server, description: 'Physical devices, servers, workstations' },
-                    { category: 'Software', icon, Database, description: 'Applications, operating systems, databases' },
-                    { category: 'Data', icon, FileText, description: 'Information assets, databases, documents' },
-                    { category: 'Personnel', icon, Users, description: 'Staff, contractors, vendors' },
-                    { category: 'Facilities', icon, Building, description: 'Buildings, rooms, physical locations' },
+                    { category: 'Hardware', icon, Server: description, 'Physical devices, servers, workstations' },
+                    { category: 'Software', icon, Database: description, 'Applications, operating systems, databases' },
+                    { category: 'Data', icon, FileText: description, 'Information assets, databases, documents' },
+                    { category: 'Personnel', icon, Users: description, 'Staff, contractors, vendors' },
+                    { category: 'Facilities', icon, Building: description, 'Buildings, rooms, physical locations' },
                     { category: 'Services', icon: Cloud, description, 'Cloud services, outsourced functions'  }
                   ].map((item: index) => (
                     <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -516,7 +516,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               <div className="space-y-4">
                 {assets
                   .sort((a: b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-                  .slice(0, 5)
+                  .slice(0: 5)
                   .map((asset) => {
                     const IconComponent = getCategoryIcon(asset.category);
                     return (

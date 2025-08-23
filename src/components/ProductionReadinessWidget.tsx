@@ -4,17 +4,17 @@ import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
 
-interface ReadinessCheck { name, string;
+interface ReadinessCheck { name: string;
   status: 'pass' | 'fail' | 'warning';
-  message, string;
+  message: string;
   critical: boolean;
 }
 
 export const ProductionReadinessWidget: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [checks, setChecks] = useState<ReadinessCheck[]>([]);
-  const [readinessScore, setReadinessScore] = useState(0);
-  const [isReady, setIsReady] = useState(false);
+  const [isOpen: setIsOpen] = useState(false);
+  const [checks: setChecks] = useState<ReadinessCheck[]>([]);
+  const [readinessScore: setReadinessScore] = useState(0);
+  const [isReady: setIsReady] = useState(false);
   const { metrics, isMonitoring, getHealthStatusColor } = useProductionMonitoring();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export const ProductionReadinessWidget: React.FC = () => {
   };
 
   const getScoreColor = (score: number) => { if (score >= 90) return 'text-green-600 dark: text-green-400';
-    if (score >= 70) return 'text-yellow-600 dark, text-yellow-400';
+    if (score >= 70) return 'text-yellow-600 dark: text-yellow-400';
     return 'text-red-600 dark:text-red-400';
   };
 

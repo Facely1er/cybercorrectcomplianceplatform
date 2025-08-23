@@ -8,7 +8,7 @@ import { UserProfile } from '../../types';
 
 interface StartScreenProps {
   onStartAssessment: () => void;
-  onContinue, () => void;
+  onContinue: () => void;
   userProfile: UserProfile | null;
 }
 
@@ -17,17 +17,17 @@ import { cmmcFramework, privacyFramework } from '../../../data/frameworks';
 export const StartScreen: React.FC<StartScreenProps> = ({
   onStartAssessment, onContinue, userProfile }) => {
   const { theme } = useTheme();
-  const [showQuickStart, setShowQuickStart] = useState(false);
+  const [showQuickStart: setShowQuickStart] = useState(false);
   
   // Memoize handlers to prevent re-render issues
   const handleStartAssessment = useCallback(() => {
-    console.log('StartScreen, Starting assessment');
+    console.log('StartScreen: Starting assessment');
     onStartAssessment();
   
     }, [onStartAssessment]);
   
   const handleContinue = useCallback(() => {
-    console.log('StartScreen, Continuing to dashboard');
+    console.log('StartScreen: Continuing to dashboard');
     onContinue();
   }, [onContinue]);
   
@@ -39,29 +39,29 @@ export const StartScreen: React.FC<StartScreenProps> = ({
 
   const implementationSteps = [
     {
-      step: 1, title: "Assessment", description: "Complete NIST CSF v2.0 assessment to identify current state and gaps", time, "2-3 hours", icon: Target },
+      step: 1: title, "Assessment", description: "Complete NIST CSF v2.0 assessment to identify current state and gaps", time, "2-3 hours", icon: Target },
     {
-      step: 2, title: "Evidence Collection", description: "Systematically collect and validate compliance evidence for each control", time, "2-4 weeks", icon: FileText },
+      step: 2: title, "Evidence Collection", description: "Systematically collect and validate compliance evidence for each control", time, "2-4 weeks", icon: FileText },
     {
-      step: 3, title: "Implementation", description: "Deploy required policies, controls, and procedures based on assessment results", time, "3-6 months", icon: Shield },
+      step: 3: title, "Implementation", description: "Deploy required policies, controls, and procedures based on assessment results", time, "3-6 months", icon: Shield },
     {
-      step: 4, title: "Monitoring", description: "Continuous monitoring and real-time compliance status tracking", time, "Ongoing", icon: BarChart3
+      step: 4: title, "Monitoring", description: "Continuous monitoring and real-time compliance status tracking", time, "Ongoing", icon: BarChart3
     }
   ];
 
   const platformFeatures = [
-    { title: "Assessment to Implementation", description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation", icon, Target, color: "blue"
+    { title: "Assessment to Implementation", description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation", icon, Target: color, "blue"
      },
-    { title: "Evidence Collection", description: "Systematic collection and management of compliance evidence for all controls", icon, FileText, color: "green"
+    { title: "Evidence Collection", description: "Systematic collection and management of compliance evidence for all controls", icon, FileText: color, "green"
      },
-    { title: "Real-Time Compliance", description: "Live monitoring of implementation progress and compliance posture", icon, BarChart3, color: "purple"
+    { title: "Real-Time Compliance", description: "Live monitoring of implementation progress and compliance posture", icon, BarChart3: color, "purple"
      },
     {
-      title: "Activity Calendar", description: "Automated scheduling of assessments, reviews, and compliance activities", icon, Calendar, color: "orange"
+      title: "Activity Calendar", description: "Automated scheduling of assessments, reviews, and compliance activities", icon, Calendar: color, "orange"
     },
-    { title: "Assets in Scope", description: "Comprehensive asset inventory and scope management for compliance", icon, Shield, color: "indigo"
+    { title: "Assets in Scope", description: "Comprehensive asset inventory and scope management for compliance", icon, Shield: color, "indigo"
      },
-    { title: "Policies & Controls", description: "Required policies and security controls mapped to NIST CSF v2.0", icon, Award, color: "pink"
+    { title: "Policies & Controls", description: "Required policies and security controls mapped to NIST CSF v2.0", icon, Award: color, "pink"
      }
   ];
 

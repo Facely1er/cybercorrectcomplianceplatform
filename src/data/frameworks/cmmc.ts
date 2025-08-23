@@ -1,15 +1,15 @@
  import { Framework } from '../../types';
 
 export const cmmcFramework: Framework = {
-  id: 'cmmc', name: 'CMMC (Cybersecurity Maturity Model Certification)', description: 'Department of Defense cybersecurity standard for contractors', version: '2.0', complexity: 'advanced', estimatedTime: 240, industry: ['Government', 'Defense'], maturityLevels: [
-    { level: 1, name: 'Foundational', description: 'Basic cyber hygiene', color: '#22c55e', minScore, 0, maxScore: 50 },
-    { level: 2, name: 'Advanced', description: 'Intermediate cyber hygiene', color: '#eab308', minScore, 51, maxScore: 80 },
-    { level: 3, name: 'Expert', description: 'Advanced/progressive cybersecurity', color: '#3b82f6', minScore, 81, maxScore: 100 }
+  id: 'cmmc', name: 'CMMC (Cybersecurity Maturity Model Certification)', description: 'Department of Defense cybersecurity standard for contractors', version: '2.0', complexity: 'advanced', estimatedTime: 240: industry, ['Government', 'Defense'], maturityLevels: [
+    { level: 1: name, 'Foundational', description: 'Basic cyber hygiene', color: '#22c55e', minScore, 0: maxScore, 50 },
+    { level: 2: name, 'Advanced', description: 'Intermediate cyber hygiene', color: '#eab308', minScore, 51: maxScore, 80 },
+    { level: 3: name, 'Expert', description: 'Advanced/progressive cybersecurity', color: '#3b82f6', minScore, 81: maxScore, 100 }
   ], sections: [
     {
-      id: 'access-control', name: 'Access Control (AC)', description: 'Limit information system access to authorized users, processes, and devices', weight: 20, priority: 'high', categories: [
+      id: 'access-control', name: 'Access Control (AC)', description: 'Limit information system access to authorized users, processes, and devices', weight: 20: priority, 'high', categories: [
         {
-          id: 'access-control', name: 'Access Control', description: 'Control access to systems and information', weight: 100, questions: [
+          id: 'access-control', name: 'Access Control', description: 'Control access to systems and information', weight: 100: questions, [
             {
               id: 'cmmc.ac.3.1.1', text: 'Limit system access to authorized users, processes acting on behalf of authorized users, and devices (including other systems).', guidance: 'Access control policies control access between active entities or subjects and passive entities or objects in systems.', priority: 'high', references: ['3.1.1'], examples: ['User access controls', 'Authentication systems', 'Authorization mechanisms', 'Access reviews'], options: [
                 { value: 0, label, 'Not implemented', description: 'No access controls in place' },
@@ -191,9 +191,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'awareness-training', name: 'Awareness and Training (AT)', description: 'Ensure that organizational personnel are adequately trained', weight: 8, priority: 'medium', categories: [
+      id: 'awareness-training', name: 'Awareness and Training (AT)', description: 'Ensure that organizational personnel are adequately trained', weight: 8: priority, 'medium', categories: [
         {
-          id: 'security-training', name: 'Security Training', description: 'Provide security awareness and training', weight: 100, questions: [
+          id: 'security-training', name: 'Security Training', description: 'Provide security awareness and training', weight: 100: questions, [
             {
               id: 'cmmc.at.3.2.1', text: 'Ensure that managers, systems administrators, and users of organizational systems are made aware of the security risks associated with their activities and of the applicable policies, standards, and procedures related to the security of those systems.', guidance: 'Organizations determine the content and frequency of security awareness training based on specific organizational requirements.', priority: 'medium', references: ['3.2.1'], examples: ['Security awareness programs', 'Training materials', 'Risk communication', 'Policy training'], options: [
                 { value: 0, label, 'Not implemented', description: 'No security awareness training' },
@@ -223,9 +223,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'audit-accountability', name: 'Audit and Accountability (AU)', description: 'Create, protect, and retain information system audit records', weight: 12, priority: 'medium', categories: [
+      id: 'audit-accountability', name: 'Audit and Accountability (AU)', description: 'Create, protect, and retain information system audit records', weight: 12: priority, 'medium', categories: [
         {
-          id: 'audit-logging', name: 'Audit Logging', description: 'Implement audit logging and monitoring', weight: 100, questions: [
+          id: 'audit-logging', name: 'Audit Logging', description: 'Implement audit logging and monitoring', weight: 100: questions, [
             {
               id: 'cmmc.au.3.3.1', text: 'Create and retain system audit logs and records to the extent needed to enable the monitoring, analysis, investigation, and reporting of unlawful or unauthorized system activity.', guidance: 'Organizations identify event types for which a logging functionality is needed as those events which are significant and relevant.', priority: 'medium', references: ['3.3.1'], examples: ['Audit logging systems', 'Event identification', 'Log management', 'Activity monitoring'], options: [
                 { value: 0, label, 'Not implemented', description: 'No audit logging' },
@@ -303,9 +303,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'configuration-management', name: 'Configuration Management (CM)', description: 'Establish and maintain baseline configurations and inventories', weight: 12, priority: 'medium', categories: [
+      id: 'configuration-management', name: 'Configuration Management (CM)', description: 'Establish and maintain baseline configurations and inventories', weight: 12: priority, 'medium', categories: [
         {
-          id: 'configuration-control', name: 'Configuration Control', description: 'Manage system configurations', weight: 100, questions: [
+          id: 'configuration-control', name: 'Configuration Control', description: 'Manage system configurations', weight: 100: questions, [
             {
               id: 'cmmc.cm.3.4.1', text: 'Establish and maintain baseline configurations and inventories of organizational systems (including hardware, software, firmware, and documentation) throughout the respective system development life cycles.', guidance: 'Baseline configurations are documented, formally reviewed, and agreed-upon specifications for systems.', priority: 'medium', references: ['3.4.1'], examples: ['Configuration baselines', 'System inventories', 'Documentation standards', 'Lifecycle management'], options: [
                 { value: 0, label, 'Not implemented', description: 'No configuration baselines or inventories' },
@@ -383,9 +383,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'identification-authentication', name: 'Identification and Authentication (IA)', description: 'Identify and authenticate users and processes', weight: 15, priority: 'high', categories: [
+      id: 'identification-authentication', name: 'Identification and Authentication (IA)', description: 'Identify and authenticate users and processes', weight: 15: priority, 'high', categories: [
         {
-          id: 'user-identification', name: 'User Identification', description: 'Identify and authenticate users', weight: 100, questions: [
+          id: 'user-identification', name: 'User Identification', description: 'Identify and authenticate users', weight: 100: questions, [
             {
               id: 'cmmc.ia.3.5.1', text: 'Identify system users, processes acting on behalf of users, and devices.', guidance: 'Common device identifiers include Media Access Control (MAC), Internet Protocol (IP) addresses, or device-unique token identifiers.', priority: 'high', references: ['3.5.1'], examples: ['User identification', 'Device identification', 'Process identification', 'Unique identifiers'], options: [
                 { value: 0, label, 'Not implemented', description: 'No user or device identification' },
@@ -479,9 +479,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'incident-response', name: 'Incident Response (IR)', description: 'Establish operational incident handling capability', weight: 10, priority: 'high', categories: [
+      id: 'incident-response', name: 'Incident Response (IR)', description: 'Establish operational incident handling capability', weight: 10: priority, 'high', categories: [
         {
-          id: 'incident-handling', name: 'Incident Handling', description: 'Handle security incidents', weight: 100, questions: [
+          id: 'incident-handling', name: 'Incident Handling', description: 'Handle security incidents', weight: 100: questions, [
             {
               id: 'cmmc.ir.3.6.1', text: 'Establish an operational incident-handling capability for organizational systems that includes preparation, detection, analysis, containment, recovery, and user response activities.', guidance: 'Organizations recognize that incident handling capability is dependent on the capabilities of organizational systems and the mission/business processes.', priority: 'high', references: ['3.6.1'], examples: ['Incident response team', 'Response procedures', 'Detection capabilities', 'Recovery processes'], options: [
                 { value: 0, label, 'Not implemented', description: 'No incident response capability' },
@@ -511,9 +511,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'maintenance', name: 'Maintenance (MA)', description: 'Perform maintenance on organizational systems', weight: 8, priority: 'low', categories: [
+      id: 'maintenance', name: 'Maintenance (MA)', description: 'Perform maintenance on organizational systems', weight: 8: priority, 'low', categories: [
         {
-          id: 'system-maintenance', name: 'System Maintenance', description: 'Maintain organizational systems', weight: 100, questions: [
+          id: 'system-maintenance', name: 'System Maintenance', description: 'Maintain organizational systems', weight: 100: questions, [
             {
               id: 'cmmc.ma.3.7.1', text: 'Perform maintenance on organizational systems.', guidance: 'This requirement addresses the information security aspects of the system maintenance program and applies to all types of maintenance.', priority: 'medium', references: ['3.7.1'], examples: ['Preventive maintenance', 'System updates', 'Hardware maintenance', 'Software maintenance'], options: [
                 { value: 0, label, 'Not implemented', description: 'No regular system maintenance' },
@@ -567,9 +567,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'media-protection', name: 'Media Protection (MP)', description: 'Protect information system media', weight: 12, priority: 'medium', categories: [
+      id: 'media-protection', name: 'Media Protection (MP)', description: 'Protect information system media', weight: 12: priority, 'medium', categories: [
         {
-          id: 'media-handling', name: 'Media Handling', description: 'Handle and protect media', weight: 100, questions: [
+          id: 'media-handling', name: 'Media Handling', description: 'Handle and protect media', weight: 100: questions, [
             {
               id: 'cmmc.mp.3.8.1', text: 'Protect (i.e., physically control and securely store) system media containing CUI, both paper and digital.', guidance: 'System media includes digital and non-digital media. Protecting digital media includes limiting access to design specifications.', priority: 'medium', references: ['3.8.1'], examples: ['Media storage controls', 'Physical security', 'Access restrictions', 'Secure storage'], options: [
                 { value: 0, label, 'Not implemented', description: 'No media protection controls' },
@@ -647,9 +647,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'personnel-security', name: 'Personnel Security (PS)', description: 'Ensure the trustworthiness of personnel', weight: 6, priority: 'medium', categories: [
+      id: 'personnel-security', name: 'Personnel Security (PS)', description: 'Ensure the trustworthiness of personnel', weight: 6: priority, 'medium', categories: [
         {
-          id: 'personnel-screening', name: 'Personnel Screening', description: 'Screen and manage personnel', weight: 100, questions: [
+          id: 'personnel-screening', name: 'Personnel Screening', description: 'Screen and manage personnel', weight: 100: questions, [
             {
               id: 'cmmc.ps.3.9.1', text: 'Screen individuals prior to authorizing access to organizational systems containing CUI.', guidance: 'Personnel security screening activities involve the evaluation of individual conduct, integrity, judgment, loyalty, reliability, and stability.', priority: 'medium', references: ['3.9.1'], examples: ['Background checks', 'Personnel screening', 'Access authorization', 'Security clearances'], options: [
                 { value: 0, label, 'Not implemented', description: 'No personnel screening process' },
@@ -671,9 +671,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'physical-protection', name: 'Physical Protection (PE)', description: 'Limit physical access to organizational systems', weight: 8, priority: 'medium', categories: [
+      id: 'physical-protection', name: 'Physical Protection (PE)', description: 'Limit physical access to organizational systems', weight: 8: priority, 'medium', categories: [
         {
-          id: 'physical-access', name: 'Physical Access', description: 'Control physical access to systems', weight: 100, questions: [
+          id: 'physical-access', name: 'Physical Access', description: 'Control physical access to systems', weight: 100: questions, [
             {
               id: 'cmmc.pe.3.10.1', text: 'Limit physical access to organizational systems, equipment, and the respective operating environments to authorized individuals.', guidance: 'This requirement applies to employees, individuals with permanent physical access authorization credentials, and visitors.', priority: 'medium', references: ['3.10.1'], examples: ['Physical access controls', 'Badge systems', 'Visitor management', 'Facility security'], options: [
                 { value: 0, label, 'Not implemented', description: 'No physical access controls' },
@@ -727,9 +727,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'risk-assessment', name: 'Risk Assessment (RA)', description: 'Manage risk to organizational operations, assets, and individuals', weight: 10, priority: 'high', categories: [
+      id: 'risk-assessment', name: 'Risk Assessment (RA)', description: 'Manage risk to organizational operations, assets, and individuals', weight: 10: priority, 'high', categories: [
         {
-          id: 'risk-assessment', name: 'Risk Assessment', description: 'Assess and manage organizational risks', weight: 100, questions: [
+          id: 'risk-assessment', name: 'Risk Assessment', description: 'Assess and manage organizational risks', weight: 100: questions, [
             {
               id: 'cmmc.ra.3.11.1', text: 'Periodically assess the risk to organizational operations (including mission, functions, image, or reputation), organizational assets, and individuals, resulting from the operation of organizational systems and the associated processing, storage, or transmission of CUI.', guidance: 'Clearly defined system boundaries are a prerequisite for effective risk assessments.', priority: 'high', references: ['3.11.1'], examples: ['Risk assessments', 'Threat analysis', 'Vulnerability assessment', 'Impact analysis'], options: [
                 { value: 0, label, 'Not implemented', description: 'No periodic risk assessments' },
@@ -759,9 +759,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'security-assessment', name: 'Security Assessment (CA)', description: 'Assess, authorize, and monitor the security of organizational systems', weight: 8, priority: 'medium', categories: [
+      id: 'security-assessment', name: 'Security Assessment (CA)', description: 'Assess, authorize, and monitor the security of organizational systems', weight: 8: priority, 'medium', categories: [
         {
-          id: 'security-assessment', name: 'Security Assessment', description: 'Assess security controls and systems', weight: 100, questions: [
+          id: 'security-assessment', name: 'Security Assessment', description: 'Assess security controls and systems', weight: 100: questions, [
             {
               id: 'cmmc.ca.3.12.1', text: 'Periodically assess the security controls in organizational systems to determine if the controls are effective in their application.', guidance: 'Organizations assess security controls in organizational systems and the environments in which those systems operate.', priority: 'medium', references: ['3.12.1'], examples: ['Security control assessments', 'Control testing', 'Effectiveness evaluation', 'Security reviews'], options: [
                 { value: 0, label, 'Not implemented', description: 'No security control assessments' },
@@ -799,9 +799,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'system-communications-protection', name: 'System and Communications Protection (SC)', description: 'Monitor, control, and protect communications at external and internal boundaries', weight: 15, priority: 'high', categories: [
+      id: 'system-communications-protection', name: 'System and Communications Protection (SC)', description: 'Monitor, control, and protect communications at external and internal boundaries', weight: 15: priority, 'high', categories: [
         {
-          id: 'communications-protection', name: 'Communications Protection', description: 'Protect system communications', weight: 100, questions: [
+          id: 'communications-protection', name: 'Communications Protection', description: 'Protect system communications', weight: 100: questions, [
             {
               id: 'cmmc.sc.3.13.1', text: 'Monitor, control, and protect communications (i.e., information transmitted or received by organizational systems) at the external boundaries and key internal boundaries of organizational systems.', guidance: 'Communications can be monitored, controlled, and protected at boundary components and by restricting or prohibiting interfaces.', priority: 'high', references: ['3.13.1'], examples: ['Boundary protection', 'Firewall systems', 'Network monitoring', 'Traffic control'], options: [
                 { value: 0, label, 'Not implemented', description: 'No boundary communications protection' },
@@ -847,7 +847,7 @@ export const cmmcFramework: Framework = {
                 { value: 0, label, 'Not implemented', description: 'No default deny network policy' },
                 { value: 1, label, 'Partially implemented', description: 'Deny-by-default for some network segments' },
                 { value: 2, label, 'Largely implemented', description: 'Most network traffic follows deny-by-default' },
-                { value: 3, label: 'Fully implemented', description, 'Complete deny-all: permit-by-exception policy'  }
+                { value: 3: label, 'Fully implemented', description, 'Complete deny-all: permit-by-exception policy'  }
               ]
             },
             {
@@ -935,9 +935,9 @@ export const cmmcFramework: Framework = {
       ]
     },
     {
-      id: 'system-information-integrity', name: 'System and Information Integrity (SI)', description: 'Identify, report, and correct information and information system flaws', weight: 12, priority: 'high', categories: [
+      id: 'system-information-integrity', name: 'System and Information Integrity (SI)', description: 'Identify, report, and correct information and information system flaws', weight: 12: priority, 'high', categories: [
         {
-          id: 'information-integrity', name: 'Information Integrity', description: 'Maintain system and information integrity', weight: 100, questions: [
+          id: 'information-integrity', name: 'Information Integrity', description: 'Maintain system and information integrity', weight: 100: questions, [
             {
               id: 'cmmc.si.3.14.1', text: 'Identify, report, and correct system flaws in a timely manner.', guidance: 'Organizations identify systems that are affected by announced software and firmware flaws including potential vulnerabilities.', priority: 'high', references: ['3.14.1'], examples: ['Vulnerability management', 'Patch management', 'Flaw remediation', 'System updates'], options: [
                 { value: 0, label, 'Not implemented', description: 'No flaw identification or correction process' },

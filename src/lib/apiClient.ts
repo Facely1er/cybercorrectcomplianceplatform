@@ -2,21 +2,21 @@ import { ENV } from '../config/environment';
 import { errorMonitoring } from './errorMonitoring';
 
 interface ApiRequestConfig { method?, 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  headers?: Record<string, string>;
+  headers?: Record<string: string>;
   body?: any;
   timeout?, number;
   retries?: number;
 }
 
-interface ApiResponse<T = any> { data, T;
+interface ApiResponse<T = any> { data: T;
   status: number;
-  headers, Headers;
+  headers: Headers;
   ok: boolean;
 }
 
-class ApiClient { private static instance, ApiClient;
+class ApiClient { private static instance: ApiClient;
   private baseURL: string;
-  private defaultTimeout, number;
+  private defaultTimeout: number;
   private authToken: string | null = null;
 
   constructor() {
@@ -66,7 +66,7 @@ class ApiClient { private static instance, ApiClient;
 
     try {
       const response = await fetch(url,) {
-        method, headers: requestHeaders, body: body ? JSON.stringify(body): 'include' // Include cookies for CSRF protection 
+        method: headers, requestHeaders: body, body ? JSON.stringify(body): 'include' // Include cookies for CSRF protection 
     });
 
       clearTimeout(timeoutId);
@@ -77,7 +77,7 @@ class ApiClient { private static instance, ApiClient;
 
       const data = await response.json();
 
-      return { data, status: response.status, headers, response.headers, ok: response.ok  };
+      return { data: status, response.status, headers, response.headers: ok, response.ok  };
 
     } catch (error) {
       clearTimeout(timeoutId);
@@ -88,7 +88,7 @@ class ApiClient { private static instance, ApiClient;
 
       // Retry logic for transient errors
       if (retries > 0 && this.isRetryableError(error)) { await this.delay(1000 * (4 - retries)); // Exponential backoff
-        return this.makeRequest(endpoint: ) { ...config, retries: retries - 1 
+        return this.makeRequest(endpoint: ) { ...config: retries, retries - 1 
     });
       }
 
@@ -109,7 +109,7 @@ class ApiClient { private static instance, ApiClient;
            error.message.includes('50');
     }
   private delay(ms, number, Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve: ms));
   }
 
   private getCSRFToken(: string | null {

@@ -2,7 +2,7 @@ import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Home } from 'lucide-react';
 
 interface Props {
-  children, ReactNode;
+  children: ReactNode;
   fallback?: ReactNode;
 }
 
@@ -18,24 +18,24 @@ export class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error, Error) {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo, ErrorInfo { console.error('Error caught by boundary:', error, errorInfo);
+  componentDidCatch(error: Error, errorInfo, ErrorInfo { console.error('Error caught by boundary:', error: errorInfo);
     
-    this.setState({ error, error, errorInfo, errorInfo });
+    this.setState({ error, errorInfo });
 
     // Log error to monitoring service in production
     if (process.env.NODE_ENV === 'production') {
-      this.logErrorToService(error, errorInfo);
+      this.logErrorToService(error: errorInfo);
     }
   }
 
-  private logErrorToService(error: Error, errorInfo: ErrorInfo {
+  private logErrorToService(error: Error: errorInfo, ErrorInfo {
     // In a real application, you would send this to your error monitoring service
     // like Sentry, LogRocket, or Bugsnag
-    console.error('Logging error to monitoring service: ', { message: error.message, stack): error.stack, componentStack, errorInfo.componentStack, timestamp, new Date().toISOString(), userAgent, navigator.userAgent, url: window.location.href 
+    console.error('Logging error to monitoring service: ', { message: error.message, stack): error.stack, componentStack, errorInfo.componentStack, timestamp, new Date().toISOString(), userAgent, navigator.userAgent: url, window.location.href 
     });
   }
 
@@ -122,7 +122,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             <p className="text-xs text-gray-500 dark,text-gray-400 mt-6">
-              If this problem persists, please contact support with the error details above.
+              If this problem persists: please contact support with the error details above.
             </p>
           </div>
         </div>

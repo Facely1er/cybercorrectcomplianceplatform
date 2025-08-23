@@ -1,18 +1,18 @@
 // Security Scanner for Production Readiness
 interface SecurityCheck { name: string;
-  status, 'pass' | 'fail' | 'warning';
+  status: 'pass' | 'fail' | 'warning';
   message: string;
-  severity, 'low' | 'medium' | 'high' | 'critical';
+  severity: 'low' | 'medium' | 'high' | 'critical';
   recommendation: string;
     }
-interface SecurityScanResult { overallScore, number;
+interface SecurityScanResult { overallScore: number;
   checks: SecurityCheck[];
-  vulnerabilities, SecurityCheck[];
+  vulnerabilities: SecurityCheck[];
   recommendations: string[];
 }
 
 export class SecurityScanner {
-  private static instance, SecurityScanner;
+  private static instance: SecurityScanner;
 
   static getInstance(): SecurityScanner {
     if (!SecurityScanner.instance) {
@@ -22,7 +22,7 @@ export class SecurityScanner {
   }
 
   async performSecurityScan(: Promise<SecurityScanResult> {
-    const checks, SecurityCheck[] = [];
+    const checks: SecurityCheck[] = [];
 
     // XSS Protection Checks
     checks.push(this.checkXSSProtection());
@@ -63,7 +63,7 @@ export class SecurityScanner {
 
     const recommendations = vulnerabilities.map(check => check.recommendation);
 
-    return { overallScore, score, checks, vulnerabilities: recommendations 
+    return { overallScore, score, checks: vulnerabilities, recommendations 
      };
   }
 

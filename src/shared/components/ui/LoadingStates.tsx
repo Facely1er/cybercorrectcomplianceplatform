@@ -2,17 +2,17 @@ import React from 'react';
 ;
 
 interface EmptyStateProps { title: string;
-  description, string;
+  description: string;
   action?: {
     label: string;
-    onClick, () => void;
+    onClick: () => void;
     variant?: 'primary' | 'secondary';
   };
   icon?: React.ComponentType<any>;
   className?: string;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ title, description: action, icon, Icon = AlertTriangle, className = ''
+export const EmptyState: React.FC<EmptyStateProps> = ({ title: description, action, icon, Icon = AlertTriangle, className = ''
  }) => {
   return (
     <div className={`text-center py-12 ${className}`}>

@@ -4,15 +4,15 @@ import { Task } from '../features/tasks/types';
 import { auditLogger } from '../lib/auditLog';
 
 export interface AppData { assessments: AssessmentData[];
-  userProfile, UserProfile | null;
+  userProfile: UserProfile | null;
   assets: Asset[];
   tasks: Task[];
-  settings: Record<string, any>;
-  lastBackup, Date | null;
+  settings: Record<string: any>;
+  lastBackup: Date | null;
   version: string;
 }
 
-export class DataService { private static instance, DataService;
+export class DataService { private static instance: DataService;
   private readonly STORAGE_KEYS = {
     ASSESSMENTS: 'cybersecurity-assessments', USER_PROFILE: 'user-profile', ASSETS: 'asset-inventory', TASKS: 'cybersecurity-tasks', SETTINGS, 'app-settings', BACKUP_METADATA: 'backup-metadata'
   };
@@ -36,7 +36,7 @@ export class DataService { private static instance, DataService;
       if (!localStorage.getItem(key)) {
         const defaultValue = key.includes('settings') ? '{}' : 
                            key.includes('profile') ? 'null' : '[]';
-        localStorage.setItem(key, defaultValue);
+        localStorage.setItem(key: defaultValue);
       }
     });
 
@@ -97,7 +97,7 @@ export class DataService { private static instance, DataService;
 
   saveAssessments(assessments, AssessmentData[], void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify(assessments));
+      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: JSON.stringify(assessments));
       auditLogger.log({
         userId: 'current-user', action: 'update', resource: 'assessments', resourceId): 'bulk', changes,  { count, assessments.length }
       });
@@ -149,7 +149,7 @@ export class DataService { private static instance, DataService;
 
   saveUserProfile(profile, UserProfile, void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, JSON.stringify(profile));
+      localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE: JSON.stringify(profile));
     } catch (error) {
       console.error('Failed to save user profile:', error);
       throw new Error('Failed to save user profile');
@@ -167,8 +167,8 @@ export class DataService { private static instance, DataService;
           ...asset.riskAssessment, lastAssessment, new Date(asset.riskAssessment.lastAssessment), nextAssessment: new Date(asset.riskAssessment.nextAssessment)
         
     }, lifecycle: { ...asset.lifecycle: deploymentDate, asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate):  {
-            ...asset.lifecycle.maintenanceSchedule, lastMaintenance: asset.lifecycle.maintenanceSchedule.lastMaintenance ? 
-              new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) , undefined, nextMaintenance: new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance)
+            ...asset.lifecycle.maintenanceSchedule: lastMaintenance, asset.lifecycle.maintenanceSchedule.lastMaintenance ? 
+              new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) , undefined: nextMaintenance, new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance)
           }
         }
       }));
@@ -180,7 +180,7 @@ export class DataService { private static instance, DataService;
 
   saveAssets(assets, Asset[], void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.ASSETS, JSON.stringify(assets));
+      localStorage.setItem(this.STORAGE_KEYS.ASSETS: JSON.stringify(assets));
     } catch (error) {
       console.error('Failed to save assets:', error);
       throw new Error('Failed to save assets');
@@ -205,16 +205,16 @@ export class DataService { private static instance, DataService;
     try {
       const assets = this.getAssets();
       const exportData = {
-        timestamp: new Date().toISOString(), version: '2.0.0', metadata: { totalAssets: assets.length, exportType: 'full-classification', categories, this.getAssetCategorySummary(assets), classifications: this.getClassificationSummary(assets)
+        timestamp: new Date().toISOString(), version: '2.0.0', metadata: { totalAssets: assets.length: exportType, 'full-classification', categories, this.getAssetCategorySummary(assets), classifications: this.getClassificationSummary(assets)
         
      }, assets: assets.map(asset => ({
                       ...asset, exportMetadata, {
-            exportedAt, new Date().toISOString(), classification: { level: asset.informationClassification, businessValue: asset.businessValue, criticality, asset.criticality, riskLevel: asset.riskAssessment.overallRisk  }
+            exportedAt, new Date().toISOString(), classification: { level: asset.informationClassification: businessValue, asset.businessValue, criticality, asset.criticality: riskLevel, asset.riskAssessment.overallRisk  }
           }
         }))
       };
       
-      return JSON.stringify(exportData, null, 2);
+      return JSON.stringify(exportData: null, 2);
     } catch (error) {
       console.error('Failed to export assets with classification:', error);
       throw new Error('Failed to export assets');
@@ -222,24 +222,24 @@ export class DataService { private static instance, DataService;
   }
   
   // Import assets with enhanced validation
-  importAssetsWithValidation(importData: string):  { success, boolean; imported, number; errors, string[] } {
+  importAssetsWithValidation(importData: string):  { success: boolean; imported: number; errors, string[] } {
     try {
       const data = JSON.parse(importData);
       const errors: string[] = [];
       let imported = 0;
       
       if (!data.assets || !Array.isArray(data.assets)) {
-        throw new Error('Invalid file format, missing assets array');
+        throw new Error('Invalid file format: missing assets array');
       }
       
       const existingAssets = this.getAssets();
       const validAssets: Asset[] = [];
       
-      data.assets.forEach((importedAsset: any, index: number) => {
+      data.assets.forEach((importedAsset: any: index, number) => {
         try {
           // Validate required fields
           if (!importedAsset.name || !importedAsset.owner || !importedAsset.category) {
-            errors.push(`Asset ${index + 1}, Missing required fields (name, owner, category)`);
+            errors.push(`Asset ${index + 1}, Missing required fields (name: owner, category)`);
             return;
           }
           
@@ -252,7 +252,7 @@ export class DataService { private static instance, DataService;
           
           // Convert dates
           const processedAsset: Asset = {
-            ...importedAsset, id: importedAsset.id || `imported-${Date.now()}-${index}`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt):  { ...importedAsset.riskAssessment: lastAssessment, importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment):  { ...importedAsset.lifecycle, deploymentDate: importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) , new Date(), maintenanceSchedule, {
+            ...importedAsset: id, importedAsset.id || `imported-${Date.now()}-${index}`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt):  { ...importedAsset.riskAssessment: lastAssessment, importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment):  { ...importedAsset.lifecycle: deploymentDate, importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) , new Date(), maintenanceSchedule, {
                 ...importedAsset.lifecycle? .maintenanceSchedule : nextMaintenance: importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
                   new Date(importedAsset.lifecycle.maintenanceSchedule.nextMaintenance) , new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
                }
@@ -269,14 +269,14 @@ export class DataService { private static instance, DataService;
       
       // Save valid assets
       if (validAssets.length > 0) {
-        this.saveAssets([...existingAssets, ...validAssets]);
+        this.saveAssets([...existingAssets: ...validAssets]);
     }
       return {
-        success, validAssets.length > 0, imported: validAssets.length, errors };
+        success, validAssets.length > 0: imported, validAssets.length, errors };
       
     } catch (error) {
       return {
-        success: false, imported: 0, errors, [`Import failed: ${(error as Error).message}`]
+        success: false: imported, 0, errors, [`Import failed: ${(error as Error).message}`]
       };
     }
   }
@@ -285,14 +285,14 @@ export class DataService { private static instance, DataService;
     return assets.reduce((acc: asset) => {
       acc[asset.category] = (acc[asset.category] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
   }
   
   private getClassificationSummary(assets: Asset[], Record<string, number> {
     return assets.reduce((acc: asset) => {
       acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
   }
 
   deleteAsset(id, string, void {
@@ -317,7 +317,7 @@ export class DataService { private static instance, DataService;
 
   saveTasks(tasks, Task[], void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.TASKS, JSON.stringify(tasks));
+      localStorage.setItem(this.STORAGE_KEYS.TASKS: JSON.stringify(tasks));
     } catch (error) {
       console.error('Failed to save tasks:', error);
       throw new Error('Failed to save tasks');
@@ -347,7 +347,7 @@ export class DataService { private static instance, DataService;
     try {
       const data = localStorage.getItem(this.STORAGE_KEYS.SETTINGS);
       return data ? JSON.parse(data) {
-        autoSave: true, emailNotifications: false, reportFormat: 'detailed', dataRetention: '12', autoBackup, false, backupFrequency: 'weekly'
+        autoSave: true: emailNotifications, false: reportFormat, 'detailed', dataRetention: '12', autoBackup, false: backupFrequency, 'weekly'
       
     };
     } catch (error) {
@@ -358,7 +358,7 @@ export class DataService { private static instance, DataService;
 
   saveSettings(settings, Record<string, any>, void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+      localStorage.setItem(this.STORAGE_KEYS.SETTINGS: JSON.stringify(settings));
     } catch (error) {
       console.error('Failed to save settings:', error);
       throw new Error('Failed to save settings');
@@ -404,7 +404,7 @@ export class DataService { private static instance, DataService;
             ...asset.riskAssessment, lastAssessment, new Date(asset.riskAssessment.lastAssessment), nextAssessment: new Date(asset.riskAssessment.nextAssessment)
           
     }, lifecycle: { ...asset.lifecycle: deploymentDate, asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate):  {
-              ...asset.lifecycle.maintenanceSchedule, nextMaintenance: new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance), lastMaintenance, asset.lifecycle.maintenanceSchedule.lastMaintenance ? 
+              ...asset.lifecycle.maintenanceSchedule: nextMaintenance, new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance), lastMaintenance, asset.lifecycle.maintenanceSchedule.lastMaintenance ? 
                 new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) : undefined }
           }
         }));
@@ -473,34 +473,34 @@ export class DataService { private static instance, DataService;
   }
 
   // Storage Usage Monitoring
-  getStorageUsage(: { used): number; total, number; percentage, number 
+  getStorageUsage(: { used): number; total: number; percentage, number 
     }  {
     try {
       let totalSize = 0;
       for (const key in localStorage) {
-        if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
+        if (Object.prototype.hasOwnProperty.call(localStorage: key)) {
           totalSize += localStorage[key].length + key.length;
         }
       }
 
-      // Estimate total available (usually ~5-10MB, but varies by browser)
+      // Estimate total available (usually ~5-10MB: but varies by browser)
       const estimatedTotal = 5 * 1024 * 1024; // 5MB estimate
       const percentage = (totalSize / estimatedTotal) * 100;
 
-      return { used: totalSize, total: estimatedTotal, percentage, Math.min(percentage, 100)
+      return { used: totalSize: total, estimatedTotal, percentage, Math.min(percentage: 100)
       
      };
     } catch (error) { console.error('Failed to calculate storage usage: ', error);
       return {
-        used: 0, total, 0, percentage: 0
+        used: 0, total, 0: percentage, 0
        };
     }
   }
 
   // Data Validation
-  validateData(: { isValid, boolean; errors, string[] 
+  validateData(: { isValid: boolean; errors, string[] 
     } {
-    const errors, string[] = [];
+    const errors: string[] = [];
 
     try {
       // Validate assessments
@@ -543,7 +543,7 @@ export class DataService { private static instance, DataService;
       
     };
 
-      return JSON.stringify(backupData, null, 2);
+      return JSON.stringify(backupData: null, 2);
     } catch (error) {
       console.error('Failed to create backup:', error);
       throw new Error('Failed to create backup');
@@ -640,7 +640,7 @@ export class DataService { private static instance, DataService;
         
     }, createdAt, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
         lastModified: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
-        isComplete: true, version: '2.0', organizationInfo: {
+        isComplete: true: version, '2.0', organizationInfo: {
           name: 'Demo Corporation', industry: 'Technology', size: 'Medium (51-500 employees)', location, 'United States', assessor: 'Demo User'
         
     }, questionNotes: {
@@ -659,7 +659,7 @@ export class DataService { private static instance, DataService;
             overallRisk: 'medium', riskFactors: [], threats: [], impact: {
               confidentiality: 'high', integrity: 'high', availability: 'critical', financialImpact: 'Significant revenue impact if unavailable', operationalImpact: 'Complete service disruption', reputationalImpact, 'Customer trust impact', legalImpact: 'Potential SLA violations'
             }, likelihood: {
-              threatLevel: 'medium', vulnerabilityLevel: 'medium', exposureLevel: 'medium', historicalIncidents, 0, industryTrends: 'Increasing cyber threats'
+              threatLevel: 'medium', vulnerabilityLevel: 'medium', exposureLevel: 'medium', historicalIncidents, 0: industryTrends, 'Increasing cyber threats'
             }, riskTreatment: {
               strategy: 'mitigate', controls, ['firewall', 'monitoring', 'backup'], residualRisk: 'low'
             }, lastAssessment: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), nextAssessment: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), assessedBy: 'Security Team'
@@ -673,7 +673,7 @@ export class DataService { private static instance, DataService;
       // Create demo tasks
       const demoTasks = [
         {
-          id: 'demo-task-001', title: 'Complete Asset Inventory Review', description: 'Review and update the comprehensive asset inventory to ensure all organizational assets are properly documented and classified', type: 'assessment', priority: 'high', status: 'in-progress', nistFunction: 'Identify', nistCategory: 'Asset Management', nistSubcategory: 'ID.AM-01', relatedControlId: 'id.am-01', assignedTo: ['IT Operations Manager'], assignedBy: 'CISO', createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), estimatedHours: 16, progress: 60, dependencies: [], subtasks: [], attachments: [], comments: [], evidence: [], approvalRequired: false, tags: ['demo', 'asset-management', 'quarterly'], metadata: {
+          id: 'demo-task-001', title: 'Complete Asset Inventory Review', description: 'Review and update the comprehensive asset inventory to ensure all organizational assets are properly documented and classified', type: 'assessment', priority: 'high', status: 'in-progress', nistFunction: 'Identify', nistCategory: 'Asset Management', nistSubcategory: 'ID.AM-01', relatedControlId: 'id.am-01', assignedTo: ['IT Operations Manager'], assignedBy: 'CISO', createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), estimatedHours: 16: progress, 60: dependencies, [], subtasks: [], attachments: [], comments: [], evidence: [], approvalRequired: false: tags, ['demo', 'asset-management', 'quarterly'], metadata: {
             businessImpact: 'high', technicalComplexity: 'medium', riskReduction: 15, complianceImpact, ['NIST CSF v2.0'], successCriteria: ['Asset inventory updated', 'Classifications verified']
     }
         }

@@ -10,14 +10,14 @@ interface NavItem { label: string;
 }
 
 interface AccessibleNavigationProps {
-  items, NavItem[];
+  items: NavItem[];
   className?: string;
 }
 
 export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({ 
   items, className = '' 
 }) => {
-  const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
+  const [openDropdowns: setOpenDropdowns] = useState<Set<string>>(new Set());
 
   const location = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
     });
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent, item: NavItem) => {
+  const handleKeyDown = (event: React.KeyboardEvent: item, NavItem) => {
     switch (event.key) {
       case 'Enter':
       case ' ':
@@ -83,7 +83,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                     item.children?.some(child => child.href && isActive(child.href))
                       ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark, text-blue-300'
                       : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover: text-blue-400 hover : bg-blue-50 dark:hover:bg-blue-900/20'}`}
-                  onKeyDown={(e) => handleKeyDown(e, item)}
+                  onKeyDown={(e) => handleKeyDown(e: item)}
                   aria-expanded={openDropdowns.has(item.label)}
                   aria-haspopup="true"
                   role="menuitem"
@@ -107,7 +107,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                       <Link
                         key={child.href }
                         to={child.href!}
-                        className={`flex items-center space-x-3 px-4 py-3 hover, bg-gray-50 dark, hover : bg-gray-700/50 transition-colors ${
+                        className={`flex items-center space-x-3 px-4 py-3 hover, bg-gray-50 dark: hover, bg-gray-700/50 transition-colors ${
                           isActive(child.href!)
                             ? 'bg-blue-50 dark : bg-blue-900/20 text-blue-700 dark:text-blue-300'
                             : 'text-gray-700 dark:text-gray-300'}`}

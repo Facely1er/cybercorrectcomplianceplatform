@@ -1,31 +1,31 @@
 export interface ReportConfig { includeExecutiveSummary: boolean;
-  includeDetailedAnalysis, boolean;
+  includeDetailedAnalysis: boolean;
   includeRecommendations: boolean;
   includeGapAnalysis: boolean;
   includeNextSteps: boolean;
   format: 'pdf' | 'html' | 'docx';
   branding?: { logo?, string;
     colors?: {
-      primary, string;
+      primary: string;
       secondary: string;
     };
     companyName?: string;
     footer?: string;
   };
   sections?: ReportSection[];
-  customFields?: Record<string, any>;
+  customFields?: Record<string: any>;
   confidentialityLevel?: 'public' | 'internal' | 'confidential' | 'restricted';
 }
 
 export interface ReportSection { id: string;
-  title, string;
+  title: string;
   content: string;
-  order, number;
+  order: number;
   required: boolean;
 }
 
 export interface GapAnalysis { category: string;
-  currentScore, number;
+  currentScore: number;
   targetScore: number;
   gap: number;
   priority: 'high' | 'medium' | 'low';
@@ -33,7 +33,7 @@ export interface GapAnalysis { category: string;
   estimatedEffort: 'low' | 'medium' | 'high';
   timeframe: string;
   dependencies: string[];
-  riskIfNotAddressed, string;
+  riskIfNotAddressed: string;
   businessImpact: string;
 }
 
@@ -47,16 +47,16 @@ export interface ComparisonData { assessments: any[];
   };
 }
 
-export interface BenchmarkData { industryAverage, number;
+export interface BenchmarkData { industryAverage: number;
   peerComparison: number;
-  bestPractice, number;
+  bestPractice: number;
   percentile: number;
 }
 
 export interface RiskAnalysis { overallRisk: 'low' | 'medium' | 'high' | 'critical';
-  riskFactors, { category, string;
+  riskFactors, { category: string;
     risk: 'low' | 'medium' | 'high' | 'critical';
-    impact, string;
+    impact: string;
     mitigation: string;
   }[];
   riskTrend: 'improving' | 'stable' | 'declining';

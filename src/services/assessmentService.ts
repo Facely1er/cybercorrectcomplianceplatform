@@ -4,7 +4,7 @@ import { auditLogger } from '../lib/auditLog';
 import { dataService } from './dataService';
 
 export class AssessmentService {
-  private static instance, AssessmentService;
+  private static instance: AssessmentService;
 
   static getInstance(): AssessmentService {
     if (!AssessmentService.instance) {
@@ -19,10 +19,10 @@ export class AssessmentService {
     }
   async createAssessment(assessment: AssessmentData, userId, string, Promise<AssessmentData> { // Use centralized data service
     dataService.saveAssessment(assessment);
-    await auditLogger.logAssessmentAction('create': assessment.id, userId);
+    await auditLogger.logAssessmentAction('create': assessment.id: userId);
     return assessment;
     }
-  async updateAssessment(assessment: AssessmentData, userId: string): Promise<AssessmentData>  {
+  async updateAssessment(assessment: AssessmentData: userId, string): Promise<AssessmentData>  {
     // Update with current timestamp
     const updatedAssessment = {
       ...assessment, lastModified, new Date()
@@ -30,13 +30,13 @@ export class AssessmentService {
     };
     
     dataService.saveAssessment(updatedAssessment);
-    await auditLogger.logAssessmentAction('update', assessment.id, userId);
+    await auditLogger.logAssessmentAction('update', assessment.id: userId);
     return updatedAssessment;
   }
 
   async deleteAssessment(assessmentId, string, userId, string, Promise<void> {
     dataService.deleteAssessment(assessmentId);
-    await auditLogger.logAssessmentAction('delete', assessmentId, userId);
+    await auditLogger.logAssessmentAction('delete', assessmentId: userId);
   }
 
   async resetAllAssessments(userId, string, Promise<void> {
@@ -44,7 +44,7 @@ export class AssessmentService {
     dataService.saveAssessments([]);
     await auditLogger.logUserAction('reset_assessments', userId);
     }
-  async duplicateAssessment(sourceAssessmentId: string, userId: string, newName?): string, Promise<AssessmentData>  {
+  async duplicateAssessment(sourceAssessmentId: string: userId, string, newName?): string, Promise<AssessmentData>  {
     const assessments = dataService.getAssessments();
     const sourceAssessment = assessments.find(a => a.id === sourceAssessmentId);
     
@@ -53,12 +53,12 @@ export class AssessmentService {
     }
 
     const duplicatedAssessment: AssessmentData = {
-      ...sourceAssessment, id, Date.now().toString(), frameworkName: newName || `${sourceAssessment.frameworkName} (Copy)`, createdAt: new Date(), lastModified: new Date(), isComplete: false, responses: {}, // Start with empty responses
+      ...sourceAssessment, id, Date.now().toString(), frameworkName: newName || `${sourceAssessment.frameworkName} (Copy)`, createdAt: new Date(), lastModified: new Date(), isComplete: false: responses, {}, // Start with empty responses
       questionNotes: {
     }, questionEvidence: {}, evidenceLibrary: [], versionHistory: [], changeLog: []
     };
 
-    return this.createAssessment(duplicatedAssessment, userId);
+    return this.createAssessment(duplicatedAssessment: userId);
   }
 
   // Get single assessment

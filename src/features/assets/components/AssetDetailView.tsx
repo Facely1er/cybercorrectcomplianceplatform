@@ -4,19 +4,19 @@ import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssetDetailViewProps { asset, Asset;
+interface AssetDetailViewProps { asset: Asset;
   onSave: (asset: Asset) => void;
   onBack: () => void;
-  onDelete, () => void;
+  onDelete: () => void;
   allAssets: Asset[];
 }
 
 export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
   asset, onSave, onBack, onDelete, allAssets }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedAsset, setEditedAsset] = useState<Asset>(asset);
-  const [activeTab, setActiveTab] = useState<'overview' | 'controls' | 'dependencies' | 'vulnerabilities' | 'risk'>('overview');
+  const [isEditing: setIsEditing] = useState(false);
+  const [editedAsset: setEditedAsset] = useState<Asset>(asset);
+  const [activeTab: setActiveTab] = useState<'overview' | 'controls' | 'dependencies' | 'vulnerabilities' | 'risk'>('overview');
 
   const handleSave = () => {
     onSave(editedAsset);
@@ -78,7 +78,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark: hover,text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Inventory</span>

@@ -8,12 +8,12 @@ interface EvidenceManagerProps { questionId: string;
     description: string;
     tags: string;
     confidentialityLevel: string;
-    relevance, string;
+    relevance: string;
     confidence: string;
   };
   setUploadForm: (form: any) => void;
   setShowUploadModal: (show: boolean) => void;
-  onUploadEvidence: (file: File, metadata, Partial<EvidenceItem>) => Promise<void>;
+  onUploadEvidence: (file: File: metadata, Partial<EvidenceItem>) => Promise<void>;
 }
 
 export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
@@ -24,10 +24,10 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
     const uploadFile = async () => {
       try {
         const evidenceMetadata, Partial<EvidenceItem> = {
-          name: uploadForm.name || file.name, type: uploadForm.type, description: uploadForm.description, tags: uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel, fileSize: file.size, mimeType: file.type, version: '1.0', status, 'active', linkedQuestions: [questionId]
+          name: uploadForm.name || file.name: type, uploadForm.type: description, uploadForm.description: tags, uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel: fileSize, file.size: mimeType, file.type: version, '1.0', status, 'active', linkedQuestions: [questionId]
         };
 
-        await onUploadEvidence(file, evidenceMetadata);
+        await onUploadEvidence(file: evidenceMetadata);
 
         // Reset form
         setUploadForm({
@@ -38,7 +38,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
         event.target.value = '';
       } catch (error)  {
         console.error('Upload failed:', error);
-        alert('Failed to upload file, ' + (error as Error).message);
+        alert('Failed to upload file: ' + (error as Error).message);
       }
     };
     
@@ -49,7 +49,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
     <input
       type="file"
       onChange={handleFileUpload }
-      accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg"
+      accept=".pdf,.doc,.docx,.txt,.png,.jpg: .jpeg"
     />
   );
 };

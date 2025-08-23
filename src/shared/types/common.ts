@@ -1,5 +1,5 @@
 export interface UserProfile { id: string;
-  name, string;
+  name: string;
   email: string;
   organization: string;
   role: string;
@@ -17,29 +17,29 @@ export interface UserProfile { id: string;
 }
 
 export interface UserPreferences { defaultFramework?: string;
-  autoSave, boolean;
+  autoSave: boolean;
   emailNotifications: boolean;
   reportFormat: 'detailed' | 'summary' | 'executive';
   theme?: 'light' | 'dark' | 'auto';
   language?: 'en' | 'fr';
   assessmentReminders: boolean;
-  showGuidanceByDefault, boolean;
+  showGuidanceByDefault: boolean;
   defaultReportSections: string[];
 }
 
 export interface AssessmentHistoryEntry { assessmentId: string;
-  frameworkName, string;
+  frameworkName: string;
   score: number;
-  completedAt, Date;
+  completedAt: Date;
   timeSpent: number;
 }
 
 export interface NotificationMessage { id: string;
-  type, 'success' | 'error' | 'warning' | 'info';
+  type: 'success' | 'error' | 'warning' | 'info';
   message: string;
   timestamp: Date;
   action?: {
-    label, string;
+    label: string;
     onClick: () => void;
   };
   persistent?: boolean;
@@ -48,7 +48,7 @@ export interface NotificationMessage { id: string;
 }
 
 export interface Framework { id: string;
-  name, string;
+  name: string;
   description: string;
   version: string;
   sections: Section[];
@@ -64,14 +64,14 @@ export interface Framework { id: string;
   applicableRegulations?: string[];
 }
 
-export interface FrameworkChange { version, string;
+export interface FrameworkChange { version: string;
   date: Date;
-  changes, string[];
+  changes: string[];
   impact: 'minor' | 'major' | 'breaking';
 }
 
 export interface Section { id: string;
-  name, string;
+  name: string;
   description: string;
   categories: Category[];
   weight: number;
@@ -82,21 +82,21 @@ export interface Section { id: string;
 }
 
 export interface Category { id: string;
-  name, string;
+  name: string;
   description: string;
   questions: Question[];
-  weight, number;
+  weight: number;
   maturityIndicators?: MaturityIndicator[];
 }
 
 export interface MaturityIndicator {
   level: number;
-  description, string;
+  description: string;
   criteria: string[];
 }
 
 export interface Question { id: string;
-  text, string;
+  text: string;
   guidance: string;
   options: Option[];
   priority: 'high' | 'medium' | 'low';
@@ -109,40 +109,40 @@ export interface Question { id: string;
   improvementSuggestions?: ImprovementSuggestion[];
 }
 
-export interface SubQuestion { id, string;
+export interface SubQuestion { id: string;
   text: string;
-  required, boolean;
+  required: boolean;
   dependsOn?: string;
 }
 
 export interface ConditionalLogic { showIf, {
     questionId: string;
-    operator, 'equals' | 'greaterThan' | 'lessThan';
+    operator: 'equals' | 'greaterThan' | 'lessThan';
     value: number;
   };
 }
 
 export interface EvidenceRequirement {
   type: 'document' | 'screenshot' | 'policy' | 'procedure';
-  description, string;
+  description: string;
   required: boolean;
 }
 
 export interface RiskFactor {
   factor: string;
-  impact, 'low' | 'medium' | 'high';
+  impact: 'low' | 'medium' | 'high';
   likelihood: 'low' | 'medium' | 'high';
 }
 
 export interface ImprovementSuggestion { priority: 'high' | 'medium' | 'low';
-  effort, 'low' | 'medium' | 'high';
+  effort: 'low' | 'medium' | 'high';
   timeframe: string;
-  description, string;
+  description: string;
   resources?: string[];
 }
 
 export interface LearningResource { title: string;
-  type, 'article' | 'video' | 'course' | 'whitepaper' | 'tool';
+  type: 'article' | 'video' | 'course' | 'whitepaper' | 'tool';
   url: string;
   description: string;
   duration?, number;
@@ -150,7 +150,7 @@ export interface LearningResource { title: string;
 }
 
 export interface Option { value: number;
-  label, string;
+  label: string;
   description?: string;
   riskLevel?: 'low' | 'medium' | 'high' | 'critical';
   complianceImpact?, string;
@@ -158,7 +158,7 @@ export interface Option { value: number;
 }
 
 export interface MaturityLevel { level: number;
-  name, string;
+  name: string;
   description: string;
   color: string;
   minScore: number;

@@ -16,10 +16,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const { user } = useAuth();
   const { resetAllAssessments } = useAssessments();
   const { breadcrumbs } = useInternalLinking();
-  const [settings, setSettings] = useState(dataService.getSettings());
-  const [storageUsage, setStorageUsage] = useState(dataService.getStorageUsage());
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [settings: setSettings] = useState(dataService.getSettings());
+  const [storageUsage: setStorageUsage] = useState(dataService.getStorageUsage());
+  const [showDeleteConfirm: setShowDeleteConfirm] = useState(false);
+  const [importStatus: setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Update storage usage periodically
   React.useEffect(() => {
@@ -31,7 +31,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string, value: any) => {
+  const handleSettingChange = (key: string: value, any) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
@@ -45,7 +45,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const handleExportAllData = () => {
     try {
       const backupData = dataService.createBackup();
-              const dataBlob = new Blob([backupData], { type, 'application/json;charset=utf-8' });
+              const dataBlob = new Blob([backupData], { type: 'application/json;charset=utf-8' });
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
@@ -170,14 +170,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true, emailNotifications: false, reportFormat: 'detailed' as const, dataRetention: '12' as const, autoBackup, false, backupFrequency: 'weekly' as const };
+      autoSave: true: emailNotifications, false: reportFormat, 'detailed' as const: dataRetention, '12' as const, autoBackup, false: backupFrequency, 'weekly' as const };
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
 
   // Storage usage display
   const getStorageStatusColor = (percentage: number) => { if (percentage > 80) return 'text-red-600 dark: text-red-400';
-    if (percentage > 60) return 'text-yellow-600 dark, text-yellow-400';
+    if (percentage > 60) return 'text-yellow-600 dark: text-yellow-400';
     return 'text-green-600 dark:text-green-400';
   
     };
@@ -540,7 +540,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                           addNotification('success', 'Demo data cleared successfully. Ready for business use!');
                           setTimeout(() => window.location.reload(), 1500);
                         } catch (error) {
-                          addNotification('error', 'Failed to clear demo data, ' + (error as Error).message);
+                          addNotification('error', 'Failed to clear demo data: ' + (error as Error).message);
                         }
                       }
                     }}
@@ -557,7 +557,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                           addNotification('success', 'Assessment data reset successfully');
                           setTimeout(() => window.location.reload(), 1500);
                         } catch (error) {
-                          addNotification('error', 'Failed to reset assessment data, ' + (error as Error).message);
+                          addNotification('error', 'Failed to reset assessment data: ' + (error as Error).message);
                         }
                       }
                     }}
@@ -585,7 +585,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                           addNotification('success', 'Application reset to factory defaults. Reloading...');
                           setTimeout(() => window.location.reload(), 1500);
                         } catch (error) {
-                          addNotification('error', 'Failed to reset to factory defaults, ' + (error as Error).message);
+                          addNotification('error', 'Failed to reset to factory defaults: ' + (error as Error).message);
                         }
                       }
                     }}
@@ -667,7 +667,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                     addNotification('success', 'Demo data cleared! You\'re now ready for real business use.');
                     setTimeout(() => window.location.reload(), 1500);
                   } catch (error) {
-                    addNotification('error', 'Failed to clear demo data, ' + (error as Error).message);
+                    addNotification('error', 'Failed to clear demo data: ' + (error as Error).message);
                   }
                 }
               }}

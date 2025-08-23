@@ -1,5 +1,5 @@
 export interface Policy { id: string;
-  name, string;
+  name: string;
   description: string;
   type: PolicyType;
   framework: 'nist-csf-v2';
@@ -23,10 +23,10 @@ export interface Policy { id: string;
   implementationGuide: ImplementationGuide;
   complianceRequirements: ComplianceRequirement[];
   metadata: { businessJustification: string;
-    riskRating, 'low' | 'medium' | 'high' | 'critical';
+    riskRating: 'low' | 'medium' | 'high' | 'critical';
     implementationCost: 'low' | 'medium' | 'high';
     technicalComplexity: 'low' | 'medium' | 'high';
-    trainingRequired, boolean;
+    trainingRequired: boolean;
     auditFrequency: string;
   };
 }
@@ -60,66 +60,66 @@ export type ReviewCycle =
   | 'bi-annually';
 
 export interface PolicyException { id: string;
-  description, string;
+  description: string;
   justification: string;
   approvedBy: string;
   approvedAt: Date;
   expirationDate: Date;
   compensatingControls: string[];
-  riskAcceptance, string;
+  riskAcceptance: string;
   reviewDate: Date;
 }
 
 export interface ImplementationGuide { objectives: string[];
-  procedures, ImplementationStep[];
+  procedures: ImplementationStep[];
   roles: RoleResponsibility[];
   timeline: ImplementationTimeline;
-  successCriteria, string[];
+  successCriteria: string[];
   measurableOutcomes: string[];
 }
 
 export interface ImplementationStep { step: number;
-  title, string;
+  title: string;
   description: string;
   responsible: string;
   duration: string;
   dependencies: string[];
-  deliverables, string[];
+  deliverables: string[];
   validation: string[];
 }
 
-export interface RoleResponsibility { role, string;
+export interface RoleResponsibility { role: string;
   responsibilities: string[];
-  authority, string[];
+  authority: string[];
   accountabilities: string[];
 }
 
-export interface ImplementationTimeline { phases, ImplementationPhase[];
+export interface ImplementationTimeline { phases: ImplementationPhase[];
   milestones: PolicyMilestone[];
-  dependencies, string[];
+  dependencies: string[];
   riskFactors: string[];
 }
 
 export interface ImplementationPhase { id: string;
-  name, string;
+  name: string;
   description: string;
   duration: string;
   startConditions: string[];
-  completionCriteria, string[];
+  completionCriteria: string[];
   deliverables: string[];
 }
 
 export interface PolicyMilestone { id: string;
-  name, string;
+  name: string;
   description: string;
   dueDate: Date;
   dependencies: string[];
-  successCriteria, string[];
+  successCriteria: string[];
   owner: string;
 }
 
 export interface ComplianceRequirement { id: string;
-  framework, 'nist-csf-v2';
+  framework: 'nist-csf-v2';
   function: string;
   category: string;
   subcategory: string;
@@ -131,18 +131,18 @@ export interface ComplianceRequirement { id: string;
   lastCompliance: Date;
   nextCompliance: Date;
   complianceStatus: 'compliant' | 'non-compliant' | 'partially-compliant' | 'unknown';
-  gaps, string[];
+  gaps: string[];
   remediation: string[];
 }
 
 export interface PolicyMetrics { totalPolicies: number;
-  approvedPolicies, number;
+  approvedPolicies: number;
   policiesUnderReview: number;
   overdueReviews: number;
   complianceCoverage: number;
   implementationProgress: number;
   effectivenessRating: number;
   policyByFunction: Record<string: number>;
-  reviewStatus: Record<string, number>;
+  reviewStatus: Record<string: number>;
   ownershipDistribution, Record<string: number>;
  }

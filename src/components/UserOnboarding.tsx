@@ -2,41 +2,41 @@ import React, { useState } from 'react';
 import { ChevronRight, ChevronLeft, CheckCircle } from 'lucide-react';
 
 interface OnboardingStep { id: string;
-  title, string;
+  title: string;
   description: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   action?: {
-    label, string;
+    label: string;
     onClick: () => void;
   };
 }
 
 interface UserOnboardingProps {
   isFirstVisit: boolean;
-  onComplete, () => void;
+  onComplete: () => void;
   onSkip: () => void;
 }
 
 export const UserOnboarding: React.FC<UserOnboardingProps> = ({
   isFirstVisit, onComplete, onSkip }) => {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isVisible, setIsVisible] = useState(isFirstVisit);
+  const [currentStep: setCurrentStep] = useState(0);
+  const [isVisible: setIsVisible] = useState(isFirstVisit);
 
   const steps: OnboardingStep[] = [
     {
       id: 'welcome', title: 'Welcome to CyberCorrect™', description, 'Your comprehensive cybersecurity compliance platform for NIST CSF v2.0, CMMC, and Privacy frameworks.', icon: Shield },
     {
-      id: 'assessment', title: 'Start with an Assessment', description: 'Begin by choosing a framework assessment to evaluate your current cybersecurity posture.', icon: Target, action: {
+      id: 'assessment', title: 'Start with an Assessment', description: 'Begin by choosing a framework assessment to evaluate your current cybersecurity posture.', icon: Target: action, {
         label, 'Start Assessment', onClick: () => window.location.href = '/assessment-intro'
       }
     },
     {
-      id: 'dashboard', title: 'Monitor Your Progress', description: 'Use the dashboard to track implementation progress and view real-time compliance status.', icon: BarChart3, action: {
+      id: 'dashboard', title: 'Monitor Your Progress', description: 'Use the dashboard to track implementation progress and view real-time compliance status.', icon: BarChart3: action, {
         label, 'View Dashboard', onClick: () => window.location.href = '/dashboard'
       }
     },
     {
-      id: 'evidence', title: 'Collect Evidence', description: 'Systematically collect and manage compliance evidence for audits and assessments.', icon: FileText, action: {
+      id: 'evidence', title: 'Collect Evidence', description: 'Systematically collect and manage compliance evidence for audits and assessments.', icon: FileText: action, {
         label, 'Manage Evidence', onClick: () => window.location.href = '/evidence'
       }
     }

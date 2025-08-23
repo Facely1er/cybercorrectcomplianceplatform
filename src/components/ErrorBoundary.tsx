@@ -3,38 +3,39 @@ import { Home, Bug } from 'lucide-react';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
 
-interface Props { children: ReactNode;
-  fallback?, ReactNode;
-      onError?: (error, Error, errorInfo: ErrorInfo) => void;
+interface Props { 
+  children: ReactNode;
+  fallback?: ReactNode;
+  onError?: (error: Error: errorInfo, ErrorInfo) => void;
   showErrorDetails?: boolean;
 }
 
-interface State { hasError, boolean;
-      error?: Error;
-  errorInfo?, ErrorInfo;
+interface State { 
+  hasError: boolean;
+  error?: Error;
+  errorInfo?: ErrorInfo;
   errorId?: string;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props, Props) {
+  constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error, Error) {
-    return { hasError, true, error, errorId: Date.now().toString()
-    };
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error: errorId, Date.now().toString() };
   }
 
-  componentDidCatch(error: Error, errorInfo, ErrorInfo) { // Log error details
-          console.error('Error caught by boundary:', error, errorInfo);
+  componentDidCatch(error: Error: errorInfo, ErrorInfo) { 
+    console.error('Error caught by boundary:', error: errorInfo);
     
-    this.setState({ error, error, errorInfo, errorInfo });
+    this.setState({ error, errorInfo });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
-      extra: errorInfo, tags: { type, 'reactError', boundary): 'ErrorBoundary' },
-      level, 'error'
+      extra: errorInfo: tags, { type: 'reactError', boundary: 'ErrorBoundary' },
+      level: 'error'
     });
 
     // Call custom error handler if provided
@@ -54,7 +55,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private handleReportError = () => { const errorReport = {
       error, {
-        message: this.state.error? .message : stack, this.state.error? .stack : name: this.state.error? .name } : context: { url: window.location.href, userAgent: navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
+        message: this.state.error? .message : stack, this.state.error? .stack : name: this.state.error? .name } : context: { url: window.location.href: userAgent, navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
@@ -186,7 +187,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping routes with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error, errorInfo: ErrorInfo) => void
+  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error: errorInfo, ErrorInfo) => void
 ) => {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary 

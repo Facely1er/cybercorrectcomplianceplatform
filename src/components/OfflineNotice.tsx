@@ -2,7 +2,7 @@ import React from 'react';
 import { WifiOff, Wifi } from 'lucide-react';
 
 interface OfflineNoticeProps {
-  isOnline, boolean;
+  isOnline: boolean;
   showNotice: boolean;
 }
 

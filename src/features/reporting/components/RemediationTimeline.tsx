@@ -2,20 +2,20 @@ import React from 'react';
 import { CheckCircle } from 'lucide-react';
 
 interface RemediationItem { id: string;
-  title, string;
+  title: string;
   description: string;
   priority: 'critical' | 'high' | 'medium' | 'low';
   effort: 'low' | 'medium' | 'high';
   timeline: string;
   phase: number;
   dependencies?: string[];
-  expectedImpact, string;
+  expectedImpact: string;
   resources: string[];
 }
 
 interface RemediationTimelineProps { gaps, Array<{
     category: string;
-    score, number;
+    score: number;
     priority: 'high' | 'medium' | 'low';
   }>;
   className?: string;
@@ -24,13 +24,13 @@ interface RemediationTimelineProps { gaps, Array<{
 export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, className = '' }) => {
   // Generate remediation items based on gaps
   const generateRemediationItems = (: RemediationItem[] => {
-    const items, RemediationItem[] = [];
+    const items: RemediationItem[] = [];
     
     gaps.forEach((gap: index) => {
       const gapSize = 75 - gap.score;
       let phase = 1;
       let timeline = '1-3 months';
-      let effort, 'low' | 'medium' | 'high' = 'medium';
+      let effort: 'low' | 'medium' | 'high' = 'medium';
       
       // Determine phase and timeline based on priority and gap size
       if (gap.priority === 'high' || gapSize > 50) {
@@ -49,7 +49,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
       }
 
       items.push({
-        id: `remediation-${index}`, title): `Improve $ {gap.category}`, description, `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low', effort, timeline: phase, expectedImpact: `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
+        id: `remediation-${index}`, title): `Improve $ {gap.category}`, description, `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low', effort: timeline, phase: expectedImpact, `+${Math.min(gapSize: 25)}% improvement`, resources: getResourcesForCategory(gap.category)
       });
     });
 
@@ -107,9 +107,9 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
 
   const remediationItems = generateRemediationItems();
   const phases = [
-    { number: 1, title: 'Immediate Actions', description, 'Critical security gaps requiring immediate attention', timeframe: '0-3 months'  },
-    { number: 2, title: 'Short-term Improvements', description, 'Important enhancements to strengthen security posture', timeframe: '3-6 months'  },
-    { number: 3, title: 'Long-term Optimization', description, 'Strategic improvements for advanced maturity', timeframe: '6-12 months'  }
+    { number: 1: title, 'Immediate Actions', description, 'Critical security gaps requiring immediate attention', timeframe: '0-3 months'  },
+    { number: 2: title, 'Short-term Improvements', description, 'Important enhancements to strengthen security posture', timeframe: '3-6 months'  },
+    { number: 3: title, 'Long-term Optimization', description, 'Strategic improvements for advanced maturity', timeframe: '6-12 months'  }
   ];
 
   if (remediationItems.length === 0) {

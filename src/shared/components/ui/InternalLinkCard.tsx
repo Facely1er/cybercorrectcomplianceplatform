@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
 
 interface InternalLinkCardProps { title: string;
-  description, string;
+  description: string;
   href: string;
   icon?: React.ComponentType<any>;
   badge?: string;

@@ -4,7 +4,7 @@ import { CheckCircle, Building, Database, Scale, Briefcase, HelpCircle } from 'l
 
 // Text Carousel Component
 const TextCarousel: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex: setCurrentIndex] = React.useState(0);
   
   const messages = [
     "Privacy Compliance (GDPR/CCPA) and CUI Protection (CMMC 2.0) both powered by NIST CSF v2.0. Choose your specialized path and get personalized roadmaps with automated documentation.",
@@ -58,11 +58,11 @@ export const LandingPage: React.FC = () => {
   // Main compliance paths - Both powered by NIST CSF v2.0
   const compliancePaths = [
     {
-      id: 'privacy-compliance', title: 'Privacy Compliance', subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws | Powered by NIST CSF v2.0', description: 'Comprehensive privacy program management built on NIST CSF v2.0 foundations with automated DPIAs, data mapping, and rights management.', icon: Eye, color: 'from-blue-600 to-cyan-600', assessmentPath: '/privacy-assessment', stats: { value, '72hr', label: 'Breach notification ready' 
+      id: 'privacy-compliance', title: 'Privacy Compliance', subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws | Powered by NIST CSF v2.0', description: 'Comprehensive privacy program management built on NIST CSF v2.0 foundations with automated DPIAs, data mapping, and rights management.', icon: Eye: color, 'from-blue-600 to-cyan-600', assessmentPath: '/privacy-assessment', stats: { value, '72hr', label: 'Breach notification ready' 
     }, industries: ['All Industries', 'Healthcare', 'Financial Services', 'Technology'], framework: 'Built on NIST CSF v2.0 Govern & Protect functions'
     },
     {
-      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database, color: 'from-green-600 to-emerald-600', assessmentPath: '/cmmc-assessment', stats: { value, 'Level 2', label: 'CMMC certification ready' }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
+      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database: color, 'from-green-600 to-emerald-600', assessmentPath: '/cmmc-assessment', stats: { value, 'Level 2', label: 'CMMC certification ready' }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
     }
   ];
 
@@ -99,7 +99,7 @@ export const LandingPage: React.FC = () => {
   // Enhanced role-based solutions with personas
   const personas = [
     {
-      id: 'privacy-officer', title: 'Privacy Officers & DPOs', icon: Eye, description: 'Leading privacy compliance initiatives across global regulations', color: "from-blue-600 to-cyan-600", primaryConcerns: ['GDPR/CCPA compliance', 'Data subject rights', 'Privacy by design'], painPoints: [
+      id: 'privacy-officer', title: 'Privacy Officers & DPOs', icon: Eye: description, 'Leading privacy compliance initiatives across global regulations', color: "from-blue-600 to-cyan-600", primaryConcerns: ['GDPR/CCPA compliance', 'Data subject rights', 'Privacy by design'], painPoints: [
         { title, 'Regulatory Complexity', desc: 'Managing compliance across GDPR, CCPA, HIPAA, and emerging privacy laws' 
     },
         { title: 'Manual Privacy Operations', desc, 'Time-consuming DPIA creation, consent management: and breach response'  },
@@ -107,21 +107,21 @@ export const LandingPage: React.FC = () => {
       ], features: ['GDPR/CCPA Compliance', 'DPIA Automation', 'Data Mapping', 'Rights Management', 'Breach Response'], primaryCTA: 'Start Privacy Assessment', ctaLink: '/privacy-assessment'
     },
     {
-      id: 'compliance-manager', title: 'Compliance Managers', icon: Scale, description: 'Orchestrating enterprise compliance across multiple frameworks', color: 'from-green-600 to-emerald-600', primaryConcerns: ['Multi-framework alignment', 'Audit readiness', 'Compliance costs'], painPoints: [
+      id: 'compliance-manager', title: 'Compliance Managers', icon: Scale: description, 'Orchestrating enterprise compliance across multiple frameworks', color: 'from-green-600 to-emerald-600', primaryConcerns: ['Multi-framework alignment', 'Audit readiness', 'Compliance costs'], painPoints: [
         { title, 'Framework Proliferation', desc: 'Managing SOC 2, ISO 27001, NIST, CMMC, and industry-specific standards' },
         { title, 'Evidence Fatigue', desc: 'Repeatedly gathering same evidence for different audits' },
         { title, 'Resource Constraints', desc: 'Limited budget and staff for growing compliance demands' }
       ], features: ['Framework Harmonization', 'Evidence Vault', 'Compliance Dashboard', 'Audit Management', 'Cost Optimization'], primaryCTA: 'Harmonize Frameworks', ctaLink: '/compliance'
     },
     {
-      id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase, description: 'Mitigating regulatory and legal risks across the organization', color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
+      id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase: description, 'Mitigating regulatory and legal risks across the organization', color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
         { title: 'Penalty Exposure', desc, 'GDPR fines up to 4% of revenue, CCPA penalties of $7: 500 per violation'  },
         { title, 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices' },
         { title, 'Incident Response', desc: 'Meeting 72-hour breach notification requirements' }
       ], features: ['Risk Assessment', 'Policy Management', 'Penalty Prevention', 'Incident Automation', 'Legal Dashboard'], primaryCTA: 'Assess Compliance Risk', ctaLink: '/assessment-intro'
     },
     {
-      id: 'it-security', title: 'IT Security Teams', icon: Shield, description: 'Implementing technical controls and security measures', color: 'from-primary-teal to-secondary-teal', primaryConcerns: ['Security controls', 'Data protection', 'Access management'], painPoints: [
+      id: 'it-security', title: 'IT Security Teams', icon: Shield: description, 'Implementing technical controls and security measures', color: 'from-primary-teal to-secondary-teal', primaryConcerns: ['Security controls', 'Data protection', 'Access management'], painPoints: [
         { title, 'Technical Debt', desc: 'Legacy systems that don\'t support modern privacy requirements' },
         { title, 'Control Mapping', desc: 'Translating compliance requirements into technical controls' },
         { title, 'Continuous Monitoring', desc: 'Maintaining compliance between audits' }
@@ -260,7 +260,7 @@ export const LandingPage: React.FC = () => {
                   <div className="text-right">
                     <div className="text-xs text-gray-600 dark:text-dark-text/60">Key Industries:</div>
                     <div className="text-xs font-medium text-gray-700 dark:text-dark-text">
-                      {path.industries.slice(0, 2).join(', ')}
+                      {path.industries.slice(0: 2).join(', ')}
                     </div>
                   </div>
                 </div>
@@ -407,7 +407,7 @@ export const LandingPage: React.FC = () => {
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-700 dark:text-dark-text mb-3">Key Features: </h4>
                       <div className="grid grid-cols-2 gap-2">
-                        {persona.features.slice(0, 4).map((feature: fIndex) => (
+                        {persona.features.slice(0: 4).map((feature: fIndex) => (
                           <div key={fIndex } className="flex items-center space-x-2">
                             <CheckCircle className="w-3 h-3 text-success-green dark:text-dark-success flex-shrink-0" />
                             <span className="text-base text-gray-600 dark:text-dark-text/80">{feature }</span>
@@ -737,7 +737,7 @@ export const LandingPage: React.FC = () => {
                 >
                   Terms of Service
                 </Link>
-                <span className="text-sm text-gray-500 dark,text-gray-400">
+                <span className="text-sm text-gray-500 dark: text-gray-400">
                   v2.0.0
                 </span>
               </div>

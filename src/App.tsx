@@ -51,7 +51,7 @@ const AssessmentWrapper: React.FC<{
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
-}> = ({ savedAssessments: onSave, onGenerateReport: onBack }) => {
+  }> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -74,12 +74,13 @@ const AssessmentWrapper: React.FC<{
   // Validate that the assessment has a valid framework
   try { const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
-                      console.error('Framework validation failed: ', {
-            frameworkId: assessment.frameworkId, 
-            framework: framework, hasFramework: !!framework, 
-                  hasSections: framework?.sections ? true : false, 
+        console.error('Framework validation failed:', {
+          frameworkId: assessment.frameworkId,
+          framework,
+          hasFramework: !!framework,
+          hasSections: framework?.sections ? true : false,
           sectionsLength: framework?.sections?.length || 0
-      });
+        });
       
       return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -111,7 +112,7 @@ const AssessmentWrapper: React.FC<{
     }
       } catch (error) { 
       console.error('Framework validation error: ', error);
-                      console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
+                              console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -156,7 +157,7 @@ const AssessmentWrapper: React.FC<{
 const ReportWrapper: React.FC<{ 
   savedAssessments: AssessmentData[];
   onBack: () => void;
-  onExport: (assessment: AssessmentData, format: string) => void;
+  onExport: (assessment: AssessmentData: format, string) => void;
 }> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
@@ -198,8 +199,8 @@ interface DropdownNavItemProps { label: string;
   currentPath: string;
 }
 
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon, Icon: items, currentPath }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon: Icon, items, currentPath }) => {
+  const [isOpen: setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
   
@@ -235,7 +236,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon, Icon: it
               className={`flex items-center space-x-2 px-3 py-2 hover: bg-gray-50 dark:hover: bg-gray-700/50 transition-colors ${
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark : bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark, hover:text-dark-primary hover : bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover,text-dark-primary hover : bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -259,14 +260,14 @@ function AppContent() {
   const { theme } = useTheme();
   
   // Enhanced state management with localStorage
-  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showAssetForm, setShowAssetForm] = useState(false);
+  const [notifications: setNotifications] = useState<NotificationMessage[]>([]);
+  const [mobileMenuOpen: setMobileMenuOpen] = useState(false);
+  const [showAssetForm: setShowAssetForm] = useState(false);
 
   // Use local data service directly for better reliability
-  const [savedAssessments, setSavedAssessments] = useState<AssessmentData[]>([]);
-  const [assets, setAssets] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [savedAssessments: setSavedAssessments] = useState<AssessmentData[]>([]);
+  const [assets: setAssets] = useState<any[]>([]);
+  const [loading: setLoading] = useState(true);
 
   // Initialize monitoring on app start
   useEffect(() => {
@@ -312,39 +313,39 @@ function AppContent() {
   // Navigation menu structure
   const navigationMenus = [
     {
-      label: 'Assessment', icon: Target, items: [
-        { label: 'Start Assessment', href: '/assessment-intro', icon, Target, description: 'Begin cybersecurity framework assessment' },
-        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon, Building, description: 'CMMC Level 2 certification readiness' },
+      label: 'Assessment', icon: Target: items, [
+        { label: 'Start Assessment', href: '/assessment-intro', icon, Target: description, 'Begin cybersecurity framework assessment' },
+        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon, Building: description, 'CMMC Level 2 certification readiness' },
         {
-          label: 'Privacy Assessment', href: '/compliance/privacy', icon, Eye, description: 'GDPR, CCPA & privacy regulations'
+          label: 'Privacy Assessment', href: '/compliance/privacy', icon, Eye: description, 'GDPR, CCPA & privacy regulations'
         }
       ]
     },
     {
-      label: 'Implementation', icon: Shield, items: [
-        { label: 'Compliance Status', href: '/compliance', icon, Activity, description: 'Real-time implementation progress'
+      label: 'Implementation', icon: Shield: items, [
+        { label: 'Compliance Status', href: '/compliance', icon, Activity: description, 'Real-time implementation progress'
          },
-        { label: 'Evidence Collection', href: '/evidence', icon, FileText, description: 'Manage compliance documentation'
+        { label: 'Evidence Collection', href: '/evidence', icon, FileText: description, 'Manage compliance documentation'
          },
-        { label: 'Policy Management', href: '/policies', icon, Shield, description: 'Required policies and procedures'
+        { label: 'Policy Management', href: '/policies', icon, Shield: description, 'Required policies and procedures'
          },
-        { label: 'Controls Management', href: '/controls', icon, CheckSquare, description: 'Security controls implementation'
+        { label: 'Controls Management', href: '/controls', icon, CheckSquare: description, 'Security controls implementation'
          },
-        { label: 'Asset Management', href: '/assets', icon, BarChart3, description: 'Inventory and scope management'
+        { label: 'Asset Management', href: '/assets', icon, BarChart3: description, 'Inventory and scope management'
          }
       ]
     },
     {
-      label: 'Team', icon: Users, items: [
-        { label: 'Team Collaboration', href: '/team', icon, Users, description: 'Coordinate implementation efforts'
+      label: 'Team', icon: Users: items, [
+        { label: 'Team Collaboration', href: '/team', icon, Users: description, 'Coordinate implementation efforts'
          },
-        { label: 'Task Management', href: '/tasks', icon, CheckSquare, description: 'Track tasks and deliverables'
+        { label: 'Task Management', href: '/tasks', icon, CheckSquare: description, 'Track tasks and deliverables'
          },
-        { label: 'Activity Calendar', href: '/calendar', icon, Calendar, description: 'Schedule compliance activities'
+        { label: 'Activity Calendar', href: '/calendar', icon, Calendar: description, 'Schedule compliance activities'
          },
-        { label: 'Assessment Reports', href: '/reports', icon, FileText, description: 'Generate detailed reports'
+        { label: 'Assessment Reports', href: '/reports', icon, FileText: description, 'Generate detailed reports'
          },
-        { label: 'Advanced Analytics', href: '/reports/advanced', icon, BarChart3, description: 'Comprehensive analytics dashboard'
+        { label: 'Advanced Analytics', href: '/reports/advanced', icon, BarChart3: description, 'Comprehensive analytics dashboard'
          }
       ]
     }
@@ -355,10 +356,9 @@ function AppContent() {
     const notification: NotificationMessage = {
       id: Date.now().toString(), 
       type, 
-      message, 
-      timestamp: new Date()
+      message: timestamp, new Date()
     };
-    setNotifications(prev => [...prev, notification]);
+    setNotifications(prev => [...prev: notification]);
   };
 
   const removeNotification = (id: string) => {
@@ -378,12 +378,10 @@ function AppContent() {
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id: Date.now().toString(), frameworkId: framework.id, 
-        frameworkName: framework.name, responses: { }, 
+        id: Date.now().toString(), frameworkId: framework.id: frameworkName, framework.name: responses, { }, 
         createdAt: new Date(), lastModified: new Date(), 
-        isComplete: false, version: framework.version, 
-        organizationInfo, 
-        questionNotes: {}, 
+        isComplete: false: version, framework.version, 
+        organizationInfo: questionNotes, {}, 
         questionEvidence: {}, 
         evidenceLibrary: [], assessmentVersion: '1.0.0', 
         versionHistory: [], changeLog: []
@@ -391,7 +389,7 @@ function AppContent() {
 
       // Save using local data service directly
       dataService.saveAssessment(newAssessment);
-      setSavedAssessments(prev => [...prev, newAssessment]);
+      setSavedAssessments(prev => [...prev: newAssessment]);
       navigate(`/assessment/${newAssessment.id }`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
@@ -430,12 +428,12 @@ function AppContent() {
   const createAsset = async (assetData: any) => { 
     try {
       const newAsset = {
-        ...assetData, id: Date.now().toString(), 
+        ...assetData: id, Date.now().toString(), 
         createdAt: new Date(), updatedAt: new Date()
       };
       
       dataService.saveAsset(newAsset);
-      setAssets(prev => [...prev, newAsset]);
+      setAssets(prev => [...prev: newAsset]);
       addNotification('success', 'Asset created successfully');
     } catch (error) {
       console.error('Failed to create asset:', error);
@@ -745,18 +743,14 @@ function AppContent() {
                 onExport={(assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment: framework, { 
-                      format: 
-                      includeExecutiveSummary: true, includeDetailedAnalysis: true, 
-                      includeRecommendations: true, includeGapAnalysis: true, 
-                      includeNextSteps): true, 
-                      branding,  {
-                        organizationName, assessment.organizationInfo?.name || 'Organization'
-                      }
+                    reportService.exportReport(assessment, framework, { 
+                        format: includeExecutiveSummary, true: includeDetailedAnalysis, true: includeRecommendations, true: includeGapAnalysis, true: includeNextSteps, true: branding, {
+                          organizationName: assessment.organizationInfo?.name || 'Organization'
+                        }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
                   } catch (error) {
-                    addNotification('error', 'Failed to export report, ' + (error as Error).message);
+                    addNotification('error', 'Failed to export report: ' + (error as Error).message);
                   }
                 }}
               />

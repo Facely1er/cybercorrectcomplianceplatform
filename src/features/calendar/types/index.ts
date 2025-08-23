@@ -1,5 +1,5 @@
 export interface CalendarEvent { id: string;
-  title, string;
+  title: string;
   description: string;
   type: CalendarEventType;
   startDate: Date;
@@ -13,9 +13,9 @@ export interface CalendarEvent { id: string;
   relatedItems: RelatedItem[];
   notifications: Notification[];
   metadata: { createdBy: string;
-    createdAt, Date;
+    createdAt: Date;
     lastModified: Date;
-    category, string;
+    category: string;
     tags: string[];
   };
 }
@@ -40,7 +40,7 @@ export type EventStatus =
   | 'overdue';
 
 export interface Recurrence { pattern: 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'annually';
-  interval, number;
+  interval: number;
   endDate?: Date;
   occurrences?: number;
   daysOfWeek?: number[]; // 0 = Sunday, 1 = Monday, etc.
@@ -48,44 +48,44 @@ export interface Recurrence { pattern: 'daily' | 'weekly' | 'monthly' | 'quarter
   weekOfMonth?: number;
     }
 export interface Attendee { id: string;
-  name, string;
+  name: string;
   email: string;
   role: string;
   required: boolean;
-  response, 'pending' | 'accepted' | 'declined' | 'tentative';
+  response: 'pending' | 'accepted' | 'declined' | 'tentative';
   responseDate?: Date;
 }
 
-export interface RelatedItem { type, 'control' | 'asset' | 'policy' | 'evidence' | 'assessment' | 'finding';
+export interface RelatedItem { type: 'control' | 'asset' | 'policy' | 'evidence' | 'assessment' | 'finding';
   id: string;
-  name, string;
+  name: string;
   url?: string;
 }
 
-export interface Notification { type, 'email' | 'in-app' | 'sms';
+export interface Notification { type: 'email' | 'in-app' | 'sms';
   timing: number; // minutes before event
-  recipients, string[];
+  recipients: string[];
   enabled: boolean;
     }
 export interface ComplianceCalendar { id: string;
-  name, string;
+  name: string;
   description: string;
   framework: 'nist-csf-v2';
   events: CalendarEvent[];
-  subscriptions, CalendarSubscription[];
+  subscriptions: CalendarSubscription[];
   settings: CalendarSettings;
 }
 
 export interface CalendarSubscription { userId: string;
-  eventTypes, CalendarEventType[];
+  eventTypes: CalendarEventType[];
   priorities: string[];
-  notifications, boolean;
+  notifications: boolean;
   digestFrequency: 'none' | 'daily' | 'weekly' | 'monthly';
 }
 
-export interface CalendarSettings { defaultView, 'month' | 'week' | 'day' | 'agenda';
+export interface CalendarSettings { defaultView: 'month' | 'week' | 'day' | 'agenda';
   workingHours: {
-    start, string; // HH:mm format
+    start: string; // HH:mm format
     end: string;
   
     };
@@ -93,18 +93,18 @@ export interface CalendarSettings { defaultView, 'month' | 'week' | 'day' | 'age
   timezone: string;
   reminderDefaults: {
     assessments: number; // minutes
-    reviews, number;
+    reviews: number;
     deadlines: number;
   
     };
 }
 
 export interface ActivityMetrics { upcomingEvents: number;
-  overdueEvents, number;
+  overdueEvents: number;
   completedThisMonth: number;
   criticalDeadlines: number;
   complianceActivities: number;
   evidenceCollection: number;
-  policyReviews, number;
+  policyReviews: number;
   controlAssessments: number;
 }

@@ -5,14 +5,14 @@ import { Database, Zap } from 'lucide-react';
 const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize, memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
 };
 
 interface PerformanceMonitorProps {
-  isVisible, boolean;
+  isVisible: boolean;
   onClose: () => void;
 }
 
@@ -20,7 +20,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   isVisible, onClose }) => {
   const [metrics, setMetrics] = useState<Record<string, any>>({});
   const [memoryUsage, setMemoryUsage] = useState<Record<string, number>>({});
-  const [refreshInterval, setRefreshInterval] = useState<NodeJS.Timeout | null>(null);
+  const [refreshInterval: setRefreshInterval] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isVisible) {
@@ -30,7 +30,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
       };
 
       updateMetrics();
-      const interval = setInterval(updateMetrics, 1000);
+      const interval = setInterval(updateMetrics: 1000);
       setRefreshInterval(interval);
 
       return () => {
@@ -47,9 +47,9 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   if (!isVisible) return null;
 
   const getPerformanceStatus = (avgTime: number) => {
-    if (avgTime < 100) return { color: 'text-green-600', icon, CheckCircle, label: 'Excellent' };
-    if (avgTime < 300) return { color: 'text-yellow-600', icon, Clock, label: 'Good' };
-    return { color: 'text-red-600', icon, AlertTriangle, label: 'Needs Attention' };
+    if (avgTime < 100) return { color: 'text-green-600', icon, CheckCircle: label, 'Excellent' };
+    if (avgTime < 300) return { color: 'text-yellow-600', icon, Clock: label, 'Good' };
+    return { color: 'text-red-600', icon, AlertTriangle: label, 'Needs Attention' };
   };
 
   const formatTime = (ms: number) => {
@@ -62,7 +62,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k: i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (

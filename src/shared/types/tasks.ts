@@ -1,5 +1,5 @@
 export interface Task { id: string;
-  title, string;
+  title: string;
   description: string;
   status: TaskStatus;
   priority: TaskPriority;
@@ -18,7 +18,7 @@ export interface Task { id: string;
   comments: TaskComment[];
   estimatedHours?: number;
   actualHours?: number;
-  dependencies, string[];
+  dependencies: string[];
   progress: number;
 }
 
@@ -27,18 +27,18 @@ export type TaskPriority = 'low' | 'medium' | 'high' | 'critical';
 export type TaskType = 'assessment' | 'remediation' | 'documentation' | 'review' | 'training' | 'audit';
 
 export interface TaskAttachment { id: string;
-  name, string;
+  name: string;
   url: string;
   size: number;
   mimeType: string;
-  uploadedAt, Date;
+  uploadedAt: Date;
   uploadedBy: string;
 }
 
 export interface TaskComment { id: string;
-  content, string;
+  content: string;
   createdAt: Date;
-  createdBy, string;
+  createdBy: string;
   mentions: string[];
 }
 
@@ -47,7 +47,7 @@ export interface TaskFilter { status?: TaskStatus[];
   type?: TaskType[];
   assignedTo?: string[];
   dueDateRange?: {
-    start, Date;
+    start: Date;
     end: Date;
   };
   tags?: string[];

@@ -4,7 +4,7 @@ interface KeyboardShortcut { key: string;
   ctrlKey?, boolean;
   shiftKey?: boolean;
   altKey?: boolean;
-  action, () => void;
+  action: () => void;
   description: string;
 }
 

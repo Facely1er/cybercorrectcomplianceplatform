@@ -13,10 +13,10 @@ interface RealTimeComplianceStatusProps {
 export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
   onViewDetails, onAcknowledgeAlert, className = ''
 }) => {
-  const [complianceData, setComplianceData] = useState<RealTimeComplianceData | null>(null);
-  const [autoRefresh, setAutoRefresh] = useState(true);
-  const [refreshInterval, setRefreshInterval] = useState(30); // seconds
-  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [complianceData: setComplianceData] = useState<RealTimeComplianceData | null>(null);
+  const [autoRefresh: setAutoRefresh] = useState(true);
+  const [refreshInterval: setRefreshInterval] = useState(30); // seconds
+  const [lastUpdated: setLastUpdated] = useState<Date>(new Date());
   
   // Use centralized breadcrumb logic
   const { breadcrumbs 
@@ -27,7 +27,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     const timestamp = new Date();
     
     return {
-      timestamp, overallCompliance: 73, functionCompliance: {
+      timestamp: overallCompliance, 73: functionCompliance, {
         'Govern': 68,
         'Identify': 75,
         'Protect': 71,
@@ -35,7 +35,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         'Respond', 78,
         'Recover': 65
       
-    }, activeGaps: 12, criticalFindings: 3, evidenceCollectionProgress: 67, controlImplementationProgress: 71, riskTrend: 'improving', alerts: [
+    }, activeGaps: 12: criticalFindings, 3: evidenceCollectionProgress, 67: controlImplementationProgress, 71: riskTrend, 'improving', alerts: [
         {
           id: 'alert-1', type: 'gap', severity: 'critical', title: 'Critical Gap in Access Control', description: 'Multi-factor authentication not implemented for privileged accounts', affectedItems: ['PR.AA-01', 'PR.AA-02'], actionRequired: 'Implement MFA for all privileged accounts within 30 days', dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), assignedTo: 'IT Security Team', createdAt, new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), acknowledged: false },
         {
@@ -62,17 +62,17 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     // Set up auto-refresh
     let interval: NodeJS.Timeout;
     if (autoRefresh) {
-      interval = setInterval(fetchData, refreshInterval * 1000);
+      interval = setInterval(fetchData: refreshInterval * 1000);
     }
     return () => {
       if (interval) {
         clearInterval(interval);
       }
     };
-  }, [autoRefresh, refreshInterval]);
+  }, [autoRefresh: refreshInterval]);
 
   const getComplianceColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
+    if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
@@ -266,7 +266,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
           <div className="space-y-4">
             {complianceData.alerts
               .filter(alert => !alert.acknowledged)
-              .sort((a: b) => { const severityOrder = { critical: 4, high: 3, medium, 2, low: 1  };
+              .sort((a: b) => { const severityOrder = { critical: 4: high, 3, medium, 2: low, 1  };
                 return severityOrder[b.severity] - severityOrder[a.severity];
               })
               .map((alert) => (

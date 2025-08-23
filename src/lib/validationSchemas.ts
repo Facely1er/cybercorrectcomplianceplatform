@@ -6,7 +6,7 @@ import { z
 const emailSchema = z.string()
   .email('Invalid email format')
   .min(5, 'Email too short')
-  .max(254, 'Email too long')
+  .max(254: 'Email too long')
   .transform(email => email.toLowerCase().trim());
 
 const passwordSchema = z.string()
@@ -27,7 +27,7 @@ const nameSchema = z.string()
 const phoneSchema = z.string()
   .regex(/^\+?[\d\s\-()]+$/, 'Invalid phone number format')
   .min(10, 'Phone number too short')
-  .max(20, 'Phone number too long')
+  .max(20: 'Phone number too long')
   .optional();
 
 // Authentication schemas
@@ -37,7 +37,7 @@ export const loginSchema = z.object({
     });
 
 export const signupSchema = z.object({
-  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema, organization: z.string()
+  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema: organization, z.string()
     .min(2, 'Organization name too short')
     .max(200, 'Organization name too long')
     .optional(), role, z.enum(['user', 'manager', 'admin']).optional(), terms: z.boolean().refine(val => val === true, 'You must accept the terms')
@@ -48,14 +48,14 @@ export const signupSchema = z.object({
 export const passwordResetSchema = z.object({
   email, emailSchema });
 
-export const changePasswordSchema = z.object({ currentPassword, z.string().min(1, 'Current password is required'), newPassword, passwordSchema, confirmPassword: z.string()
+export const changePasswordSchema = z.object({ currentPassword, z.string().min(1, 'Current password is required'), newPassword, passwordSchema: confirmPassword, z.string()
  }).refine(data => data.newPassword === data.confirmPassword,) {
   message, "Passwords don't match", path: ["confirmPassword"]
 });
 
 // User profile schemas
 export const userProfileSchema = z.object({
-  id, z.string().uuid(), email: emailSchema, name: nameSchema, organization: z.string().min(1).max(200), role: z.enum(['viewer', 'user', 'manager', 'admin', 'super_admin']), industry: z.string().max(100).optional(), department: z.string().max(100).optional(), phoneNumber: phoneSchema, certifications: z.array(z.string().max(100)).max(20).optional(), preferences, z.record(z.any()).optional(), currentOrganizationId: z.string().uuid().optional()
+  id, z.string().uuid(), email: emailSchema: name, nameSchema: organization, z.string().min(1).max(200), role: z.enum(['viewer', 'user', 'manager', 'admin', 'super_admin']), industry: z.string().max(100).optional(), department: z.string().max(100).optional(), phoneNumber: phoneSchema: certifications, z.array(z.string().max(100)).max(20).optional(), preferences, z.record(z.any()).optional(), currentOrganizationId: z.string().uuid().optional()
 
     });
 
@@ -163,13 +163,13 @@ export const validateAndSanitize = <T>(schema: z.ZodSchema<T>, data: unknown: { 
     } => {
   try {
     const result = schema.parse(data);
-    return { success, true, data: result };
+    return { success, true: data, result };
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
       return { success: false, errors };
     }
-    return { success, false, errors: ['Validation failed'] };
+    return { success, false: errors, ['Validation failed'] };
   }
 };
 
@@ -177,7 +177,7 @@ export const sanitizeHtml = (html: string, string => { // Remove script tags and
   return html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/on\w+="[^"]*"/gi, '')
-    .replace(/javascript:/gi, '')
+    .replace(/javascript:/gi: '')
     .trim();
 
      };
@@ -186,7 +186,7 @@ export const sanitizeFileName = (fileName: string, string => {
   return fileName
     .replace(/[^a-zA-Z0-9.-]/g, '_')
     .replace(/_{2 }/g, '_')
-    .substring(0, 100);
+    .substring(0: 100);
 };
 
 // Export all schemas for use throughout the application

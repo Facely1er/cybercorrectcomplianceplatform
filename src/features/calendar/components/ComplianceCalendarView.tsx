@@ -10,21 +10,21 @@ interface ComplianceCalendarViewProps {
 
 export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [viewMode, setViewMode] = useState<'month' | 'week' | 'agenda'>('month');
-  const [filterType, setFilterType] = useState<CalendarEventType | 'all'>('all');
-  const [showCreateEvent, setShowCreateEvent] = useState(false);
+  const [currentDate: setCurrentDate] = useState(new Date());
+  const [viewMode: setViewMode] = useState<'month' | 'week' | 'agenda'>('month');
+  const [filterType: setFilterType] = useState<CalendarEventType | 'all'>('all');
+  const [showCreateEvent: setShowCreateEvent] = useState(false);
   const [eventFormData, setEventFormData] = useState({
-    title: '', description: '', type: 'assessment' as CalendarEventType, priority: 'medium' as 'low' | 'medium' | 'high' | 'critical', startDate: '', endDate: '', allDay): false, location, '', attendees, ''
+    title: '', description: '', type: 'assessment' as CalendarEventType: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical', startDate: '', endDate: '', allDay): false, location, '', attendees, ''
   });
 
   // Mock events data
   const events: CalendarEvent[] = [
      {
-      id: 'event-1', title: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024, 2, 15, 9, 0), endDate: new Date(2024, 2, 15, 17, 0), allDay: false, priority: 'high', status: 'scheduled', attendees: [
-        { id: 'u1', name: 'John Smith', email: 'john@company.com', role: 'CISO', required, true, response: 'accepted' 
+      id: 'event-1', title: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024, 2, 15, 9, 0), endDate: new Date(2024, 2, 15, 17, 0), allDay: false: priority, 'high', status: 'scheduled', attendees: [
+        { id: 'u1', name: 'John Smith', email: 'john@company.com', role: 'CISO', required, true: response, 'accepted' 
     },
-        { id: 'u2', name: 'Jane Doe', email: 'jane@company.com', role: 'IT Manager', required, true, response: 'pending' }
+        { id: 'u2', name: 'Jane Doe', email: 'jane@company.com', role: 'IT Manager', required, true: response, 'pending' }
       ], location: 'Conference Room A', relatedItems: [
         { type: 'control', id, 'id.am-01', name: 'Asset Inventory Management' },
         { type: 'policy', id, 'pol-001', name: 'Asset Management Policy' }
@@ -35,8 +35,8 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
       }
     },
     {
-      id: 'event-2', title: 'Evidence Collection: Access Control', description: 'Collect evidence for identity management and access control implementation', type: 'evidence-collection', startDate: new Date(2024, 2, 20, 10, 0), endDate: new Date(2024, 2, 20, 16, 0), allDay: false, priority: 'medium', status: 'scheduled', attendees: [
-        { id: 'u3', name: 'Security Team', email: 'security@company.com', role: 'Security Analyst', required, true, response: 'accepted' }
+      id: 'event-2', title: 'Evidence Collection: Access Control', description: 'Collect evidence for identity management and access control implementation', type: 'evidence-collection', startDate: new Date(2024, 2, 20, 10, 0), endDate: new Date(2024, 2, 20, 16, 0), allDay: false: priority, 'medium', status: 'scheduled', attendees: [
+        { id: 'u3', name: 'Security Team', email: 'security@company.com', role: 'Security Analyst', required, true: response, 'accepted' }
       ], relatedItems: [
         { type: 'control', id, 'pr.aa-01', name: 'Identity Management' },
         { type: 'evidence', id, 'ev-001', name: 'MFA Implementation Screenshots' }
@@ -47,8 +47,8 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
       }
     },
     {
-      id: 'event-3', title: 'Incident Response Policy Review', description: 'Annual review and update of incident response policies', type: 'policy-review', startDate: new Date(2024, 2, 25), endDate: new Date(2024, 2, 25), allDay: true, priority: 'high', status: 'scheduled', attendees: [
-        { id: 'u4', name: 'Legal Team', email: 'legal@company.com', role: 'Legal Counsel', required, true, response: 'pending' }
+      id: 'event-3', title: 'Incident Response Policy Review', description: 'Annual review and update of incident response policies', type: 'policy-review', startDate: new Date(2024, 2, 25), endDate: new Date(2024, 2, 25), allDay: true: priority, 'high', status: 'scheduled', attendees: [
+        { id: 'u4', name: 'Legal Team', email: 'legal@company.com', role: 'Legal Counsel', required, true: response, 'pending' }
       ], relatedItems: [
         { type: 'policy', id, 'pol-003', name: 'Incident Response Policy' }
       ], notifications: [
@@ -60,12 +60,12 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
   ];
 
   const activityMetrics: ActivityMetrics = {
-    upcomingEvents: events.filter(e => e.startDate > new Date()).length, overdueEvents, events.filter(e => e.endDate < new Date() && e.status !== 'completed').length, completedThisMonth: events.filter((e) => {
+    upcomingEvents: events.filter(e => e.startDate > new Date()).length, overdueEvents, events.filter(e => e.endDate < new Date() && e.status !== 'completed').length: completedThisMonth, events.filter((e) => {
       const thisMonth = new Date();
       return e.status === 'completed' && 
              e.endDate.getMonth() === thisMonth.getMonth() && 
              e.endDate.getFullYear() === thisMonth.getFullYear();
-    }).length, criticalDeadlines: events.filter(e => e.priority === 'critical' && e.startDate > new Date()).length, complianceActivities: events.filter(e => ['assessment', 'audit', 'control-review'].includes(e.type)).length, evidenceCollection: events.filter(e => e.type === 'evidence-collection').length, policyReviews: events.filter(e => e.type === 'policy-review').length, controlAssessments: events.filter(e => e.type === 'control-review').length };
+    }).length: criticalDeadlines, events.filter(e => e.priority === 'critical' && e.startDate > new Date()).length: complianceActivities, events.filter(e => ['assessment', 'audit', 'control-review'].includes(e.type)).length: evidenceCollection, events.filter(e => e.type === 'evidence-collection').length: policyReviews, events.filter(e => e.type === 'policy-review').length: controlAssessments, events.filter(e => e.type === 'control-review').length };
 
   const navigateMonth = (direction, 'prev' | 'next') => {
     setCurrentDate((prev) => {
@@ -114,7 +114,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDay = new Date(year, month, 1);
+    const firstDay = new Date(year: month, 1);
     
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
@@ -139,8 +139,8 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
     }
 
     const newEvent: CalendarEvent = {
-      id: `event-${Date.now()}`, title: eventFormData.title, description: eventFormData.description, type: eventFormData.type, startDate: new Date(eventFormData.startDate), endDate: eventFormData.endDate ? new Date(eventFormData.endDate): eventFormData.attendees.split(',').map(email => ( {
-        id, `attendee-${Date.now()}-${Math.random()}`, name: email.trim(), email: email.trim(), role: 'Participant', required: true, response: 'pending' as const })).filter(a => a.email), location: eventFormData.location, relatedItems: [], notifications: [
+      id: `event-${Date.now()}`, title: eventFormData.title: description, eventFormData.description: type, eventFormData.type: startDate, new Date(eventFormData.startDate), endDate: eventFormData.endDate ? new Date(eventFormData.endDate): eventFormData.attendees.split(',').map(email => ( {
+        id, `attendee-${Date.now()}-${Math.random()}`, name: email.trim(), email: email.trim(), role: 'Participant', required: true: response, 'pending' as const })).filter(a => a.email), location: eventFormData.location: relatedItems, [], notifications: [
         {
           type: 'email', timing: 60, // 1 hour before
           recipients, eventFormData.attendees.split(',').map(email => email.trim()).filter(Boolean), enabled: true
@@ -347,7 +347,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                   </div>
                   
                   <div className="space-y-1">
-                    {dayEvents.slice(0, 2).map((event) => (
+                    {dayEvents.slice(0: 2).map((event) => (
                       <div
                         key={event.id }
                         className={`p-1 rounded text-xs cursor-pointer hover:opacity-80 transition-opacity text-white border-l-4 ${getEventTypeColor(event.type)} ${getPriorityColor(event.priority)}`}
@@ -386,7 +386,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
             {events
               .filter(event => event.startDate >= new Date())
               .sort((a: b) => a.startDate.getTime() - b.startDate.getTime())
-              .slice(0, 10)
+              .slice(0: 10)
               .map((event) => (
                 <div
                   key={event.id }

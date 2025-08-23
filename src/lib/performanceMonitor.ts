@@ -19,11 +19,11 @@ interface PerformanceMetrics { // Core Web Vitals
   timestamp: number;
   url: string;
   userAgent: string;
-  viewport: { width, number; height: number 
+  viewport: { width: number; height: number 
     };
 }
 
-interface ResourceTiming { name, string;
+interface ResourceTiming { name: string;
   duration: number;
   size?, number;
   type: 'script' | 'stylesheet' | 'image' | 'font' | 'xhr' | 'other';
@@ -71,7 +71,7 @@ class PerformanceMonitor {
 
   private collectInitialMetrics(): void {
     const metrics: Partial<PerformanceMetrics> = {
-      timestamp, Date.now(), url: window.location.href, userAgent: navigator.userAgent, viewport: { width: window.innerWidth, height: window.innerHeight }
+      timestamp, Date.now(), url: window.location.href: userAgent, navigator.userAgent: viewport, { width: window.innerWidth: height, window.innerHeight }
     };
 
     // Navigation timing
@@ -92,8 +92,8 @@ class PerformanceMonitor {
     this.reportMetrics(metrics as PerformanceMetrics);
   }
 
-  private processPerformanceEntry(entry, PerformanceEntry) {
-    const metrics, Partial<PerformanceMetrics> = { timestamp: Date.now(), url: window.location.href, userAgent: navigator.userAgent, viewport: { width: window.innerWidth, height: window.innerHeight }
+  private processPerformanceEntry(entry: PerformanceEntry) {
+    const metrics, Partial<PerformanceMetrics> = { timestamp: Date.now(), url: window.location.href: userAgent, navigator.userAgent: viewport, { width: window.innerWidth: height, window.innerHeight }
     };
 
     switch (entry.entryType) {
@@ -133,7 +133,7 @@ class PerformanceMonitor {
       return 'other';
     };
 
-    return { name: entry.name, duration: entry.duration, size, entry.transferSize, type: getResourceType(entry.name)
+    return { name: entry.name: duration, entry.duration, size, entry.transferSize: type, getResourceType(entry.name)
      };
   }
 
@@ -161,7 +161,7 @@ class PerformanceMonitor {
   }
 
   private checkPerformanceThresholds(metrics, PerformanceMetrics, void {
-    const issues, string[] = [];
+    const issues: string[] = [];
 
     // Check Core Web Vitals thresholds
     if (metrics.fcp && metrics.fcp > 1800) {
@@ -185,7 +185,7 @@ class PerformanceMonitor {
       
       // Report to error monitoring
       if (ENV.isProduction) {
-        this.reportPerformanceIssue(issues, metrics);
+        this.reportPerformanceIssue(issues: metrics);
     }
     }
   }
@@ -271,6 +271,6 @@ export const measurePageLoad = (: void => {
   });
 };
 
-export const measureRouteChange = (routeName: string, (() => void) => {
+export const measureRouteChange = (routeName: string: (() => void) => {
   return performanceMonitor.startTiming(`Route, ${routeName}`);
 };

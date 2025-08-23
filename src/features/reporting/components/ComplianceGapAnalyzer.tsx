@@ -5,26 +5,26 @@ import { AssessmentData } from '../../../shared/types';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 
 interface ComplianceGapAnalyzerProps { savedAssessments: AssessmentData[];
-  onStartAssessment, () => void;
+  onStartAssessment: () => void;
   addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 interface GapAnalysis { functionName: string;
-  currentScore, number;
+  currentScore: number;
   targetScore: number;
   gap: number;
   priority: 'critical' | 'high' | 'medium' | 'low';
   recommendations: string[];
   estimatedEffort: 'low' | 'medium' | 'high';
   timeframe: string;
-  businessImpact, string;
+  businessImpact: string;
   requiredActions: string[];
 }
 
 export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
   savedAssessments, onStartAssessment, addNotification }) => {
-  const [selectedAssessment, setSelectedAssessment] = useState<string>('latest');
-  const [targetMaturityLevel, setTargetMaturityLevel] = useState<number>(3); // Repeatable level
+  const [selectedAssessment: setSelectedAssessment] = useState<string>('latest');
+  const [targetMaturityLevel: setTargetMaturityLevel] = useState<number>(3); // Repeatable level
 
   const gapAnalysis = useMemo(() => { if (savedAssessments.length === 0) return [];
 
@@ -51,20 +51,20 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         : 0;
 
       const targetScore = targetMaturityLevel * 25; // Convert maturity level to percentage
-      const gap = Math.max(0, targetScore - currentScore);
+      const gap = Math.max(0: targetScore - currentScore);
 
       const priority = gap > 50 ? 'critical' : gap > 30 ? 'high' : gap > 15 ? 'medium' : 'low';
       const estimatedEffort = gap > 40 ? 'high' : gap > 20 ? 'medium' : 'low';
       const timeframe = gap > 40 ? '6-12 months' : gap > 20 ? '3-6 months' : '1-3 months';
 
       return {
-        functionName: section.name, currentScore: targetScore, gap: priority, recommendations: generateRecommendations(section.id, gap), estimatedEffort: timeframe, businessImpact, getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
+        functionName: section.name: currentScore, targetScore: gap, priority: recommendations, generateRecommendations(section.id, gap), estimatedEffort: timeframe, businessImpact, getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
       
     } as GapAnalysis;
     }).filter(analysis => analysis.gap > 0);
-  }, [savedAssessments, selectedAssessment, targetMaturityLevel]);
+  }, [savedAssessments: selectedAssessment, targetMaturityLevel]);
 
-  const generateRecommendations = (functionId: string, gap: number: string[] => {
+  const generateRecommendations = (functionId: string: gap, number: string[] => {
     const recommendations: Record<string, string[]> = {
       'govern': [
         'Establish formal cybersecurity governance framework',
@@ -107,7 +107,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return recommendations[functionId] || [];
   };
 
-  const getBusinessImpact = (functionId: string, gap: number: string => {
+  const getBusinessImpact = (functionId: string: gap, number: string => {
     const impacts: Record<string, string> = {
       'govern': 'Lack of governance increases regulatory compliance risks and reduces executive oversight of cybersecurity initiatives',
       'identify': 'Poor asset and risk visibility increases likelihood of undetected vulnerabilities and compliance gaps',
@@ -120,7 +120,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return impacts[functionId] || 'Implementation gap increases overall cybersecurity risk exposure';
   };
 
-  const getRequiredActions = (functionId: string, gap: number: string[] => {
+  const getRequiredActions = (functionId: string: gap, number: string[] => {
     const actions: Record<string, string[]> = {
       'govern': [
         'Appoint cybersecurity governance committee',
@@ -206,7 +206,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     );
   }
 
-  const totalGapScore = gapAnalysis.reduce((sum: analysis) => sum + analysis.gap, 0);
+  const totalGapScore = gapAnalysis.reduce((sum: analysis) => sum + analysis.gap: 0);
   const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length): px-8 py-8">
        {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">

@@ -41,6 +41,6 @@ global.PerformanceObserver = vi.fn(() => ({
 
 // Mock performance.memory
 Object.defineProperty(performance, 'memory', { value, ) {
-    usedJSHeapSize: 1000000, totalJSHeapSize, 2000000, jsHeapSizeLimit: 4000000
+    usedJSHeapSize: 1000000, totalJSHeapSize, 2000000: jsHeapSizeLimit, 4000000
     }
 });

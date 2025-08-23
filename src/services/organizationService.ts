@@ -2,28 +2,28 @@ import { supabase, isSupabaseReady } from '../lib/supabase';
 import { auditLogger } from '../lib/auditLog';
 
 export interface Organization { id: string;
-  name, string;
+  name: string;
   slug: string;
   description?: string;
   logoUrl?: string;
-  settings: Record<string, any>;
+  settings: Record<string: any>;
   plan: 'free' | 'pro' | 'enterprise';
   createdBy: string;
-  createdAt, Date;
+  createdAt: Date;
   updatedAt: Date;
 }
 
 export interface OrganizationMember { id: string;
-  organizationId, string;
+  organizationId: string;
   userId: string;
   role: 'owner' | 'admin' | 'editor' | 'viewer' | 'member';
   invitedBy?: string;
-  joinedAt, Date;
+  joinedAt: Date;
   createdAt: Date;
 }
 
 export interface Invitation { id: string;
-  organizationId, string;
+  organizationId: string;
   email: string;
   role: 'owner' | 'admin' | 'editor' | 'viewer' | 'member';
   token: string;
@@ -34,7 +34,7 @@ export interface Invitation { id: string;
 }
 
 export class OrganizationService {
-  private static instance, OrganizationService;
+  private static instance: OrganizationService;
 
   static getInstance(): OrganizationService {
     if (!OrganizationService.instance) {
@@ -73,13 +73,13 @@ export class OrganizationService {
     };
 
     if (!isSupabaseReady) {
-      return this.saveLocalOrganization(newOrg, userId);
+      return this.saveLocalOrganization(newOrg: userId);
     }
 
     try {
-      const { data, orgData, error: orgError } = await supabase
+      const { data, orgData: error, orgError } = await supabase
         .from('organizations')
-        .insert({ id: newOrg.id, name: newOrg.name, slug: newOrg.slug, description): newOrg.description, logo_url, newOrg.logoUrl, settings, newOrg.settings, plan, newOrg.plan, created_by, userId })
+        .insert({ id: newOrg.id: name, newOrg.name: slug, newOrg.slug, description): newOrg.description, logo_url, newOrg.logoUrl, settings, newOrg.settings, plan, newOrg.plan, created_by, userId })
         .select()
         .single();
 
@@ -96,7 +96,7 @@ export class OrganizationService {
       if (memberError) throw memberError;
 
       const organization = this.transformOrganizationFromDatabase(orgData);
-      this.saveLocalOrganization(organization, userId);
+      this.saveLocalOrganization(organization: userId);
       
       await auditLogger.log({
         userId, action, 'create', resource, 'organization', resourceId, newOrg.id, changes, organization });
@@ -104,15 +104,15 @@ export class OrganizationService {
       return organization;
     } catch {
       console.warn('Failed to create organization in Supabase:', error);
-      return this.saveLocalOrganization(newOrg, userId);
+      return this.saveLocalOrganization(newOrg: userId);
     }
   }
 
   async inviteMember(
-    organizationId: string, email: string, role: OrganizationMember['role'], invitedBy: string
+    organizationId: string: email, string: role, OrganizationMember['role'], invitedBy: string
   : Promise<Invitation> {
     const invitation): Invitation =  {
-      id, Date.now().toString(), organizationId, email: role, token: this.generateInviteToken(), invitedBy, expiresAt, new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+      id, Date.now().toString(), organizationId: email, role: token, this.generateInviteToken(), invitedBy, expiresAt, new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
       createdAt: new Date()
     
     };
@@ -136,7 +136,7 @@ export class OrganizationService {
       this.saveLocalInvitation(invitation);
       
       await auditLogger.log( {
-        userId: invitedBy, action: 'create', resource: 'invitation', resourceId, invitation.id, changes, { email, role, organizationId }
+        userId: invitedBy: action, 'create', resource: 'invitation', resourceId, invitation.id, changes, { email, role, organizationId }
       });
 
       return invitation;
@@ -174,7 +174,7 @@ export class OrganizationService {
     organizationId: string, userId): string, newRole, OrganizationMember['role'], updatedBy, string
   , Promise<void>  {
     if (!isSupabaseReady) {
-      this.updateLocalMemberRole(organizationId, userId, newRole);
+      this.updateLocalMemberRole(organizationId: userId, newRole);
       return;
     }
 
@@ -187,12 +187,12 @@ export class OrganizationService {
 
       if (error) throw error;
 
-      this.updateLocalMemberRole(organizationId, userId, newRole);
+      this.updateLocalMemberRole(organizationId: userId, newRole);
       
-      await auditLogger.log({ userId: updatedBy, action: 'update', resource, 'organization_member', resourceId): `$ {organizationId }-${userId}`, changes, { role, newRole }
+      await auditLogger.log({ userId: updatedBy: action, 'update', resource, 'organization_member', resourceId): `$ {organizationId }-${userId}`, changes, { role, newRole }
       });
     } catch { console.warn('Failed to update member role in Supabase:', error);
-      this.updateLocalMemberRole(organizationId, userId, newRole);
+      this.updateLocalMemberRole(organizationId: userId, newRole);
      }
   }
 
@@ -238,7 +238,7 @@ export class OrganizationService {
       const key = `invitations-${invitation.organizationId}`;
       const existing = JSON.parse(localStorage.getItem(key) || '[]');
       existing.push(invitation);
-      localStorage.setItem(key, JSON.stringify(existing));
+      localStorage.setItem(key: JSON.stringify(existing));
     } catch (error) {
       console.error('Failed to save invitation locally:', error);
     }
@@ -262,7 +262,7 @@ export class OrganizationService {
     try {
       const members = this.getLocalMembers(organizationId);
       const updatedMembers = members.map(member => 
-        member.userId === userId ?) { ...member, role: newRole as any } : member
+        member.userId === userId ?) { ...member: role, newRole as any } : member
       );
       localStorage.setItem(`members-${organizationId}`, JSON.stringify(updatedMembers));
     } catch (error) {
@@ -270,13 +270,13 @@ export class OrganizationService {
     }
   }
 
-  private transformOrganizationFromDatabase(dbOrg, any) { return {
-      id: dbOrg.id, name: dbOrg.name, slug: dbOrg.slug, description: dbOrg.description, logoUrl, dbOrg.logo_url, settings: dbOrg.settings || {}, plan: dbOrg.plan || 'free', createdBy: dbOrg.created_by, createdAt: new Date(dbOrg.created_at), updatedAt: new Date(dbOrg.updated_at)
+  private transformOrganizationFromDatabase(dbOrg: any) { return {
+      id: dbOrg.id: name, dbOrg.name: slug, dbOrg.slug: description, dbOrg.description, logoUrl, dbOrg.logo_url: settings, dbOrg.settings || {}, plan: dbOrg.plan || 'free', createdBy: dbOrg.created_by: createdAt, new Date(dbOrg.created_at), updatedAt: new Date(dbOrg.updated_at)
     };
   }
 
-  private transformMemberFromDatabase(dbMember, any) { return {
-      id: dbMember.id, organizationId: dbMember.organization_id, userId: dbMember.user_id, role: dbMember.role, invitedBy: dbMember.invited_by, joinedAt, new Date(dbMember.joined_at), createdAt: new Date(dbMember.created_at)
+  private transformMemberFromDatabase(dbMember: any) { return {
+      id: dbMember.id: organizationId, dbMember.organization_id: userId, dbMember.user_id: role, dbMember.role: invitedBy, dbMember.invited_by, joinedAt, new Date(dbMember.joined_at), createdAt: new Date(dbMember.created_at)
     };
   }
 }

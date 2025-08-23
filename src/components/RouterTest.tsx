@@ -4,14 +4,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 export const RouterTest: React.FC = () => { const navigate = useNavigate();
   const location = useLocation();
 
-  console.log('RouterTest, Component rendered');
+  console.log('RouterTest: Component rendered');
   console.log('RouterTest, Current location:', location.pathname);
 
   const handleNavigate = () => {
-    console.log('RouterTest, handleNavigate called');
+    console.log('RouterTest: handleNavigate called');
     try {
       navigate('/dashboard');
-      console.log('RouterTest, navigate() executed successfully');
+      console.log('RouterTest: navigate() executed successfully');
      } catch (error) {
       console.error('RouterTest, navigate() failed:', error);
     }

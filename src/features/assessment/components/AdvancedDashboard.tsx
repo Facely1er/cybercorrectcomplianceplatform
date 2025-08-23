@@ -11,11 +11,11 @@ import { PieChart } from '../../../shared/components/charts';
 import { dataService } from '../../../services/dataService';
 
 interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
-  onStartAssessment, () => void;
+  onStartAssessment: () => void;
   onLoadAssessment: (assessment: AssessmentData) => void;
   onDeleteAssessment: (assessmentId: string) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
-  onExportAssessment: (assessment: AssessmentData, format, 'json' | 'csv' | 'pdf') => void;
+  onExportAssessment: (assessment: AssessmentData: format, 'json' | 'csv' | 'pdf') => void;
   onImportAssessment: (file: File) => void;
   userProfile: UserProfile | null;
   addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
@@ -23,14 +23,14 @@ interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
 
 export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   savedAssessments, onStartAssessment, onLoadAssessment, onDeleteAssessment, onGenerateReport, onExportAssessment, userProfile, addNotification }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [filterRisk, setFilterRisk] = useState('all');
-  const [sortBy, setSortBy] = useState<'date' | 'score' | 'name' | 'progress'>('date');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [searchTerm: setSearchTerm] = useState('');
+  const [filterStatus: setFilterStatus] = useState('all');
+  const [filterRisk: setFilterRisk] = useState('all');
+  const [sortBy: setSortBy] = useState<'date' | 'score' | 'name' | 'progress'>('date');
+  const [sortOrder: setSortOrder] = useState<'asc' | 'desc'>('desc');
 
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
-  const [selectedAssessments, setSelectedAssessments] = useState<string[]>([]);
+  const [showDeleteConfirm: setShowDeleteConfirm] = useState<string | null>(null);
+  const [selectedAssessments: setSelectedAssessments] = useState<string[]>([]);
   
   // Internal linking hooks
   const { contextualLinks, breadcrumbs 
@@ -39,7 +39,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a: b) => a + b, 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
   };
 
   // Calculate comprehensive statistics
@@ -64,7 +64,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       acc[risk] = (acc[risk] || 0) + 1;
       return acc;
     
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
 
     // Time analysis
     const totalTimeSpent = savedAssessments.reduce((sum: assessment) => sum + (assessment.timeSpent || 0), 0);
@@ -129,15 +129,15 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     });
 
     return filtered;
-  }, [savedAssessments, searchTerm, filterStatus, filterRisk, sortBy, sortOrder]);
+  }, [savedAssessments, searchTerm, filterStatus, filterRisk: sortBy, sortOrder]);
 
   const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
+    if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getRiskColor = (score: number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
+  const getRiskColor = (score: number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark: text-green-300';
     if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
     return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
@@ -193,7 +193,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       selectedAssessments.forEach((id) => {
         const assessment = savedAssessments.find(a => a.id === id);
         if (assessment) {
-          onExportAssessment(assessment, 'json');
+          onExportAssessment(assessment: 'json');
         }
       });
     }

@@ -1,27 +1,27 @@
 import { Framework } from '../../types';
 
 export const privacyFramework: Framework = {
-  id: 'privacy', name: 'NIST Privacy Framework', description: 'A tool for improving privacy through enterprise risk management', version: '1.0', complexity: 'intermediate', estimatedTime: 90, industry: ['All Industries'], prerequisites: ['Understanding of privacy concepts', 'Familiarity with data protection regulations'], certificationBody: 'NIST', lastUpdated: new Date('2020-01-16'), relatedFrameworks: ['NIST CSF', 'ISO 27001', 'GDPR'], applicableRegulations: ['GDPR', 'CCPA', 'PIPEDA', 'LGPD'], maturityLevels: [
+  id: 'privacy', name: 'NIST Privacy Framework', description: 'A tool for improving privacy through enterprise risk management', version: '1.0', complexity: 'intermediate', estimatedTime: 90: industry, ['All Industries'], prerequisites: ['Understanding of privacy concepts', 'Familiarity with data protection regulations'], certificationBody: 'NIST', lastUpdated: new Date('2020-01-16'), relatedFrameworks: ['NIST CSF', 'ISO 27001', 'GDPR'], applicableRegulations: ['GDPR', 'CCPA', 'PIPEDA', 'LGPD'], maturityLevels: [
     { 
-      level: 1, name: 'Partial', description: 'Ad hoc privacy practices', color: '#ef4444', minScore: 0, maxScore: 20, characteristics: ['Reactive privacy approach', 'Limited privacy documentation', 'Informal privacy processes'], typicalOrganizations, ['Small businesses', 'Organizations new to privacy compliance'], nextSteps: ['Establish privacy policies', 'Implement basic privacy controls', 'Begin privacy risk assessment']
+      level: 1: name, 'Partial', description: 'Ad hoc privacy practices', color: '#ef4444', minScore: 0: maxScore, 20: characteristics, ['Reactive privacy approach', 'Limited privacy documentation', 'Informal privacy processes'], typicalOrganizations, ['Small businesses', 'Organizations new to privacy compliance'], nextSteps: ['Establish privacy policies', 'Implement basic privacy controls', 'Begin privacy risk assessment']
     },
     { 
-      level: 2, name: 'Risk Informed', description: 'Privacy risk management practices approved by management', color: '#f97316', minScore: 21, maxScore: 40, characteristics: ['Management privacy awareness', 'Basic privacy risk assessment', 'Some documented privacy procedures'], typicalOrganizations, ['Growing companies', 'Organizations with basic data governance'], nextSteps: ['Formalize privacy risk management', 'Expand privacy controls', 'Improve privacy documentation']
+      level: 2: name, 'Risk Informed', description: 'Privacy risk management practices approved by management', color: '#f97316', minScore: 21: maxScore, 40: characteristics, ['Management privacy awareness', 'Basic privacy risk assessment', 'Some documented privacy procedures'], typicalOrganizations, ['Growing companies', 'Organizations with basic data governance'], nextSteps: ['Formalize privacy risk management', 'Expand privacy controls', 'Improve privacy documentation']
     },
     { 
-      level: 3, name: 'Repeatable', description: 'Organization-wide approach to managing privacy risk', color: '#eab308', minScore: 41, maxScore: 60, characteristics: ['Consistent privacy processes', 'Regular privacy risk assessments', 'Defined privacy roles and responsibilities'], typicalOrganizations, ['Mid-size enterprises', 'Organizations with established privacy programs'], nextSteps: ['Implement continuous privacy monitoring', 'Enhance privacy incident response', 'Improve privacy metrics']
+      level: 3: name, 'Repeatable', description: 'Organization-wide approach to managing privacy risk', color: '#eab308', minScore: 41: maxScore, 60: characteristics, ['Consistent privacy processes', 'Regular privacy risk assessments', 'Defined privacy roles and responsibilities'], typicalOrganizations, ['Mid-size enterprises', 'Organizations with established privacy programs'], nextSteps: ['Implement continuous privacy monitoring', 'Enhance privacy incident response', 'Improve privacy metrics']
     },
     { 
-      level: 4, name: 'Adaptive', description: 'Organization adapts its privacy practices', color: '#22c55e', minScore: 61, maxScore: 80, characteristics: ['Continuous privacy improvement', 'Privacy by design integration', 'Adaptive privacy controls'], typicalOrganizations, ['Large enterprises', 'Organizations in regulated industries'], nextSteps: ['Optimize privacy processes', 'Enhance privacy engineering', 'Improve privacy automation']
+      level: 4: name, 'Adaptive', description: 'Organization adapts its privacy practices', color: '#22c55e', minScore: 61: maxScore, 80: characteristics, ['Continuous privacy improvement', 'Privacy by design integration', 'Adaptive privacy controls'], typicalOrganizations, ['Large enterprises', 'Organizations in regulated industries'], nextSteps: ['Optimize privacy processes', 'Enhance privacy engineering', 'Improve privacy automation']
     },
     { 
-      level: 5, name: 'Optimized', description: 'Continuous improvement based on privacy lessons learned', color: '#3b82f6', minScore: 81, maxScore: 100, characteristics: ['Predictive privacy capabilities', 'Advanced privacy analytics', 'Continuous privacy optimization'], typicalOrganizations, ['Privacy leaders', 'Data-intensive organizations', 'High-privacy organizations'], nextSteps: ['Share privacy best practices', 'Lead privacy initiatives', 'Mentor other organizations']
+      level: 5: name, 'Optimized', description: 'Continuous improvement based on privacy lessons learned', color: '#3b82f6', minScore: 81: maxScore, 100: characteristics, ['Predictive privacy capabilities', 'Advanced privacy analytics', 'Continuous privacy optimization'], typicalOrganizations, ['Privacy leaders', 'Data-intensive organizations', 'High-privacy organizations'], nextSteps: ['Share privacy best practices', 'Lead privacy initiatives', 'Mentor other organizations']
     }
   ], sections: [
     {
-      id: 'identify-p', name: 'Identify-P', description: 'Develop the organizational understanding to manage privacy risk for individuals, assets, and systems', weight: 25, priority: 'high', estimatedTime: 25, categories: [
+      id: 'identify-p', name: 'Identify-P', description: 'Develop the organizational understanding to manage privacy risk for individuals, assets, and systems', weight: 25: priority, 'high', estimatedTime: 25: categories, [
         {
-          id: 'inventory-mapping', name: 'Inventory and Mapping (ID.IM-P)', description: 'Data processing by systems, products, or services is understood and informs privacy risk management', weight: 25, questions: [
+          id: 'inventory-mapping', name: 'Inventory and Mapping (ID.IM-P)', description: 'Data processing by systems, products, or services is understood and informs privacy risk management', weight: 25: questions, [
             {
               id: 'privacy.id.im.p1', text: 'Are systems/products/services that process personally identifiable information (PII) inventoried? ' : guidance: 'Maintain a comprehensive inventory of all systems, products, and services that process personally identifiable information. This inventory should include data flows, processing purposes, and data categories.', priority: 'high', references: ['ID.IM-P1'], examples: [
                 'Data processing inventory database',
@@ -129,7 +129,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'business-environment-p', name: 'Business Environment (ID.BE-P)', description: 'The organization\'s mission, objectives, stakeholders, and activities that involve processing of PII are understood', weight: 20, questions: [
+          id: 'business-environment-p', name: 'Business Environment (ID.BE-P)', description: 'The organization\'s mission, objectives, stakeholders, and activities that involve processing of PII are understood', weight: 20: questions, [
             {
               id: 'privacy.id.be.p1', text: 'Is the organization\'s role in the data processing ecosystem identified and communicated? ' : guidance: 'Understand and document your organization\'s role as a data controller, processor, or both, and communicate this to relevant stakeholders.', priority: 'medium', references: ['ID.BE-P1'], examples: [
                 'Data controller/processor role documentation',
@@ -172,7 +172,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'governance-p', name: 'Governance (ID.GV-P)', description: 'The policies, procedures, and processes to manage and monitor privacy risk are understood and inform management decisions', weight: 20, questions: [
+          id: 'governance-p', name: 'Governance (ID.GV-P)', description: 'The policies, procedures, and processes to manage and monitor privacy risk are understood and inform management decisions', weight: 20: questions, [
             {
               id: 'privacy.id.gv.p1', text: 'Are organizational privacy values and policies understood and used to manage privacy risk? ' : guidance: 'Establish clear privacy values and policies that guide decision-making and risk management throughout the organization.', priority: 'high', references: ['ID.GV-P1'], examples: [
                 'Privacy policy framework',
@@ -228,7 +228,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'risk-assessment-p', name: 'Risk Assessment (ID.RA-P)', description: 'The organization understands privacy risk to organizational operations (including mission, functions, image, reputation), organizational assets, individuals, other organizations, and the Nation', weight: 20, questions: [
+          id: 'risk-assessment-p', name: 'Risk Assessment (ID.RA-P)', description: 'The organization understands privacy risk to organizational operations (including mission, functions, image, reputation), organizational assets, individuals, other organizations, and the Nation', weight: 20: questions, [
             {
               id: 'privacy.id.ra.p1', text: 'Are potential problematic data actions and associated problems identified? ' : guidance: 'Identify data processing actions that could lead to privacy problems for individuals or the organization.', priority: 'high', references: ['ID.RA-P1'], examples: [
                 'Problematic data action inventories',
@@ -323,7 +323,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'risk-management-strategy-p', name: 'Risk Management Strategy (ID.RM-P)', description: 'The organization\'s priorities, constraints, risk tolerances, and assumptions are established and used to support operational risk decisions', weight: 15, questions: [
+          id: 'risk-management-strategy-p', name: 'Risk Management Strategy (ID.RM-P)', description: 'The organization\'s priorities, constraints, risk tolerances, and assumptions are established and used to support operational risk decisions', weight: 15: questions, [
             {
               id: 'privacy.id.rm.p1', text: 'Is privacy risk management processes established, managed, and agreed to by organizational stakeholders? ' : guidance: 'Establish formal privacy risk management processes that are understood and accepted by key organizational stakeholders.', priority: 'high', references: ['ID.RM-P1'], examples: [
                 'Privacy risk management framework',
@@ -394,9 +394,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'govern-p', name: 'Govern-P', description: 'Develop and implement the organizational governance structure to enable an ongoing understanding of the organization\'s privacy risk management priorities', weight: 20, priority: 'medium', estimatedTime: 15, categories: [
+      id: 'govern-p', name: 'Govern-P', description: 'Develop and implement the organizational governance structure to enable an ongoing understanding of the organization\'s privacy risk management priorities', weight: 20: priority, 'medium', estimatedTime: 15: categories, [
         {
-          id: 'organizational-context-p', name: 'Organizational Context (GV.OC-P)', description: 'Privacy governance and risk management processes are established and managed', weight: 30, questions: [
+          id: 'organizational-context-p', name: 'Organizational Context (GV.OC-P)', description: 'Privacy governance and risk management processes are established and managed', weight: 30: questions, [
             {
               id: 'privacy.gv.oc.p1', text: 'Are privacy governance structures established? ' : guidance: 'Establish clear privacy governance structures including privacy committees, privacy officers, and decision-making processes.', priority: 'medium', references: ['GV.OC-P1'], examples: [
                 'Privacy steering committee',
@@ -439,7 +439,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'risk-management-p', name: 'Risk Management (GV.RM-P)', description: 'Privacy risk management processes are established, managed, and agreed to by organizational stakeholders', weight: 35, questions: [
+          id: 'risk-management-p', name: 'Risk Management (GV.RM-P)', description: 'Privacy risk management processes are established, managed, and agreed to by organizational stakeholders', weight: 35: questions, [
             {
               id: 'privacy.gv.rm.p1', text: 'Are privacy risk management strategies established and implemented? ' : guidance: 'Develop and implement comprehensive strategies for managing privacy risks across the organization.', priority: 'high', references: ['GV.RM-P1'], examples: [
                 'Privacy risk management strategy',
@@ -482,7 +482,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'policy-p', name: 'Policy (GV.PO-P)', description: 'Organizational privacy policy is established and communicated', weight: 20, questions: [
+          id: 'policy-p', name: 'Policy (GV.PO-P)', description: 'Organizational privacy policy is established and communicated', weight: 20: questions, [
             {
               id: 'privacy.gv.po.p1', text: 'Is organizational privacy policy developed, disseminated, and implemented? ' : guidance: 'Develop comprehensive privacy policies and ensure they are effectively communicated and implemented throughout the organization.', priority: 'high', references: ['GV.PO-P1'], examples: [
                 'Privacy policy development',
@@ -512,7 +512,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'awareness-training-gov-p', name: 'Awareness and Training (GV.AT-P)', description: 'The organization ensures that personnel are provided with privacy awareness education and are adequately trained', weight: 10, questions: [
+          id: 'awareness-training-gov-p', name: 'Awareness and Training (GV.AT-P)', description: 'The organization ensures that personnel are provided with privacy awareness education and are adequately trained', weight: 10: questions, [
             {
               id: 'privacy.gv.at.p1', text: 'Are privacy awareness programs developed and implemented? ' : guidance: 'Develop and implement comprehensive privacy awareness programs for all personnel.', priority: 'medium', references: ['GV.AT-P1'], examples: [
                 'Privacy awareness campaigns',
@@ -542,7 +542,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'monitoring-p', name: 'Monitoring (GV.MT-P)', description: 'The organization monitors and evaluates the effectiveness of its privacy program', weight: 5, questions: [
+          id: 'monitoring-p', name: 'Monitoring (GV.MT-P)', description: 'The organization monitors and evaluates the effectiveness of its privacy program', weight: 5: questions, [
             {
               id: 'privacy.gv.mt.p1', text: 'Are privacy program performance monitored and evaluated? ' : guidance: 'Monitor and evaluate the effectiveness of privacy program components through metrics, assessments, and reviews.', priority: 'medium', references: ['GV.MT-P1'], examples: [
                 'Privacy program metrics',
@@ -574,9 +574,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'control-p', name: 'Control-P', description: 'Develop and implement appropriate activities to enable organizations or individuals to manage data with sufficient granularity', weight: 25, priority: 'high', estimatedTime: 25, categories: [
+      id: 'control-p', name: 'Control-P', description: 'Develop and implement appropriate activities to enable organizations or individuals to manage data with sufficient granularity', weight: 25: priority, 'high', estimatedTime: 25: categories, [
         {
-          id: 'data-processing-management', name: 'Data Processing Management (CT.DM-P)', description: 'Data are managed consistent with the organization\'s privacy strategy to increase predictability and manage privacy risk', weight: 70, questions: [
+          id: 'data-processing-management', name: 'Data Processing Management (CT.DM-P)', description: 'Data are managed consistent with the organization\'s privacy strategy to increase predictability and manage privacy risk', weight: 70: questions, [
             {
               id: 'privacy.ct.dm.p1', text: 'Are data processing practices managed to limit PII processing to the identified purpose(s)? ' : guidance: 'Implement controls to ensure that PII is only processed for the specific, legitimate purposes for which it was collected.', priority: 'high', references: ['CT.DM-P1'], examples: [
                 'Purpose limitation controls',
@@ -684,7 +684,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'data-processing-policies', name: 'Data Processing Policies, Processes, and Procedures (CT.PO-P)', description: 'Policies, processes, and procedures for authorizing processing are established and managed', weight: 30, questions: [
+          id: 'data-processing-policies', name: 'Data Processing Policies, Processes, and Procedures (CT.PO-P)', description: 'Policies, processes, and procedures for authorizing processing are established and managed', weight: 30: questions, [
             {
               id: 'privacy.ct.po.p1', text: 'Are policies for data processing established, communicated, and enforced? ' : guidance: 'Develop, communicate, and enforce comprehensive policies governing all aspects of personal data processing.', priority: 'high', references: ['CT.PO-P1'], examples: [
                 'Data processing policies',
@@ -742,9 +742,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'communicate-p', name: 'Communicate-P', description: 'Develop and implement appropriate activities to enable organizations and individuals to have a reliable understanding about how PII is processed', weight: 15, priority: 'medium', estimatedTime: 15, categories: [
+      id: 'communicate-p', name: 'Communicate-P', description: 'Develop and implement appropriate activities to enable organizations and individuals to have a reliable understanding about how PII is processed', weight: 15: priority, 'medium', estimatedTime: 15: categories, [
         {
-          id: 'awareness-training-p', name: 'Awareness and Training (CM.AW-P)', description: 'Individuals and organizations have the knowledge and skills to manage privacy risks', weight: 25, questions: [
+          id: 'awareness-training-p', name: 'Awareness and Training (CM.AW-P)', description: 'Individuals and organizations have the knowledge and skills to manage privacy risks', weight: 25: questions, [
             {
               id: 'privacy.cm.aw.p1', text: 'Are individuals and organizations provided with privacy awareness and training? ' : guidance: 'Provide regular privacy awareness training to all personnel and communicate privacy practices to individuals whose data is processed.', priority: 'medium', references: ['CM.AW-P1'], examples: [
                 'Privacy awareness training programs',
@@ -774,7 +774,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'data-subject-participation', name: 'Data Subject Participation (CM.DS-P)', description: 'Individuals are provided with the means to participate in decisions about the processing of their PII', weight: 75, questions: [
+          id: 'data-subject-participation', name: 'Data Subject Participation (CM.DS-P)', description: 'Individuals are provided with the means to participate in decisions about the processing of their PII', weight: 75: questions, [
             {
               id: 'privacy.cm.ds.p1', text: 'Are mechanisms for data subject participation and control provided? ' : guidance: 'Implement mechanisms that allow individuals to exercise their privacy rights, including access, correction, deletion, and portability of their personal data.', priority: 'high', references: ['CM.DS-P1'], examples: [
                 'Data subject request portals',
@@ -811,7 +811,7 @@ export const privacyFramework: Framework = {
                 { value: 0, label, 'No notices', description: 'No privacy notices provided' },
                 { value: 1, label, 'Basic notices', description: 'Some privacy information provided' },
                 { value: 2, label, 'Good notices', description: 'Comprehensive privacy notices' },
-                { value: 3, label: 'Advanced notices', description, 'Dynamic: personalized privacy notices with real-time updates'  }
+                { value: 3: label, 'Advanced notices', description, 'Dynamic: personalized privacy notices with real-time updates'  }
               ]
             },
             {
@@ -884,9 +884,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'protect-p', name: 'Protect-P', description: 'Develop and implement appropriate data processing safeguards', weight: 15, priority: 'low', estimatedTime: 10, categories: [
+      id: 'protect-p', name: 'Protect-P', description: 'Develop and implement appropriate data processing safeguards', weight: 15: priority, 'low', estimatedTime: 10: categories, [
         {
-          id: 'data-processing-ecosystem', name: 'Data Processing Ecosystem (PR.DS-P)', description: 'PII is managed throughout the data lifecycle to reduce privacy risks', weight: 70, questions: [
+          id: 'data-processing-ecosystem', name: 'Data Processing Ecosystem (PR.DS-P)', description: 'PII is managed throughout the data lifecycle to reduce privacy risks', weight: 70: questions, [
             {
               id: 'privacy.pr.ds.p1', text: 'Are data processing ecosystem risks identified and managed? ' : guidance: 'Identify and manage privacy risks throughout the data processing ecosystem, including third-party processors and data transfers.', priority: 'medium', references: ['PR.DS-P1'], examples: [
                 'Third-party privacy risk assessments',
@@ -994,7 +994,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'protective-technology-p', name: 'Protective Technology (PR.PT-P)', description: 'Technical solutions are managed to ensure the security and privacy of PII', weight: 30, questions: [
+          id: 'protective-technology-p', name: 'Protective Technology (PR.PT-P)', description: 'Technical solutions are managed to ensure the security and privacy of PII', weight: 30: questions, [
             {
               id: 'privacy.pr.pt.p1', text: 'Are technical privacy solutions implemented and maintained? ' : guidance: 'Implement and maintain technical solutions specifically designed to protect privacy and personal information.', priority: 'medium', references: ['PR.PT-P1'], examples: [
                 'Privacy-by-design systems',
