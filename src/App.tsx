@@ -90,7 +90,7 @@ const AssessmentWrapper: React.FC<{
               The framework for this assessment (ID:  {assessment.frameworkId }) could not be loaded properly.
             </p>
             <div className="text-sm text-gray-500 dark: text-gray-400 mb-4">
-              Debug info: Framework exists, {framework ? 'Yes' :: 'No'}, Sections: {framework?.sections?.length || 0}
+                              Debug info: Framework exists: {framework ? 'Yes' : 'No'}, Sections: {framework?.sections?.length || 0}
             </div>
             <div className="space-y-2">
               <button 
@@ -112,7 +112,7 @@ const AssessmentWrapper: React.FC<{
     }
       } catch (error) { 
       console.error('Framework validation error: ', error);
-                              console.error('Assessment data:', { id: assessment.id: frameworkId, assessment.frameworkId :});
+                              console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
