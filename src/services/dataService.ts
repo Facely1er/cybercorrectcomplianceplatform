@@ -140,16 +140,17 @@ export class DataService { private static instance: DataService;
   }
 
   // User Profile Management
-  getUserProfile(, UserProfile | null {
+  getUserProfile(): UserProfile | null {
     try {
       const data = localStorage.getItem(this.STORAGE_KEYS.USER_PROFILE);
       if (!data || data === 'null') return null;
       
       const profile = JSON.parse(data);
       return {
-        ...profile, createdAt, new Date(profile.createdAt), lastLogin: new Date(profile.lastLogin)
-      
-    };
+        ...profile,
+        createdAt: new Date(profile.createdAt),
+        lastLogin: new Date(profile.lastLogin)
+      };
     } catch (error) {
       console.error('Failed to load user profile:', error);
       return null;
