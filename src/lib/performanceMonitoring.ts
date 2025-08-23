@@ -44,7 +44,7 @@ class PerformanceMonitoring {
             this.reportVital('FCP', entry.startTime);
     }
         }
-      }).observe({ entryTypes, ['paint'] });
+      }).observe({ entryTypes: ['paint'] });
     } catch {
       console.warn('Performance Observer not supported');
     }
@@ -57,7 +57,7 @@ class PerformanceMonitoring {
         this.vitals.LCP = lastEntry.startTime;
         this.reportVital('LCP', lastEntry.startTime);
       
-          }).observe({ entryTypes, ['largest-contentful-paint'] });
+          }).observe({ entryTypes: ['largest-contentful-paint'] });
     } catch {
       console.warn('LCP Performance Observer not supported');
     }
@@ -68,7 +68,7 @@ class PerformanceMonitoring {
         this.vitals.FID = (entry as any).processingStart - entry.startTime;
         this.reportVital('FID', this.vitals.FID);
     }
-    }).observe({ entryTypes, ['first-input'] });
+    }).observe({ entryTypes: ['first-input'] });
 
     // Cumulative Layout Shift
     let clsValue = 0;
@@ -80,7 +80,7 @@ class PerformanceMonitoring {
       }
       this.vitals.CLS = clsValue;
       this.reportVital('CLS', clsValue);
-          }).observe({ entryTypes, ['layout-shift'] });
+          }).observe({ entryTypes: ['layout-shift'] });
   }
 
   private setupNavigationTiming() {
@@ -117,7 +117,7 @@ class PerformanceMonitoring {
           });
         }
       }
-          }).observe( { entryTypes, ['resource'] });
+          }).observe({ entryTypes: ['resource'] });
   }
 
   measurePerformance(PerformanceEntry { const entry): PerformanceEntry = {
