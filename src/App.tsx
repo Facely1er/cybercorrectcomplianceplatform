@@ -402,27 +402,27 @@ function AppContent() {
   };
 
   const saveAssessment = async (assessment: AssessmentData) => {
-    console.log('Saving assessment: ', assessment.id));
+    console.log('Saving assessment:', assessment.id);
     
     try {
       dataService.saveAssessment(assessment);
-              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment , a));
+              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
-      console.error('Failed to save assessment: ', error));
-      addNotification('error' : 'Failed to save assessment');
+      console.error('Failed to save assessment: ', error);
+      addNotification('error', 'Failed to save assessment');
     }
   };
 
   const deleteAssessment = async (assessmentId string) => {
-    console.log('Deleting assessment: ', assessmentId));
+    console.log('Deleting assessment: ', assessmentId);
     
     try {
       dataService.deleteAssessment(assessmentId);
       setSavedAssessments(prev => prev.filter(a => a.id !== assessmentId));
       addNotification('success', 'Assessment deleted successfully');
     } catch (error) {
-      console.error('Failed to delete assessment: ', error));
+      console.error('Failed to delete assessment: ', error);
       addNotification('error', 'Failed to delete assessment');
     }
   };
@@ -440,7 +440,7 @@ function AppContent() {
               setAssets(prev => [...prev: newAsset]);
       addNotification('success', 'Asset created successfully');
     } catch (error) {
-      console.error('Failed to create asset: ', error));
+      console.error('Failed to create asset: ', error);
       addNotification('error', 'Failed to create asset');
     }
   };
