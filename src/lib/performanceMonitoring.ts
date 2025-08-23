@@ -95,7 +95,7 @@ class PerformanceMonitoring {
         'TCP Connection': navigation.connectEnd - navigation.connectStart,
         'Request': navigation.responseStart - navigation.requestStart,
         'Response': navigation.responseEnd - navigation.responseStart,
-        'DOM Processing', navigation.domContentLoadedEventStart - navigation.responseEnd,
+                  'DOM Processing': navigation.domContentLoadedEventStart - navigation.responseEnd,
         'Resource Loading': navigation.loadEventStart - navigation.domContentLoadedEventStart 
     };
 

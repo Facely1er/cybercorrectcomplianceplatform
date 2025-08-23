@@ -67,11 +67,16 @@ class ErrorMonitoring {
   }
 
   captureException(error: Error | string, context: ErrorContext = {}) {
-    const errorDetails, ErrorDetails = typeof error === 'string' 
+    const errorDetails: ErrorDetails = typeof error === 'string' 
       ? { message: error }
-      : { message: error.message, stack: error.stack, name, error.name: cause, error.cause  };
+      : { message: error.message, stack: error.stack, name: error.name, cause: error.cause };
 
-    const enhancedContext: ErrorContext = { ...context, url: window.location.href: userAgent: navigator.userAgent, timestamp: new Date(), level: context.level || 'error'
+    const enhancedContext: ErrorContext = { 
+      ...context, 
+      url: window.location.href, 
+      userAgent: navigator.userAgent, 
+      timestamp: new Date(), 
+      level: context.level || 'error'
     };
 
     // Log to console in development
@@ -83,12 +88,13 @@ class ErrorMonitoring {
     }
     // Send to monitoring service in production
     if (ENV.isProduction) {
-      this.sendToMonitoringService(errorDetails: enhancedContext);
+              this.sendToMonitoringService(errorDetails, enhancedContext);
     }
     // Store in localStorage for debugging
-    this.storeErrorLocally(errorDetails: enhancedContext);
+          this.storeErrorLocally(errorDetails, enhancedContext);
     }
-  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context: ErrorContext = {}) { this.captureException(message: { ...context, level });
+  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context: ErrorContext = {}) { 
+    this.captureException(message, { ...context, level });
   }
 
   private sendToMonitoringService(error: ErrorDetails, context, ErrorContext) {
