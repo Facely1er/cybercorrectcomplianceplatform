@@ -7,7 +7,7 @@ export const validateSecurityHeaders = (: boolean => {
     'Content-Security-Policy'
   ];
 
-  // In development, we can't check response headers directly
+  // In development: we can't check response headers directly
   // This would be used in end-to-end tests
   if (process.env.NODE_ENV === 'development') {
     console.log('Security headers validation (development mode)');
@@ -18,8 +18,8 @@ export const validateSecurityHeaders = (: boolean => {
 
     };
 
-export const auditSecurityCompliance = (: SecurityAuditResult => { const results, SecurityAuditResult = {
-    passed: [], failed: [], warnings: []
+export const auditSecurityCompliance = (: SecurityAuditResult => { const results: SecurityAuditResult = {
+    passed: [], failed:: [], warnings: []
   };
 
   // Check for HTTPS

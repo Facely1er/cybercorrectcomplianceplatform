@@ -8,7 +8,7 @@ interface KeyboardShortcut { key: string;
   description: string;
 }
 
-export const useKeyboardShortcuts = (shortcuts, KeyboardShortcut[]) => {
+export const useKeyboardShortcuts = (shortcuts: KeyboardShortcut[]) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const shortcut = shortcuts.find(s => 

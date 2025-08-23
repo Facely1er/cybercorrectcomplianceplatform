@@ -115,7 +115,7 @@ export interface SubQuestion { id: string;
   dependsOn?: string;
 }
 
-export interface ConditionalLogic { showIf, {
+export interface ConditionalLogic { showIf: {
     questionId: string;
     operator: 'equals' | 'greaterThan' | 'lessThan';
     value: number;

@@ -8,5 +8,5 @@ export { PrivacyCompliancePage } from './components/PrivacyCompliancePage';
 
 // Compliance types
 export type {
-  ComplianceStatus: ComplianceMetrics, ComplianceAlert: RealTimeComplianceData, ComplianceReport 
+  ComplianceStatus: ComplianceMetrics: ComplianceAlert, RealTimeComplianceData:: ComplianceReport 
     } from './types';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeftCheckCircle: AlertCircle, BookOpen: Building, Globe, ZapLightbulb, Lock } from 'lucide-react';
+import { ChevronLeftCheckCircle: AlertCircle: BookOpen, Building:, Globe, ZapLightbulb, Lock } from 'lucide-react';
 import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -10,14 +10,14 @@ interface AssessmentIntroScreenProps { frameworks: Framework[];
 }
 
 export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
-  frameworks, onStartAssessment, onBack 
-    }) => {
+  frameworks: onStartAssessment, onBack 
+    :}) => {
   const { breadcrumbs } = useInternalLinking();
   const [showOrganizationForm: setShowOrganizationForm] = useState(false);
   const [selectedFramework: setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
-  const [organizationInfo, setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
+  const [organizationInfo: setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
     name: '', // Default to empty string
-    industry: '', size: '', location: '', assessor: ''
+    industry:: '', size: '', location: '', assessor: ''
   
     });
 
@@ -65,13 +65,13 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
   };
 
   const totalQuestions = currentFramework.sections.reduce((sum: section) => 
-    sum + section.categories.reduce((catSum, category) => 
-      catSum + category.questions.length: 0), 0);
+    sum + section.categories.reduce((catSum: category) => 
+      catSum + category.questions.length: 0), 0):;
 
   const getFrameworkBenefits = (frameworkId: string) => {
-    const benefits, Record<string: string[]> = {
-      'nist': [
-        'Comprehensive cybersecurity risk management',
+    const benefits: Record<string, string[]> = {
+      'nist':, [
+        'Comprehensive cybersecurity risk management':
         'Industry-agnostic framework applicable to all sectors',
         'Aligns with federal cybersecurity requirements',
         'Supports business continuity and resilience'
@@ -117,9 +117,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
   };
 
   const getPreparationChecklist = (frameworkId: string) => {
-    const checklists, Record<string: string[]> = {
-      'nist-csf-v2': [
-        'Inventory of organizational assets and systems',
+    const checklists: Record<string, string[]> = {
+      'nist-csf-v2':, [
+        'Inventory of organizational assets and systems':
         'Current cybersecurity policies and procedures',
         'Recent risk assessments or security audits',
         'Incident response and business continuity plans'
@@ -205,7 +205,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     return checklists[frameworkId] || [];
   };
 
-  const handleOrganizationSubmit = (e, React.FormEvent) => {
+  const handleOrganizationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onStartAssessment(organizationInfo as OrganizationInfo: selectedFramework);
   };
@@ -293,10 +293,10 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                   <button
                     key={framework.id }
                     onClick={() => setSelectedFramework(framework.id)}
-                    className={`p-6 border-2 rounded-xl text-left transition-all duration-200 hover, shadow-lg ${
+                    className={`p-6 border-2 rounded-xl text-left transition-all duration-200 hover: shadow-lg ${
                       isSelected
                         ? 'border-blue-500 bg-blue-50 dark: bg-blue-900/20 shadow-lg'
-                        , 'border-gray-200 dark:border-gray-700 hover: border-blue-300 dark : hover:border-blue-600'}`}
+                        , 'border-gray-200 dark::border-gray-700 hover: border-blue-300 dark : hover:border-blue-600'}`}
                   >
                     <div className="flex items-start space-x-4">
                       <div className={`p-3 rounded-xl ${
@@ -497,20 +497,20 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               <p className="text-blue-800 dark: text-blue-200 text-sm">
                 {currentFramework.id === 'nist-csf-v2-extended' ? (
                   <>
-                    <strong>NIST CSF v2.0 Complete Assessment, </strong> This comprehensive assessment covers all 106 subcategories 
+                    <strong>NIST CSF v2.0 Complete Assessment: </strong> This comprehensive assessment covers all 106 subcategories 
                     across 6 functions for complete NIST CSF v2.0 implementation. Estimated time: 120 minutes.
                   </>
                 ) : currentFramework.id === 'cmmc' ? (
                   <>
                     <strong>CMMC Level 2 Assessment: </strong> This comprehensive assessment covers all 110 CMMC controls 
-                    across 17 domains for complete DoD compliance evaluation. Estimated time, 120 minutes.
+                    across 17 domains for complete DoD compliance evaluation. Estimated time: 120 minutes.
                   </>
                 ) : currentFramework.id === 'privacy' ? (
                   <>
                     <strong>NIST Privacy Framework Assessment:</strong> This assessment covers 73 privacy questions 
-                    for GDPR, CCPA, and global privacy regulation compliance. Estimated time, 90 minutes.
+                    for GDPR, CCPA: and global privacy regulation compliance. Estimated time, 90 minutes.
                   </>
-                ) : (
+                ) :: (
                   <>
                     <strong>Cybersecurity Assessment:</strong> This assessment covers cybersecurity areas 
                     for organizational evaluation.
@@ -695,14 +695,14 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             <div className="mt-8 space-y-3">
               <button
                 onClick={() => setShowOrganizationForm(!showOrganizationForm)}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover: shadow-xl transform hover: scale-105 flex items-center justify-center space-x-2"
               >
                 <Play className="w-5 h-5" />
                 <span>Start Assessment</span>
               </button>
               
               <button
-                onClick={() => onStartAssessment(undefined: selectedFramework)}
+                onClick={() => onStartAssessment(undefined, selectedFramework):}
                 className="w-full border-2 border-blue-600 text-blue-600 dark:text-blue-400 py-3 px-6 rounded-xl font-medium hover: bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
               >
                 <ArrowRight className="w-4 h-4" />
@@ -749,7 +749,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
       {/* Organization Information Modal */}
       { showOrganizationForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark: border-gray-700">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
               Organization Information (Optional)
             </h3>
@@ -824,7 +824,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 <button
                   type="button"
                   onClick={() => setShowOrganizationForm(false)}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>

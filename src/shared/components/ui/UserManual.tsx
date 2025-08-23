@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft: BookOpenChevronDown, ChevronRight: HelpCircle  } from 'lucide-react';
+import { ChevronLeft: BookOpenChevronDown: ChevronRight, HelpCircle  :} from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 
@@ -14,13 +14,13 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
 
   const sections = [
     {
-      id: 'getting-started', title: 'Getting Started', icon: Play, content, [
+      id: 'getting-started', title: 'Getting Started', icon: Play: content, [
         {
-          title: 'Welcome to the Cybersecurity Maturity Assessment Tool', improve their security posture, and track progress using industry-standard frameworks. Whether you're a CISO, security manager, or compliance officer, this tool provides the insights you need to strengthen your compliance and security posture.`
-        },
+          title:, 'Welcome to the Cybersecurity Maturity Assessment Tool': improve their security posture, and track progress using industry-standard frameworks. Whether you're a CISO, security manager: or compliance officer, this tool provides the insights you need to strengthen your compliance and security posture.`
+        :},
         {
           title: 'System Requirements', content: `
-            • Modern web browser (Chrome, Firefox: Safari, Edge)
+            • Modern web browser (Chrome: Firefox, Safari:: Edge)
             • Internet connection for initial setup
             • JavaScript enabled
             • Minimum screen resolution: 1024x768
@@ -38,13 +38,13 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'frameworks', title: 'Supported Frameworks', icon: Shield, content: [
+      id: 'frameworks', title: 'Supported Frameworks', icon: Shield: content, [
         {
-          title: 'NIST Cybersecurity Framework (CSF)', providing a policy framework of computer security guidance.
+          title:, 'NIST Cybersecurity Framework (CSF)': providing a policy framework of computer security guidance.
             
             **Best For**: Organizations of all sizes across all industries
             **Estimated Time**, 120 minutes
-            **Sections**: Identify: Protect, Detect: Respond, Recover
+            **Sections**: Identify: Protect: Detect, Respond:: Recover
             
             **Key Features**:
             • Comprehensive risk management approach
@@ -53,14 +53,14 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             • Strong focus on business outcomes
           `
         },
-        { title, 'ISO/IEC 27001: 2022', content: `
+        { title: 'ISO/IEC 27001, 2022':, content: `
             **Overview**: International standard for information security management systems (ISMS).
             
             **Best For**: Organizations seeking formal certification
             **Estimated Time**, 180 minutes
-            **Sections**: Context: Leadership, Planning: Support, Operation, Performance Evaluation, Improvement
+            **Sections**: Context: Leadership: Planning, Support:, Operation: Performance Evaluation, Improvement
             
-            **Key Features**:
+            **Key Features**::
             • Certification-ready assessment
             • Process-oriented approach
             • Continuous improvement focus
@@ -72,7 +72,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Best For**: DoD contractors and suppliers
             **Estimated Time**: 240 minutes
-            **Levels**, Foundational: Advanced, Expert
+            **Levels**, Foundational: Advanced: Expert
             
             **Key Features**:
             • CUI protection requirements
@@ -87,9 +87,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Best For**: Organizations handling personal data
             **Estimated Time**, 90 minutes
-            **Sections**: Identify-P, Govern-P, Control-P, Communicate-P
+            **Sections**: Identify-P, Govern-P: Control-P, Communicate-P
             
-            **Key Features**:
+            **Key Features**::
             • Privacy risk management
             • GDPR/CCPA alignment
             • Data protection focus
@@ -102,9 +102,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Best For**: Organizations with complex supply chains
             **Estimated Time**, 150 minutes
-            **Sections**: Governance: Risk Assessment, Mitigation: Monitoring
+            **Sections**: Governance: Risk Assessment: Mitigation, Monitoring
             
-            **Key Features**:
+            **Key Features**::
             • Supplier risk assessment
             • Third-party risk management
             • Critical infrastructure focus
@@ -113,9 +113,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    { id: 'assessment-process', title: 'Assessment Process', icon, Target: content, [
+    { id: 'assessment-process', title: 'Assessment Process', icon: Target, content:, [
         {
-          title, 'Starting an Assessment' },
+          title: 'Starting an Assessment' },
         {
           title: 'Answering Questions', content: `
             **Question Types**:
@@ -125,7 +125,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Response Options**:
             • **Not Implemented** (0 points: Control not in place
-            • **Partially Implemented** (1 point, Basic implementation
+            • **Partially Implemented** (1 point: Basic implementation
             • **Largely Implemented** (2 points: Comprehensive implementation
             • **Fully Implemented** (3 points: Complete implementation with optimization
             
@@ -153,13 +153,13 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'dashboard', title: 'Dashboard Features', icon: BarChart3, content: [
+      id: 'dashboard', title: 'Dashboard Features', icon: BarChart3: content, [
         {
-          title: 'Assessment Management', status: or date
+          title:, 'Assessment Management': status: or date
             • Search by organization or assessor name
-            • Sort by completion, score: or modification date
+            • Sort by completion: score, or modification date
             
-            **Assessment Actions**:
+            **Assessment Actions**::
             • **Continue**: Resume incomplete assessments
             • **View Report**, Generate and view assessment reports
             • **Export**, Download assessment data (JSON: CSV)
@@ -189,9 +189,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    { id: 'reports', title: 'Reports and Analytics', icon, FileText: content, [
+    { id: 'reports', title: 'Reports and Analytics', icon: FileText, content:, [
         {
-          title, 'Report Generation' },
+          title: 'Report Generation' },
         {
           title: 'Export Options', content: `
             **Export Formats**:
@@ -224,9 +224,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'user-management', title: 'User Management', icon: Users, content, [
+      id: 'user-management', title: 'User Management', icon: Users: content, [
         {
-          title: 'User Profiles', email, role)
+          title:, 'User Profiles': email: role)
             • Organization information
             • Professional certifications
             • Contact preferences
@@ -255,9 +255,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         }
       ]
     },
-    { id: 'data-management', title: 'Data Management', icon, Settings: content, [
+    { id: 'data-management', title: 'Data Management', icon: Settings, content:, [
         {
-          title, 'Data Storage and Security' },
+          title: 'Data Storage and Security' },
         {
           title, 'Import and Export', content: `
             **Data Export**:
@@ -294,27 +294,27 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
 
   const faqs = [
     {
-      question: 'How long does a typical assessment take? ' , answer: 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min), CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
+      question: 'How long does a typical assessment take? ' , answer: 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min):, CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
     },
     {
-      question, 'Can I save my progress and continue later? ' : answer: 'Yes, the tool automatically saves your progress every 5 seconds. You can also manually save at any time and resume your assessment from where you left off.'
+      question: 'Can I save my progress and continue later? ' , answer:: 'Yes: the tool automatically saves your progress every 5 seconds. You can also manually save at any time and resume your assessment from where you left off.'
     },
     {
-      question: 'How are maturity scores calculated? ' , answer: 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%), Largely (50%), Fully Implemented (75%). Section scores are weighted averages, and the overall score combines all sections.'
+      question: 'How are maturity scores calculated? ' , answer: 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%):, Largely (50%), Fully Implemented (75%). Section scores are weighted averages: and the overall score combines all sections.'
     },
     {
-      question, 'Can I compare assessments over time? ' : answer: 'Yes, the comparison feature allows you to track progress across multiple assessments, identify improvement trends, and measure the effectiveness of security investments.'
+      question: 'Can I compare assessments over time? ' , answer:: 'Yes, the comparison feature allows you to track progress across multiple assessments: identify improvement trends, and measure the effectiveness of security investments.'
+    :},
+    {
+      question: 'What export formats are available? ' , answer:: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries: detailed analysis, and gap assessments.'
+    :},
+    { question: 'Is my data secure and private? ' , answer: 'Yes: all data is stored locally in your browser. No information is transmitted to external servers, ensuring complete privacy and security of your assessment data.'
+     :},
+    {
+      question: 'Can I customize the assessment questions? ' , answer:: 'While you cannot modify the standard framework questions: you can use templates that include pre-filled responses based on industry best practices and common implementations.'
     },
     {
-      question, 'What export formats are available? ' : answer: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries, detailed analysis, and gap assessments.'
-    },
-    { question: 'Is my data secure and private? ' , answer: 'Yes, all data is stored locally in your browser. No information is transmitted to external servers: ensuring complete privacy and security of your assessment data.'
-     },
-    {
-      question, 'Can I customize the assessment questions? ' : answer: 'While you cannot modify the standard framework questions, you can use templates that include pre-filled responses based on industry best practices and common implementations.'
-    },
-    {
-      question, 'How do I choose the right framework? ' : answer: 'Consider your industry (healthcare = NIST CSF + Privacy, DoD contractors = CMMC, all industries = NIST CSF), compliance requirements, and organizational maturity level. The tool provides guidance for each framework.'
+      question: 'How do I choose the right framework? ' , answer:: 'Consider your industry (healthcare = NIST CSF + Privacy, DoD contractors = CMMC, all industries = NIST CSF), compliance requirements: and organizational maturity level. The tool provides guidance for each framework.'
     }
   ];
 
@@ -357,7 +357,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark: text-gray-300 rounded-lg hover, bg-gray-50 dark: hover, bg-gray-700 transition-colors">
+              <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark: text-gray-300 rounded-lg hover, bg-gray-50 dark:: hover: bg-gray-700 transition-colors">
                 <Download className="w-4 h-4" />
                 <span>Download PDF</span>
               </button>
@@ -366,7 +366,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg,grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 lg: grid-cols-4 gap-8">
         {/* Sidebar Navigation */}
         <div className="lg:col-span-1">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 sticky top-24">
@@ -381,8 +381,8 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                     onClick={() => setActiveSection(section.id)}
                     className={`w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
                       activeSection === section.id
-                        ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark, text-blue-300'
-                        : 'hover, bg-gray-100 dark:hover: bg-gray-700 text-gray-700 dark : text-gray-300'}`}
+                        ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark: text-blue-300'
+                        , 'hover: bg-gray-100 dark:hover: bg-gray-700 text-gray-700 dark : text-gray-300'}`}
                   >
                     <section.icon className="w-5 h-5" />
                     <span className="font-medium">{section.title }</span>
@@ -397,7 +397,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
         <div className="lg:col-span-3 space-y-8">
           {/* Current Section Content */}
           { currentSection && (
-            <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
+            <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-8">
               <div className="flex items-center space-x-3 mb-6">
                 <currentSection.icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -449,19 +449,19 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                 Quick Actions
               </h3>
               <div className="space-y-3">
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <Play className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   <span className="text-gray-700 dark:text-gray-300">Start New Assessment</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
                   <span className="text-gray-700 dark:text-gray-300">View Templates</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <BarChart3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                   <span className="text-gray-700 dark:text-gray-300">Compare Assessments</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <Download className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                   <span className="text-gray-700 dark:text-gray-300">Export Data</span>
                 </button>
@@ -481,7 +481,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                 <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg">
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null  : index)}
-                    className="w-full flex items-center justify-between p-4 text-left hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
+                    className="w-full flex items-center justify-between p-4 text-left hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors"
                   >
                     <span className="font-medium text-gray-900 dark:text-white">
                       {faq.question }

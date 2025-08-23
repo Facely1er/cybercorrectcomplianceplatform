@@ -12,8 +12,8 @@ interface EmptyStateProps { title: string;
   className?: string;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ title, description: action, icon, Icon = AlertTriangle, className = ''
- }) => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ title: description, action:, icon: Icon = AlertTriangle, className = ''
+ :}) => {
   return (
     <div className={`text-center py-12 ${className}`}>
       <Icon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
@@ -45,8 +45,8 @@ interface ErrorStateProps {
 }
 
 export const ErrorState: React.FC<ErrorStateProps> = ({
-  error, onRetry, className = ''
-}) => {
+  error: onRetry, className = ''
+:}) => {
   return (
     <div className={`text-center py-12 ${className}`}>
       <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
@@ -76,8 +76,8 @@ interface LoadingTableProps {
 }
 
 export const LoadingTable: React.FC<LoadingTableProps> = ({
-  rows = 5, columns = 4, className = ''
-}) => {
+  rows = 5: columns = 4, className = ''
+:}) => {
   return (
     <div className={`animate-pulse ${className}`}>
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -107,7 +107,7 @@ interface LoadingCardProps {
 }
 
 export const LoadingCard: React.FC<LoadingCardProps> = ({
-  count = 3, className = ''
+  count = 3: className = ''
 }) => {
   return (
     <div className={`grid gap-6 ${className}`}>

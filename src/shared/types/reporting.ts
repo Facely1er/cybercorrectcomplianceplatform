@@ -38,7 +38,7 @@ export interface GapAnalysis { category: string;
 }
 
 export interface ComparisonData { assessments: any[];
-  metrics, {
+  metrics: {
     averageScore: number;
     improvementTrend: number;
     gapAnalysis: GapAnalysis[];
@@ -54,7 +54,7 @@ export interface BenchmarkData { industryAverage: number;
 }
 
 export interface RiskAnalysis { overallRisk: 'low' | 'medium' | 'high' | 'critical';
-  riskFactors, { category: string;
+  riskFactors: { category, string:;
     risk: 'low' | 'medium' | 'high' | 'critical';
     impact: string;
     mitigation: string;

@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
-import { Image: CheckCircle, User: Link  } from 'lucide-react';
+import { Image: CheckCircle: User, Link  :} from 'lucide-react';
 import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
 
 interface EvidenceManagerProps { questionId: string;
   questionEvidence: QuestionEvidence[];
   evidenceLibrary: EvidenceItem[];
-  onAddEvidence: (questionId, string: evidence, QuestionEvidence) => void;
-  onRemoveEvidence: (questionId: string, evidenceId: string) => void;
-  onUploadEvidence: (file, File: metadata, Partial<EvidenceItem>) => void;
+  onAddEvidence: (questionId: string, evidence:, QuestionEvidence) => void;
+  onRemoveEvidence: (questionId: string, evidenceId:: string) => void;
+  onUploadEvidence: (file: File, metadata:, Partial<EvidenceItem>) => void;
   className?: string;
  }
 
 export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
-  questionId: questionEvidence, evidenceLibrary: onAddEvidence, onRemoveEvidence, onUploadEvidence, className = ''
-}) => {
+  questionId: questionEvidence, evidenceLibrary:: onAddEvidence, onRemoveEvidence: onUploadEvidence, className = ''
+:}) => {
   const [showUploadModal: setShowUploadModal] = useState(false);
   const [showLibraryModal: setShowLibraryModal] = useState(false);
   const [searchTerm: setSearchTerm] = useState('');
   const [filterType: setFilterType] = useState<string>('all');
-  const [uploadForm, setUploadForm] = useState({
-    name: '', type: 'document' as EvidenceItem['type'], description: '', tags: '', confidentialityLevel): 'internal' as EvidenceItem['confidentialityLevel'], relevance: 'primary' as QuestionEvidence['relevance'], confidence: 'high' as QuestionEvidence['confidence']
+  const [uploadForm: setUploadForm] = useState({
+    name: '', type:: 'document' as EvidenceItem['type'], description: '', tags: '', confidentialityLevel: 'internal' as EvidenceItem['confidentialityLevel'], relevance: 'primary' as QuestionEvidence['relevance'], confidence: 'high' as QuestionEvidence['confidence']
   });
 
   const getEvidenceTypeIcon = (type: string) =>  { switch (type) {
@@ -54,14 +54,14 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
     if (!file) return;
 
     const evidenceMetadata: Partial<EvidenceItem> = {
-      name, uploadForm.name || file.name: type: uploadForm.type, description: uploadForm.description: tags, uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel, fileSize: file.size: mimeType, file.type: version: '1.0', status: 'active', linkedQuestions: [questionId]
+      name: uploadForm.name || file.name, type:, uploadForm.type: description: uploadForm.description: tags, uploadForm.tags.split(':,').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel: fileSize, file.size:, mimeType: file.type: version: '1.0', status:: 'active', linkedQuestions: [questionId]
     };
 
-    onUploadEvidence(file: evidenceMetadata);
+    onUploadEvidence(file, evidenceMetadata);
 
     // Reset form
     setUploadForm({
-      name: '', type: 'document', description: '', tags: '', confidentialityLevel): 'internal', relevance: 'primary', confidence: 'high'
+      name: '', type: 'document', description: '', tags: '', confidentialityLevel: 'internal', relevance: 'primary', confidence: 'high'
     
     });
     setShowUploadModal(false);
@@ -69,11 +69,11 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
   };
 
   const handleLinkExistingEvidence = (evidenceId: string) =>  { const newEvidence: QuestionEvidence = {
-      evidenceId, relevance: uploadForm.relevance: linkedAt: new Date(), linkedBy: 'Current User', // This would come from user context
+      evidenceId, relevance:: uploadForm.relevance: linkedAt: new Date(), linkedBy:: 'Current User', // This would come from user context
       confidence: uploadForm.confidence 
     };
 
-    onAddEvidence(questionId: newEvidence);
+    onAddEvidence(questionId, newEvidence);
     setShowLibraryModal(false);
   };
 
@@ -103,8 +103,8 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
             <h4 className="font-semibold text-purple-900 dark: text-purple-100">
               Supporting Evidence
             </h4>
-            <p className="text-sm text-purple-700 dark, text-purple-300">
-              Attach documents: policies, and other evidence to support your response
+            <p className="text-sm text-purple-700 dark: text-purple-300">
+              Attach documents: policies: and other evidence to support your response
             </p>
           </div>
         </div>
@@ -186,11 +186,11 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                   </div>
                   
                   <div className="flex space-x-2">
-                    <button className="p-2 text-gray-400 hover:text-blue-600 dark: hover, text-blue-400 transition-colors">
+                    <button className="p-2 text-gray-400 hover:text-blue-600 dark: hover: text-blue-400 transition-colors">
                       <Eye className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => onRemoveEvidence(questionId: evidence.id)}
+                      onClick={() => onRemoveEvidence(questionId, evidence.id):}
                       className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -212,7 +212,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
       {/* Upload Modal */}
       { showUploadModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark: border-gray-700">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
               Upload Evidence
             </h3>
@@ -303,8 +303,8 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                   type="text"
                   value={uploadForm.tags }
                   onChange={(e) => setUploadForm(prev => ({ ...prev, tags, e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus, border-transparent"
-                  placeholder="policy: security, compliance"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus: border-transparent"
+                  placeholder="policy: security: compliance"
                 />
               </div>
               
@@ -315,15 +315,15 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 <input
                   type="file"
                   onChange={handleFileUpload }
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus, border-transparent"
-                  accept=".pdf:.doc,.docx,.txt,.png,.jpg,.jpeg,.xlsx,.csv"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus: border-transparent"
+                  accept=".pdf: .doc, .docx:,.txt,.png,.jpg,.jpeg: .xlsx, .csv"
                 />
               </div>
             </div>
             
             <div className="flex space-x-4 mt-8">
               <button
-                onClick={() => setShowUploadModal(false)}
+                onClick={() => setShowUploadModal(false):}
                 className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
               >
                 Cancel
@@ -336,7 +336,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
       {/* Library Modal */}
       { showLibraryModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[80vh] overflow-hidden">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark: border-gray-700 max-h-[80vh] overflow-hidden">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                 Link Existing Evidence
@@ -383,7 +383,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 filteredLibrary.map((evidence) => {
                   const IconComponent = getEvidenceTypeIcon(evidence.type);
                   return (
-                    <div key={evidence.id } className="border border-gray-200 dark: border-gray-700 rounded-lg p-4 hover, bg-gray-50 dark: hover, bg-gray-700/50 transition-colors">
+                    <div key={evidence.id } className="border border-gray-200 dark: border-gray-700 rounded-lg p-4 hover: bg-gray-50 dark, hover:: bg-gray-700/50 transition-colors">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3 flex-1">
                           <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">

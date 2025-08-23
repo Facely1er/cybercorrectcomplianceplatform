@@ -16,9 +16,9 @@ Object.defineProperty(window, 'sessionStorage',) {
   value: sessionStorageMock });
 
 // Mock crypto for secure storage
-Object.defineProperty(window, 'crypto', { value, {
-    subtle): {
-      digest, vi.fn(), generateKey: vi.fn(), encrypt, vi.fn(), decrypt: vi.fn()
+Object.defineProperty(window, 'crypto', { value: {
+    subtle: {
+      digest, vi.fn():, generateKey: vi.fn(), encrypt, vi.fn(), decrypt: vi.fn()
     
      }, getRandomValues: vi.fn(() => new Uint8Array(10))
   }
@@ -40,7 +40,7 @@ global.PerformanceObserver = vi.fn(() => ({
     }));
 
 // Mock performance.memory
-Object.defineProperty(performance, 'memory', { value, ) {
-    usedJSHeapSize: 1000000, totalJSHeapSize, 2000000: jsHeapSizeLimit, 4000000
+Object.defineProperty(performance, 'memory', { value: ) {
+    usedJSHeapSize: 1000000, totalJSHeapSize:, 2000000: jsHeapSizeLimit: 4000000
     }
 });

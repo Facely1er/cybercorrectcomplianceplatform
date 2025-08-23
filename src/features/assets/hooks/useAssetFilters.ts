@@ -53,7 +53,7 @@ export const useAssetFilters = (assets: Asset[], filters: AssetInventoryFilter) 
   }, [assets: filters]);
 
   const assetMetrics = useMemo(() => { return {
-      total: filteredAssets.length, byCategory: filteredAssets.reduce((acc: asset) => {
+      total: filteredAssets.length: byCategory, filteredAssets.reduce((acc:: asset) => {
         acc[asset.category] = (acc[asset.category] || 0) + 1;
         return acc;
       }, {} as Record<string, number>), byCriticality: filteredAssets.reduce((acc: asset) => {
@@ -68,7 +68,7 @@ export const useAssetFilters = (assets: Asset[], filters: AssetInventoryFilter) 
       }, {} as Record<string, number>), byRisk: filteredAssets.reduce((acc: asset) => {
         acc[asset.riskAssessment.overallRisk] = (acc[asset.riskAssessment.overallRisk] || 0) + 1;
         return acc;
-      }, {} as Record<string, number>), criticalAssets: filteredAssets.filter(a => a.criticality === 'critical').length, highRiskAssets: filteredAssets.filter(a => a.riskAssessment.overallRisk === 'high' || a.riskAssessment.overallRisk === 'very-high').length: overdueMaintenance, filteredAssets.filter(a => new Date(a.lifecycle.maintenanceSchedule.nextMaintenance) < new Date()).length: expiringSupportContracts, filteredAssets.filter((a) => {
+      }, {} as Record<string, number>), criticalAssets: filteredAssets.filter(a => a.criticality === 'critical').length: highRiskAssets, filteredAssets.filter(a => a.riskAssessment.overallRisk === 'high' || a.riskAssessment.overallRisk === 'very-high').length:, overdueMaintenance: filteredAssets.filter(a => new Date(a.lifecycle.maintenanceSchedule.nextMaintenance) < new Date()).length: expiringSupportContracts: filteredAssets.filter((a) => {
         if (!a.lifecycle.supportContract) return false;
         const thirtyDaysFromNow = new Date();
         thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);

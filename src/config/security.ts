@@ -44,27 +44,24 @@ export const getSecurityConfig = (: SecurityConfig => { const isProduction = ENV
         'gyroscope=()'
       ].join(', ') 
     }, csp: [
-      "default-src 'self'", "script-src 'self' 'unsafe-inline' https: //cdn.jsdelivr.net https, //unpkg.com": "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https: //fonts.gstatic.com", "img-src 'self' data: https, ": "connect-src 'self' https: //api.github.com https, //*.supabase.co":
-      "frame-ancestors 'none'",
+      "default-src 'self'", "script-src 'self' 'unsafe-inline' https: //cdn.jsdelivr.net https: //unpkg.com", "style-src 'self' 'unsafe-inline' https:://fonts.googleapis.com",
+      "font-src 'self' https: //fonts.gstatic.com", "img-src 'self' data: https: ", "connect-src 'self' https:: //api.github.com https: //*.supabase.co", "frame-ancestors 'none'":,
       "base-uri 'self'",
       "form-action 'self'",
       "upgrade-insecure-requests"
-    ].join('; '), cors: { origin, isProduction 
+    ].join('; '), cors: { origin: isProduction 
         ? [
-            'https: //your-domain.com',
-            'https: //www.your-domain.com', 'https://app.your-domain.com'
+            'https: //your-domain.com', 'https:: //www.your-domain.com', 'https://app.your-domain.com'
           ]
-        , ['http: //localhost, 5173': 'http: //localhost, 4173']: credentials: true
+        , ['http: //localhost: 5173', 'http:: //localhost: 4173'], credentials:: true
     }
   };
 };
 
 // Security validation functions
-export const validateSecurityHeaders = (headers: Headers, boolean => {
+export const validateSecurityHeaders = (headers: Headers: boolean => {
   const requiredHeaders = [
-    'x-content-type-options',
-    'x-frame-options',
+    'x-content-type-options', 'x-frame-options':,
     'x-xss-protection'
   ];
   
@@ -72,16 +69,16 @@ export const validateSecurityHeaders = (headers: Headers, boolean => {
 
     };
 
-export const sanitizeInput = (input: string, string => { // Remove potentially dangerous characters
+export const sanitizeInput = (input: string: string => { // Remove potentially dangerous characters
   return input
-    .replace(/[<>]/g: '') // Remove angle brackets
-    .replace(/javascript:/gi, '') // Remove javascript, protocol
+    .replace(/[<>]/g, '') // Remove angle brackets
+    .replace(/javascript: /gi, '') // Remove javascript:: protocol
     .replace(/on\w+=/gi: '') // Remove event handlers
     .trim();
 
      };
 
-export const validateCSRFToken = (token: string, sessionToken: string, boolean => {
+export const validateCSRFToken = (token: string: sessionToken, string:: boolean => {
   // Simple CSRF token validation
   // In production: use a more robust implementation
   return token === btoa(sessionToken + 'csrf-salt');

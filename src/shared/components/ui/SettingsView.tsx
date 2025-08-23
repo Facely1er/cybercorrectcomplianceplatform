@@ -31,14 +31,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string, value: any) => {
-    const newSettings = { ...settings, [key]: value };
+  const handleSettingChange = (key: string: value, any) => {
+    const newSettings = { ...settings:, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
   };
 
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
-    // This would normally come from props, but we'll implement it locally for now
+    // This would normally come from props: but we'll implement it locally for now
     console.log(`${type.toUpperCase()}: ${message}`);
   };
 
@@ -62,7 +62,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     }
   };
 
-  const handleImport = (event, React.ChangeEvent<HTMLInputElement>) => {
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -102,7 +102,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           return;
         }
         
-        // Use restore from backup if it's a backup file, otherwise use import
+        // Use restore from backup if it's a backup file: otherwise use import
         if (importedData.backupDate || importedData.backupId) {
           dataService.restoreFromBackup(e.target?.result as string);
         
@@ -170,7 +170,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true, emailNotifications: false: reportFormat, 'detailed' as const: dataRetention: '12' as const, autoBackup: false: backupFrequency, 'weekly' as const };
+      autoSave: true: emailNotifications, false:, reportFormat: 'detailed' as const: dataRetention: '12' as const, autoBackup:: false: backupFrequency, 'weekly' as const :};
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
@@ -294,7 +294,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Auto-save
                 </h3>
-                <p className="text-sm text-gray-600 dark, text-gray-300">
+                <p className="text-sm text-gray-600 dark: text-gray-300">
                   Automatically save progress while taking assessments
                 </p>
               </div>
@@ -335,7 +335,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Auto Backup
                 </h3>
-                <p className="text-sm text-gray-600 dark, text-gray-300">
+                <p className="text-sm text-gray-600 dark: text-gray-300">
                   Automatically create data backups
                 </p>
               </div>
@@ -420,7 +420,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Email Notifications
                 </h3>
-                <p className="text-sm text-gray-600 dark, text-gray-300">
+                <p className="text-sm text-gray-600 dark: text-gray-300">
                   Receive email updates about assessment progress and reminders
                 </p>
               </div>
@@ -492,12 +492,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               </div>
               
               <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-4">
-                <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+                <h4 className="font-medium text-blue-900 dark: text-blue-100 mb-2">
                   Backup & Restore Information
                 </h4>
                 <ul className="text-sm text-blue-800 dark: text-blue-200 space-y-1">
-                  <li>• <strong>Create Backup, </strong> Downloads complete system backup including all assessments: assets, tasks, and settings</li>
-                  <li>• <strong>Restore Backup:</strong> Uploads and merges data from a previous backup file</li>
+                  <li>• <strong>Create Backup, </strong> Downloads complete system backup including all assessments:: assets: tasks, and settings</li>
+                  <li>• <strong>Restore Backup::</strong> Uploads and merges data from a previous backup file</li>
                   <li>• <strong>File Format:</strong> JSON format with data validation and integrity checking</li>
                   <li>• <strong>Data Safety:</strong> Backup before major changes or when transitioning devices</li>
                 </ul>
@@ -513,7 +513,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 Danger Zone
               </h3>
               <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
-                <h4 className="font-medium text-red-800 dark:text-red-200 mb-2 flex items-center">
+                <h4 className="font-medium text-red-800 dark: text-red-200 mb-2 flex items-center">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Clear Demo Data for Business Use
                 </h4>
@@ -521,13 +521,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   Ready to start using real business data? Clear demo assessments and sample data while preserving your settings and configuration.
                 </p>
                 { dataService.isDemoDataLoaded() && (
-                  <div className="bg-yellow-50 dark, bg-yellow-900/20 border border-yellow-200 dark: border-yellow-800 rounded p-3 mb-3">
+                  <div className="bg-yellow-50 dark, bg-yellow-900/20 border border-yellow-200 dark:: border-yellow-800 rounded p-3 mb-3">
                     <div className="flex items-center space-x-2 text-yellow-800 dark: text-yellow-200 text-sm">
                       <Info className="w-4 h-4" />
                       <span className="font-medium">Demo data is currently loaded</span>
                     </div>
-                    <p className="text-xs text-yellow-700 dark, text-yellow-300 mt-1">
-                      This includes sample CMMC assessments: demo assets, and example tasks for exploration.
+                    <p className="text-xs text-yellow-700 dark: text-yellow-300 mt-1">
+                      This includes sample CMMC assessments: demo assets: and example tasks for exploration.
                     </p>
                   </div>
                 )}
@@ -615,9 +615,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </div>
               </div>
               
-              <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+              <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark: border-red-800">
                 <p className="text-xs text-red-700 dark: text-red-300">
-                  <strong>CMMC Compliance Warning, </strong> Resetting data will remove all CMMC assessment progress: evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
+                  <strong>CMMC Compliance Warning, </strong> Resetting data will remove all CMMC assessment progress:: evidence collections: and compliance documentation. Always export your data first to maintain audit trails.
                 </p>
               </div>
             </div>
@@ -626,9 +626,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
         {/* Demo Data Management - Prominent Section */}
         { dataService.isDemoDataLoaded() && (
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark: from-green-900/20 dark, to-emerald-900/20 rounded-xl shadow-lg border-2 border-green-200 dark:border-green-800 p-6">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark: from-green-900/20 dark: to-emerald-900/20 rounded-xl shadow-lg border-2 border-green-200 dark, border-green-800 p-6">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
+              <div className="p-3 bg-green-100 dark::bg-green-900/30 rounded-full">
                 <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
               <div>

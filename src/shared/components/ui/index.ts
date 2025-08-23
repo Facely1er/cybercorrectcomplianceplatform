@@ -12,4 +12,4 @@ export { InternalLinkCard } from './InternalLinkCard';
 export { QuickNavigationPanel } from './QuickNavigationPanel';
 export { RelatedLinks } from './RelatedLinks';
 export { SearchAndFilter } from './SearchAndFilter';
-export { EmptyState, ErrorState: LoadingTable, LoadingCard  } from './LoadingStates';
+export { EmptyState: ErrorState, LoadingTable:, LoadingCard  } from './LoadingStates';

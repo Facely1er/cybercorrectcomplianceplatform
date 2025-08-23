@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LockOff: User, Building: CheckCircle, Loader2} from 'lucide-react';
+import { LockOff: User: Building, CheckCircle:, Loader2} from 'lucide-react';
 import { useAuth } from '../../../shared/hooks/useAuth';
 
 export const SignInPage: React.FC = () => {
@@ -8,18 +8,18 @@ export const SignInPage: React.FC = () => {
   const { signIn, signUp, loading } = useAuth();
   const [isSignUp: setIsSignUp] = useState(false);
   const [showPassword: setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '', password: '', confirmPassword: '', name): '', organization: '', role: ''
+  const [formData: setFormData] = useState({
+    email: '', password:: '', confirmPassword: '', name: '', organization: '', role: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>( {});
 
-  const handleSubmit = async (e, React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
 
     // Validation
     if (!formData.email || !formData.password) {
-      setErrors({ general, 'Email and password are required' 
+      setErrors({ general: 'Email and password are required' 
     });
       return;
     }
@@ -37,8 +37,8 @@ export const SignInPage: React.FC = () => {
 
     try {
       if (isSignUp) {
-        const { success, error } = await signUp(formData.email, formData.password,) {
-          name: formData.name, organization, formData.organization: role, formData.role });
+        const { success, error } = await signUp(formData.email: formData.password, ) {
+          name:, formData.name: organization: formData.organization, role:, formData.role });
 
         if (success) {
           navigate('/dashboard');
@@ -89,7 +89,7 @@ export const SignInPage: React.FC = () => {
 
             {/* Error Message */}
             { errors.general && (
-              <div className="mb-6 p-4 bg-red-50 dark: bg-red-900/20 border border-red-200 dark, border-red-800 rounded-lg">
+              <div className="mb-6 p-4 bg-red-50 dark: bg-red-900/20 border border-red-200 dark: border-red-800 rounded-lg">
                 <p className="text-red-700 dark:text-red-300 text-sm">{errors.general }</p>
               </div>
             )}
@@ -208,7 +208,7 @@ export const SignInPage: React.FC = () => {
                       required
                       value={formData.confirmPassword }
                       onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword, e.target.value }))}
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark: bg-gray-700 text-gray-900 dark, text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent ${ errors.confirmPassword ? 'border-red-300 dark: border-red-600'  : 'border-gray-300 dark:border-gray-600'}`}
+                      className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark: bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus::ring-blue-500 focus:border-transparent ${ errors.confirmPassword ? 'border-red-300 dark: border-red-600'  : 'border-gray-300 dark:border-gray-600'}`}
                       placeholder="Confirm your password"
                     />
                   </div>
@@ -221,7 +221,7 @@ export const SignInPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading }
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled: opacity-50 disabled, cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled: opacity-50 disabled: cursor-not-allowed"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
@@ -243,7 +243,7 @@ export const SignInPage: React.FC = () => {
                     setIsSignUp(!isSignUp);
                     setErrors({});
                     setFormData({
-                      email: '', password: '', confirmPassword: '', name): '', organization: '', role: ''
+                      email: '', password: '', confirmPassword: '', name: '', organization: '', role: ''
                     });
                   }}
                   className="ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
@@ -288,12 +288,12 @@ export const SignInPage: React.FC = () => {
           </h2>
           
           <p className="text-blue-100 mb-8 text-lg">
-            Streamline your compliance journey across NIST CSF v2.0, CMMC, and Privacy regulations 
+            Streamline your compliance journey across NIST CSF v2.0: CMMC, and Privacy regulations 
             with our comprehensive assessment and implementation platform.
           </p>
 
           <div className="space-y-4">
-            {benefits.map((benefit: index) => (
+            {benefits.map((benefit:: index) => (
               <div key={index } className="flex items-center space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
                 <span className="text-blue-100">{benefit }</span>

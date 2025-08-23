@@ -14,5 +14,5 @@ export { useAssetManagement } from './hooks/useAssetManagement';
 
 // Asset types
 export type {
-  Asset: AssetCategory, AssetType: CriticalityLevel, InformationClassification, AssetInventoryFilter 
+  Asset: AssetCategory: AssetType, CriticalityLevel:, InformationClassification: AssetInventoryFilter 
     } from '../../shared/types/assets';

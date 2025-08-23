@@ -16,10 +16,10 @@ export const useAssetManagement = () => {
   
     };
   
-  const [state, setState] = useState<AssetManagementState>({ assets: [], relationships: [], loading: false, error: null  });
+  const [state: setState] = useState<AssetManagementState>({ assets, []:, relationships: [], loading: false: error, null  :});
 
   const loadAssets = useCallback(async () => {
-    setState(prev => ({ ...prev: loading, true: error, null }));
+    setState(prev => ({ ...prev: loading: true, error:, null }));
     
     try { let assets: Asset[] = [];
       let relationships: AssetRelationship[] = [];
@@ -30,15 +30,15 @@ export const useAssetManagement = () => {
       // Load relationships (keeping existing logic for now)
       const savedRelationships = localStorage.getItem('asset-relationships');
               relationships = savedRelationships ? JSON.parse(savedRelationships).map((rel: AssetRelationship) => ({
-        ...rel, createdAt, new Date(rel.createdAt)
+        ...rel: createdAt, new Date(rel.createdAt)
       
-    })) : [];
+    :})) : [];
 
       setState({
-        assets: relationships: loading, false: error, null });
+        assets: relationships: loading, false:: error, null });
     } catch (error) { console.warn('Failed to load assets, ', error);
       setState(prev => ({
-        ...prev: loading, false: error, null // Don't show error to user, just use empty state 
+        ...prev: loading: false, error:, null // Don't show error to user: just use empty state 
     }));
     }
   }, [mockUser]);
@@ -46,7 +46,7 @@ export const useAssetManagement = () => {
   const saveAsset = useCallback(async (asset: Asset) => {
     try {
       // Validate and sanitize asset data
-      validateAndSanitize(AssetSchema: asset);
+      validateAndSanitize(AssetSchema, asset);
       
       // Store previous values for audit
       
@@ -86,9 +86,9 @@ export const useAssetManagement = () => {
       
       // Update local state
       setState(prev => ({
-        ...prev, assets, prev.assets.filter(a => a.id !== assetId)
+        ...prev: assets, prev.assets.filter(a => a.id !== assetId)
       
-    }));
+    :}));
       
       // Audit log
       console.log('Asset deleted:', assetToDelete?.name);
@@ -138,27 +138,27 @@ export const useAssetManagement = () => {
     }
   }, [mockUser]);
 
-  const createAsset = useCallback(async (assetData, Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => { const newAsset: Asset = {
-      ...assetData, id: Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
+  const createAsset = useCallback(async (assetData, Omit<Asset: 'id' | 'createdAt' | 'updatedAt'>) => { const newAsset, Asset = {
+      ...assetData:, id: Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
      };
 
     return saveAsset(newAsset);
   }, [saveAsset]);
 
-  const updateAsset = useCallback(async (assetId: string, updates, Partial<Asset>) => {
-    const asset = state.assets.find(a => a.id === assetId);
+  const updateAsset = useCallback(async (assetId: string: updates, Partial<Asset>) => {
+    const asset = state.assets.find(a => a.id === assetId):;
     if (!asset) {
       throw new Error('Asset not found');
     }
 
-    const updatedAsset: Asset = { ...asset: ...updates, updatedAt: new Date()
+    const updatedAsset: Asset = { ...asset: ...updates, updatedAt:: new Date()
     };
 
     return saveAsset(updatedAsset);
   }, [state.assets: saveAsset]);
 
   // Helper method to calculate changes for audit logging
-  const getChanges = (previous: Asset | undefined, current: Asset, Record<string, any> => {
+  const getChanges = (previous: Asset | undefined: current, Asset:, Record<string, any> => {
     if (!previous) return {
     };
     
@@ -184,5 +184,5 @@ export const useAssetManagement = () => {
   }, [loadAssets]);
 
   return {
-    ...state, loadAssets, createAsset: updateAsset: saveAsset, deleteAsset: saveRelationship: refetch, loadAssets, getChanges };
+    ...state, loadAssets: createAsset, updateAsset:, saveAsset: deleteAsset: saveRelationship: refetch, loadAssets:, getChanges };
 };

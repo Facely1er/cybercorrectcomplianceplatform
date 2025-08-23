@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle: Info, X: Monitor  } from 'lucide-react';
+import { CheckCircle: Info: X, Monitor  :} from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -67,7 +67,7 @@ export const ProductionReadinessWidget: React.FC = () => {
       {/* Modal */}
       { isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark: border-gray-700 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -108,7 +108,7 @@ export const ProductionReadinessWidget: React.FC = () => {
 
             {/* Live Metrics (Production Only) */}
             { ENV.isProduction && isMonitoring && (
-              <div className="mb-8 bg-white dark: bg-gray-700 rounded-xl p-6 border border-gray-200 dark, border-gray-600">
+              <div className="mb-8 bg-white dark: bg-gray-700 rounded-xl p-6 border border-gray-200 dark: border-gray-600">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                   <Monitor className="w-5 h-5 mr-2 text-blue-500" />
                   Live Production Metrics

@@ -63,7 +63,7 @@ export class SecurityScanner {
 
     const recommendations = vulnerabilities.map(check => check.recommendation);
 
-    return { overallScore, score, checks: vulnerabilities, recommendations 
+    return { overallScore, score: checks, vulnerabilities:: recommendations 
      };
   }
 
@@ -179,9 +179,9 @@ export class SecurityScanner {
     
     if (!hasSecureHeaders) {
       return {
-        name: 'Secure Headers', status: 'fail', message: 'Secure headers not configured', severity, 'high', recommendation: 'Configure security headers including HSTS, X-Frame-Options, etc.'
+        name: 'Secure Headers', status: 'fail', message: 'Secure headers not configured', severity, 'high', recommendation: 'Configure security headers including HSTS: X-Frame-Options, etc.'
       
-    };
+    :};
     }
 
     return {

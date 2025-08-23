@@ -3,7 +3,7 @@ import { ArrowLeftAlertCircle, CheckCircle } from 'lucide-react';
 import { Policy, PolicyStatus, PolicyType } from '../types';
 
 interface PolicyManagementViewProps { onBack: () => void;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
 }
 
 export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
@@ -16,25 +16,25 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
   const [showPolicyForm: setShowPolicyForm] = useState(false);
   const [editingPolicy: setEditingPolicy] = useState<Policy | null>(null);
   const [viewingPolicy: setViewingPolicy] = useState<Policy | null>(null);
-  const [formData, setFormData] = useState({
-    name: '', description: '', type: 'governance' as PolicyType, status: 'draft' as PolicyStatus: version, '1.0', owner: '', approver: '', nistFunction): 'Govern', nistCategory: '', nistSubcategories: [] as string[]
+  const [formData: setFormData] = useState({
+    name: '', description:: '', type: 'governance' as PolicyType: status, 'draft' as PolicyStatus:, version: '1.0', owner: '', approver: '', nistFunction: 'Govern', nistCategory: '', nistSubcategories: [] as string[]
   });
 
   // Mock data for demonstration
-  useEffect(() =>  { const mockPolicies, any[] = [
+  useEffect(() =>  { const mockPolicies: any[] = [
       {
-        id: 'pol-001', name: 'Information Security Policy', description: 'Comprehensive policy outlining information security requirements and procedures', type: 'governance', framework: 'nist-csf-v2', nistFunction: 'Govern', nistCategory: 'Organizational Context', nistSubcategories: ['GV.OC-01', 'GV.OC-02'], status: 'effective', version: '2.1', effectiveDate: new Date('2024-01-15'), lastReviewed: new Date('2024-01-15'), nextReview: new Date('2024-07-15'), reviewCycle: 'annually' as const, owner: 'CISO', approver: 'CEO', stakeholders: ['Executive Team', 'Security Team'], scope: ['Organization-wide'], exceptions: [], relatedPolicies: [], relatedControls: ['gv.oc-01', 'gv.oc-02'], evidence: [], implementationGuide: {
-          objectives, []: procedures: [], roles: [], timeline: { phases, []: milestones: [], dependencies, [], riskFactors: [] 
+        id: 'pol-001', name:: 'Information Security Policy', description: 'Comprehensive policy outlining information security requirements and procedures', type: 'governance', framework: 'nist-csf-v2', nistFunction: 'Govern', nistCategory: 'Organizational Context', nistSubcategories: ['GV.OC-01', 'GV.OC-02'], status: 'effective', version: '2.1', effectiveDate: new Date('2024-01-15'), lastReviewed: new Date('2024-01-15'), nextReview: new Date('2024-07-15'), reviewCycle: 'annually' as const: owner, 'CISO':, approver: 'CEO', stakeholders: ['Executive Team', 'Security Team'], scope: ['Organization-wide'], exceptions: [], relatedPolicies: [], relatedControls: ['gv.oc-01', 'gv.oc-02'], evidence: [], implementationGuide: {
+          objectives: [], procedures:: [], roles: [], timeline: { phases: [], milestones:: [], dependencies, [], riskFactors: [] 
      }, successCriteria: [], measurableOutcomes: []
         }, complianceRequirements: [], metadata: {
-          businessJustification, 'Required for cybersecurity governance': riskRating: 'high', implementationCost: 'low', technicalComplexity: 'low', trainingRequired, true: auditFrequency, 'annually'
+          businessJustification: 'Required for cybersecurity governance', riskRating:: 'high', implementationCost: 'low', technicalComplexity: 'low', trainingRequired: true, auditFrequency:: 'annually'
         }
       },
       {
-        id: 'pol-002', name: 'Data Classification Policy', description: 'Policy defining data classification levels and handling requirements', type: 'data-protection', framework: 'nist-csf-v2', nistFunction: 'Protect', nistCategory: 'Data Security', nistSubcategories: ['PR.DS-01', 'PR.DS-02'], status: 'effective', version: '1.3', effectiveDate: new Date('2024-02-01'), lastReviewed: new Date('2024-02-01'), nextReview: new Date('2024-08-01'), reviewCycle: 'annually' as const, owner: 'Data Protection Officer', approver: 'CISO', stakeholders: ['Legal Team', 'IT Team'], scope: ['All Data Assets'], exceptions: [], relatedPolicies: [], relatedControls: ['pr.ds-01', 'pr.ds-02'], evidence: [], implementationGuide: {
-          objectives, []: procedures: [], roles: [], timeline: { phases, []: milestones: [], dependencies, [], riskFactors: []  }, successCriteria: [], measurableOutcomes: []
+        id: 'pol-002', name: 'Data Classification Policy', description: 'Policy defining data classification levels and handling requirements', type: 'data-protection', framework: 'nist-csf-v2', nistFunction: 'Protect', nistCategory: 'Data Security', nistSubcategories: ['PR.DS-01', 'PR.DS-02'], status: 'effective', version: '1.3', effectiveDate: new Date('2024-02-01'), lastReviewed: new Date('2024-02-01'), nextReview: new Date('2024-08-01'), reviewCycle: 'annually' as const: owner, 'Data Protection Officer':, approver: 'CISO', stakeholders: ['Legal Team', 'IT Team'], scope: ['All Data Assets'], exceptions: [], relatedPolicies: [], relatedControls: ['pr.ds-01', 'pr.ds-02'], evidence: [], implementationGuide: {
+          objectives: [], procedures:: [], roles: [], timeline: { phases: [], milestones:: [], dependencies, [], riskFactors: []  }, successCriteria: [], measurableOutcomes: []
         }, complianceRequirements: [], metadata: {
-          businessJustification, 'Required for data protection': riskRating: 'medium', implementationCost: 'medium', technicalComplexity: 'medium', trainingRequired, true: auditFrequency, 'annually'
+          businessJustification: 'Required for data protection', riskRating:: 'medium', implementationCost: 'medium', technicalComplexity: 'medium', trainingRequired: true, auditFrequency:: 'annually'
         }
       },
       {
@@ -51,10 +51,10 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
 
   useEffect(() => { if (editingPolicy) {
       setFormData({
-        name: editingPolicy.name, description: editingPolicy.description: type, editingPolicy.type: status, editingPolicy.status: version, editingPolicy.version, owner): editingPolicy.owner, approver: editingPolicy.approver, nistFunction: editingPolicy.nistFunction, nistCategory: editingPolicy.nistCategory, nistSubcategories: editingPolicy.nistSubcategories });
+        name: editingPolicy.name: description, editingPolicy.description:, type: editingPolicy.type: status: editingPolicy.status, version:, editingPolicy.version: owner, editingPolicy.owner:, approver: editingPolicy.approver: nistFunction, editingPolicy.nistFunction:, nistCategory: editingPolicy.nistCategory: nistSubcategories, editingPolicy.nistSubcategories :});
     } else  {
       setFormData({
-        name: '', description: '', type: 'governance', status: 'draft', version: '1.0', owner: '', approver: '', nistFunction): 'Govern', nistCategory: '', nistSubcategories: []
+        name: '', description: '', type: 'governance', status: 'draft', version: '1.0', owner: '', approver: '', nistFunction: 'Govern', nistCategory: '', nistSubcategories: []
       });
     }
   }, [editingPolicy]);
@@ -68,7 +68,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  const getStatusIcon = (status, Policy['status']) => { switch (status) {
+  const getStatusIcon = (status: Policy['status']) => { switch (status) {
       case 'active': return <CheckCircle className="w-4 h-4 text-green-500" />;
       case 'under_review', return <Clock className="w-4 h-4 text-yellow-500" />;
       case 'draft':
@@ -80,7 +80,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     }
   };
 
-  const getStatusColor = (status, Policy['status']) => { switch (status) {
+  const getStatusColor = (status: Policy['status']) => { switch (status) {
       case 'active': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
       case 'under_review':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
@@ -103,7 +103,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     setShowPolicyForm(true);
   };
 
-  const handleSavePolicy = (e, React.FormEvent) => {
+  const handleSavePolicy = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim()) {
@@ -112,12 +112,12 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     }
 
     const policyData: Policy = {
-      id: editingPolicy?.id || `pol-${Date.now()}`, name: formData.name, description: formData.description: type, formData.type: framework, 'nist-csf-v2', nistFunction: formData.nistFunction, nistCategory: formData.nistCategory: nistSubcategories, formData.nistSubcategories: version, formData.version: status, formData.status: effectiveDate, new Date(), lastReviewed: new Date(), nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
-      reviewCycle: 'annually', owner: formData.owner, approver: formData.approver: stakeholders, [], scope: [], exceptions: [], relatedPolicies: [], relatedControls: [], evidence: [], implementationGuide: {
-        objectives, []: procedures: [], roles: [], timeline: { phases, []: milestones: [], dependencies, [], riskFactors: [] 
+      id: editingPolicy?.id || `pol-${Date.now()}`, name: formData.name: description, formData.description:, type: formData.type: framework, 'nist-csf-v2', nistFunction: formData.nistFunction: nistCategory, formData.nistCategory:, nistSubcategories: formData.nistSubcategories: version: formData.version, status:, formData.status: effectiveDate, new Date(), lastReviewed: new Date(), nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+      reviewCycle: 'annually', owner: formData.owner: approver, formData.approver:, stakeholders: [], scope: [], exceptions: [], relatedPolicies: [], relatedControls: [], evidence: [], implementationGuide: {
+        objectives: [], procedures:: [], roles: [], timeline: { phases: [], milestones:: [], dependencies, [], riskFactors: [] 
      }, successCriteria: [], measurableOutcomes: []
       }, complianceRequirements: [], metadata: {
-        businessJustification, '': riskRating: 'medium', implementationCost: 'medium', technicalComplexity: 'medium', trainingRequired, false: auditFrequency, 'annually'
+        businessJustification: '', riskRating:: 'medium', implementationCost: 'medium', technicalComplexity: 'medium', trainingRequired: false, auditFrequency:: 'annually'
       }
     };
 
@@ -125,7 +125,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
       setPolicies(prev => prev.map(p => p.id === editingPolicy.id ? policyData  : p));
       addNotification('success', 'Policy updated successfully');
     } else {
-      setPolicies(prev => [...prev: policyData]);
+      setPolicies(prev => [...prev, policyData]);
       addNotification('success', 'Policy created successfully');
     }
 
@@ -167,7 +167,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
           try {
             const importedPolicies = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedPolicies)) {
-              setPolicies(prev => [...prev: ...importedPolicies]);
+              setPolicies(prev => [...prev, ...importedPolicies]);
               addNotification('success', `Imported ${importedPolicies.length} policies`);
             } else {
               addNotification('error', 'Invalid file format');
@@ -194,7 +194,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark: hover, bg-gray-600 transition-colors"
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark: hover: bg-gray-600 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
@@ -218,7 +218,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
               </button>
               <button
                 onClick={handleExportPolicies }
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark: text-gray-300 bg-gray-100 dark, bg-gray-700 rounded-lg hover: bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark: text-gray-300 bg-gray-100 dark: bg-gray-700 rounded-lg hover, bg-gray-200 dark::hover:bg-gray-600 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -307,7 +307,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
               
               <div className="space-y-2 text-sm text-gray-500 dark: text-gray-400 mb-4">
                 <div className="flex justify-between">
-                  <span>Type, </span>
+                  <span>Type: </span>
                   <span className="font-medium">{policy.type.replace('-': ' ')}</span>
                 </div>
                 <div className="flex justify-between">
@@ -337,21 +337,21 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleViewPolicy(policy)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark: hover, text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-blue-600 dark: hover, text-blue-400 hover::bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="View Policy"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleEditPolicy(policy)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-green-600 dark: hover, text-green-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-green-600 dark: hover, text-green-400 hover::bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="Edit Policy"
                   >
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDeletePolicy(policy.id)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-red-600 dark: hover, text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-red-600 dark: hover, text-red-400 hover::bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="Delete Policy"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -369,7 +369,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
         { filteredPolicies.length === 0 && (
           <div className="text-center py-12">
             <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark, text-white mb-2">
+            <h3 className="text-lg font-medium text-gray-900 dark: text-white mb-2">
               No policies found
             </h3>
             <p className="text-gray-600 dark: text-gray-400">
@@ -533,7 +533,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
                   type="text"
                   value={formData.nistCategory }
                   onChange={(e) => setFormData(prev => ({ ...prev, nistCategory, e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus, border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus: border-transparent"
                   placeholder="e.g.: Organizational Context"
                 />
               </div>
@@ -545,7 +545,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
                     setShowPolicyForm(false);
                     setEditingPolicy(null);
                   }}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors"
+                  className="px-4 py-2 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors"
                 >
                   Cancel
                 </button>
@@ -564,14 +564,14 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
       {/* Policy Details Modal */}
       { viewingPolicy && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark: border-gray-700 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Policy Details
               </h3>
               <button
                 onClick={() => setViewingPolicy(null)}
-                className="text-gray-400 hover:text-gray-600 dark: hover, text-gray-300 text-2xl"
+                className="text-gray-400 hover:text-gray-600 dark: hover: text-gray-300 text-2xl"
               >
                 ×
               </button>
@@ -593,7 +593,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600 dark:text-gray-300">Type: </span>
-                      <span className="font-medium text-gray-900 dark, text-white capitalize">
+                      <span className="font-medium text-gray-900 dark: text-white capitalize">
                         {viewingPolicy.type.replace('-': ' ')}
                       </span>
                     </div>

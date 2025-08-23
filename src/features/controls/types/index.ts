@@ -177,7 +177,7 @@ export interface MonitoringMetric { id: string;
   collectionMethod: string;
   frequency: string;
   thresholds: {
-    normal, { min?: number; max?: number };
+    normal: { min?, number:; max?: number };
     warning: { min?, number; max?: number };
     critical: { min?, number; max?: number };
   };
@@ -206,11 +206,11 @@ export interface SuppressionRule {
 export interface ReportingConfig { dashboards: string[];
   reports: string[];
   schedule: Record<string, string>;
-  recipients, Record<string: string[]>;
+  recipients: Record<string, string[]>:;
   formats: string[];
 }
 
-export interface MonitoringAutomation { dataCollection, {
+export interface MonitoringAutomation { dataCollection: {
     automated: boolean;
     sources: string[];
     frequency: string;
@@ -254,7 +254,7 @@ export interface EffectivenessMetrics { implementationScore: number;
   };
 }
 
-export interface ControlCosts { implementation, {
+export interface ControlCosts { implementation: {
     capital: number;
     operational: number;
     timeline: string;

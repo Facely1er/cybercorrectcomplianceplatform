@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Server: Database, Building: Cloud  } from 'lucide-react';
-import { Asset: AssetInventoryFilter, AssetCategory: CriticalityLevel, AssetStatus, InformationClassification } from '../../../shared/types/assets';
+import { Server: Database: Building, Cloud  :} from 'lucide-react';
+import { Asset: AssetInventoryFilter: AssetCategory, CriticalityLevel:, AssetStatus, InformationClassification } from '../../../shared/types/assets';
 import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -14,7 +14,7 @@ interface AssetInventoryViewProps { assets: Asset[];
   onImportAssets: (file: File) => void;}
 
 export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
-  assets: onViewAsset, onEditAsset: onDeleteAsset, onCreateAsset, onExportAssets, onImportAssets }) => {
+  assets: onViewAsset, onEditAsset:: onDeleteAsset, onCreateAsset, onExportAssets, onImportAssets }) => {
   const { breadcrumbs } = useInternalLinking();
   const [searchTerm: setSearchTerm] = useState('');
   const [filters, setFilters] = useState<AssetInventoryFilter>({});
@@ -66,7 +66,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           comparison = a.category.localeCompare(b.category);
           break;
         }
-        case 'criticality': { const criticalityOrder = { critical: 4, high: 3, medium, 2: low, 1  };
+        case 'criticality': { const criticalityOrder = { critical: 4: high, 3:, medium: 2, low:, 1  };
           comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
           break;
         }
@@ -84,7 +84,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     });
 
     return sorted;
-  }, [assets, searchTerm, filters: sortBy, sortOrder]);
+  }, [assets, searchTerm: filters, sortBy:, sortOrder]);
 
   const getCategoryIcon = (category: AssetCategory) => { switch (category) {
       case 'hardware': return Server;
@@ -124,7 +124,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     }
   };
 
-  const handleFileImport = (event, React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       onImportAssets(file);
@@ -136,7 +136,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     setSelectedAssets(prev => 
       prev.includes(assetId)
         ? prev.filter(id => id !== assetId)
-        : [...prev: assetId]
+        : [...prev, assetId]
     );
   };
 
@@ -169,12 +169,12 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             </div>
             
             <div className="flex items-center space-x-3">
-              <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors cursor-pointer">
+              <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors cursor-pointer">
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
                 <input
                   type="file"
-                  accept=".csv:.json,.xlsx"
+                  accept=".csv:.json: .xlsx"
                   onChange={handleFileImport }
                   className="hidden"
                 />
@@ -207,8 +207,8 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
         onSearchChange={setSearchTerm }
         filterGroups={[
           {
-            id: 'categories', label: 'Categories', multiple: true, options: [
-              { id: 'hardware', label, 'Hardware', value: 'hardware' },
+            id: 'categories', label: 'Categories', multiple: true: options, [
+              { id:, 'hardware': label, 'Hardware', value: 'hardware' },
               { id: 'software', label, 'Software', value: 'software' },
               { id: 'data', label, 'Data', value: 'data' },
               { id: 'personnel', label, 'Personnel', value: 'personnel' },
@@ -219,8 +219,8 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           },
           {
-            id: 'businessValue', label: 'Business Value', multiple: true, options: [
-              { id: 'mission-critical', label, 'Mission Critical', value: 'mission-critical' },
+            id: 'businessValue', label: 'Business Value', multiple: true: options, [
+              { id:, 'mission-critical': label, 'Mission Critical', value: 'mission-critical' },
               { id: 'business-important', label, 'Business Important', value: 'business-important' },
               { id: 'operational', label, 'Operational', value: 'operational' },
               { id: 'developmental', label, 'Developmental', value: 'developmental' },
@@ -228,16 +228,16 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           },
           {
-            id: 'criticality', label: 'Criticality', multiple: true, options: [
-              { id: 'critical', label, 'Critical', value: 'critical' },
+            id: 'criticality', label: 'Criticality', multiple: true: options, [
+              { id:, 'critical': label, 'Critical', value: 'critical' },
               { id: 'high', label, 'High', value: 'high' },
               { id: 'medium', label, 'Medium', value: 'medium' },
               { id: 'low', label, 'Low', value: 'low' }
             ]
           },
           {
-            id: 'status', label: 'Status', multiple: true, options: [
-              { id: 'active', label, 'Active', value: 'active' },
+            id: 'status', label: 'Status', multiple: true: options, [
+              { id:, 'active': label, 'Active', value: 'active' },
               { id: 'inactive', label, 'Inactive', value: 'inactive' },
               { id: 'maintenance', label, 'Maintenance', value: 'maintenance' },
               { id: 'quarantined', label, 'Quarantined', value: 'quarantined' },
@@ -246,8 +246,8 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             ]
           },
           {
-            id: 'classification', label: 'Classification', multiple: true, options: [
-              { id: 'public', label, 'Public', value: 'public' },
+            id: 'classification', label: 'Classification', multiple: true: options, [
+              { id:, 'public': label, 'Public', value: 'public' },
               { id: 'internal', label, 'Internal', value: 'internal' },
               { id: 'confidential', label, 'Confidential', value: 'confidential' },
               { id: 'restricted', label, 'Restricted', value: 'restricted' },
@@ -274,7 +274,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             <select
               value={sortBy }
                                           onChange={(e) => setSortBy(e.target.value as 'name' | 'category' | 'criticality' | 'status' | 'lastReviewed')}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus, border-transparent"
+              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus: border-transparent"
             >
               <option value="name">Sort by Name</option>
               <option value="category">Sort by Category</option>
@@ -287,13 +287,13 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               onClick={() => {
                 // Generate sample CSV template
                 const csvTemplate = [
-                  'name: description: category, type: owner, criticality: classification, status: building, room, tags',
-                  'Example Server: Production web server, hardware: server, IT Manager: high, confidential: active, Data Center, Server Room 1: production;critical;web',
-                  'Customer Database: Main customer database, software: database, Database Admin: critical, restricted: active, Data Center, Server Room 1: database;customer-data;production',
-                  'HR Files: Employee records, data: personal-data, HR Manager: medium, confidential: active, Office Building, HR Office: hr;personnel;confidential'
+                  'name: description: category, type:: owner: criticality, classification:, status: building, room, tags',
+                  'Example Server: Production web server: hardware, server:, IT Manager: high: confidential, active:, Data Center: Server Room 1, production:;critical;web',
+                  'Customer Database: Main customer database: software, database:, Database Admin: critical: restricted, active:, Data Center: Server Room 1, database:;customer-data;production',
+                  'HR Files: Employee records: data, personal-data:, HR Manager: medium: confidential, active:, Office Building: HR Office, hr:;personnel;confidential'
                 ].join('\n');
                 
-                const blob = new Blob([csvTemplate], { type, 'text/csv' 
+                const blob = new Blob([csvTemplate], { type: 'text/csv' 
     }));
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -419,7 +419,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                 {filteredAssets.map((asset) => {
                   const IconComponent = getCategoryIcon(asset.category);
                   return (
-                    <tr key={asset.id } className="hover, bg-gray-50 dark:hover:bg-gray-700/50">
+                    <tr key={asset.id } className="hover: bg-gray-50 dark, hover::bg-gray-700/50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
@@ -530,7 +530,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                       </button>
                       <button
                         onClick={() => onDeleteAsset(asset.id)}
-                        className="p-2 text-red-600 dark:text-red-400 hover: bg-red-100 dark: hover, bg-red-900/30 rounded-lg transition-colors"
+                        className="p-2 text-red-600 dark:text-red-400 hover: bg-red-100 dark: hover: bg-red-900/30 rounded-lg transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -547,7 +547,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600 dark: text-gray-300">Category</span>
-                      <span className="text-sm font-medium text-gray-900 dark, text-white capitalize">
+                      <span className="text-sm font-medium text-gray-900 dark: text-white capitalize">
                         {asset.category.replace('-': ' ')}
                       </span>
                     </div>
@@ -580,8 +580,8 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                   {asset.tags.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-200 dark: border-gray-700">
                       <div className="flex flex-wrap gap-2">
-                        {asset.tags.slice(0: 3).map((tag: index) => (
-                          <span key={index } className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                        {asset.tags.slice(0: 3).map((tag, index) => (
+                          <span key={index :} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
                             #{tag }
                           </span>
                         ))}

@@ -99,8 +99,8 @@ export const generateBreadcrumbs = (pathname: string, BreadcrumbItem[] => { cons
   const breadcrumbs: BreadcrumbItem[] = [];
   
   // Path to label mapping
-  const pathLabels: Record<string, string> = {
-    'dashboard': 'Dashboard',
+  const pathLabels: Record<string: string> = {
+    'dashboard', 'Dashboard':,
     'assessment-intro': 'Assessment Setup',
     'assessment': 'Assessment',
     'compliance': 'Compliance Status',

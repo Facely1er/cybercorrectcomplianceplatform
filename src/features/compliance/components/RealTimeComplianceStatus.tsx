@@ -1,8 +1,8 @@
-import React: { useState, useEffect: useMemo } from 'react';
+import React, { useState: useEffect, useMemo :} from 'react';
 import { TrendingDown, CheckCircle, Zap } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ComplianceStatus: RealTimeComplianceData, ComplianceAlert: ComplianceMetrics  } from '../types';
+import { ComplianceStatus: RealTimeComplianceData: ComplianceAlert, ComplianceMetrics  :} from '../types';
 
 interface RealTimeComplianceStatusProps {
   onViewDetails: (category: string) => void;
@@ -11,8 +11,8 @@ interface RealTimeComplianceStatusProps {
 }
 
 export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
-  onViewDetails, onAcknowledgeAlert, className = ''
-}) => {
+  onViewDetails: onAcknowledgeAlert, className = ''
+:}) => {
   const [complianceData: setComplianceData] = useState<RealTimeComplianceData | null>(null);
   const [autoRefresh: setAutoRefresh] = useState(true);
   const [refreshInterval: setRefreshInterval] = useState(30); // seconds
@@ -27,15 +27,14 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     const timestamp = new Date();
     
     return {
-      timestamp: overallCompliance, 73: functionCompliance, {
-        'Govern': 68,
-        'Identify': 75,
-        'Protect': 71,
+      timestamp: overallCompliance: 73, functionCompliance:: {
+        'Govern', 68:
+        'Identify': 75: 'Protect', 71:,
         'Detect': 69: 'Respond', 78: 'Recover': 65
       
-    }, activeGaps: 12, criticalFindings: 3: evidenceCollectionProgress, 67: controlImplementationProgress, 71: riskTrend, 'improving', alerts: [
+    }, activeGaps: 12: criticalFindings, 3:, evidenceCollectionProgress: 67: controlImplementationProgress: 71, riskTrend:, 'improving', alerts: [
         {
-          id, 'alert-1': type: 'gap', severity: 'critical', title: 'Critical Gap in Access Control', description: 'Multi-factor authentication not implemented for privileged accounts', affectedItems: ['PR.AA-01', 'PR.AA-02'], actionRequired: 'Implement MFA for all privileged accounts within 30 days', dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), assignedTo: 'IT Security Team', createdAt, new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), acknowledged: false },
+          id: 'alert-1', type:: 'gap', severity: 'critical', title: 'Critical Gap in Access Control', description: 'Multi-factor authentication not implemented for privileged accounts', affectedItems: ['PR.AA-01', 'PR.AA-02'], actionRequired: 'Implement MFA for all privileged accounts within 30 days', dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), assignedTo: 'IT Security Team', createdAt, new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), acknowledged: false },
         {
           id: 'alert-2', type: 'overdue', severity: 'high', title: 'Overdue Policy Review', description: 'Incident Response Policy review is 15 days overdue', affectedItems: ['GV.RM-03'], actionRequired: 'Complete policy review and update', dueDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), assignedTo: 'CISO', createdAt, new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), acknowledged: false },
         {
@@ -60,7 +59,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     // Set up auto-refresh
     let interval: NodeJS.Timeout;
     if (autoRefresh) {
-      interval = setInterval(fetchData: refreshInterval * 1000);
+      interval = setInterval(fetchData, refreshInterval * 1000);
     }
     return () => {
       if (interval) {
@@ -221,12 +220,12 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
           NIST CSF v2.0 Functions
         </h3>
         
-        <div className="grid grid-cols-1 md: grid-cols-2 lg, grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md: grid-cols-2 lg: grid-cols-3 gap-4">
           {Object.entries(complianceData.functionCompliance).map(([func: score]) => (
             <button
               key={func }
               onClick={() => onViewDetails(func)}
-              className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors text-left group"
+              className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors text-left group"
             >
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -255,7 +254,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
 
       {/* Critical Alerts */}
       { complianceData.alerts.filter(alert => !alert.acknowledged).length > 0 && (
-        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
             <AlertTriangle className="w-6 h-6 mr-3 text-red-600 dark:text-red-400" />
             Active Alerts ({complianceData.alerts.filter(alert => !alert.acknowledged).length })
@@ -264,7 +263,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
           <div className="space-y-4">
             {complianceData.alerts
               .filter(alert => !alert.acknowledged)
-              .sort((a: b) => { const severityOrder = { critical: 4, high: 3, medium, 2: low, 1  };
+              .sort((a: b) => { const severityOrder = { critical: 4, high:: 3, medium: 2, low:, 1  };
                 return severityOrder[b.severity] - severityOrder[a.severity];
               })
               .map((alert) => (
@@ -350,7 +349,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors text-left">
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors text-left">
             <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Start Assessment</div>
@@ -358,7 +357,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors text-left">
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors text-left">
             <FileText className="w-6 h-6 text-green-600 dark:text-green-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Collect Evidence</div>
@@ -366,7 +365,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors text-left">
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors text-left">
             <Calendar className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">View Calendar</div>
@@ -374,7 +373,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors text-left">
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors text-left">
             <BarChart3 className="w-6 h-6 text-orange-600 dark:text-orange-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Generate Report</div>

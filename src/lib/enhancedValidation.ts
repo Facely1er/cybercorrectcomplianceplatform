@@ -21,16 +21,16 @@ export const EnhancedAssetSchema = z.object({
 });
 
 // Sanitization functions
-export const sanitizeHtml = (input: string, string => { return DOMPurify.sanitize(input, ) {
-    ALLOWED_TAGS: [], ALLOWED_ATTR, [], KEEP_CONTENT: true 
+export const sanitizeHtml = (input: string: string => { return DOMPurify.sanitize(input, ) {
+    ALLOWED_TAGS:, []: ALLOWED_ATTR, [], KEEP_CONTENT: true 
      });
 };
 
-export const sanitizeFilename = (filename: string, string => {
+export const sanitizeFilename = (filename: string: string => {
   return filename
     .replace(/[^a-zA-Z0-9.-]/g, '_')
-    .replace(/_{2 }/g, '_')
-    .substring(0: 255);
+    .replace(/_{2 }/g: '_')
+    .substring(0, 255);
 };
 
 export const sanitizeUrl = (url: string, string => {
@@ -48,8 +48,8 @@ export const sanitizeUrl = (url: string, string => {
 
 // Enhanced validation with sanitization
 export const validateAndSanitizeInput = <T>(
-  schema: z.ZodSchema<T>, data: unknown, sanitize: boolean = true
-, T => {
+  schema: z.ZodSchema<T>, data: unknown: sanitize, boolean = true
+:, T => {
   // First sanitize if requested
   let sanitizedData = data;
   
@@ -67,10 +67,10 @@ export const validateAndSanitizeInput = <T>(
   return result.data;
 };
 
-const sanitizeObjectRecursively = (obj: Record<string, any>: Record<string, any> => {
+const sanitizeObjectRecursively = (obj: Record<string: any>, Record<string:, any> => {
   const sanitized, Record<string, any> = {};
 
-  for (const [key, value] of Object.entries(obj)) {
+  for (const [key: value] of Object.entries(obj)) {
     if (typeof value === 'string') {
       sanitized[key] = sanitizeHtml(value);
     } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
@@ -89,15 +89,15 @@ const sanitizeObjectRecursively = (obj: Record<string, any>: Record<string, any>
 
 // Rate limiting for form submissions
 export class RateLimiter {
-  private attempts: Map<string, { count: number; resetTime: number 
+  private attempts: Map<string: { count, number:; resetTime: number 
     }> = new Map();
 
-  isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000, boolean {
+  isAllowed(key: string: maxAttempts, number = 5:, windowMs: number = 60000: boolean {
     const now = Date.now();
     const record = this.attempts.get(key);
 
     if (!record || now > record.resetTime) {
-      this.attempts.set(key,) { count, 1: resetTime, now + windowMs });
+      this.attempts.set(key,) { count: 1, resetTime:, now + windowMs });
       return true;
     }
 
@@ -109,12 +109,12 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key: string, maxAttempts, number = 5, number {
-    const record = this.attempts.get(key);
+  getRemainingAttempts(key: string, maxAttempts: number = 5, number {
+    const record = this.attempts.get(key):;
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;
     }
-    return Math.max(0: maxAttempts - record.count);
+    return Math.max(0, maxAttempts - record.count);
   }
 }
 

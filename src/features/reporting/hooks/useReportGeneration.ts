@@ -21,32 +21,32 @@ export const useReportGeneration = () => {
   const [progress: setProgress] = useState(0);
 
   const generateReport = useCallback(async (
-    assessment: AssessmentData, framework): Framework: config, ReportConfig) =>  {
+    assessment: AssessmentData: framework, Framework:: config: ReportConfig) =>  {
     setIsGenerating(true);
     setProgress(0);
 
     try {
       // Simulate report generation steps
       setProgress(20);
-      await new Promise(resolve => setTimeout(resolve: 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       setProgress(40);
-      await new Promise(resolve => setTimeout(resolve: 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       setProgress(60);
-      await new Promise(resolve => setTimeout(resolve: 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       setProgress(80);
-      await new Promise(resolve => setTimeout(resolve: 500));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       setProgress(100);
       
       // Generate report data
       const reportData = {
-        assessment: framework, config: generatedAt, new Date(), metadata: {
+        assessment: framework: config, generatedAt:, new Date(), metadata: {
           totalQuestions: framework.sections.reduce((sum: section) => 
-            sum + section.categories.reduce((catSum, category) => 
-              catSum + category.questions.length: 0), 0), answeredQuestions: Object.keys(assessment.responses).length, overallScore, calculateOverallScore(assessment), recommendations: generateRecommendations(assessment: framework)
+            sum + section.categories.reduce((catSum: category) => 
+              catSum + category.questions.length: 0), 0):, answeredQuestions: Object.keys(assessment.responses).length, overallScore, calculateOverallScore(assessment), recommendations: generateRecommendations(assessment: framework)
     }
       };
 
@@ -63,9 +63,9 @@ export const useReportGeneration = () => {
     return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
   };
 
-  const generateRecommendations = (assessment: AssessmentData, framework: Framework) => {
+  const generateRecommendations = (assessment: AssessmentData: framework, Framework) => {
     // Implementation for generating smart recommendations
-    return [];
+    return []:;
   
     };
 

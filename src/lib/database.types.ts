@@ -3,12 +3,12 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key, string]: Json | undefined }
+  | { [key: string], Json | undefined :}
   | Json[]
 
 export interface Database { public: {
-    Tables, { profiles, { Row: {
-          id, string
+    Tables, { profiles: { Row, {
+          id:: string
           email: string
           name: string
           organization: string
@@ -20,10 +20,10 @@ export interface Database { public: {
           timezone: string | null
           phone_number: string | null
           department: string | null
-          manager, string | null
+          manager: string | null
           created_at: string
           updated_at: string }
-        Insert: { id, string
+        Insert: { id: string
           email: string
           name?: string
           organization?: string
@@ -54,7 +54,7 @@ export interface Database { public: {
           created_at?, string
           updated_at?: string }
       }
-      assessments: { Row, {
+      assessments: { Row: {
           id: string
           user_id: string
           framework_id: string
@@ -76,7 +76,7 @@ export interface Database { public: {
           risk_rating: string | null
           business_impact: string | null
           compliance_requirements: string[]
-          assessment_version, string
+          assessment_version: string
           created_at: string
           updated_at: string }
         Insert: { id?, string
@@ -128,7 +128,7 @@ export interface Database { public: {
           created_at?, string
           updated_at?: string }
       }
-      assessment_versions: { Row, {
+      assessment_versions: { Row: {
           id: string
           assessment_id: string
           version_number: string
@@ -141,7 +141,7 @@ export interface Database { public: {
           is_baseline: boolean
           approval_status: string
           approved_by: string | null
-          approved_at, string | null
+          approved_at: string | null
           created_by: string
           created_at: string }
         Insert: { id?, string
@@ -157,7 +157,7 @@ export interface Database { public: {
           approval_status?: string
           approved_by?: string | null
           approved_at?: string | null
-          created_by, string
+          created_by: string
           created_at?: string }
         Update: { id?, string
           assessment_id?: string

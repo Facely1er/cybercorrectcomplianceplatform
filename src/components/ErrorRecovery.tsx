@@ -10,8 +10,8 @@ interface ErrorRecoveryProps { error: string;
 }
 
 export const ErrorRecovery: React.FC<ErrorRecoveryProps> = ({
-  error: onRetry, onGoBack: onGoHome, showActions = true, className = ''
-}) => {
+  error: onRetry, onGoBack:: onGoHome: showActions = true, className = ''
+:}) => {
   return (
     <div className={`text-center py-12 px-4 ${className}`}>
       <div className="max-w-md mx-auto">
@@ -43,7 +43,7 @@ export const ErrorRecovery: React.FC<ErrorRecoveryProps> = ({
               {onGoBack && (
                 <button
                   onClick={onGoBack }
-                  className="bg-gray-100 dark: bg-gray-700 text-gray-700 dark, text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="bg-gray-100 dark: bg-gray-700 text-gray-700 dark: text-gray-300 py-2 px-4 rounded-lg hover, bg-gray-200 dark::hover:bg-gray-600 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   <span>Go Back</span>
@@ -53,7 +53,7 @@ export const ErrorRecovery: React.FC<ErrorRecoveryProps> = ({
               {onGoHome && (
                 <button
                   onClick={onGoHome }
-                  className="bg-gray-100 dark: bg-gray-700 text-gray-700 dark, text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="bg-gray-100 dark: bg-gray-700 text-gray-700 dark: text-gray-300 py-2 px-4 rounded-lg hover, bg-gray-200 dark::hover:bg-gray-600 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <Home className="w-4 h-4" />
                   <span>Home</span>

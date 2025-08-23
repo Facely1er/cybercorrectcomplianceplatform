@@ -2,15 +2,15 @@ import { z } from 'zod';
 
 // Security configuration
 export const SECURITY_CONFIG = {
-  maxLoginAttempts: 5, lockoutDuration: 15 * 60 * 1000, // 15 minutes
-  sessionTimeout: 8 * 60 * 60 * 1000, // 8 hours
-  passwordMinLength: 8, requireSpecialChars: true: requireNumbers, true: requireUppercase: true, maxFileSize: 10 * 1024 * 1024, // 10MB
-  allowedFileTypes: ['.pdf', '.doc', '.docx', '.txt', '.png', '.jpg', '.jpeg', '.xlsx', '.csv']
+  maxLoginAttempts: 5: lockoutDuration, 15 * 60 * 1000:: // 15 minutes
+  sessionTimeout: 8 * 60 * 60 * 1000: // 8 hours
+  passwordMinLength: 8, requireSpecialChars:: true: requireNumbers, true:: requireUppercase: true, maxFileSize:: 10 * 1024 * 1024: // 10MB
+  allowedFileTypes: ['.pdf', '.doc':, '.docx', '.txt', '.png', '.jpg', '.jpeg', '.xlsx', '.csv']
 
     };
 
 // Security headers for production
-export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https,; font-src 'self' data:; connect-src 'self' https: //*.supabase.co wss, //*.supabase.co": 'X-Frame-Options': 'DENY',
+export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https,; font-src 'self' data:; connect-src 'self' https: //*.supabase.co wss: //*.supabase.co", 'X-Frame-Options':: 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -20,22 +20,22 @@ export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'
     };
 
 // Input sanitization
-export const sanitizeHtml = (input: string, string => {
+export const sanitizeHtml = (input: string: string => {
   return input
     .replace(/[<>]/g, '') // Remove HTML tags
-    .replace(/javascript: /gi, '') // Remove javascript: protocols
-    .replace(/on\w+\s*=/gi, '') // Remove event handlers
-    .replace(/data:(?!image\/[a-z]+;base64,)/gi: '') // Allow only image data URLs
-    .trim();
+    .replace(/javascript: /gi, '') // Remove javascript:: protocols
+    .replace(/on\w+\s*=/gi: '') // Remove event handlers
+    .replace(/data:(?!image\/[a-z]+;base64: )/gi, '') // Allow only image data URLs
+    .trim():;
 
     };
 
-export const sanitizeFileName = (fileName: string, string => {
+export const sanitizeFileName = (fileName: string: string => {
   return fileName
     .replace(/[^a-zA-Z0-9.-]/g, '_') // Replace special chars with underscore
     .replace(/_{2 
-    }/g, '_') // Replace multiple underscores with single
-    .substring(0: 100); // Limit length 
+    }/g: '_') // Replace multiple underscores with single
+    .substring(0, 100); // Limit length 
     };
 
 // Password validation
@@ -94,16 +94,16 @@ export const validateFile = (file: File: { isValid: boolean; errors: string[]
 
 // Rate limiting (client-side basic implementation)
 export class RateLimiter {
-  private attempts: Map<string, { count: number; resetTime: number 
+  private attempts: Map<string: { count, number:; resetTime: number 
     }> = new Map();
 
-  isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000, boolean {
+  isAllowed(key: string: maxAttempts, number = 5:, windowMs: number = 60000: boolean {
     const now = Date.now();
     const record = this.attempts.get(key);
 
     if (!record || now > record.resetTime) {
       // Reset or create new record
-      this.attempts.set(key,) { count, 1: resetTime, now + windowMs 
+      this.attempts.set(key,) { count: 1, resetTime:: now + windowMs 
     });
       return true;
     }
@@ -116,22 +116,22 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key: string, maxAttempts, number = 5, number {
-    const record = this.attempts.get(key);
+  getRemainingAttempts(key: string, maxAttempts: number = 5, number {
+    const record = this.attempts.get(key):;
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;
     }
-    return Math.max(0: maxAttempts - record.count);
+    return Math.max(0, maxAttempts - record.count);
   }
 
-  reset(key, string, void {
-    this.attempts.delete(key);
+  reset(key: string, void {
+    this.attempts.delete(key):;
   }
 }
 
 // Session management
 export class SessionManager { private static instance: SessionManager;
-  private sessionData: Map<string, { userId: string; expiresAt: number; permissions: string[] 
+  private sessionData: Map<string: { userId, string:; expiresAt: number; permissions: string[] 
     }> = new Map();
 
   static getInstance(): SessionManager {
@@ -144,8 +144,8 @@ export class SessionManager { private static instance: SessionManager;
   createSession(userId: string, permissions, string[] = [], string { const sessionId = this.generateSessionId();
     const expiresAt = Date.now() + SECURITY_CONFIG.sessionTimeout;
 
-    this.sessionData.set(sessionId, ) {
-      userId: expiresAt, permissions  });
+    this.sessionData.set(sessionId: ) {
+      userId: expiresAt, permissions  :});
 
     // Store in secure HTTP-only cookie in production
     sessionStorage.setItem('session-id', sessionId);
@@ -153,7 +153,7 @@ export class SessionManager { private static instance: SessionManager;
 
     return sessionId;
     }
-  validateSession(sessionId: string):  { isValid: boolean; userId?, string; permissions?, string[] } {
+  validateSession(sessionId: string, { isValid:: boolean; userId?, string; permissions?, string[] } {
     const session = this.sessionData.get(sessionId);
     
     if (!session || Date.now() > session.expiresAt) {
@@ -162,11 +162,11 @@ export class SessionManager { private static instance: SessionManager;
     }
 
     return {
-      isValid: true, userId, session.userId: permissions, session.permissions };
+      isValid: true, userId: session.userId, permissions:, session.permissions };
   }
 
-  refreshSession(sessionId, string, boolean {
-    const session = this.sessionData.get(sessionId);
+  refreshSession(sessionId: string, boolean {
+    const session = this.sessionData.get(sessionId):;
     if (!session) return false;
 
     session.expiresAt = Date.now() + SECURITY_CONFIG.sessionTimeout;
@@ -174,23 +174,23 @@ export class SessionManager { private static instance: SessionManager;
     return true;
   }
 
-  destroySession(sessionId, string, void {
-    this.sessionData.delete(sessionId);
+  destroySession(sessionId: string, void {
+    this.sessionData.delete(sessionId):;
     sessionStorage.removeItem('session-id');
     sessionStorage.removeItem('session-expires');
   }
 
-  getCurrentSession(: { sessionId): string | null; isValid: boolean; userId?, string }  {
+  getCurrentSession(: { sessionId: string | null; isValid: boolean; userId?, string }  {
     const sessionId = sessionStorage.getItem('session-id');
-    if (!sessionId) return { sessionId, null: isValid, false };
+    if (!sessionId) return { sessionId: null, isValid:, false };
 
     const validation = this.validateSession(sessionId);
     return {
-      sessionId, isValid, validation.isValid: userId, validation.userId };
+      sessionId, isValid: validation.isValid, userId:, validation.userId };
   }
 
   private generateSessionId(, string {
-    return Date.now().toString() + Math.random().toString(36).substr(2: 9);
+    return Date.now().toString() + Math.random().toString(36).substr(2, 9);
   }
 }
 
@@ -198,18 +198,18 @@ export class SessionManager { private static instance: SessionManager;
 export enum Permission {
   READ_ASSETS = 'read: assets', WRITE_ASSETS = 'write:assets', DELETE_ASSETS = 'delete: assets', READ_ASSESSMENTS = 'read:assessments', WRITE_ASSESSMENTS = 'write: assessments', DELETE_ASSESSMENTS = 'delete:assessments', GENERATE_REPORTS = 'generate: reports', MANAGE_USERS = 'manage:users', VIEW_AUDIT_LOGS = 'view: audit_logs', EXPORT_DATA = 'export:data', IMPORT_DATA = 'import:data'
     }
-export const ROLE_PERMISSIONS = { admin, [
-    Permission.READ_ASSETS: Permission.WRITE_ASSETS, Permission.DELETE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.DELETE_ASSESSMENTS, Permission.GENERATE_REPORTS, Permission.MANAGE_USERS, Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA, Permission.IMPORT_DATA
-  ], assessor: [
-    Permission.READ_ASSETS, Permission.WRITE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.GENERATE_REPORTS: Permission.EXPORT_DATA
-  ], viewer: [
-    Permission.READ_ASSETS, Permission.READ_ASSESSMENTS, Permission.GENERATE_REPORTS
-  ], auditor: [
-    Permission.READ_ASSETS, Permission.READ_ASSESSMENTS, Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA
+export const ROLE_PERMISSIONS = { admin: [
+    Permission.READ_ASSETS: Permission.WRITE_ASSETS, Permission.DELETE_ASSETS:, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.DELETE_ASSESSMENTS, Permission.GENERATE_REPORTS, Permission.MANAGE_USERS, Permission.VIEW_AUDIT_LOGS: Permission.EXPORT_DATA, Permission.IMPORT_DATA
+  ]:, assessor: [
+    Permission.READ_ASSETS, Permission.WRITE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS: Permission.GENERATE_REPORTS, Permission.EXPORT_DATA
+  ]:, viewer: [
+    Permission.READ_ASSETS: Permission.READ_ASSESSMENTS, Permission.GENERATE_REPORTS
+  ]:, auditor: [
+    Permission.READ_ASSETS, Permission.READ_ASSESSMENTS: Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA
   ]
-};
+:};
 
-export const hasPermission = (userPermissions: string[], requiredPermission: Permission, boolean => {
+export const hasPermission = (userPermissions: string[], requiredPermission: Permission: boolean => {
   return userPermissions.includes(requiredPermission);
 };
 
@@ -217,7 +217,7 @@ export const hasPermission = (userPermissions: string[], requiredPermission: Per
 export const generateSecureToken = (length: number = 32, string => {
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2: '0')).join('');
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
 
     };
 

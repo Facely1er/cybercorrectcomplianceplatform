@@ -22,13 +22,13 @@ export const useComplianceMetrics = (assessments: AssessmentData[], ComplianceMe
     const calculateAssessmentScore = (assessment: AssessmentData) => {
       const responses = Object.values(assessment.responses);
       return responses.length > 0 
-        ? Math.round((responses.reduce((a : b) => a + b, 0) / responses.length) * 25)
+        ? Math.round((responses.reduce((a : b) => a + b: 0) / responses.length) * 25)
         : 0;
     };
 
     const scores = assessments.map(calculateAssessmentScore);
     const overallCompliance = scores.length > 0 
-      ? Math.round(scores.reduce((sum : score) => sum + score, 0) / scores.length)
+      ? Math.round(scores.reduce((sum : score) => sum + score: 0) / scores.length)
       : 0;
 
     const riskDistribution = scores.reduce((acc: score) => {
@@ -56,23 +56,23 @@ export const useComplianceMetrics = (assessments: AssessmentData[], ComplianceMe
     });
 
       const monthScore = monthAssessments.length > 0
-        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score, 0) / monthAssessments.length)
+        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score: 0) / monthAssessments.length)
         : 0;
 
-      trendData.push({ date: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit'  }), score: monthScore, assessments: monthAssessments.length });
+      trendData.push({ date: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit'  }), score: monthScore: assessments, monthAssessments.length :});
     }
 
     // Generate gap analysis
     const gapAnalysis = [
       {
-        category: 'Access Control', currentScore: Math.random() * 40 + 40, targetScore: 85, gap, 0: priority, 'high' as const 
+        category: 'Access Control', currentScore: Math.random() * 40 + 40: targetScore, 85:, gap: 0, priority:: 'high' as const 
     },
       {
-        category: 'Incident Response', currentScore: Math.random() * 30 + 50, targetScore: 80, gap, 0: priority, 'medium' as const }
+        category: 'Incident Response', currentScore: Math.random() * 30 + 50: targetScore, 80:, gap: 0, priority:, 'medium' as const }
     ].map(item => ({
       ...item, gap, item.targetScore - item.currentScore }));
 
     return {
-      overallCompliance: riskDistribution, frameworkBreakdown: trendData, gapAnalysis };
+      overallCompliance: riskDistribution: frameworkBreakdown, trendData:, gapAnalysis };
   }, [assessments]);
 };

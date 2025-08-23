@@ -37,7 +37,7 @@ export interface Asset { id: string;
     originalId?: string;
   };
   exportMetadata?: { exportedAt: string;
-    classification, { level: InformationClassification;
+    classification: { level, InformationClassification:;
       businessValue: BusinessValue;
       criticality: CriticalityLevel;
       riskLevel: RiskLevel;

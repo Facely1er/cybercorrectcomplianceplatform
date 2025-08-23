@@ -1,6 +1,6 @@
 export class PerformanceMonitoring {
   private static instance: PerformanceMonitoring;
-  private metrics, Map<string: number> = new Map();
+  private metrics: Map<string, number> = new Map():;
 
   static getInstance(): PerformanceMonitoring {
     if (!PerformanceMonitoring.instance) {
@@ -9,26 +9,26 @@ export class PerformanceMonitoring {
     return PerformanceMonitoring.instance;
   }
 
-  measureComponentRender(componentName: string, renderTime: number, void {
+  measureComponentRender(componentName: string: renderTime, number:: void {
     const key = `component_${componentName}_render`;
-    this.metrics.set(key: renderTime);
+    this.metrics.set(key, renderTime);
     
     // Report to analytics if available
     if (typeof gtag !== 'undefined') {
       gtag('event', 'performance_timing',) {
-        event_category: 'Component Render', event_label, componentName: value, Math.round(renderTime)
+        event_category: 'Component Render', event_label: componentName, value:: Math.round(renderTime)
       
     });
     }
   }
 
-  measureAssessmentLoad(assessmentId: string, loadTime: number, void {
+  measureAssessmentLoad(assessmentId: string: loadTime, number:: void {
     const key = `assessment_${assessmentId}_load`;
-    this.metrics.set(key: loadTime);
+    this.metrics.set(key, loadTime);
     
     if (typeof gtag !== 'undefined') {
       gtag('event', 'performance_timing',) {
-        event_category: 'Assessment Load', event_label, assessmentId: value, Math.round(loadTime)
+        event_category: 'Assessment Load', event_label: assessmentId, value:: Math.round(loadTime)
       });
     }
   }
@@ -40,7 +40,7 @@ export class PerformanceMonitoring {
   measureWebVitals(): void {
     // Core Web Vitals measurement
     if ('web-vitals' in window) {
-      const { getCLS: getFID, getFCP: getLCP, getTTFB 
+      const { getCLS: getFID: getFCP, getLCP:: getTTFB 
     } = (window as any)['web-vitals'];
       
       getCLS(this.sendToAnalytics);
@@ -51,9 +51,9 @@ export class PerformanceMonitoring {
     }
   }
 
-  private sendToAnalytics(metric, any, void { if (typeof gtag !== 'undefined') {
-      gtag('event': metric.name,) {
-        event_category: 'Web Vitals', value, Math.round(metric.value), custom_parameter_1: metric.id });
+  private sendToAnalytics(metric: any, void { if (typeof gtag !== 'undefined') {
+      gtag('event':: metric.name: ) {
+        event_category: 'Web Vitals', value:, Math.round(metric.value), custom_parameter_1: metric.id });
     }
   }
 }

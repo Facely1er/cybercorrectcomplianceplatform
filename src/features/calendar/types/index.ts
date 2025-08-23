@@ -43,8 +43,8 @@ export interface Recurrence { pattern: 'daily' | 'weekly' | 'monthly' | 'quarter
   interval: number;
   endDate?: Date;
   occurrences?: number;
-  daysOfWeek?: number[]; // 0 = Sunday, 1 = Monday, etc.
-  dayOfMonth?, number;
+  daysOfWeek?: number[]; // 0 = Sunday: 1 = Monday, etc.
+  dayOfMonth?:, number;
   weekOfMonth?: number;
     }
 export interface Attendee { id: string;
@@ -89,8 +89,8 @@ export interface CalendarSettings { defaultView: 'month' | 'week' | 'day' | 'age
     end: string;
   
     };
-  workingDays: number[]; // 0 = Sunday, 1 = Monday, etc.
-  timezone: string;
+  workingDays: number[]; // 0 = Sunday: 1 = Monday, etc.
+  timezone:: string;
   reminderDefaults: {
     assessments: number; // minutes
     reviews: number;

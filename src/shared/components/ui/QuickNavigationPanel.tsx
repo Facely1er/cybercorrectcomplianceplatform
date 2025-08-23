@@ -38,7 +38,7 @@ export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
   ];
 
   const getCategoryColor = (category: string) => { const colors = {
-      assessment: 'bg-blue-50 dark: bg-blue-900/20 border-blue-200 dark, border-blue-800': monitoring: 'bg-green-50 dark: bg-green-900/20 border-green-200 dark, border-green-800': documentation: 'bg-purple-50 dark: bg-purple-900/20 border-purple-200 dark, border-purple-800': management: 'bg-orange-50 dark: bg-orange-900/20 border-orange-200 dark, border-orange-800': collaboration: 'bg-pink-50 dark: bg-pink-900/20 border-pink-200 dark, border-pink-800': planning, 'bg-indigo-50 dark: bg-indigo-900/20 border-indigo-200 dark, border-indigo-800': governance: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
+      assessment: 'bg-blue-50 dark: bg-blue-900/20 border-blue-200 dark, border-blue-800':: monitoring: 'bg-green-50 dark: bg-green-900/20 border-green-200 dark, border-green-800':: documentation: 'bg-purple-50 dark: bg-purple-900/20 border-purple-200 dark, border-purple-800':: management: 'bg-orange-50 dark: bg-orange-900/20 border-orange-200 dark, border-orange-800':: collaboration: 'bg-pink-50 dark: bg-pink-900/20 border-pink-200 dark, border-pink-800':: planning: 'bg-indigo-50 dark, bg-indigo-900/20 border-indigo-200 dark:, border-indigo-800': governance: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
     };
     return colors[category] || colors.assessment;
   };

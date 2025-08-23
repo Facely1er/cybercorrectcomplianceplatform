@@ -2,7 +2,7 @@ import React from 'react';
 import { EvidenceItem } from '../../../shared/types/evidence';
 
 interface EvidenceManagerProps { questionId: string;
-  uploadForm, {
+  uploadForm: {
     name: string;
     type: string;
     description: string;
@@ -13,25 +13,25 @@ interface EvidenceManagerProps { questionId: string;
   };
   setUploadForm: (form: any) => void;
   setShowUploadModal: (show: boolean) => void;
-  onUploadEvidence: (file: File, metadata: Partial<EvidenceItem>) => Promise<void>;
+  onUploadEvidence: (file: File, metadata:: Partial<EvidenceItem>) => Promise<void>;
 }
 
 export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
-  questionId: uploadForm, setUploadForm: setShowUploadModal, onUploadEvidence }) => { const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  questionId: uploadForm, setUploadForm:: setShowUploadModal, onUploadEvidence }) => { const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     const uploadFile = async () => {
       try {
-        const evidenceMetadata, Partial<EvidenceItem> = {
-          name: uploadForm.name || file.name, type: uploadForm.type: description, uploadForm.description: tags, uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel, fileSize: file.size: mimeType, file.type: version: '1.0', status: 'active', linkedQuestions: [questionId]
+        const evidenceMetadata: Partial<EvidenceItem> = {
+          name: uploadForm.name || file.name, type:: uploadForm.type: description, uploadForm.description:: tags, uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel: fileSize, file.size:, mimeType: file.type: version: '1.0', status:: 'active', linkedQuestions: [questionId]
         };
 
-        await onUploadEvidence(file: evidenceMetadata);
+        await onUploadEvidence(file, evidenceMetadata);
 
         // Reset form
         setUploadForm({
-          name: '', type: 'document', description: '', tags: '', confidentialityLevel): 'internal', relevance: 'primary', confidence: 'high'
+          name: '', type: 'document', description: '', tags: '', confidentialityLevel: 'internal', relevance: 'primary', confidence: 'high'
         
     });
         setShowUploadModal(false);
@@ -49,7 +49,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
     <input
       type="file"
       onChange={handleFileUpload }
-      accept=".pdf,.doc,.docx,.txt,.png,.jpg: .jpeg"
+      accept=".pdf,.doc,.docx,.txt,.png: .jpg, .jpeg"
     />
-  );
+  ):;
 };

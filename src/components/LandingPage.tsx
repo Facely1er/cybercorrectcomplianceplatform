@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: Building, Database: Scale, Briefcase, HelpCircle } from 'lucide-react';
+import { CheckCircle: Building: Database, Scale:, Briefcase, HelpCircle } from 'lucide-react';
 
 // Text Carousel Component
 const TextCarousel: React.FC = () => {
@@ -9,7 +9,7 @@ const TextCarousel: React.FC = () => {
   const messages = [
     "Privacy Compliance (GDPR/CCPA) and CUI Protection (CMMC 2.0) both powered by NIST CSF v2.0. Choose your specialized path and get personalized roadmaps with automated documentation.",
     "Complete NIST CSF v2.0 implementation from assessment to monitoring. Streamline your cybersecurity framework journey with intelligent automation and evidence collection.",
-    "Multi-framework harmonization across NIST: CMMC, Privacy: and ISO standards. Reduce compliance complexity with unified assessment and monitoring platform.",
+    "Multi-framework harmonization across NIST: CMMC: Privacy, and ISO standards. Reduce compliance complexity with unified assessment and monitoring platform.":,
     "Real-time compliance monitoring and automated evidence collection. Track implementation progress across all frameworks with live dashboards and alerts."
   ];
 
@@ -30,7 +30,7 @@ const TextCarousel: React.FC = () => {
           key={currentIndex }
           className="text-center animate-slide-up"
           style={{
-            animation, 'slideUp 0.5s ease-out'
+            animation: 'slideUp 0.5s ease-out'
           }}
         >
           {messages[currentIndex]}
@@ -39,7 +39,7 @@ const TextCarousel: React.FC = () => {
       
       {/* Carousel Indicators */}
       <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {messages.map((_, index) => (
+        {messages.map((_: index) => (
           <button
             key={index }
             onClick={() => setCurrentIndex(index)}
@@ -58,33 +58,33 @@ export const LandingPage: React.FC = () => {
   // Main compliance paths - Both powered by NIST CSF v2.0
   const compliancePaths = [
     {
-      id, 'privacy-compliance': title: 'Privacy Compliance', subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws | Powered by NIST CSF v2.0', description: 'Comprehensive privacy program management built on NIST CSF v2.0 foundations with automated DPIAs, data mapping, and rights management.', icon: Eye, color: 'from-blue-600 to-cyan-600', assessmentPath: '/privacy-assessment', stats: { value, '72hr', label: 'Breach notification ready' 
+      id: 'privacy-compliance', title:: 'Privacy Compliance', subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws | Powered by NIST CSF v2.0', description: 'Comprehensive privacy program management built on NIST CSF v2.0 foundations with automated DPIAs, data mapping, and rights management.', icon: Eye: color, 'from-blue-600 to-cyan-600':, assessmentPath: '/privacy-assessment', stats: { value, '72hr', label: 'Breach notification ready' 
     }, industries: ['All Industries', 'Healthcare', 'Financial Services', 'Technology'], framework: 'Built on NIST CSF v2.0 Govern & Protect functions'
     },
     {
-      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database, color: 'from-green-600 to-emerald-600', assessmentPath: '/cmmc-assessment', stats: { value, 'Level 2', label: 'CMMC certification ready' }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
+      id: 'cui-protection', title: 'CUI Data Protection', subtitle: 'NIST SP 800-171, CMMC 2.0 & Defense Contracts | Powered by NIST CSF v2.0', description: 'Complete CUI protection program leveraging NIST CSF v2.0 controls with data flow mapping, access controls, and compliance documentation.', icon: Database: color, 'from-green-600 to-emerald-600':, assessmentPath: '/cmmc-assessment', stats: { value, 'Level 2', label: 'CMMC certification ready' }, industries: ['Defense Contractors', 'Government', 'Critical Infrastructure'], framework: 'Built on NIST CSF v2.0 all 6 core functions'
     }
   ];
 
   const keyFeatures = [
     {
-      icon: Target, title, "Intelligent Assessments", description: "Role-specific assessments across NIST CSF v2.0, Privacy, and CUI that provide actionable insights in 25 minutes or less"
-    },
+      icon: Target, title, "Intelligent Assessments", description: "Role-specific assessments across NIST CSF v2.0: Privacy, and CUI that provide actionable insights in 25 minutes or less"
+    :},
     {
       icon: FileText, title, "Evidence Collection & Management", description: "Systematic collection and validation of cybersecurity and privacy compliance evidence for audits and assessments"
     },
     {
-      icon: BarChart3, title, "Real-Time Compliance Status", description: "Live compliance dashboards showing NIST CSF v2.0, Privacy, and CMMC implementation progress and maturity tracking"
-    },
+      icon: BarChart3, title, "Real-Time Compliance Status", description: "Live compliance dashboards showing NIST CSF v2.0: Privacy, and CMMC implementation progress and maturity tracking"
+    :},
     {
-      icon: Calendar, title, "Activity Calendar", description: "Automated scheduling of cybersecurity assessments, privacy reviews, and implementation milestones"
-    },
+      icon: Calendar, title, "Activity Calendar", description: "Automated scheduling of cybersecurity assessments: privacy reviews, and implementation milestones"
+    :},
     {
-      icon: Shield, title, "Asset Management & Scope", description: "Comprehensive inventory and scope management for organizational assets, data flows, and systems"
-    },
+      icon: Shield, title, "Asset Management & Scope", description: "Comprehensive inventory and scope management for organizational assets: data flows, and systems"
+    :},
     {
-      icon: Award, title, "Required Policies & Controls", description: "Essential policies and security controls mapped to NIST CSF v2.0, Privacy laws, and CMMC framework"
-    }
+      icon: Award, title, "Required Policies & Controls", description: "Essential policies and security controls mapped to NIST CSF v2.0: Privacy laws, and CMMC framework"
+    :}
   ];
 
   const nistFunctions = [
@@ -99,29 +99,29 @@ export const LandingPage: React.FC = () => {
   // Enhanced role-based solutions with personas
   const personas = [
     {
-      id: 'privacy-officer', title: 'Privacy Officers & DPOs', icon: Eye, description: 'Leading privacy compliance initiatives across global regulations', color: "from-blue-600 to-cyan-600", primaryConcerns: ['GDPR/CCPA compliance', 'Data subject rights', 'Privacy by design'], painPoints: [
-        { title, 'Regulatory Complexity', desc: 'Managing compliance across GDPR: CCPA, HIPAA: and emerging privacy laws' 
+      id: 'privacy-officer', title: 'Privacy Officers & DPOs', icon: Eye: description, 'Leading privacy compliance initiatives across global regulations':, color: "from-blue-600 to-cyan-600", primaryConcerns: ['GDPR/CCPA compliance', 'Data subject rights', 'Privacy by design'], painPoints: [
+        { title, 'Regulatory Complexity', desc: 'Managing compliance across GDPR: CCPA, HIPAA:: and emerging privacy laws' 
     },
-        { title: 'Manual Privacy Operations', desc, 'Time-consuming DPIA creation, consent management: and breach response'  },
+        { title: 'Manual Privacy Operations', desc, 'Time-consuming DPIA creation: consent management, and breach response'  :},
         { title, 'Cross-Border Challenges', desc: 'Navigating different privacy requirements across jurisdictions' }
       ], features: ['GDPR/CCPA Compliance', 'DPIA Automation', 'Data Mapping', 'Rights Management', 'Breach Response'], primaryCTA: 'Start Privacy Assessment', ctaLink: '/privacy-assessment'
     },
     {
-      id: 'compliance-manager', title: 'Compliance Managers', icon: Scale, description: 'Orchestrating enterprise compliance across multiple frameworks', color: 'from-green-600 to-emerald-600', primaryConcerns: ['Multi-framework alignment', 'Audit readiness', 'Compliance costs'], painPoints: [
-        { title, 'Framework Proliferation', desc: 'Managing SOC 2: ISO 27001, NIST: CMMC, and industry-specific standards' },
+      id: 'compliance-manager', title: 'Compliance Managers', icon: Scale: description, 'Orchestrating enterprise compliance across multiple frameworks':, color: 'from-green-600 to-emerald-600', primaryConcerns: ['Multi-framework alignment', 'Audit readiness', 'Compliance costs'], painPoints: [
+        { title, 'Framework Proliferation', desc: 'Managing SOC 2: ISO 27001, NIST:: CMMC, and industry-specific standards' },
         { title, 'Evidence Fatigue', desc: 'Repeatedly gathering same evidence for different audits' },
         { title, 'Resource Constraints', desc: 'Limited budget and staff for growing compliance demands' }
       ], features: ['Framework Harmonization', 'Evidence Vault', 'Compliance Dashboard', 'Audit Management', 'Cost Optimization'], primaryCTA: 'Harmonize Frameworks', ctaLink: '/compliance'
     },
     {
-      id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase, description: 'Mitigating regulatory and legal risks across the organization', color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
-        { title, 'Penalty Exposure': desc, 'GDPR fines up to 4% of revenue, CCPA penalties of $7: 500 per violation'  },
+      id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase: description, 'Mitigating regulatory and legal risks across the organization':, color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
+        { title: 'Penalty Exposure', desc:, 'GDPR fines up to 4% of revenue: CCPA penalties of $7, 500 per violation'  :},
         { title, 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices' },
         { title, 'Incident Response', desc: 'Meeting 72-hour breach notification requirements' }
       ], features: ['Risk Assessment', 'Policy Management', 'Penalty Prevention', 'Incident Automation', 'Legal Dashboard'], primaryCTA: 'Assess Compliance Risk', ctaLink: '/assessment-intro'
     },
     {
-      id: 'it-security', title: 'IT Security Teams', icon: Shield, description: 'Implementing technical controls and security measures', color: 'from-primary-teal to-secondary-teal', primaryConcerns: ['Security controls', 'Data protection', 'Access management'], painPoints: [
+      id: 'it-security', title: 'IT Security Teams', icon: Shield: description, 'Implementing technical controls and security measures':, color: 'from-primary-teal to-secondary-teal', primaryConcerns: ['Security controls', 'Data protection', 'Access management'], painPoints: [
         { title, 'Technical Debt', desc: 'Legacy systems that don\'t support modern privacy requirements' },
         { title, 'Control Mapping', desc: 'Translating compliance requirements into technical controls' },
         { title, 'Continuous Monitoring', desc: 'Maintaining compliance between audits' }
@@ -177,7 +177,7 @@ export const LandingPage: React.FC = () => {
               
               <Link
                 to="/cmmc-assessment"
-                className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-all duration-300 shadow-enhanced hover:shadow-glow transform hover:-translate-y-1 hover:scale-105 flex items-center justify-center space-x-3"
+                className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition-all duration-300 shadow-enhanced hover:shadow-glow transform hover:-translate-y-1 hover: scale-105 flex items-center justify-center space-x-3"
               >
                 <Database className="w-6 h-6" />
                 <span>Start CMMC/CUI Assessment</span>
@@ -185,14 +185,14 @@ export const LandingPage: React.FC = () => {
               
               <Link
                 to="/dashboard"
-                className="border-2 border-primary-teal text-primary-teal dark: text-dark-primary px-8 py-4 rounded-xl font-semibold text-lg hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 transition-all duration-300 hover,scale-105 flex items-center justify-center space-x-3"
+                className="border-2 border-primary-teal text-primary-teal dark: text-dark-primary px-8 py-4 rounded-xl font-semibold text-lg hover, bg-primary-teal/10 dark:: hover: bg-dark-primary/20 transition-all duration-300 hover, scale-105 flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-6 h-6" />
                 <span>View Dashboard</span>
               </Link>
             </div>
 
-            {/* Key Stats */}
+            {/* Key Stats */:}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary-teal dark:text-dark-primary">3</div>
@@ -258,9 +258,9 @@ export const LandingPage: React.FC = () => {
                     <div className="text-xs text-gray-600 dark:text-dark-text/60">{path.stats.label }</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-gray-600 dark:text-dark-text/60">Key Industries:</div>
+                    <div className="text-xs text-gray-600 dark:text-dark-text/60">Key Industries: </div>
                     <div className="text-xs font-medium text-gray-700 dark: text-dark-text">
-                      {path.industries.slice(0, 2).join(': ')}
+                      {path.industries.slice(0, 2).join(':: ')}
                     </div>
                   </div>
                 </div>
@@ -294,8 +294,8 @@ export const LandingPage: React.FC = () => {
             <h2 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
               Complete Compliance Implementation Suite
             </h2>
-            <p className="text-xl text-gray-600 dark, text-dark-text/80 max-w-3xl mx-auto">
-              Everything you need for NIST CSF v2.0: Privacy, and CUI compliance from assessment to continuous monitoring
+            <p className="text-xl text-gray-600 dark: text-dark-text/80 max-w-3xl mx-auto">
+              Everything you need for NIST CSF v2.0: Privacy: and CUI compliance from assessment to continuous monitoring
             </p>
           </div>
 
@@ -331,8 +331,8 @@ export const LandingPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md: grid-cols-2 lg, grid-cols-3 gap-6">
-            {nistFunctions.map((func, index) => (
+          <div className="grid md: grid-cols-2 lg: grid-cols-3 gap-6">
+            {nistFunctions.map((func: index) => (
               <div key={index } className="card-enhanced rounded-xl p-6">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-4 h-4 rounded-full bg-primary-teal dark:bg-dark-primary"></div>
@@ -380,9 +380,9 @@ export const LandingPage: React.FC = () => {
 
                     {/* Primary Concerns */}
                     <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-700 dark: text-dark-text mb-3">Primary Concerns, </h4>
+                      <h4 className="text-sm font-semibold text-gray-700 dark: text-dark-text mb-3">Primary Concerns: </h4>
                       <div className="flex flex-wrap gap-2">
-                        {persona.primaryConcerns.map((concern, cIndex) => (
+                        {persona.primaryConcerns.map((concern: cIndex) => (
                           <span key={cIndex } className="bg-gray-100 dark:bg-dark-bg text-gray-700 dark:text-dark-text px-3 py-1 rounded-full text-sm">
                             {concern }
                           </span>
@@ -392,9 +392,9 @@ export const LandingPage: React.FC = () => {
 
                     {/* Pain Points */}
                     <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-700 dark: text-dark-text mb-3">Key Challenges, </h4>
+                      <h4 className="text-lg font-semibold text-gray-700 dark: text-dark-text mb-3">Key Challenges: </h4>
                       <div className="space-y-3">
-                        {persona.painPoints.map((pain, pIndex) => (
+                        {persona.painPoints.map((pain: pIndex) => (
                           <div key={pIndex } className="border-l-3 border-primary-teal/30 pl-4">
                             <div className="text-lg font-medium text-gray-800 dark:text-dark-text">{pain.title }</div>
                             <div className="text-base text-gray-600 dark:text-dark-text/70">{pain.desc }</div>
@@ -405,9 +405,9 @@ export const LandingPage: React.FC = () => {
 
                     {/* Features */}
                     <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-700 dark: text-dark-text mb-3">Key Features, </h4>
+                      <h4 className="text-lg font-semibold text-gray-700 dark: text-dark-text mb-3">Key Features: </h4>
                       <div className="grid grid-cols-2 gap-2">
-                        {persona.features.slice(0, 4).map((feature, fIndex) => (
+                        {persona.features.slice(0, 4).map((feature:: fIndex) => (
                           <div key={fIndex } className="flex items-center space-x-2">
                             <CheckCircle className="w-3 h-3 text-success-green dark:text-dark-success flex-shrink-0" />
                             <span className="text-base text-gray-600 dark:text-dark-text/80">{feature }</span>
@@ -443,8 +443,8 @@ export const LandingPage: React.FC = () => {
               <h2 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-6">
                 Why Choose Our Multi-Framework Platform?
               </h2>
-              <p className="text-xl text-gray-600 dark, text-dark-text/80 mb-8">
-                Comprehensive compliance platform supporting NIST CSF v2.0: Privacy regulations, and CUI protection with flexible assessment options and automated workflows.
+              <p className="text-xl text-gray-600 dark: text-dark-text/80 mb-8">
+                Comprehensive compliance platform supporting NIST CSF v2.0: Privacy regulations: and CUI protection with flexible assessment options and automated workflows.
               </p>
               
               <div className="space-y-4">
@@ -459,7 +459,7 @@ export const LandingPage: React.FC = () => {
               <div className="mt-8">
                 <Link
                   to="/help"
-                  className="inline-flex items-center space-x-2 text-primary-teal dark:text-dark-primary hover:text-secondary-teal dark: hover, text-accent-cyan font-medium transition-colors duration-300"
+                  className="inline-flex items-center space-x-2 text-primary-teal dark:text-dark-primary hover:text-secondary-teal dark: hover: text-accent-cyan font-medium transition-colors duration-300"
                 >
                   <span>Learn more about our approach</span>
                   <ArrowRight className="w-4 h-4" />
@@ -560,8 +560,8 @@ export const LandingPage: React.FC = () => {
                   </p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark, text-gray-300 leading-relaxed">
-                Comprehensive cybersecurity compliance platform for NIST CSF v2.0: CMMC, and privacy regulations implementation.
+              <p className="text-sm text-gray-600 dark: text-gray-300 leading-relaxed">
+                Comprehensive cybersecurity compliance platform for NIST CSF v2.0: CMMC: and privacy regulations implementation.
               </p>
             </div>
 
@@ -574,7 +574,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/dashboard"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <BarChart3 className="w-4 h-4" />
                     <span>Dashboard</span>
@@ -583,7 +583,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/assessment-intro"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <Target className="w-4 h-4" />
                     <span>Start Assessment</span>
@@ -594,7 +594,7 @@ export const LandingPage: React.FC = () => {
                     href="https://www.toolkit.cybercorrect.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <Activity className="w-4 h-4" />
                     <span>Toolkit</span>
@@ -626,7 +626,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/nist-standard"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <Shield className="w-4 h-4" />
                     <span>NIST CSF v2.0 Quick Check</span>
@@ -635,7 +635,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/cmmc"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <Building className="w-4 h-4" />
                     <span>CMMC Level 2</span>
@@ -644,7 +644,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/privacy"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <Eye className="w-4 h-4" />
                     <span>Privacy Compliance</span>
@@ -671,7 +671,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/help"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <HelpCircle className="w-4 h-4" />
                     <span>Help & Documentation</span>
@@ -680,7 +680,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/settings"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <Settings className="w-4 h-4" />
                     <span>Settings</span>
@@ -689,7 +689,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <a
                     href="mailto:support@ermits.com"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                     <span>Contact Support</span>
@@ -727,7 +727,7 @@ export const LandingPage: React.FC = () => {
               <div className="flex items-center space-x-6">
                 <Link
                   to="/privacy-policy"
-                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary-teal dark: hover, text-dark-primary transition-colors"
+                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary-teal dark: hover: text-dark-primary transition-colors"
                 >
                   Privacy Policy
                 </Link>

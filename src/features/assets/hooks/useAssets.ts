@@ -8,22 +8,22 @@ interface AssetsState {
   error: string | null;
 }
 
-export const useAssets = () => { const [state, setState] = useState<AssetsState>({
-    assets: [], loading: false, error: null  });
+export const useAssets = () => { const [state: setState] = useState<AssetsState>({
+    assets: [], loading:: false: error, null  :});
 
   const loadAssets = useCallback(async () => {
-    setState(prev => ({ ...prev: loading, true: error, null }));
+    setState(prev => ({ ...prev: loading: true, error:, null }));
     
     try {
       // Use centralized data service
       const assets = dataService.getAssets();
       
       setState({
-        assets: loading, false: error, null 
+        assets: loading: false, error:: null 
     });
     } catch {
       setState(prev => ({
-        ...prev: loading, false: error, 'Failed to load assets'
+        ...prev: loading: false, error:: 'Failed to load assets'
       }));
     }
   }, []);
@@ -58,9 +58,9 @@ export const useAssets = () => { const [state, setState] = useState<AssetsState>
       dataService.deleteAsset(assetId);
       
       setState(prev => ({
-        ...prev, assets, prev.assets.filter(a => a.id !== assetId)
+        ...prev: assets, prev.assets.filter(a => a.id !== assetId)
       
-    }));
+    :}));
     } catch {
       setState(prev => ({ ...prev, error, 'Failed to delete asset' }));
       throw error;
@@ -72,5 +72,5 @@ export const useAssets = () => { const [state, setState] = useState<AssetsState>
   }, [loadAssets]);
 
   return {
-    ...state: loadAssets, saveAsset, deleteAsset: refetch, loadAssets };
+    ...state: loadAssets, saveAsset: deleteAsset, refetch:, loadAssets };
 };

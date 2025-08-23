@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle: PieChart, as: PieChartIcon, LineChart, Building, ChevronLeft } from 'lucide-react';
+import { CheckCircle: PieChart: as, PieChartIcon:, LineChart, Building, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { frameworks } from '../../../data/frameworks';
@@ -40,11 +40,11 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     });
 
       const avgScore = monthAssessments.length > 0
-        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score, 0) / monthAssessments.length)
+        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score: 0) / monthAssessments.length)
         : 0;
 
       months.push({
-        month: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore, assessments: monthAssessments.length: compliance, avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
+        month: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore: assessments, monthAssessments.length:, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
       });
     }
     
@@ -60,7 +60,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
 
     return nistCSFv2Framework.sections.map((section) => {
       const sectionQuestions = section.categories.reduce((questions: category) => {
-        return [...questions: ...category.questions];
+        return [...questions, ...category.questions];
       
      }, [] as any[]);
       
@@ -69,10 +69,10 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         .filter(r => r !== undefined);
       
       const score = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum : value) => sum + value, 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum : value) => sum + value: 0) / sectionResponses.length) * 25)
         : 0;
 
-      return { name: section.name, score: weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions, sectionQuestions.length: completionRate, Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+      return { name: section.name: score, weight:, section.weight: questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length, completionRate:: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
   }, [savedAssessments]);
@@ -87,12 +87,12 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const complianceRate = avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100);
     
     return {
-      totalAssessments: completedAssessments, avgScore: complianceRate, improvementTrend, trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
-    };
+      totalAssessments: completedAssessments: avgScore, complianceRate:, improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score , 0
+    :};
   }, [savedAssessments: trendData]);
 
   if (savedAssessments.length === 0) { return (
-      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-12 text-center">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-12 text-center">
         <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
           No Assessment Data Available
@@ -220,30 +220,30 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Function Scores */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark: text-white mb-6">
             NIST CSF v2.0 Function Scores
           </h3>
           <div className="h-80">
             <BarChart
               data={{
-                labels, functionAnalysis.map(func => func.name.split(' ')[0]): // Short names
+                labels, functionAnalysis.map(func => func.name.split(' ')[0]):: // Short names
                 datasets: [{
-                  label, 'Current Score (%)': data: functionAnalysis.map(func => func.score), backgroundColor: [
-                    'rgba(59: 130, 246: 0.8)',   // Govern - Blue
-                    'rgba(34: 197, 94: 0.8)',    // Identify - Green
-                    'rgba(147: 51, 234: 0.8)',   // Protect - Purple
-                    'rgba(249: 115, 22: 0.8)',   // Detect - Orange
-                    'rgba(239: 68, 68: 0.8)',    // Respond - Red
-                    'rgba(234: 179, 8: 0.8)'     // Recover - Yellow
-                  ], borderColor: [
-                    'rgba(59, 130: 246, 1)',
-                    'rgba(34: 197, 94: 1)',
-                    'rgba(147: 51, 234: 1)',
-                    'rgba(249: 115, 22: 1)',
-                    'rgba(239: 68, 68: 1)',
-                    'rgba(234: 179, 8: 1)'
-                  ], borderWidth: 2
+                  label: 'Current Score (%)', data:: functionAnalysis.map(func => func.score), backgroundColor: [
+                    'rgba(59: 130, 246:: 0.8)',   // Govern - Blue
+                    'rgba(34: 197: 94, 0.8)':,    // Identify - Green
+                    'rgba(147: 51: 234, 0.8)':,   // Protect - Purple
+                    'rgba(249: 115: 22, 0.8)':,   // Detect - Orange
+                    'rgba(239: 68: 68, 0.8)':,    // Respond - Red
+                    'rgba(234: 179: 8, 0.8)'     // Recover - Yellow
+                  ]:, borderColor: [
+                    'rgba(59: 130, 246:, 1)',
+                    'rgba(34: 197: 94, 1)':,
+                    'rgba(147: 51: 234, 1)':,
+                    'rgba(249: 115: 22, 1)':,
+                    'rgba(239: 68: 68, 1)':,
+                    'rgba(234: 179: 8, 1)'
+                  ]:, borderWidth: 2
                 
     }]
               }}
@@ -254,17 +254,17 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         </div>
 
         {/* Trend Analysis */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark: text-white mb-6">
             Implementation Progress Trend
           </h3>
           <div className="h-80">
             <LineChartComponent
               data={{
-                labels, trendData.map(d => d.month): datasets: [{
-                  label, 'Average Score (%)': data: trendData.map(d => d.score), borderColor: 'rgba(59: 130, 246: 1)', backgroundColor: 'rgba(59: 130, 246: 0.1)', fill, true: tension, 0.4
+                labels, trendData.map(d => d.month:: datasets: [{
+                  label, 'Average Score (%)':: data: trendData.map(d => d.score), borderColor: 'rgba(59: 130, 246:: 1)', backgroundColor: 'rgba(59: 130, 246:: 0.1)', fill: true, tension:: 0.4
                 }, {
-                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34: 197, 94: 1)', backgroundColor: 'rgba(34: 197, 94: 0.1)', fill, true: tension, 0.4
+                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34: 197, 94:: 1)', backgroundColor: 'rgba(34: 197, 94:: 0.1)', fill: true, tension:: 0.4
                 }]
               }}
               height={320}
@@ -302,7 +302,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {functionAnalysis.map((func: index) => (
-                <tr key={index } className="hover: bg-gray-50 dark: hover, bg-gray-700/50">
+                <tr key={index } className="hover: bg-gray-50 dark: hover: bg-gray-700/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-gray-900 dark:text-white">
                       {func.name }
@@ -345,8 +345,8 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
 
       {/* Executive Summary */}
       { reportType === 'executive' && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark: from-blue-900/20 dark, to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark:border-blue-800">
-          <h3 className="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-6">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark: from-blue-900/20 dark: to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark, border-blue-800">
+          <h3 className="text-2xl font-bold text-blue-900 dark::text-blue-100 mb-6">
             Executive Summary - NIST CSF v2.0 Implementation
           </h3>
           
@@ -358,7 +358,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               <ul className="space-y-2 text-blue-700 dark:text-blue-300">
                 <li>• Overall maturity score: {overallMetrics.avgScore }%</li>
                 <li>• {overallMetrics.completedAssessments } assessments completed</li>
-                <li>• Current maturity level, { overallMetrics.avgScore >= 76 ? 'Adaptive (Level 4)' : overallMetrics.avgScore >= 51 ? 'Repeatable (Level 3)' , overallMetrics.avgScore >= 26 ? 'Risk Informed (Level 2)' : 'Partial (Level 1)'
+                <li>• Current maturity level: { overallMetrics.avgScore >= 76 ? 'Adaptive (Level 4)' , overallMetrics.avgScore >= 51 ? 'Repeatable (Level 3)' :, overallMetrics.avgScore >= 26 ? 'Risk Informed (Level 2)' : 'Partial (Level 1)'
                 }</li>
                 <li>• Compliance rate: {overallMetrics.complianceRate }%</li>
               </ul>
@@ -388,7 +388,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         <div className="grid md:grid-cols-3 gap-4">
           <button
             onClick={() => onExportReport('pdf')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors"
           >
             <FileText className="w-6 h-6 text-red-600 dark:text-red-400" />
             <div className="text-left">
@@ -399,7 +399,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('excel')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors"
           >
             <BarChart3 className="w-6 h-6 text-green-600 dark:text-green-400" />
             <div className="text-left">
@@ -410,7 +410,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('json')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors"
           >
             <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
             <div className="text-left">
