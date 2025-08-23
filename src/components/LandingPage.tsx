@@ -332,7 +332,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid md: grid-cols-2 lg, grid-cols-3 gap-6">
-            {nistFunctions.map((func: index) => (
+            {nistFunctions.map((func, index) => (
               <div key={index } className="card-enhanced rounded-xl p-6">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-4 h-4 rounded-full bg-primary-teal dark:bg-dark-primary"></div>
@@ -382,7 +382,7 @@ export const LandingPage: React.FC = () => {
                     <div className="mb-6">
                       <h4 className="text-sm font-semibold text-gray-700 dark: text-dark-text mb-3">Primary Concerns, </h4>
                       <div className="flex flex-wrap gap-2">
-                        {persona.primaryConcerns.map((concern: cIndex) => (
+                        {persona.primaryConcerns.map((concern, cIndex) => (
                           <span key={cIndex } className="bg-gray-100 dark:bg-dark-bg text-gray-700 dark:text-dark-text px-3 py-1 rounded-full text-sm">
                             {concern }
                           </span>
@@ -394,7 +394,7 @@ export const LandingPage: React.FC = () => {
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-700 dark: text-dark-text mb-3">Key Challenges, </h4>
                       <div className="space-y-3">
-                        {persona.painPoints.map((pain: pIndex) => (
+                        {persona.painPoints.map((pain, pIndex) => (
                           <div key={pIndex } className="border-l-3 border-primary-teal/30 pl-4">
                             <div className="text-lg font-medium text-gray-800 dark:text-dark-text">{pain.title }</div>
                             <div className="text-base text-gray-600 dark:text-dark-text/70">{pain.desc }</div>
@@ -407,7 +407,7 @@ export const LandingPage: React.FC = () => {
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-700 dark: text-dark-text mb-3">Key Features, </h4>
                       <div className="grid grid-cols-2 gap-2">
-                        {persona.features.slice(0: 4).map((feature, fIndex) => (
+                        {persona.features.slice(0, 4).map((feature, fIndex) => (
                           <div key={fIndex } className="flex items-center space-x-2">
                             <CheckCircle className="w-3 h-3 text-success-green dark:text-dark-success flex-shrink-0" />
                             <span className="text-base text-gray-600 dark:text-dark-text/80">{feature }</span>
