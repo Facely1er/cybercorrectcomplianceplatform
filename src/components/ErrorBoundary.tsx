@@ -54,9 +54,20 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
-  private handleReportError = () => { const errorReport = {
-      error, {
-        message: this.state.error? .message , stack: this.state.error? .stack : name: this.state.error? .name } : context: { url: window.location.href, userAgent: navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
+  private handleReportError = () => { 
+    const errorReport = {
+      error: {
+        message: this.state.error?.message,
+        stack: this.state.error?.stack,
+        name: this.state.error?.name
+      },
+      context: {
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString(),
+        errorId: this.state.errorId
+      },
+      componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting

@@ -15,7 +15,7 @@ interface VitalMetrics { FCP?: number; // First Contentful Paint
     }
 class PerformanceMonitoring {
   private static instance: PerformanceMonitoring;
-  private measurements, Map<string: PerformanceEntry[]> = new Map();
+  private measurements: Map<string, PerformanceEntry[]> = new Map();
   private vitals: VitalMetrics = {};
   private observer?: PerformanceObserver;
 
