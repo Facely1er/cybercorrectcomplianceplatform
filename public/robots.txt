@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow internal routes if any (examples)
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: /sitemap.xml

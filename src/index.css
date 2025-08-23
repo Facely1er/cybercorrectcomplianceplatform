@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Design System */
+:root {
+  --primary: 194 49% 33%; /* #2A6F7F */
+  --secondary: 191 49% 45%; /* #3A9CA8 */
+  --accent: 187 100% 50%; /* #00E5FF */
+  --success: 122 53% 40%; /* #4CAF50 */
+  --destructive: 0 81% 71%; /* #FF6B6B */
+  --muted: 210 20% 92%; /* #E0E5E9 */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --surface: 0 0% 100%;
+  --premium: 46 100% 71%; /* #FFD166 */
+}
+
+.dark {
+  --primary: 191 49% 45%; /* #3A9CA8 */
+  --background: 215 22% 8%; /* #0F1419 */
+  --foreground: 210 40% 98%; /* #E5E7EB */
+  --muted: 217 25% 25%; /* #374151 */
+  --destructive: 0 85% 72%; /* #F87171 */
+  --success: 160 84% 39%; /* #10B981 */
+  --surface: 215 25% 11%; /* #1C2128 */
+  --premium: 38 92% 50%; /* #F59E0B */
+}
+
+@layer utilities {
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* Custom scrollbar for dark mode */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-support-gray dark:bg-dark-support;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-teal/60 dark:bg-dark-primary/60 rounded-full hover:bg-primary-teal dark:hover:bg-dark-primary;
+  }
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Focus styles for accessibility using teal colors */
+@layer base {
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary-teal ring-offset-2 dark:ring-offset-dark-bg dark:ring-dark-primary;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .dark\:bg-dark-surface,
+  .dark\:bg-dark-bg {
+    background: white !important;
+  }
+  
+  .dark\:text-dark-text,
+  .dark\:text-gray-300 {
+    color: black !important;
+  }
+}
+
+/* Enhanced button styles using design system */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-teal hover:bg-primary-teal/90 text-white shadow-enhanced transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-teal hover:bg-secondary-teal/90 text-white shadow-sm transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-accent {
+    @apply bg-accent-cyan hover:bg-accent-cyan/90 text-black shadow-glow transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-ghost {
+    @apply hover:bg-primary-teal/10 text-primary-teal dark:text-dark-primary transition-colors duration-300;
+  }
+  
+  .card-enhanced {
+    @apply bg-surface dark:bg-dark-surface border border-support-gray dark:border-dark-support shadow-sm hover:shadow-enhanced hover:-translate-y-2 transition-all duration-300;
+  }
+}
