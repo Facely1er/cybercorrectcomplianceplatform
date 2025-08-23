@@ -54,9 +54,9 @@ export const KeyboardShortcutsHelp: React.FC<KeyboardShortcutsHelpProps> = ({ sh
             
             <div className="space-y-3">
               {shortcuts.map((shortcut, index) => (
-                <div key={index} className="flex items-center justify-between py-2">
+                <div key={index } className="flex items-center justify-between py-2">
                   <span className="text-gray-700 dark:text-gray-300">
-                    {shortcut.description}
+                    {shortcut.description }
                   </span>
                   <kbd className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded text-sm font-mono">
                     {formatShortcut(shortcut)}

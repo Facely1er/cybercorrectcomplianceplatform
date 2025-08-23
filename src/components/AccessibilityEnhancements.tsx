@@ -7,10 +7,10 @@ interface SkipLinkProps {
 
 const SkipLink: React.FC<SkipLinkProps> = ({ href, children }) => (
   <a
-    href={href}
+    href={href }
     className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-teal focus:text-white focus:rounded-lg"
   >
-    {children}
+    {children }
   </a>
 );
 
@@ -26,7 +26,8 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
       announcement.setAttribute('aria-live', 'polite');
       announcement.setAttribute('aria-atomic', 'true');
       announcement.className = 'sr-only';
-      announcement.textContent = `Page loaded: ${document.title}`;
+      announcement.textContent = `Page loaded: ${document.title 
+    }`;
       document.body.appendChild(announcement);
       
       setTimeout(() => {
@@ -41,7 +42,7 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
     <>
       <SkipLink href="#main-content">Skip to main content</SkipLink>
       <SkipLink href="#navigation">Skip to navigation</SkipLink>
-      {children}
+      {children }
     </>
   );
 };
@@ -61,7 +62,7 @@ export const useFocusManagement = () => {
           if (document.activeElement === firstElement) {
             lastElement.focus();
             e.preventDefault();
-          }
+    }
         } else {
           if (document.activeElement === lastElement) {
             firstElement.focus();

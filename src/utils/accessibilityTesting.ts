@@ -4,17 +4,11 @@ if (process.env.NODE_ENV !== 'production') {
   configureAxe({
     rules: [
       {
-        id: 'color-contrast',
-        enabled: true
-      },
+        id: 'color-contrast', enabled: true },
       {
-        id: 'keyboard-navigation',
-        enabled: true
-      },
+        id: 'keyboard-navigation', enabled): true },
       {
-        id: 'focus-management',
-        enabled: true
-      }
+        id: 'focus-management', enabled: true }
     ]
   });
 }
@@ -27,10 +21,10 @@ export const runAccessibilityAudit = async (): Promise<void> => {
       const results = await axe.default.run();
       if (results.violations.length > 0) {
         console.group('Accessibility Violations');
-        results.violations.forEach(violation => {
-          console.error(`${violation.id}: ${violation.description}`);
-          violation.nodes.forEach(node => {
-            console.error(`- ${node.target}: ${node.failureSummary}`);
+        results.violations.forEach(violation =>) {
+          console.error(`${violation.id }: ${violation.description }`);
+          violation.nodes.forEach(node =>) {
+            console.error(`- ${node.target }: ${node.failureSummary }`);
           });
         });
         console.groupEnd();

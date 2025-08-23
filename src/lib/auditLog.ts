@@ -1,4 +1,4 @@
-import { supabase, isSupabaseReady } from './supabase';
+import { supabase } from './supabase';
 
 export interface AuditLogEntry {
   id: string;
@@ -41,12 +41,7 @@ export class AuditLogger {
 
   async log(entry: Omit<AuditLogEntry, 'id' | 'timestamp'>): Promise<void> {
     const auditEntry: AuditLogEntry = {
-      ...entry,
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      ipAddress: this.getClientIP(),
-      userAgent: navigator.userAgent,
-      sessionId: this.getSessionId()
+      ...entry, id: Date.now().toString(), timestamp: new Date(), ipAddress: this.getClientIP(), userAgent: navigator.userAgent, sessionId: this.getSessionId()
     };
 
     // Store locally first
@@ -54,66 +49,38 @@ export class AuditLogger {
     this.persistToLocalStorage();
 
     // All audit logs are stored locally only
-  }
-
+    }
   async logAssetAction(
-    action: AuditAction,
-    assetId: string,
-    userId: string,
-    changes?: Record<string, any>,
-    previousValues?: Record<string, any>
+    action: AuditAction, assetId: string, userId: string, changes?: Record<string, any>, previousValues?: Record<string, any>
   ): Promise<void> {
     await this.log({
-      userId,
-      action,
-      resource: 'asset',
-      resourceId: assetId,
-      changes,
-      previousValues,
-      metadata: {
-        assetType: 'organizational_asset',
-        source: 'web_application'
+      userId, action, resource: 'asset', resourceId): assetId, changes, previousValues, metadata: {
+        assetType: 'organizational_asset', source: 'web_application'
       }
     });
   }
 
   async logAssessmentAction(
-    action: AuditAction,
-    assessmentId: string,
-    userId: string,
-    changes?: Record<string, any>
+    action: AuditAction, assessmentId: string, userId: string, changes?: Record<string, any>
   ): Promise<void> {
     await this.log({
-      userId,
-      action,
-      resource: 'assessment',
-      resourceId: assessmentId,
-      changes,
-      metadata: {
-        assessmentType: 'cybersecurity_maturity',
-        source: 'web_application'
+      userId, action, resource: 'assessment', resourceId): assessmentId, changes, metadata: {
+        assessmentType: 'cybersecurity_maturity', source: 'web_application'
       }
     });
   }
 
   async logUserAction(
-    action: AuditAction,
-    userId: string,
-    metadata?: Record<string, any>
+    action: AuditAction, userId: string, metadata?: Record<string, any>
   ): Promise<void> {
     await this.log({
-      userId,
-      action,
-      resource: 'user',
-      resourceId: userId,
-      metadata: {
-        ...metadata,
-        source: 'web_application'
+      userId, action, resource: 'user', resourceId): userId, metadata: {
+        ...metadata, source: 'web_application'
       }
     });
   }
 
-  getLogs(filters?: {
+  getLogs(filters?:) {
     userId?: string;
     action?: AuditAction;
     resource?: string;
@@ -153,13 +120,8 @@ export class AuditLogger {
       const csvContent = [
         headers.join(','),
         ...logs.map(log => [
-          log.timestamp.toISOString(),
-          log.userId,
-          log.action,
-          log.resource,
-          log.resourceId,
-          log.ipAddress || ''
-        ].map(field => `"${field}"`).join(','))
+          log.timestamp.toISOString(), log.userId, log.action, log.resource, log.resourceId, log.ipAddress || ''
+        ].map(field => `"${field }"`).join(','))
       ].join('\n');
       
       return csvContent;
@@ -171,6 +133,7 @@ export class AuditLogger {
       // Keep only last 1000 entries to prevent storage overflow
       const logsToStore = this.logs.slice(-1000);
       localStorage.setItem('audit-logs', JSON.stringify(logsToStore));
+    
     } catch (error) {
       console.error('Failed to persist audit logs to localStorage:', error);
     }
@@ -179,13 +142,11 @@ export class AuditLogger {
   private async persistToDatabase(entry: AuditLogEntry): Promise<void> {
     // Database persistence disabled - using localStorage only
     console.log('Audit log entry (localStorage only):', entry);
-  }
-
+    }
   private getClientIP(): string {
     // In a production environment, this would be provided by the server
     return 'client-side-unknown';
-  }
-
+    }
   private getSessionId(): string {
     let sessionId = sessionStorage.getItem('session-id');
     if (!sessionId) {
@@ -200,8 +161,7 @@ export class AuditLogger {
       const saved = localStorage.getItem('audit-logs');
       if (saved) {
         this.logs = JSON.parse(saved).map((log: any) => ({
-          ...log,
-          timestamp: new Date(log.timestamp)
+          ...log, timestamp: new Date(log.timestamp)
         }));
       }
     } catch (error) {

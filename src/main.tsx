@@ -20,7 +20,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
               // Show update notification
               if (window.confirm('New version available. Reload to update?')) {
                 window.location.reload();
-              }
+    }
             }
           });
         });

@@ -1,17 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  Shield, BarChart3, TrendingUp, TrendingDown, AlertTriangle, 
-  CheckCircle, Clock, Target, Award, RefreshCw, Eye,
-  Activity, Zap, Flag, Calendar, FileText, Users
-} from 'lucide-react';
+import { TrendingDown, CheckCircle, Zap } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { 
-  ComplianceStatus, 
-  RealTimeComplianceData, 
-  ComplianceAlert,
-  ComplianceMetrics 
-} from '../types';
+  ComplianceStatus, RealTimeComplianceData, ComplianceAlert, ComplianceMetrics } from '../types';
 
 interface RealTimeComplianceStatusProps {
   onViewDetails: (category: string) => void;
@@ -20,9 +12,7 @@ interface RealTimeComplianceStatusProps {
 }
 
 export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
-  onViewDetails,
-  onAcknowledgeAlert,
-  className = ''
+  onViewDetails, onAcknowledgeAlert, className = ''
 }) => {
   const [complianceData, setComplianceData] = useState<RealTimeComplianceData | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -30,69 +20,29 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   
   // Use centralized breadcrumb logic
-  const { breadcrumbs } = useInternalLinking();
+  const { breadcrumbs 
+    } = useInternalLinking();
 
   // Simulated real-time data - in production this would come from API
   const generateRealTimeData = (): RealTimeComplianceData => {
     const timestamp = new Date();
     
     return {
-      timestamp,
-      overallCompliance: 73,
-      functionCompliance: {
+      timestamp, overallCompliance: 73, functionCompliance: {
         'Govern': 68,
         'Identify': 75,
         'Protect': 71,
         'Detect': 69,
         'Respond': 78,
         'Recover': 65
-      },
-      activeGaps: 12,
-      criticalFindings: 3,
-      evidenceCollectionProgress: 67,
-      controlImplementationProgress: 71,
-      riskTrend: 'improving',
-      alerts: [
+      
+    }, activeGaps: 12, criticalFindings: 3, evidenceCollectionProgress: 67, controlImplementationProgress: 71, riskTrend: 'improving', alerts: [
         {
-          id: 'alert-1',
-          type: 'gap',
-          severity: 'critical',
-          title: 'Critical Gap in Access Control',
-          description: 'Multi-factor authentication not implemented for privileged accounts',
-          affectedItems: ['PR.AA-01', 'PR.AA-02'],
-          actionRequired: 'Implement MFA for all privileged accounts within 30 days',
-          dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-          assignedTo: 'IT Security Team',
-          createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-          acknowledged: false
-        },
+          id: 'alert-1', type: 'gap', severity: 'critical', title: 'Critical Gap in Access Control', description: 'Multi-factor authentication not implemented for privileged accounts', affectedItems: ['PR.AA-01', 'PR.AA-02'], actionRequired: 'Implement MFA for all privileged accounts within 30 days', dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), assignedTo: 'IT Security Team', createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), acknowledged: false },
         {
-          id: 'alert-2',
-          type: 'overdue',
-          severity: 'high',
-          title: 'Overdue Policy Review',
-          description: 'Incident Response Policy review is 15 days overdue',
-          affectedItems: ['GV.RM-03'],
-          actionRequired: 'Complete policy review and update',
-          dueDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
-          assignedTo: 'CISO',
-          createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
-          acknowledged: false
-        },
+          id: 'alert-2', type: 'overdue', severity: 'high', title: 'Overdue Policy Review', description: 'Incident Response Policy review is 15 days overdue', affectedItems: ['GV.RM-03'], actionRequired: 'Complete policy review and update', dueDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), assignedTo: 'CISO', createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), acknowledged: false },
         {
-          id: 'alert-3',
-          type: 'evidence',
-          severity: 'medium',
-          title: 'Missing Evidence Collection',
-          description: 'Network monitoring evidence not collected for Q1',
-          affectedItems: ['DE.CM-01'],
-          actionRequired: 'Upload network monitoring reports and logs',
-          dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-          assignedTo: 'Network Operations',
-          createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-          acknowledged: true,
-          acknowledgedBy: 'Network Admin',
-          acknowledgedAt: new Date(Date.now() - 6 * 60 * 60 * 1000)
+          id: 'alert-3', type: 'evidence', severity: 'medium', title: 'Missing Evidence Collection', description: 'Network monitoring evidence not collected for Q1', affectedItems: ['DE.CM-01'], actionRequired: 'Upload network monitoring reports and logs', dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), assignedTo: 'Network Operations', createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), acknowledged: true, acknowledgedBy: 'Network Admin', acknowledgedAt: new Date(Date.now() - 6 * 60 * 60 * 1000)
         }
       ]
     };
@@ -104,6 +54,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
       const data = generateRealTimeData();
       setComplianceData(data);
       setLastUpdated(new Date());
+    
     };
 
     // Initial load
@@ -114,7 +65,6 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     if (autoRefresh) {
       interval = setInterval(fetchData, refreshInterval * 1000);
     }
-
     return () => {
       if (interval) {
         clearInterval(interval);
@@ -156,7 +106,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
 
   if (!complianceData) {
     return (
-      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center ${className}`}>
+      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center ${className }`}>
         <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
         <p className="text-gray-600 dark:text-gray-300">Loading real-time compliance data...</p>
       </div>
@@ -164,10 +114,10 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
   }
 
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className}`}>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className }`}>
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
       
       <div className="space-y-6">
@@ -218,7 +168,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         <div className="text-center">
           <div className="flex items-center justify-center space-x-4 mb-6">
             <div className={`text-6xl font-bold ${getComplianceColor(complianceData.overallCompliance)}`}>
-              {complianceData.overallCompliance}%
+              {complianceData.overallCompliance }%
             </div>
             {getTrendIcon(complianceData.riskTrend)}
           </div>
@@ -238,35 +188,35 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                 complianceData.overallCompliance >= 60 ? 'bg-yellow-500' :
                 complianceData.overallCompliance >= 40 ? 'bg-orange-500' : 'bg-red-500'
               }`}
-              style={{ width: `${complianceData.overallCompliance}%` }}
+              style={{ width: `${complianceData.overallCompliance }%` }}
             />
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                {complianceData.activeGaps}
+                {complianceData.activeGaps }
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Active Gaps</div>
             </div>
             
             <div className="text-center">
               <div className="text-2xl font-bold text-red-600 dark:text-red-400">
-                {complianceData.criticalFindings}
+                {complianceData.criticalFindings }
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Critical Findings</div>
             </div>
             
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                {complianceData.evidenceCollectionProgress}%
+                {complianceData.evidenceCollectionProgress }%
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Evidence Collection</div>
             </div>
             
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                {complianceData.controlImplementationProgress}%
+                {complianceData.controlImplementationProgress }%
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Control Implementation</div>
             </div>
@@ -284,16 +234,16 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Object.entries(complianceData.functionCompliance).map(([func, score]) => (
             <button
-              key={func}
+              key={func }
               onClick={() => onViewDetails(func)}
               className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
             >
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {func}
+                  {func }
                 </h4>
                 <span className={`text-lg font-bold ${getComplianceColor(score)}`}>
-                  {score}%
+                  {score }%
                 </span>
               </div>
               
@@ -304,7 +254,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                     score >= 60 ? 'bg-yellow-500' :
                     score >= 40 ? 'bg-orange-500' : 'bg-red-500'
                   }`}
-                  style={{ width: `${score}%` }}
+                  style={{ width: `${score }%` }}
                 />
               </div>
               
@@ -321,7 +271,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
             <AlertTriangle className="w-6 h-6 mr-3 text-red-600 dark:text-red-400" />
-            Active Alerts ({complianceData.alerts.filter(alert => !alert.acknowledged).length})
+            Active Alerts ({complianceData.alerts.filter(alert => !alert.acknowledged).length })
           </h3>
           
           <div className="space-y-4">
@@ -333,14 +283,14 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
               })
               .map((alert) => (
                 <div
-                  key={alert.id}
+                  key={alert.id }
                   className={`p-4 rounded-lg border ${getAlertColor(alert.severity)}`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <h4 className="font-semibold">
-                          {alert.title}
+                          {alert.title }
                         </h4>
                         <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/50 dark:bg-gray-800/50">
                           {alert.severity.toUpperCase()}
@@ -351,11 +301,11 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                       </div>
                       
                       <p className="text-sm mb-3">
-                        {alert.description}
+                        {alert.description }
                       </p>
                       
                       <div className="text-sm">
-                        <strong>Action Required:</strong> {alert.actionRequired}
+                        <strong>Action Required:</strong> {alert.actionRequired }
                       </div>
                       
                       {alert.dueDate && (
@@ -371,17 +321,17 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                       
                       {alert.assignedTo && (
                         <div className="text-sm mt-1">
-                          <strong>Assigned:</strong> {alert.assignedTo}
+                          <strong>Assigned:</strong> {alert.assignedTo }
                         </div>
                       )}
                       
                       <div className="flex flex-wrap gap-1 mt-2">
                         {alert.affectedItems.map((item, index) => (
                           <span
-                            key={index}
+                            key={index }
                             className="px-2 py-1 bg-white/30 dark:bg-gray-800/30 text-xs rounded"
                           >
-                            {item}
+                            {item }
                           </span>
                         ))}
                       </div>
@@ -460,13 +410,13 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-600 dark:text-gray-300">Control Implementation</span>
                 <span className="font-medium text-gray-900 dark:text-white">
-                  {complianceData.controlImplementationProgress}%
+                  {complianceData.controlImplementationProgress }%
                 </span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${complianceData.controlImplementationProgress}%` }}
+                  style={{ width: `${complianceData.controlImplementationProgress }%` }}
                 />
               </div>
             </div>
@@ -475,13 +425,13 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-600 dark:text-gray-300">Evidence Collection</span>
                 <span className="font-medium text-gray-900 dark:text-white">
-                  {complianceData.evidenceCollectionProgress}%
+                  {complianceData.evidenceCollectionProgress }%
                 </span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${complianceData.evidenceCollectionProgress}%` }}
+                  style={{ width: `${complianceData.evidenceCollectionProgress }%` }}
                 />
               </div>
             </div>
@@ -497,14 +447,14 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
             <div className="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
               <span className="text-red-800 dark:text-red-300 font-medium">Critical Risks</span>
               <span className="text-red-600 dark:text-red-400 font-bold text-lg">
-                {complianceData.criticalFindings}
+                {complianceData.criticalFindings }
               </span>
             </div>
             
             <div className="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
               <span className="text-yellow-800 dark:text-yellow-300 font-medium">Active Gaps</span>
               <span className="text-yellow-600 dark:text-yellow-400 font-bold text-lg">
-                {complianceData.activeGaps}
+                {complianceData.activeGaps }
               </span>
             </div>
             
@@ -514,7 +464,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                 {getTrendIcon(complianceData.riskTrend)}
               </div>
               <span className="text-blue-600 dark:text-blue-400 font-bold capitalize">
-                {complianceData.riskTrend}
+                {complianceData.riskTrend }
               </span>
             </div>
           </div>

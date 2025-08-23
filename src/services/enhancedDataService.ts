@@ -18,12 +18,7 @@ interface BackupMetadata {
 export class EnhancedDataService {
   private static instance: EnhancedDataService;
   private readonly STORAGE_KEYS = {
-    ASSESSMENTS: 'assessments_v2',
-    USER_PROFILE: 'user_profile_v2',
-    ASSETS: 'assets_v2',
-    TASKS: 'tasks_v2',
-    SETTINGS: 'settings_v2',
-    BACKUP_METADATA: 'backup_metadata_v2'
+    ASSESSMENTS: 'assessments_v2', USER_PROFILE: 'user_profile_v2', ASSETS: 'assets_v2', TASKS: 'tasks_v2', SETTINGS: 'settings_v2', BACKUP_METADATA: 'backup_metadata_v2'
   };
 
   static getInstance(): EnhancedDataService {
@@ -48,9 +43,10 @@ export class EnhancedDataService {
       // Migrate old data if needed
       await this.migrateDataIfNeeded();
       
+    
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'initializationError' }
+        tags:) { type: 'initializationError' }
       });
     }
   }
@@ -64,12 +60,12 @@ export class EnhancedDataService {
       
       // Validate each assessment
       const validatedAssessments = assessments.map(assessment => {
-        try {
+        try) {
           return validateAndSanitizeInput(EnhancedAssessmentSchema, assessment);
-        } catch (validationError) {
+        
+    } catch (validationError) {
           errorMonitoring.captureException(validationError as Error, {
-            tags: { type: 'validationError', resource: 'assessment' },
-            extra: { assessmentId: assessment.id }
+            tags: { type: 'validationError', resource): 'assessment' }, extra: { assessmentId: assessment.id }
           });
           return null;
         }
@@ -78,10 +74,10 @@ export class EnhancedDataService {
       endTiming({ count: validatedAssessments.length });
       return validatedAssessments;
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'getAssessments' }
+        tags:) { type: 'dataError', operation: 'getAssessments' }
       });
       return [];
     }
@@ -99,22 +95,20 @@ export class EnhancedDataService {
       
       if (index >= 0) {
         assessments[index] = validatedAssessment;
-      } else {
+      
+    } else {
         assessments.push(validatedAssessment);
       }
 
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, assessments, {
-        encrypt: ENV.isProduction,
-        compress: true
-      });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, assessments,) {
+        encrypt: ENV.isProduction, compress: true });
 
       endTiming({ operation: index >= 0 ? 'update' : 'create' });
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'saveAssessment' },
-        extra: { assessmentId: assessment.id }
+        tags: { type: 'dataError', operation): 'saveAssessment' }, extra: { assessmentId: assessment.id }
       });
       throw error;
     }
@@ -127,18 +121,15 @@ export class EnhancedDataService {
       const assessments = await this.getAssessments();
       const filtered = assessments.filter(a => a.id !== assessmentId);
       
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, filtered, {
-        encrypt: ENV.isProduction,
-        compress: true
-      });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, filtered,) {
+        encrypt: ENV.isProduction, compress: true });
 
       endTiming({ deleted: true });
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'deleteAssessment' },
-        extra: { assessmentId }
+        tags: { type: 'dataError', operation): 'deleteAssessment' }, extra: { assessmentId }
       });
       throw error;
     }
@@ -152,7 +143,8 @@ export class EnhancedDataService {
       const profile = await secureStorage.getItem<UserProfile>(this.STORAGE_KEYS.USER_PROFILE);
       
       if (!profile) {
-        endTiming({ found: false });
+        endTiming({ found: false 
+    });
         return null;
       }
 
@@ -160,10 +152,10 @@ export class EnhancedDataService {
       endTiming({ found: true });
       return validatedProfile;
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'getUserProfile' }
+        tags:) { type: 'dataError', operation: 'getUserProfile' }
       });
       return null;
     }
@@ -175,17 +167,15 @@ export class EnhancedDataService {
     try {
       const validatedProfile = validateAndSanitizeInput(EnhancedUserProfileSchema, profile);
       
-      await secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, validatedProfile, {
-        encrypt: ENV.isProduction
-      });
+      await secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, validatedProfile,) {
+        encrypt: ENV.isProduction });
 
       endTiming({ saved: true });
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'saveUserProfile' },
-        extra: { profileId: profile.id }
+        tags: { type: 'dataError', operation): 'saveUserProfile' }, extra: { profileId: profile.id }
       });
       throw error;
     }
@@ -199,12 +189,12 @@ export class EnhancedDataService {
       const assets = await secureStorage.getItem<Asset[]>(this.STORAGE_KEYS.ASSETS) || [];
       
       const validatedAssets = assets.map(asset => {
-        try {
+        try) {
           return validateAndSanitizeInput(EnhancedAssetSchema, asset);
-        } catch (validationError) {
+        
+    } catch (validationError) {
           errorMonitoring.captureException(validationError as Error, {
-            tags: { type: 'validationError', resource: 'asset' },
-            extra: { assetId: asset.id }
+            tags: { type: 'validationError', resource): 'asset' }, extra: { assetId: asset.id }
           });
           return null;
         }
@@ -213,10 +203,10 @@ export class EnhancedDataService {
       endTiming({ count: validatedAssets.length });
       return validatedAssets;
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'getAssets' }
+        tags:) { type: 'dataError', operation: 'getAssets' }
       });
       return [];
     }
@@ -237,18 +227,15 @@ export class EnhancedDataService {
         assets.push(validatedAsset);
       }
 
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSETS, assets, {
-        encrypt: ENV.isProduction,
-        compress: true
-      });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSETS, assets,) {
+        encrypt: ENV.isProduction, compress: true });
 
       endTiming({ operation: index >= 0 ? 'update' : 'create' });
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'saveAsset' },
-        extra: { assetId: asset.id }
+        tags: { type: 'dataError', operation): 'saveAsset' }, extra: { assetId: asset.id }
       });
       throw error;
     }
@@ -260,43 +247,28 @@ export class EnhancedDataService {
     
     try {
       const [assessments, userProfile, assets, tasks, settings] = await Promise.all([
-        this.getAssessments(),
-        this.getUserProfile(),
-        this.getAssets(),
-        secureStorage.getItem<Task[]>(this.STORAGE_KEYS.TASKS) || [],
-        secureStorage.getItem<Record<string, any>>(this.STORAGE_KEYS.SETTINGS) || {}
+        this.getAssessments(), this.getUserProfile(), this.getAssets(), secureStorage.getItem<Task[]>(this.STORAGE_KEYS.TASKS) || [], secureStorage.getItem<Record<string, any>>(this.STORAGE_KEYS.SETTINGS) || {
+    }
       ]);
 
       const exportData = {
-        version: ENV.APP_VERSION,
-        timestamp: new Date(),
-        assessments,
-        userProfile,
-        assets,
-        tasks,
-        settings,
-        metadata: {
-          itemCount: assessments.length + assets.length + tasks.length,
-          exportedBy: userProfile?.email || 'unknown',
-          environment: ENV.NODE_ENV
-        }
+        version: ENV.APP_VERSION, timestamp: new Date(), assessments, userProfile, assets, tasks, settings, metadata: {
+          itemCount: assessments.length + assets.length + tasks.length, exportedBy: userProfile?.email || 'unknown', environment: ENV.NODE_ENV }
       };
 
       const serialized = JSON.stringify(exportData, null, 2);
       const checksum = await this.generateChecksum(serialized);
       
       const finalExport = JSON.stringify({
-        ...exportData,
-        checksum
-      }, null, 2);
+        ...exportData, checksum }, null, 2);
 
       endTiming({ success: true, size: finalExport.length });
       return finalExport;
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'exportAllData' }
+        tags:) { type: 'dataError', operation: 'exportAllData' }
       });
       throw error;
     }
@@ -311,7 +283,8 @@ export class EnhancedDataService {
       
       // Validate checksum if present
       if (parsed.checksum) {
-        const { checksum, ...dataWithoutChecksum } = parsed;
+        const { checksum, ...dataWithoutChecksum 
+    } = parsed;
         const calculatedChecksum = await this.generateChecksum(JSON.stringify(dataWithoutChecksum));
         
         if (checksum !== calculatedChecksum) {
@@ -322,43 +295,36 @@ export class EnhancedDataService {
       // Validate version compatibility
       if (parsed.version && parsed.version !== ENV.APP_VERSION) {
         console.warn('Importing data from different version:', parsed.version);
-      }
-
+    }
       // Import each data type with validation
       const importPromises = [];
 
       if (parsed.assessments && Array.isArray(parsed.assessments)) {
         importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, parsed.assessments, {
-            encrypt: ENV.isProduction,
-            compress: true
-          })
+          secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, parsed.assessments,) {
+            encrypt: ENV.isProduction, compress: true 
+    })
         );
       }
 
       if (parsed.userProfile) {
         importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, parsed.userProfile, {
-            encrypt: ENV.isProduction
-          })
+          secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, parsed.userProfile,) {
+            encrypt: ENV.isProduction })
         );
       }
 
       if (parsed.assets && Array.isArray(parsed.assets)) {
         importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.ASSETS, parsed.assets, {
-            encrypt: ENV.isProduction,
-            compress: true
-          })
+          secureStorage.setItem(this.STORAGE_KEYS.ASSETS, parsed.assets,) {
+            encrypt: ENV.isProduction, compress: true })
         );
       }
 
       if (parsed.tasks && Array.isArray(parsed.tasks)) {
         importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.TASKS, parsed.tasks, {
-            encrypt: ENV.isProduction,
-            compress: true
-          })
+          secureStorage.setItem(this.STORAGE_KEYS.TASKS, parsed.tasks,) {
+            encrypt: ENV.isProduction, compress: true })
         );
       }
 
@@ -372,28 +338,26 @@ export class EnhancedDataService {
 
       // Update backup metadata
       const metadata: BackupMetadata = {
-        version: ENV.APP_VERSION,
-        timestamp: new Date(),
-        itemCount: (parsed.assessments?.length || 0) + (parsed.assets?.length || 0) + (parsed.tasks?.length || 0),
-        totalSize: data.length,
-        checksum: parsed.checksum || await this.generateChecksum(data)
-      };
+        version: ENV.APP_VERSION, timestamp: new Date(), itemCount: (parsed.assessments?.length || 0) + (parsed.assets?.length || 0) + (parsed.tasks?.length || 0), totalSize: data.length, checksum: parsed.checksum || await this.generateChecksum(data)
+      
+    };
 
       await secureStorage.setItem(this.STORAGE_KEYS.BACKUP_METADATA, metadata);
 
       endTiming({ success: true, itemCount: metadata.itemCount });
 
-    } catch (error) {
+    } catch {
       endTiming({ error: true });
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataError', operation: 'importAllData' }
+        tags:) { type: 'dataError', operation: 'importAllData' }
       });
       throw error;
     }
   }
 
   // Data Validation and Integrity Checks
-  async validateDataIntegrity(): Promise<{ isValid: boolean; errors: string[]; warnings: string[] }> {
+  async validateDataIntegrity(): Promise<{ isValid: boolean; errors: string[]; warnings: string[] 
+    }> {
     const errors: string[] = [];
     const warnings: string[] = [];
 
@@ -403,8 +367,9 @@ export class EnhancedDataService {
       assessments.forEach((assessment, index) => {
         try {
           validateAndSanitizeInput(EnhancedAssessmentSchema, assessment, false);
-        } catch (error) {
-          errors.push(`Assessment ${index + 1}: ${error}`);
+        
+    } catch {
+          errors.push(`Assessment ${index + 1}: ${error }`);
         }
       });
 
@@ -413,8 +378,9 @@ export class EnhancedDataService {
       if (userProfile) {
         try {
           validateAndSanitizeInput(EnhancedUserProfileSchema, userProfile, false);
-        } catch (error) {
-          errors.push(`User Profile: ${error}`);
+        
+    } catch (error) {
+          errors.push(`User Profile: ${error }`);
         }
       }
 
@@ -423,43 +389,42 @@ export class EnhancedDataService {
       assets.forEach((asset, index) => {
         try {
           validateAndSanitizeInput(EnhancedAssetSchema, asset, false);
-        } catch (error) {
-          errors.push(`Asset ${index + 1}: ${error}`);
+        
+    } catch {
+          errors.push(`Asset ${index + 1}: ${error }`);
         }
       });
 
       // Check storage usage
       const storageInfo = secureStorage.getStorageInfo();
       if (storageInfo.percentage > 80) {
-        warnings.push(`Storage usage is ${storageInfo.percentage.toFixed(1)}% - consider cleanup`);
+        warnings.push(`Storage usage is ${storageInfo.percentage.toFixed(1)
+    }% - consider cleanup`);
       }
 
       // Check for orphaned data
       const orphanedItems = await this.findOrphanedItems();
       if (orphanedItems.length > 0) {
-        warnings.push(`Found ${orphanedItems.length} orphaned data items`);
+        warnings.push(`Found ${orphanedItems.length 
+    } orphaned data items`);
       }
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'validationError', operation: 'validateDataIntegrity' }
+        tags:) { type: 'validationError', operation: 'validateDataIntegrity' }
       });
-      errors.push(`Validation failed: ${error}`);
+      errors.push(`Validation failed: ${error }`);
     }
 
     return {
-      isValid: errors.length === 0,
-      errors,
-      warnings
-    };
+      isValid: errors.length === 0, errors, warnings };
   }
 
   private async findOrphanedItems(): Promise<string[]> {
     // Implementation would check for data inconsistencies
     // For now, return empty array
     return [];
-  }
-
+    }
   private async generateChecksum(data: string): Promise<string> {
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(data);
@@ -474,14 +439,14 @@ export class EnhancedDataService {
     if (legacyAssessments && !await secureStorage.getItem(this.STORAGE_KEYS.ASSESSMENTS)) {
       try {
         const parsed = JSON.parse(legacyAssessments);
-        await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, parsed, {
-          encrypt: ENV.isProduction
-        });
+        await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, parsed,) {
+          encrypt: ENV.isProduction 
+    });
         localStorage.removeItem('cybersecurity-assessments');
         console.log('Migrated legacy assessment data');
       } catch (error) {
         errorMonitoring.captureException(error as Error, {
-          tags: { type: 'migrationError' }
+          tags:) { type: 'migrationError' }
         });
       }
     }
@@ -493,33 +458,33 @@ export class EnhancedDataService {
       // Remove old versions and compress data
       const assessments = await this.getAssessments();
       const optimizedAssessments = assessments.map(assessment => ({
-        ...assessment,
-        versionHistory: assessment.versionHistory?.slice(-5) || [],
-        changeLog: assessment.changeLog?.slice(-20) || []
-      }));
+        ...assessment, versionHistory: assessment.versionHistory?.slice(-5) || [], changeLog: assessment.changeLog?.slice(-20) || []
+      
+    }));
 
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, optimizedAssessments, {
-        encrypt: ENV.isProduction,
-        compress: true
-      });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, optimizedAssessments,) {
+        encrypt: ENV.isProduction, compress: true });
 
       // Clean up performance monitoring data
       performanceMonitoring.cleanup();
 
+    
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'optimizationError' }
+        tags:) { type: 'optimizationError' }
       });
     }
   }
 
   // Health Check
-  async healthCheck(): Promise<{ status: 'healthy' | 'degraded' | 'unhealthy'; issues: string[] }> {
+  async healthCheck(): Promise<{ status: 'healthy' | 'degraded' | 'unhealthy'; issues: string[] 
+    }> {
     const issues: string[] = [];
 
     try {
       // Check storage availability
-      await secureStorage.setItem('health_check', 'test', { ttl: 1000 });
+      await secureStorage.setItem('health_check', 'test',) { ttl: 1000 
+    });
       const testResult = await secureStorage.getItem('health_check');
       if (testResult !== 'test') {
         issues.push('Storage read/write test failed');
@@ -529,24 +494,21 @@ export class EnhancedDataService {
       const storageInfo = secureStorage.getStorageInfo();
       if (storageInfo.percentage > 90) {
         issues.push('Storage usage critically high');
-      }
-
+    }
       // Check data integrity
       const integrity = await this.validateDataIntegrity();
       if (!integrity.isValid) {
         issues.push('Data integrity issues detected');
-      }
-
+    }
       // Check performance
       const memory = performanceMonitoring.getMemoryUsage();
       if (memory.usagePercentage > 80) {
         issues.push('High memory usage detected');
-      }
-
+    }
     } catch (error) {
       issues.push('Health check failed');
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'healthCheckError' }
+        tags:) { type: 'healthCheckError' }
       });
     }
 
@@ -557,4 +519,3 @@ export class EnhancedDataService {
   }
 }
 
-export const enhancedDataService = EnhancedDataService.getInstance();

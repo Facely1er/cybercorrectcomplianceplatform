@@ -15,8 +15,7 @@ export interface TeamMember {
   certifications: string[];
   workload: number; // percentage
   timezone: string;
-}
-
+    }
 export interface TeamRole {
   id: string;
   name: string;

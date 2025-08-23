@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  ChevronLeft, BookOpen, Play, Target, BarChart3, FileText, 
-  ChevronDown, ChevronRight, Shield, Users, Settings, HelpCircle,
-  Download, Upload, Eye, Edit3, Trash2, Filter, Search
-} from 'lucide-react';
+import { ChevronLeft, BookOpenChevronDown, ChevronRight, HelpCircle } from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 
@@ -18,17 +14,12 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
 
   const sections = [
     {
-      id: 'getting-started',
-      title: 'Getting Started',
-      icon: Play,
-      content: [
+      id: 'getting-started', title: 'Getting Started', icon: Play, content: [
         {
-          title: 'Welcome to the Cybersecurity Maturity Assessment Tool',
-          content: `This comprehensive platform helps organizations identify compliance gaps, improve their security posture, and track progress using industry-standard frameworks. Whether you're a CISO, security manager, or compliance officer, this tool provides the insights you need to strengthen your compliance and security posture.`
+          title: 'Welcome to the Cybersecurity Maturity Assessment Tool', content: `This comprehensive platform helps organizations identify compliance gaps, improve their security posture, and track progress using industry-standard frameworks. Whether you're a CISO, security manager, or compliance officer, this tool provides the insights you need to strengthen your compliance and security posture.`
         },
         {
-          title: 'System Requirements',
-          content: `
+          title: 'System Requirements', content: `
             • Modern web browser (Chrome, Firefox, Safari, Edge)
             • Internet connection for initial setup
             • JavaScript enabled
@@ -37,8 +28,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'First Time Setup',
-          content: `
+          title: 'First Time Setup', content: `
             1. **Create Your Profile**: Set up your user profile with organization details
             2. **Choose Framework**: Select the cybersecurity framework that best fits your needs
             3. **Review Templates**: Consider using industry-specific templates to accelerate your assessment
@@ -48,13 +38,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'frameworks',
-      title: 'Supported Frameworks',
-      icon: Shield,
-      content: [
+      id: 'frameworks', title: 'Supported Frameworks', icon: Shield, content: [
         {
-          title: 'NIST Cybersecurity Framework (CSF)',
-          content: `
+          title: 'NIST Cybersecurity Framework (CSF)', content: `
             **Overview**: The most widely adopted cybersecurity framework, providing a policy framework of computer security guidance.
             
             **Best For**: Organizations of all sizes across all industries
@@ -69,8 +55,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'ISO/IEC 27001:2022',
-          content: `
+          title: 'ISO/IEC 27001:2022', content: `
             **Overview**: International standard for information security management systems (ISMS).
             
             **Best For**: Organizations seeking formal certification
@@ -85,8 +70,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'CMMC (Cybersecurity Maturity Model Certification)',
-          content: `
+          title: 'CMMC (Cybersecurity Maturity Model Certification)', content: `
             **Overview**: Department of Defense cybersecurity standard for contractors.
             
             **Best For**: DoD contractors and suppliers
@@ -101,8 +85,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'NIST Privacy Framework',
-          content: `
+          title: 'NIST Privacy Framework', content: `
             **Overview**: Tool for improving privacy through enterprise risk management.
             
             **Best For**: Organizations handling personal data
@@ -117,8 +100,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Supply Chain Risk Management (NIST SP 800-161)',
-          content: `
+          title: 'Supply Chain Risk Management (NIST SP 800-161)', content: `
             **Overview**: Cyber supply chain risk management practices.
             
             **Best For**: Organizations with complex supply chains
@@ -135,13 +117,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'assessment-process',
-      title: 'Assessment Process',
-      icon: Target,
-      content: [
+      id: 'assessment-process', title: 'Assessment Process', icon: Target, content: [
         {
-          title: 'Starting an Assessment',
-          content: `
+          title: 'Starting an Assessment', content: `
             **Step 1: Framework Selection**
             Choose the framework that best aligns with your organization's needs:
             • Consider your industry requirements
@@ -162,8 +140,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Answering Questions',
-          content: `
+          title: 'Answering Questions', content: `
             **Question Types**:
             • **Implementation Questions**: Assess current state of controls
             • **Maturity Questions**: Evaluate process maturity levels
@@ -182,8 +159,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Navigation and Progress',
-          content: `
+          title: 'Navigation and Progress', content: `
             **Navigation Features**:
             • **Quick Navigation**: Jump between sections and categories
             • **Progress Tracking**: Monitor completion percentage
@@ -200,13 +176,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'dashboard',
-      title: 'Dashboard Features',
-      icon: BarChart3,
-      content: [
+      id: 'dashboard', title: 'Dashboard Features', icon: BarChart3, content: [
         {
-          title: 'Assessment Management',
-          content: `
+          title: 'Assessment Management', content: `
             **Saved Assessments**:
             • View all saved assessments
             • Filter by framework, status, or date
@@ -227,8 +199,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Templates and Comparison',
-          content: `
+          title: 'Templates and Comparison', content: `
             **Template Library**:
             • Browse industry-specific templates
             • Filter by industry and framework
@@ -245,13 +216,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'reports',
-      title: 'Reports and Analytics',
-      icon: FileText,
-      content: [
+      id: 'reports', title: 'Reports and Analytics', icon: FileText, content: [
         {
-          title: 'Report Generation',
-          content: `
+          title: 'Report Generation', content: `
             **Report Types**:
             • **Executive Summary**: High-level overview for leadership
             • **Detailed Analysis**: Comprehensive technical assessment
@@ -267,8 +234,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Export Options',
-          content: `
+          title: 'Export Options', content: `
             **Export Formats**:
             • **PDF**: Professional reports for stakeholders
             • **JSON**: Raw data for integration with other tools
@@ -282,8 +248,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Analytics and Insights',
-          content: `
+          title: 'Analytics and Insights', content: `
             **Maturity Scoring**:
             • Overall maturity percentage
             • Section-level breakdown
@@ -300,13 +265,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'user-management',
-      title: 'User Management',
-      icon: Users,
-      content: [
+      id: 'user-management', title: 'User Management', icon: Users, content: [
         {
-          title: 'User Profiles',
-          content: `
+          title: 'User Profiles', content: `
             **Profile Information**:
             • Personal details (name, email, role)
             • Organization information
@@ -321,8 +282,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Preferences and Settings',
-          content: `
+          title: 'Preferences and Settings', content: `
             **Assessment Preferences**:
             • Default framework selection
             • Auto-save frequency
@@ -339,13 +299,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'data-management',
-      title: 'Data Management',
-      icon: Settings,
-      content: [
+      id: 'data-management', title: 'Data Management', icon: Settings, content: [
         {
-          title: 'Data Storage and Security',
-          content: `
+          title: 'Data Storage and Security', content: `
             **Local Storage**:
             • All data stored locally in your browser
             • No data transmitted to external servers
@@ -360,8 +316,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Import and Export',
-          content: `
+          title: 'Import and Export', content: `
             **Data Export**:
             • Export all assessment data
             • Backup for disaster recovery
@@ -376,8 +331,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           `
         },
         {
-          title: 'Data Retention',
-          content: `
+          title: 'Data Retention', content: `
             **Retention Policies**:
             • Configurable retention periods
             • Automatic cleanup options
@@ -397,36 +351,28 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
 
   const faqs = [
     {
-      question: 'How long does a typical assessment take?',
-      answer: 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min), CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
+      question: 'How long does a typical assessment take?', answer: 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min), CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
     },
     {
-      question: 'Can I save my progress and continue later?',
-      answer: 'Yes, the tool automatically saves your progress every 5 seconds. You can also manually save at any time and resume your assessment from where you left off.'
+      question: 'Can I save my progress and continue later?', answer: 'Yes, the tool automatically saves your progress every 5 seconds. You can also manually save at any time and resume your assessment from where you left off.'
     },
     {
-      question: 'How are maturity scores calculated?',
-      answer: 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%), Largely (50%), Fully Implemented (75%). Section scores are weighted averages, and the overall score combines all sections.'
+      question: 'How are maturity scores calculated?', answer: 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%), Largely (50%), Fully Implemented (75%). Section scores are weighted averages, and the overall score combines all sections.'
     },
     {
-      question: 'Can I compare assessments over time?',
-      answer: 'Yes, the comparison feature allows you to track progress across multiple assessments, identify improvement trends, and measure the effectiveness of security investments.'
+      question: 'Can I compare assessments over time?', answer: 'Yes, the comparison feature allows you to track progress across multiple assessments, identify improvement trends, and measure the effectiveness of security investments.'
     },
     {
-      question: 'What export formats are available?',
-      answer: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries, detailed analysis, and gap assessments.'
+      question: 'What export formats are available?', answer: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries, detailed analysis, and gap assessments.'
     },
     {
-      question: 'Is my data secure and private?',
-      answer: 'Yes, all data is stored locally in your browser. No information is transmitted to external servers, ensuring complete privacy and security of your assessment data.'
+      question: 'Is my data secure and private?', answer: 'Yes, all data is stored locally in your browser. No information is transmitted to external servers, ensuring complete privacy and security of your assessment data.'
     },
     {
-      question: 'Can I customize the assessment questions?',
-      answer: 'While you cannot modify the standard framework questions, you can use templates that include pre-filled responses based on industry best practices and common implementations.'
+      question: 'Can I customize the assessment questions?', answer: 'While you cannot modify the standard framework questions, you can use templates that include pre-filled responses based on industry best practices and common implementations.'
     },
     {
-      question: 'How do I choose the right framework?',
-      answer: 'Consider your industry (healthcare = NIST CSF + Privacy, DoD contractors = CMMC, all industries = NIST CSF), compliance requirements, and organizational maturity level. The tool provides guidance for each framework.'
+      question: 'How do I choose the right framework?', answer: 'Consider your industry (healthcare = NIST CSF + Privacy, DoD contractors = CMMC, all industries = NIST CSF), compliance requirements, and organizational maturity level. The tool provides guidance for each framework.'
     }
   ];
 
@@ -445,7 +391,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -454,7 +400,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack}
+                onClick={onBack }
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -489,7 +435,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
               <nav className="space-y-2">
                 {sections.map((section) => (
                   <button
-                    key={section.id}
+                    key={section.id }
                     onClick={() => setActiveSection(section.id)}
                     className={`w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
                       activeSection === section.id
@@ -498,7 +444,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                     }`}
                   >
                     <section.icon className="w-5 h-5" />
-                    <span className="font-medium">{section.title}</span>
+                    <span className="font-medium">{section.title }</span>
                   </button>
                 ))}
               </nav>
@@ -514,19 +460,19 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
               <div className="flex items-center space-x-3 mb-6">
                 <currentSection.icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                  {currentSection.title}
+                  {currentSection.title }
                 </h2>
               </div>
               
               <div className="space-y-8">
                 {currentSection.content.map((item, index) => (
-                  <div key={index}>
+                  <div key={index }>
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                      {item.title}
+                      {item.title }
                     </h3>
                     <div className="prose prose-gray dark:prose-invert max-w-none">
                       <div className="whitespace-pre-line text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {item.content}
+                        {item.content }
                       </div>
                     </div>
                   </div>
@@ -545,10 +491,10 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
               </h3>
               <div className="space-y-3">
                 {shortcuts.map((shortcut, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <span className="text-gray-600 dark:text-gray-300">{shortcut.action}</span>
+                  <div key={index } className="flex items-center justify-between">
+                    <span className="text-gray-600 dark:text-gray-300">{shortcut.action }</span>
                     <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded text-sm font-mono">
-                      {shortcut.key}
+                      {shortcut.key }
                     </kbd>
                   </div>
                 ))}
@@ -591,13 +537,13 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg">
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
                     className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                   >
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {faq.question}
+                      {faq.question }
                     </span>
                     {expandedFaq === index ? (
                       <ChevronDown className="w-5 h-5 text-gray-500" />
@@ -609,7 +555,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                   {expandedFaq === index && (
                     <div className="px-4 pb-4">
                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {faq.answer}
+                        {faq.answer }
                       </p>
                     </div>
                   )}

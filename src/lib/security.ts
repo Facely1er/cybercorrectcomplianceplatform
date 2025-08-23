@@ -2,16 +2,12 @@ import { z } from 'zod';
 
 // Security configuration
 export const SECURITY_CONFIG = {
-  maxLoginAttempts: 5,
-  lockoutDuration: 15 * 60 * 1000, // 15 minutes
+  maxLoginAttempts: 5, lockoutDuration: 15 * 60 * 1000, // 15 minutes
   sessionTimeout: 8 * 60 * 60 * 1000, // 8 hours
-  passwordMinLength: 8,
-  requireSpecialChars: true,
-  requireNumbers: true,
-  requireUppercase: true,
-  maxFileSize: 10 * 1024 * 1024, // 10MB
+  passwordMinLength: 8, requireSpecialChars: true, requireNumbers: true, requireUppercase: true, maxFileSize: 10 * 1024 * 1024, // 10MB
   allowedFileTypes: ['.pdf', '.doc', '.docx', '.txt', '.png', '.jpg', '.jpeg', '.xlsx', '.csv']
-};
+
+    };
 
 // Security headers for production
 export const SECURITY_HEADERS = {
@@ -22,7 +18,8 @@ export const SECURITY_HEADERS = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
-};
+
+    };
 
 // Input sanitization
 export const sanitizeHtml = (input: string): string => {
@@ -32,21 +29,24 @@ export const sanitizeHtml = (input: string): string => {
     .replace(/on\w+\s*=/gi, '') // Remove event handlers
     .replace(/data:(?!image\/[a-z]+;base64,)/gi, '') // Allow only image data URLs
     .trim();
-};
+
+    };
 
 export const sanitizeFileName = (fileName: string): string => {
   return fileName
     .replace(/[^a-zA-Z0-9.-]/g, '_') // Replace special chars with underscore
-    .replace(/_{2,}/g, '_') // Replace multiple underscores with single
-    .substring(0, 100); // Limit length
-};
+    .replace(/_{2 
+    }/g, '_') // Replace multiple underscores with single
+    .substring(0, 100); // Limit length 
+    };
 
 // Password validation
-export const validatePassword = (password: string): { isValid: boolean; errors: string[] } => {
+export const validatePassword = (password: string): { isValid: boolean; errors: string[] 
+    } => {
   const errors: string[] = [];
 
   if (password.length < SECURITY_CONFIG.passwordMinLength) {
-    errors.push(`Password must be at least ${SECURITY_CONFIG.passwordMinLength} characters`);
+    errors.push(`Password must be at least ${SECURITY_CONFIG.passwordMinLength } characters`);
   }
 
   if (SECURITY_CONFIG.requireNumbers && !/\d/.test(password)) {
@@ -65,43 +65,41 @@ export const validatePassword = (password: string): { isValid: boolean; errors: 
   const commonPasswords = ['password', '123456', 'admin', 'letmein', 'welcome'];
   if (commonPasswords.includes(password.toLowerCase())) {
     errors.push('Password is too common');
-  }
-
+    }
   return {
-    isValid: errors.length === 0,
-    errors
-  };
+    isValid: errors.length === 0, errors };
 };
 
 // File validation
-export const validateFile = (file: File): { isValid: boolean; errors: string[] } => {
+export const validateFile = (file: File): { isValid: boolean; errors: string[] 
+    } => {
   const errors: string[] = [];
 
   // Check file size
   if (file.size > SECURITY_CONFIG.maxFileSize) {
-    errors.push(`File size must be less than ${SECURITY_CONFIG.maxFileSize / (1024 * 1024)}MB`);
+    errors.push(`File size must be less than ${SECURITY_CONFIG.maxFileSize / (1024 * 1024)
+    }MB`);
   }
 
   // Check file type
   const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
   if (!SECURITY_CONFIG.allowedFileTypes.includes(fileExtension)) {
-    errors.push(`File type ${fileExtension} is not allowed`);
+    errors.push(`File type ${fileExtension 
+    } is not allowed`);
   }
 
   // Check for potentially malicious file names
   if (file.name.includes('..') || file.name.includes('/') || file.name.includes('\\')) {
     errors.push('Invalid file name');
-  }
-
+    }
   return {
-    isValid: errors.length === 0,
-    errors
-  };
+    isValid: errors.length === 0, errors };
 };
 
 // Rate limiting (client-side basic implementation)
 export class RateLimiter {
-  private attempts: Map<string, { count: number; resetTime: number }> = new Map();
+  private attempts: Map<string, { count: number; resetTime: number 
+    }> = new Map();
 
   isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000): boolean {
     const now = Date.now();
@@ -109,7 +107,8 @@ export class RateLimiter {
 
     if (!record || now > record.resetTime) {
       // Reset or create new record
-      this.attempts.set(key, { count: 1, resetTime: now + windowMs });
+      this.attempts.set(key,) { count: 1, resetTime: now + windowMs 
+    });
       return true;
     }
 
@@ -137,7 +136,8 @@ export class RateLimiter {
 // Session management
 export class SessionManager {
   private static instance: SessionManager;
-  private sessionData: Map<string, { userId: string; expiresAt: number; permissions: string[] }> = new Map();
+  private sessionData: Map<string, { userId: string; expiresAt: number; permissions: string[] 
+    }> = new Map();
 
   static getInstance(): SessionManager {
     if (!SessionManager.instance) {
@@ -150,19 +150,15 @@ export class SessionManager {
     const sessionId = this.generateSessionId();
     const expiresAt = Date.now() + SECURITY_CONFIG.sessionTimeout;
 
-    this.sessionData.set(sessionId, {
-      userId,
-      expiresAt,
-      permissions
-    });
+    this.sessionData.set(sessionId,) {
+      userId, expiresAt, permissions });
 
     // Store in secure HTTP-only cookie in production
     sessionStorage.setItem('session-id', sessionId);
     sessionStorage.setItem('session-expires', expiresAt.toString());
 
     return sessionId;
-  }
-
+    }
   validateSession(sessionId: string): { isValid: boolean; userId?: string; permissions?: string[] } {
     const session = this.sessionData.get(sessionId);
     
@@ -172,10 +168,7 @@ export class SessionManager {
     }
 
     return {
-      isValid: true,
-      userId: session.userId,
-      permissions: session.permissions
-    };
+      isValid: true, userId: session.userId, permissions: session.permissions };
   }
 
   refreshSession(sessionId: string): boolean {
@@ -199,10 +192,7 @@ export class SessionManager {
 
     const validation = this.validateSession(sessionId);
     return {
-      sessionId,
-      isValid: validation.isValid,
-      userId: validation.userId
-    };
+      sessionId, isValid: validation.isValid, userId: validation.userId };
   }
 
   private generateSessionId(): string {
@@ -212,51 +202,17 @@ export class SessionManager {
 
 // Permission-based access control
 export enum Permission {
-  READ_ASSETS = 'read:assets',
-  WRITE_ASSETS = 'write:assets',
-  DELETE_ASSETS = 'delete:assets',
-  READ_ASSESSMENTS = 'read:assessments',
-  WRITE_ASSESSMENTS = 'write:assessments',
-  DELETE_ASSESSMENTS = 'delete:assessments',
-  GENERATE_REPORTS = 'generate:reports',
-  MANAGE_USERS = 'manage:users',
-  VIEW_AUDIT_LOGS = 'view:audit_logs',
-  EXPORT_DATA = 'export:data',
-  IMPORT_DATA = 'import:data'
-}
-
+  READ_ASSETS = 'read:assets', WRITE_ASSETS = 'write:assets', DELETE_ASSETS = 'delete:assets', READ_ASSESSMENTS = 'read:assessments', WRITE_ASSESSMENTS = 'write:assessments', DELETE_ASSESSMENTS = 'delete:assessments', GENERATE_REPORTS = 'generate:reports', MANAGE_USERS = 'manage:users', VIEW_AUDIT_LOGS = 'view:audit_logs', EXPORT_DATA = 'export:data', IMPORT_DATA = 'import:data'
+    }
 export const ROLE_PERMISSIONS = {
   admin: [
-    Permission.READ_ASSETS,
-    Permission.WRITE_ASSETS,
-    Permission.DELETE_ASSETS,
-    Permission.READ_ASSESSMENTS,
-    Permission.WRITE_ASSESSMENTS,
-    Permission.DELETE_ASSESSMENTS,
-    Permission.GENERATE_REPORTS,
-    Permission.MANAGE_USERS,
-    Permission.VIEW_AUDIT_LOGS,
-    Permission.EXPORT_DATA,
-    Permission.IMPORT_DATA
-  ],
-  assessor: [
-    Permission.READ_ASSETS,
-    Permission.WRITE_ASSETS,
-    Permission.READ_ASSESSMENTS,
-    Permission.WRITE_ASSESSMENTS,
-    Permission.GENERATE_REPORTS,
-    Permission.EXPORT_DATA
-  ],
-  viewer: [
-    Permission.READ_ASSETS,
-    Permission.READ_ASSESSMENTS,
-    Permission.GENERATE_REPORTS
-  ],
-  auditor: [
-    Permission.READ_ASSETS,
-    Permission.READ_ASSESSMENTS,
-    Permission.VIEW_AUDIT_LOGS,
-    Permission.EXPORT_DATA
+    Permission.READ_ASSETS, Permission.WRITE_ASSETS, Permission.DELETE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.DELETE_ASSESSMENTS, Permission.GENERATE_REPORTS, Permission.MANAGE_USERS, Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA, Permission.IMPORT_DATA
+  ], assessor: [
+    Permission.READ_ASSETS, Permission.WRITE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.GENERATE_REPORTS, Permission.EXPORT_DATA
+  ], viewer: [
+    Permission.READ_ASSETS, Permission.READ_ASSESSMENTS, Permission.GENERATE_REPORTS
+  ], auditor: [
+    Permission.READ_ASSETS, Permission.READ_ASSESSMENTS, Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA
   ]
 };
 
@@ -269,8 +225,8 @@ export const generateSecureToken = (length: number = 32): string => {
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
   return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
-};
+
+    };
 
 // Initialize rate limiter and session manager
-export const rateLimiter = new RateLimiter();
-export const sessionManager = SessionManager.getInstance();
+

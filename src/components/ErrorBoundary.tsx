@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertTriangle, RefreshCw, Home, Bug, Mail } from 'lucide-react';
+import { Home, Bug } from 'lucide-react';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
 
@@ -18,39 +18,34 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+  constructor(props): Props {
     super(props);
     this.state = { hasError: false };
   }
 
   static getDerivedStateFromError(error: Error): State {
     return { 
-      hasError: true, 
-      error,
-      errorId: Date.now().toString()
+      hasError: true, error, errorId: Date.now().toString()
     };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo): ErrorInfo {
     // Log error details
     console.error('Error caught by boundary:', error, errorInfo);
     
     this.setState({
-      error,
-      errorInfo,
+      error, errorInfo 
     });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
-      extra: errorInfo,
-      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
-      level: 'error'
+      extra): errorInfo, tags: { type: 'reactError', boundary: 'ErrorBoundary' 
+    }, level: 'error'
     });
 
     // Call custom error handler if provided
     this.props.onError?.(error, errorInfo);
-  }
-
+    }
   private handleReload = () => {
     window.location.reload();
   };
@@ -66,17 +61,8 @@ export class ErrorBoundary extends Component<Props, State> {
   private handleReportError = () => {
     const errorReport = {
       error: {
-        message: this.state.error?.message,
-        stack: this.state.error?.stack,
-        name: this.state.error?.name
-      },
-      context: {
-        url: window.location.href,
-        userAgent: navigator.userAgent,
-        timestamp: new Date().toISOString(),
-        errorId: this.state.errorId
-      },
-      componentStack: this.state.errorInfo?.componentStack || ''
+        message: this.state.error?.message, stack: this.state.error?.stack, name: this.state.error?.name }, context: {
+        url: window.location.href, userAgent: navigator.userAgent, timestamp: new Date().toISOString(), errorId: this.state.errorId }, componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
@@ -84,6 +70,7 @@ export class ErrorBoundary extends Component<Props, State> {
       navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
         .then(() => alert('Error details copied to clipboard'))
         .catch(() => console.log('Error details:', errorReport));
+    
     } else {
       console.log('Error details:', errorReport);
       alert('Error details logged to console');
@@ -118,19 +105,19 @@ export class ErrorBoundary extends Component<Props, State> {
                 </summary>
                 <div className="text-xs font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-40 bg-gray-50 dark:bg-gray-800 p-3 rounded border">
                   <div className="mb-2">
-                    <strong>Error ID:</strong> {this.state.errorId}
+                    <strong>Error ID:</strong> {this.state.errorId }
                   </div>
                   <div className="mb-2">
-                    <strong>Message:</strong> {this.state.error.message}
+                    <strong>Message:</strong> {this.state.error.message }
                   </div>
                   <div className="mb-2">
                     <strong>Stack:</strong>
-                    <pre className="whitespace-pre-wrap mt-1">{this.state.error.stack}</pre>
+                    <pre className="whitespace-pre-wrap mt-1">{this.state.error.stack }</pre>
                   </div>
                   {this.state.errorInfo && (
                     <div>
                       <strong>Component Stack:</strong>
-                      <pre className="whitespace-pre-wrap mt-1">{this.state.errorInfo.componentStack}</pre>
+                      <pre className="whitespace-pre-wrap mt-1">{this.state.errorInfo.componentStack }</pre>
                     </div>
                   )}
                 </div>
@@ -139,7 +126,7 @@ export class ErrorBoundary extends Component<Props, State> {
             
             <div className="space-y-3">
               <button
-                onClick={this.handleRetry}
+                onClick={this.handleRetry }
                 className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
               >
                 <RefreshCw className="w-4 h-4" />
@@ -148,7 +135,7 @@ export class ErrorBoundary extends Component<Props, State> {
               
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={this.handleReload}
+                  onClick={this.handleReload }
                   className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <RefreshCw className="w-4 h-4" />
@@ -156,7 +143,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 </button>
                 
                 <button
-                  onClick={this.handleGoHome}
+                  onClick={this.handleGoHome }
                   className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <Home className="w-4 h-4" />
@@ -166,7 +153,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
               <div className="flex space-x-3">
                 <button
-                  onClick={this.handleReportError}
+                  onClick={this.handleReportError }
                   className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Bug className="w-4 h-4" />
@@ -174,7 +161,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 </button>
                 
                 <a
-                  href="mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
+                  href="mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId }"
                   className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Mail className="w-4 h-4" />
@@ -185,7 +172,7 @@ export class ErrorBoundary extends Component<Props, State> {
             
             {this.state.errorId && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-6">
-                Error ID: {this.state.errorId}
+                Error ID: {this.state.errorId }
               </p>
             )}
 
@@ -208,21 +195,20 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping routes with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>,
-  errorFallback?: ReactNode,
-  onError?: (error: Error, errorInfo: ErrorInfo) => void
+  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error, errorInfo: ErrorInfo) => void
 ) => {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary 
-      fallback={errorFallback}
-      onError={onError}
-      showErrorDetails={ENV.isDevelopment}
+      fallback={errorFallback
+    }
+      onError={onError }
+      showErrorDetails={ENV.isDevelopment }
     >
-      <Component {...props} />
+      <Component {...props } />
     </ErrorBoundary>
   );
   
-  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
+  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name })`;
   
   return WrappedComponent;
 };

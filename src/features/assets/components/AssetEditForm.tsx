@@ -9,16 +9,10 @@ interface AssetEditFormProps {
 }
 
 export const AssetEditForm: React.FC<AssetEditFormProps> = ({
-  asset,
-  onSave,
-  onCancel
-}) => {
+  asset, onSave, onCancel }) => {
   const handleSubmit = (assetData: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => {
     const updatedAsset: Asset = {
-      ...assetData,
-      id: asset.id,
-      createdAt: asset.createdAt,
-      updatedAt: new Date()
+      ...assetData, id: asset.id, createdAt: asset.createdAt, updatedAt: new Date()
     };
     
     onSave(updatedAsset);
@@ -26,9 +20,9 @@ export const AssetEditForm: React.FC<AssetEditFormProps> = ({
 
   return (
     <AssetCreationForm
-      initialData={asset}
-      onSubmit={handleSubmit}
-      onCancel={onCancel}
+      initialData={asset }
+      onSubmit={handleSubmit }
+      onCancel={onCancel }
     />
   );
 };

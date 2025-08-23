@@ -14,10 +14,7 @@ export const useAssessments = () => {
   const { user, currentOrganization } = useAuth();
   
   const [state, setState] = useState<AssessmentsState>({
-    assessments: [],
-    loading: false,
-    error: null
-  });
+    assessments: [], loading: false, error: null });
 
   const loadAssessments = useCallback(async () => {
     if (!user) return;
@@ -29,15 +26,11 @@ export const useAssessments = () => {
       const assessments = dataService.getAssessments();
       
       setState({
-        assessments,
-        loading: false,
-        error: null
-      });
+        assessments, loading: false, error: null 
+    });
     } catch (error: any) {
       setState(prev => ({
-        ...prev,
-        loading: false,
-        error: error.message || 'Failed to load assessments'
+        ...prev, loading: false, error: error.message || 'Failed to load assessments'
       }));
     }
   }, [user, currentOrganization]);
@@ -53,12 +46,13 @@ export const useAssessments = () => {
         : await assessmentService.createAssessment(assessment, user.id);
       
       // Update local state
-      setState(prev => {
+      setState(prev =>) {
         const updatedAssessments = [...prev.assessments];
         const index = updatedAssessments.findIndex(a => a.id === assessment.id);
         if (index >= 0) {
           updatedAssessments[index] = savedAssessment;
-        } else {
+        
+    } else {
           updatedAssessments.push(savedAssessment);
         }
         return { ...prev, assessments: updatedAssessments };
@@ -79,9 +73,9 @@ export const useAssessments = () => {
       
       // Update local state
       setState(prev => ({
-        ...prev,
-        assessments: prev.assessments.filter(a => a.id !== assessmentId)
-      }));
+        ...prev, assessments: prev.assessments.filter(a => a.id !== assessmentId)
+      
+    }));
     } catch (err) {
       const errorMessage = 'Failed to delete assessment';
       setState(prev => ({ ...prev, error: errorMessage }));
@@ -96,8 +90,7 @@ export const useAssessments = () => {
       const duplicatedAssessment = await assessmentService.duplicateAssessment(assessmentId, user.id, newName);
       
       setState(prev => ({
-        ...prev,
-        assessments: [...prev.assessments, duplicatedAssessment]
+        ...prev, assessments: [...prev.assessments, duplicatedAssessment]
       }));
 
       return duplicatedAssessment;
@@ -115,10 +108,8 @@ export const useAssessments = () => {
       dataService.saveAssessments([]);
       
       setState({
-        assessments: [],
-        loading: false,
-        error: null
-      });
+        assessments: [], loading: false, error: null 
+    });
     } catch (error: any) {
       setState(prev => ({ ...prev, error: error.message || 'Failed to reset assessments' }));
       throw error;
@@ -133,7 +124,8 @@ export const useAssessments = () => {
       !assessment.organizationInfo || 
       assessment.organizationInfo.name === currentOrganization.name
     );
-  }, [state.assessments, currentOrganization]);
+  
+    }, [state.assessments, currentOrganization]);
 
   useEffect(() => {
     if (user) {
@@ -142,14 +134,5 @@ export const useAssessments = () => {
   }, [user, loadAssessments]);
 
   return {
-    assessments: filteredAssessments,
-    loading: state.loading,
-    error: state.error,
-    loadAssessments,
-    saveAssessment,
-    removeAssessment,
-    duplicateAssessment,
-    resetAllAssessments,
-    refresh: loadAssessments
-  };
+    assessments: filteredAssessments, loading: state.loading, error: state.error, loadAssessments, saveAssessment, removeAssessment, duplicateAssessment, resetAllAssessments, refresh: loadAssessments };
 };

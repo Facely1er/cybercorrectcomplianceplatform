@@ -28,8 +28,7 @@ export interface Control {
   costs: ControlCosts;
   risks: ControlRisk[];
   exceptions: ControlException[];
-}
-
+    }
 export type ControlType = 
   | 'preventive'
   | 'detective'
@@ -213,14 +212,12 @@ export interface EscalationRule {
   delay: number; // minutes
   recipients: string[];
   actions: string[];
-}
-
+    }
 export interface SuppressionRule {
   condition: string;
   duration: number; // minutes
   reason: string;
-}
-
+    }
 export interface ReportingConfig {
   dashboards: string[];
   reports: string[];

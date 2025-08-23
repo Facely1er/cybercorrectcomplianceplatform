@@ -1,5 +1,6 @@
 // Production Authentication System
-import { ENV } from '../config/environment';
+import { ENV 
+    } from '../config/environment';
 import { supabase, isSupabaseReady } from './supabase';
 import { secureStorage } from './secureStorage';
 import { authRateLimiter, getClientId } from './rateLimiter';
@@ -59,7 +60,7 @@ class AuthService {
       if (storedSession && this.isValidSession(storedSession)) {
         this.currentSession = storedSession;
         this.scheduleTokenRefresh();
-      }
+    }
     } catch (error) {
       console.error('Failed to initialize session:', error);
       await this.clearSession();
@@ -73,8 +74,8 @@ class AuthService {
     
     if (!rateLimitResult.allowed) {
       return {
-        success: false,
-        error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
+        success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
+    } minutes.`
       };
     }
 
@@ -85,7 +86,8 @@ class AuthService {
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error: 'Invalid email format' };
+        return { success: false, error: 'Invalid email format' 
+    };
       }
 
       if (password.length < 8) {
@@ -96,10 +98,9 @@ class AuthService {
       
       if (isSupabaseReady()) {
         // Use Supabase authentication
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
+        const { data, error 
+    } = await supabase.auth.signInWithPassword({
+          email, password });
 
         if (error) {
           return { success: false, error: error.message };
@@ -110,51 +111,34 @@ class AuthService {
         }
 
         // Get user profile
-        const { data: profile } = await supabase
+        const { data: profile 
+    } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', data.user.id)
           .single();
 
         const user: AuthUser = {
-          id: data.user.id,
-          email: data.user.email!,
-          name: profile?.name || data.user.user_metadata?.name,
-          role: profile?.role || 'user',
-          organizationId: profile?.organization_id,
-          permissions: this.getRolePermissions(profile?.role || 'user'),
-          emailVerified: data.user.email_confirmed_at !== null,
-          lastLogin: new Date()
+          id: data.user.id, email: data.user.email!, name: profile?.name || data.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified: data.user.email_confirmed_at !== null, lastLogin: new Date()
         };
 
         const session: AuthSession = {
-          accessToken: data.session.access_token,
-          refreshToken: data.session.refresh_token,
-          expiresAt: data.session.expires_at! * 1000,
-          user
-        };
+          accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt: data.session.expires_at! * 1000, user };
 
         result = { success: true, session };
       } else {
         // Fallback to demo mode with enhanced security
         if (email === 'demo@example.com' && password === 'demo123!') {
           const user: AuthUser = {
-            id: 'demo-user-001',
-            email: 'demo@example.com',
-            name: 'Demo User',
-            role: 'admin',
-            permissions: this.getRolePermissions('admin'),
-            emailVerified: true,
-            lastLogin: new Date()
-          };
+            id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', role: 'admin', permissions: this.getRolePermissions('admin'), emailVerified: true, lastLogin: new Date()
+          
+    };
 
           // Generate JWT token for demo mode
           const session: AuthSession = {
-            accessToken: await this.generateDemoToken(user),
-            refreshToken: 'demo-refresh-token',
-            expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
-            user
-          };
+            accessToken: await this.generateDemoToken(user), refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
+            user 
+    };
 
           result = { success: true, session };
         } else {
@@ -167,7 +151,8 @@ class AuthService {
         
         // Store session if remember me is checked
         if (credentials.rememberMe) {
-          await secureStorage.setItem('auth_session', result.session, { expires: result.session.expiresAt });
+          await secureStorage.setItem('auth_session', result.session,) { expires: result.session.expiresAt 
+    });
         }
 
         this.scheduleTokenRefresh();
@@ -190,7 +175,8 @@ class AuthService {
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error: 'Invalid email format' };
+        return { success: false, error: 'Invalid email format' 
+    };
       }
 
       if (name.length < 2) {
@@ -203,13 +189,9 @@ class AuthService {
 
       if (isSupabaseReady()) {
         const { data: authData, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
+          email, password, options): {
             data: {
-              name,
-              organization: data.organization,
-              role: data.role || 'user'
+              name, organization: data.organization, role: data.role || 'user'
             }
           }
         });
@@ -219,13 +201,11 @@ class AuthService {
         }
 
         return { 
-          success: true, 
-          error: 'Please check your email to verify your account' 
+          success: true, error: 'Please check your email to verify your account' 
         };
       } else {
         return { 
-          success: false, 
-          error: 'Registration not available in demo mode' 
+          success: false, error: 'Registration not available in demo mode' 
         };
       }
     } catch (error) {
@@ -256,8 +236,7 @@ class AuthService {
 
       if (isSupabaseReady()) {
         const { data, error } = await supabase.auth.refreshSession({
-          refresh_token: this.currentSession.refreshToken
-        });
+          refresh_token: this.currentSession.refreshToken });
 
         if (error || !data.session) {
           await this.clearSession();
@@ -265,10 +244,7 @@ class AuthService {
         }
 
         const updatedSession: AuthSession = {
-          ...this.currentSession,
-          accessToken: data.session.access_token,
-          refreshToken: data.session.refresh_token,
-          expiresAt: data.session.expires_at! * 1000
+          ...this.currentSession, accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt: data.session.expires_at! * 1000
         };
 
         await this.setSession(updatedSession);
@@ -279,7 +255,7 @@ class AuthService {
           this.currentSession.expiresAt = Date.now() + (8 * 60 * 60 * 1000);
           await this.setSession(this.currentSession);
           return true;
-        }
+    }
       }
 
       return false;
@@ -294,8 +270,8 @@ class AuthService {
     this.currentSession = session;
     
     // Store in secure storage
-    await secureStorage.setItem('auth_session', session, {
-      expires: session.expiresAt
+    await secureStorage.setItem('auth_session', session,) {
+      expires: session.expiresAt 
     });
   }
 
@@ -319,7 +295,6 @@ class AuthService {
     if (this.refreshTimer) {
       clearTimeout(this.refreshTimer);
     }
-
     this.refreshTimer = setTimeout(async () => {
       const success = await this.refreshSession();
       if (success) {
@@ -345,14 +320,10 @@ class AuthService {
   private isValidPassword(password: string): boolean {
     // At least 8 characters, contains letters and numbers
     return password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
-  }
-
+    }
   private getRolePermissions(role: string): string[] {
     const rolePermissions: Record<string, string[]> = {
-      admin: ['read', 'write', 'delete', 'manage_users', 'manage_settings'],
-      manager: ['read', 'write', 'manage_team'],
-      user: ['read', 'write'],
-      viewer: ['read']
+      admin: ['read', 'write', 'delete', 'manage_users', 'manage_settings'], manager: ['read', 'write', 'manage_team'], user: ['read', 'write'], viewer: ['read']
     };
     
     return rolePermissions[role] || rolePermissions.user;
@@ -361,18 +332,14 @@ class AuthService {
   private async generateDemoToken(user: AuthUser): Promise<string> {
     if (!ENV.JWT_SECRET) {
       // Fallback demo token
-      return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) }));
+      return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) 
+    }));
     }
 
     try {
       const secret = new TextEncoder().encode(ENV.JWT_SECRET);
       const jwt = await new jose.SignJWT({
-        sub: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        permissions: user.permissions
-      })
+        sub: user.id, email: user.email, name: user.name, role: user.role, permissions: user.permissions })
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setExpirationTime('8h')
@@ -382,15 +349,15 @@ class AuthService {
     } catch (error) {
       console.error('Failed to generate JWT:', error);
       // Fallback to simple token
-      return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) }));
+      return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) 
+    }));
     }
   }
 
   // Public API
   getCurrentSession(): AuthSession | null {
     return this.currentSession;
-  }
-
+    }
   getCurrentUser(): AuthUser | null {
     return this.currentSession?.user || null;
   }
@@ -428,7 +395,8 @@ class AuthService {
 
       // Update current session
       if (this.currentSession) {
-        this.currentSession.user = { ...this.currentSession.user, ...updates };
+        this.currentSession.user = { ...this.currentSession.user, ...updates 
+    };
         await this.setSession(this.currentSession);
       }
 
@@ -451,8 +419,7 @@ class AuthService {
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.updateUser({
-          password: newPassword
-        });
+          password: newPassword });
 
         if (error) {
           return { success: false, error: error.message };
@@ -477,8 +444,8 @@ class AuthService {
       }
 
       if (isSupabaseReady()) {
-        const { error } = await supabase.auth.resetPasswordForEmail(sanitizedEmail, {
-          redirectTo: `${window.location.origin}/reset-password`
+        const { error } = await supabase.auth.resetPasswordForEmail(sanitizedEmail,) {
+          redirectTo: `${window.location.origin }/reset-password`
         });
 
         if (error) {
@@ -502,7 +469,7 @@ class AuthService {
         const decoded = JSON.parse(atob(token));
         if (decoded.exp > Date.now()) {
           return decoded;
-        }
+    }
         return null;
       }
 
@@ -510,13 +477,7 @@ class AuthService {
       const { payload } = await jose.jwtVerify(token, secret);
       
       return {
-        id: payload.sub!,
-        email: payload.email as string,
-        name: payload.name as string,
-        role: payload.role as string,
-        permissions: payload.permissions as string[],
-        emailVerified: true
-      };
+        id: payload.sub!, email: payload.email as string, name: payload.name as string, role: payload.role as string, permissions: payload.permissions as string[], emailVerified: true };
     } catch (error) {
       console.error('Token verification failed:', error);
       return null;
@@ -527,6 +488,7 @@ class AuthService {
   onSessionChange(callback: (session: AuthSession | null) => void): () => void {
     const interval = setInterval(() => {
       callback(this.currentSession);
+    
     }, 1000);
 
     return () => clearInterval(interval);
@@ -546,7 +508,6 @@ export const requireAuth = (component: React.ComponentType): React.ComponentType
       window.location.href = '/login';
       return null;
     }
-    
     return React.createElement(component, props);
   };
 };
@@ -556,7 +517,7 @@ export const requirePermission = (permission: string) => (component: React.Compo
     const hasPermission = authService.hasPermission(permission);
     
     if (!hasPermission) {
-      return React.createElement('div', {}, 'Access denied: Insufficient permissions');
+      return React.createElement('div',) {}, 'Access denied: Insufficient permissions');
     }
     
     return React.createElement(component, props);

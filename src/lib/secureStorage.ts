@@ -5,8 +5,7 @@ interface StorageOptions {
   encrypt?: boolean;
   ttl?: number; // Time to live in milliseconds
   compress?: boolean;
-}
-
+    }
 interface StoredData<T> {
   data: T;
   encrypted: boolean;
@@ -32,25 +31,18 @@ class SecureStorage {
       const { encrypt = false, ttl, compress = false } = options;
       
       const storedData: StoredData<T> = {
-        data: value,
-        encrypted: encrypt,
-        timestamp: Date.now(),
-        ttl,
-        version: this.currentVersion
-      };
+        data: value, encrypted: encrypt, timestamp: Date.now(), ttl, version: this.currentVersion };
 
       let serialized = JSON.stringify(storedData);
 
       // Encrypt in production if requested
       if (encrypt && ENV.isProduction) {
         serialized = await this.encrypt(serialized);
-      }
-
+    }
       // Compress if requested and data is large
       if (compress && serialized.length > 1000) {
         serialized = await this.compress(serialized);
-      }
-
+    }
       const storageKey = this.storagePrefix + key;
       localStorage.setItem(storageKey, serialized);
 
@@ -58,15 +50,15 @@ class SecureStorage {
       if (ttl) {
         setTimeout(() => {
           this.removeItem(key);
-        }, ttl);
+        
+    }, ttl);
       }
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'setItem' },
-        extra: { key, hasValue: !!value }
+        tags: { type: 'storageError', operation): 'setItem' }, extra: { key, hasValue: !!value }
       });
-      throw new Error(`Failed to store data: ${error}`);
+      throw new Error(`Failed to store data: ${error }`);
     }
   }
 
@@ -93,31 +85,28 @@ class SecureStorage {
           : decompressed;
 
         parsed = JSON.parse(decrypted);
-      } catch (parseError) {
+      
+    } catch (parseError) {
         // Handle legacy data or corrupted data
         console.warn('Failed to parse stored data, removing:', key);
         this.removeItem(key);
         return null;
-      }
-
+    }
       // Check TTL
       if (parsed.ttl && Date.now() > (parsed.timestamp + parsed.ttl)) {
         this.removeItem(key);
         return null;
-      }
-
+    }
       // Check version compatibility
       if (parsed.version !== this.currentVersion) {
         console.warn('Version mismatch for stored data:', key);
         // Could implement migration logic here
-      }
-
+    }
       return parsed.data;
 
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'getItem' },
-        extra: { key }
+        tags: { type: 'storageError', operation): 'getItem' }, extra: { key }
       });
       return null;
     }
@@ -129,8 +118,7 @@ class SecureStorage {
       localStorage.removeItem(storageKey);
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'removeItem' },
-        extra: { key }
+        tags: { type: 'storageError', operation): 'removeItem' }, extra: { key }
       });
     }
   }
@@ -138,20 +126,21 @@ class SecureStorage {
   clear(): void {
     try {
       const keys = Object.keys(localStorage);
-      keys.forEach(key => {
+      keys.forEach(key =>) {
         if (key.startsWith(this.storagePrefix)) {
           localStorage.removeItem(key);
         }
       });
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'clear' }
+        tags:) { type: 'storageError', operation: 'clear' }
       });
     }
   }
 
   // Get storage usage statistics
-  getStorageInfo(): { used: number; total: number; percentage: number; itemCount: number } {
+  getStorageInfo(): { used: number; total: number; percentage: number; itemCount: number 
+    } {
     try {
       let totalSize = 0;
       let itemCount = 0;
@@ -167,14 +156,11 @@ class SecureStorage {
       const percentage = (totalSize / estimatedTotal) * 100;
 
       return {
-        used: totalSize,
-        total: estimatedTotal,
-        percentage: Math.min(percentage, 100),
-        itemCount
-      };
+        used: totalSize, total: estimatedTotal, percentage: Math.min(percentage, 100), itemCount 
+    };
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'getStorageInfo' }
+        tags:) { type: 'storageError', operation: 'getStorageInfo' }
       });
       return { used: 0, total: 0, percentage: 0, itemCount: 0 };
     }
@@ -186,13 +172,13 @@ class SecureStorage {
       const keys = Object.keys(localStorage);
       keys.forEach(async (key) => {
         if (key.startsWith(this.storagePrefix)) {
-          const item = await this.getItem(key.substring(this.storagePrefix.length));
+          
           // getItem will automatically remove expired items
-        }
+    }
       });
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'storageError', operation: 'cleanup' }
+        tags:) { type: 'storageError', operation: 'cleanup' }
       });
     }
   }
@@ -203,7 +189,6 @@ class SecureStorage {
     if (ENV.isDevelopment) {
       return 'encrypted:' + btoa(data);
     }
-
     // Production encryption would use Web Crypto API
     try {
       const encoder = new TextEncoder();
@@ -211,22 +196,20 @@ class SecureStorage {
       
       // Generate a key (in production, this would be derived from user password or stored securely)
       const key = await crypto.subtle.generateKey(
-        { name: 'AES-GCM', length: 256 },
-        false,
+       ) { name: 'AES-GCM', length: 256 
+    }, false,
         ['encrypt', 'decrypt']
       );
 
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const encrypted = await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv },
-        key,
-        dataBuffer
+       ) { name: 'AES-GCM', iv }, key, dataBuffer
       );
 
       return 'encrypted:' + btoa(String.fromCharCode(...new Uint8Array(encrypted)));
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'encryptionError' }
+        tags:) { type: 'encryptionError' }
       });
       return data; // Fallback to unencrypted
     }
@@ -237,21 +220,17 @@ class SecureStorage {
     if (ENV.isDevelopment && encryptedData.startsWith('encrypted:')) {
       return atob(encryptedData.substring(10));
     }
-
     // Production decryption logic would go here
     return encryptedData;
-  }
-
+    }
   private async compress(data: string): Promise<string> {
     // Simple compression placeholder
     // In production, use CompressionStream or similar
     return 'compressed:' + data;
-  }
-
+    }
   private async decompress(compressedData: string): Promise<string> {
     // Simple decompression placeholder
     return compressedData;
-  }
+    }
 }
 
-export const secureStorage = SecureStorage.getInstance();

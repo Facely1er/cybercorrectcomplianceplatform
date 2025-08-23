@@ -15,6 +15,7 @@ export const useOfflineSupport = () => {
       setShowOfflineNotice(true);
       // Auto-hide offline notice after 5 seconds
       setTimeout(() => setShowOfflineNotice(false), 5000);
+    
     };
 
     window.addEventListener('online', handleOnline);
@@ -27,7 +28,5 @@ export const useOfflineSupport = () => {
   }, []);
 
   return {
-    isOnline,
-    showOfflineNotice
-  };
+    isOnline, showOfflineNotice };
 };

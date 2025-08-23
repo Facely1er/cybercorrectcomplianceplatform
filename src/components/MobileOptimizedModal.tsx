@@ -11,20 +11,15 @@ interface MobileOptimizedModalProps {
 }
 
 export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  size = 'md',
-  showCloseButton = true
-}) => {
+  isOpen, onClose, title, children, size = 'md', showCloseButton = true }) => {
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = 'unset';
-      };
+      
+    };
     }
   }, [isOpen]);
 
@@ -33,7 +28,7 @@ export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
         onClose();
-      }
+    }
     };
 
     window.addEventListener('keydown', handleEscape);
@@ -43,10 +38,7 @@ export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
   if (!isOpen) return null;
 
   const sizeClasses = {
-    sm: 'max-w-sm',
-    md: 'max-w-2xl',
-    lg: 'max-w-4xl',
-    xl: 'max-w-6xl'
+    sm: 'max-w-sm', md: 'max-w-2xl', lg: 'max-w-4xl', xl: 'max-w-6xl'
   };
 
   return (
@@ -61,11 +53,11 @@ export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
           <h2 id="modal-title" className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
-            {title}
+            {title }
           </h2>
           {showCloseButton && (
             <button
-              onClick={onClose}
+              onClick={onClose }
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               aria-label="Close modal"
             >
@@ -76,7 +68,7 @@ export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
         
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-          {children}
+          {children }
         </div>
       </div>
     </div>

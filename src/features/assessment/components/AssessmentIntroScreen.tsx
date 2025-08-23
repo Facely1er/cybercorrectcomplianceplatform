@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  ChevronLeft, Play, Target, BarChart3, Shield, 
-  CheckCircle, AlertCircle, BookOpen, Users, 
-  Building, Globe, Zap, Star, ArrowRight,
-  FileText, Lightbulb, Lock
-} from 'lucide-react';
+import { ChevronLeftCheckCircle, AlertCircle, BookOpen, Building, Globe, ZapLightbulb, Lock } from 'lucide-react';
 import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -16,20 +11,16 @@ interface AssessmentIntroScreenProps {
 }
 
 export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
-  frameworks,
-  onStartAssessment,
-  onBack
-}) => {
+  frameworks, onStartAssessment, onBack 
+    }) => {
   const { breadcrumbs } = useInternalLinking();
   const [showOrganizationForm, setShowOrganizationForm] = useState(false);
   const [selectedFramework, setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
   const [organizationInfo, setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
     name: '', // Default to empty string
-    industry: '',
-    size: '',
-    location: '',
-    assessor: ''
-  });
+    industry: '', size: '', location: '', assessor: ''
+  
+    });
 
   // Get the currently selected framework
   const currentFramework = frameworks.find(f => f.id === selectedFramework) || frameworks[0];
@@ -84,8 +75,6 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
   const totalQuestions = currentFramework.sections.reduce((sum, section) => 
     sum + section.categories.reduce((catSum, category) => 
       catSum + category.questions.length, 0), 0);
-
-
 
   const getFrameworkBenefits = (frameworkId: string) => {
     const benefits: Record<string, string[]> = {
@@ -219,6 +208,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
         'Record access and disclosure procedures',
         'Physical and technical safeguards for records'
       ]
+    
     };
     return checklists[frameworkId] || [];
   };
@@ -234,7 +224,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -243,7 +233,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack}
+                onClick={onBack }
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -287,8 +277,8 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                 {frameworks.map((framework) => (
-                  <div key={framework.id} className="bg-white dark:bg-gray-700 p-3 rounded-lg">
-                    <div className="font-medium text-gray-900 dark:text-white">{framework.name}</div>
+                  <div key={framework.id } className="bg-white dark:bg-gray-700 p-3 rounded-lg">
+                    <div className="font-medium text-gray-900 dark:text-white">{framework.name }</div>
                     <div className="text-blue-600 dark:text-blue-400">
                       {framework.id === 'cmmc' ? '110 controls' : 
                        framework.id === 'privacy' ? '73 questions' :
@@ -310,7 +300,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 
                 return (
                   <button
-                    key={framework.id}
+                    key={framework.id }
                     onClick={() => setSelectedFramework(framework.id)}
                     className={`p-6 border-2 rounded-xl text-left transition-all duration-200 hover:shadow-lg ${
                       isSelected
@@ -338,7 +328,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                               ? 'text-blue-900 dark:text-blue-100' 
                               : 'text-gray-900 dark:text-white'
                           }`}>
-                            {framework.name}
+                            {framework.name }
                           </h3>
                           {framework.id === 'nist-csf-v2-extended' && (
                             <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-xs font-medium rounded-full">
@@ -356,7 +346,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                             </span>
                           )}
                           <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getComplexityColor(framework.complexity)}`}>
-                            {framework.complexity}
+                            {framework.complexity }
                           </span>
                         </div>
                         
@@ -365,7 +355,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                             ? 'text-blue-700 dark:text-blue-300' 
                             : 'text-gray-600 dark:text-gray-300'
                         }`}>
-                          {framework.description}
+                          {framework.description }
                         </p>
                         
                         <div className="grid grid-cols-3 gap-4 text-sm">
@@ -418,12 +408,12 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             <div className="flex items-center space-x-3 mb-6">
               <FrameworkIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {currentFramework.name} Overview
+                {currentFramework.name } Overview
               </h2>
             </div>
             
             <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
-              {currentFramework.description}
+              {currentFramework.description }
             </p>
 
             {/* Key Metrics */}
@@ -439,7 +429,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               
               <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
                 <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">
-                  {totalQuestions}
+                  {totalQuestions }
                 </div>
                 <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {currentFramework.id === 'cmmc' ? 'Controls' : 'Questions'}
@@ -484,9 +474,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
                 {getFrameworkBenefits(currentFramework.id).map((benefit, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                  <div key={index } className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">{benefit}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{benefit }</span>
                   </div>
                 ))}
               </div>
@@ -502,10 +492,10 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 <div className="flex flex-wrap gap-3">
                   {currentFramework.industry.map((industry, index) => (
                     <span
-                      key={index}
+                      key={index }
                       className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-800"
                     >
-                      {industry}
+                      {industry }
                     </span>
                   ))}
                 </div>
@@ -557,7 +547,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                   sum + cat.questions.filter(q => q.priority === 'high').length, 0);
                 
                 return (
-                  <div key={section.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-md transition-shadow">
+                  <div key={section.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
@@ -565,14 +555,14 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                             {index + 1}
                           </div>
                           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                            {section.name}
+                            {section.name }
                           </h3>
                           <span className={`px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(section.priority)}`}>
-                            {section.priority} priority
+                            {section.priority } priority
                           </span>
                         </div>
                         <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                          {section.description}
+                          {section.description }
                         </p>
                       </div>
                     </div>
@@ -581,19 +571,19 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                       <div className="flex items-center space-x-2">
                         <FileText className="w-4 h-4 text-gray-500" />
                         <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {sectionQuestions} questions
+                          {sectionQuestions } questions
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <AlertCircle className="w-4 h-4 text-red-500" />
                         <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {highPriorityInSection} high priority
+                          {highPriorityInSection } high priority
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <BarChart3 className="w-4 h-4 text-blue-500" />
                         <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {section.weight}% weight
+                          {section.weight }% weight
                         </span>
                       </div>
                     </div>
@@ -601,15 +591,15 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                     {/* Categories Preview */}
                     <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                       <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Categories ({section.categories.length}):
+                        Categories ({section.categories.length }):
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {section.categories.map((category, catIndex) => (
                           <span
-                            key={catIndex}
+                            key={catIndex }
                             className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs"
                           >
-                            {category.name}
+                            {category.name }
                           </span>
                         ))}
                       </div>
@@ -633,9 +623,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             
             <div className="grid md:grid-cols-2 gap-4">
               {getPreparationChecklist(currentFramework.id).map((item, index) => (
-                <div key={index} className="flex items-start space-x-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                <div key={index } className="flex items-start space-x-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
                   <div className="w-6 h-6 border-2 border-yellow-500 rounded flex-shrink-0 mt-0.5"></div>
-                  <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                  <span className="text-gray-700 dark:text-gray-300">{item }</span>
                 </div>
               ))}
             </div>
@@ -654,7 +644,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               <div className="flex items-center justify-between">
                 <span className="text-gray-600 dark:text-gray-300">Version</span>
                 <span className="font-medium text-gray-900 dark:text-white">
-                  {currentFramework.version}
+                  {currentFramework.version }
                 </span>
               </div>
               
@@ -707,17 +697,17 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               </h4>
               <div className="space-y-2">
                 {currentFramework?.maturityLevels?.map((level, index) => (
-                  <div key={index} className="flex items-center space-x-3">
+                  <div key={index } className="flex items-center space-x-3">
                     <div 
                       className="w-4 h-4 rounded-full"
                       style={{ backgroundColor: level.color }}
                     />
                     <div>
                       <div className="font-medium text-gray-900 dark:text-white text-sm">
-                        {level.name}
+                        {level.name }
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-300">
-                        {level.minScore}-{level.maxScore}%
+                        {level.minScore }-{level.maxScore }%
                       </div>
                     </div>
                   </div>
@@ -791,7 +781,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               Organization Information (Optional)
             </h3>
             
-            <form onSubmit={handleOrganizationSubmit} className="space-y-4">
+            <form onSubmit={handleOrganizationSubmit } className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Organization Name

@@ -34,32 +34,27 @@ class ApiClient {
     return ApiClient.instance;
   }
 
-  setAuthToken(token: string | null) {
+  setAuthToken(token): string | null {
     this.authToken = token;
   }
 
   private async makeRequest<T>(
-    endpoint: string, 
-    config: ApiRequestConfig = {}
+    endpoint: string, config: ApiRequestConfig = {}
   ): Promise<ApiResponse<T>> {
     const {
-      method = 'GET',
-      headers = {},
-      body,
-      timeout = this.defaultTimeout,
-      retries = 3
+      method = 'GET', headers = {}, body, timeout = this.defaultTimeout, retries = 3
     } = config;
 
-    const url = `${this.baseURL}${endpoint}`;
+    const url = `${this.baseURL }${endpoint }`;
     
     const requestHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
-      ...headers
-    };
+      ...headers };
 
     // Add auth token if available
     if (this.authToken) {
-      requestHeaders['Authorization'] = `Bearer ${this.authToken}`;
+      requestHeaders['Authorization'] = `Bearer ${this.authToken 
+    }`;
     }
 
     // Add CSRF token in production
@@ -67,53 +62,46 @@ class ApiClient {
       const csrfToken = this.getCSRFToken();
       if (csrfToken) {
         requestHeaders['X-CSRF-Token'] = csrfToken;
-      }
+    }
     }
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     try {
-      const response = await fetch(url, {
-        method,
-        headers: requestHeaders,
-        body: body ? JSON.stringify(body) : undefined,
-        signal: controller.signal,
-        credentials: 'include' // Include cookies for CSRF protection
-      });
+      const response = await fetch(url,) {
+        method, headers: requestHeaders, body: body ? JSON.stringify(body) : undefined, signal: controller.signal, credentials: 'include' // Include cookies for CSRF protection 
+    });
 
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        throw new Error(`HTTP ${response.status }: ${response.statusText }`);
       }
 
       const data = await response.json();
 
       return {
-        data,
-        status: response.status,
-        headers: response.headers,
-        ok: response.ok
-      };
+        data, status: response.status, headers: response.headers, ok: response.ok };
 
     } catch (error) {
       clearTimeout(timeoutId);
       
       if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error(`Request timeout after ${timeout}ms`);
+        throw new Error(`Request timeout after ${timeout }ms`);
       }
 
       // Retry logic for transient errors
       if (retries > 0 && this.isRetryableError(error)) {
         await this.delay(1000 * (4 - retries)); // Exponential backoff
-        return this.makeRequest(endpoint, { ...config, retries: retries - 1 });
+        return this.makeRequest(endpoint,) { ...config, retries: retries - 1 
+    });
       }
 
       // Log error for monitoring
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'apiError', endpoint, method },
-        extra: { url, body }
+        tags: { type): 'apiError', endpoint, method 
+    }, extra: { url, body }
       });
 
       throw error;
@@ -125,8 +113,7 @@ class ApiClient {
     return error.message.includes('fetch') || 
            error.message.includes('timeout') ||
            error.message.includes('50');
-  }
-
+    }
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -137,7 +124,8 @@ class ApiClient {
 
   // HTTP Methods
   async get<T>(endpoint: string, config?: Omit<ApiRequestConfig, 'method' | 'body'>): Promise<ApiResponse<T>> {
-    return this.makeRequest<T>(endpoint, { ...config, method: 'GET' });
+    return this.makeRequest<T>(endpoint, { ...config, method: 'GET' 
+    });
   }
 
   async post<T>(endpoint: string, body?: any, config?: Omit<ApiRequestConfig, 'method'>): Promise<ApiResponse<T>> {
@@ -157,4 +145,3 @@ class ApiClient {
   }
 }
 
-export const apiClient = ApiClient.getInstance();

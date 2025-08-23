@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronRight, ChevronLeft, CheckCircle, Target, BarChart3, Shield, FileText } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle } from 'lucide-react';
 
 interface OnboardingStep {
   id: string;
@@ -19,48 +19,26 @@ interface UserOnboardingProps {
 }
 
 export const UserOnboarding: React.FC<UserOnboardingProps> = ({
-  isFirstVisit,
-  onComplete,
-  onSkip
-}) => {
+  isFirstVisit, onComplete, onSkip }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(isFirstVisit);
 
   const steps: OnboardingStep[] = [
     {
-      id: 'welcome',
-      title: 'Welcome to CyberCorrect™',
-      description: 'Your comprehensive cybersecurity compliance platform for NIST CSF v2.0, CMMC, and Privacy frameworks.',
-      icon: Shield
-    },
+      id: 'welcome', title: 'Welcome to CyberCorrect™', description: 'Your comprehensive cybersecurity compliance platform for NIST CSF v2.0, CMMC, and Privacy frameworks.', icon: Shield },
     {
-      id: 'assessment',
-      title: 'Start with an Assessment',
-      description: 'Begin by choosing a framework assessment to evaluate your current cybersecurity posture.',
-      icon: Target,
-      action: {
-        label: 'Start Assessment',
-        onClick: () => window.location.href = '/assessment-intro'
+      id: 'assessment', title: 'Start with an Assessment', description: 'Begin by choosing a framework assessment to evaluate your current cybersecurity posture.', icon: Target, action: {
+        label: 'Start Assessment', onClick: () => window.location.href = '/assessment-intro'
       }
     },
     {
-      id: 'dashboard',
-      title: 'Monitor Your Progress',
-      description: 'Use the dashboard to track implementation progress and view real-time compliance status.',
-      icon: BarChart3,
-      action: {
-        label: 'View Dashboard',
-        onClick: () => window.location.href = '/dashboard'
+      id: 'dashboard', title: 'Monitor Your Progress', description: 'Use the dashboard to track implementation progress and view real-time compliance status.', icon: BarChart3, action: {
+        label: 'View Dashboard', onClick: () => window.location.href = '/dashboard'
       }
     },
     {
-      id: 'evidence',
-      title: 'Collect Evidence',
-      description: 'Systematically collect and manage compliance evidence for audits and assessments.',
-      icon: FileText,
-      action: {
-        label: 'Manage Evidence',
-        onClick: () => window.location.href = '/evidence'
+      id: 'evidence', title: 'Collect Evidence', description: 'Systematically collect and manage compliance evidence for audits and assessments.', icon: FileText, action: {
+        label: 'Manage Evidence', onClick: () => window.location.href = '/evidence'
       }
     }
   ];
@@ -104,7 +82,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
           <div className="flex space-x-2">
             {steps.map((_, index) => (
               <div
-                key={index}
+                key={index }
                 className={`w-2 h-2 rounded-full transition-colors ${
                   index <= currentStep ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
                 }`}
@@ -112,7 +90,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
             ))}
           </div>
           <button
-            onClick={handleSkip}
+            onClick={handleSkip }
             className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
           >
             Skip tour
@@ -126,11 +104,11 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
           </div>
           
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-            {currentStepData.title}
+            {currentStepData.title }
           </h3>
           
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-            {currentStepData.description}
+            {currentStepData.description }
           </p>
         </div>
 
@@ -138,16 +116,16 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
         <div className="space-y-4">
           {currentStepData.action && (
             <button
-              onClick={currentStepData.action.onClick}
+              onClick={currentStepData.action.onClick }
               className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
-              {currentStepData.action.label}
+              {currentStepData.action.label }
             </button>
           )}
           
           <div className="flex space-x-3">
             <button
-              onClick={prevStep}
+              onClick={prevStep }
               disabled={currentStep === 0}
               className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
@@ -156,7 +134,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
             </button>
             
             <button
-              onClick={nextStep}
+              onClick={nextStep }
               className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
             >
               <span>{currentStep === steps.length - 1 ? 'Get Started' : 'Next'}</span>

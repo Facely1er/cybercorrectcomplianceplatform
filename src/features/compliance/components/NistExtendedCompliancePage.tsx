@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const NistExtendedCompliancePage: React.FC = () => {

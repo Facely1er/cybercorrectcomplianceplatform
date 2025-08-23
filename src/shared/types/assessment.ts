@@ -47,7 +47,8 @@ export interface AssessmentData {
     organizationSize?: string;
     complexity?: 'basic' | 'intermediate' | 'advanced';
     prefilledQuestions?: number;
-  };
+  
+    };
 }
 
 export interface OrganizationInfo {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, Download, Upload, Trash2, RefreshCw, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import { ChevronLeft, SaveCheckCircle, Info } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAssessments } from '../../hooks/useAssessments';
@@ -25,6 +25,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setStorageUsage(dataService.getStorageUsage());
+    
     }, 5000);
     
     return () => clearInterval(interval);
@@ -38,13 +39,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     // This would normally come from props, but we'll implement it locally for now
-    console.log(`${type.toUpperCase()}: ${message}`);
+    console.log(`${type.toUpperCase()
+    }: ${message }`);
   };
 
   const handleExportAllData = () => {
     try {
       const backupData = dataService.createBackup();
-      const dataBlob = new Blob([backupData], { type: 'application/json;charset=utf-8' });
+      const dataBlob = new Blob([backupData],) { type: 'application/json;charset=utf-8' });
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
@@ -57,7 +59,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
       addNotification('success', 'Data exported successfully');
     } catch (error) {
       console.error('Export failed:', error);
-      addNotification('error', `Failed to export data: ${(error as Error).message}`);
+      addNotification('error', `Failed to export data: ${(error as Error).message }`);
     }
   };
 
@@ -70,7 +72,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
       addNotification('error', 'Please select a valid JSON backup file');
       return;
     }
-    
     // Check file size (max 50MB)
     if (file.size > 50 * 1024 * 1024) {
       addNotification('error', 'File too large. Maximum size is 50MB');
@@ -84,14 +85,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         // Validate imported data structure
         if (!importedData.version && !importedData.assessments && !importedData.backupDate) {
           throw new Error('Invalid backup file format');
-        }
-        
+    }
         // Show confirmation dialog with import details
         const itemCount = (importedData.assessments?.length || 0) + 
                          (importedData.assets?.length || 0) + 
                          (importedData.tasks?.length || 0);
         
-        const confirmMessage = `Import ${itemCount} items from backup?\n\n` +
+        const confirmMessage = `Import ${itemCount 
+    } items from backup?\n\n` +
           `• ${importedData.assessments?.length || 0} assessments\n` +
           `• ${importedData.assets?.length || 0} assets\n` +
           `• ${importedData.tasks?.length || 0} tasks\n` +
@@ -106,7 +107,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         // Use restore from backup if it's a backup file, otherwise use import
         if (importedData.backupDate || importedData.backupId) {
           dataService.restoreFromBackup(e.target?.result as string);
-        } else {
+        
+    } else {
           dataService.importAllData(importedData);
         }
         
@@ -114,20 +116,21 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         setSettings(dataService.getSettings());
         
         setImportStatus('success');
-        addNotification('success', `Successfully imported ${itemCount} items`);
+        addNotification('success', `Successfully imported ${itemCount 
+    } items`);
         setTimeout(() => setImportStatus('idle'), 3000);
         
         // Refresh page to show imported data
         setTimeout(() => {
           if (window.confirm('Data imported successfully! Refresh the page to see imported data?')) {
             window.location.reload();
-          }
+    }
         }, 1500);
         
       } catch (error) {
         console.error('Import error:', error);
         setImportStatus('error');
-        addNotification('error', `Failed to import data: ${(error as Error).message}`);
+        addNotification('error', `Failed to import data: ${(error as Error).message }`);
         setTimeout(() => setImportStatus('idle'), 3000);
       }
     };
@@ -161,6 +164,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
       
       // Reload the application
       window.location.reload();
+    
     } catch (error) {
       console.error('Failed to reset data:', error);
       alert('Failed to reset data. Please try again.');
@@ -169,13 +173,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true,
-      emailNotifications: false,
-      reportFormat: 'detailed' as const,
-      dataRetention: '12' as const,
-      autoBackup: false,
-      backupFrequency: 'weekly' as const
-    };
+      autoSave: true, emailNotifications: false, reportFormat: 'detailed' as const, dataRetention: '12' as const, autoBackup: false, backupFrequency: 'weekly' as const };
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
@@ -185,12 +183,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     if (percentage > 80) return 'text-red-600 dark:text-red-400';
     if (percentage > 60) return 'text-yellow-600 dark:text-yellow-400';
     return 'text-green-600 dark:text-green-400';
-  };
+  
+    };
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -199,7 +198,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack}
+                onClick={onBack }
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -211,7 +210,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               </h1>
             </div>
             <button
-              onClick={resetSettings}
+              onClick={resetSettings }
               className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
@@ -264,7 +263,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={toggleTheme}
+                onClick={toggleTheme }
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   theme === 'dark' ? 'bg-blue-600' : 'bg-gray-200'
                 }`}
@@ -331,7 +330,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <select
-                value={settings.reportFormat}
+                value={settings.reportFormat }
                 onChange={(e) => handleSettingChange('reportFormat', e.target.value)}
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
@@ -375,7 +374,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   </p>
                 </div>
                 <select
-                  value={settings.backupFrequency}
+                  value={settings.backupFrequency }
                   onChange={(e) => handleSettingChange('backupFrequency', e.target.value)}
                   className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
@@ -471,7 +470,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <select
-                value={settings.dataRetention}
+                value={settings.dataRetention }
                 onChange={(e) => handleSettingChange('dataRetention', e.target.value)}
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
@@ -488,7 +487,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               </h3>
               <div className="flex flex-wrap gap-3 mb-4">
                 <button
-                  onClick={handleExportAllData}
+                  onClick={handleExportAllData }
                   className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Download className="w-4 h-4" />
@@ -501,7 +500,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   <input 
                     type="file" 
                     accept=".json" 
-                    onChange={handleImport}
+                    onChange={handleImport }
                     className="hidden" 
                   />
                 </label>
@@ -611,7 +610,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   </button>
                   
                   <button
-                    onClick={clearAllData}
+                    onClick={clearAllData }
                     className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                       showDeleteConfirm 
                         ? 'bg-alert-coral/90 text-white' 
@@ -634,8 +633,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               
               <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
                 <p className="text-xs text-red-700 dark:text-red-300">
-                  <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, 
-                  evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
+                  <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
                 </p>
               </div>
             </div>

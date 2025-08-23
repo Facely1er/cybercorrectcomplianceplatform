@@ -1,11 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  AlertTriangle, Target, TrendingUp, CheckCircle, Clock,
-  BarChart3, Shield, Award, Plus, ArrowRight, Lightbulb,
-  Calendar, Users, FileText, Settings, Star
-} from 'lucide-react';
+import { CheckCircleLightbulb } from 'lucide-react';
 import { AssessmentData } from '../../../shared/types';
-import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
+
 import { BarChart } from '../../../shared/components/charts/BarChart';
 
 interface ComplianceGapAnalyzerProps {
@@ -28,10 +24,7 @@ interface GapAnalysis {
 }
 
 export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
-  savedAssessments,
-  onStartAssessment,
-  addNotification
-}) => {
+  savedAssessments, onStartAssessment, addNotification }) => {
   const [selectedAssessment, setSelectedAssessment] = useState<string>('latest');
   const [targetMaturityLevel, setTargetMaturityLevel] = useState<number>(3); // Repeatable level
 
@@ -45,11 +38,12 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     if (!assessment) return [];
 
     const framework = getFramework(assessment.frameworkId);
-    return framework.sections.map(section => {
+    return framework.sections.map(section =>) {
       // Calculate current score for this function
       const sectionQuestions = section.categories.reduce((questions, category) => {
         return [...questions, ...category.questions];
-      }, [] as any[]);
+      
+    }, [] as any[]);
       
       const sectionResponses = sectionQuestions
         .map(q => assessment.responses[q.id])
@@ -67,17 +61,9 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
       const timeframe = gap > 40 ? '6-12 months' : gap > 20 ? '3-6 months' : '1-3 months';
 
       return {
-        functionName: section.name,
-        currentScore,
-        targetScore,
-        gap,
-        priority,
-        recommendations: generateRecommendations(section.id, gap),
-        estimatedEffort,
-        timeframe,
-        businessImpact: getBusinessImpact(section.id, gap),
-        requiredActions: getRequiredActions(section.id, gap)
-      } as GapAnalysis;
+        functionName: section.name, currentScore, targetScore, gap, priority, recommendations: generateRecommendations(section.id, gap), estimatedEffort, timeframe, businessImpact: getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
+      
+    } as GapAnalysis;
     }).filter(analysis => analysis.gap > 0);
   }, [savedAssessments, selectedAssessment, targetMaturityLevel]);
 
@@ -215,7 +201,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
             Complete a NIST CSF v2.0 assessment to generate comprehensive gap analysis and implementation recommendations.
           </p>
           <button
-            onClick={onStartAssessment}
+            onClick={onStartAssessment }
             className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 inline-flex items-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             <Plus className="w-5 h-5" />
@@ -253,20 +239,20 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
             
             <div className="flex items-center space-x-4">
               <select
-                value={selectedAssessment}
+                value={selectedAssessment }
                 onChange={(e) => setSelectedAssessment(e.target.value)}
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="latest">Latest Assessment</option>
                 {savedAssessments.map(assessment => (
-                  <option key={assessment.id} value={assessment.id}>
-                    {new Date(assessment.lastModified).toLocaleDateString()}
+                  <option key={assessment.id } value={assessment.id }>
+                   ) {new Date(assessment.lastModified).toLocaleDateString()}
                   </option>
                 ))}
               </select>
               
               <select
-                value={targetMaturityLevel}
+                value={targetMaturityLevel }
                 onChange={(e) => setTargetMaturityLevel(Number(e.target.value))}
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
@@ -285,7 +271,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Average Gap</p>
-              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{avgGap}%</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{avgGap }%</p>
             </div>
             <Target className="w-8 h-8 text-orange-600 dark:text-orange-400" />
           </div>
@@ -295,7 +281,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Critical Gaps</p>
-              <p className="text-3xl font-bold text-red-600 dark:text-red-400">{criticalGaps}</p>
+              <p className="text-3xl font-bold text-red-600 dark:text-red-400">{criticalGaps }</p>
             </div>
             <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
           </div>
@@ -305,7 +291,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">High Priority</p>
-              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{highGaps}</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{highGaps }</p>
             </div>
             <Clock className="w-8 h-8 text-orange-600 dark:text-orange-400" />
           </div>
@@ -315,7 +301,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Functions Analyzed</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{gapAnalysis.length}</p>
+              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{gapAnalysis.length }</p>
             </div>
             <BarChart3 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
           </div>
@@ -331,28 +317,15 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         <div className="h-80">
           <BarChart
             data={{
-              labels: gapAnalysis.map(analysis => analysis.functionName),
-              datasets: [
+              labels: gapAnalysis.map(analysis => analysis.functionName), datasets: [
                 {
-                  label: 'Current Score',
-                  data: gapAnalysis.map(analysis => analysis.currentScore),
-                  backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                  borderColor: 'rgba(59, 130, 246, 1)',
-                  borderWidth: 2
+                  label: 'Current Score', data: gapAnalysis.map(analysis => analysis.currentScore), backgroundColor: 'rgba(59, 130, 246, 0.8)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 2
                 },
                 {
-                  label: 'Target Score',
-                  data: gapAnalysis.map(analysis => analysis.targetScore),
-                  backgroundColor: 'rgba(34, 197, 94, 0.8)',
-                  borderColor: 'rgba(34, 197, 94, 1)',
-                  borderWidth: 2
+                  label: 'Target Score', data: gapAnalysis.map(analysis => analysis.targetScore), backgroundColor: 'rgba(34, 197, 94, 0.8)', borderColor: 'rgba(34, 197, 94, 1)', borderWidth: 2
                 },
                 {
-                  label: 'Gap',
-                  data: gapAnalysis.map(analysis => analysis.gap),
-                  backgroundColor: 'rgba(239, 68, 68, 0.8)',
-                  borderColor: 'rgba(239, 68, 68, 1)',
-                  borderWidth: 2
+                  label: 'Gap', data: gapAnalysis.map(analysis => analysis.gap), backgroundColor: 'rgba(239, 68, 68, 0.8)', borderColor: 'rgba(239, 68, 68, 1)', borderWidth: 2
                 }
               ]
             }}
@@ -369,25 +342,25 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         </h2>
         
         {gapAnalysis.map((analysis, index) => (
-          <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+          <div key={index } className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
                 <div className="flex items-center space-x-3 mb-2">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                    {analysis.functionName}
+                    {analysis.functionName }
                   </h3>
                   <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getPriorityColor(analysis.priority)}`}>
                     {analysis.priority.toUpperCase()} PRIORITY
                   </span>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  {analysis.businessImpact}
+                  {analysis.businessImpact }
                 </p>
               </div>
               
               <div className="text-right">
                 <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-1">
-                  {analysis.gap}%
+                  {analysis.gap }%
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">Gap to Target</div>
               </div>
@@ -397,14 +370,14 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
             <div className="grid md:grid-cols-4 gap-4 mb-6">
               <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {analysis.currentScore}%
+                  {analysis.currentScore }%
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">Current Score</div>
               </div>
               
               <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
                 <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {analysis.targetScore}%
+                  {analysis.targetScore }%
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">Target Score</div>
               </div>
@@ -413,7 +386,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
                 {getEffortIcon(analysis.estimatedEffort)}
                 <div className="text-center">
                   <div className="font-medium text-gray-900 dark:text-white capitalize">
-                    {analysis.estimatedEffort}
+                    {analysis.estimatedEffort }
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-300">Effort</div>
                 </div>
@@ -421,7 +394,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
               
               <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
                 <div className="text-lg font-bold text-purple-600 dark:text-purple-400">
-                  {analysis.timeframe}
+                  {analysis.timeframe }
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">Timeframe</div>
               </div>
@@ -435,9 +408,9 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
               </h4>
               <div className="grid md:grid-cols-2 gap-3">
                 {analysis.recommendations.map((rec, recIndex) => (
-                  <div key={recIndex} className="flex items-start space-x-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <div key={recIndex } className="flex items-start space-x-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                     <Star className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-blue-800 dark:text-blue-200 text-sm">{rec}</span>
+                    <span className="text-blue-800 dark:text-blue-200 text-sm">{rec }</span>
                   </div>
                 ))}
               </div>
@@ -451,11 +424,11 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
               </h4>
               <div className="grid md:grid-cols-2 gap-2">
                 {analysis.requiredActions.map((action, actionIndex) => (
-                  <div key={actionIndex} className="flex items-start space-x-2">
+                  <div key={actionIndex } className="flex items-start space-x-2">
                     <div className="flex-shrink-0 w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
                       {actionIndex + 1}
                     </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">{action}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">{action }</span>
                   </div>
                 ))}
               </div>
@@ -471,12 +444,12 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         </h3>
         <div className="grid md:grid-cols-3 gap-6">
           <div>
-            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{gapAnalysis.length}</div>
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{gapAnalysis.length }</div>
             <div className="text-blue-800 dark:text-blue-200">Functions Requiring Improvement</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
-              {gapAnalysis.filter(a => a.estimatedEffort === 'high').length}
+              {gapAnalysis.filter(a => a.estimatedEffort === 'high').length }
             </div>
             <div className="text-blue-800 dark:text-blue-200">High Effort Implementations</div>
           </div>
@@ -488,8 +461,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         
         <div className="mt-6 pt-6 border-t border-blue-200 dark:border-blue-700">
           <p className="text-blue-800 dark:text-blue-200 mb-4">
-            <strong>Next Steps:</strong> Prioritize critical and high-priority gaps, develop implementation plans for each NIST function, 
-            and begin systematic evidence collection to support control implementation.
+            <strong>Next Steps:</strong> Prioritize critical and high-priority gaps, develop implementation plans for each NIST function, and begin systematic evidence collection to support control implementation.
           </p>
           <button
             onClick={() => addNotification('info', 'Implementation planning feature coming soon')}

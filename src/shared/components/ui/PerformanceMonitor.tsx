@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, Clock, Database, Zap, AlertTriangle, CheckCircle } from 'lucide-react';
-import { PerformanceMonitor as PM } from '../../utils/performance';
+import { Database, Zap } from 'lucide-react';
 
 // Add getMemoryUsage function
 const getMemoryUsage = (): Record<string, number> => {
   if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize,
-      totalJSHeapSize: memory.totalJSHeapSize,
-      jsHeapSizeLimit: memory.jsHeapSizeLimit,
-      usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100,
+      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
     };
   }
   return {};
@@ -22,9 +18,7 @@ interface PerformanceMonitorProps {
 }
 
 export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
-  isVisible,
-  onClose
-}) => {
+  isVisible, onClose }) => {
   const [metrics, setMetrics] = useState<Record<string, any>>({});
   const [memoryUsage, setMemoryUsage] = useState<Record<string, number>>({});
   const [refreshInterval, setRefreshInterval] = useState<NodeJS.Timeout | null>(null);
@@ -83,7 +77,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
             </h2>
           </div>
           <button
-            onClick={onClose}
+            onClick={onClose }
             className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
           >
             ×
@@ -110,18 +104,18 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                 const StatusIcon = status.icon;
                 
                 return (
-                  <div key={operation} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div key={operation } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <h4 className="font-medium text-gray-900 dark:text-white capitalize">
                         {operation.replace(/([A-Z])/g, ' $1').trim()}
                       </h4>
-                      <StatusIcon className={`w-4 h-4 ${status.color}`} />
+                      <StatusIcon className={`w-4 h-4 ${status.color }`} />
                     </div>
                     
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600 dark:text-gray-300">Average:</span>
-                        <span className={`font-medium ${status.color}`}>
+                        <span className={`font-medium ${status.color }`}>
                           {formatTime(data.average)}
                         </span>
                       </div>
@@ -134,14 +128,14 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                       <div className="flex justify-between">
                         <span className="text-gray-600 dark:text-gray-300">Count:</span>
                         <span className="font-medium text-gray-900 dark:text-white">
-                          {data.count}
+                          {data.count }
                         </span>
                       </div>
                     </div>
                     
                     <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                      <span className={`text-xs font-medium ${status.color}`}>
-                        {status.label}
+                      <span className={`text-xs font-medium ${status.color }`}>
+                        {status.label }
                       </span>
                     </div>
                   </div>
@@ -237,7 +231,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
             Reload Application
           </button>
           <button
-            onClick={onClose}
+            onClick={onClose }
             className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             Close

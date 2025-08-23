@@ -1,5 +1,6 @@
 // Production Authentication System
-import { ENV } from '../config/environment';
+import { ENV 
+    } from '../config/environment';
 import { supabase, isSupabaseReady } from './supabase';
 import { secureStorage } from './secureStorage';
 import { authRateLimiter, getClientId } from './rateLimiter';
@@ -61,10 +62,12 @@ class ProductionAuthService {
         this.currentSession = storedSession;
         this.scheduleTokenRefresh();
         this.notifySessionChange();
-      } else {
+      
+    } else {
         // Check if Supabase has an active session
         if (isSupabaseReady()) {
-          const { data: { session } } = await supabase.auth.getSession();
+          const { data: { session 
+    } } = await supabase.auth.getSession();
           if (session) {
             await this.createSessionFromSupabase(session);
           }
@@ -83,8 +86,8 @@ class ProductionAuthService {
     
     if (!rateLimitResult.allowed) {
       return {
-        success: false,
-        error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
+        success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)
+    } minutes.`
       };
     }
 
@@ -95,7 +98,8 @@ class ProductionAuthService {
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error: 'Invalid email format' };
+        return { success: false, error: 'Invalid email format' 
+    };
       }
 
       if (password.length < 8) {
@@ -104,10 +108,9 @@ class ProductionAuthService {
 
       if (isSupabaseReady()) {
         // Production Supabase authentication
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
+        const { data, error 
+    } = await supabase.auth.signInWithPassword({
+          email, password });
 
         if (error) {
           return { success: false, error: error.message };
@@ -121,9 +124,9 @@ class ProductionAuthService {
         
         // Store session if remember me is checked
         if (credentials.rememberMe) {
-          await secureStorage.setItem('auth_session', this.currentSession!, { 
+          await secureStorage.setItem('auth_session', this.currentSession!,) { 
             expires: this.currentSession!.expiresAt 
-          });
+    });
         }
 
         return { success: true };
@@ -131,21 +134,14 @@ class ProductionAuthService {
         // Demo mode with enhanced security
         if (email === 'demo@example.com' && password === 'Demo123!@#') {
           const user: AuthUser = {
-            id: 'demo-user-001',
-            email: 'demo@example.com',
-            name: 'Demo User',
-            role: 'admin',
-            permissions: this.getRolePermissions('admin'),
-            emailVerified: true,
-            lastLogin: new Date()
-          };
+            id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', role: 'admin', permissions: this.getRolePermissions('admin'), emailVerified: true, lastLogin: new Date()
+          
+    };
 
           const session: AuthSession = {
-            accessToken: await this.generateSecureToken(user),
-            refreshToken: 'demo-refresh-token',
-            expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
-            user
-          };
+            accessToken: await this.generateSecureToken(user), refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
+            user 
+    };
 
           await this.setSession(session);
           return { success: true };
@@ -168,7 +164,8 @@ class ProductionAuthService {
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error: 'Invalid email format' };
+        return { success: false, error: 'Invalid email format' 
+    };
       }
 
       if (name.length < 2) {
@@ -181,13 +178,9 @@ class ProductionAuthService {
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
+          email, password, options): {
             data: {
-              name,
-              organization: data.organization,
-              role: data.role || 'user'
+              name, organization: data.organization, role: data.role || 'user'
             }
           }
         });
@@ -197,13 +190,11 @@ class ProductionAuthService {
         }
 
         return { 
-          success: true, 
-          error: 'Please check your email to verify your account before signing in' 
+          success: true, error: 'Please check your email to verify your account before signing in' 
         };
       } else {
         return { 
-          success: false, 
-          error: 'Registration not available in demo mode. Use demo@example.com / Demo123!@#' 
+          success: false, error: 'Registration not available in demo mode. Use demo@example.com / Demo123!@#' 
         };
       }
     } catch (error) {
@@ -214,29 +205,19 @@ class ProductionAuthService {
 
   private async createSessionFromSupabase(supabaseSession: any): Promise<void> {
     // Get user profile
-    const { data: profile } = await supabase
+    const { data: profile 
+    } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', supabaseSession.user.id)
       .single();
 
     const user: AuthUser = {
-      id: supabaseSession.user.id,
-      email: supabaseSession.user.email!,
-      name: profile?.name || supabaseSession.user.user_metadata?.name,
-      role: profile?.role || 'user',
-      organizationId: profile?.organization_id,
-      permissions: this.getRolePermissions(profile?.role || 'user'),
-      emailVerified: supabaseSession.user.email_confirmed_at !== null,
-      lastLogin: new Date()
+      id: supabaseSession.user.id, email: supabaseSession.user.email!, name: profile?.name || supabaseSession.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified: supabaseSession.user.email_confirmed_at !== null, lastLogin: new Date()
     };
 
     const session: AuthSession = {
-      accessToken: supabaseSession.access_token,
-      refreshToken: supabaseSession.refresh_token,
-      expiresAt: supabaseSession.expires_at * 1000,
-      user
-    };
+      accessToken: supabaseSession.access_token, refreshToken: supabaseSession.refresh_token, expiresAt: supabaseSession.expires_at * 1000, user };
 
     await this.setSession(session);
   }
@@ -280,8 +261,7 @@ class ProductionAuthService {
 
       if (isSupabaseReady()) {
         const { data, error } = await supabase.auth.refreshSession({
-          refresh_token: this.currentSession.refreshToken
-        });
+          refresh_token: this.currentSession.refreshToken });
 
         if (error || !data.session) {
           await this.clearSession();
@@ -296,7 +276,7 @@ class ProductionAuthService {
           this.currentSession.expiresAt = Date.now() + (8 * 60 * 60 * 1000);
           await this.setSession(this.currentSession);
           return true;
-        }
+    }
       }
 
       return false;
@@ -315,13 +295,7 @@ class ProductionAuthService {
     try {
       const secret = new TextEncoder().encode(ENV.JWT_SECRET);
       const jwt = await new jose.SignJWT({
-        sub: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        permissions: user.permissions,
-        organizationId: user.organizationId
-      })
+        sub: user.id, email: user.email, name: user.name, role: user.role, permissions: user.permissions, organizationId: user.organizationId })
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
         .setExpirationTime('8h')
@@ -357,7 +331,8 @@ class ProductionAuthService {
       /[a-z]/.test(password) &&
       /[A-Z]/.test(password) &&
       /[0-9]/.test(password) &&
-      /[!@#$%^&*(),.?":{}|<>]/.test(password)
+      /[!@#$%^&*(),.?":{
+    }|<>]/.test(password)
     );
   }
 
@@ -371,24 +346,22 @@ class ProductionAuthService {
         'settings:read', 'settings:write',
         'reports:read', 'reports:write',
         'organizations:read', 'organizations:write'
-      ],
-      manager: [
+      ], manager: [
         'assessments:read', 'assessments:write',
         'assets:read', 'assets:write',
         'users:read',
         'reports:read', 'reports:write',
         'organizations:read'
-      ],
-      user: [
+      ], user: [
         'assessments:read', 'assessments:write',
         'assets:read', 'assets:write',
         'reports:read'
-      ],
-      viewer: [
+      ], viewer: [
         'assessments:read',
         'assets:read',
         'reports:read'
       ]
+    
     };
     
     return rolePermissions[role] || rolePermissions.user;
@@ -396,7 +369,7 @@ class ProductionAuthService {
 
   private notifySessionChange(): void {
     this.sessionCallbacks.forEach(callback => {
-      try {
+      try) {
         callback(this.currentSession);
       } catch (error) {
         console.error('Session callback error:', error);
@@ -407,8 +380,7 @@ class ProductionAuthService {
   // Public API
   getCurrentSession(): AuthSession | null {
     return this.currentSession;
-  }
-
+    }
   getCurrentUser(): AuthUser | null {
     return this.currentSession?.user || null;
   }
@@ -446,7 +418,7 @@ class ProductionAuthService {
       const index = this.sessionCallbacks.indexOf(callback);
       if (index > -1) {
         this.sessionCallbacks.splice(index, 1);
-      }
+    }
     };
   }
 
@@ -462,10 +434,7 @@ class ProductionAuthService {
         const { error } = await supabase
           .from('profiles')
           .update({
-            name: updates.name,
-            role: updates.role,
-            organization_id: updates.organizationId
-          })
+            name: updates.name, role: updates.role, organization_id: updates.organizationId })
           .eq('id', user.id);
 
         if (error) {
@@ -475,7 +444,8 @@ class ProductionAuthService {
 
       // Update current session
       if (this.currentSession) {
-        this.currentSession.user = { ...this.currentSession.user, ...updates };
+        this.currentSession.user = { ...this.currentSession.user, ...updates 
+    };
         await this.setSession(this.currentSession);
       }
 
@@ -494,15 +464,13 @@ class ProductionAuthService {
 
       if (!this.isValidPassword(newPassword)) {
         return { 
-          success: false, 
-          error: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' 
+          success: false, error: 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' 
         };
       }
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.updateUser({
-          password: newPassword
-        });
+          password: newPassword });
 
         if (error) {
           return { success: false, error: error.message };
@@ -527,8 +495,8 @@ class ProductionAuthService {
       }
 
       if (isSupabaseReady()) {
-        const { error } = await supabase.auth.resetPasswordForEmail(sanitizedEmail, {
-          redirectTo: `${window.location.origin}/reset-password`
+        const { error } = await supabase.auth.resetPasswordForEmail(sanitizedEmail,) {
+          redirectTo: `${window.location.origin }/reset-password`
         });
 
         if (error) {
@@ -552,20 +520,12 @@ class ProductionAuthService {
       }
 
       const secret = new TextEncoder().encode(ENV.JWT_SECRET);
-      const { payload } = await jose.jwtVerify(token, secret, {
-        issuer: 'cybersecurity-platform',
-        audience: 'cybersecurity-platform-users'
+      const { payload } = await jose.jwtVerify(token, secret,) {
+        issuer: 'cybersecurity-platform', audience: 'cybersecurity-platform-users'
       });
       
       return {
-        id: payload.sub!,
-        email: payload.email as string,
-        name: payload.name as string,
-        role: payload.role as string,
-        organizationId: payload.organizationId as string,
-        permissions: payload.permissions as string[],
-        emailVerified: true
-      };
+        id: payload.sub!, email: payload.email as string, name: payload.name as string, role: payload.role as string, organizationId: payload.organizationId as string, permissions: payload.permissions as string[], emailVerified: true };
     } catch (error) {
       console.error('Token verification failed:', error);
       return null;
@@ -574,4 +534,3 @@ class ProductionAuthService {
 }
 
 // Export singleton instance
-export const productionAuth = ProductionAuthService.getInstance();

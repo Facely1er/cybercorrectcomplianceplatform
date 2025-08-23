@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Asset, AssetRelationship, AssetDependency } from '../../../shared/types/assets';
+import { Asset, AssetRelationship } from '../../../shared/types/assets';
 
 export const useAssetRelationships = (assets: Asset[], relationships: AssetRelationship[]) => {
   const dependencyMap = useMemo(() => {
@@ -7,17 +7,17 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     
     // Initialize map for all assets
     assets.forEach(asset => {
-      map.set(asset.id, { dependsOn: [], supports: [] });
+      map.set(asset.id,) { dependsOn: [], supports: [] 
+    });
     });
 
     // Build dependency relationships from asset dependencies
     assets.forEach(asset => {
-      asset.dependencies.forEach(dep => {
+      asset.dependencies.forEach(dep =>) {
         const entry = map.get(asset.id);
         if (entry) {
           entry.dependsOn.push(dep.dependentAssetId);
-        }
-        
+    }
         const dependentEntry = map.get(dep.dependentAssetId);
         if (dependentEntry) {
           dependentEntry.supports.push(asset.id);
@@ -26,14 +26,13 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     });
 
     // Build relationships from explicit relationships
-    relationships.forEach(rel => {
+    relationships.forEach(rel =>) {
       const sourceEntry = map.get(rel.sourceAssetId);
       const targetEntry = map.get(rel.targetAssetId);
       
       if (rel.relationshipType === 'depends-on' && sourceEntry) {
         sourceEntry.dependsOn.push(rel.targetAssetId);
-      }
-      
+    }
       if (rel.relationshipType === 'supports' && sourceEntry) {
         sourceEntry.supports.push(rel.targetAssetId);
       }
@@ -62,7 +61,7 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     if (!dependencies) return [asset];
     
     const dependentAssets: Asset[] = [];
-    dependencies.supports.forEach(dependentId => {
+    dependencies.supports.forEach(dependentId =>) {
       dependentAssets.push(...getCriticalityImpactChain(dependentId, visited));
     });
     
@@ -84,15 +83,15 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
       
       const dependencies = dependencyMap.get(currentAssetId);
       if (dependencies) {
-        dependencies.dependsOn.forEach(depId => {
+        dependencies.dependsOn.forEach(depId =>) {
           traverse(depId, currentDepth - 1);
         });
       }
     };
     
     traverse(assetId, depth);
-    return result.slice(1); // Remove the original asset
-  };
+    return result.slice(1); // Remove the original asset 
+    };
 
   const calculateCriticalityScore = (assetId: string): number => {
     const asset = assets.find(a => a.id === assetId);
@@ -109,9 +108,5 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
   };
 
   return {
-    dependencyMap,
-    getCriticalityImpactChain,
-    getAssetDependencies,
-    calculateCriticalityScore
-  };
+    dependencyMap, getCriticalityImpactChain, getAssetDependencies, calculateCriticalityScore };
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Asset, AssetInventoryFilter } from '../../../shared/types/assets';
+import { Asset } from '../../../shared/types/assets';
 import { dataService } from '../../../services/dataService';
 
 interface AssetsState {
@@ -10,10 +10,7 @@ interface AssetsState {
 
 export const useAssets = () => {
   const [state, setState] = useState<AssetsState>({
-    assets: [],
-    loading: false,
-    error: null
-  });
+    assets: [], loading: false, error: null });
 
   const loadAssets = useCallback(async () => {
     setState(prev => ({ ...prev, loading: true, error: null }));
@@ -23,15 +20,11 @@ export const useAssets = () => {
       const assets = dataService.getAssets();
       
       setState({
-        assets,
-        loading: false,
-        error: null
-      });
-    } catch (error) {
+        assets, loading: false, error: null 
+    });
+    } catch {
       setState(prev => ({
-        ...prev,
-        loading: false,
-        error: 'Failed to load assets'
+        ...prev, loading: false, error: 'Failed to load assets'
       }));
     }
   }, []);
@@ -41,19 +34,20 @@ export const useAssets = () => {
       // Save using centralized data service
       dataService.saveAsset(asset);
       
-      setState(prev => {
+      setState(prev =>) {
         const updatedAssets = [...prev.assets];
         const index = updatedAssets.findIndex(a => a.id === asset.id);
         if (index >= 0) {
           updatedAssets[index] = asset;
-        } else {
+        
+    } else {
           updatedAssets.push(asset);
         }
         return { ...prev, assets: updatedAssets };
       });
       
       return asset;
-    } catch (error) {
+    } catch {
       setState(prev => ({ ...prev, error: 'Failed to save asset' }));
       throw error;
     }
@@ -65,10 +59,10 @@ export const useAssets = () => {
       dataService.deleteAsset(assetId);
       
       setState(prev => ({
-        ...prev,
-        assets: prev.assets.filter(a => a.id !== assetId)
-      }));
-    } catch (error) {
+        ...prev, assets: prev.assets.filter(a => a.id !== assetId)
+      
+    }));
+    } catch {
       setState(prev => ({ ...prev, error: 'Failed to delete asset' }));
       throw error;
     }
@@ -79,10 +73,5 @@ export const useAssets = () => {
   }, [loadAssets]);
 
   return {
-    ...state,
-    loadAssets,
-    saveAsset,
-    deleteAsset,
-    refetch: loadAssets
-  };
+    ...state, loadAssets, saveAsset, deleteAsset, refetch: loadAssets };
 };

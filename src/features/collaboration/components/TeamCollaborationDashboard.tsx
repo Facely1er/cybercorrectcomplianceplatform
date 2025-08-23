@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  Users, UserPlus, Mail, Calendar, MessageSquare, 
-  CheckSquare, BarChart3, Clock, Target, Award,
-  Plus, Search, Filter, Eye, Edit3, Trash2, Settings,
-  ArrowRight, TrendingUp, AlertTriangle, CheckCircle
-} from 'lucide-react';
+import { UserMessageSquareCheckCircle } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface TeamCollaborationDashboardProps {
-  onBack: () => void;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+interface TeamCollaborationDashboardProps {, message: string) => void;
 }
 
 interface TeamMember {
@@ -28,75 +21,36 @@ interface TeamMember {
   workload: number;
 }
 
-export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({
-  onBack,
-  addNotification
-}) => {
+export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({, addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterRole, setFilterRole] = useState('all');
   const [filterFunction, setFilterFunction] = useState('all');
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteFormData, setInviteFormData] = useState({
-    email: '',
-    role: 'member',
-    functions: [] as string[],
-    message: ''
+    email: '', role: 'member', functions: [] as string[], message: ''
   });
 
   // Mock team data
   const teamMembers: TeamMember[] = [
     {
-      id: 'tm-001',
-      name: 'Sarah Johnson',
-      email: 'sarah.johnson@company.com',
-      role: 'CISO',
-      department: 'Information Security',
-      nistFunctions: ['Govern', 'Identify', 'Protect', 'Detect', 'Respond', 'Recover'],
-      assignedTasks: 12,
-      completedTasks: 8,
-      lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-      expertise: ['Risk Management', 'Governance', 'Compliance'],
-      workload: 85
+      id: 'tm-001', name: 'Sarah Johnson', email: 'sarah.johnson@company.com', role: 'CISO', department: 'Information Security', nistFunctions: ['Govern', 'Identify', 'Protect', 'Detect', 'Respond', 'Recover'], assignedTasks: 12, completedTasks: 8, lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+      expertise: ['Risk Management', 'Governance', 'Compliance'], workload: 85
+    
     },
     {
-      id: 'tm-002',
-      name: 'Mike Chen',
-      email: 'mike.chen@company.com',
-      role: 'Security Analyst',
-      department: 'Information Security',
-      nistFunctions: ['Identify', 'Detect', 'Respond'],
-      assignedTasks: 15,
-      completedTasks: 12,
-      lastActive: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
-      expertise: ['Vulnerability Management', 'Incident Response', 'SIEM'],
-      workload: 78
+      id: 'tm-002', name: 'Mike Chen', email: 'mike.chen@company.com', role: 'Security Analyst', department: 'Information Security', nistFunctions: ['Identify', 'Detect', 'Respond'], assignedTasks: 15, completedTasks: 12, lastActive: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+      expertise: ['Vulnerability Management', 'Incident Response', 'SIEM'], workload: 78
+    
     },
     {
-      id: 'tm-003',
-      name: 'Emily Rodriguez',
-      email: 'emily.rodriguez@company.com',
-      role: 'Compliance Officer',
-      department: 'Legal & Compliance',
-      nistFunctions: ['Govern', 'Identify'],
-      assignedTasks: 8,
-      completedTasks: 6,
-      lastActive: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
-      expertise: ['CMMC', 'NIST SP 800-171', 'Documentation'],
-      workload: 65
+      id: 'tm-003', name: 'Emily Rodriguez', email: 'emily.rodriguez@company.com', role: 'Compliance Officer', department: 'Legal & Compliance', nistFunctions: ['Govern', 'Identify'], assignedTasks: 8, completedTasks: 6, lastActive: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+      expertise: ['CMMC', 'NIST SP 800-171', 'Documentation'], workload: 65
+    
     },
     {
-      id: 'tm-004',
-      name: 'Alex Thompson',
-      email: 'alex.thompson@company.com',
-      role: 'Network Administrator',
-      department: 'IT Operations',
-      nistFunctions: ['Protect', 'Detect'],
-      assignedTasks: 10,
-      completedTasks: 7,
-      lastActive: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
-      expertise: ['Network Security', 'Monitoring', 'Infrastructure'],
-      workload: 72
+      id: 'tm-004', name: 'Alex Thompson', email: 'alex.thompson@company.com', role: 'Network Administrator', department: 'IT Operations', nistFunctions: ['Protect', 'Detect'], assignedTasks: 10, completedTasks: 7, lastActive: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
+      expertise: ['Network Security', 'Monitoring', 'Infrastructure'], workload: 72
     }
   ];
 
@@ -122,7 +76,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     return 'text-green-600 dark:text-green-400';
   };
 
-  const filteredMembers = teamMembers.filter(member => {
+  const filteredMembers = teamMembers.filter(member =>) {
     const matchesSearch = member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          member.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          member.role.toLowerCase().includes(searchTerm.toLowerCase());
@@ -141,31 +95,25 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     }
 
     // Simulate sending invitation
-    addNotification('success', `Invitation sent to ${inviteFormData.email}`);
+    addNotification('success', `Invitation sent to ${inviteFormData.email 
+    }`);
     setShowInviteModal(false);
     
     // Reset form
     setInviteFormData({
-      email: '',
-      role: 'member',
-      functions: [],
-      message: ''
+      email: '', role: 'member', functions: [], message: ''
+    
     });
   };
 
   const teamStats = {
-    totalMembers: teamMembers.length,
-    avgWorkload: Math.round(teamMembers.reduce((sum, member) => sum + member.workload, 0) / teamMembers.length),
-    totalTasks: teamMembers.reduce((sum, member) => sum + member.assignedTasks, 0),
-    completedTasks: teamMembers.reduce((sum, member) => sum + member.completedTasks, 0),
-    overloadedMembers: teamMembers.filter(member => member.workload >= 85).length
-  };
+    totalMembers: teamMembers.length, avgWorkload: Math.round(teamMembers.reduce((sum, member) => sum + member.workload, 0) / teamMembers.length), totalTasks: teamMembers.reduce((sum, member) => sum + member.assignedTasks, 0), completedTasks: teamMembers.reduce((sum, member) => sum + member.completedTasks, 0), overloadedMembers: teamMembers.filter(member => member.workload >= 85).length };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -203,7 +151,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Team Members</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{teamStats.totalMembers}</p>
+              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{teamStats.totalMembers }</p>
             </div>
             <Users className="w-8 h-8 text-blue-600 dark:text-blue-400" />
           </div>
@@ -214,7 +162,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg Workload</p>
               <p className={`text-3xl font-bold ${getWorkloadColor(teamStats.avgWorkload)}`}>
-                {teamStats.avgWorkload}%
+                {teamStats.avgWorkload }%
               </p>
             </div>
             <BarChart3 className="w-8 h-8 text-green-600 dark:text-green-400" />
@@ -225,7 +173,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Tasks</p>
-              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{teamStats.totalTasks}</p>
+              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{teamStats.totalTasks }</p>
             </div>
             <CheckSquare className="w-8 h-8 text-purple-600 dark:text-purple-400" />
           </div>
@@ -235,7 +183,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{teamStats.completedTasks}</p>
+              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{teamStats.completedTasks }</p>
             </div>
             <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
@@ -245,7 +193,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Overloaded</p>
-              <p className="text-3xl font-bold text-red-600 dark:text-red-400">{teamStats.overloadedMembers}</p>
+              <p className="text-3xl font-bold text-red-600 dark:text-red-400">{teamStats.overloadedMembers }</p>
             </div>
             <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
           </div>
@@ -261,7 +209,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
               <input
                 type="text"
                 placeholder="Search team members..."
-                value={searchTerm}
+                value={searchTerm }
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -270,7 +218,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
           
           <div className="flex space-x-4">
             <select
-              value={filterRole}
+              value={filterRole }
               onChange={(e) => setFilterRole(e.target.value)}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -282,7 +230,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
             </select>
             
             <select
-              value={filterFunction}
+              value={filterFunction }
               onChange={(e) => setFilterFunction(e.target.value)}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -302,14 +250,14 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Team Members ({filteredMembers.length})
+            Team Members ({filteredMembers.length })
           </h2>
         </div>
         
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredMembers.map((member) => (
-              <div key={member.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div key={member.id } className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
@@ -319,16 +267,16 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white">
-                        {member.name}
+                        {member.name }
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        {member.email}
+                        {member.email }
                       </p>
                     </div>
                   </div>
                   
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${getRoleColor(member.role)}`}>
-                    {member.role}
+                    {member.role }
                   </span>
                 </div>
                 
@@ -336,21 +284,21 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600 dark:text-gray-300">Department:</span>
                     <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {member.department}
+                      {member.department }
                     </span>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600 dark:text-gray-300">Tasks:</span>
                     <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {member.completedTasks}/{member.assignedTasks}
+                      {member.completedTasks }/{member.assignedTasks }
                     </span>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600 dark:text-gray-300">Workload:</span>
                     <span className={`text-sm font-medium ${getWorkloadColor(member.workload)}`}>
-                      {member.workload}%
+                      {member.workload }%
                     </span>
                   </div>
                   
@@ -368,10 +316,10 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                   <div className="flex flex-wrap gap-1">
                     {member.nistFunctions.map((func, index) => (
                       <span
-                        key={index}
+                        key={index }
                         className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded"
                       >
-                        {func}
+                        {func }
                       </span>
                     ))}
                   </div>
@@ -383,10 +331,10 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                   <div className="flex flex-wrap gap-1">
                     {member.expertise.map((skill, index) => (
                       <span
-                        key={index}
+                        key={index }
                         className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded"
                       >
-                        {skill}
+                        {skill }
                       </span>
                     ))}
                   </div>
@@ -397,7 +345,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-gray-600 dark:text-gray-300">Workload Distribution</span>
                     <span className={`text-sm font-medium ${getWorkloadColor(member.workload)}`}>
-                      {member.workload}%
+                      {member.workload }%
                     </span>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -407,7 +355,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                         member.workload >= 75 ? 'bg-orange-500' :
                         member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'
                       }`}
-                      style={{ width: `${member.workload}%` }}
+                      style={{ width: `${member.workload }%` }}
                     />
                   </div>
                 </div>
@@ -418,19 +366,19 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                     onClick={() => {
                       const memberDetails = `Team Member Details:
 
-Name: ${member.name}
-Email: ${member.email}
-Role: ${member.role}
-Department: ${member.department}
+Name: ${member.name }
+Email: ${member.email }
+Role: ${member.role }
+Department: ${member.department }
 
 NIST Functions: ${member.nistFunctions.join(', ')}
 Expertise: ${member.expertise.join(', ')}
 
 Task Statistics:
-• Assigned Tasks: ${member.assignedTasks}
-• Completed Tasks: ${member.completedTasks}
+• Assigned Tasks: ${member.assignedTasks }
+• Completed Tasks: ${member.completedTasks }
 • Completion Rate: ${Math.round((member.completedTasks / member.assignedTasks) * 100)}%
-• Current Workload: ${member.workload}%
+• Current Workload: ${member.workload }%
 
 Activity:
 • Last Active: ${member.lastActive.toLocaleString()}
@@ -450,13 +398,13 @@ Workload Assessment: ${
                     View Profile
                   </button>
                   <button
-                    onClick={() => addNotification('info', `Messaging ${member.name}`)}
+                    onClick={() => addNotification('info', `Messaging ${member.name }`)}
                     className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
                   >
                     <MessageSquare className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => addNotification('info', `Assigning tasks to ${member.name}`)}
+                    onClick={() => addNotification('info', `Assigning tasks to ${member.name }`)}
                     className="p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
                   >
                     <CheckSquare className="w-4 h-4" />
@@ -488,7 +436,7 @@ Workload Assessment: ${
               Invite Team Member
             </h3>
             
-            <form onSubmit={handleInviteTeamMember} className="space-y-4">
+            <form onSubmit={handleInviteTeamMember } className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email Address *
@@ -496,7 +444,7 @@ Workload Assessment: ${
                 <input
                   type="email"
                   required
-                  value={inviteFormData.email}
+                  value={inviteFormData.email }
                   onChange={(e) => setInviteFormData(prev => ({ ...prev, email: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="colleague@company.com"
@@ -508,7 +456,7 @@ Workload Assessment: ${
                   Role
                 </label>
                 <select
-                  value={inviteFormData.role}
+                  value={inviteFormData.role }
                   onChange={(e) => setInviteFormData(prev => ({ ...prev, role: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
@@ -525,26 +473,24 @@ Workload Assessment: ${
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {['Govern', 'Identify', 'Protect', 'Detect', 'Respond', 'Recover'].map((func) => (
-                    <label key={func} className="flex items-center space-x-2">
+                    <label key={func } className="flex items-center space-x-2">
                       <input
                         type="checkbox"
                         checked={inviteFormData.functions.includes(func)}
                         onChange={(e) => {
                           if (e.target.checked) {
                             setInviteFormData(prev => ({
-                              ...prev,
-                              functions: [...prev.functions, func]
+                              ...prev, functions: [...prev.functions, func]
                             }));
                           } else {
                             setInviteFormData(prev => ({
-                              ...prev,
-                              functions: prev.functions.filter(f => f !== func)
+                              ...prev, functions: prev.functions.filter(f => f !== func)
                             }));
                           }
                         }}
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700 dark:text-gray-300">{func}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{func }</span>
                     </label>
                   ))}
                 </div>
@@ -555,7 +501,7 @@ Workload Assessment: ${
                   Invitation Message (Optional)
                 </label>
                 <textarea
-                  value={inviteFormData.message}
+                  value={inviteFormData.message }
                   onChange={(e) => setInviteFormData(prev => ({ ...prev, message: e.target.value }))}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
@@ -569,10 +515,7 @@ Workload Assessment: ${
                   onClick={() => {
                     setShowInviteModal(false);
                     setInviteFormData({
-                      email: '',
-                      role: 'member',
-                      functions: [],
-                      message: ''
+                      email: '', role: 'member', functions: [], message: ''
                     });
                   }}
                   className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"

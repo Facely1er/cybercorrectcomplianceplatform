@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Shield, AlertTriangle, CheckCircle, Info, X, 
-  Monitor, BarChart3
-} from 'lucide-react';
+import { CheckCircle, Info, X, Monitor } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -55,8 +52,7 @@ export const ProductionReadinessWidget: React.FC = () => {
 
   if (!ENV.isDevelopment && !ENV.isProduction) {
     return null; // Only show in development or production
-  }
-
+    }
   return (
     <>
       {/* Floating Widget */}
@@ -67,7 +63,7 @@ export const ProductionReadinessWidget: React.FC = () => {
             ? 'bg-green-600 hover:bg-green-700 text-white' 
             : 'bg-red-600 hover:bg-red-700 text-white animate-pulse'
         }`}
-        title={`Production Readiness: ${readinessScore}/100`}
+        title={`Production Readiness: ${readinessScore }/100`}
       >
         <Shield className="w-5 h-5" />
       </button>
@@ -100,7 +96,7 @@ export const ProductionReadinessWidget: React.FC = () => {
             <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
               <div className="text-center">
                 <div className={`text-4xl font-bold ${getScoreColor(readinessScore)} mb-2`}>
-                  {readinessScore}/100
+                  {readinessScore }/100
                 </div>
                 <div className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Production Readiness Score
@@ -162,12 +158,12 @@ export const ProductionReadinessWidget: React.FC = () => {
               </h3>
               
               {checks.map((check, index) => (
-                <div key={index} className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                <div key={index } className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                   {getStatusIcon(check.status)}
                   <div className="flex-1">
                     <div className="flex items-center space-x-3">
                       <h4 className="font-medium text-gray-900 dark:text-white">
-                        {check.name}
+                        {check.name }
                       </h4>
                       {check.critical && (
                         <span className="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 text-xs rounded-full font-medium">
@@ -176,7 +172,7 @@ export const ProductionReadinessWidget: React.FC = () => {
                       )}
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                      {check.message}
+                      {check.message }
                     </p>
                   </div>
                 </div>
@@ -186,7 +182,7 @@ export const ProductionReadinessWidget: React.FC = () => {
             {/* Action Buttons */}
             <div className="flex space-x-4">
               <button
-                onClick={performReadinessCheck}
+                onClick={performReadinessCheck }
                 className="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 <Shield className="w-4 h-4" />
@@ -196,7 +192,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               <button
                 onClick={async () => {
                   const report = await productionReadinessChecker.generateReport();
-                  const blob = new Blob([report], { type: 'text/markdown' });
+                  const blob = new Blob([report],) { type: 'text/markdown' });
                   const url = URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = url;

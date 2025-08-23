@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  FileText, Download, BarChart3, TrendingUp, Calendar,
-  Shield, Target, Award, Clock, CheckCircle, AlertTriangle,
-  PieChart as PieChartIcon, LineChart, Users, Building,
-  Eye, Settings, RefreshCw, Filter, Search, ChevronLeft
-} from 'lucide-react';
+import { CheckCircle, PieChart, as, PieChartIcon, LineChart, Building, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { frameworks } from '../../../data/frameworks';
 import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';
-import { LineChart as LineChartComponent } from '../../../shared/components/charts/LineChart';
 
 interface AdvancedReportingDashboardProps {
   savedAssessments: AssessmentData[];
@@ -20,10 +14,7 @@ interface AdvancedReportingDashboardProps {
 }
 
 export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
-  savedAssessments,
-  userProfile,
-  onExportReport
-}) => {
+  savedAssessments, userProfile, onExportReport }) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('90d');
   const [selectedMetric, setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
   const [reportType, setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
@@ -43,20 +34,18 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
       const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
       
-      const monthAssessments = savedAssessments.filter(a => {
+      const monthAssessments = savedAssessments.filter(a =>) {
         const assessmentDate = new Date(a.lastModified);
         return assessmentDate >= monthDate && assessmentDate < nextMonthDate;
-      });
+      
+    });
 
       const avgScore = monthAssessments.length > 0
         ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum, score) => sum + score, 0) / monthAssessments.length)
         : 0;
 
       months.push({
-        month: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
-        score: avgScore,
-        assessments: monthAssessments.length,
-        compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
+        month): monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore, assessments: monthAssessments.length, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
       });
     }
     
@@ -71,10 +60,11 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
     )[0];
 
-    return nistCSFv2Framework.sections.map(section => {
+    return nistCSFv2Framework.sections.map(section =>) {
       const sectionQuestions = section.categories.reduce((questions, category) => {
         return [...questions, ...category.questions];
-      }, [] as any[]);
+      
+    }, [] as any[]);
       
       const sectionResponses = sectionQuestions
         .map(q => latestAssessment.responses[q.id])
@@ -85,12 +75,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         : 0;
 
       return {
-        name: section.name,
-        score,
-        weight: section.weight,
-        questionsAnswered: sectionResponses.length,
-        totalQuestions: sectionQuestions.length,
-        completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+        name: section.name, score, weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
   }, [savedAssessments]);
@@ -105,11 +90,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const complianceRate = avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100);
     
     return {
-      totalAssessments,
-      completedAssessments,
-      avgScore,
-      complianceRate,
-      improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
+      totalAssessments, completedAssessments, avgScore, complianceRate, improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
     };
   }, [savedAssessments, trendData]);
 
@@ -156,7 +137,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           
           <div className="flex items-center space-x-3">
             <select
-              value={reportType}
+              value={reportType }
               onChange={(e) => setReportType(e.target.value as any)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             >
@@ -182,15 +163,15 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Overall Score</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{overallMetrics.avgScore}%</p>
+              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{overallMetrics.avgScore }%</p>
               <div className="flex items-center space-x-1 mt-1">
                 {overallMetrics.improvementTrend > 0 ? (
                   <TrendingUp className="w-4 h-4 text-green-500" />
                 ) : overallMetrics.improvementTrend < 0 ? (
                   <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
-                ) : null}
+                ) : null }
                 <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {overallMetrics.improvementTrend > 0 ? '+' : ''}{overallMetrics.improvementTrend}% this month
+                  {overallMetrics.improvementTrend > 0 ? '+' : ''}{overallMetrics.improvementTrend }% this month
                 </span>
               </div>
             </div>
@@ -202,7 +183,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Compliance Rate</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{overallMetrics.complianceRate}%</p>
+              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{overallMetrics.complianceRate }%</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 Target: 75% (Repeatable)
               </p>
@@ -215,9 +196,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed Assessments</p>
-              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{overallMetrics.completedAssessments}</p>
+              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{overallMetrics.completedAssessments }</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                of {overallMetrics.totalAssessments} total
+                of {overallMetrics.totalAssessments } total
               </p>
             </div>
             <CheckCircle className="w-8 h-8 text-purple-600 dark:text-purple-400" />
@@ -252,29 +233,26 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               data={{
                 labels: functionAnalysis.map(func => func.name.split(' ')[0]), // Short names
                 datasets: [{
-                  label: 'Current Score (%)',
-                  data: functionAnalysis.map(func => func.score),
-                  backgroundColor: [
+                  label: 'Current Score (%)', data: functionAnalysis.map(func => func.score), backgroundColor: [
                     'rgba(59, 130, 246, 0.8)',   // Govern - Blue
                     'rgba(34, 197, 94, 0.8)',    // Identify - Green
                     'rgba(147, 51, 234, 0.8)',   // Protect - Purple
                     'rgba(249, 115, 22, 0.8)',   // Detect - Orange
                     'rgba(239, 68, 68, 0.8)',    // Respond - Red
                     'rgba(234, 179, 8, 0.8)'     // Recover - Yellow
-                  ],
-                  borderColor: [
+                  ], borderColor: [
                     'rgba(59, 130, 246, 1)',
                     'rgba(34, 197, 94, 1)',
                     'rgba(147, 51, 234, 1)',
                     'rgba(249, 115, 22, 1)',
                     'rgba(239, 68, 68, 1)',
                     'rgba(234, 179, 8, 1)'
-                  ],
-                  borderWidth: 2
-                }]
+                  ], borderWidth: 2
+                
+    }]
               }}
               height={320}
-              showLegend={false}
+              showLegend={false }
             />
           </div>
         </div>
@@ -287,21 +265,10 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="h-80">
             <LineChartComponent
               data={{
-                labels: trendData.map(d => d.month),
-                datasets: [{
-                  label: 'Average Score (%)',
-                  data: trendData.map(d => d.score),
-                  borderColor: 'rgba(59, 130, 246, 1)',
-                  backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                  fill: true,
-                  tension: 0.4
+                labels: trendData.map(d => d.month), datasets: [{
+                  label: 'Average Score (%)', data: trendData.map(d => d.score), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.4
                 }, {
-                  label: 'Compliance Rate (%)',
-                  data: trendData.map(d => d.compliance),
-                  borderColor: 'rgba(34, 197, 94, 1)',
-                  backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                  fill: true,
-                  tension: 0.4
+                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill: true, tension: 0.4
                 }]
               }}
               height={320}
@@ -339,10 +306,10 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {functionAnalysis.map((func, index) => (
-                <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <tr key={index } className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-gray-900 dark:text-white">
-                      {func.name}
+                      {func.name }
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center">
@@ -352,18 +319,18 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                       func.score >= 40 ? 'text-orange-600 dark:text-orange-400' :
                       'text-red-600 dark:text-red-400'
                     }`}>
-                      {func.score}%
+                      {func.score }%
                     </span>
                   </td>
                   <td className="py-4 px-4 text-center text-gray-900 dark:text-white">
-                    {func.weight}%
+                    {func.weight }%
                   </td>
                   <td className="py-4 px-4 text-center">
                     <div className="text-sm text-gray-900 dark:text-white">
-                      {func.questionsAnswered}/{func.totalQuestions}
+                      {func.questionsAnswered }/{func.totalQuestions }
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {func.completionRate}% complete
+                      {func.completionRate }% complete
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center">
@@ -398,14 +365,14 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                 Current State Assessment
               </h4>
               <ul className="space-y-2 text-blue-700 dark:text-blue-300">
-                <li>• Overall maturity score: {overallMetrics.avgScore}%</li>
-                <li>• {overallMetrics.completedAssessments} assessments completed</li>
+                <li>• Overall maturity score: {overallMetrics.avgScore }%</li>
+                <li>• {overallMetrics.completedAssessments } assessments completed</li>
                 <li>• Current maturity level: {
                   overallMetrics.avgScore >= 76 ? 'Adaptive (Level 4)' :
                   overallMetrics.avgScore >= 51 ? 'Repeatable (Level 3)' :
                   overallMetrics.avgScore >= 26 ? 'Risk Informed (Level 2)' : 'Partial (Level 1)'
                 }</li>
-                <li>• Compliance rate: {overallMetrics.complianceRate}%</li>
+                <li>• Compliance rate: {overallMetrics.complianceRate }%</li>
               </ul>
             </div>
             

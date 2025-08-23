@@ -10,15 +10,10 @@ export interface DataPersistenceState<T> {
 }
 
 export function useDataPersistence<T extends { id: string }>(
-  dataType: 'assessments' | 'assets' | 'tasks',
-  userId?: string
+  dataType: 'assessments' | 'assets' | 'tasks', userId?: string
 ) {
   const [state, setState] = useState<DataPersistenceState<T>>({
-    data: [],
-    loading: true,
-    error: null,
-    saving: false
-  });
+    data: [], loading: true, error: null, saving: false });
 
   const loadData = useCallback(async () => {
     setState(prev => ({ ...prev, loading: true, error: null }));
@@ -36,17 +31,14 @@ export function useDataPersistence<T extends { id: string }>(
         case 'tasks':
           data = []; // Tasks would be loaded from task service
           break;
-      }
-      
+    }
       setState(prev => ({ ...prev, data, loading: false }));
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataPersistenceError', operation: 'load', dataType }
+        tags:) { type: 'dataPersistenceError', operation: 'load', dataType }
       });
       setState(prev => ({ 
-        ...prev, 
-        loading: false, 
-        error: `Failed to load ${dataType}` 
+        ...prev, loading: false, error: `Failed to load ${dataType }` 
       }));
     }
   }, [dataType, userId]);
@@ -65,22 +57,17 @@ export function useDataPersistence<T extends { id: string }>(
       }
       
       setState(prev => ({
-        ...prev,
-        data: prev.data.some(d => d.id === item.id)
+        ...prev, data: prev.data.some(d => d.id === item.id)
           ? prev.data.map(d => d.id === item.id ? item : d)
-          : [...prev.data, item],
-        saving: false
-      }));
+          : [...prev.data, item], saving: false }));
       
       return item;
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataPersistenceError', operation: 'save', dataType }
+        tags:) { type: 'dataPersistenceError', operation: 'save', dataType }
       });
       setState(prev => ({ 
-        ...prev, 
-        saving: false, 
-        error: `Failed to save ${dataType.slice(0, -1)}` 
+        ...prev, saving: false, error: `Failed to save ${dataType.slice(0, -1)}` 
       }));
       throw error;
     }
@@ -98,16 +85,14 @@ export function useDataPersistence<T extends { id: string }>(
       }
       
       setState(prev => ({
-        ...prev,
-        data: prev.data.filter(d => d.id !== itemId)
+        ...prev, data: prev.data.filter(d => d.id !== itemId)
       }));
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'dataPersistenceError', operation: 'delete', dataType }
+        tags:) { type: 'dataPersistenceError', operation: 'delete', dataType }
       });
       setState(prev => ({ 
-        ...prev, 
-        error: `Failed to delete ${dataType.slice(0, -1)}` 
+        ...prev, error: `Failed to delete ${dataType.slice(0, -1)}` 
       }));
       throw error;
     }
@@ -122,9 +107,5 @@ export function useDataPersistence<T extends { id: string }>(
   }, [loadData]);
 
   return {
-    ...state,
-    saveItem,
-    deleteItem,
-    refresh
-  };
+    ...state, saveItem, deleteItem, refresh };
 }

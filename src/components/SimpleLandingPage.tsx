@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Shield, Play, BarChart3, Target } from 'lucide-react';
+;
 
 export const SimpleLandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export const SimpleLandingPage: React.FC = () => {
         {/* Primary Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <button
-            onClick={handleStartClick}
+            onClick={handleStartClick }
             className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center space-x-3"
           >
             <Play className="w-5 h-5" />
@@ -45,7 +45,7 @@ export const SimpleLandingPage: React.FC = () => {
           </button>
           
           <button
-            onClick={handleDashboardClick}
+            onClick={handleDashboardClick }
             className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors inline-flex items-center justify-center space-x-3"
           >
             <BarChart3 className="w-5 h-5" />
@@ -86,7 +86,7 @@ export const SimpleLandingPage: React.FC = () => {
             </h3>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={handleStartClick}
+                onClick={handleStartClick }
                 className="bg-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-700 transition-colors inline-flex items-center justify-center space-x-3"
               >
                 <Play className="w-5 h-5" />
@@ -94,7 +94,7 @@ export const SimpleLandingPage: React.FC = () => {
               </button>
               
               <button
-                onClick={handleDashboardClick}
+                onClick={handleDashboardClick }
                 className="border-2 border-purple-600 text-purple-600 dark:text-purple-400 px-8 py-4 rounded-xl font-semibold hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors inline-flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-5 h-5" />
@@ -110,7 +110,7 @@ export const SimpleLandingPage: React.FC = () => {
             Debug Information
           </h3>
           <div className="text-sm text-yellow-700 dark:text-yellow-300 space-y-2">
-            <p>Current URL: {window.location.pathname}</p>
+            <p>Current URL: {window.location.pathname }</p>
             <p>Check browser console for navigation logs</p>
             <p>Try both Link and Navigate methods above</p>
           </div>

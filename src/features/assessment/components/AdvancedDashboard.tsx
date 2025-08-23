@@ -1,11 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Plus, Search, CheckCircle, AlertCircle, TrendingUp,
-  FileText, Shield, Target, Eye, Trash2,
-  Activity, Star, ArrowUp, ArrowDown, Info, Building,
-  ScrollText
-} from 'lucide-react';
+import { CheckCircle, AlertCircle, ArrowUp, ArrowDown, Info, Building, ScrollText } from 'lucide-react';
 
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
@@ -28,16 +23,7 @@ interface AdvancedDashboardProps {
 }
 
 export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
-  savedAssessments,
-  onStartAssessment,
-  onLoadAssessment,
-  onDeleteAssessment,
-  onGenerateReport,
-  onExportAssessment,
-
-  userProfile,
-  addNotification
-}) => {
+  savedAssessments, onStartAssessment, onLoadAssessment, onDeleteAssessment, onGenerateReport, onExportAssessment, userProfile, addNotification }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterRisk, setFilterRisk] = useState('all');
@@ -48,7 +34,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const [selectedAssessments, setSelectedAssessments] = useState<string[]>([]);
   
   // Internal linking hooks
-  const { contextualLinks, breadcrumbs } = useInternalLinking();
+  const { contextualLinks, breadcrumbs 
+    } = useInternalLinking();
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
@@ -68,7 +55,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             ? (responses.reduce((a, b) => a + b, 0) / responses.length) * 25
             : 0;
           return sum + score;
-        }, 0) / savedAssessments.length)
+        
+    }, 0) / savedAssessments.length)
       : 0;
 
     // Risk analysis
@@ -77,6 +65,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' : score >= 40 ? 'high' : 'critical';
       acc[risk] = (acc[risk] || 0) + 1;
       return acc;
+    
     }, {} as Record<string, number>);
 
     // Time analysis
@@ -84,10 +73,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
     // Recent activity
     const recentAssessments = savedAssessments
-      .filter(a => {
+      .filter(a =>) {
         const daysSinceModified = (new Date().getTime() - new Date(a.lastModified).getTime()) / (1000 * 60 * 60 * 24);
         return daysSinceModified <= 7;
-      }).length;
+      
+    }).length;
 
     // Completion trend (last 30 days)
     const thirtyDaysAgo = new Date();
@@ -97,20 +87,13 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     ).length;
 
     return { 
-      total, 
-      completed, 
-      inProgress, 
-      avgScore, 
-      riskDistribution, 
-      totalTimeSpent,
-      recentAssessments,
-      recentCompletions
+      total, completed, inProgress, avgScore, riskDistribution, totalTimeSpent, recentAssessments, recentCompletions 
     };
   }, [savedAssessments]);
 
   // Filter and sort assessments
   const filteredAndSortedAssessments = useMemo(() => {
-    const filtered = savedAssessments.filter(assessment => {
+    const filtered = savedAssessments.filter(assessment =>) {
       const matchesSearch = assessment.frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = filterStatus === 'all' || 
@@ -122,6 +105,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       const matchesRisk = filterRisk === 'all' || risk === filterRisk;
       
       return matchesSearch && matchesStatus && matchesRisk;
+    
     });
 
     // Sort assessments
@@ -143,7 +127,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           const progressB = Object.keys(b.responses).length;
           comparison = progressB - progressA;
           break;
-        }
+    }
       }
       
       return sortOrder === 'asc' ? -comparison : comparison;
@@ -173,8 +157,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       if (!file.name.toLowerCase().endsWith('.json')) {
         addNotification('error', 'Please select a valid JSON backup file');
         return;
-      }
-      
+    }
       // Read and import file
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -184,14 +167,15 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           // Import using data service
           if (importedData.backupDate || importedData.backupId) {
             dataService.restoreFromBackup(e.target?.result as string);
-          } else {
+          
+    } else {
             dataService.importAllData(importedData);
           }
           
           addNotification('success', 'Backup restored successfully');
           setTimeout(() => window.location.reload(), 1500);
         } catch (error) {
-          addNotification('error', `Failed to restore backup: ${(error as Error).message}`);
+          addNotification('error', `Failed to restore backup: ${(error as Error).message }`);
         }
       };
       
@@ -208,12 +192,12 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     if (selectedAssessments.length === 0) return;
     
     if (action === 'delete') {
-      if (window.confirm(`Delete ${selectedAssessments.length} selected assessments?`)) {
+      if (window.confirm(`Delete ${selectedAssessments.length } selected assessments?`)) {
         selectedAssessments.forEach(id => onDeleteAssessment(id));
         setSelectedAssessments([]);
       }
     } else if (action === 'export') {
-      selectedAssessments.forEach(id => {
+      selectedAssessments.forEach(id =>) {
         const assessment = savedAssessments.find(a => a.id === id);
         if (assessment) {
           onExportAssessment(assessment, 'json');
@@ -234,7 +218,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Enhanced Welcome Section */}
@@ -242,11 +226,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
-              {userProfile ? `Welcome back, ${userProfile.name}` : 'CMMC Cybersecurity Compliance'}
+              {userProfile ? `Welcome back, ${userProfile.name }` : 'CMMC Cybersecurity Compliance'}
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-300">
               {userProfile 
-                ? `Manage CMMC compliance for ${userProfile.organization}`
+                ? `Manage CMMC compliance for ${userProfile.organization }`
                 : 'Comprehensive CMMC certification readiness platform'
               }
             </p>
@@ -280,7 +264,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <input
                 type="file"
                 accept=".json"
-                onChange={handleFileImport}
+                onChange={handleFileImport }
                 className="hidden"
               />
             </label>
@@ -297,12 +281,12 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 Total Assessments
               </p>
               <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                {stats.total}
+                {stats.total }
               </p>
               <div className="flex items-center space-x-2 mt-2">
                 <span className="text-xs text-green-600 dark:text-green-400 flex items-center">
                   <ArrowUp className="w-3 h-3 mr-1" />
-                  {stats.recentAssessments} this week
+                  {stats.recentAssessments } this week
                 </span>
               </div>
             </div>
@@ -319,7 +303,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 Average Score
               </p>
               <p className={`text-3xl font-bold ${getScoreColor(stats.avgScore)}`}>
-                {stats.avgScore}%
+                {stats.avgScore }%
               </p>
             </div>
             <div className="p-3 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 rounded-full group-hover:scale-110 transition-transform">
@@ -340,7 +324,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <div className="flex items-center space-x-2 mt-2">
                 <span className="text-xs text-green-600 dark:text-green-400 flex items-center">
                   <TrendingUp className="w-3 h-3 mr-1" />
-                  {stats.recentCompletions} completed recently
+                  {stats.recentCompletions } completed recently
                 </span>
               </div>
             </div>
@@ -384,13 +368,14 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 'rgba(249, 115, 22, 0.8)',  // High - Orange
                 'rgba(234, 179, 8, 0.8)',   // Medium - Yellow
                 'rgba(34, 197, 94, 0.8)',   // Low - Green
-              ]}
+              ]
+    }
               className="h-full"
             />
           </div>
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              Total Assessments: {stats.total}
+              Total Assessments: {stats.total }
             </p>
           </div>
         </div>
@@ -398,14 +383,14 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         {/* Risk Distribution Cards */}
         <div className="lg:col-span-2 grid grid-cols-2 gap-4">
           {Object.entries(stats.riskDistribution).map(([risk, count]) => (
-            <div key={risk} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
+            <div key={risk } className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400 capitalize">
-                    {risk} Risk
+                    {risk } Risk
                   </p>
                   <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:scale-110 transition-transform">
-                    {count}
+                    {count }
                   </p>
                   <div className="mt-2">
                     <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -454,7 +439,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <button
-            onClick={onStartAssessment}
+            onClick={onStartAssessment }
             className="p-6 border-2 border-dashed border-red-300 dark:border-red-600 rounded-xl hover:border-red-500 dark:hover:border-red-400 hover:bg-gradient-to-br hover:from-red-50 hover:to-orange-50 dark:hover:from-red-900/20 dark:hover:to-orange-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
           >
             <div className="flex items-center space-x-4 mb-4">
@@ -541,7 +526,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <input
                 type="text"
                 placeholder="Search CMMC and cybersecurity assessments..."
-                value={searchTerm}
+                value={searchTerm }
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
               />
@@ -550,7 +535,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           
           <div className="flex flex-wrap gap-4">
             <select
-              value={filterStatus}
+              value={filterStatus }
               onChange={(e) => setFilterStatus(e.target.value)}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -560,7 +545,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </select>
 
             <select
-              value={filterRisk}
+              value={filterRisk }
               onChange={(e) => setFilterRisk(e.target.value)}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -572,7 +557,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </select>
 
             <select
-              value={sortBy}
+              value={sortBy }
               onChange={(e) => setSortBy(e.target.value as 'date' | 'score' | 'name' | 'progress')}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -596,7 +581,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-blue-800 dark:text-blue-200">
-                {selectedAssessments.length} assessment(s) selected
+                {selectedAssessments.length } assessment(s) selected
               </span>
               <div className="flex space-x-2">
                 <button
@@ -632,12 +617,12 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
               </div>
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Cybersecurity Assessments ({filteredAndSortedAssessments.length})
+                Cybersecurity Assessments ({filteredAndSortedAssessments.length })
               </h2>
             </div>
             {filteredAndSortedAssessments.length > 0 && (
               <div className="text-sm text-gray-500 dark:text-gray-400">
-                {stats.completed} completed • {stats.inProgress} in progress
+                {stats.completed } completed • {stats.inProgress } in progress
               </div>
             )}
           </div>
@@ -662,7 +647,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </p>
             {savedAssessments.length === 0 && (
               <button
-                onClick={onStartAssessment}
+                onClick={onStartAssessment }
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 inline-flex items-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 <Plus className="w-5 h-5" />
@@ -681,7 +666,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   catSum + category.questions.length, 0), 0);
 
               return (
-                <div key={assessment.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
+                <div key={assessment.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <input
@@ -691,7 +676,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                         className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                       />
                       <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {assessment.frameworkName}
+                        {assessment.frameworkName }
                       </h3>
                     </div>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -705,19 +690,19 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   
                   {assessment.organizationInfo?.name && (
                     <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                      {assessment.organizationInfo.name}
+                      {assessment.organizationInfo.name }
                     </p>
                   )}
 
                   <div className="space-y-3 mb-4">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600 dark:text-gray-300">Overall Score</span>
-                      <span className={`font-bold ${getScoreColor(score)}`}>{score}%</span>
+                      <span className={`font-bold ${getScoreColor(score)}`}>{score }%</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600 dark:text-gray-300">Progress</span>
                       <span className="font-medium text-gray-900 dark:text-white">
-                        {progress}/{totalQuestions}
+                        {progress }/{totalQuestions }
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
@@ -738,7 +723,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
                     <span>{new Date(assessment.lastModified).toLocaleDateString()}</span>
                     {assessment.timeSpent && (
-                      <span>{assessment.timeSpent} min</span>
+                      <span>{assessment.timeSpent } min</span>
                     )}
                   </div>
 
@@ -810,7 +795,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         <QuickNavigationPanel currentPage="/dashboard" />
         
         <RelatedLinks
-          links={contextualLinks}
+          links={contextualLinks }
           title="Recommended Next Steps"
           maxItems={4}
         />
@@ -820,7 +805,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           title="Security Audit Logs"
           description="Review detailed audit trails for all system activities and user actions across compliance frameworks."
           href="/audit-logs"
-          icon={ScrollText}
+          icon={ScrollText }
           badge="New"
           badgeColor="purple"
           priority="high"

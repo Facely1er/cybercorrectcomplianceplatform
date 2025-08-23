@@ -1,5 +1,6 @@
 // Security Configuration for Production
-import { ENV } from './environment';
+import { ENV 
+    } from './environment';
 
 export interface SecurityConfig {
   headers: Record<string, string>;
@@ -42,10 +43,8 @@ export const getSecurityConfig = (): SecurityConfig => {
         'magnetometer=()',
         'accelerometer=()',
         'gyroscope=()'
-      ].join(', '),
-    },
-    
-    csp: [
+      ].join(', ') 
+    }, csp: [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
@@ -56,17 +55,14 @@ export const getSecurityConfig = (): SecurityConfig => {
       "base-uri 'self'",
       "form-action 'self'",
       "upgrade-insecure-requests"
-    ].join('; '),
-    
-    cors: {
+    ].join('; '), cors: {
       origin: isProduction 
         ? [
             'https://your-domain.com',
             'https://www.your-domain.com',
             'https://app.your-domain.com'
           ]
-        : ['http://localhost:5173', 'http://localhost:4173'],
-      credentials: true
+        : ['http://localhost:5173', 'http://localhost:4173'], credentials: true
     }
   };
 };
@@ -80,7 +76,8 @@ export const validateSecurityHeaders = (headers: Headers): boolean => {
   ];
   
   return requiredHeaders.every(header => headers.has(header));
-};
+
+    };
 
 export const sanitizeInput = (input: string): string => {
   // Remove potentially dangerous characters
@@ -89,13 +86,15 @@ export const sanitizeInput = (input: string): string => {
     .replace(/javascript:/gi, '') // Remove javascript: protocol
     .replace(/on\w+=/gi, '') // Remove event handlers
     .trim();
-};
+
+    };
 
 export const validateCSRFToken = (token: string, sessionToken: string): boolean => {
   // Simple CSRF token validation
   // In production, use a more robust implementation
   return token === btoa(sessionToken + 'csrf-salt');
-};
+
+    };
 
 export const generateCSRFToken = (sessionToken: string): string => {
   return btoa(sessionToken + 'csrf-salt');

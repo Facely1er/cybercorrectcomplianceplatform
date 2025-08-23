@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Calendar, ChevronLeft, ChevronRight, Plus, Filter,
-  Clock, Users, CheckSquare, AlertTriangle
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Task } from '../../tasks/types';
 
 interface CalendarEvent {
@@ -23,27 +20,19 @@ interface CalendarViewProps {
 }
 
 export const CalendarView: React.FC<CalendarViewProps> = ({
-  tasks,
-  onEventClick,
-  onCreateEvent,
-  className = ''
+  tasks, onEventClick, onCreateEvent, className = ''
 }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month');
 
   // Convert tasks to calendar events
   const events: CalendarEvent[] = tasks.map(task => ({
-    id: task.id,
-    title: task.title,
-    date: task.dueDate,
-    type: 'task',
-    priority: task.priority,
-    description: task.description,
-    assignees: [task.assignedTo]
-  }));
+    id: task.id, title: task.title, date: task.dueDate, type: 'task', priority: task.priority, description: task.description, assignees: [task.assignedTo]
+  
+    }));
 
   const navigateMonth = (direction: 'prev' | 'next') => {
-    setCurrentDate(prev => {
+    setCurrentDate(prev =>) {
       const newDate = new Date(prev);
       if (direction === 'prev') {
         newDate.setMonth(newDate.getMonth() - 1);
@@ -58,7 +47,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
+    
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
 
@@ -93,7 +82,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   const today = new Date();
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 ${className}`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 ${className }`}>
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
@@ -104,7 +93,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
               {(['month', 'week', 'day'] as const).map((mode) => (
                 <button
-                  key={mode}
+                  key={mode }
                   onClick={() => setViewMode(mode)}
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
@@ -112,13 +101,13 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {mode}
+                  {mode }
                 </button>
               ))}
             </div>
           </div>
           <button
-            onClick={onCreateEvent}
+            onClick={onCreateEvent }
             className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Plus className="w-4 h-4" />
@@ -134,7 +123,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             <ChevronLeft className="w-5 h-5" />
           </button>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            {currentDate.toLocaleDateString('en-US',) { month: 'long', year: 'numeric' })}
           </h3>
           <button
             onClick={() => navigateMonth('next')}
@@ -150,8 +139,8 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
           {/* Calendar Grid */}
           <div className="grid grid-cols-7 gap-1 mb-4">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-              <div key={day} className="p-2 text-center text-sm font-medium text-gray-500 dark:text-gray-400">
-                {day}
+              <div key={day } className="p-2 text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+                {day }
               </div>
             ))}
           </div>
@@ -164,7 +153,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               
               return (
                 <div
-                  key={index}
+                  key={index }
                   className={`min-h-[100px] p-2 border border-gray-200 dark:border-gray-700 rounded-lg ${
                     isCurrentMonth 
                       ? 'bg-white dark:bg-gray-800' 
@@ -186,12 +175,12 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   <div className="space-y-1">
                     {dayEvents.slice(0, 2).map((event) => (
                       <div
-                        key={event.id}
+                        key={event.id }
                         onClick={() => onEventClick(event)}
                         className={`p-1 rounded text-xs cursor-pointer hover:opacity-80 transition-opacity ${getPriorityColor(event.priority)} text-white`}
-                        title={event.title}
+                        title={event.title }
                       >
-                        {event.title.length > 20 ? `${event.title.substring(0, 20)}...` : event.title}
+                        {event.title.length > 20 ? `${event.title.substring(0, 20)}...` : event.title }
                       </div>
                     ))}
                     {dayEvents.length > 2 && (

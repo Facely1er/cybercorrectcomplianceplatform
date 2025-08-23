@@ -1,5 +1,6 @@
 // Enhanced Performance Monitoring for Production
-import { ENV } from '../config/environment';
+import { ENV 
+    } from '../config/environment';
 
 interface PerformanceMetrics {
   // Core Web Vitals
@@ -19,7 +20,8 @@ interface PerformanceMetrics {
   timestamp: number;
   url: string;
   userAgent: string;
-  viewport: { width: number; height: number };
+  viewport: { width: number; height: number 
+    };
 }
 
 interface ResourceTiming {
@@ -45,12 +47,12 @@ class PerformanceMonitor {
       this.observer = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
           this.processPerformanceEntry(entry);
-        }
+    }
       });
 
       try {
         this.observer.observe({ entryTypes: ['navigation', 'paint', 'largest-contentful-paint', 'first-input', 'layout-shift'] });
-      } catch (error) {
+      } catch {
         console.warn('Some performance metrics not supported:', error);
       }
 
@@ -58,11 +60,12 @@ class PerformanceMonitor {
       this.resourceObserver = new PerformanceObserver((list) => {
         const resources = list.getEntries().map(this.mapResourceEntry);
         this.reportResourceMetrics(resources);
-      });
+      
+    });
 
       try {
         this.resourceObserver.observe({ entryTypes: ['resource'] });
-      } catch (error) {
+      } catch {
         console.warn('Resource timing not supported:', error);
       }
     }
@@ -70,13 +73,8 @@ class PerformanceMonitor {
 
   private collectInitialMetrics(): void {
     const metrics: Partial<PerformanceMetrics> = {
-      timestamp: Date.now(),
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      viewport: {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }
+      timestamp: Date.now(), url: window.location.href, userAgent: navigator.userAgent, viewport: {
+        width: window.innerWidth, height: window.innerHeight }
     };
 
     // Navigation timing
@@ -86,29 +84,21 @@ class PerformanceMonitor {
       metrics.domContentLoaded = timing.domContentLoadedEventEnd - timing.navigationStart;
       metrics.ttfb = timing.responseStart - timing.navigationStart;
     }
-
     // Memory usage (if available)
     if ('memory' in performance) {
       metrics.memoryUsage = (performance as any).memory.usedJSHeapSize;
     }
-
     // Connection information
     if ('connection' in navigator) {
       metrics.connectionType = (navigator as any).connection?.effectiveType || 'unknown';
     }
-
     this.reportMetrics(metrics as PerformanceMetrics);
   }
 
   private processPerformanceEntry(entry: PerformanceEntry): void {
     const metrics: Partial<PerformanceMetrics> = {
-      timestamp: Date.now(),
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      viewport: {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }
+      timestamp: Date.now(), url: window.location.href, userAgent: navigator.userAgent, viewport: {
+        width: window.innerWidth, height: window.innerHeight }
     };
 
     switch (entry.entryType) {
@@ -149,10 +139,7 @@ class PerformanceMonitor {
     };
 
     return {
-      name: entry.name,
-      duration: entry.duration,
-      size: entry.transferSize,
-      type: getResourceType(entry.name)
+      name: entry.name, duration: entry.duration, size: entry.transferSize, type: getResourceType(entry.name)
     };
   }
 
@@ -163,18 +150,15 @@ class PerformanceMonitor {
     if (ENV.isProduction && ENV.ANALYTICS_ID) {
       this.sendToAnalytics(metrics);
     }
-    
     // Log performance issues
     this.checkPerformanceThresholds(metrics);
-  }
-
+    }
   private reportResourceMetrics(resources: ResourceTiming[]): void {
     // Report slow resources
     const slowResources = resources.filter(r => r.duration > 1000);
     if (slowResources.length > 0) {
       console.warn('Slow resources detected:', slowResources);
     }
-
     // Report large resources
     const largeResources = resources.filter(r => r.size && r.size > 1024 * 1024); // > 1MB
     if (largeResources.length > 0) {
@@ -187,19 +171,20 @@ class PerformanceMonitor {
 
     // Check Core Web Vitals thresholds
     if (metrics.fcp && metrics.fcp > 1800) {
-      issues.push(`FCP too slow: ${metrics.fcp}ms (should be < 1800ms)`);
+      issues.push(`FCP too slow: ${metrics.fcp 
+    }ms (should be < 1800ms)`);
     }
     
     if (metrics.lcp && metrics.lcp > 2500) {
-      issues.push(`LCP too slow: ${metrics.lcp}ms (should be < 2500ms)`);
+      issues.push(`LCP too slow: ${metrics.lcp }ms (should be < 2500ms)`);
     }
     
     if (metrics.fid && metrics.fid > 100) {
-      issues.push(`FID too slow: ${metrics.fid}ms (should be < 100ms)`);
+      issues.push(`FID too slow: ${metrics.fid }ms (should be < 100ms)`);
     }
     
     if (metrics.cls && metrics.cls > 0.1) {
-      issues.push(`CLS too high: ${metrics.cls} (should be < 0.1)`);
+      issues.push(`CLS too high: ${metrics.cls } (should be < 0.1)`);
     }
 
     if (issues.length > 0) {
@@ -208,7 +193,7 @@ class PerformanceMonitor {
       // Report to error monitoring
       if (ENV.isProduction) {
         this.reportPerformanceIssue(issues, metrics);
-      }
+    }
     }
   }
 
@@ -216,23 +201,21 @@ class PerformanceMonitor {
     try {
       // Send to analytics service
       await fetch('/api/analytics/performance', {
-        method: 'POST',
-        headers: {
+        method): 'POST', headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(metrics)
+        
+    }, body: JSON.stringify(metrics)
       });
-    } catch (error) {
+    } catch {
       console.warn('Failed to send performance metrics:', error);
     }
   }
 
   private reportPerformanceIssue(issues: string[], metrics: PerformanceMetrics): void {
     // This would integrate with your error monitoring service
-    console.error('Performance threshold exceeded:', {
-      issues,
-      metrics,
-      timestamp: new Date().toISOString()
+    console.error('Performance threshold exceeded:',) {
+      issues, metrics, timestamp: new Date().toISOString()
+    
     });
   }
 
@@ -241,7 +224,8 @@ class PerformanceMonitor {
     const start = performance.now();
     return () => {
       const duration = performance.now() - start;
-      console.log(`${label}: ${duration.toFixed(2)}ms`);
+      console.log(`${label 
+    }: ${duration.toFixed(2)}ms`);
       return duration;
     };
   }
@@ -254,9 +238,10 @@ class PerformanceMonitor {
       
       // Mark the measurement
       if ('performance' in window && performance.mark) {
-        performance.mark(`${name}-start`);
-        performance.mark(`${name}-end`);
-        performance.measure(name, `${name}-start`, `${name}-end`);
+        performance.mark(`${name 
+    }-start`);
+        performance.mark(`${name }-end`);
+        performance.measure(name, `${name }-start`, `${name }-end`);
       }
       
       resolve(duration);
@@ -290,10 +275,11 @@ export const measurePageLoad = (): void => {
     setTimeout(() => {
       const metrics = performanceMonitor.getMetrics();
       console.log('Page load metrics:', metrics[metrics.length - 1]);
+    
     }, 0);
   });
 };
 
 export const measureRouteChange = (routeName: string): (() => void) => {
-  return performanceMonitor.startTiming(`Route: ${routeName}`);
+  return performanceMonitor.startTiming(`Route: ${routeName }`);
 };

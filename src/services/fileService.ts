@@ -27,13 +27,9 @@ export class FileService {
 
       // Create file record
       const fileRecord: FileUploadResult = {
-        id: Date.now().toString(),
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        url: await this.convertToBase64(file),
-        uploadedAt: new Date()
-      };
+        id: Date.now().toString(), name: file.name, size: file.size, type: file.type, url: await this.convertToBase64(file), uploadedAt: new Date()
+      
+    };
 
       // Store in localStorage
       const existingFiles = this.getStoredFiles();
@@ -41,10 +37,10 @@ export class FileService {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(existingFiles));
 
       return fileRecord;
+    
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'fileUploadError' },
-        extra: { fileName: file.name, fileSize: file.size }
+        tags: { type): 'fileUploadError' }, extra: { fileName: file.name, fileSize: file.size }
       });
       throw error;
     }
@@ -56,8 +52,7 @@ export class FileService {
       return files.find(f => f.id === fileId) || null;
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'fileRetrievalError' },
-        extra: { fileId }
+        tags: { type): 'fileRetrievalError' }, extra: { fileId }
       });
       return null;
     }
@@ -70,8 +65,7 @@ export class FileService {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filteredFiles));
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'fileDeletionError' },
-        extra: { fileId }
+        tags: { type): 'fileDeletionError' }, extra: { fileId }
       });
       throw error;
     }
@@ -93,11 +87,12 @@ export class FileService {
     ];
 
     if (file.size > maxSize) {
-      throw new Error(`File size exceeds limit. Maximum size is ${maxSize / 1024 / 1024}MB`);
+      throw new Error(`File size exceeds limit. Maximum size is ${maxSize / 1024 / 1024
+    }MB`);
     }
 
     if (!allowedTypes.includes(file.type)) {
-      throw new Error(`File type ${file.type} is not allowed`);
+      throw new Error(`File type ${file.type } is not allowed`);
     }
   }
 
@@ -114,8 +109,7 @@ export class FileService {
     try {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       return stored ? JSON.parse(stored).map((f: any) => ({
-        ...f,
-        uploadedAt: new Date(f.uploadedAt)
+        ...f, uploadedAt: new Date(f.uploadedAt)
       })) : [];
     } catch (error) {
       console.error('Failed to parse stored files:', error);
@@ -129,14 +123,12 @@ export class FileService {
       const used = files.reduce((sum, file) => sum + file.size, 0);
       const total = 5 * 1024 * 1024; // 5MB estimate for localStorage
       return {
-        used,
-        total,
-        percentage: (used / total) * 100
-      };
-    } catch (error) {
+        used, total, percentage: (used / total) * 100
+      
+    };
+    } catch {
       return { used: 0, total: 0, percentage: 0 };
     }
   }
 }
 
-export const fileService = FileService.getInstance();

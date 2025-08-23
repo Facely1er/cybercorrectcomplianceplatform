@@ -49,8 +49,7 @@ export interface Recurrence {
   daysOfWeek?: number[]; // 0 = Sunday, 1 = Monday, etc.
   dayOfMonth?: number;
   weekOfMonth?: number;
-}
-
+    }
 export interface Attendee {
   id: string;
   name: string;
@@ -73,8 +72,7 @@ export interface Notification {
   timing: number; // minutes before event
   recipients: string[];
   enabled: boolean;
-}
-
+    }
 export interface ComplianceCalendar {
   id: string;
   name: string;
@@ -98,14 +96,16 @@ export interface CalendarSettings {
   workingHours: {
     start: string; // HH:mm format
     end: string;
-  };
+  
+    };
   workingDays: number[]; // 0 = Sunday, 1 = Monday, etc.
   timezone: string;
   reminderDefaults: {
     assessments: number; // minutes
     reviews: number;
     deadlines: number;
-  };
+  
+    };
 }
 
 export interface ActivityMetrics {

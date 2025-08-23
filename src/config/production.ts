@@ -1,63 +1,41 @@
 // Production Configuration
-import { ENV } from './environment';
+import { ENV 
+    } from './environment';
 
 export const PRODUCTION_CONFIG = {
   // Security Settings
   SECURITY: {
-    ENABLE_CSP: true,
-    ENABLE_HSTS: true,
-    ENABLE_XSS_PROTECTION: true,
-    ENABLE_CONTENT_TYPE_NOSNIFF: true,
-    ENABLE_FRAME_DENY: true,
-    ENABLE_REFERRER_POLICY: true,
-    SESSION_TIMEOUT: 28800000, // 8 hours
-    MAX_LOGIN_ATTEMPTS: 5,
-    LOCKOUT_DURATION: 900000, // 15 minutes
-  },
+    ENABLE_CSP: true, ENABLE_HSTS: true, ENABLE_XSS_PROTECTION: true, ENABLE_CONTENT_TYPE_NOSNIFF: true, ENABLE_FRAME_DENY: true, ENABLE_REFERRER_POLICY: true, SESSION_TIMEOUT: 28800000, // 8 hours
+    MAX_LOGIN_ATTEMPTS: 5, LOCKOUT_DURATION: 900000, // 15 minutes 
+    },
 
   // Performance Settings
   PERFORMANCE: {
-    ENABLE_COMPRESSION: true,
-    ENABLE_CACHING: true,
-    CACHE_MAX_AGE: 31536000, // 1 year
-    ENABLE_LAZY_LOADING: true,
-    ENABLE_CODE_SPLITTING: true,
-    BUNDLE_ANALYSIS: true,
-  },
+    ENABLE_COMPRESSION: true, ENABLE_CACHING: true, CACHE_MAX_AGE: 31536000, // 1 year
+    ENABLE_LAZY_LOADING: true, ENABLE_CODE_SPLITTING: true, BUNDLE_ANALYSIS: true 
+    },
 
   // Monitoring Settings
   MONITORING: {
-    ENABLE_ERROR_TRACKING: true,
-    ENABLE_PERFORMANCE_MONITORING: true,
-    ENABLE_ANALYTICS: true,
-    ENABLE_HEALTH_CHECKS: true,
-    LOG_LEVEL: 'warn',
-  },
+    ENABLE_ERROR_TRACKING: true, ENABLE_PERFORMANCE_MONITORING: true, ENABLE_ANALYTICS: true, ENABLE_HEALTH_CHECKS: true, LOG_LEVEL: 'warn' 
+    },
 
   // Database Settings
   DATABASE: {
-    CONNECTION_POOL_SIZE: 10,
-    QUERY_TIMEOUT: 30000, // 30 seconds
-    ENABLE_CONNECTION_POOLING: true,
-    ENABLE_QUERY_CACHING: true,
-  },
+    CONNECTION_POOL_SIZE: 10, QUERY_TIMEOUT: 30000, // 30 seconds
+    ENABLE_CONNECTION_POOLING: true, ENABLE_QUERY_CACHING: true 
+    },
 
   // API Settings
   API: {
     RATE_LIMIT_WINDOW: 900000, // 15 minutes
-    RATE_LIMIT_MAX_REQUESTS: 100,
-    ENABLE_REQUEST_LOGGING: true,
-    ENABLE_RESPONSE_CACHING: true,
-    CACHE_TTL: 300000, // 5 minutes
-  },
+    RATE_LIMIT_MAX_REQUESTS: 100, ENABLE_REQUEST_LOGGING: true, ENABLE_RESPONSE_CACHING: true, CACHE_TTL: 300000, // 5 minutes 
+    },
 
   // Feature Flags
   FEATURES: {
-    ENABLE_OFFLINE_MODE: false,
-    ENABLE_ADVANCED_FEATURES: true,
-    ENABLE_MULTI_TENANT: false,
-    ENABLE_BETA_FEATURES: false,
-  }
+    ENABLE_OFFLINE_MODE: false, ENABLE_ADVANCED_FEATURES: true, ENABLE_MULTI_TENANT: false, ENABLE_BETA_FEATURES: false
+    }
 } as const;
 
 // Production environment validation
@@ -71,13 +49,15 @@ export const validateProductionEnvironment = () => {
   const missing = requiredEnvVars.filter(varName => !import.meta.env[varName]);
   
   if (missing.length > 0) {
-    throw new Error(`Missing required production environment variables: ${missing.join(', ')}`);
+    throw new Error(`Missing required production environment variables: ${missing.join(', ')
+    }`);
   }
 
   // Validate Supabase URL format
   try {
     new URL(import.meta.env.VITE_SUPABASE_URL);
-  } catch {
+  
+    } catch {
     throw new Error('Invalid Supabase URL format');
   }
 
@@ -86,7 +66,6 @@ export const validateProductionEnvironment = () => {
     if (!import.meta.env.VITE_ENABLE_CSP || import.meta.env.VITE_ENABLE_CSP !== 'true') {
       console.warn('Content Security Policy not enabled in production');
     }
-    
     if (!import.meta.env.VITE_SECURE_COOKIES || import.meta.env.VITE_SECURE_COOKIES !== 'true') {
       console.warn('Secure cookies not enabled in production');
     }
@@ -96,8 +75,7 @@ export const validateProductionEnvironment = () => {
 // Initialize production validation
 if (ENV.isProduction) {
   validateProductionEnvironment();
-}
-
+    }
 // Production security headers
 export const PRODUCTION_HEADERS = {
   'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
@@ -110,7 +88,8 @@ export const PRODUCTION_HEADERS = {
   'Cross-Origin-Embedder-Policy': 'require-corp',
   'Cross-Origin-Opener-Policy': 'same-origin',
   'Cross-Origin-Resource-Policy': 'cross-origin'
-};
+
+    };
 
 // Production error handling
 export const PRODUCTION_ERROR_HANDLING = {
@@ -128,10 +107,9 @@ export const PRODUCTION_ERROR_HANDLING = {
   
   // Error notification thresholds
   NOTIFICATION_THRESHOLDS: {
-    ERROR_COUNT: 10,
-    ERROR_RATE: 0.1, // 10% error rate
+    ERROR_COUNT: 10, ERROR_RATE: 0.1, // 10% error rate
     RESPONSE_TIME: 5000 // 5 seconds
-  }
+    }
 };
 
 // Production performance monitoring
@@ -140,21 +118,21 @@ export const PRODUCTION_PERFORMANCE = {
   CORE_WEB_VITALS: {
     LCP: 2500, // Largest Contentful Paint
     FID: 100,  // First Input Delay
-    CLS: 0.1   // Cumulative Layout Shift
-  },
+    CLS: 0.1   // Cumulative Layout Shift 
+    },
   
   // Performance budgets
   BUDGETS: {
     JS_SIZE: 1000 * 1024, // 1MB
     CSS_SIZE: 100 * 1024, // 100KB
     IMAGE_SIZE: 500 * 1024, // 500KB
-    TOTAL_SIZE: 2000 * 1024 // 2MB
-  },
+    TOTAL_SIZE: 2000 * 1024 // 2MB 
+    },
   
   // Monitoring intervals
   MONITORING: {
     METRICS_INTERVAL: 5000, // 5 seconds
     PERFORMANCE_CHECK_INTERVAL: 30000, // 30 seconds
     BUNDLE_ANALYSIS_INTERVAL: 300000 // 5 minutes
-  }
+    }
 };

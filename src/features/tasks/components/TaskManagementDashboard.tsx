@@ -1,26 +1,15 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  CheckSquare, Clock, Users, AlertTriangle, Plus, Search,
-  Filter, Calendar, Target, BarChart3, Flag, Star,
-  Eye, Edit3, Trash2, MessageSquare, Paperclip, ArrowRight,
-  CheckCircle, XCircle, Pause, Play, RotateCcw
-} from 'lucide-react';
+import { MessageSquare, Paperclip, CheckCircle, XCircle } from 'lucide-react';
 import { Task, TaskFilter, TaskMetrics, TaskStatus, TaskPriority, TaskType } from '../types';
 import { useAuth } from '../../../shared/hooks/useAuth';
 import { dataService } from '../../../services/dataService';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface TaskManagementDashboardProps {
-  onBack: () => void;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+interface TaskManagementDashboardProps {, message: string) => void;
 }
 
-
-export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({
-  onBack,
-  addNotification
-}) => {
+export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = ({, addNotification }) => {
   const { user, currentOrganization } = useAuth();
   const { breadcrumbs } = useInternalLinking();
   const [activeView, setActiveView] = useState<'kanban' | 'list' | 'calendar'>('kanban');
@@ -32,21 +21,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
   const [loading, setLoading] = useState(false);
   const [filterAssignee, setFilterAssignee] = useState('all');
   const [taskFormData, setTaskFormData] = useState({
-    title: '',
-    description: '',
-    type: 'assessment' as TaskType,
-    priority: 'medium' as TaskPriority,
-    nistFunction: 'Identify',
-    nistCategory: '',
-    nistSubcategory: '',
-    assignedTo: '',
-    dueDate: '',
-    estimatedHours: 8,
-    tags: '',
-    businessImpact: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    technicalComplexity: 'medium' as 'low' | 'medium' | 'high',
-    framework: 'NIST CSF v2.0' as string
-  });
+    title: '', description: '', type: 'assessment' as TaskType, priority: 'medium' as TaskPriority, nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', assignedTo: '', dueDate: '', estimatedHours: 8, tags: '', businessImpact: 'medium' as 'low' | 'medium' | 'high' | 'critical', technicalComplexity: 'medium' as 'low' | 'medium' | 'high', framework: 'NIST CSF v2.0' as string });
 
   // Load tasks on component mount and when user/organization changes
   React.useEffect(() => {
@@ -63,10 +38,12 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       // Load tasks from centralized data service
       const fetchedTasks = dataService.getTasks();
       setTasks(fetchedTasks);
+    
     } catch (error) {
       console.error('Failed to load tasks:', error);
       setTasks([]); // Start with empty array if loading fails
       addNotification('warning', 'Failed to load tasks from storage');
+    
     } finally {
       setLoading(false);
     }
@@ -92,7 +69,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       return acc;
     }, {} as Record<string, number>);
 
-    const upcomingDeadlines = tasks.filter(t => {
+    const upcomingDeadlines = tasks.filter(t =>) {
       const daysUntilDue = (new Date(t.dueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24);
       return daysUntilDue <= 7 && daysUntilDue > 0 && t.status !== 'completed';
     }).length;
@@ -100,17 +77,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     const blockedTasks = tasks.filter(t => t.status === 'blocked').length;
 
     return {
-      totalTasks,
-      completedTasks,
-      overdueTasks,
-      tasksByStatus,
-      tasksByPriority,
-      tasksByFunction,
-      tasksByAssignee: {},
-      averageCompletionTime: 0,
-      upcomingDeadlines,
-      blockedTasks
-    };
+      totalTasks, completedTasks, overdueTasks, tasksByStatus, tasksByPriority, tasksByFunction, tasksByAssignee: {}, averageCompletionTime: 0, upcomingDeadlines, blockedTasks };
   }, [tasks]);
 
   const getStatusColor = (status: TaskStatus) => {
@@ -134,7 +101,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
   };
 
   const filteredTasks = useMemo(() => {
-    return tasks.filter(task => {
+    return tasks.filter(task =>) {
       const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            task.description.toLowerCase().includes(searchTerm.toLowerCase());
       
@@ -179,39 +146,8 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       return;
     }
     const newTask: Task = {
-      id: `task-${Date.now()}`,
-      title: taskFormData.title,
-      description: taskFormData.description,
-      type: taskFormData.type,
-      priority: taskFormData.priority,
-      status: 'not-started',
-      nistFunction: taskFormData.nistFunction as any,
-      nistCategory: taskFormData.nistCategory,
-      nistSubcategory: taskFormData.nistSubcategory,
-      relatedControlId: taskFormData.nistSubcategory.toLowerCase().replace('.', '.'),
-      assignedTo: [taskFormData.assignedTo],
-      assignedBy: user.id,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      dueDate: new Date(taskFormData.dueDate),
-      startDate: undefined,
-      completedAt: undefined,
-      estimatedHours: taskFormData.estimatedHours,
-      actualHours: undefined,
-      progress: 0,
-      dependencies: [],
-      subtasks: [],
-      attachments: [],
-      comments: [],
-      evidence: [],
-      approvalRequired: false,
-      tags: taskFormData.tags ? taskFormData.tags.split(',').map(t => t.trim()).filter(Boolean) : [taskFormData.type, taskFormData.nistFunction.toLowerCase()],
-      metadata: {
-        businessImpact: taskFormData.businessImpact,
-        technicalComplexity: taskFormData.technicalComplexity,
-        riskReduction: 10,
-        complianceImpact: [taskFormData.framework || 'NIST CSF v2.0'],
-        successCriteria: ['Task completed on time', 'Deliverables approved']
+      id: `task-${Date.now()}`, title: taskFormData.title, description: taskFormData.description, type: taskFormData.type, priority: taskFormData.priority, status: 'not-started', nistFunction: taskFormData.nistFunction as any, nistCategory: taskFormData.nistCategory, nistSubcategory: taskFormData.nistSubcategory, relatedControlId: taskFormData.nistSubcategory.toLowerCase().replace('.', '.'), assignedTo: [taskFormData.assignedTo], assignedBy: user.id, createdAt: new Date(), updatedAt: new Date(), dueDate: new Date(taskFormData.dueDate), startDate: undefined, completedAt: undefined, estimatedHours: taskFormData.estimatedHours, actualHours: undefined, progress: 0, dependencies: [], subtasks: [], attachments: [], comments: [], evidence: [], approvalRequired: false, tags: taskFormData.tags ? taskFormData.tags.split(',').map(t => t.trim()).filter(Boolean) : [taskFormData.type, taskFormData.nistFunction.toLowerCase()], metadata: {
+        businessImpact: taskFormData.businessImpact, technicalComplexity: taskFormData.technicalComplexity, riskReduction: 10, complianceImpact: [taskFormData.framework || 'NIST CSF v2.0'], successCriteria: ['Task completed on time', 'Deliverables approved']
       }
     };
 
@@ -220,26 +156,15 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
       dataService.saveTask(newTask);
       
       setTasks(prev => [...prev, newTask]);
-      addNotification('success', `Task "${newTask.title}" assigned to ${taskFormData.assignedTo} successfully`);
+      addNotification('success', `Task "${newTask.title 
+    }" assigned to ${taskFormData.assignedTo } successfully`);
       setShowCreateTask(false);
       
       // Reset form
       setTaskFormData({
-        title: '',
-        description: '',
-        type: 'assessment',
-        priority: 'medium',
-        nistFunction: 'Identify',
-        nistCategory: '',
-        nistSubcategory: '',
-        assignedTo: '',
-        dueDate: '',
-        estimatedHours: 8,
-        tags: '',
-        businessImpact: 'medium',
-        technicalComplexity: 'medium',
-        framework: 'NIST CSF v2.0'
-      });
+        title: '', description: '', type: 'assessment', priority: 'medium', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', assignedTo: '', dueDate: '', estimatedHours: 8, tags: '', businessImpact: 'medium', technicalComplexity: 'medium', framework: 'NIST CSF v2.0'
+      
+    });
     } catch (error) {
       console.error('Failed to create task:', error);
       addNotification('error', 'Failed to assign task');
@@ -260,18 +185,14 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
 
     try {
       const updatedTask = { 
-        ...task, 
-        status: newStatus, 
-        updatedAt: new Date(),
-        completedAt: newStatus === 'completed' ? new Date() : task.completedAt,
-        progress: newStatus === 'completed' ? 100 : task.progress
-      };
+        ...task, status: newStatus, updatedAt: new Date(), completedAt: newStatus === 'completed' ? new Date() : task.completedAt, progress: newStatus === 'completed' ? 100 : task.progress };
       
       // Save using data service directly
       dataService.saveTask(updatedTask);
       
       setTasks(prev => prev.map(t => t.id === taskId ? updatedTask : t));
-      addNotification('success', `Task status updated to ${newStatus.replace('-', ' ')}`);
+      addNotification('success', `Task status updated to ${newStatus.replace('-', ' ')
+    }`);
     } catch (error) {
       console.error('Failed to update task:', error);
       addNotification('error', 'Failed to update task status');
@@ -287,7 +208,8 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
         dataService.deleteTask(taskId);
         setTasks(prev => prev.filter(t => t.id !== taskId));
         addNotification('success', 'Task deleted successfully');
-      } catch (error) {
+      
+    } catch (error) {
         console.error('Failed to delete task:', error);
         addNotification('error', 'Failed to delete task');
       }
@@ -298,7 +220,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -336,7 +258,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Tasks</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{metrics.totalTasks}</p>
+              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{metrics.totalTasks }</p>
             </div>
             <CheckSquare className="w-8 h-8 text-blue-600 dark:text-blue-400" />
           </div>
@@ -346,7 +268,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{metrics.completedTasks}</p>
+              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{metrics.completedTasks }</p>
             </div>
             <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
@@ -356,7 +278,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Overdue</p>
-              <p className="text-3xl font-bold text-red-600 dark:text-red-400">{metrics.overdueTasks}</p>
+              <p className="text-3xl font-bold text-red-600 dark:text-red-400">{metrics.overdueTasks }</p>
             </div>
             <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
           </div>
@@ -366,7 +288,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Blocked</p>
-              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{metrics.blockedTasks}</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{metrics.blockedTasks }</p>
             </div>
             <XCircle className="w-8 h-8 text-orange-600 dark:text-orange-400" />
           </div>
@@ -376,7 +298,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Due This Week</p>
-              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{metrics.upcomingDeadlines}</p>
+              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{metrics.upcomingDeadlines }</p>
             </div>
             <Calendar className="w-8 h-8 text-purple-600 dark:text-purple-400" />
           </div>
@@ -404,7 +326,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
               <input
                 type="text"
                 placeholder="Search tasks..."
-                value={searchTerm}
+                value={searchTerm }
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
               />
@@ -415,7 +337,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
             <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
               {(['kanban', 'list', 'calendar'] as const).map((view) => (
                 <button
-                  key={view}
+                  key={view }
                   onClick={() => setActiveView(view)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                     activeView === view
@@ -423,7 +345,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {view}
+                  {view }
                 </button>
               ))}
             </div>
@@ -434,8 +356,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <select
             onChange={(e) => setFilters(prev => ({ 
-              ...prev, 
-              nistFunction: e.target.value === 'all' ? undefined : [e.target.value] 
+              ...prev, nistFunction: e.target.value === 'all' ? undefined : [e.target.value] 
             }))}
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
@@ -452,8 +373,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
 
           <select
             onChange={(e) => setFilters(prev => ({ 
-              ...prev, 
-              priority: e.target.value === 'all' ? undefined : [e.target.value as TaskPriority] 
+              ...prev, priority: e.target.value === 'all' ? undefined : [e.target.value as TaskPriority] 
             }))}
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
@@ -468,8 +388,7 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
 
           <select
             onChange={(e) => setFilters(prev => ({ 
-              ...prev, 
-              status: e.target.value === 'all' ? undefined : [e.target.value as TaskStatus] 
+              ...prev, status: e.target.value === 'all' ? undefined : [e.target.value as TaskStatus] 
             }))}
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
@@ -500,36 +419,36 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             {kanbanColumns.map((column) => (
-              <div key={column.id} className="space-y-4">
+              <div key={column.id } className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                   <h3 className="font-semibold text-gray-900 dark:text-white">
-                    {column.title}
+                    {column.title }
                   </h3>
                   <span className="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 rounded-full text-xs font-medium">
-                    {column.tasks.length}
+                    {column.tasks.length }
                   </span>
                 </div>
 
                 <div className="space-y-3 min-h-[400px]">
                   {column.tasks.map((task) => (
-                    <div key={task.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-800">
+                    <div key={task.id } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-800">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
                           <h4 className="font-medium text-gray-900 dark:text-white mb-1">
-                            {task.title}
+                            {task.title }
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                            {task.description}
+                            {task.description }
                           </p>
                         </div>
                         <span className={`px-2 py-1 rounded text-xs font-medium ${getPriorityColor(task.priority)}`}>
-                          {task.priority}
+                          {task.priority }
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between mb-3">
                         <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded">
-                          {task.nistSubcategory || task.relatedControlId}
+                          {task.nistSubcategory || task.relatedControlId }
                         </span>
                         <span className="text-xs text-gray-500 dark:text-gray-400">
                           {task.dueDate.toLocaleDateString()}
@@ -538,19 +457,19 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
 
                       <div className="flex items-center justify-between mb-3">
                         <div className="text-xs text-gray-500 dark:text-gray-400">
-                          Progress: {task.progress}%
+                          Progress: {task.progress }%
                         </div>
                         <div className="flex items-center space-x-1">
                           {task.comments.length > 0 && (
                             <span className="flex items-center space-x-1 text-xs text-gray-500">
                               <MessageSquare className="w-3 h-3" />
-                              <span>{task.comments.length}</span>
+                              <span>{task.comments.length }</span>
                             </span>
                           )}
                           {task.attachments.length > 0 && (
                             <span className="flex items-center space-x-1 text-xs text-gray-500">
                               <Paperclip className="w-3 h-3" />
-                              <span>{task.attachments.length}</span>
+                              <span>{task.attachments.length }</span>
                             </span>
                           )}
                         </div>
@@ -559,14 +478,14 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
                         <div
                           className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${task.progress}%` }}
+                          style={{ width: `${task.progress }%` }}
                         />
                       </div>
 
                       <div className="flex items-center justify-between">
                         <div className="flex -space-x-2">
                           {task.assignedTo.slice(0, 3).map((userId, index) => (
-                            <div key={index} className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                            <div key={index } className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
                               {userId.charAt(userId.length - 1)}
                             </div>
                           ))}
@@ -582,23 +501,23 @@ export const TaskManagementDashboard: React.FC<TaskManagementDashboardProps> = (
                             onClick={() => {
                               const taskDetails = `Task Details:
 
-Title: ${task.title}
-Description: ${task.description}
-Type: ${task.type}
-Priority: ${task.priority}
-Status: ${task.status}
-NIST Function: ${task.nistFunction}
-Control ID: ${task.relatedControlId}
+Title: ${task.title }
+Description: ${task.description }
+Type: ${task.type }
+Priority: ${task.priority }
+Status: ${task.status }
+NIST Function: ${task.nistFunction }
+Control ID: ${task.relatedControlId }
 
 Assigned To: ${task.assignedTo.join(', ')}
-Assigned By: ${task.assignedBy}
+Assigned By: ${task.assignedBy }
 Due Date: ${task.dueDate.toLocaleDateString()}
-Progress: ${task.progress}%
-Estimated Hours: ${task.estimatedHours}
+Progress: ${task.progress }%
+Estimated Hours: ${task.estimatedHours }
 
-Business Impact: ${task.metadata.businessImpact}
-Technical Complexity: ${task.metadata.technicalComplexity}
-Risk Reduction: ${task.metadata.riskReduction}%
+Business Impact: ${task.metadata.businessImpact }
+Technical Complexity: ${task.metadata.technicalComplexity }
+Risk Reduction: ${task.metadata.riskReduction }%
 
 Created: ${task.createdAt.toLocaleDateString()}
 Updated: ${task.updatedAt.toLocaleDateString()}`;
@@ -688,24 +607,24 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               </thead>
               <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {filteredTasks.map((task) => (
-                  <tr key={task.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                  <tr key={task.id } className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         <div className="font-medium text-gray-900 dark:text-white">
-                          {task.title}
+                          {task.title }
                         </div>
                         <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {task.nistSubcategory || task.relatedControlId || task.nistFunction}
+                          {task.nistSubcategory || task.relatedControlId || task.nistFunction }
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-white">
-                      {task.nistFunction}
+                      {task.nistFunction }
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex -space-x-2">
                         {task.assignedTo.slice(0, 2).map((userId, index) => (
-                          <div key={index} className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
+                          <div key={index } className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">
                             {userId.charAt(userId.length - 1)}
                           </div>
                         ))}
@@ -713,7 +632,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`font-medium ${getPriorityColor(task.priority)}`}>
-                        {task.priority}
+                        {task.priority }
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -729,11 +648,11 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                         <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                           <div
                             className="bg-green-500 h-2 rounded-full"
-                            style={{ width: `${task.progress}%` }}
+                            style={{ width: `${task.progress }%` }}
                           />
                         </div>
                         <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {task.progress}%
+                          {task.progress }%
                         </span>
                       </div>
                     </td>
@@ -743,23 +662,23 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                           onClick={() => {
                             const taskDetails = `Task Details:
 
-Title: ${task.title}
-Description: ${task.description}
-Type: ${task.type}
-Priority: ${task.priority}
-Status: ${task.status}
-NIST Function: ${task.nistFunction}
-Control ID: ${task.relatedControlId}
+Title: ${task.title }
+Description: ${task.description }
+Type: ${task.type }
+Priority: ${task.priority }
+Status: ${task.status }
+NIST Function: ${task.nistFunction }
+Control ID: ${task.relatedControlId }
 
 Assigned To: ${task.assignedTo.join(', ')}
-Assigned By: ${task.assignedBy}
+Assigned By: ${task.assignedBy }
 Due Date: ${task.dueDate.toLocaleDateString()}
-Progress: ${task.progress}%
-Estimated Hours: ${task.estimatedHours}
+Progress: ${task.progress }%
+Estimated Hours: ${task.estimatedHours }
 
-Business Impact: ${task.metadata.businessImpact}
-Technical Complexity: ${task.metadata.technicalComplexity}
-Risk Reduction: ${task.metadata.riskReduction}%
+Business Impact: ${task.metadata.businessImpact }
+Technical Complexity: ${task.metadata.technicalComplexity }
+Risk Reduction: ${task.metadata.riskReduction }%
 
 Created: ${task.createdAt.toLocaleDateString()}
 Updated: ${task.updatedAt.toLocaleDateString()}`;
@@ -800,7 +719,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
               Create Compliance Task
             </h3>
             
-            <form onSubmit={handleCreateTask} className="space-y-4">
+            <form onSubmit={handleCreateTask } className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Task Title *
@@ -808,7 +727,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                 <input
                   type="text"
                   required
-                  value={taskFormData.title}
+                  value={taskFormData.title }
                   onChange={(e) => setTaskFormData(prev => ({ ...prev, title: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   placeholder="Enter task title"
@@ -821,7 +740,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                 </label>
                 <textarea
                   required
-                  value={taskFormData.description}
+                  value={taskFormData.description }
                   onChange={(e) => setTaskFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
@@ -836,7 +755,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   </label>
                   <select
                     required
-                    value={taskFormData.type}
+                    value={taskFormData.type }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, type: e.target.value as TaskType }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   >
@@ -867,7 +786,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   </label>
                   <select
                     required
-                    value={taskFormData.priority}
+                    value={taskFormData.priority }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, priority: e.target.value as TaskPriority }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   >
@@ -886,7 +805,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   </label>
                   <select
                     required
-                    value={taskFormData.nistFunction}
+                    value={taskFormData.nistFunction }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, nistFunction: e.target.value }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   >
@@ -907,7 +826,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   </label>
                   <input
                     type="text"
-                    value={taskFormData.nistCategory}
+                    value={taskFormData.nistCategory }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, nistCategory: e.target.value }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     placeholder="e.g., Asset Management, Data Protection, Access Control"
@@ -922,7 +841,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   </label>
                   <input
                     type="text"
-                    value={taskFormData.nistSubcategory}
+                    value={taskFormData.nistSubcategory }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, nistSubcategory: e.target.value }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     placeholder="e.g., ID.AM-01, PR.DS-01, CMMC.AC.1.001"
@@ -935,7 +854,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   </label>
                   <select
                     required
-                    value={taskFormData.assignedTo}
+                    value={taskFormData.assignedTo }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, assignedTo: e.target.value }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   >
@@ -962,7 +881,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   <input
                     type="date"
                     required
-                    value={taskFormData.dueDate}
+                    value={taskFormData.dueDate }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, dueDate: e.target.value }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   />
@@ -975,7 +894,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   <input
                     type="number"
                     min="1"
-                    value={taskFormData.estimatedHours}
+                    value={taskFormData.estimatedHours }
                     onChange={(e) => setTaskFormData(prev => ({ ...prev, estimatedHours: parseInt(e.target.value) || 8 }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   />
@@ -988,20 +907,7 @@ Updated: ${task.updatedAt.toLocaleDateString()}`;
                   onClick={() => {
                     setShowCreateTask(false);
                     setTaskFormData({
-                      title: '',
-                      description: '',
-                      type: 'assessment',
-                      priority: 'medium',
-                      nistFunction: 'Identify',
-                      nistCategory: '',
-                      nistSubcategory: '',
-                      assignedTo: '',
-                      dueDate: '',
-                      estimatedHours: 8,
-                      tags: '',
-                      businessImpact: 'medium',
-                      technicalComplexity: 'medium',
-                      framework: 'NIST CSF v2.0'
+                      title: '', description: '', type: 'assessment', priority: 'medium', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', assignedTo: '', dueDate: '', estimatedHours: 8, tags: '', businessImpact: 'medium', technicalComplexity: 'medium', framework: 'NIST CSF v2.0'
                     });
                   }}
                   className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"

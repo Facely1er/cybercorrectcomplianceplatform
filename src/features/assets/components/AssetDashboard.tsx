@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Shield, BarChart3, AlertTriangle, CheckCircle, Target,
-  Server, Database, Users, Building, FileText, Cloud,
-  Clock, Plus, Download, Upload, Eye, Calendar,
-  CheckSquare, ChevronLeft
-} from 'lucide-react';
+import { CheckCircle, Server, Database, Building, CloudChevronLeft } from 'lucide-react';
 import { Asset, AssetMetrics } from '../../../shared/types/assets';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';
@@ -28,14 +23,7 @@ interface AssetDashboardProps {
 }
 
 export const AssetDashboard: React.FC<AssetDashboardProps> = ({
-  assets,
-  onViewAsset,
-  onCreateAsset,
-  onViewInventory,
-  onViewCategories,
-  onViewDependencies,
-
-}) => {
+  assets, onViewAsset, onCreateAsset, onViewInventory, onViewCategories, onViewDependencies }) => {
 
   const [showImportModal, setShowImportModal] = useState(false);
   const [importFile, setImportFile] = useState<File | null>(null);
@@ -49,6 +37,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     const assetsByCategory = assets.reduce((acc, asset) => {
       acc[asset.category] = (acc[asset.category] || 0) + 1;
       return acc;
+    
     }, {} as Record<string, number>);
 
     const assetsByCriticality = assets.reduce((acc, asset) => {
@@ -91,18 +80,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     }, 0) / assets.length : 0;
 
     return {
-      totalAssets,
-      assetsByCategory,
-      assetsByCriticality,
-      assetsByStatus,
-      assetsByClassification,
-      riskDistribution,
-      complianceRate: controlCoverage,
-      averageAge: Math.round(averageAge),
-      maintenanceOverdue,
-      vulnerabilityCount,
-      controlCoverage
-    };
+      totalAssets, assetsByCategory, assetsByCriticality, assetsByStatus, assetsByClassification, riskDistribution, complianceRate: controlCoverage, averageAge: Math.round(averageAge), maintenanceOverdue, vulnerabilityCount, controlCoverage };
   }, [assets]);
 
   const getCategoryIcon = (category: string) => {
@@ -142,29 +120,16 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
   const handleExportAssets = () => {
     try {
       const exportData = {
-        timestamp: new Date().toISOString(),
-        version: '1.0',
-        assets: assets.map(asset => ({
-          ...asset,
-          exportMetadata: {
-            exportedAt: new Date().toISOString(),
-            dataClassification: asset.informationClassification,
-            category: asset.category,
-            businessValue: asset.businessValue
-          }
-        })),
-        categories: Object.entries(metrics.assetsByCategory),
-        classifications: Object.entries(metrics.assetsByClassification),
-        summary: {
-          totalAssets: metrics.totalAssets,
-          criticalAssets: metrics.assetsByCriticality.critical || 0,
-          categories: Object.keys(metrics.assetsByCategory).length,
-          classifications: Object.keys(metrics.assetsByClassification).length
-        }
+        timestamp: new Date().toISOString(), version: '1.0', assets: assets.map(asset => ({
+          ...asset, exportMetadata:) {
+            exportedAt: new Date().toISOString(), dataClassification: asset.informationClassification, category: asset.category, businessValue: asset.businessValue
+    }
+        })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: {
+          totalAssets: metrics.totalAssets, criticalAssets: metrics.assetsByCriticality.critical || 0, categories: Object.keys(metrics.assetsByCategory).length, classifications: Object.keys(metrics.assetsByClassification).length }
       };
 
       const dataStr = JSON.stringify(exportData, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const dataBlob = new Blob([dataStr],) { type: 'application/json' });
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
@@ -189,28 +154,20 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
         // Validate imported data structure
         if (!importedData.assets || !Array.isArray(importedData.assets)) {
           throw new Error('Invalid file format: missing assets array');
-        }
-
+    }
         // Process imported assets
         const processedAssets = importedData.assets.map((asset: Partial<Asset>) => ({
-          ...asset,
-          id: asset.id || Date.now().toString() + Math.random().toString(36).substr(2, 9),
-          createdAt: asset.createdAt ? new Date(asset.createdAt) : new Date(),
-          updatedAt: new Date(),
-          lastReviewed: asset.lastReviewed ? new Date(asset.lastReviewed) : new Date(),
-          nextReview: asset.nextReview ? new Date(asset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-          importMetadata: {
-            importedAt: new Date().toISOString(),
-            sourceFile: importFile.name,
-            originalId: asset.id
-          }
+          ...asset, id: asset.id || Date.now().toString() + Math.random().toString(36).substr(2, 9), createdAt: asset.createdAt ? new Date(asset.createdAt) : new Date(), updatedAt: new Date(), lastReviewed: asset.lastReviewed ? new Date(asset.lastReviewed) : new Date(), nextReview: asset.nextReview ? new Date(asset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), importMetadata: {
+            importedAt: new Date().toISOString(), sourceFile: importFile.name, originalId: asset.id
+    }
         }));
 
         // Save imported assets using existing handlers
         processedAssets.forEach(() => {
           // This would call the parent component's asset creation handler
           onCreateAsset();
-        });
+        
+    });
 
         setImportStatus('success');
         setTimeout(() => {
@@ -237,24 +194,17 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
   // Define contextual links for related resources
   const contextualLinks = [
     {
-      href: '/compliance/status',
-      title: 'Compliance Status',
-      description: 'View real-time compliance implementation progress'
+      href: '/compliance/status', title: 'Compliance Status', description: 'View real-time compliance implementation progress'
+    
     },
     {
-      href: '/evidence',
-      title: 'Evidence Collection',
-      description: 'Manage compliance documentation and evidence'
+      href: '/evidence', title: 'Evidence Collection', description: 'Manage compliance documentation and evidence'
     },
     {
-      href: '/controls',
-      title: 'Security Controls',
-      description: 'Implement and monitor security controls'
+      href: '/controls', title: 'Security Controls', description: 'Implement and monitor security controls'
     },
     {
-      href: '/reports',
-      title: 'Asset Reports',
-      description: 'Generate comprehensive asset reports'
+      href: '/reports', title: 'Asset Reports', description: 'Generate comprehensive asset reports'
     }
   ];
 
@@ -262,7 +212,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -295,7 +245,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
             
             <div className="flex items-center space-x-3">
               <button
-                onClick={onViewInventory}
+                onClick={onViewInventory }
                 className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <Eye className="w-4 h-4" />
@@ -303,7 +253,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </button>
               
               <button
-                onClick={handleExportAssets}
+                onClick={handleExportAssets }
                 className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
@@ -319,7 +269,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </button>
               
               <button
-                onClick={onCreateAsset}
+                onClick={onCreateAsset }
                 className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
@@ -337,10 +287,8 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
             title="No Assets Found"
             description="Start building your asset inventory by adding your first asset"
             action={{
-              label: 'Add First Asset',
-              onClick: onCreateAsset
-            }}
-            icon={Shield}
+              label: 'Add First Asset', onClick: onCreateAsset }}
+            icon={Shield }
           />
           
           {/* Asset Categories and Classifications Guide */}
@@ -361,13 +309,13 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     { category: 'Facilities', icon: Building, description: 'Buildings, rooms, physical locations' },
                     { category: 'Services', icon: Cloud, description: 'Cloud services, outsourced functions' }
                   ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
                         <item.icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white">{item.category}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-300">{item.description}</div>
+                        <div className="font-medium text-gray-900 dark:text-white">{item.category }</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300">{item.description }</div>
                       </div>
                     </div>
                   ))}
@@ -384,11 +332,11 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     { level: 'Restricted', color: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300', description: 'Highly sensitive, regulated data' },
                     { level: 'Top Secret', color: 'bg-black text-white', description: 'Maximum security classification' }
                   ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${item.color}`}>
-                        {item.level}
+                    <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${item.color }`}>
+                        {item.level }
                       </span>
-                      <div className="text-sm text-gray-600 dark:text-gray-300">{item.description}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">{item.description }</div>
                     </div>
                   ))}
                 </div>
@@ -418,7 +366,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Assets</p>
                   <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                    {metrics.totalAssets}
+                    {metrics.totalAssets }
                   </p>
                 </div>
                 <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -442,7 +390,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Control Coverage</p>
                   <p className="text-3xl font-bold text-green-600 dark:text-green-400">
-                    {metrics.controlCoverage}%
+                    {metrics.controlCoverage }%
                   </p>
                 </div>
                 <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
@@ -454,7 +402,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Open Vulnerabilities</p>
                   <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
-                    {metrics.vulnerabilityCount}
+                    {metrics.vulnerabilityCount }
                   </p>
                 </div>
                 <AlertTriangle className="w-8 h-8 text-orange-600 dark:text-orange-400" />
@@ -482,7 +430,8 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     'rgba(234, 179, 8, 0.8)',     // Yellow
                     'rgba(20, 184, 166, 0.8)',    // Teal
                     'rgba(219, 39, 119, 0.8)'     // Pink
-                  ]}
+                  ]
+    }
                   className="h-full"
                 />
               </div>
@@ -496,27 +445,23 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               <div className="h-80">
                 <BarChart
                   data={{
-                    labels: Object.keys(metrics.assetsByCriticality),
-                    datasets: [{
-                      label: 'Assets',
-                      data: Object.values(metrics.assetsByCriticality),
-                      backgroundColor: [
+                    labels: Object.keys(metrics.assetsByCriticality), datasets: [{
+                      label: 'Assets', data: Object.values(metrics.assetsByCriticality), backgroundColor: [
                         'rgba(239, 68, 68, 0.8)',    // Critical - Red
                         'rgba(249, 115, 22, 0.8)',   // High - Orange
                         'rgba(234, 179, 8, 0.8)',    // Medium - Yellow
                         'rgba(34, 197, 94, 0.8)'     // Low - Green
-                      ],
-                      borderColor: [
+                      ], borderColor: [
                         'rgba(239, 68, 68, 1)',
                         'rgba(249, 115, 22, 1)',
                         'rgba(234, 179, 8, 1)',
                         'rgba(34, 197, 94, 1)'
-                      ],
-                      borderWidth: 2
-                    }]
+                      ], borderWidth: 2
+                    
+    }]
                   }}
                   height={320}
-                  showLegend={false}
+                  showLegend={false }
                 />
               </div>
             </div>
@@ -536,8 +481,8 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 
                 return (
                   <button
-                    key={category}
-                    onClick={onViewCategories}
+                    key={category }
+                    onClick={onViewCategories }
                     className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
                   >
                     <div className="flex items-center space-x-3 mb-3">
@@ -549,7 +494,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                           {category.replace('-', ' ')}
                         </h4>
                         <p className="text-sm text-gray-600 dark:text-gray-300">
-                          {count} assets
+                          {count } assets
                         </p>
                       </div>
                     </div>
@@ -558,7 +503,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                       <div className="flex items-center space-x-2">
                         <AlertTriangle className="w-4 h-4 text-red-500" />
                         <span className="text-sm text-red-600 dark:text-red-400 font-medium">
-                          {criticalCount} critical
+                          {criticalCount } critical
                         </span>
                       </div>
                     )}
@@ -584,7 +529,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                     const IconComponent = getCategoryIcon(asset.category);
                     return (
                       <button
-                        key={asset.id}
+                        key={asset.id }
                         onClick={() => onViewAsset(asset)}
                         className="w-full flex items-center space-x-4 p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
                       >
@@ -593,18 +538,18 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                         </div>
                         <div className="flex-1">
                           <h4 className="font-medium text-gray-900 dark:text-white">
-                            {asset.name}
+                            {asset.name }
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-300">
-                            {asset.category} • {asset.owner}
+                            {asset.category } • {asset.owner }
                           </p>
                         </div>
                         <div className="flex items-center space-x-2">
                           <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(asset.status)}`}>
-                            {asset.status}
+                            {asset.status }
                           </span>
                           <span className={`text-sm font-medium ${getCriticalityColor(asset.criticality)}`}>
-                            {asset.criticality}
+                            {asset.criticality }
                           </span>
                         </div>
                       </button>
@@ -617,7 +562,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                   <Shield className="w-12 h-12 text-gray-400 mx-auto mb-3" />
                   <p className="text-gray-600 dark:text-gray-300">No assets found</p>
                   <button
-                    onClick={onCreateAsset}
+                    onClick={onCreateAsset }
                     className="mt-3 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
                   >
                     Add your first asset
@@ -642,7 +587,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                         Overdue Maintenance
                       </h4>
                       <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                        {metrics.maintenanceOverdue} assets require maintenance
+                        {metrics.maintenanceOverdue } assets require maintenance
                       </p>
                     </div>
                   </div>
@@ -657,7 +602,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                         Open Vulnerabilities
                       </h4>
                       <p className="text-sm text-red-700 dark:text-red-400">
-                        {metrics.vulnerabilityCount} vulnerabilities require attention
+                        {metrics.vulnerabilityCount } vulnerabilities require attention
                       </p>
                     </div>
                   </div>
@@ -672,7 +617,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                         Low Control Coverage
                       </h4>
                       <p className="text-sm text-orange-700 dark:text-orange-400">
-                        Security controls coverage at {metrics.controlCoverage}%
+                        Security controls coverage at {metrics.controlCoverage }%
                       </p>
                     </div>
                   </div>
@@ -704,7 +649,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               <button
-                onClick={onViewInventory}
+                onClick={onViewInventory }
                 className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
               >
                 <BarChart3 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
@@ -715,7 +660,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </button>
               
               <button
-                onClick={onViewCategories}
+                onClick={onViewCategories }
                 className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
               >
                 <Target className="w-6 h-6 text-green-600 dark:text-green-400" />
@@ -726,7 +671,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </button>
               
               <button
-                onClick={onViewDependencies}
+                onClick={onViewDependencies }
                 className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
               >
                 <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -737,7 +682,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               </button>
               
               <button
-                onClick={onCreateAsset}
+                onClick={onCreateAsset }
                 className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left"
               >
                 <Plus className="w-6 h-6 text-orange-600 dark:text-orange-400" />
@@ -799,7 +744,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
 
           {/* Related Links */}
           <RelatedLinks
-            links={contextualLinks}
+            links={contextualLinks }
             title="Asset Management Resources"
             maxItems={4}
           />
@@ -830,7 +775,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               {importFile && (
                 <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                   <div className="text-sm text-gray-900 dark:text-white font-medium">
-                    {importFile.name}
+                    {importFile.name }
                   </div>
                   <div className="text-xs text-gray-600 dark:text-gray-300">
                     {(importFile.size / 1024).toFixed(1)} KB
@@ -876,7 +821,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 Cancel
               </button>
               <button
-                onClick={handleImportAssets}
+                onClick={handleImportAssets }
                 disabled={!importFile || importStatus === 'importing'}
                 className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >

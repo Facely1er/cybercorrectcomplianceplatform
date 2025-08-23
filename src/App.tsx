@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
-import { 
-  Shield, BarChart3, Settings, HelpCircle, Menu, X, Home, ChevronDown,
-  Activity, FileText, Calendar, Users, CheckSquare, Target, Award, Building, Eye,
-  Mail, ExternalLink, TrendingUp, Zap
-} from 'lucide-react';
+import { HelpCircle, Menu, X, Home, ChevronDown, Building, ExternalLink, Zap } from 'lucide-react';
 import { ThemeProvider, useTheme } from './shared/contexts/ThemeContext';
 import { ThemeToggle } from './shared/components/ui/ThemeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -14,9 +10,10 @@ import { errorMonitoring } from './lib/errorMonitoring';
 import { performanceMonitoring } from './lib/performanceMonitoring';
 import { enhancedDataService } from './services/enhancedDataService';
 import { assessmentService } from './services/assessmentService';
-import { ErrorState, EmptyState } from './shared/components/ui/LoadingStates';
+
 // Lazy load components for better code splitting
-const LandingPage = React.lazy(() => import('./components/LandingPage').then(m => ({ default: m.LandingPage })));
+const LandingPage = React.lazy(() => import('./components/LandingPage').then(m => ({ default: m.LandingPage 
+    })));
 const AssessmentIntroScreen = React.lazy(() => import('./features/assessment/components/AssessmentIntroScreen').then(m => ({ default: m.AssessmentIntroScreen })));
 const SignInPage = React.lazy(() => import('./features/auth').then(m => ({ default: m.SignInPage })));
 const AdvancedDashboard = React.lazy(() => import('./features/assessment/components/AdvancedDashboard').then(m => ({ default: m.AdvancedDashboard })));
@@ -55,7 +52,8 @@ const AssessmentWrapper: React.FC<{
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
-}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+
+    }> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -66,7 +64,7 @@ const AssessmentWrapper: React.FC<{
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Assessment Not Found</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
           <button 
-            onClick={onBack}
+            onClick={onBack }
             className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
@@ -81,10 +79,10 @@ const AssessmentWrapper: React.FC<{
     const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
       console.error('Framework validation failed:', {
-        frameworkId: assessment.frameworkId,
-        framework: framework,
-        hasFramework: !!framework,
-        hasSections: framework?.sections ? true : false,
+        frameworkId: assessment.frameworkId, 
+        framework: framework, 
+        hasFramework: !!framework, 
+        hasSections: framework?.sections ? true : false, 
         sectionsLength: framework?.sections?.length || 0
       });
       
@@ -93,15 +91,14 @@ const AssessmentWrapper: React.FC<{
           <div className="text-center">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Error</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              The framework for this assessment (ID: {assessment.frameworkId}) could not be loaded properly.
+              The framework for this assessment (ID: {assessment.frameworkId }) could not be loaded properly.
             </p>
             <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Debug info: Framework exists: {framework ? 'Yes' : 'No'}, 
-              Sections: {framework?.sections?.length || 0}
+              Debug info: Framework exists: {framework ? 'Yes' : 'No'}, Sections: {framework?.sections?.length || 0}
             </div>
             <div className="space-y-2">
               <button 
-                onClick={onBack}
+                onClick={onBack }
                 className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
               >
                 Back to Dashboard
@@ -133,7 +130,7 @@ const AssessmentWrapper: React.FC<{
           </div>
           <div className="space-y-2">
             <button 
-              onClick={onBack}
+              onClick={onBack }
               className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
             >
               Back to Dashboard
@@ -152,10 +149,10 @@ const AssessmentWrapper: React.FC<{
   
   return (
     <EnhancedAssessmentView
-      assessment={assessment}
-      onSave={onSave}
-      onGenerateReport={onGenerateReport}
-      onBack={onBack}
+      assessment={assessment }
+      onSave={onSave }
+      onGenerateReport={onGenerateReport }
+      onBack={onBack }
     />
   );
 };
@@ -165,7 +162,8 @@ const ReportWrapper: React.FC<{
   savedAssessments: AssessmentData[];
   onBack: () => void;
   onExport: (assessment: AssessmentData, format: string) => void;
-}> = ({ savedAssessments, onBack, onExport }) => {
+
+    }> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -176,7 +174,7 @@ const ReportWrapper: React.FC<{
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Report Not Found</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
           <button 
-            onClick={onBack}
+            onClick={onBack }
             className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
@@ -188,9 +186,9 @@ const ReportWrapper: React.FC<{
   
   return (
     <ReportView
-      assessment={assessment}
-      onBack={onBack}
-      onExport={onExport}
+      assessment={assessment }
+      onBack={onBack }
+      onExport={onExport }
     />
   );
 };
@@ -204,7 +202,8 @@ interface DropdownNavItemProps {
     href: string;
     icon: React.ComponentType<any>;
     description?: string;
-  }>;
+  
+    }>;
   currentPath: string;
 }
 
@@ -225,11 +224,11 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
             ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
             : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'
         }`}
-        aria-expanded={isOpen}
+        aria-expanded={isOpen }
         aria-haspopup="true"
       >
         <Icon className="w-4 h-4" aria-hidden="true" />
-        <span>{label}</span>
+        <span>{label }</span>
         <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
       </button>
       
@@ -237,12 +236,12 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
         <div 
           className="absolute top-full left-0 w-64 bg-surface dark:bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark:border-dark-support py-2 z-50"
           role="menu"
-          aria-label={`${label} submenu`}
+          aria-label={`${label } submenu`}
         >
           {items.map((item) => (
             <Link
-              key={item.href}
-              to={item.href}
+              key={item.href }
+              to={item.href }
               className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
@@ -252,9 +251,9 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
               <div>
-                <div className="font-medium">{item.label}</div>
+                <div className="font-medium">{item.label }</div>
                 {item.description && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400">{item.description}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">{item.description }</div>
                 )}
               </div>
             </Link>
@@ -308,10 +307,11 @@ function AppContent() {
           setSavedAssessments(dataService.getAssessments());
           setAssets(dataService.getAssets());
           addNotification('info', 'Demo data loaded successfully! Go to Settings > Data Management to clear when ready for real business use.');
-        } else {
+        
+    } else {
           // Remember user declined demo data
           localStorage.setItem('demo-declined', 'true');
-        }
+    }
       }
     } catch (error) {
       console.error('Failed to load data:', error);
@@ -323,98 +323,54 @@ function AppContent() {
   // Navigation menu structure
   const navigationMenus = [
     {
-      label: 'Assessment',
-      icon: Target,
-      items: [
+      label: 'Assessment', icon: Target, items: [
         {
-          label: 'Start Assessment',
-          href: '/assessment-intro',
-          icon: Target,
-          description: 'Begin cybersecurity framework assessment'
+          label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment'
+        
+    },
+        {
+          label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness'
         },
         {
-          label: 'CMMC Assessment',
-          href: '/compliance/cmmc',
-          icon: Building,
-          description: 'CMMC Level 2 certification readiness'
-        },
-        {
-          label: 'Privacy Assessment',
-          href: '/compliance/privacy',
-          icon: Eye,
-          description: 'GDPR, CCPA & privacy regulations'
+          label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations'
         }
       ]
     },
     {
-      label: 'Implementation',
-      icon: Shield,
-      items: [
+      label: 'Implementation', icon: Shield, items: [
         {
-          label: 'Compliance Status',
-          href: '/compliance',
-          icon: Activity,
-          description: 'Real-time implementation progress'
+          label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
         },
         {
-          label: 'Evidence Collection',
-          href: '/evidence',
-          icon: FileText,
-          description: 'Manage compliance documentation'
+          label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation'
         },
         {
-          label: 'Policy Management',
-          href: '/policies',
-          icon: Shield,
-          description: 'Required policies and procedures'
+          label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures'
         },
         {
-          label: 'Controls Management',
-          href: '/controls',
-          icon: CheckSquare,
-          description: 'Security controls implementation'
+          label: 'Controls Management', href: '/controls', icon: CheckSquare, description: 'Security controls implementation'
         },
         {
-          label: 'Asset Management',
-          href: '/assets',
-          icon: BarChart3,
-          description: 'Inventory and scope management'
+          label: 'Asset Management', href: '/assets', icon: BarChart3, description: 'Inventory and scope management'
         }
       ]
     },
     {
-      label: 'Team',
-      icon: Users,
-      items: [
+      label: 'Team', icon: Users, items: [
         {
-          label: 'Team Collaboration',
-          href: '/team',
-          icon: Users,
-          description: 'Coordinate implementation efforts'
+          label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts'
         },
         {
-          label: 'Task Management',
-          href: '/tasks',
-          icon: CheckSquare,
-          description: 'Track tasks and deliverables'
+          label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables'
         },
         {
-          label: 'Activity Calendar',
-          href: '/calendar',
-          icon: Calendar,
-          description: 'Schedule compliance activities'
+          label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities'
         },
         {
-          label: 'Assessment Reports',
-          href: '/reports',
-          icon: FileText,
-          description: 'Generate detailed reports'
+          label: 'Assessment Reports', href: '/reports', icon: FileText, description: 'Generate detailed reports'
         },
         {
-          label: 'Advanced Analytics',
-          href: '/reports/advanced',
-          icon: BarChart3,
-          description: 'Comprehensive analytics dashboard'
+          label: 'Advanced Analytics', href: '/reports/advanced', icon: BarChart3, description: 'Comprehensive analytics dashboard'
         }
       ]
     }
@@ -423,10 +379,8 @@ function AppContent() {
   // Simple notification handlers
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     const notification: NotificationMessage = {
-      id: Date.now().toString(),
-      type,
-      message,
-      timestamp: new Date()
+      id: Date.now().toString(), type, message, timestamp: new Date()
+    
     };
     setNotifications(prev => [...prev, notification]);
   };
@@ -439,7 +393,8 @@ function AppContent() {
   const startAssessment = () => {
     console.log('Starting assessment - navigating to /assessment-intro');
     navigate('/assessment-intro');
-  };
+  
+    };
 
   const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => {
     console.log('Creating new assessment');
@@ -447,27 +402,14 @@ function AppContent() {
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id: Date.now().toString(),
-        frameworkId: framework.id,
-        frameworkName: framework.name,
-        responses: {},
-        createdAt: new Date(),
-        lastModified: new Date(),
-        isComplete: false,
-        version: framework.version,
-        organizationInfo,
-        questionNotes: {},
-        questionEvidence: {},
-        evidenceLibrary: [],
-        assessmentVersion: '1.0.0',
-        versionHistory: [],
-        changeLog: []
+        id: Date.now().toString(), frameworkId: framework.id, frameworkName: framework.name, responses: {}, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version, organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
       };
 
       // Save using local data service directly
       dataService.saveAssessment(newAssessment);
       setSavedAssessments(prev => [...prev, newAssessment]);
-      navigate(`/assessment/${newAssessment.id}`);
+      navigate(`/assessment/${newAssessment.id 
+    }`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
       console.error('Failed to create assessment:', error);
@@ -505,11 +447,9 @@ function AppContent() {
   const createAsset = async (assetData: any) => {
     try {
       const newAsset = {
-        ...assetData,
-        id: Date.now().toString(),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
+        ...assetData, id: Date.now().toString(), createdAt: new Date(), updatedAt: new Date()
+      
+    };
       
       dataService.saveAsset(newAsset);
       setAssets(prev => [...prev, newAsset]);
@@ -520,7 +460,6 @@ function AppContent() {
     }
   };
 
-  const isHomePage = location.pathname === '/';
   
   // Show loading screen while data loads
   if (loading) {
@@ -532,8 +471,7 @@ function AppContent() {
         </div>
       </div>
     );
-  }
-
+    }
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Skip Links for Screen Readers */}
@@ -575,7 +513,8 @@ function AppContent() {
                     location.pathname === '/' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
-                  }`}
+                  
+    }`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -587,7 +526,8 @@ function AppContent() {
                     location.pathname === '/dashboard' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
-                  }`}
+                  
+    }`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
                   <span>Dashboard</span>
@@ -596,11 +536,11 @@ function AppContent() {
                 {/* Dropdown Menus */}
                 {navigationMenus.map((menu) => (
                   <DropdownNavItem
-                    key={menu.label}
-                    label={menu.label}
-                    icon={menu.icon}
-                    items={menu.items}
-                    currentPath={location.pathname}
+                    key={menu.label }
+                    label={menu.label }
+                    icon={menu.icon }
+                    items={menu.items }
+                    currentPath={location.pathname }
                   />
                 ))}
               </nav>
@@ -635,7 +575,7 @@ function AppContent() {
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="lg:hidden p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                  aria-expanded={mobileMenuOpen}
+                  aria-expanded={mobileMenuOpen }
                   aria-controls="mobile-menu"
                   aria-label="Toggle mobile menu"
                 >
@@ -672,13 +612,13 @@ function AppContent() {
               {navigationMenus.map((menu) =>
                 menu.items.map((item) => (
                   <Link
-                    key={item.href}
-                    to={item.href}
+                    key={item.href }
+                    to={item.href }
                     className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-4 h-4" aria-hidden="true" />
-                    <span>{item.label}</span>
+                    <span>{item.label }</span>
                   </Link>
                 ))
               )}
@@ -744,8 +684,8 @@ function AppContent() {
             <Route path="/assessment-intro" element={
               <ErrorBoundary>
               <AssessmentIntroScreen
-                frameworks={assessmentFrameworks}
-                onStartAssessment={createAssessment}
+                frameworks={assessmentFrameworks }
+                onStartAssessment={createAssessment }
                 onBack={() => navigate('/')}
               />
               </ErrorBoundary>
@@ -755,7 +695,7 @@ function AppContent() {
             <Route path="/nist-standard" element={
               <AssessmentIntroScreen
                 frameworks={[nistCSFv2Framework]}
-                onStartAssessment={createAssessment}
+                onStartAssessment={createAssessment }
                 onBack={() => navigate('/')}
               />
             } />
@@ -763,7 +703,7 @@ function AppContent() {
             <Route path="/nist-extended" element={
               <AssessmentIntroScreen
                 frameworks={[nistCSFv2ExtendedFramework]}
-                onStartAssessment={createAssessment}
+                onStartAssessment={createAssessment }
                 onBack={() => navigate('/')}
               />
             } />
@@ -771,7 +711,7 @@ function AppContent() {
             <Route path="/cmmc-assessment" element={
               <AssessmentIntroScreen
                 frameworks={[cmmcFramework]}
-                onStartAssessment={createAssessment}
+                onStartAssessment={createAssessment }
                 onBack={() => navigate('/')}
               />
             } />
@@ -779,7 +719,7 @@ function AppContent() {
             <Route path="/nist-lite" element={
               <AssessmentIntroScreen
                 frameworks={[nistCSFv2Framework]}
-                onStartAssessment={createAssessment}
+                onStartAssessment={createAssessment }
                 onBack={() => navigate('/')}
               />
             } />
@@ -787,7 +727,7 @@ function AppContent() {
             <Route path="/privacy-assessment" element={
               <AssessmentIntroScreen
                 frameworks={[privacyFramework]}
-                onStartAssessment={createAssessment}
+                onStartAssessment={createAssessment }
                 onBack={() => navigate('/')}
               />
             } />
@@ -816,28 +756,22 @@ function AppContent() {
             
             <Route path="/assessment/:id" element={
               <AssessmentWrapper 
-                savedAssessments={savedAssessments}
-                onSave={saveAssessment}
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+                savedAssessments={savedAssessments }
+                onSave={saveAssessment }
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id }`)}
                 onBack={() => navigate('/dashboard')}
               />
             } />
             
             <Route path="/report/:id" element={
               <ReportWrapper 
-                savedAssessments={savedAssessments}
+                savedAssessments={savedAssessments }
                 onBack={() => navigate('/dashboard')}
                 onExport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework, { 
-                      format,
-                      includeExecutiveSummary: true,
-                      includeDetailedAnalysis: true,
-                      includeRecommendations: true,
-                      includeGapAnalysis: true,
-                      includeNextSteps: true,
-                      branding: {
+                      format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis: true, includeNextSteps): true, branding: {
                         organizationName: assessment.organizationInfo?.name || 'Organization'
                       }
                     });
@@ -853,23 +787,23 @@ function AppContent() {
             <Route path="/dashboard" element={
               <ErrorBoundary>
               <AdvancedDashboard
-                savedAssessments={savedAssessments}
-                onStartAssessment={startAssessment}
-                onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
-                onDeleteAssessment={deleteAssessment}
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+                savedAssessments={savedAssessments }
+                onStartAssessment={startAssessment }
+                onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id }`)}
+                onDeleteAssessment={deleteAssessment }
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id }`)}
                 onExportAssessment={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
+                    reportService.exportReport(assessment, framework,) { format });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
-                  } catch (error) {
+                  } catch {
                     addNotification('error', 'Failed to export assessment');
                   }
                 }}
                 onImportAssessment={() => addNotification('info', 'Import feature')}
-                userProfile={null}
-                addNotification={addNotification}
+                userProfile={null }
+                addNotification={addNotification }
               />
               </ErrorBoundary>
             } />
@@ -909,48 +843,48 @@ function AppContent() {
             <Route path="/evidence" element={
               <EvidenceCollectionDashboard
                 onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
+                addNotification={addNotification }
               />
             } />
             
             <Route path="/policies" element={
               <PolicyManagementView
                 onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
+                addNotification={addNotification }
               />
             } />
             
             <Route path="/controls" element={
               <ControlsManagementView
                 onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
+                addNotification={addNotification }
               />
             } />
             
             <Route path="/team" element={
               <TeamCollaborationDashboard
                 onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
+                addNotification={addNotification }
               />
             } />
             
             <Route path="/tasks" element={
               <TaskManagementDashboard
                 onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
+                addNotification={addNotification }
               />
             } />
             
             <Route path="/calendar" element={
               <ComplianceCalendarView
                 onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
+                addNotification={addNotification }
               />
             } />
             
             <Route path="/assets" element={
               <AssetDashboard
-                assets={assets}
+                assets={assets }
                 onViewAsset={() => addNotification('info', 'Asset view feature')}
                 onCreateAsset={() => setShowAssetForm(true)}
                 onViewInventory={() => addNotification('info', 'Asset inventory view')}
@@ -964,42 +898,42 @@ function AppContent() {
             
             <Route path="/reports" element={
               <AssessmentReportsPage
-                savedAssessments={savedAssessments}
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
+                savedAssessments={savedAssessments }
+                onGenerateReport={(assessment) => navigate(`/report/${assessment.id }`)}
                 onExportReport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
+                    reportService.exportReport(assessment, framework,) { format });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
-                  } catch (error) {
+                  } catch {
                     addNotification('error', 'Failed to export report');
                   }
                 }}
-                onStartAssessment={startAssessment}
-                userProfile={null}
-                addNotification={addNotification}
+                onStartAssessment={startAssessment }
+                userProfile={null }
+                addNotification={addNotification }
               />
             } />
             
             <Route path="/reports/advanced" element={
               <AdvancedReportingDashboard
-                savedAssessments={savedAssessments}
-                userProfile={null}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+                savedAssessments={savedAssessments }
+                userProfile={null }
+                onExportReport={(format) => addNotification('info', `Export ${format } feature`)}
               />
             } />
             
             <Route path="/reports/team" element={
               <TeamTrackingReport
                 onBack={() => navigate('/dashboard')}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
+                onExportReport={(format) => addNotification('info', `Export ${format } feature`)}
               />
             } />
             
             <Route path="/settings" element={
               <SettingsView
                 onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
+                addNotification={addNotification }
               />
             } />
             
@@ -1014,8 +948,8 @@ function AppContent() {
       </main>
 
       <NotificationSystem 
-        notifications={notifications}
-        onRemove={removeNotification}
+        notifications={notifications }
+        onRemove={removeNotification }
       />
       <Analytics />
     </div>

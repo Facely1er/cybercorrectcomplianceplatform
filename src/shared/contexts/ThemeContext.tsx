@@ -30,10 +30,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Apply theme-specific body background
     if (theme === 'dark') {
       document.body.style.backgroundColor = '#0F1419'; // dark-bg
+    
     } else {
       document.body.style.backgroundColor = '#FFFFFF'; // surface
     }
-    
     localStorage.setItem('theme', theme);
   }, [theme]);
 
@@ -47,7 +47,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
-      {children}
+      {children }
     </ThemeContext.Provider>
   );
 };

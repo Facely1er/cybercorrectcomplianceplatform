@@ -11,16 +11,13 @@ try {
   if (supabaseUrl && supabaseAnonKey) {
     supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
       auth: {
-        autoRefreshToken: true,
-        persistSession: true,
-        detectSessionInUrl: true
-      }
+        autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
     });
     isSupabaseReady = true;
   } else {
     console.warn('Supabase environment variables not found. Running in local-only mode.');
   }
-} catch (error) {
+} catch {
   console.warn('Failed to initialize Supabase client. Running in local-only mode.', error);
   supabase = null;
   isSupabaseReady = false;
@@ -31,15 +28,13 @@ export { supabase, isSupabaseReady };
 // Auth helpers
 export const signUp = async (email: string, password: string, metadata?: any) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Authentication not available in local-only mode') };
+    return { data: null, error: new Error('Authentication not available in local-only mode') 
+    };
   }
   
   const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: metadata
-    }
+    email, password, options:) {
+      data: metadata }
   });
   return { data, error };
 };
@@ -50,9 +45,7 @@ export const signIn = async (email: string, password: string) => {
   }
   
   const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
+    email, password });
   return { data, error };
 };
 
@@ -86,7 +79,8 @@ export const getCurrentSession = async () => {
 // Profile helpers
 export const getProfile = async (userId: string) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: null, error: new Error('Profile management not available in local-only mode') };
+    return { data: null, error: new Error('Profile management not available in local-only mode') 
+    };
   }
   
   const { data, error } = await supabase
@@ -114,14 +108,15 @@ export const updateProfile = async (userId: string, updates: any) => {
 // Assessment helpers
 export const getAssessments = async (userId: string) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: [], error: null };
+    return { data: [], error: null 
+    };
   }
   
   const { data, error } = await supabase
     .from('assessments')
     .select('*')
     .eq('user_id', userId)
-    .order('updated_at', { ascending: false });
+    .order('updated_at',) { ascending: false });
   return { data, error };
 };
 
@@ -167,14 +162,15 @@ export const deleteAssessment = async (assessmentId: string) => {
 // Assessment versions helpers
 export const getAssessmentVersions = async (assessmentId: string) => {
   if (!isSupabaseReady || !supabase) {
-    return { data: [], error: null };
+    return { data: [], error: null 
+    };
   }
   
   const { data, error } = await supabase
     .from('assessment_versions')
     .select('*')
     .eq('assessment_id', assessmentId)
-    .order('created_at', { ascending: false });
+    .order('created_at',) { ascending: false });
   return { data, error };
 };
 

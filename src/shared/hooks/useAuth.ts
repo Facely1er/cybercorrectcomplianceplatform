@@ -2,18 +2,9 @@ import { useState, useCallback } from 'react';
 import { useEffect } from 'react';
 import { Permission, ROLE_PERMISSIONS } from '../../lib/security';
 import { ENV } from '../../config/environment';
-import { loginValidation, signupValidation, validateAndSanitize } from '../../lib/productionValidation';
+import { loginValidation, validateAndSanitize } from '../../lib/productionValidation';
 import { 
-  signUp as supabaseSignUp, 
-  signIn as supabaseSignIn, 
-  signOut as supabaseSignOut,
-  getCurrentUser,
-  getCurrentSession,
-  getProfile,
-  updateProfile,
-  supabase,
-  isSupabaseReady
-} from '../../lib/supabase';
+  signUp, as, supabaseSignUp, signIn, as, supabaseSignIn, signOut, as, supabaseSignOut, getCurrentUser, getCurrentSession, getProfile, updateProfile, supabase, isSupabaseReady } from '../../lib/supabase';
 import { organizationService } from '../../services/organizationService';
 
 interface AuthUser {
@@ -47,36 +38,21 @@ interface AuthState {
 
 export const useAuth = () => {
   const [authState, setAuthState] = useState<AuthState>({
-    user: null,
-    profile: null,
-    loading: true,
-    error: null,
-    permissions: [],
-    role: 'viewer',
-    organizations: [],
-    currentOrganization: null
-  });
+    user: null, profile: null, loading: true, error: null, permissions: [], role: 'viewer', organizations: [], currentOrganization: null });
 
   useEffect(() => {
     initializeAuth();
     
     // Listen for auth state changes
     if (isSupabaseReady && supabase) {
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      const { data: { subscription 
+    } } = supabase.auth.onAuthStateChange(
         async (event, session) => {
           if (event === 'SIGNED_IN' && session) {
             await loadUserData(session.user.id);
           } else if (event === 'SIGNED_OUT') {
             setAuthState({
-              user: null,
-              profile: null,
-              loading: false,
-              error: null,
-              permissions: [],
-              role: 'viewer',
-              organizations: [],
-              currentOrganization: null
-            });
+              user: null, profile: null, loading: false, error: null, permissions: [], role: 'viewer', organizations: [], currentOrganization: null });
           }
         }
       );
@@ -90,36 +66,20 @@ export const useAuth = () => {
       // Production: Require Supabase configuration
       if (ENV.isProduction) {
         setAuthState(prev => ({ 
-          ...prev, 
-          loading: false, 
-          error: 'Authentication service not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.' 
-        }));
+          ...prev, loading: false, error: 'Authentication service not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.' 
+        
+    }));
         return;
       }
       
       // Development: Use demo data only in development
       setAuthState({
         user: {
-          id: 'demo-user-001',
-          email: 'demo@example.com',
-          name: 'Demo User'
-        },
-        profile: {
-          id: 'demo-user-001',
-          email: 'demo@example.com',
-          name: 'Demo User',
-          organization: 'Demo Organization',
-          role: 'admin',
-          industry: 'Technology',
-          preferences: {},
-          currentOrganizationId: 'demo-org-001'
-        },
-        loading: false,
-        error: null,
-        permissions: ROLE_PERMISSIONS.admin as string[],
-        role: 'admin',
-        organizations: [{ id: 'demo-org-001', name: 'Demo Organization' }],
-        currentOrganization: { id: 'demo-org-001', name: 'Demo Organization' }
+          id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User'
+        
+    }, profile: {
+          id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', organization: 'Demo Organization', role: 'admin', industry: 'Technology', preferences: {}, currentOrganizationId: 'demo-org-001'
+        }, loading: false, error: null, permissions: ROLE_PERMISSIONS.admin as string[], role: 'admin', organizations: [{ id: 'demo-org-001', name): 'Demo Organization' }], currentOrganization: { id: 'demo-org-001', name: 'Demo Organization' }
       });
       return;
     }
@@ -134,9 +94,7 @@ export const useAuth = () => {
     } catch (error) {
       console.error('Failed to initialize auth:', error);
       setAuthState(prev => ({ 
-        ...prev, 
-        loading: false, 
-        error: 'Failed to initialize authentication' 
+        ...prev, loading: false, error: 'Failed to initialize authentication' 
       }));
     }
   };
@@ -146,7 +104,8 @@ export const useAuth = () => {
       setAuthState(prev => ({ ...prev, loading: true }));
 
       // Get user profile
-      const { data: profile, error: profileError } = await getProfile(userId);
+      const { data: profile, error: profileError 
+    } = await getProfile(userId);
       if (profileError) throw profileError;
 
       // Get user organizations
@@ -159,41 +118,21 @@ export const useAuth = () => {
 
       setAuthState({
         user: {
-          id: userId,
-          email: profile?.email || '',
-          name: profile?.name
-        },
-        profile: profile ? {
-          id: profile.id,
-          email: profile.email,
-          name: profile.name,
-          organization: profile.organization,
-          role: profile.role,
-          industry: profile.industry,
-          certifications: profile.certifications,
-          preferences: profile.preferences || {},
-          currentOrganizationId: currentOrganization?.id
-        } : null,
-        loading: false,
-        error: null,
-        permissions: permissions as string[],
-        role,
-        organizations,
-        currentOrganization
-      });
+          id: userId, email: profile?.email || '', name: profile?.name 
+    }, profile: profile ? {
+          id: profile.id, email: profile.email, name: profile.name, organization: profile.organization, role: profile.role, industry: profile.industry, certifications: profile.certifications, preferences): profile.preferences || {}, currentOrganizationId: currentOrganization?.id } : null, loading: false, error: null, permissions: permissions as string[], role, organizations, currentOrganization });
     } catch (error) {
       console.error('Failed to load user data:', error);
       setAuthState(prev => ({ 
-        ...prev, 
-        loading: false, 
-        error: 'Failed to load user data' 
+        ...prev, loading: false, error: 'Failed to load user data' 
       }));
     }
   };
 
   const signIn = useCallback(async (email: string, password: string) => {
     // Production input validation
-    const validation = validateAndSanitize(loginValidation, { email, password });
+    const validation = validateAndSanitize(loginValidation,) { email, password 
+    });
     if (!validation.success) {
       return { success: false, error: validation.errors?.join(', ') || 'Invalid input' };
     }
@@ -203,7 +142,8 @@ export const useAuth = () => {
     if (!isSupabaseReady) {
       // Development mode with enhanced demo credentials
       const validDemoCredentials = [
-        { email: 'demo@example.com', password: 'Demo123!@#' },
+        { email: 'demo@example.com', password: 'Demo123!@#' 
+    },
         { email: 'admin@demo.com', password: 'Admin123!@#' },
         { email: 'user@demo.com', password: 'User123!@#' }
       ];
@@ -217,8 +157,7 @@ export const useAuth = () => {
         return { success: true, error: null };
       } else {
         return { 
-          success: false, 
-          error: 'Invalid credentials. Demo accounts: demo@example.com/Demo123!@#, admin@demo.com/Admin123!@#, user@demo.com/User123!@#' 
+          success: false, error: 'Invalid credentials. Demo accounts: demo@example.com/Demo123!@#, admin@demo.com/Admin123!@#, user@demo.com/User123!@#' 
         };
       }
     }
@@ -236,7 +175,8 @@ export const useAuth = () => {
       if (data.user) {
         // Check if email is verified in production
         if (ENV.isProduction && !data.user.email_confirmed_at) {
-          setAuthState(prev => ({ ...prev, loading: false, error: 'Please verify your email before signing in' }));
+          setAuthState(prev => ({ ...prev, loading: false, error: 'Please verify your email before signing in' 
+    }));
           return { success: false, error: 'Please verify your email before signing in' };
         }
         
@@ -257,7 +197,8 @@ export const useAuth = () => {
     if (!isSupabaseReady) {
       // Mock sign up for development
       await loadUserData('demo-user-001');
-      return { success: true, error: null };
+      return { success: true, error: null 
+    };
     }
 
     try {
@@ -273,7 +214,8 @@ export const useAuth = () => {
       if (data.user) {
         // Profile will be created automatically via database trigger
         await loadUserData(data.user.id);
-        return { success: true, error: null };
+        return { success: true, error: null 
+    };
       }
 
       return { success: false, error: 'User creation failed' };
@@ -287,15 +229,7 @@ export const useAuth = () => {
   const signOut = useCallback(async () => {
     if (!isSupabaseReady) {
       setAuthState({
-        user: null,
-        profile: null,
-        loading: false,
-        error: null,
-        permissions: [],
-        role: 'viewer',
-        organizations: [],
-        currentOrganization: null
-      });
+        user: null, profile: null, loading: false, error: null, permissions: [], role: 'viewer', organizations: [], currentOrganization: null });
       return { error: null };
     }
 
@@ -303,15 +237,7 @@ export const useAuth = () => {
       const { error } = await supabaseSignOut();
       
       setAuthState({
-        user: null,
-        profile: null,
-        loading: false,
-        error: null,
-        permissions: [],
-        role: 'viewer',
-        organizations: [],
-        currentOrganization: null
-      });
+        user: null, profile: null, loading: false, error: null, permissions: [], role: 'viewer', organizations: [], currentOrganization: null });
 
       return { error };
     } catch (error: any) {
@@ -329,9 +255,7 @@ export const useAuth = () => {
         if (error) throw error;
 
         setAuthState(prev => ({
-          ...prev,
-          profile: prev.profile ? { ...prev.profile, ...updates } : null
-        }));
+          ...prev, profile): prev.profile ? { ...prev.profile, ...updates } : null }));
       }
 
       return { success: true, error: null };
@@ -347,14 +271,12 @@ export const useAuth = () => {
     try {
       // Update user's current organization
       if (authState.user && isSupabaseReady) {
-        await updateProfile(authState.user.id, { currentOrganizationId: organizationId });
+        await updateProfile(authState.user.id,) { currentOrganizationId: organizationId 
+    });
       }
 
       setAuthState(prev => ({
-        ...prev,
-        currentOrganization: organization,
-        profile: prev.profile ? { ...prev.profile, currentOrganizationId: organizationId } : null
-      }));
+        ...prev, currentOrganization: organization, profile): prev.profile ? { ...prev.profile, currentOrganizationId: organizationId } : null }));
 
       return { success: true, error: null };
     } catch (error: any) {
@@ -386,17 +308,5 @@ export const useAuth = () => {
   }, []);
 
   return {
-    ...authState,
-    signIn,
-    signUp,
-    signOut,
-    updateUserProfile,
-    switchOrganization,
-    checkPermission,
-    refreshSession,
-    hasRole,
-    hasOrganizationRole,
-    isAuthenticated: !!authState.user,
-    isLoading: authState.loading
-  };
+    ...authState, signIn, signUp, signOut, updateUserProfile, switchOrganization, checkPermission, refreshSession, hasRole, hasOrganizationRole, isAuthenticated: !!authState.user, isLoading: authState.loading };
 };

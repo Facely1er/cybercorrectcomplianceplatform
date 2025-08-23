@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, User, Building, Mail, MapPin, Award, Calendar } from 'lucide-react';
+import { ChevronLeft, Save, User, Building } from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
@@ -11,24 +11,12 @@ interface ProfileViewProps {
 }
 
 export const ProfileView: React.FC<ProfileViewProps> = ({
-  userProfile,
-  onUpdateProfile,
-  onBack
-}) => {
+  userProfile, onUpdateProfile, onBack }) => {
   const { breadcrumbs } = useInternalLinking();
   const [formData, setFormData] = useState<Partial<UserProfile>>(
     userProfile || {
-      name: '',
-      email: '',
-      organization: '',
-      role: '',
-      industry: '',
-      certifications: [],
-      preferences: {
-        autoSave: true,
-        emailNotifications: false,
-        reportFormat: 'detailed' as const
-      }
+      name: '', email: '', organization: '', role: '', industry: '', certifications: [], preferences: {
+        autoSave: true, emailNotifications: false, reportFormat: 'detailed' as const }
     }
   );
 
@@ -37,25 +25,21 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({
       ...prev,
-      [field]: value
-    }));
+      [field]: value }));
   };
 
   const handlePreferenceChange = (field: string, value: any) => {
     setFormData(prev => ({
-      ...prev,
-      preferences: {
+      ...prev, preferences:) {
         ...prev.preferences,
-        [field]: value
-      }
+        [field]: value }
     }));
   };
 
   const addCertification = () => {
     if (newCertification.trim()) {
       setFormData(prev => ({
-        ...prev,
-        certifications: [...(prev.certifications || []), newCertification.trim()]
+        ...prev, certifications: [...(prev.certifications || []), newCertification.trim()]
       }));
       setNewCertification('');
     }
@@ -63,8 +47,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
   const removeCertification = (index: number) => {
     setFormData(prev => ({
-      ...prev,
-      certifications: prev.certifications?.filter((_, i) => i !== index) || []
+      ...prev, certifications: prev.certifications?.filter((_, i) => i !== index) || []
     }));
   };
 
@@ -72,21 +55,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     e.preventDefault();
     
     const profile: UserProfile = {
-      id: userProfile?.id || Date.now().toString(),
-      name: formData.name || '',
-      email: formData.email || '',
-      organization: formData.organization || '',
-      role: formData.role || '',
-      industry: formData.industry || '',
-      certifications: formData.certifications || [],
-      preferences: {
-        defaultFramework: formData.preferences?.defaultFramework,
-        autoSave: formData.preferences?.autoSave ?? true,
-        emailNotifications: formData.preferences?.emailNotifications ?? false,
-        reportFormat: formData.preferences?.reportFormat || 'detailed'
-      },
-      createdAt: userProfile?.createdAt || new Date(),
-      lastLogin: new Date()
+      id: userProfile?.id || Date.now().toString(), name: formData.name || '', email: formData.email || '', organization: formData.organization || '', role: formData.role || '', industry: formData.industry || '', certifications: formData.certifications || [], preferences: {
+        defaultFramework: formData.preferences?.defaultFramework, autoSave: formData.preferences?.autoSave ?? true, emailNotifications: formData.preferences?.emailNotifications ?? false, reportFormat: formData.preferences?.reportFormat || 'detailed'
+      }, createdAt: userProfile?.createdAt || new Date(), lastLogin: new Date()
     };
 
     onUpdateProfile(profile);
@@ -122,7 +93,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -131,7 +102,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack}
+                onClick={onBack }
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -146,7 +117,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit } className="space-y-8">
         {/* Personal Information */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
@@ -195,7 +166,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               >
                 <option value="">Select your role</option>
                 {roles.map(role => (
-                  <option key={role} value={role}>{role}</option>
+                  <option key={role } value={role }>{role }</option>
                 ))}
               </select>
             </div>
@@ -236,7 +207,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               >
                 <option value="">Select industry</option>
                 {industries.map(industry => (
-                  <option key={industry} value={industry}>{industry}</option>
+                  <option key={industry } value={industry }>{industry }</option>
                 ))}
               </select>
             </div>
@@ -254,7 +225,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="flex space-x-3">
               <input
                 type="text"
-                value={newCertification}
+                value={newCertification }
                 onChange={(e) => setNewCertification(e.target.value)}
                 className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Add certification (e.g., CISSP, CISM, CISA)"
@@ -262,7 +233,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               />
               <button
                 type="button"
-                onClick={addCertification}
+                onClick={addCertification }
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Add
@@ -273,10 +244,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <div className="flex flex-wrap gap-2">
                 {formData.certifications.map((cert, index) => (
                   <span
-                    key={index}
+                    key={index }
                     className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300"
                   >
-                    {cert}
+                    {cert }
                     <button
                       type="button"
                       onClick={() => removeCertification(index)}

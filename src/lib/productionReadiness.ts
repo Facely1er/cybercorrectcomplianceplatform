@@ -1,5 +1,6 @@
 // Production Readiness Checker
-import { ENV } from '../config/environment';
+import { ENV 
+    } from '../config/environment';
 import { errorMonitoring } from './errorMonitoring';
 import { securityScanner } from './securityScanner';
 
@@ -9,8 +10,7 @@ interface ReadinessCheck {
   message: string;
   critical: boolean;
   weight: number; // Weight for scoring
-}
-
+    }
 export class ProductionReadinessChecker {
   private static instance: ProductionReadinessChecker;
 
@@ -72,6 +72,7 @@ export class ProductionReadinessChecker {
       if (check.status === 'pass') return score + check.weight;
       if (check.status === 'warning') return score + (check.weight * 0.5);
       return score;
+    
     }, 0);
     
     const score = Math.round((weightedScore / totalWeight) * 100);
@@ -85,20 +86,12 @@ export class ProductionReadinessChecker {
 
     if (missing.length > 0) {
       return {
-        name: 'Environment Variables',
-        status: 'fail',
-        message: `Missing required variables: ${missing.join(', ')}`,
-        critical: true,
-        weight: 15
+        name: 'Environment Variables', status: 'fail', message: `Missing required variables: ${missing.join(', ')}`, critical: true, weight: 15
       };
     }
 
     return {
-      name: 'Environment Variables',
-      status: 'pass',
-      message: 'All required environment variables are set',
-      critical: true,
-      weight: 15
+      name: 'Environment Variables', status: 'pass', message: 'All required environment variables are set', critical: true, weight: 15
     };
   }
 
@@ -110,20 +103,13 @@ export class ProductionReadinessChecker {
     
     if (!hasCSP && ENV.isProduction) {
       return {
-        name: 'Security Headers',
-        status: 'warning',
-        message: 'Content Security Policy not fully configured',
-        critical: false,
-        weight: 10
-      };
+        name: 'Security Headers', status: 'warning', message: 'Content Security Policy not fully configured', critical: false, weight: 10
+      
+    };
     }
 
     return {
-      name: 'Security Headers',
-      status: 'pass',
-      message: 'Security headers are properly configured',
-      critical: true,
-      weight: 10
+      name: 'Security Headers', status: 'pass', message: 'Security headers are properly configured', critical: true, weight: 10
     };
   }
 
@@ -131,12 +117,9 @@ export class ProductionReadinessChecker {
     // Check if Supabase is properly configured
     if (!ENV.SUPABASE_URL || !ENV.SUPABASE_ANON_KEY) {
       return {
-        name: 'Authentication',
-        status: 'fail',
-        message: 'Supabase authentication not configured for production',
-        critical: true,
-        weight: 15
-      };
+        name: 'Authentication', status: 'fail', message: 'Supabase authentication not configured for production', critical: true, weight: 15
+      
+    };
     }
 
     // Check if we're not using mock authentication
@@ -145,20 +128,13 @@ export class ProductionReadinessChecker {
     
     if (hasMockAuth && ENV.isProduction) {
       return {
-        name: 'Authentication',
-        status: 'fail',
-        message: 'Mock authentication detected in production',
-        critical: true,
-        weight: 15
-      };
+        name: 'Authentication', status: 'fail', message: 'Mock authentication detected in production', critical: true, weight: 15
+      
+    };
     }
 
     return {
-      name: 'Authentication',
-      status: 'pass',
-      message: 'Production authentication properly configured',
-      critical: true,
-      weight: 15
+      name: 'Authentication', status: 'pass', message: 'Production authentication properly configured', critical: true, weight: 15
     };
   }
 
@@ -169,20 +145,13 @@ export class ProductionReadinessChecker {
 
     if (!hasErrorBoundary) {
       return {
-        name: 'Error Handling',
-        status: 'fail',
-        message: 'Error boundaries not properly implemented',
-        critical: true,
-        weight: 8
-      };
+        name: 'Error Handling', status: 'fail', message: 'Error boundaries not properly implemented', critical: true, weight: 8
+      
+    };
     }
 
     return {
-      name: 'Error Handling',
-      status: 'pass',
-      message: 'Error boundaries and monitoring in place',
-      critical: true,
-      weight: 8
+      name: 'Error Handling', status: 'pass', message: 'Error boundaries and monitoring in place', critical: true, weight: 8
     };
   }
 
@@ -198,38 +167,23 @@ export class ProductionReadinessChecker {
 
       if (memoryUsage > 80) {
         return {
-          name: 'Performance',
-          status: 'warning',
-          message: `High memory usage detected: ${memoryUsage.toFixed(1)}%`,
-          critical: false,
-          weight: 8
+          name: 'Performance', status: 'warning', message: `High memory usage detected: ${memoryUsage.toFixed(1)
+    }%`, critical: false, weight: 8
         };
       }
 
       if (totalScripts > 10) {
         return {
-          name: 'Performance',
-          status: 'warning',
-          message: `Many script files (${totalScripts}) - consider bundling optimization`,
-          critical: false,
-          weight: 8
+          name: 'Performance', status: 'warning', message: `Many script files (${totalScripts }) - consider bundling optimization`, critical: false, weight: 8
         };
       }
 
       return {
-        name: 'Performance',
-        status: 'pass',
-        message: 'Performance metrics within acceptable ranges',
-        critical: false,
-        weight: 8
+        name: 'Performance', status: 'pass', message: 'Performance metrics within acceptable ranges', critical: false, weight: 8
       };
-    } catch (error) {
+    } catch {
       return {
-        name: 'Performance',
-        status: 'warning',
-        message: 'Unable to assess performance metrics',
-        critical: false,
-        weight: 8
+        name: 'Performance', status: 'warning', message: 'Unable to assess performance metrics', critical: false, weight: 8
       };
     }
   }
@@ -242,20 +196,13 @@ export class ProductionReadinessChecker {
 
     if (!hasZod) {
       return {
-        name: 'Data Validation',
-        status: 'fail',
-        message: 'Input validation library not detected',
-        critical: true,
-        weight: 8
-      };
+        name: 'Data Validation', status: 'fail', message: 'Input validation library not detected', critical: true, weight: 8
+      
+    };
     }
 
     return {
-      name: 'Data Validation',
-      status: 'pass',
-      message: 'Zod validation schemas implemented',
-      critical: true,
-      weight: 8
+      name: 'Data Validation', status: 'pass', message: 'Zod validation schemas implemented', critical: true, weight: 8
     };
   }
 
@@ -267,20 +214,12 @@ export class ProductionReadinessChecker {
 
     if (!isModernBrowser) {
       return {
-        name: 'Browser Compatibility',
-        status: 'warning',
-        message: 'Some modern browser features may not be available',
-        critical: false,
-        weight: 5
+        name: 'Browser Compatibility', status: 'warning', message: 'Some modern browser features may not be available', critical: false, weight: 5
       };
     }
 
     return {
-      name: 'Browser Compatibility',
-      status: 'pass',
-      message: 'Modern browser features detected',
-      critical: false,
-      weight: 5
+      name: 'Browser Compatibility', status: 'pass', message: 'Modern browser features detected', critical: false, weight: 5
     };
   }
 
@@ -292,20 +231,13 @@ export class ProductionReadinessChecker {
 
     if (!hasLazyLoading) {
       return {
-        name: 'Code Splitting',
-        status: 'warning',
-        message: 'Code splitting with React.lazy not implemented',
-        critical: false,
-        weight: 6
-      };
+        name: 'Code Splitting', status: 'warning', message: 'Code splitting with React.lazy not implemented', critical: false, weight: 6
+      
+    };
     }
 
     return {
-      name: 'Code Splitting',
-      status: 'pass',
-      message: 'Code splitting properly implemented',
-      critical: false,
-      weight: 6
+      name: 'Code Splitting', status: 'pass', message: 'Code splitting properly implemented', critical: false, weight: 6
     };
   }
 
@@ -316,28 +248,17 @@ export class ProductionReadinessChecker {
       
       if (!hasManualChunks) {
         return {
-          name: 'Bundle Optimization',
-          status: 'warning',
-          message: 'Manual chunk splitting not configured',
-          critical: false,
-          weight: 6
-        };
+          name: 'Bundle Optimization', status: 'warning', message: 'Manual chunk splitting not configured', critical: false, weight: 6
+        
+    };
       }
 
       return {
-        name: 'Bundle Optimization',
-        status: 'pass',
-        message: 'Bundle optimization properly configured',
-        critical: false,
-        weight: 6
+        name: 'Bundle Optimization', status: 'pass', message: 'Bundle optimization properly configured', critical: false, weight: 6
       };
-    } catch (error) {
+    } catch {
       return {
-        name: 'Bundle Optimization',
-        status: 'warning',
-        message: 'Unable to assess bundle optimization',
-        critical: false,
-        weight: 6
+        name: 'Bundle Optimization', status: 'warning', message: 'Unable to assess bundle optimization', critical: false, weight: 6
       };
     }
   }
@@ -349,36 +270,21 @@ export class ProductionReadinessChecker {
       
       if (securityResult.overallScore >= 90) {
         return {
-          name: 'Security Scanning',
-          status: 'pass',
-          message: `Security score: ${securityResult.overallScore}/100 - Excellent security posture`,
-          critical: false,
-          weight: 5
+          name: 'Security Scanning', status: 'pass', message: `Security score: ${securityResult.overallScore 
+    }/100 - Excellent security posture`, critical: false, weight: 5
         };
       } else if (securityResult.overallScore >= 70) {
         return {
-          name: 'Security Scanning',
-          status: 'warning',
-          message: `Security score: ${securityResult.overallScore}/100 - Good security but needs improvement`,
-          critical: false,
-          weight: 5
+          name: 'Security Scanning', status: 'warning', message: `Security score: ${securityResult.overallScore }/100 - Good security but needs improvement`, critical: false, weight: 5
         };
       } else {
         return {
-          name: 'Security Scanning',
-          status: 'fail',
-          message: `Security score: ${securityResult.overallScore}/100 - Critical security issues found`,
-          critical: true,
-          weight: 5
+          name: 'Security Scanning', status: 'fail', message: `Security score: ${securityResult.overallScore }/100 - Critical security issues found`, critical: true, weight: 5
         };
       }
-    } catch (error) {
+    } catch {
       return {
-        name: 'Security Scanning',
-        status: 'warning',
-        message: 'Unable to run security scan',
-        critical: false,
-        weight: 5
+        name: 'Security Scanning', status: 'warning', message: 'Unable to run security scan', critical: false, weight: 5
       };
     }
   }
@@ -393,28 +299,17 @@ export class ProductionReadinessChecker {
       
       if (!hasRateLimiting) {
         return {
-          name: 'Rate Limiting',
-          status: 'warning',
-          message: 'Rate limiting not implemented',
-          critical: false,
-          weight: 4
-        };
+          name: 'Rate Limiting', status: 'warning', message: 'Rate limiting not implemented', critical: false, weight: 4
+        
+    };
       }
 
       return {
-        name: 'Rate Limiting',
-        status: 'pass',
-        message: 'Rate limiting properly configured',
-        critical: false,
-        weight: 4
+        name: 'Rate Limiting', status: 'pass', message: 'Rate limiting properly configured', critical: false, weight: 4
       };
-    } catch (error) {
+    } catch {
       return {
-        name: 'Rate Limiting',
-        status: 'warning',
-        message: 'Unable to verify rate limiting implementation',
-        critical: false,
-        weight: 4
+        name: 'Rate Limiting', status: 'warning', message: 'Unable to verify rate limiting implementation', critical: false, weight: 4
       };
     }
   }
@@ -424,18 +319,15 @@ export class ProductionReadinessChecker {
       // Check if Supabase is accessible
       if (!ENV.SUPABASE_URL) {
         return {
-          name: 'Database Connectivity',
-          status: 'fail',
-          message: 'Database URL not configured',
-          critical: true,
-          weight: 10
-        };
+          name: 'Database Connectivity', status: 'fail', message: 'Database URL not configured', critical: true, weight: 10
+        
+    };
       }
 
       // Try to connect to Supabase
-      const response = await fetch(`${ENV.SUPABASE_URL}/rest/v1/`, {
-        method: 'GET',
-        headers: {
+      const response = await fetch(`${ENV.SUPABASE_URL 
+    }/rest/v1/`, {
+        method): 'GET', headers: {
           'apikey': ENV.SUPABASE_ANON_KEY || '',
           'Authorization': `Bearer ${ENV.SUPABASE_ANON_KEY || ''}`
         }
@@ -443,28 +335,16 @@ export class ProductionReadinessChecker {
 
       if (response.ok) {
         return {
-          name: 'Database Connectivity',
-          status: 'pass',
-          message: 'Database connection successful',
-          critical: true,
-          weight: 10
+          name: 'Database Connectivity', status: 'pass', message: 'Database connection successful', critical: true, weight: 10
         };
       } else {
         return {
-          name: 'Database Connectivity',
-          status: 'warning',
-          message: 'Database connection test failed',
-          critical: false,
-          weight: 10
+          name: 'Database Connectivity', status: 'warning', message: 'Database connection test failed', critical: false, weight: 10
         };
       }
-    } catch (error) {
+    } catch {
       return {
-        name: 'Database Connectivity',
-        status: 'warning',
-        message: 'Unable to test database connectivity',
-        critical: false,
-        weight: 10
+        name: 'Database Connectivity', status: 'warning', message: 'Unable to test database connectivity', critical: false, weight: 10
       };
     }
   }
@@ -475,26 +355,20 @@ export class ProductionReadinessChecker {
     
     if (!hasMonitoring) {
       return {
-        name: 'Monitoring Setup',
-        status: 'warning',
-        message: 'Production monitoring not fully configured',
-        critical: false,
-        weight: 5
-      };
+        name: 'Monitoring Setup', status: 'warning', message: 'Production monitoring not fully configured', critical: false, weight: 5
+      
+    };
     }
 
     return {
-      name: 'Monitoring Setup',
-      status: 'pass',
-      message: 'Production monitoring properly configured',
-      critical: false,
-      weight: 5
+      name: 'Monitoring Setup', status: 'pass', message: 'Production monitoring properly configured', critical: false, weight: 5
     };
   }
 
   // Generate production readiness report
   async generateReport(): Promise<string> {
-    const { ready, checks, score } = await this.performReadinessCheck();
+    const { ready, checks, score 
+    } = await this.performReadinessCheck();
     const securityResult = await securityScanner.performSecurityScan();
     
     const report = `
@@ -502,31 +376,31 @@ export class ProductionReadinessChecker {
 Generated: ${new Date().toISOString()}
 
 ## Overall Status: ${ready ? '✅ READY' : '⚠️ NEEDS ATTENTION'}
-## Readiness Score: ${score}/100
-## Security Score: ${securityResult.overallScore}/100
+## Readiness Score: ${score }/100
+## Security Score: ${securityResult.overallScore }/100
 
 ## Detailed Checks:
 ${checks.map(check => `
-### ${check.name}
+### ${check.name }
 - Status: ${check.status === 'pass' ? '✅ PASS' : check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
 - Critical: ${check.critical ? 'Yes' : 'No'}
-- Weight: ${check.weight}
-- Message: ${check.message}
+- Weight: ${check.weight }
+- Message: ${check.message }
 `).join('')}
 
 ## Security Scan Results:
-- Overall Security Score: ${securityResult.overallScore}/100
-- Vulnerabilities Found: ${securityResult.vulnerabilities.length}
-- Security Checks: ${securityResult.checks.length}
+- Overall Security Score: ${securityResult.overallScore }/100
+- Vulnerabilities Found: ${securityResult.vulnerabilities.length }
+- Security Checks: ${securityResult.checks.length }
 
 ## Recommendations:
 ${checks.filter(c => c.status !== 'pass').map(check => `
-- **${check.name}**: ${check.message}
+- **${check.name }**: ${check.message }
 `).join('')}
 
 ## Security Recommendations:
 ${securityResult.recommendations.map(rec => `
-- **Security**: ${rec}
+- **Security**: ${rec }
 `).join('')}
 
 ## Next Steps:
@@ -557,7 +431,8 @@ export const productionReadinessChecker = ProductionReadinessChecker.getInstance
 
 // Auto-run readiness check in development
 if (ENV.isDevelopment) {
-  productionReadinessChecker.performReadinessCheck().then(({ ready, score }) => {
-    console.log(`🔍 Production Readiness: ${score}/100 (${ready ? 'Ready' : 'Needs Attention'})`);
+  productionReadinessChecker.performReadinessCheck().then(({ ready, score 
+    }) => {
+    console.log(`🔍 Production Readiness: ${score }/100 (${ready ? 'Ready' : 'Needs Attention'})`);
   });
 }

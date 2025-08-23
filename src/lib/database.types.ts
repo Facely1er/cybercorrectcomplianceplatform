@@ -25,8 +25,7 @@ export interface Database {
           department: string | null
           manager: string | null
           created_at: string
-          updated_at: string
-        }
+          updated_at: string }
         Insert: {
           id: string
           email: string
@@ -42,8 +41,7 @@ export interface Database {
           department?: string | null
           manager?: string | null
           created_at?: string
-          updated_at?: string
-        }
+          updated_at?: string }
         Update: {
           id?: string
           email?: string
@@ -59,8 +57,7 @@ export interface Database {
           department?: string | null
           manager?: string | null
           created_at?: string
-          updated_at?: string
-        }
+          updated_at?: string }
       }
       assessments: {
         Row: {
@@ -87,8 +84,7 @@ export interface Database {
           compliance_requirements: string[]
           assessment_version: string
           created_at: string
-          updated_at: string
-        }
+          updated_at: string }
         Insert: {
           id?: string
           user_id: string
@@ -113,8 +109,7 @@ export interface Database {
           compliance_requirements?: string[]
           assessment_version?: string
           created_at?: string
-          updated_at?: string
-        }
+          updated_at?: string }
         Update: {
           id?: string
           user_id?: string
@@ -139,8 +134,7 @@ export interface Database {
           compliance_requirements?: string[]
           assessment_version?: string
           created_at?: string
-          updated_at?: string
-        }
+          updated_at?: string }
       }
       assessment_versions: {
         Row: {
@@ -158,8 +152,7 @@ export interface Database {
           approved_by: string | null
           approved_at: string | null
           created_by: string
-          created_at: string
-        }
+          created_at: string }
         Insert: {
           id?: string
           assessment_id: string
@@ -175,8 +168,7 @@ export interface Database {
           approved_by?: string | null
           approved_at?: string | null
           created_by: string
-          created_at?: string
-        }
+          created_at?: string }
         Update: {
           id?: string
           assessment_id?: string
@@ -192,21 +184,16 @@ export interface Database {
           approved_by?: string | null
           approved_at?: string | null
           created_by?: string
-          created_at?: string
-        }
+          created_at?: string }
       }
     }
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never }
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never }
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never }
     CompositeTypes: {
-      [_ in never]: never
-    }
+      [_ in never]: never }
   }
 }

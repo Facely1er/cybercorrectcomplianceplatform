@@ -51,49 +51,31 @@ export const useComplianceMetrics = (assessments: AssessmentData[]): ComplianceM
       const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
       
-      const monthAssessments = assessments.filter(a => {
+      const monthAssessments = assessments.filter(a =>) {
         const assessmentDate = new Date(a.lastModified);
         return assessmentDate >= monthDate && assessmentDate < nextMonthDate;
-      });
+      
+    });
 
       const monthScore = monthAssessments.length > 0
         ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum, score) => sum + score, 0) / monthAssessments.length)
         : 0;
 
       trendData.push({
-        date: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
-        score: monthScore,
-        assessments: monthAssessments.length
-      });
+        date): monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: monthScore, assessments: monthAssessments.length });
     }
 
     // Generate gap analysis
     const gapAnalysis = [
       {
-        category: 'Access Control',
-        currentScore: Math.random() * 40 + 40,
-        targetScore: 85,
-        gap: 0,
-        priority: 'high' as const
-      },
+        category: 'Access Control', currentScore: Math.random() * 40 + 40, targetScore: 85, gap: 0, priority: 'high' as const 
+    },
       {
-        category: 'Incident Response',
-        currentScore: Math.random() * 30 + 50,
-        targetScore: 80,
-        gap: 0,
-        priority: 'medium' as const
-      }
+        category: 'Incident Response', currentScore: Math.random() * 30 + 50, targetScore: 80, gap: 0, priority: 'medium' as const }
     ].map(item => ({
-      ...item,
-      gap: item.targetScore - item.currentScore
-    }));
+      ...item, gap: item.targetScore - item.currentScore }));
 
     return {
-      overallCompliance,
-      riskDistribution,
-      frameworkBreakdown,
-      trendData,
-      gapAnalysis
-    };
+      overallCompliance, riskDistribution, frameworkBreakdown, trendData, gapAnalysis };
   }, [assessments]);
 };

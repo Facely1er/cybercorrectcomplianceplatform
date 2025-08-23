@@ -26,7 +26,8 @@ export interface ComplianceStatus {
     resourceRequirement: 'low' | 'medium' | 'high';
     dependencies: string[];
     milestones: Milestone[];
-  };
+  
+    };
 }
 
 export type ImplementationStatus = 

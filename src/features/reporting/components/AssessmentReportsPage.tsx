@@ -1,11 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  FileText, BarChart3, Download, Eye, Plus, Search, 
-  Filter, Calendar, Clock, CheckCircle, AlertTriangle,
-  Target, Award, TrendingUp, ChevronLeft, Star,
-  ArrowRight, Building, Shield, Users, Activity
-} from 'lucide-react';
+import { CheckCircle, ChevronLeftBuilding } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, EmptyState, SearchAndFilter } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -23,13 +18,7 @@ interface AssessmentReportsPageProps {
 }
 
 export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
-  savedAssessments,
-  onGenerateReport,
-  onExportReport,
-  onStartAssessment,
-  userProfile,
-  addNotification
-}) => {
+  savedAssessments, onGenerateReport, onExportReport, onStartAssessment, userProfile, addNotification }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterFramework, setFilterFramework] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
@@ -44,7 +33,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
   };
 
   const filteredAndSortedAssessments = useMemo(() => {
-    const filtered = savedAssessments.filter(assessment => {
+    const filtered = savedAssessments.filter(assessment =>) {
       const matchesSearch = assessment.frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
       const matchesFramework = filterFramework === 'all' || assessment.frameworkId === filterFramework;
@@ -69,8 +58,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         case 'name':
           comparison = a.frameworkName.localeCompare(b.frameworkName);
           break;
-      }
-      
+    }
       return sortOrder === 'asc' ? -comparison : comparison;
     });
 
@@ -98,19 +86,13 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     try {
       const framework = getFramework(assessment.frameworkId);
       await reportService.exportReport(assessment, framework, {
-        format,
-        includeExecutiveSummary: true,
-        includeDetailedAnalysis: true,
-        includeRecommendations: true,
-        includeGapAnalysis: true,
-        includeNextSteps: true,
-        branding: {
+        format, includeExecutiveSummary: true, includeDetailedAnalysis: true, includeRecommendations: true, includeGapAnalysis: true, includeNextSteps): true, branding: {
           organizationName: assessment.organizationInfo?.name || 'Organization'
         }
       });
       addNotification('success', `Report exported as ${format.toUpperCase()}`);
     } catch (error) {
-      addNotification('error', `Failed to export report: ${(error as Error).message}`);
+      addNotification('error', `Failed to export report: ${(error as Error).message }`);
     }
   };
 
@@ -120,7 +102,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     const avgScore = savedAssessments.length > 0 
       ? Math.round(savedAssessments.reduce((sum, assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
       : 0;
-    const recentReports = savedAssessments.filter(a => {
+    const recentReports = savedAssessments.filter(a =>) {
       const daysSinceModified = (new Date().getTime() - new Date(a.lastModified).getTime()) / (1000 * 60 * 60 * 24);
       return daysSinceModified <= 7;
     }).length;
@@ -132,7 +114,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -173,7 +155,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               </Link>
               
               <button
-                onClick={onStartAssessment}
+                onClick={onStartAssessment }
                 className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
@@ -190,7 +172,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Assessments</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats.total}</p>
+              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats.total }</p>
             </div>
             <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
           </div>
@@ -200,7 +182,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{stats.completed}</p>
+              <p className="text-3xl font-bold text-green-600 dark:text-green-400">{stats.completed }</p>
             </div>
             <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
           </div>
@@ -210,7 +192,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Average Score</p>
-              <p className={`text-3xl font-bold ${getScoreColor(stats.avgScore)}`}>{stats.avgScore}%</p>
+              <p className={`text-3xl font-bold ${getScoreColor(stats.avgScore)}`}>{stats.avgScore }%</p>
             </div>
             <Target className="w-8 h-8 text-purple-600 dark:text-purple-400" />
           </div>
@@ -220,7 +202,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Recent Reports</p>
-              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{stats.recentReports}</p>
+              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{stats.recentReports }</p>
             </div>
             <Activity className="w-8 h-8 text-orange-600 dark:text-orange-400" />
           </div>
@@ -230,13 +212,11 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       {/* Search and Filters */}
       <SearchAndFilter
         searchPlaceholder="Search assessments..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
+        searchValue={searchTerm }
+        onSearchChange={setSearchTerm }
         filterGroups={[
           {
-            id: 'framework',
-            label: 'Framework',
-            options: [
+            id: 'framework', label: 'Framework', options: [
               { id: 'cmmc', label: 'CMMC Level 2', value: 'cmmc' },
               { id: 'privacy', label: 'Privacy Framework', value: 'privacy' },
               { id: 'nist-csf-v2-extended', label: 'NIST CSF v2.0 Standard', value: 'nist-csf-v2-extended' },
@@ -244,18 +224,14 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             ]
           },
           {
-            id: 'status',
-            label: 'Status',
-            options: [
+            id: 'status', label: 'Status', options: [
               { id: 'completed', label: 'Completed', value: 'completed' },
               { id: 'inProgress', label: 'In Progress', value: 'inProgress' }
             ]
           }
         ]}
         selectedFilters={{
-          framework: filterFramework === 'all' ? '' : filterFramework,
-          status: filterStatus === 'all' ? '' : filterStatus
-        }}
+          framework: filterFramework === 'all' ? '' : filterFramework, status: filterStatus === 'all' ? '' : filterStatus }}
         onFilterChange={(filterId, value) => {
           if (filterId === 'framework') {
             setFilterFramework(value || 'all');
@@ -275,7 +251,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <select
-              value={sortBy}
+              value={sortBy }
               onChange={(e) => setSortBy(e.target.value as any)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -293,7 +269,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
           </div>
           
           <div className="text-sm text-gray-600 dark:text-gray-300">
-            {filteredAndSortedAssessments.length} of {savedAssessments.length} assessments
+            {filteredAndSortedAssessments.length } of {savedAssessments.length } assessments
           </div>
         </div>
       </div>
@@ -314,10 +290,8 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               : 'Try adjusting your search criteria or filters'
             }
             action={savedAssessments.length === 0 ? {
-              label: 'Start First Assessment',
-              onClick: onStartAssessment
-            } : undefined}
-            icon={FileText}
+              label: 'Start First Assessment', onClick: onStartAssessment } : undefined }
+            icon={FileText }
           />
         ) : (
           <div className="p-6">
@@ -332,7 +306,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                 const FrameworkIcon = getFrameworkIcon(assessment.frameworkId);
                 
                 return (
-                  <div key={assessment.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
+                  <div key={assessment.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start space-x-4 flex-1">
                         <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
@@ -342,7 +316,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-2">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                              {assessment.frameworkName}
+                              {assessment.frameworkName }
                             </h3>
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                               assessment.isComplete
@@ -355,7 +329,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                           
                           {assessment.organizationInfo?.name && (
                             <p className="text-gray-600 dark:text-gray-300 mb-3">
-                              Organization: {assessment.organizationInfo.name}
+                              Organization: {assessment.organizationInfo.name }
                             </p>
                           )}
                           
@@ -363,13 +337,13 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                             <div>
                               <span className="text-sm text-gray-500 dark:text-gray-400">Overall Score:</span>
                               <div className={`font-bold text-lg ${getScoreColor(score)}`}>
-                                {score}%
+                                {score }%
                               </div>
                             </div>
                             <div>
                               <span className="text-sm text-gray-500 dark:text-gray-400">Progress:</span>
                               <div className="font-medium text-gray-900 dark:text-white">
-                                {progress}/{totalQuestions}
+                                {progress }/{totalQuestions }
                               </div>
                             </div>
                             <div>
@@ -381,7 +355,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                             <div>
                               <span className="text-sm text-gray-500 dark:text-gray-400">Framework:</span>
                               <div className="font-medium text-gray-900 dark:text-white">
-                                v{framework.version}
+                                v{framework.version }
                               </div>
                             </div>
                           </div>
@@ -398,7 +372,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <div className="text-right">
                         <div className={`text-3xl font-bold ${getScoreColor(score)} mb-1`}>
-                          {score}%
+                          {score }%
                         </div>
                         <div className="text-sm text-gray-600 dark:text-gray-300">Maturity Score</div>
                       </div>
@@ -440,7 +414,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       {!assessment.isComplete && (
                         <Link
-                          to={`/assessment/${assessment.id}`}
+                          to={`/assessment/${assessment.id }`}
                           className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium"
                         >
                           <ArrowRight className="w-4 h-4" />
@@ -532,32 +506,16 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         <RelatedLinks
           links={[
             {
-              title: 'Advanced Analytics',
-              description: 'Comprehensive dashboard with charts and trends',
-              href: '/reports/advanced',
-              category: 'related',
-              priority: 'high'
+              title: 'Advanced Analytics', description: 'Comprehensive dashboard with charts and trends', href: '/reports/advanced', category: 'related', priority: 'high'
             },
             {
-              title: 'Team Performance',
-              description: 'Track team productivity and collaboration',
-              href: '/reports/team',
-              category: 'related',
-              priority: 'medium'
+              title: 'Team Performance', description: 'Track team productivity and collaboration', href: '/reports/team', category: 'related', priority: 'medium'
             },
             {
-              title: 'Compliance Status',
-              description: 'Real-time implementation monitoring',
-              href: '/compliance',
-              category: 'next-step',
-              priority: 'high'
+              title: 'Compliance Status', description: 'Real-time implementation monitoring', href: '/compliance', category: 'next-step', priority: 'high'
             },
             {
-              title: 'Evidence Collection',
-              description: 'Manage compliance documentation',
-              href: '/evidence',
-              category: 'next-step',
-              priority: 'medium'
+              title: 'Evidence Collection', description: 'Manage compliance documentation', href: '/evidence', category: 'next-step', priority: 'medium'
             }
           ]}
           title="Related Resources"

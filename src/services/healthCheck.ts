@@ -48,11 +48,8 @@ export class HealthCheckService {
       const databaseCheck = this.checkDatabaseHealth();
 
       const checks = {
-        database: databaseCheck,
-        storage: storageCheck.status,
-        memory: memoryCheck.status,
-        errors: errorCheck.status
-      };
+        database: databaseCheck, storage: storageCheck.status, memory: memoryCheck.status, errors: errorCheck.status 
+    };
 
       // Determine overall status
       const criticalIssues = Object.values(checks).filter(status => status === 'unhealthy').length;
@@ -61,58 +58,38 @@ export class HealthCheckService {
       let overallStatus: 'healthy' | 'degraded' | 'unhealthy';
       if (criticalIssues > 0) {
         overallStatus = 'unhealthy';
-      } else if (warnings > 1) {
+      
+    } else if (warnings > 1) {
         overallStatus = 'degraded';
       } else {
         overallStatus = 'healthy';
       }
 
       const result: HealthCheckResult = {
-        status: overallStatus,
-        timestamp,
-        checks,
-        metrics: {
-          memoryUsage: memoryCheck.usage,
-          storageUsage: storageCheck.usage,
-          errorRate: errorCheck.rate,
-          responseTime: this.getAverageResponseTime()
-        },
-        version: ENV.APP_VERSION,
-        environment: ENV.NODE_ENV
-      };
+        status: overallStatus, timestamp, checks, metrics: {
+          memoryUsage: memoryCheck.usage, storageUsage: storageCheck.usage, errorRate: errorCheck.rate, responseTime: this.getAverageResponseTime()
+        }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
 
       // Log health check in production
       if (ENV.isProduction) {
         errorMonitoring.captureMessage('Health Check Completed', 'info', {
-          extra: result,
-          tags: { type: 'healthCheck' }
+          extra): result, tags: { type: 'healthCheck'
+    }
         });
       }
 
       return result;
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'healthCheckError' }
+        tags:) { type: 'healthCheckError' }
       });
       
       return {
-        status: 'unhealthy',
-        timestamp,
-        checks: {
-          database: 'unhealthy',
-          storage: 'unhealthy',
-          memory: 'unhealthy',
-          errors: 'unhealthy'
-        },
-        metrics: {
-          memoryUsage: 0,
-          storageUsage: 0,
-          errorRate: 100,
-          responseTime: 0
-        },
-        version: ENV.APP_VERSION,
-        environment: ENV.NODE_ENV
-      };
+        status: 'unhealthy', timestamp, checks: {
+          database: 'unhealthy', storage: 'unhealthy', memory: 'unhealthy', errors: 'unhealthy'
+        }, metrics: {
+          memoryUsage: 0, storageUsage: 0, errorRate: 100, responseTime: 0
+        }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
     }
   }
 
@@ -144,7 +121,8 @@ export class HealthCheckService {
       const estimatedLimit = 5 * 1024 * 1024; // 5MB estimate
       const usage = (totalSize / estimatedLimit) * 100;
       
-      if (usage > 90) return { status: 'unhealthy', usage };
+      if (usage > 90) return { status: 'unhealthy', usage 
+    };
       if (usage > 70) return { status: 'degraded', usage };
       return { status: 'healthy', usage };
     } catch {
@@ -155,7 +133,7 @@ export class HealthCheckService {
   private checkErrorRate(): { status: 'healthy' | 'degraded' | 'unhealthy'; rate: number } {
     try {
       const errors = errorMonitoring.getStoredErrors();
-      const recentErrors = errors.filter(error => {
+      const recentErrors = errors.filter(error =>) {
         const errorTime = new Date(error.context.timestamp || 0);
         const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
         return errorTime > oneHourAgo;
@@ -180,6 +158,7 @@ export class HealthCheckService {
       localStorage.removeItem(testKey);
       
       return testValue === 'test' ? 'healthy' : 'unhealthy';
+    
     } catch {
       return 'unhealthy';
     }
@@ -195,16 +174,15 @@ export class HealthCheckService {
   }
 
   // Endpoint for external health checks
-  async getHealthStatus(): Promise<{ status: number; body: HealthCheckResult }> {
+  async getHealthStatus(): Promise<{ status: number; body: HealthCheckResult 
+    }> {
     const healthResult = await this.performHealthCheck();
     
     const statusCode = healthResult.status === 'healthy' ? 200 :
                       healthResult.status === 'degraded' ? 206 : 503;
     
     return {
-      status: statusCode,
-      body: healthResult
-    };
+      status: statusCode, body: healthResult };
   }
 }
 
@@ -214,5 +192,6 @@ export const healthCheckService = HealthCheckService.getInstance();
 if (ENV.isProduction) {
   setInterval(() => {
     healthCheckService.performHealthCheck();
-  }, 5 * 60 * 1000); // Every 5 minutes
-}
+  
+    }, 5 * 60 * 1000); // Every 5 minutes
+    }

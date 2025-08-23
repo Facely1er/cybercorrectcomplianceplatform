@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Clock, Target, AlertTriangle, CheckCircle, TrendingUp } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 interface RemediationItem {
   id: string;
@@ -39,7 +39,8 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
         phase = 1;
         timeline = '1-3 months';
         effort = gapSize > 60 ? 'high' : 'medium';
-      } else if (gap.priority === 'medium' || gapSize > 25) {
+      
+    } else if (gap.priority === 'medium' || gapSize > 25) {
         phase = 2;
         timeline = '3-6 months';
         effort = 'medium';
@@ -50,15 +51,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
       }
 
       items.push({
-        id: `remediation-${index}`,
-        title: `Improve ${gap.category}`,
-        description: `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`,
-        priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low',
-        effort,
-        timeline,
-        phase,
-        expectedImpact: `+${Math.min(gapSize, 25)}% improvement`,
-        resources: getResourcesForCategory(gap.category)
+        id: `remediation-${index }`, title: `Improve ${gap.category }`, description: `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' : gap.priority as 'high' | 'medium' | 'low', effort, timeline, phase, expectedImpact: `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
       });
     });
 
@@ -128,7 +121,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
 
   if (remediationItems.length === 0) {
     return (
-      <div className={`bg-green-50 dark:bg-green-900/20 rounded-xl p-8 text-center ${className}`}>
+      <div className={`bg-green-50 dark:bg-green-900/20 rounded-xl p-8 text-center ${className }`}>
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">
           Excellent Security Posture
@@ -141,25 +134,25 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
   }
 
   return (
-    <div className={className}>
+    <div className={className }>
       {/* Timeline Overview */}
       <div className="grid md:grid-cols-3 gap-4 mb-8">
         {phases.map((phase) => {
           const phaseItems = remediationItems.filter(item => item.phase === phase.number);
           return (
-            <div key={phase.number} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+            <div key={phase.number } className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3 mb-3">
                 <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
-                  {phase.number}
+                  {phase.number }
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">{phase.title}</h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">{phase.timeframe}</p>
+                  <h4 className="font-semibold text-gray-900 dark:text-white">{phase.title }</h4>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{phase.timeframe }</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{phase.description}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{phase.description }</p>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500 dark:text-gray-400">{phaseItems.length} items</span>
+                <span className="text-gray-500 dark:text-gray-400">{phaseItems.length } items</span>
                 <div className="flex items-center space-x-1">
                   <TrendingUp className="w-4 h-4 text-blue-500" />
                   <span className="text-blue-600 dark:text-blue-400 font-medium">
@@ -180,22 +173,22 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
           if (phaseItems.length === 0) return null;
 
           return (
-            <div key={phase.number} className="relative">
+            <div key={phase.number } className="relative">
               {/* Phase Header */}
               <div className="flex items-center space-x-4 mb-4">
                 <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
-                  {phase.number}
+                  {phase.number }
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{phase.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{phase.timeframe}</p>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{phase.title }</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{phase.timeframe }</p>
                 </div>
               </div>
 
               {/* Phase Items */}
               <div className="ml-5 border-l-2 border-gray-200 dark:border-gray-700 pl-6 space-y-4">
                 {phaseItems.map((item, index) => (
-                  <div key={item.id} className="relative">
+                  <div key={item.id } className="relative">
                     {/* Timeline Dot */}
                     <div className="absolute -left-8 w-4 h-4 bg-blue-600 rounded-full border-2 border-white dark:border-gray-800"></div>
                     
@@ -204,10 +197,10 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                            {item.title}
+                            {item.title }
                           </h4>
                           <p className="text-gray-600 dark:text-gray-300 mb-3">
-                            {item.description}
+                            {item.description }
                           </p>
                         </div>
                         <div className="flex flex-col items-end space-y-2">
@@ -215,7 +208,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                             {item.priority.charAt(0).toUpperCase() + item.priority.slice(1)} Priority
                           </span>
                           <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                            {item.expectedImpact}
+                            {item.expectedImpact }
                           </span>
                         </div>
                       </div>
@@ -227,7 +220,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                           <div>
                             <div className="text-xs text-gray-500 dark:text-gray-400">Timeline</div>
                             <div className="font-medium text-gray-900 dark:text-white text-sm">
-                              {item.timeline}
+                              {item.timeline }
                             </div>
                           </div>
                         </div>
@@ -247,7 +240,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                           <div>
                             <div className="text-xs text-gray-500 dark:text-gray-400">Impact</div>
                             <div className="font-medium text-gray-900 dark:text-white text-sm">
-                              {item.expectedImpact}
+                              {item.expectedImpact }
                             </div>
                           </div>
                         </div>
@@ -259,10 +252,10 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                         <div className="flex flex-wrap gap-2">
                           {item.resources.map((resource, resourceIndex) => (
                             <span
-                              key={resourceIndex}
+                              key={resourceIndex }
                               className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded"
                             >
-                              {resource}
+                              {resource }
                             </span>
                           ))}
                         </div>
@@ -285,7 +278,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
           <div>
             <div className="text-blue-700 dark:text-blue-300 font-medium">Total Items</div>
             <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
-              {remediationItems.length}
+              {remediationItems.length }
             </div>
           </div>
           <div>

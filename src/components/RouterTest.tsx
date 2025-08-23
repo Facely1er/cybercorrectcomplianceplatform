@@ -23,7 +23,7 @@ export const RouterTest: React.FC = () => {
       <h1>React Router Debug Test</h1>
       
       <div style={{ marginBottom: '20px' }}>
-        <strong>Current Path:</strong> {location.pathname}
+        <strong>Current Path:</strong> {location.pathname }
       </div>
 
       <div style={{ marginBottom: '20px' }}>
@@ -31,13 +31,7 @@ export const RouterTest: React.FC = () => {
         <Link 
           to="/dashboard" 
           style={{ 
-            display: 'inline-block',
-            padding: '10px 20px', 
-            background: 'blue', 
-            color: 'white', 
-            textDecoration: 'none',
-            borderRadius: '5px',
-            margin: '10px'
+            display: 'inline-block', padding: '10px 20px', background: 'blue', color: 'white', textDecoration: 'none', borderRadius: '5px', margin: '10px'
           }}
           onClick={() => console.log('RouterTest: Link clicked')}
         >
@@ -48,15 +42,9 @@ export const RouterTest: React.FC = () => {
       <div style={{ marginBottom: '20px' }}>
         <h2>Test 2: useNavigate Hook</h2>
         <button 
-          onClick={handleNavigate}
+          onClick={handleNavigate }
           style={{ 
-            padding: '10px 20px', 
-            background: 'green', 
-            color: 'white', 
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            margin: '10px'
+            padding: '10px 20px', background: 'green', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', margin: '10px'
           }}
         >
           Go to Dashboard (Navigate)
@@ -80,10 +68,10 @@ export const RouterTest: React.FC = () => {
 
       <div style={{ marginTop: '40px', padding: '20px', background: '#f0f0f0', border: '1px solid #ccc' }}>
         <h3>Debug Info:</h3>
-        <p><strong>Window Location:</strong> {window.location.href}</p>
-        <p><strong>React Router Location:</strong> {location.pathname}</p>
-        <p><strong>Search:</strong> {location.search}</p>
-        <p><strong>Hash:</strong> {location.hash}</p>
+        <p><strong>Window Location:</strong> {window.location.href }</p>
+        <p><strong>React Router Location:</strong> {location.pathname }</p>
+        <p><strong>Search:</strong> {location.search }</p>
+        <p><strong>Hash:</strong> {location.hash }</p>
         <p>Check console for click events and errors</p>
       </div>
     </div>

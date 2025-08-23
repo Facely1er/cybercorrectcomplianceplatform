@@ -25,9 +25,7 @@ export class ReportService {
   }
 
   async exportReport(
-    assessment: AssessmentData,
-    framework: Framework,
-    options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, options: ReportExportOptions
   ): Promise<void> {
     try {
       switch (options.format) {
@@ -41,21 +39,18 @@ export class ReportService {
           await this.exportToCSV(assessment, framework, options);
           break;
         default:
-          throw new Error(`Unsupported format: ${options.format}`);
+          throw new Error(`Unsupported format: ${options.format }`);
       }
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags: { type: 'reportExportError' },
-        extra: { assessmentId: assessment.id, format: options.format }
+        tags: { type): 'reportExportError' }, extra: { assessmentId: assessment.id, format: options.format }
       });
       throw error;
     }
   }
 
   private async exportToPDF(
-    assessment: AssessmentData,
-    framework: Framework,
-    options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, options: ReportExportOptions
   ): Promise<void> {
     // Enhanced PDF generation with better formatting
     const reportData = this.generateReportData(assessment, framework);
@@ -68,20 +63,17 @@ export class ReportService {
       try {
         await this.generatePDFWithAPI(htmlContent, assessment, framework);
         return;
-      } catch (error) {
+      
+    } catch {
         console.warn('Native PDF API failed, falling back to print method');
       }
     }
     
     // Method 2: Fallback to enhanced print window
     this.generatePDFWithPrint(htmlContent, assessment, framework);
-  }
-
+    }
   private generateHTMLReport(
-    assessment: AssessmentData,
-    framework: Framework,
-    reportData: any,
-    options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, reportData: any, options: ReportExportOptions
   ): string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
@@ -90,7 +82,7 @@ export class ReportService {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>${framework.name} Assessment Report - ${organizationName}</title>
+          <title>${framework.name } Assessment Report - ${organizationName }</title>
           <meta charset="UTF-8">
           <style>
             @page {
@@ -268,35 +260,35 @@ export class ReportService {
         </head>
         <body>
           <div class="header">
-            <h1>${framework.name} Assessment Report</h1>
-            <div class="subtitle">Organization: ${organizationName}</div>
-            <div class="subtitle">Generated on ${reportDate}</div>
-            <div class="subtitle">Assessment ID: ${assessment.id}</div>
+            <h1>${framework.name } Assessment Report</h1>
+            <div class="subtitle">Organization: ${organizationName }</div>
+            <div class="subtitle">Generated on ${reportDate }</div>
+            <div class="subtitle">Assessment ID: ${assessment.id }</div>
           </div>
           
           <div class="section">
             <h2>Executive Summary</h2>
             <div class="metric-grid">
               <div class="metric-card">
-                <div class="metric-value">${reportData.overallScore}%</div>
+                <div class="metric-value">${reportData.overallScore }%</div>
                 <div class="metric-label">Overall Score</div>
               </div>
               <div class="metric-card">
-                <div class="metric-value">${reportData.answeredQuestions}/${reportData.totalQuestions}</div>
+                <div class="metric-value">${reportData.answeredQuestions }/${reportData.totalQuestions }</div>
                 <div class="metric-label">Questions Completed</div>
               </div>
               <div class="metric-card">
-                <div class="metric-value">${framework.name}</div>
+                <div class="metric-value">${framework.name }</div>
                 <div class="metric-label">Framework</div>
               </div>
               <div class="metric-card">
-                <div class="metric-value">v${framework.version}</div>
+                <div class="metric-value">v${framework.version }</div>
                 <div class="metric-label">Version</div>
               </div>
             </div>
             
             <p><strong>Assessment Completion Date:</strong> ${assessment.lastModified.toLocaleDateString()}</p>
-            <p><strong>Framework:</strong> ${framework.name} v${framework.version}</p>
+            <p><strong>Framework:</strong> ${framework.name } v${framework.version }</p>
             <p><strong>Assessment Status:</strong> ${assessment.isComplete ? 'Complete' : 'In Progress'}</p>
           </div>
           
@@ -314,12 +306,12 @@ export class ReportService {
               <tbody>
                 ${reportData.sectionScores.map((section: any) => `
                   <tr>
-                    <td><strong>${section.name}</strong></td>
-                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669' : section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score}%</td>
-                    <td style="text-align: center;">${section.answered}/${section.total}</td>
+                    <td><strong>${section.name }</strong></td>
+                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669' : section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score }%</td>
+                    <td style="text-align: center;">${section.answered }/${section.total }</td>
                     <td>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981' : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
+                        <div class="progress-fill" style="width: ${section.score }%; background: ${section.score >= 75 ? '#10b981' : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
                       </div>
                     </td>
                   </tr>
@@ -333,8 +325,8 @@ export class ReportService {
               <h2>Assessment Notes & Comments</h2>
               ${Object.entries(assessment.questionNotes).map(([questionId, note]) => `
                 <div class="notes-section">
-                  <div class="notes-title">Question ${questionId}:</div>
-                  <p>${note}</p>
+                  <div class="notes-title">Question ${questionId }:</div>
+                  <p>${note }</p>
                 </div>
               `).join('')}
             </div>
@@ -353,7 +345,7 @@ export class ReportService {
           
           <div class="footer">
             <p>Report generated by CyberCorrect™ Cybersecurity Compliance Platform</p>
-            <p>Assessment ID: ${assessment.id} | Generated: ${reportDate} | Framework: ${framework.name} v${framework.version}</p>
+            <p>Assessment ID: ${assessment.id } | Generated: ${reportDate } | Framework: ${framework.name } v${framework.version }</p>
             <p>This report contains confidential information. Handle according to your organization's data classification policies.</p>
           </div>
         </body>
@@ -364,10 +356,9 @@ export class ReportService {
   private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework): Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
-      suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
-      types: [{
-        description: 'HTML Report',
-        accept: { 'text/html': ['.html'] }
+      suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')
+    }-report-${assessment.id }-${new Date().toISOString().split('T')[0]}.html`, types: [{
+        description: 'HTML Report', accept: { 'text/html': ['.html'] }
       }]
     });
     
@@ -378,11 +369,10 @@ export class ReportService {
 
   private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework): void {
     // Create a new window with enhanced print styles
-    const printWindow = window.open('', '_blank', 'width=1200,height=800');
+    const printWindow = window.open('', '_blank', 'width=1200, height=800');
     if (!printWindow) {
       throw new Error('Failed to open print window - popup blocked');
     }
-
     printWindow.document.write(htmlContent);
 
     printWindow.document.close();
@@ -397,50 +387,33 @@ export class ReportService {
         // Close window after print dialog
         setTimeout(() => {
           printWindow.close();
-        }, 1000);
+        
+    }, 1000);
       }, 500);
     };
   }
 
   private async exportToJSON(
-    assessment: AssessmentData,
-    framework: Framework,
-    options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, options: ReportExportOptions
   ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     const exportData = {
-      assessment,
-      framework: {
-        id: framework.id,
-        name: framework.name,
-        version: framework.version,
-        description: framework.description
-      },
-      reportData,
-      exportedAt: new Date(),
-      options,
-      metadata: {
-        totalQuestions: reportData.totalQuestions,
-        answeredQuestions: reportData.answeredQuestions,
-        overallScore: reportData.overallScore,
-        completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100),
-        exportFormat: 'json',
-        exportVersion: '2.0.0'
+      assessment, framework: {
+        id: framework.id, name: framework.name, version: framework.version, description: framework.description }, reportData, exportedAt: new Date(), options, metadata: {
+        totalQuestions: reportData.totalQuestions, answeredQuestions: reportData.answeredQuestions, overallScore: reportData.overallScore, completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100), exportFormat: 'json', exportVersion: '2.0.0'
       }
     };
 
     const dataStr = JSON.stringify(exportData, null, 2);
     this.downloadFile(
       dataStr,
-      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.json`,
+      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id }-${new Date().toISOString().split('T')[0]}.json`,
       'application/json'
     );
   }
 
   private async exportToCSV(
-    assessment: AssessmentData,
-    framework: Framework,
-    options: ReportExportOptions
+    assessment: AssessmentData, framework: Framework, options: ReportExportOptions
   ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
@@ -457,26 +430,12 @@ export class ReportService {
     ];
     
     const csvRows = reportData.sectionScores.map((section: any) => [
-        section.name,
-        section.score.toString(),
-        section.answered.toString(),
-        section.total.toString(),
-        section.total > 0 ? Math.round((section.answered / section.total) * 100).toString() : '0',
-        section.score >= 75 ? 'Satisfactory' : section.score >= 50 ? 'Needs Improvement' : 'Critical',
-        Math.max(0, 75 - section.score).toString(),
-        section.score < 50 ? 'High' : section.score < 75 ? 'Medium' : 'Low'
+        section.name, section.score.toString(), section.answered.toString(), section.total.toString(), section.total > 0 ? Math.round((section.answered / section.total) * 100).toString() : '0', section.score >= 75 ? 'Satisfactory' : section.score >= 50 ? 'Needs Improvement' : 'Critical', Math.max(0, 75 - section.score).toString(), section.score < 50 ? 'High' : section.score < 75 ? 'Medium' : 'Low'
     ]);
     
     // Add summary row
     const summaryRow = [
-      'OVERALL SUMMARY',
-      reportData.overallScore.toString(),
-      reportData.answeredQuestions.toString(),
-      reportData.totalQuestions.toString(),
-      Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100).toString(),
-      reportData.overallScore >= 75 ? 'Satisfactory' : reportData.overallScore >= 50 ? 'Needs Improvement' : 'Critical',
-      Math.max(0, 75 - reportData.overallScore).toString(),
-      reportData.overallScore < 50 ? 'High' : reportData.overallScore < 75 ? 'Medium' : 'Low'
+      'OVERALL SUMMARY', reportData.overallScore.toString(), reportData.answeredQuestions.toString(), reportData.totalQuestions.toString(), Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100).toString(), reportData.overallScore >= 75 ? 'Satisfactory' : reportData.overallScore >= 50 ? 'Needs Improvement' : 'Critical', Math.max(0, 75 - reportData.overallScore).toString(), reportData.overallScore < 50 ? 'High' : reportData.overallScore < 75 ? 'Medium' : 'Low'
     ];
     
     const csvContent = [
@@ -484,32 +443,34 @@ export class ReportService {
       ...csvRows,
       [], // Empty row
       summaryRow
-    ].map(row => row.map(field => `"${field}"`).join(',')).join('\n');
+    ].map(row => row.map(field => `"${field 
+    }"`).join(',')).join('\n');
     // Add metadata header
     const metadataHeader = [
-      `# ${framework.name} Assessment Report`,
+      `# ${framework.name 
+    } Assessment Report`,
       `# Organization: ${assessment.organizationInfo?.name || 'Not specified'}`,
       `# Generated: ${new Date().toLocaleDateString()}`,
-      `# Assessment ID: ${assessment.id}`,
-      `# Framework Version: ${framework.version}`,
+      `# Assessment ID: ${assessment.id }`,
+      `# Framework Version: ${framework.version }`,
       '#',
       ''
     ].join('\n');
 
     this.downloadFile(
       metadataHeader + csvContent,
-      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.csv`,
+      `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id }-${new Date().toISOString().split('T')[0]}.csv`,
       'text/csv'
     );
   }
 
-  private generateReportData(assessment: AssessmentData, framework: Framework) {
+  private generateReportData(assessment: AssessmentData, framework): Framework {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
       ? Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25)
       : 0;
 
-    const sectionScores = framework.sections.map(section => {
+    const sectionScores = framework.sections.map(section =>) {
       const sectionQuestions = section.categories.reduce((questions, category) => {
         return [...questions, ...category.questions];
       }, [] as any[]);
@@ -523,57 +484,48 @@ export class ReportService {
         : 0;
 
       return {
-        name: section.name,
-        score: sectionScore,
-        answered: sectionResponses.length,
-        total: sectionQuestions.length
-      };
+        name: section.name, score: sectionScore, answered: sectionResponses.length, total: sectionQuestions.length };
     });
 
     return {
-      overallScore,
-      sectionScores,
-      totalQuestions: framework.sections.reduce((sum, section) => 
+      overallScore, sectionScores, totalQuestions: framework.sections.reduce((sum, section) => 
         sum + section.categories.reduce((catSum, category) => 
-          catSum + category.questions.length, 0), 0),
-      answeredQuestions: Object.keys(assessment.responses).length
-    };
+          catSum + category.questions.length, 0), 0), answeredQuestions: Object.keys(assessment.responses).length };
   }
 
   private downloadFile(content: string, filename: string, mimeType: string): void {
     try {
       // Add UTF-8 BOM for CSV files to ensure proper character encoding
       const bom = mimeType === 'text/csv' ? '\uFEFF' : '';
-      const blob = new Blob([bom + content], { type: `${mimeType};charset=utf-8` });
+      const blob = new Blob([bom + content],) { type: `${mimeType 
+    };charset=utf-8` });
       
       // Use modern download API if available
       if ('showSaveFilePicker' in window) {
         this.downloadWithAPI(blob, filename, mimeType);
         return;
-      }
-      
+    }
       // Fallback to traditional download
       this.downloadWithLink(blob, filename);
+    
     } catch (error) {
       console.error('Download failed:', error);
-      throw new Error(`Failed to download file: ${error}`);
+      throw new Error(`Failed to download file: ${error }`);
     }
   }
   
   private async downloadWithAPI(blob: Blob, filename: string, mimeType: string): Promise<void> {
     try {
       const fileHandle = await (window as any).showSaveFilePicker({
-        suggestedName: filename,
-        types: [{
-          description: this.getFileTypeDescription(mimeType),
-          accept: { [mimeType]: [this.getFileExtension(filename)] }
+        suggestedName: filename, types: [{
+          description: this.getFileTypeDescription(mimeType), accept: { [mimeType]: [this.getFileExtension(filename)] }
         }]
       });
       
       const writable = await fileHandle.createWritable();
       await writable.write(blob);
       await writable.close();
-    } catch (error) {
+    } catch {
       // If API fails, fall back to link download
       this.downloadWithLink(blob, filename);
     }
@@ -607,4 +559,4 @@ export class ReportService {
   }
 }
 
-export const reportService = ReportService.getInstance();
+export const reportService = new ReportService(); 

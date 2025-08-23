@@ -31,7 +31,8 @@ export interface Asset {
     regulatoryRequirements: string[];
     dataTypes: string[];
     accessRestrictions: 'public' | 'standard' | 'restricted' | 'highly-restricted';
-  };
+  
+    };
   importMetadata?: {
     importedAt: string;
     sourceFile: string;

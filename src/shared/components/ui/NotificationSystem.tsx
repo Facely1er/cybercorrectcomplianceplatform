@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
+import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 import { NotificationMessage } from '../../types';
 
 interface NotificationSystemProps {
@@ -8,16 +8,15 @@ interface NotificationSystemProps {
 }
 
 export const NotificationSystem: React.FC<NotificationSystemProps> = ({
-  notifications,
-  onRemove
-}) => {
+  notifications, onRemove }) => {
   useEffect(() => {
-    notifications.forEach(notification => {
+    notifications.forEach(notification =>) {
       const timer = setTimeout(() => {
         onRemove(notification.id);
       }, 5000); // Auto-remove after 5 seconds
 
       return () => clearTimeout(timer);
+    
     });
   }, [notifications, onRemove]);
 
@@ -57,7 +56,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
     <div className="fixed top-4 right-4 z-50 space-y-2">
       {notifications.map((notification) => (
         <div
-          key={notification.id}
+          key={notification.id }
           className={`max-w-sm w-full border rounded-lg p-4 shadow-lg animate-slide-up ${getStyles(notification.type)}`}
         >
           <div className="flex items-start">
@@ -66,14 +65,14 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
             </div>
             <div className="ml-3 flex-1">
               <p className="text-sm font-medium">
-                {notification.message}
+                {notification.message }
               </p>
               {notification.action && (
                 <button
-                  onClick={notification.action.onClick}
+                  onClick={notification.action.onClick }
                   className="mt-2 text-sm underline hover:no-underline"
                 >
-                  {notification.action.label}
+                  {notification.action.label }
                 </button>
               )}
             </div>

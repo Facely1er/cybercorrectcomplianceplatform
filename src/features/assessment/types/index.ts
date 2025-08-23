@@ -8,8 +8,7 @@ export interface AssessmentWorkflowStep {
   isActive: boolean;
   order: number;
   requiredData?: string[];
-}
-
+    }
 export interface AssessmentProgress {
   currentStep: number;
   totalSteps: number;

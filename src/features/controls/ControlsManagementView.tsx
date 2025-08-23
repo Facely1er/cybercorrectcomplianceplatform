@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye,
-  AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award,
-  TrendingUp, Calendar, FileText, Users, ScrollText, DollarSign
-} from 'lucide-react';
+import { ArrowLeftAlertCircle, CheckCircle, XCircleScrollText, DollarSign } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
@@ -17,9 +13,7 @@ type ControlType = 'preventive' | 'detective' | 'corrective' | 'deterrent' | 'co
 type AssessmentFrequency = 'monthly' | 'quarterly' | 'semi-annually' | 'annually';
 
 export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
-  onBack,
-  addNotification
-}) => {
+  onBack, addNotification }) => {
   const [controls, setControls] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterFunction, setFilterFunction] = useState<string>('all');
@@ -28,160 +22,56 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const [showControlForm, setShowControlForm] = useState(false);
   const [editingControl, setEditingControl] = useState<any | null>(null);
   const [formData, setFormData] = useState({
-    controlId: '',
-    name: '',
-    description: '',
-    nistFunction: 'Identify',
-    nistCategory: '',
-    nistSubcategory: '',
-    status: 'not-implemented' as ControlStatus,
-    priority: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    owner: '',
-    controlType: 'administrative' as ControlType,
-    implementationApproach: 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
+    controlId: '', name: '', description: '', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', status: 'not-implemented' as ControlStatus, priority: 'medium' as 'low' | 'medium' | 'high' | 'critical', owner: '', controlType: 'administrative' as ControlType, implementationApproach: 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
   });
 
   // Mock data for demonstration
   useEffect(() => {
     const mockControls: any[] = [
       {
-        id: 'ctrl-001',
-        controlId: 'ID.AM-1',
-        name: 'Asset Management',
-        description: 'Physical devices and systems within the organization are inventoried',
-        framework: 'nist-csf-v2',
-        nistFunction: 'Identify',
-        nistCategory: 'Asset Management',
-        nistSubcategory: 'ID.AM-01',
-        controlFamily: 'Asset Management',
-        controlType: 'administrative',
-        implementationApproach: 'automated',
-        status: 'implemented',
-        priority: 'high',
-        owner: 'IT Manager',
-        implementers: ['IT Team', 'Security Team'],
-        validators: ['CISO', 'Internal Audit'],
-        lastAssessed: new Date(2024, 1, 15),
-        nextAssessment: new Date(2024, 4, 15),
-        assessmentFrequency: 'quarterly' as AssessmentFrequency,
-        category: 'Asset Management',
-        subcategory: 'Physical devices and systems',
-        implementation: {
-          actualDate: new Date(2024, 0, 15),
-          method: 'Automated discovery tools with manual validation',
-          tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
-          procedures: ['Asset Discovery SOP', 'Inventory Validation Process'],
-          configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly' },
-          deployment: {
-            scope: ['All Networks', 'All Systems'],
-            phases: [],
-            rollbackPlan: 'Manual inventory as fallback'
-          },
-          validation: {
-            criteria: ['95% discovery accuracy', 'Real-time updates'],
-            methods: ['Automated testing', 'Manual spot checks'],
-            results: []
+        id: 'ctrl-001', controlId: 'ID.AM-1', name: 'Asset Management', description: 'Physical devices and systems within the organization are inventoried', framework: 'nist-csf-v2', nistFunction: 'Identify', nistCategory: 'Asset Management', nistSubcategory: 'ID.AM-01', controlFamily: 'Asset Management', controlType: 'administrative', implementationApproach: 'automated', status: 'implemented', priority: 'high', owner: 'IT Manager', implementers: ['IT Team', 'Security Team'], validators: ['CISO', 'Internal Audit'], lastAssessed: new Date(2024, 1, 15), nextAssessment: new Date(2024, 4, 15), assessmentFrequency: 'quarterly' as AssessmentFrequency, category: 'Asset Management', subcategory: 'Physical devices and systems', implementation: {
+          actualDate: new Date(2024, 0, 15), method: 'Automated discovery tools with manual validation', tools: ['Lansweeper', 'ManageEngine AssetExplorer'], procedures: ['Asset Discovery SOP', 'Inventory Validation Process'], configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly' 
+    }, deployment: {
+            scope: ['All Networks', 'All Systems'], phases: [], rollbackPlan: 'Manual inventory as fallback'
+          }, validation: {
+            criteria: ['95% discovery accuracy', 'Real-time updates'], methods: ['Automated testing', 'Manual spot checks'], results: []
           }
-        },
-        testing: {
+        }, testing: {
           testPlan: {
-            id: 'tp-001',
-            objectives: ['Verify inventory accuracy', 'Test discovery coverage'],
-            scope: ['All asset types', 'All network segments'],
-            methods: ['Automated scanning', 'Manual verification'],
-            criteria: ['95% accuracy', '<24h discovery time'],
-            responsibilities: { tester: 'Security Team', reviewer: 'CISO' },
-            timeline: 'Quarterly'
-          },
-          schedule: {
-            frequency: 'quarterly' as AssessmentFrequency,
-            nextTest: new Date(2024, 4, 15),
-            lastTest: new Date(2024, 1, 15),
-            plannedTests: []
-          },
-          results: [],
-          automation: {
-            enabled: true,
-            tools: ['Lansweeper API', 'Custom scripts'],
-            scripts: ['discovery_validation.py'],
-            schedule: 'weekly',
-            alerting: {
-              onFailure: true,
-              recipients: ['it-team@company.com'],
-              escalation: ['ciso@company.com']
+            id: 'tp-001', objectives: ['Verify inventory accuracy', 'Test discovery coverage'], scope: ['All asset types', 'All network segments'], methods: ['Automated scanning', 'Manual verification'], criteria: ['95% accuracy', '<24h discovery time'], responsibilities: { tester: 'Security Team', reviewer: 'CISO' }, timeline: 'Quarterly'
+          }, schedule: {
+            frequency: 'quarterly' as AssessmentFrequency, nextTest: new Date(2024, 4, 15), lastTest: new Date(2024, 1, 15), plannedTests: []
+          }, results: [], automation: {
+            enabled: true, tools: ['Lansweeper API', 'Custom scripts'], scripts: ['discovery_validation.py'], schedule: 'weekly', alerting: {
+              onFailure: true, recipients: ['it-team@company.com'], escalation: ['ciso@company.com']
             }
           }
-        },
-        monitoring: {
-          metrics: [],
-          alerting: {
-            enabled: true,
-            channels: ['email', 'slack'],
-            thresholds: { accuracy: 90 },
-            escalation: [],
-            suppression: []
-          },
-          reporting: {
-            dashboards: ['Asset Management Dashboard'],
-            reports: ['Monthly Asset Report'],
-            schedule: { monthly: 'monthly' },
-            recipients: { monthly: ['it-manager@company.com'] },
-            formats: ['PDF', 'Excel']
-          },
-          automation: {
+        }, monitoring: {
+          metrics: [], alerting: {
+            enabled: true, channels: ['email', 'slack'], thresholds: { accuracy: 90 }, escalation: [], suppression: []
+          }, reporting: {
+            dashboards: ['Asset Management Dashboard'], reports: ['Monthly Asset Report'], schedule: { monthly: 'monthly' }, recipients: { monthly: ['it-manager@company.com'] }, formats: ['PDF', 'Excel']
+          }, automation: {
             dataCollection: {
-              automated: true,
-              sources: ['Lansweeper', 'Network Scanners'],
-              frequency: 'daily'
-            },
-            analysis: {
-              automated: true,
-              algorithms: ['Asset Classification', 'Anomaly Detection'],
-              ml_enabled: false
-            },
-            response: {
-              automated: false,
-              actions: []
+              automated: true, sources: ['Lansweeper', 'Network Scanners'], frequency: 'daily'
+            }, analysis: {
+              automated: true, algorithms: ['Asset Classification', 'Anomaly Detection'], ml_enabled: false }, response: {
+              automated: false, actions: []
             }
           }
-        },
-        evidence: ['Asset inventory database', 'Asset discovery scan reports'],
-        policies: ['pol-002'],
-        assets: ['asset-001', 'asset-002'],
-        dependencies: [],
-        effectiveness: {
-          implementationScore: 95,
-          operationalScore: 92,
-          complianceScore: 98,
-          costEffectiveness: 85,
-          riskReduction: 75,
-          maturityLevel: 4,
-          lastMeasured: new Date(2024, 1, 15),
-          trend: 'improving'
-        },
-        costs: {
+        }, evidence: ['Asset inventory database', 'Asset discovery scan reports'], policies: ['pol-002'], assets: ['asset-001', 'asset-002'], dependencies: [], effectiveness: {
+          implementationScore: 95, operationalScore: 92, complianceScore: 98, costEffectiveness: 85, riskReduction: 75, maturityLevel: 4, lastMeasured: new Date(2024, 1, 15), trend: 'improving'
+        }, costs: {
           implementation: {
-            capital: 50000,
-            operational: 15000,
-            timeline: '3 months'
-          },
-          maintenance: {
-            annual: 25000,
-            resources: ['IT Staff', 'Security Analyst']
-          },
-          testing: {
-            frequency: 'quarterly',
-            cost: 5000,
-            resources: ['Security Team']
-          },
-          training: {
-            initial: 10000,
-            ongoing: 5000,
-            frequency: 'annually'
+            capital: 50000, operational: 15000, timeline: '3 months'
+          }, maintenance: {
+            annual: 25000, resources: ['IT Staff', 'Security Analyst']
+          }, testing: {
+            frequency: 'quarterly', cost: 5000, resources: ['Security Team']
+          }, training: {
+            initial: 10000, ongoing: 5000, frequency: 'annually'
           }
-        },
-        risks: [],
-        exceptions: []
+        }, risks: [], exceptions: []
       }
     ];
 
@@ -191,36 +81,15 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   useEffect(() => {
     if (editingControl) {
       setFormData({
-        controlId: editingControl.controlId || editingControl.nistSubcategory,
-        name: editingControl.name,
-        description: editingControl.description,
-        nistFunction: editingControl.nistFunction,
-        nistCategory: editingControl.nistCategory,
-        nistSubcategory: editingControl.nistSubcategory,
-        status: editingControl.status,
-        priority: editingControl.priority,
-        owner: editingControl.owner,
-        controlType: editingControl.controlType,
-        implementationApproach: editingControl.implementationApproach
-      });
+        controlId: editingControl.controlId || editingControl.nistSubcategory, name: editingControl.name, description: editingControl.description, nistFunction: editingControl.nistFunction, nistCategory: editingControl.nistCategory, nistSubcategory: editingControl.nistSubcategory, status: editingControl.status, priority: editingControl.priority, owner: editingControl.owner, controlType: editingControl.controlType, implementationApproach: editingControl.implementationApproach });
     } else {
       setFormData({
-        controlId: '',
-        name: '',
-        description: '',
-        nistFunction: 'Identify',
-        nistCategory: '',
-        nistSubcategory: '',
-        status: 'not-implemented',
-        priority: 'medium',
-        owner: '',
-        controlType: 'administrative',
-        implementationApproach: 'manual'
+        controlId: '', name: '', description: '', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', status: 'not-implemented', priority: 'medium', owner: '', controlType: 'administrative', implementationApproach: 'manual'
       });
     }
   }, [editingControl]);
 
-  const filteredControls = controls.filter(control => {
+  const filteredControls = controls.filter(control =>) {
     const matchesSearch = control.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          control.controlId.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          control.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -311,139 +180,50 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     }
 
     const controlData: any = {
-      id: editingControl?.id || `ctrl-${Date.now()}`,
-      controlId: formData.controlId,
-      name: formData.name,
-      description: formData.description,
-      framework: 'nist-csf-v2',
-      nistFunction: formData.nistFunction,
-      nistCategory: formData.nistCategory,
-      nistSubcategory: formData.nistSubcategory,
-      controlFamily: formData.nistCategory,
-      controlType: formData.controlType,
-      implementationApproach: formData.implementationApproach,
-      status: formData.status,
-      priority: formData.priority,
-      owner: formData.owner,
-      implementers: [],
-      validators: [],
-      lastAssessed: new Date(),
-      nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-      assessmentFrequency: 'quarterly' as AssessmentFrequency,
-      implementation: {
-        method: 'Manual implementation',
-        tools: [],
-        procedures: [],
-        configuration: {},
-        deployment: {
-          scope: [],
-          phases: [],
-          rollbackPlan: ''
-        },
-        validation: {
-          criteria: [],
-          methods: [],
-          results: []
+      id: editingControl?.id || `ctrl-${Date.now()}`, controlId: formData.controlId, name: formData.name, description: formData.description, framework: 'nist-csf-v2', nistFunction: formData.nistFunction, nistCategory: formData.nistCategory, nistSubcategory: formData.nistSubcategory, controlFamily: formData.nistCategory, controlType: formData.controlType, implementationApproach: formData.implementationApproach, status: formData.status, priority: formData.priority, owner: formData.owner, implementers: [], validators: [], lastAssessed: new Date(), nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+      assessmentFrequency: 'quarterly' as AssessmentFrequency, implementation: {
+        method: 'Manual implementation', tools: [], procedures: [], configuration: {
+    }, deployment: {
+          scope: [], phases: [], rollbackPlan: ''
+        }, validation: {
+          criteria: [], methods: [], results: []
         }
-      },
-      testing: {
+      }, testing: {
         testPlan: {
-          id: `tp-${Date.now()}`,
-          objectives: [],
-          scope: [],
-          methods: [],
-          criteria: [],
-          responsibilities: {},
-          timeline: ''
-        },
-        schedule: {
-          frequency: 'quarterly' as AssessmentFrequency,
-          nextTest: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-          plannedTests: []
-        },
-        results: [],
-        automation: {
-          enabled: false,
-          tools: [],
-          scripts: [],
-          schedule: 'manual',
-          alerting: {
-            onFailure: false,
-            recipients: [],
-            escalation: []
+          id: `tp-${Date.now()}`, objectives: [], scope: [], methods: [], criteria: [], responsibilities: {}, timeline: ''
+        }, schedule: {
+          frequency: 'quarterly' as AssessmentFrequency, nextTest: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), plannedTests: []
+        }, results: [], automation: {
+          enabled: false, tools: [], scripts: [], schedule: 'manual', alerting: {
+            onFailure: false, recipients: [], escalation: []
           }
         }
-      },
-      monitoring: {
-        metrics: [],
-        alerting: {
-          enabled: false,
-          channels: [],
-          thresholds: {},
-          escalation: [],
-          suppression: []
-        },
-        reporting: {
-          dashboards: [],
-          reports: [],
-          schedule: {},
-          recipients: {},
-          formats: []
-        },
-        automation: {
+      }, monitoring: {
+        metrics: [], alerting: {
+          enabled: false, channels: [], thresholds: {}, escalation: [], suppression: []
+        }, reporting: {
+          dashboards: [], reports: [], schedule: {}, recipients: {}, formats: []
+        }, automation: {
           dataCollection: {
-            automated: false,
-            sources: [],
-            frequency: 'manual'
-          },
-          analysis: {
-            automated: false,
-            algorithms: [],
-            ml_enabled: false
-          },
-          response: {
-            automated: false,
-            actions: []
+            automated: false, sources: [], frequency: 'manual'
+          }, analysis: {
+            automated: false, algorithms: [], ml_enabled: false }, response: {
+            automated: false, actions: []
           }
         }
-      },
-      evidence: [],
-      policies: [],
-      assets: [],
-      dependencies: [],
-      effectiveness: {
-        implementationScore: 0,
-        operationalScore: 0,
-        complianceScore: 0,
-        costEffectiveness: 0,
-        riskReduction: 0,
-        maturityLevel: 1,
-        lastMeasured: new Date(),
-        trend: 'stable' as 'improving' | 'stable' | 'declining'
-      },
-      costs: {
+      }, evidence: [], policies: [], assets: [], dependencies: [], effectiveness: {
+        implementationScore: 0, operationalScore: 0, complianceScore: 0, costEffectiveness: 0, riskReduction: 0, maturityLevel: 1, lastMeasured: new Date(), trend: 'stable' as 'improving' | 'stable' | 'declining'
+      }, costs: {
         implementation: {
-          capital: 0,
-          operational: 0,
-          timeline: 'TBD'
-        },
-        maintenance: {
-          annual: 0,
-          resources: []
-        },
-        testing: {
-          frequency: 'quarterly',
-          cost: 0,
-          resources: []
-        },
-        training: {
-          initial: 0,
-          ongoing: 0,
-          frequency: 'annually'
+          capital: 0, operational: 0, timeline: 'TBD'
+        }, maintenance: {
+          annual: 0, resources: []
+        }, testing: {
+          frequency: 'quarterly', cost: 0, resources: []
+        }, training: {
+          initial: 0, ongoing: 0, frequency: 'annually'
         }
-      },
-      risks: [],
-      exceptions: []
+      }, risks: [], exceptions: []
     };
 
     if (editingControl) {
@@ -468,29 +248,24 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const handleViewControl = (control: any) => {
     // Create a detailed modal or navigate to control detail view
     const controlDetails = {
-      ...control,
-      implementationDetails: {
-        tools: control.implementation?.tools || [],
-        procedures: control.implementation?.procedures || [],
-        timeline: control.costs?.implementation?.timeline || 'TBD',
-        progress: control.effectiveness?.implementationScore || 0
-      },
-      riskMetrics: {
-        riskReduction: control.effectiveness?.riskReduction || 0,
-        costEffectiveness: control.effectiveness?.costEffectiveness || 0,
-        maturityLevel: control.effectiveness?.maturityLevel || 1
+      ...control, implementationDetails: {
+        tools: control.implementation?.tools || [], procedures: control.implementation?.procedures || [], timeline: control.costs?.implementation?.timeline || 'TBD', progress: control.effectiveness?.implementationScore || 0
+      
+    }, riskMetrics: {
+        riskReduction: control.effectiveness?.riskReduction || 0, costEffectiveness: control.effectiveness?.costEffectiveness || 0, maturityLevel: control.effectiveness?.maturityLevel || 1
       }
     };
     
     // For now, show detailed information in a formatted notification
     const detailsMessage = `Control Details:
 
-ID: ${control.controlId || control.nistSubcategory}
-Function: ${control.nistFunction}
-Category: ${control.nistCategory}
-Status: ${control.status}
-Owner: ${control.owner}
-Priority: ${control.priority}
+ID: ${control.controlId || control.nistSubcategory
+    }
+Function: ${control.nistFunction }
+Category: ${control.nistCategory }
+Status: ${control.status }
+Owner: ${control.owner }
+Priority: ${control.priority }
 
 Implementation Score: ${control.effectiveness?.implementationScore || 0}%
 Risk Reduction: ${control.effectiveness?.riskReduction || 0}%
@@ -504,7 +279,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
 
   const handleExportControls = () => {
     const dataStr = JSON.stringify(controls, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const dataBlob = new Blob([dataStr],) { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -527,11 +302,11 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             const importedControls = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedControls)) {
               setControls(prev => [...prev, ...importedControls]);
-              addNotification('success', `Imported ${importedControls.length} controls`);
+              addNotification('success', `Imported ${importedControls.length } controls`);
             } else {
               addNotification('error', 'Invalid file format');
             }
-          } catch (error) {
+          } catch {
             addNotification('error', 'Failed to parse file');
           }
         };
@@ -553,9 +328,10 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Breadcrumbs */}
+      {/* Breadcrumbs */
+    }
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -564,7 +340,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack}
+                onClick={onBack }
                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -581,21 +357,21 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             
             <div className="flex items-center space-x-3">
               <button
-                onClick={handleImportControls}
+                onClick={handleImportControls }
                 className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
               </button>
               <button
-                onClick={handleExportControls}
+                onClick={handleExportControls }
                 className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
               </button>
               <button
-                onClick={handleCreateControl}
+                onClick={handleCreateControl }
                 className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 <Plus className="w-4 h-4" />
@@ -613,7 +389,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Controls</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalControls}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{totalControls }</p>
               </div>
               <Shield className="w-8 h-8 text-blue-600" />
             </div>
@@ -623,7 +399,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Implemented</p>
-                <p className="text-2xl font-bold text-green-600">{implementedControls}</p>
+                <p className="text-2xl font-bold text-green-600">{implementedControls }</p>
               </div>
               <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
@@ -633,7 +409,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Partial</p>
-                <p className="text-2xl font-bold text-yellow-600">{partiallyImplementedControls}</p>
+                <p className="text-2xl font-bold text-yellow-600">{partiallyImplementedControls }</p>
               </div>
               <Clock className="w-8 h-8 text-yellow-600" />
             </div>
@@ -643,7 +419,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Not Implemented</p>
-                <p className="text-2xl font-bold text-red-600">{notImplementedControls}</p>
+                <p className="text-2xl font-bold text-red-600">{notImplementedControls }</p>
               </div>
               <XCircle className="w-8 h-8 text-red-600" />
             </div>
@@ -656,12 +432,12 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Implementation Progress
             </h3>
-            <span className="text-2xl font-bold text-blue-600">{implementationPercentage}%</span>
+            <span className="text-2xl font-bold text-blue-600">{implementationPercentage }%</span>
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
             <div
               className="bg-blue-600 h-3 rounded-full transition-all duration-300"
-              style={{ width: `${implementationPercentage}%` }}
+              style={{ width: `${implementationPercentage }%` }}
             ></div>
           </div>
         </div>
@@ -675,7 +451,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                 <input
                   type="text"
                   placeholder="Search controls..."
-                  value={searchTerm}
+                  value={searchTerm }
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -684,25 +460,25 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
             
             <div className="flex gap-4">
               <select
-                value={filterFunction}
+                value={filterFunction }
                 onChange={(e) => setFilterFunction(e.target.value)}
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 {functions.map(func => (
-                  <option key={func} value={func}>
-                    {func === 'all' ? 'All Functions' : func}
+                  <option key={func } value={func }>
+                   ) {func === 'all' ? 'All Functions' : func }
                   </option>
                 ))}
               </select>
               
               <select
-                value={filterStatus}
+                value={filterStatus }
                 onChange={(e) => setFilterStatus(e.target.value)}
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 {statuses.map(status => (
-                  <option key={status} value={status}>
-                    {status === 'all' ? 'All Statuses' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  <option key={status } value={status }>
+                   ) {status === 'all' ? 'All Statuses' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                   </option>
                 ))}
               </select>
@@ -714,7 +490,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
         <div className="space-y-4">
           {filteredControls.map((control) => (
             <div
-              key={control.id}
+              key={control.id }
               className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-start justify-between mb-4">
@@ -722,10 +498,10 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   <Shield className="w-6 h-6 text-blue-600" />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {control.controlId || control.nistSubcategory}: {control.name}
+                      {control.controlId || control.nistSubcategory }: {control.name }
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      {control.nistCategory} • {control.nistSubcategory}
+                      {control.nistCategory } • {control.nistSubcategory }
                     </p>
                   </div>
                 </div>
@@ -739,7 +515,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
               </div>
               
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                {control.description}
+                {control.description }
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -747,7 +523,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   <span className="text-xs text-gray-500 dark:text-gray-400">Function</span>
                   <div className="mt-1">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getFunctionColor(control.nistFunction)}`}>
-                      {control.nistFunction}
+                      {control.nistFunction }
                     </span>
                   </div>
                 </div>
@@ -766,7 +542,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   <div className="mt-1 flex items-center space-x-1">
                     {[1, 2, 3, 4, 5].map((level) => (
                       <div
-                        key={level}
+                        key={level }
                         className={`w-3 h-3 rounded-full ${
                           level <= (control.effectiveness?.maturityLevel || 1)
                             ? 'bg-blue-600'
@@ -784,7 +560,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-sm">
                 <div>
                   <span className="text-gray-500 dark:text-gray-400">Owner:</span>
-                  <span className="ml-2 font-medium text-gray-900 dark:text-white">{control.owner}</span>
+                  <span className="ml-2 font-medium text-gray-900 dark:text-white">{control.owner }</span>
                 </div>
                 <div>
                   <span className="text-gray-500 dark:text-gray-400">Next Assessment:</span>
@@ -800,10 +576,10 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   <div className="flex flex-wrap gap-1 mt-1">
                     {control.evidence.map((evidence, index) => (
                       <span
-                        key={index}
+                        key={index }
                         className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 rounded text-xs"
                       >
-                        {evidence}
+                        {evidence }
                       </span>
                     ))}
                   </div>
@@ -867,7 +643,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
               {editingControl ? 'Edit Control' : 'Add New Control'}
             </h3>
             
-            <form onSubmit={handleSaveControl} className="space-y-4">
+            <form onSubmit={handleSaveControl } className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -876,7 +652,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   <input
                     type="text"
                     required
-                    value={formData.controlId}
+                    value={formData.controlId }
                     onChange={(e) => setFormData(prev => ({ ...prev, controlId: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="e.g., ID.AM-01"
@@ -889,7 +665,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   </label>
                   <select
                     required
-                    value={formData.nistFunction}
+                    value={formData.nistFunction }
                     onChange={(e) => setFormData(prev => ({ ...prev, nistFunction: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
@@ -909,7 +685,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                 <input
                   type="text"
                   required
-                  value={formData.name}
+                  value={formData.name }
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter control name"
@@ -922,7 +698,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                 </label>
                 <textarea
                   required
-                  value={formData.description}
+                  value={formData.description }
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
@@ -937,7 +713,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   </label>
                   <input
                     type="text"
-                    value={formData.nistCategory}
+                    value={formData.nistCategory }
                     onChange={(e) => setFormData(prev => ({ ...prev, nistCategory: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="e.g., Asset Management"
@@ -950,7 +726,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                   </label>
                   <input
                     type="text"
-                    value={formData.nistSubcategory}
+                    value={formData.nistSubcategory }
                     onChange={(e) => setFormData(prev => ({ ...prev, nistSubcategory: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="e.g., ID.AM-01"
@@ -964,7 +740,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                     Implementation Status
                   </label>
                   <select
-                    value={formData.status}
+                    value={formData.status }
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as ControlStatus }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
@@ -981,7 +757,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                     Priority
                   </label>
                   <select
-                    value={formData.priority}
+                    value={formData.priority }
                     onChange={(e) => setFormData(prev => ({ ...prev, priority: e.target.value as any }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
@@ -997,7 +773,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                     Control Type
                   </label>
                   <select
-                    value={formData.controlType}
+                    value={formData.controlType }
                     onChange={(e) => setFormData(prev => ({ ...prev, controlType: e.target.value as ControlType }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
@@ -1020,7 +796,7 @@ Next Assessment: ${control.nextAssessment?.toLocaleDateString() || 'Not schedule
                 <input
                   type="text"
                   required
-                  value={formData.owner}
+                  value={formData.owner }
                   onChange={(e) => setFormData(prev => ({ ...prev, owner: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Control owner"

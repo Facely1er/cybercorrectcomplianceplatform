@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import {  ArrowLeft, Plus, Search, Edit3, Trash2, Eye, 
-  AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award, 
-  ChevronDown, ChevronRight, RefreshCw, Globe
-} from 'lucide-react';
+import { ArrowLeftAlertCircle, CheckCircle, XCircleChevronDown, ChevronRight, Globe } from 'lucide-react';
 import { Control, ControlStatus, ControlType, AssessmentFrequency } from '../types';
  
 
@@ -14,9 +11,7 @@ interface ControlsManagementViewProps {
 }
 
 export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
-  onBack,
-  addNotification
-}) => {
+  onBack, addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
   const [controls, setControls] = useState<Control[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,775 +26,267 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const [autoRefresh, setAutoRefresh] = useState(true);
   
   const [formData, setFormData] = useState({
-    controlId: '',
-    name: '',
-    description: '',
-    nistFunction: 'Identify',
-    nistCategory: '',
-    nistSubcategory: '',
-    status: 'not-implemented' as ControlStatus,
-    priority: 'medium' as 'low' | 'medium' | 'high' | 'critical',
-    owner: '',
-    controlType: 'administrative' as ControlType,
-    implementationApproach: 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
+    controlId: '', name: '', description: '', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', status: 'not-implemented' as ControlStatus, priority: 'medium' as 'low' | 'medium' | 'high' | 'critical', owner: '', controlType: 'administrative' as ControlType, implementationApproach: 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
   });
 
   // Enhanced mock data for demonstration
   useEffect(() => {
     const mockControls: Control[] = [
       {
-        id: 'ctrl-001',
-        controlId: 'ID.AM-1',
-        name: 'Asset Inventory and Documentation',
-        description: 'Maintain comprehensive inventory of physical devices, systems, platforms, and applications within the organization',
-        framework: 'nist-csf-v2',
-        nistFunction: 'Identify',
-        nistCategory: 'Asset Management',
-        nistSubcategory: 'ID.AM-01',
-        controlFamily: 'Asset Management',
-        controlType: 'administrative',
-        implementationApproach: 'automated',
-        status: 'operational',
-        priority: 'high',
-        owner: 'IT Infrastructure Manager',
-        implementers: ['IT Operations Team', 'Security Team', 'Network Team'],
-        validators: ['CISO', 'Internal Audit', 'Compliance Officer'],
-        lastAssessed: new Date(2024, 6, 15),
-        nextAssessment: new Date(2024, 9, 15),
-        assessmentFrequency: 'quarterly' as AssessmentFrequency,
-        implementation: {
-          actualDate: new Date(2024, 0, 15),
-          method: 'Automated discovery with centralized CMDB and manual validation procedures',
-          tools: ['Lansweeper Enterprise', 'ServiceNow CMDB', 'Microsoft SCCM', 'Network Discovery Tools'],
-          procedures: ['Asset Discovery SOP v2.1', 'CMDB Update Process', 'Asset Classification Guide'],
-          configuration: { 
-            discovery_frequency: 'daily', 
-            validation_frequency: 'weekly',
-            classification_rules: 'automated',
-            approval_workflow: 'enabled'
-          },
-          deployment: {
-            scope: ['All Corporate Networks', 'Data Centers', 'Cloud Infrastructure', 'Remote Offices'],
-            phases: [
+        id: 'ctrl-001', controlId: 'ID.AM-1', name: 'Asset Inventory and Documentation', description: 'Maintain comprehensive inventory of physical devices, systems, platforms, and applications within the organization', framework: 'nist-csf-v2', nistFunction: 'Identify', nistCategory: 'Asset Management', nistSubcategory: 'ID.AM-01', controlFamily: 'Asset Management', controlType: 'administrative', implementationApproach: 'automated', status: 'operational', priority: 'high', owner: 'IT Infrastructure Manager', implementers: ['IT Operations Team', 'Security Team', 'Network Team'], validators: ['CISO', 'Internal Audit', 'Compliance Officer'], lastAssessed: new Date(2024, 6, 15), nextAssessment: new Date(2024, 9, 15), assessmentFrequency: 'quarterly' as AssessmentFrequency, implementation: {
+          actualDate: new Date(2024, 0, 15), method: 'Automated discovery with centralized CMDB and manual validation procedures', tools: ['Lansweeper Enterprise', 'ServiceNow CMDB', 'Microsoft SCCM', 'Network Discovery Tools'], procedures: ['Asset Discovery SOP v2.1', 'CMDB Update Process', 'Asset Classification Guide'], configuration: { 
+            discovery_frequency: 'daily', validation_frequency: 'weekly', classification_rules: 'automated', approval_workflow: 'enabled'
+          
+    }, deployment: {
+            scope: ['All Corporate Networks', 'Data Centers', 'Cloud Infrastructure', 'Remote Offices'], phases: [
               {
-                id: 'phase-1',
-                name: 'Core Infrastructure Discovery',
-                description: 'Deploy discovery tools across primary data centers',
-                startDate: new Date(2023, 11, 1),
-                endDate: new Date(2024, 0, 15),
-                scope: ['Primary Data Center', 'Core Network Infrastructure'],
-                prerequisites: ['Network access approval', 'Tool deployment'],
-                deliverables: ['Asset inventory database', 'Discovery procedures'],
-                status: 'completed' as const
-              }
-            ],
-            rollbackPlan: 'Revert to manual spreadsheet inventory with weekly updates as temporary measure'
-          },
-          validation: {
-            criteria: ['95% discovery accuracy', 'Real-time inventory updates', '100% critical asset coverage'],
-            methods: ['Automated scanning validation', 'Manual spot checks', 'Quarterly audit reviews'],
-            results: [
+                id: 'phase-1', name: 'Core Infrastructure Discovery', description: 'Deploy discovery tools across primary data centers', startDate: new Date(2023, 11, 1), endDate: new Date(2024, 0, 15), scope: ['Primary Data Center', 'Core Network Infrastructure'], prerequisites: ['Network access approval', 'Tool deployment'], deliverables: ['Asset inventory database', 'Discovery procedures'], status: 'completed' as const }
+            ], rollbackPlan: 'Revert to manual spreadsheet inventory with weekly updates as temporary measure'
+          }, validation: {
+            criteria: ['95% discovery accuracy', 'Real-time inventory updates', '100% critical asset coverage'], methods: ['Automated scanning validation', 'Manual spot checks', 'Quarterly audit reviews'], results: [
               {
-                id: 'val-001',
-                date: new Date(2024, 6, 1),
-                validator: 'Senior Security Analyst',
-                method: 'Automated scan validation',
-                outcome: 'pass' as const,
-                findings: ['Discovery accuracy: 97.2%', 'Critical assets: 100% coverage'],
-                evidence: ['scan-report-q2-2024.pdf', 'validation-checklist.xlsx']
+                id: 'val-001', date: new Date(2024, 6, 1), validator: 'Senior Security Analyst', method: 'Automated scan validation', outcome: 'pass' as const, findings: ['Discovery accuracy: 97.2%', 'Critical assets: 100% coverage'], evidence: ['scan-report-q2-2024.pdf', 'validation-checklist.xlsx']
               }
             ]
           }
-        },
-        testing: {
+        }, testing: {
           testPlan: {
-            id: 'tp-001',
-            objectives: ['Verify inventory accuracy', 'Test discovery coverage', 'Validate asset classification'],
-            scope: ['All asset types', 'All network segments', 'Cloud and on-premise systems'],
-            methods: ['Automated discovery validation', 'Manual verification', 'Cross-reference audits'],
-            criteria: ['95% accuracy threshold', '<24h discovery latency', 'Zero critical asset gaps'],
-            responsibilities: { 
-              tester: 'IT Security Team', 
-              reviewer: 'CISO', 
-              approver: 'IT Director' 
-            },
-            timeline: 'Quarterly validation with monthly spot checks'
-          },
-          schedule: {
-            frequency: 'quarterly' as AssessmentFrequency,
-            nextTest: new Date(2024, 9, 15),
-            lastTest: new Date(2024, 6, 15),
-            plannedTests: [
+            id: 'tp-001', objectives: ['Verify inventory accuracy', 'Test discovery coverage', 'Validate asset classification'], scope: ['All asset types', 'All network segments', 'Cloud and on-premise systems'], methods: ['Automated discovery validation', 'Manual verification', 'Cross-reference audits'], criteria: ['95% accuracy threshold', '<24h discovery latency', 'Zero critical asset gaps'], responsibilities: { 
+              tester: 'IT Security Team', reviewer: 'CISO', approver: 'IT Director' 
+            }, timeline: 'Quarterly validation with monthly spot checks'
+          }, schedule: {
+            frequency: 'quarterly' as AssessmentFrequency, nextTest: new Date(2024, 9, 15), lastTest: new Date(2024, 6, 15), plannedTests: [
               {
-                id: 'test-q4-2024',
-                scheduledDate: new Date(2024, 9, 15),
-                testType: 'compliance' as const,
-                scope: ['All discovered assets', 'New network segments'],
-                assignedTo: 'Security Team Lead',
-                estimatedDuration: '2 days'
+                id: 'test-q4-2024', scheduledDate: new Date(2024, 9, 15), testType: 'compliance' as const, scope: ['All discovered assets', 'New network segments'], assignedTo: 'Security Team Lead', estimatedDuration: '2 days'
               }
             ]
-          },
-          results: [
+          }, results: [
             {
-              id: 'test-result-q2-2024',
-              testDate: new Date(2024, 6, 15),
-              testType: 'Compliance validation',
-              tester: 'Senior Security Analyst',
-              outcome: 'pass' as const,
-              score: 97,
-              findings: [
+              id: 'test-result-q2-2024', testDate: new Date(2024, 6, 15), testType: 'Compliance validation', tester: 'Senior Security Analyst', outcome: 'pass' as const, score: 97, findings: [
                 {
-                  type: 'improvement' as const,
-                  severity: 'low' as const,
-                  description: 'Some IoT devices require manual classification',
-                  remediation: 'Update discovery rules for IoT device identification',
-                  dueDate: new Date(2024, 7, 30),
-                  assignedTo: 'Network Administrator',
-                  status: 'in-progress' as const
-                }
-              ],
-              evidence: ['asset-inventory-report-q2.pdf', 'discovery-accuracy-metrics.xlsx'],
-              recommendations: ['Enhance IoT discovery rules', 'Implement automated tagging'],
-              nextTestDate: new Date(2024, 9, 15)
+                  type: 'improvement' as const, severity: 'low' as const, description: 'Some IoT devices require manual classification', remediation: 'Update discovery rules for IoT device identification', dueDate: new Date(2024, 7, 30), assignedTo: 'Network Administrator', status: 'in-progress' as const }
+              ], evidence: ['asset-inventory-report-q2.pdf', 'discovery-accuracy-metrics.xlsx'], recommendations: ['Enhance IoT discovery rules', 'Implement automated tagging'], nextTestDate: new Date(2024, 9, 15)
             }
-          ],
-          automation: {
-            enabled: true,
-            tools: ['Lansweeper API', 'PowerShell Scripts', 'Python Automation'],
-            scripts: ['daily_discovery_validation.py', 'asset_classification_check.ps1'],
-            schedule: 'Daily automated checks with weekly reporting',
-            alerting: {
-              onFailure: true,
-              recipients: ['it-security@company.com', 'ops-team@company.com'],
-              escalation: ['ciso@company.com', 'it-director@company.com']
+          ], automation: {
+            enabled: true, tools: ['Lansweeper API', 'PowerShell Scripts', 'Python Automation'], scripts: ['daily_discovery_validation.py', 'asset_classification_check.ps1'], schedule: 'Daily automated checks with weekly reporting', alerting: {
+              onFailure: true, recipients: ['it-security@company.com', 'ops-team@company.com'], escalation: ['ciso@company.com', 'it-director@company.com']
             }
           }
-        },
-        monitoring: {
+        }, monitoring: {
           metrics: [
             {
-              id: 'metric-discovery-accuracy',
-              name: 'Asset Discovery Accuracy',
-              description: 'Percentage of assets accurately discovered and properly classified',
-              type: 'operational' as const,
-              dataSource: 'Lansweeper + CMDB',
-              collectionMethod: 'Automated API polling',
-              frequency: 'Real-time with daily aggregation',
-              thresholds: {
-                normal: { min: 95 },
-                warning: { min: 90, max: 94 },
-                critical: { max: 89 }
-              },
-              currentValue: 97.2,
-              trend: 'improving' as const,
-              lastUpdated: new Date()
+              id: 'metric-discovery-accuracy', name: 'Asset Discovery Accuracy', description: 'Percentage of assets accurately discovered and properly classified', type: 'operational' as const, dataSource: 'Lansweeper + CMDB', collectionMethod: 'Automated API polling', frequency: 'Real-time with daily aggregation', thresholds: {
+                normal: { min: 95 }, warning: { min: 90, max: 94 }, critical: { max: 89 }
+              }, currentValue: 97.2, trend: 'improving' as const, lastUpdated: new Date()
             },
             {
-              id: 'metric-coverage',
-              name: 'Critical Asset Coverage',
-              description: 'Percentage of critical assets included in inventory',
-              type: 'security' as const,
-              dataSource: 'Asset Management System',
-              collectionMethod: 'Automated validation',
-              frequency: 'Hourly updates',
-              thresholds: {
-                normal: { min: 100 },
-                warning: { min: 98, max: 99 },
-                critical: { max: 97 }
-              },
-              currentValue: 100,
-              trend: 'stable' as const,
-              lastUpdated: new Date()
+              id: 'metric-coverage', name: 'Critical Asset Coverage', description: 'Percentage of critical assets included in inventory', type: 'security' as const, dataSource: 'Asset Management System', collectionMethod: 'Automated validation', frequency: 'Hourly updates', thresholds: {
+                normal: { min: 100 }, warning: { min: 98, max: 99 }, critical: { max: 97 }
+              }, currentValue: 100, trend: 'stable' as const, lastUpdated: new Date()
             }
-          ],
-          alerting: {
-            enabled: true,
-            channels: ['email', 'slack', 'dashboard'],
-            thresholds: { 
-              accuracy: 90,
-              coverage: 95,
-              response_time: 300
-            },
-            escalation: [
+          ], alerting: {
+            enabled: true, channels: ['email', 'slack', 'dashboard'], thresholds: { 
+              accuracy: 90, coverage: 95, response_time: 300
+            }, escalation: [
               {
-                condition: 'accuracy < 85',
-                delay: 15,
-                recipients: ['ciso@company.com'],
-                actions: ['Generate incident ticket', 'Schedule emergency review']
+                condition: 'accuracy < 85', delay: 15, recipients: ['ciso@company.com'], actions: ['Generate incident ticket', 'Schedule emergency review']
               }
-            ],
-            suppression: [
+            ], suppression: [
               {
-                condition: 'maintenance_window',
-                duration: 240,
-                reason: 'Scheduled maintenance activities'
+                condition: 'maintenance_window', duration: 240, reason: 'Scheduled maintenance activities'
               }
             ]
-          },
-          reporting: {
-            dashboards: ['Asset Management Executive Dashboard', 'IT Operations Dashboard'],
-            reports: ['Monthly Asset Report', 'Quarterly Compliance Report', 'Annual Security Assessment'],
-            schedule: { 
-              daily: 'Asset Status Summary',
-              weekly: 'Discovery Metrics Report',
-              monthly: 'Executive Asset Report'
-            },
-            recipients: { 
-              daily: ['it-ops@company.com'],
-              weekly: ['it-director@company.com'],
-              monthly: ['executive-team@company.com']
-            },
-            formats: ['PDF', 'Excel', 'PowerBI Dashboard']
-          },
-          automation: {
+          }, reporting: {
+            dashboards: ['Asset Management Executive Dashboard', 'IT Operations Dashboard'], reports: ['Monthly Asset Report', 'Quarterly Compliance Report', 'Annual Security Assessment'], schedule: { 
+              daily: 'Asset Status Summary', weekly: 'Discovery Metrics Report', monthly: 'Executive Asset Report'
+            }, recipients: { 
+              daily: ['it-ops@company.com'], weekly: ['it-director@company.com'], monthly: ['executive-team@company.com']
+            }, formats: ['PDF', 'Excel', 'PowerBI Dashboard']
+          }, automation: {
             dataCollection: {
-              automated: true,
-              sources: ['Lansweeper', 'SCCM', 'Cloud APIs', 'Network Scanners'],
-              frequency: 'Continuous with 15-minute updates'
-            },
-            analysis: {
-              automated: true,
-              algorithms: ['Asset Classification ML', 'Anomaly Detection', 'Risk Scoring'],
-              ml_enabled: true
-            },
-            response: {
-              automated: true,
-              actions: [
+              automated: true, sources: ['Lansweeper', 'SCCM', 'Cloud APIs', 'Network Scanners'], frequency: 'Continuous with 15-minute updates'
+            }, analysis: {
+              automated: true, algorithms: ['Asset Classification ML', 'Anomaly Detection', 'Risk Scoring'], ml_enabled: true }, response: {
+              automated: true, actions: [
                 {
-                  trigger: 'new_asset_detected',
-                  action: 'auto_classify_and_notify',
-                  parameters: { notify_threshold: 'medium_risk' },
-                  approval_required: false,
-                  notification: true
-                }
+                  trigger: 'new_asset_detected', action: 'auto_classify_and_notify', parameters: { notify_threshold: 'medium_risk' }, approval_required: false, notification: true }
               ]
             }
           }
-        },
-        evidence: ['asset-inventory-q2-2024.xlsx', 'discovery-validation-report.pdf', 'cmdb-audit-results.pdf'],
-        policies: ['pol-asset-management', 'pol-data-classification'],
-        assets: ['all-organizational-assets'],
-        dependencies: [],
-        effectiveness: {
-          implementationScore: 95,
-          operationalScore: 97,
-          complianceScore: 98,
-          costEffectiveness: 88,
-          riskReduction: 85,
-          maturityLevel: 4,
-          lastMeasured: new Date(2024, 6, 15),
-          trend: 'improving' as const,
-          benchmarkComparison: {
-            industry: 92,
-            sector: 89,
-            size: 94
+        }, evidence: ['asset-inventory-q2-2024.xlsx', 'discovery-validation-report.pdf', 'cmdb-audit-results.pdf'], policies: ['pol-asset-management', 'pol-data-classification'], assets: ['all-organizational-assets'], dependencies: [], effectiveness: {
+          implementationScore: 95, operationalScore: 97, complianceScore: 98, costEffectiveness: 88, riskReduction: 85, maturityLevel: 4, lastMeasured: new Date(2024, 6, 15), trend: 'improving' as const, benchmarkComparison: {
+            industry: 92, sector: 89, size: 94
           }
-        },
-        costs: {
+        }, costs: {
           implementation: {
-            capital: 75000,
-            operational: 25000,
-            timeline: '4 months'
-          },
-          maintenance: {
-            annual: 35000,
-            resources: ['2 FTE IT Staff', '0.5 FTE Security Analyst', 'Tool licensing']
-          },
-          testing: {
-            frequency: 'quarterly',
-            cost: 8000,
-            resources: ['Security Team', 'External Auditor']
-          },
-          training: {
-            initial: 15000,
-            ongoing: 7500,
-            frequency: 'annually'
+            capital: 75000, operational: 25000, timeline: '4 months'
+          }, maintenance: {
+            annual: 35000, resources: ['2 FTE IT Staff', '0.5 FTE Security Analyst', 'Tool licensing']
+          }, testing: {
+            frequency: 'quarterly', cost: 8000, resources: ['Security Team', 'External Auditor']
+          }, training: {
+            initial: 15000, ongoing: 7500, frequency: 'annually'
           }
-        },
-        risks: [
+        }, risks: [
           {
-            id: 'risk-001',
-            description: 'Shadow IT assets may remain undiscovered',
-            impact: 'medium' as const,
-            likelihood: 'medium' as const,
-            riskLevel: 'medium' as const,
-            mitigation: 'Implement network segmentation monitoring and user education',
-            owner: 'IT Security Manager',
-            dueDate: new Date(2024, 8, 30),
-            status: 'mitigated' as const
-          }
-        ],
-        exceptions: []
+            id: 'risk-001', description: 'Shadow IT assets may remain undiscovered', impact: 'medium' as const, likelihood: 'medium' as const, riskLevel: 'medium' as const, mitigation: 'Implement network segmentation monitoring and user education', owner: 'IT Security Manager', dueDate: new Date(2024, 8, 30), status: 'mitigated' as const }
+        ], exceptions: []
       },
       {
-        id: 'ctrl-002',
-        name: 'Multi-Factor Authentication Implementation',
-        description: 'Deploy and enforce multi-factor authentication for all user accounts accessing organizational systems and sensitive data',
-        framework: 'nist-csf-v2',
-        nistFunction: 'Protect',
-        nistCategory: 'Identity Management, Authentication and Access Control',
-        nistSubcategory: 'PR.AA-01',
-        controlFamily: 'Access Control',
-        controlType: 'technical',
-        implementationApproach: 'hybrid',
-        status: 'in-progress',
-        priority: 'critical',
-        owner: 'Identity and Access Management Lead',
-        implementers: ['IAM Team', 'Security Architecture', 'Help Desk'],
-        validators: ['CISO', 'Security Architecture Review Board'],
-        lastAssessed: new Date(2024, 6, 1),
-        nextAssessment: new Date(2024, 7, 1),
-        assessmentFrequency: 'monthly' as AssessmentFrequency,
-        implementation: {
-          plannedDate: new Date(2024, 8, 31),
-          actualDate: undefined,
-          method: 'Phased rollout prioritizing privileged accounts, then standard users',
-          tools: ['Microsoft Entra ID', 'RSA SecurID', 'Duo Security', 'Hardware tokens'],
-          procedures: ['MFA Enrollment Guide', 'Exception Request Process', 'Support Procedures'],
-          configuration: { 
-            enforced_groups: ['Domain Admins', 'Privileged Users', 'Finance Team'],
-            grace_period: '30 days',
-            backup_codes: 'enabled',
-            trusted_devices: 'limited'
-          },
-          deployment: {
-            scope: ['All Active Directory Users', 'Cloud Applications', 'VPN Access'],
-            phases: [
+        id: 'ctrl-002', name: 'Multi-Factor Authentication Implementation', description: 'Deploy and enforce multi-factor authentication for all user accounts accessing organizational systems and sensitive data', framework: 'nist-csf-v2', nistFunction: 'Protect', nistCategory: 'Identity Management, Authentication and Access Control', nistSubcategory: 'PR.AA-01', controlFamily: 'Access Control', controlType: 'technical', implementationApproach: 'hybrid', status: 'in-progress', priority: 'critical', owner: 'Identity and Access Management Lead', implementers: ['IAM Team', 'Security Architecture', 'Help Desk'], validators: ['CISO', 'Security Architecture Review Board'], lastAssessed: new Date(2024, 6, 1), nextAssessment: new Date(2024, 7, 1), assessmentFrequency: 'monthly' as AssessmentFrequency, implementation: {
+          plannedDate: new Date(2024, 8, 31), actualDate: undefined, method: 'Phased rollout prioritizing privileged accounts, then standard users', tools: ['Microsoft Entra ID', 'RSA SecurID', 'Duo Security', 'Hardware tokens'], procedures: ['MFA Enrollment Guide', 'Exception Request Process', 'Support Procedures'], configuration: { 
+            enforced_groups: ['Domain Admins', 'Privileged Users', 'Finance Team'], grace_period: '30 days', backup_codes: 'enabled', trusted_devices: 'limited'
+          }, deployment: {
+            scope: ['All Active Directory Users', 'Cloud Applications', 'VPN Access'], phases: [
               {
-                id: 'phase-mfa-1',
-                name: 'Privileged Account MFA',
-                description: 'Deploy MFA for all administrative and privileged accounts',
-                startDate: new Date(2024, 5, 1),
-                endDate: new Date(2024, 6, 15),
-                scope: ['Domain Admins', 'Service Accounts', 'Database Admins'],
-                prerequisites: ['MFA tool deployment', 'Admin training completed'],
-                deliverables: ['100% privileged account coverage', 'Emergency access procedures'],
-                status: 'completed' as const
-              },
+                id: 'phase-mfa-1', name: 'Privileged Account MFA', description: 'Deploy MFA for all administrative and privileged accounts', startDate: new Date(2024, 5, 1), endDate: new Date(2024, 6, 15), scope: ['Domain Admins', 'Service Accounts', 'Database Admins'], prerequisites: ['MFA tool deployment', 'Admin training completed'], deliverables: ['100% privileged account coverage', 'Emergency access procedures'], status: 'completed' as const },
               {
-                id: 'phase-mfa-2',
-                name: 'Standard User Rollout',
-                description: 'Gradual deployment to all standard user accounts',
-                startDate: new Date(2024, 6, 15),
-                endDate: new Date(2024, 8, 31),
-                scope: ['All standard users', 'Contractors', 'Vendors'],
-                prerequisites: ['User communication plan', 'Help desk training'],
-                deliverables: ['95% user adoption', 'Support documentation'],
-                status: 'in-progress' as const
-              }
-            ],
-            rollbackPlan: 'Disable MFA enforcement while maintaining user enrollments for rapid re-enablement'
-          },
-          validation: {
-            criteria: ['100% privileged account coverage', '95% standard user adoption', 'Support ticket volume <5/day'],
-            methods: ['Automated enrollment reporting', 'User satisfaction surveys', 'Security testing'],
-            results: [
+                id: 'phase-mfa-2', name: 'Standard User Rollout', description: 'Gradual deployment to all standard user accounts', startDate: new Date(2024, 6, 15), endDate: new Date(2024, 8, 31), scope: ['All standard users', 'Contractors', 'Vendors'], prerequisites: ['User communication plan', 'Help desk training'], deliverables: ['95% user adoption', 'Support documentation'], status: 'in-progress' as const }
+            ], rollbackPlan: 'Disable MFA enforcement while maintaining user enrollments for rapid re-enablement'
+          }, validation: {
+            criteria: ['100% privileged account coverage', '95% standard user adoption', 'Support ticket volume <5/day'], methods: ['Automated enrollment reporting', 'User satisfaction surveys', 'Security testing'], results: [
               {
-                id: 'val-mfa-001',
-                date: new Date(2024, 6, 15),
-                validator: 'IAM Security Architect',
-                method: 'Automated compliance scan',
-                outcome: 'partial' as const,
-                findings: ['Privileged accounts: 100%', 'Standard users: 67%', 'Guest accounts: 0%'],
-                evidence: ['mfa-compliance-report.pdf', 'enrollment-metrics.xlsx']
+                id: 'val-mfa-001', date: new Date(2024, 6, 15), validator: 'IAM Security Architect', method: 'Automated compliance scan', outcome: 'partial' as const, findings: ['Privileged accounts: 100%', 'Standard users: 67%', 'Guest accounts: 0%'], evidence: ['mfa-compliance-report.pdf', 'enrollment-metrics.xlsx']
               }
             ]
           }
-        },
-        testing: {
+        }, testing: {
           testPlan: {
-            id: 'tp-mfa-002',
-            objectives: ['Verify MFA bypass prevention', 'Test emergency access procedures', 'Validate user experience'],
-            scope: ['All authentication methods', 'All user types', 'Emergency scenarios'],
-            methods: ['Penetration testing', 'Social engineering simulation', 'User acceptance testing'],
-            criteria: ['Zero bypass vulnerabilities', 'Emergency access <5 minutes', '90% user satisfaction'],
-            responsibilities: { 
-              tester: 'External Security Firm', 
-              reviewer: 'Security Architecture Team', 
-              approver: 'CISO' 
-            },
-            timeline: 'Monthly security testing with quarterly comprehensive review'
-          },
-          schedule: {
-            frequency: 'monthly' as AssessmentFrequency,
-            nextTest: new Date(2024, 7, 15),
-            lastTest: new Date(2024, 6, 15),
-            plannedTests: [
+            id: 'tp-mfa-002', objectives: ['Verify MFA bypass prevention', 'Test emergency access procedures', 'Validate user experience'], scope: ['All authentication methods', 'All user types', 'Emergency scenarios'], methods: ['Penetration testing', 'Social engineering simulation', 'User acceptance testing'], criteria: ['Zero bypass vulnerabilities', 'Emergency access <5 minutes', '90% user satisfaction'], responsibilities: { 
+              tester: 'External Security Firm', reviewer: 'Security Architecture Team', approver: 'CISO' 
+            }, timeline: 'Monthly security testing with quarterly comprehensive review'
+          }, schedule: {
+            frequency: 'monthly' as AssessmentFrequency, nextTest: new Date(2024, 7, 15), lastTest: new Date(2024, 6, 15), plannedTests: [
               {
-                id: 'test-mfa-aug-2024',
-                scheduledDate: new Date(2024, 7, 15),
-                testType: 'security' as const,
-                scope: ['Bypass attempts', 'Social engineering', 'Emergency procedures'],
-                assignedTo: 'External Penetration Testing Team',
-                estimatedDuration: '3 days'
+                id: 'test-mfa-aug-2024', scheduledDate: new Date(2024, 7, 15), testType: 'security' as const, scope: ['Bypass attempts', 'Social engineering', 'Emergency procedures'], assignedTo: 'External Penetration Testing Team', estimatedDuration: '3 days'
               }
             ]
-          },
-          results: [
+          }, results: [
             {
-              id: 'test-mfa-jul-2024',
-              testDate: new Date(2024, 6, 15),
-              testType: 'Security penetration test',
-              tester: 'CyberSec Solutions Inc.',
-              outcome: 'partial' as const,
-              score: 82,
-              findings: [
+              id: 'test-mfa-jul-2024', testDate: new Date(2024, 6, 15), testType: 'Security penetration test', tester: 'CyberSec Solutions Inc.', outcome: 'partial' as const, score: 82, findings: [
                 {
-                  type: 'deficiency' as const,
-                  severity: 'medium' as const,
-                  description: 'SMS-based MFA vulnerable to SIM swapping attacks',
-                  remediation: 'Migrate to authenticator app or hardware tokens for critical accounts',
-                  dueDate: new Date(2024, 8, 30),
-                  assignedTo: 'IAM Team Lead',
-                  status: 'in-progress' as const
-                }
-              ],
-              evidence: ['pentest-report-jul-2024.pdf', 'vulnerability-details.xlsx'],
-              recommendations: ['Implement FIDO2 tokens', 'Enhanced user training', 'SMS deprecation plan'],
-              nextTestDate: new Date(2024, 7, 15)
+                  type: 'deficiency' as const, severity: 'medium' as const, description: 'SMS-based MFA vulnerable to SIM swapping attacks', remediation: 'Migrate to authenticator app or hardware tokens for critical accounts', dueDate: new Date(2024, 8, 30), assignedTo: 'IAM Team Lead', status: 'in-progress' as const }
+              ], evidence: ['pentest-report-jul-2024.pdf', 'vulnerability-details.xlsx'], recommendations: ['Implement FIDO2 tokens', 'Enhanced user training', 'SMS deprecation plan'], nextTestDate: new Date(2024, 7, 15)
             }
-          ],
-          automation: {
-            enabled: true,
-            tools: ['Azure AD Reports API', 'PowerShell MFA Module', 'Custom monitoring scripts'],
-            scripts: ['mfa_compliance_check.ps1', 'enrollment_monitoring.py'],
-            schedule: 'Daily compliance checks with real-time alerting',
-            alerting: {
-              onFailure: true,
-              recipients: ['iam-team@company.com', 'security-ops@company.com'],
-              escalation: ['security-manager@company.com']
+          ], automation: {
+            enabled: true, tools: ['Azure AD Reports API', 'PowerShell MFA Module', 'Custom monitoring scripts'], scripts: ['mfa_compliance_check.ps1', 'enrollment_monitoring.py'], schedule: 'Daily compliance checks with real-time alerting', alerting: {
+              onFailure: true, recipients: ['iam-team@company.com', 'security-ops@company.com'], escalation: ['security-manager@company.com']
             }
           }
-        },
-        monitoring: {
+        }, monitoring: {
           metrics: [
             {
-              id: 'metric-mfa-adoption',
-              name: 'MFA Adoption Rate',
-              description: 'Percentage of eligible users with MFA enabled and configured',
-              type: 'security' as const,
-              dataSource: 'Microsoft Entra ID + Duo Security',
-              collectionMethod: 'API integration with real-time sync',
-              frequency: 'Real-time updates every 15 minutes',
-              thresholds: {
-                normal: { min: 95 },
-                warning: { min: 85, max: 94 },
-                critical: { max: 84 }
-              },
-              currentValue: 87,
-              trend: 'improving' as const,
-              lastUpdated: new Date()
+              id: 'metric-mfa-adoption', name: 'MFA Adoption Rate', description: 'Percentage of eligible users with MFA enabled and configured', type: 'security' as const, dataSource: 'Microsoft Entra ID + Duo Security', collectionMethod: 'API integration with real-time sync', frequency: 'Real-time updates every 15 minutes', thresholds: {
+                normal: { min: 95 }, warning: { min: 85, max: 94 }, critical: { max: 84 }
+              }, currentValue: 87, trend: 'improving' as const, lastUpdated: new Date()
             }
-          ],
-          alerting: {
-            enabled: true,
-            channels: ['email', 'teams', 'security-dashboard'],
-            thresholds: { 
-              adoption: 85,
-              failed_attempts: 10,
-              bypass_attempts: 1
-            },
-            escalation: [],
-            suppression: []
-          },
-          reporting: {
-            dashboards: ['Identity Security Dashboard', 'Executive Security Metrics'],
-            reports: ['Weekly MFA Status', 'Monthly Security Metrics'],
-            schedule: { 
-              weekly: 'MFA adoption and usage statistics',
-              monthly: 'Comprehensive identity security report'
-            },
-            recipients: { 
-              weekly: ['iam-team@company.com'],
-              monthly: ['security-leadership@company.com']
-            },
-            formats: ['PDF Executive Summary', 'Excel Detailed Metrics']
-          },
-          automation: {
+          ], alerting: {
+            enabled: true, channels: ['email', 'teams', 'security-dashboard'], thresholds: { 
+              adoption: 85, failed_attempts: 10, bypass_attempts: 1
+            }, escalation: [], suppression: []
+          }, reporting: {
+            dashboards: ['Identity Security Dashboard', 'Executive Security Metrics'], reports: ['Weekly MFA Status', 'Monthly Security Metrics'], schedule: { 
+              weekly: 'MFA adoption and usage statistics', monthly: 'Comprehensive identity security report'
+            }, recipients: { 
+              weekly: ['iam-team@company.com'], monthly: ['security-leadership@company.com']
+            }, formats: ['PDF Executive Summary', 'Excel Detailed Metrics']
+          }, automation: {
             dataCollection: {
-              automated: true,
-              sources: ['Azure AD', 'Duo Admin API', 'Authentication Logs'],
-              frequency: 'Real-time streaming with 15-minute batching'
-            },
-            analysis: {
-              automated: true,
-              algorithms: ['Usage Pattern Analysis', 'Risk Scoring', 'Behavioral Analytics'],
-              ml_enabled: true
-            },
-            response: {
-              automated: true,
-              actions: [
+              automated: true, sources: ['Azure AD', 'Duo Admin API', 'Authentication Logs'], frequency: 'Real-time streaming with 15-minute batching'
+            }, analysis: {
+              automated: true, algorithms: ['Usage Pattern Analysis', 'Risk Scoring', 'Behavioral Analytics'], ml_enabled: true }, response: {
+              automated: true, actions: [
                 {
-                  trigger: 'adoption_below_threshold',
-                  action: 'notify_user_manager',
-                  parameters: { threshold: 85 },
-                  approval_required: false,
-                  notification: true
-                }
+                  trigger: 'adoption_below_threshold', action: 'notify_user_manager', parameters: { threshold: 85 }, approval_required: false, notification: true }
               ]
             }
           }
-        },
-        evidence: ['mfa-policy-v2.pdf', 'enrollment-procedures.docx', 'pentest-results-2024.pdf'],
-        policies: ['pol-identity-management', 'pol-access-control'],
-        assets: ['active-directory', 'office365', 'vpn-systems'],
-        dependencies: [
+        }, evidence: ['mfa-policy-v2.pdf', 'enrollment-procedures.docx', 'pentest-results-2024.pdf'], policies: ['pol-identity-management', 'pol-access-control'], assets: ['active-directory', 'office365', 'vpn-systems'], dependencies: [
           {
-            dependentControlId: 'ctrl-003',
-            dependencyType: 'prerequisite' as const,
-            criticality: 'high' as const,
-            description: 'Privileged access management requires MFA foundation'
+            dependentControlId: 'ctrl-003', dependencyType: 'prerequisite' as const, criticality: 'high' as const, description: 'Privileged access management requires MFA foundation'
           }
-        ],
-        effectiveness: {
-          implementationScore: 75,
-          operationalScore: 82,
-          complianceScore: 78,
-          costEffectiveness: 85,
-          riskReduction: 75,
-          maturityLevel: 3,
-          lastMeasured: new Date(2024, 6, 1),
-          trend: 'improving' as const,
-          benchmarkComparison: {
-            industry: 68,
-            sector: 71,
-            size: 76
+        ], effectiveness: {
+          implementationScore: 75, operationalScore: 82, complianceScore: 78, costEffectiveness: 85, riskReduction: 75, maturityLevel: 3, lastMeasured: new Date(2024, 6, 1), trend: 'improving' as const, benchmarkComparison: {
+            industry: 68, sector: 71, size: 76
           }
-        },
-        costs: {
+        }, costs: {
           implementation: {
-            capital: 125000,
-            operational: 45000,
-            timeline: '6 months'
-          },
-          maintenance: {
-            annual: 65000,
-            resources: ['1 FTE IAM Specialist', '0.5 FTE Help Desk', 'Tool licensing', 'Training']
-          },
-          testing: {
-            frequency: 'monthly',
-            cost: 12000,
-            resources: ['Security Team', 'External Penetration Testers']
-          },
-          training: {
-            initial: 25000,
-            ongoing: 15000,
-            frequency: 'quarterly'
+            capital: 125000, operational: 45000, timeline: '6 months'
+          }, maintenance: {
+            annual: 65000, resources: ['1 FTE IAM Specialist', '0.5 FTE Help Desk', 'Tool licensing', 'Training']
+          }, testing: {
+            frequency: 'monthly', cost: 12000, resources: ['Security Team', 'External Penetration Testers']
+          }, training: {
+            initial: 25000, ongoing: 15000, frequency: 'quarterly'
           }
-        },
-        risks: [
+        }, risks: [
           {
-            id: 'risk-mfa-001',
-            description: 'User resistance to MFA adoption may slow deployment',
-            impact: 'medium' as const,
-            likelihood: 'high' as const,
-            riskLevel: 'medium' as const,
-            mitigation: 'Comprehensive change management and user training program',
-            owner: 'Change Management Lead',
-            dueDate: new Date(2024, 7, 31),
-            status: 'mitigated' as const
-          }
-        ],
-        exceptions: [
+            id: 'risk-mfa-001', description: 'User resistance to MFA adoption may slow deployment', impact: 'medium' as const, likelihood: 'high' as const, riskLevel: 'medium' as const, mitigation: 'Comprehensive change management and user training program', owner: 'Change Management Lead', dueDate: new Date(2024, 7, 31), status: 'mitigated' as const }
+        ], exceptions: [
           {
-            id: 'exc-mfa-001',
-            reason: 'Legacy system incompatibility',
-            justification: 'Critical production system cannot support modern authentication',
-            approvedBy: 'CISO',
-            approvedAt: new Date(2024, 5, 15),
-            expirationDate: new Date(2024, 11, 31),
-            compensatingControls: ['Network segmentation', 'Enhanced monitoring', 'Quarterly access review'],
-            residualRisk: 'Medium - System isolated with additional monitoring',
-            reviewSchedule: 'Monthly review with quarterly risk assessment',
-            conditions: ['No external network access', 'Dedicated secure network segment']
+            id: 'exc-mfa-001', reason: 'Legacy system incompatibility', justification: 'Critical production system cannot support modern authentication', approvedBy: 'CISO', approvedAt: new Date(2024, 5, 15), expirationDate: new Date(2024, 11, 31), compensatingControls: ['Network segmentation', 'Enhanced monitoring', 'Quarterly access review'], residualRisk: 'Medium - System isolated with additional monitoring', reviewSchedule: 'Monthly review with quarterly risk assessment', conditions: ['No external network access', 'Dedicated secure network segment']
           }
         ]
       },
       {
-        id: 'ctrl-003',
-        name: 'Incident Response and Communication',
-        description: 'Establish comprehensive incident response capabilities with defined procedures, communication protocols, and recovery processes',
-        framework: 'nist-csf-v2',
-        nistFunction: 'Respond',
-        nistCategory: 'Response Planning',
-        nistSubcategory: 'RS.RP-01',
-        controlFamily: 'Incident Response',
-        controlType: 'administrative',
-        implementationApproach: 'manual',
-        status: 'implemented',
-        priority: 'high',
-        owner: 'Incident Response Manager',
-        implementers: ['Security Operations Center', 'IT Operations', 'Communications Team'],
-        validators: ['CISO', 'Legal Counsel', 'Executive Leadership'],
-        lastAssessed: new Date(2024, 5, 20),
-        nextAssessment: new Date(2024, 8, 20),
-        assessmentFrequency: 'quarterly' as AssessmentFrequency,
-        implementation: {
-          actualDate: new Date(2024, 3, 30),
-          method: 'NIST-based incident response framework with automated tools integration',
-          tools: ['Splunk SOAR', 'PagerDuty', 'Slack Enterprise', 'Zoom Enterprise'],
-          procedures: ['IR Playbook v3.2', 'Communication Plan', 'Evidence Collection Guide'],
-          configuration: { 
-            escalation_tiers: '3-tier structure',
-            notification_delay: '15 minutes',
-            communication_channels: 'multiple-redundant'
-          },
-          deployment: {
-            scope: ['All IT Systems', 'OT Networks', 'Cloud Infrastructure'],
-            phases: [],
-            rollbackPlan: 'Manual incident coordination with phone tree backup'
-          },
-          validation: {
-            criteria: ['15-minute initial response', '1-hour stakeholder notification', '24-hour preliminary assessment'],
-            methods: ['Tabletop exercises', 'Simulated incidents', 'Post-incident reviews'],
-            results: []
+        id: 'ctrl-003', name: 'Incident Response and Communication', description: 'Establish comprehensive incident response capabilities with defined procedures, communication protocols, and recovery processes', framework: 'nist-csf-v2', nistFunction: 'Respond', nistCategory: 'Response Planning', nistSubcategory: 'RS.RP-01', controlFamily: 'Incident Response', controlType: 'administrative', implementationApproach: 'manual', status: 'implemented', priority: 'high', owner: 'Incident Response Manager', implementers: ['Security Operations Center', 'IT Operations', 'Communications Team'], validators: ['CISO', 'Legal Counsel', 'Executive Leadership'], lastAssessed: new Date(2024, 5, 20), nextAssessment: new Date(2024, 8, 20), assessmentFrequency: 'quarterly' as AssessmentFrequency, implementation: {
+          actualDate: new Date(2024, 3, 30), method: 'NIST-based incident response framework with automated tools integration', tools: ['Splunk SOAR', 'PagerDuty', 'Slack Enterprise', 'Zoom Enterprise'], procedures: ['IR Playbook v3.2', 'Communication Plan', 'Evidence Collection Guide'], configuration: { 
+            escalation_tiers: '3-tier structure', notification_delay: '15 minutes', communication_channels: 'multiple-redundant'
+          }, deployment: {
+            scope: ['All IT Systems', 'OT Networks', 'Cloud Infrastructure'], phases: [], rollbackPlan: 'Manual incident coordination with phone tree backup'
+          }, validation: {
+            criteria: ['15-minute initial response', '1-hour stakeholder notification', '24-hour preliminary assessment'], methods: ['Tabletop exercises', 'Simulated incidents', 'Post-incident reviews'], results: []
           }
-        },
-        testing: {
+        }, testing: {
           testPlan: {
-            id: 'tp-ir-003',
-            objectives: ['Test response procedures', 'Validate communication protocols', 'Measure response times'],
-            scope: ['All incident types', 'All team members', 'External stakeholders'],
-            methods: ['Tabletop exercises', 'Red team simulations', 'Communication drills'],
-            criteria: ['Response time <15 minutes', 'Communication completeness 100%', 'Coordination effectiveness >90%'],
-            responsibilities: { 
-              tester: 'Incident Response Team', 
-              reviewer: 'Security Manager', 
-              approver: 'CISO' 
-            },
-            timeline: 'Quarterly tabletop with annual full-scale exercise'
-          },
-          schedule: {
-            frequency: 'quarterly' as AssessmentFrequency,
-            nextTest: new Date(2024, 8, 15),
-            lastTest: new Date(2024, 5, 15),
-            plannedTests: []
-          },
-          results: [
+            id: 'tp-ir-003', objectives: ['Test response procedures', 'Validate communication protocols', 'Measure response times'], scope: ['All incident types', 'All team members', 'External stakeholders'], methods: ['Tabletop exercises', 'Red team simulations', 'Communication drills'], criteria: ['Response time <15 minutes', 'Communication completeness 100%', 'Coordination effectiveness >90%'], responsibilities: { 
+              tester: 'Incident Response Team', reviewer: 'Security Manager', approver: 'CISO' 
+            }, timeline: 'Quarterly tabletop with annual full-scale exercise'
+          }, schedule: {
+            frequency: 'quarterly' as AssessmentFrequency, nextTest: new Date(2024, 8, 15), lastTest: new Date(2024, 5, 15), plannedTests: []
+          }, results: [
             {
-              id: 'test-ir-q2-2024',
-              testDate: new Date(2024, 5, 15),
-              testType: 'Tabletop exercise - Ransomware scenario',
-              tester: 'Incident Response Team',
-              outcome: 'pass' as const,
-              score: 92,
-              findings: [
+              id: 'test-ir-q2-2024', testDate: new Date(2024, 5, 15), testType: 'Tabletop exercise - Ransomware scenario', tester: 'Incident Response Team', outcome: 'pass' as const, score: 92, findings: [
                 {
-                  type: 'improvement' as const,
-                  severity: 'low' as const,
-                  description: 'External communication templates need updates',
-                  remediation: 'Update customer notification templates with regulatory requirements',
-                  dueDate: new Date(2024, 7, 15),
-                  assignedTo: 'Communications Manager',
-                  status: 'completed' as const
-                }
-              ],
-              evidence: ['tabletop-exercise-report.pdf', 'participant-feedback.xlsx'],
-              recommendations: ['Enhanced automation', 'Additional cross-training'],
-              nextTestDate: new Date(2024, 8, 15)
+                  type: 'improvement' as const, severity: 'low' as const, description: 'External communication templates need updates', remediation: 'Update customer notification templates with regulatory requirements', dueDate: new Date(2024, 7, 15), assignedTo: 'Communications Manager', status: 'completed' as const }
+              ], evidence: ['tabletop-exercise-report.pdf', 'participant-feedback.xlsx'], recommendations: ['Enhanced automation', 'Additional cross-training'], nextTestDate: new Date(2024, 8, 15)
             }
-          ],
-          automation: {
-            enabled: true,
-            tools: ['Splunk SOAR', 'Custom Python scripts'],
-            scripts: ['incident_classification.py', 'auto_notification.py'],
-            schedule: 'Continuous monitoring with automated initial response',
-            alerting: {
-              onFailure: true,
-              recipients: ['soc@company.com'],
-              escalation: ['incident-manager@company.com']
+          ], automation: {
+            enabled: true, tools: ['Splunk SOAR', 'Custom Python scripts'], scripts: ['incident_classification.py', 'auto_notification.py'], schedule: 'Continuous monitoring with automated initial response', alerting: {
+              onFailure: true, recipients: ['soc@company.com'], escalation: ['incident-manager@company.com']
             }
           }
-        },
-        monitoring: {
+        }, monitoring: {
           metrics: [
             {
-              id: 'metric-response-time',
-              name: 'Mean Time to Response',
-              description: 'Average time from incident detection to initial response',
-              type: 'operational' as const,
-              dataSource: 'Incident Management System',
-              collectionMethod: 'Automated ticket analysis',
-              frequency: 'Real-time with hourly aggregation',
-              thresholds: {
-                normal: { max: 15 },
-                warning: { min: 15, max: 30 },
-                critical: { min: 30 }
-              },
-              currentValue: 12,
-              trend: 'stable' as const,
-              lastUpdated: new Date()
+              id: 'metric-response-time', name: 'Mean Time to Response', description: 'Average time from incident detection to initial response', type: 'operational' as const, dataSource: 'Incident Management System', collectionMethod: 'Automated ticket analysis', frequency: 'Real-time with hourly aggregation', thresholds: {
+                normal: { max: 15 }, warning: { min: 15, max: 30 }, critical: { min: 30 }
+              }, currentValue: 12, trend: 'stable' as const, lastUpdated: new Date()
             }
-          ],
-          alerting: {
-            enabled: true,
-            channels: ['pagerduty', 'teams', 'sms'],
-            thresholds: { response_time: 15 },
-            escalation: [],
-            suppression: []
-          },
-          reporting: {
-            dashboards: ['SOC Operations Dashboard'],
-            reports: ['Monthly Incident Report'],
-            schedule: { monthly: 'Incident response metrics and trends' },
-            recipients: { monthly: ['security-leadership@company.com'] },
-            formats: ['PDF', 'PowerBI']
-          },
-          automation: {
+          ], alerting: {
+            enabled: true, channels: ['pagerduty', 'teams', 'sms'], thresholds: { response_time: 15 }, escalation: [], suppression: []
+          }, reporting: {
+            dashboards: ['SOC Operations Dashboard'], reports: ['Monthly Incident Report'], schedule: { monthly: 'Incident response metrics and trends' }, recipients: { monthly: ['security-leadership@company.com'] }, formats: ['PDF', 'PowerBI']
+          }, automation: {
             dataCollection: {
-              automated: true,
-              sources: ['Incident Management System', 'SOAR Platform'],
-              frequency: 'Real-time'
-            },
-            analysis: {
-              automated: true,
-              algorithms: ['Incident Classification', 'Trend Analysis'],
-              ml_enabled: false
-            },
-            response: {
-              automated: true,
-              actions: []
+              automated: true, sources: ['Incident Management System', 'SOAR Platform'], frequency: 'Real-time'
+            }, analysis: {
+              automated: true, algorithms: ['Incident Classification', 'Trend Analysis'], ml_enabled: false }, response: {
+              automated: true, actions: []
             }
           }
-        },
-        evidence: ['incident-response-plan.pdf', 'communication-procedures.docx', 'tabletop-results.pdf'],
-        policies: ['pol-incident-response', 'pol-crisis-communication'],
-        assets: ['security-tools', 'communication-systems'],
-        dependencies: [],
-        effectiveness: {
-          implementationScore: 92,
-          operationalScore: 89,
-          complianceScore: 95,
-          costEffectiveness: 78,
-          riskReduction: 80,
-          maturityLevel: 4,
-          lastMeasured: new Date(2024, 5, 20),
-          trend: 'stable' as const
-        },
-        costs: {
+        }, evidence: ['incident-response-plan.pdf', 'communication-procedures.docx', 'tabletop-results.pdf'], policies: ['pol-incident-response', 'pol-crisis-communication'], assets: ['security-tools', 'communication-systems'], dependencies: [], effectiveness: {
+          implementationScore: 92, operationalScore: 89, complianceScore: 95, costEffectiveness: 78, riskReduction: 80, maturityLevel: 4, lastMeasured: new Date(2024, 5, 20), trend: 'stable' as const }, costs: {
           implementation: {
-            capital: 95000,
-            operational: 35000,
-            timeline: '5 months'
-          },
-          maintenance: {
-            annual: 55000,
-            resources: ['1.5 FTE SOC Analysts', 'Tool subscriptions', 'Training']
-          },
-          testing: {
-            frequency: 'quarterly',
-            cost: 15000,
-            resources: ['Internal Team', 'External Facilitator']
-          },
-          training: {
-            initial: 20000,
-            ongoing: 12000,
-            frequency: 'quarterly'
+            capital: 95000, operational: 35000, timeline: '5 months'
+          }, maintenance: {
+            annual: 55000, resources: ['1.5 FTE SOC Analysts', 'Tool subscriptions', 'Training']
+          }, testing: {
+            frequency: 'quarterly', cost: 15000, resources: ['Internal Team', 'External Facilitator']
+          }, training: {
+            initial: 20000, ongoing: 12000, frequency: 'quarterly'
           }
-        },
-        risks: [],
-        exceptions: []
+        }, risks: [], exceptions: []
       }
     ];
 
@@ -809,36 +296,15 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   useEffect(() => {
     if (editingControl) {
       setFormData({
-        controlId: editingControl.controlId || editingControl.nistSubcategory,
-        name: editingControl.name,
-        description: editingControl.description,
-        nistFunction: editingControl.nistFunction,
-        nistCategory: editingControl.nistCategory,
-        nistSubcategory: editingControl.nistSubcategory,
-        status: editingControl.status,
-        priority: editingControl.priority,
-        owner: editingControl.owner,
-        controlType: editingControl.controlType,
-        implementationApproach: editingControl.implementationApproach
-      });
+        controlId: editingControl.controlId || editingControl.nistSubcategory, name: editingControl.name, description: editingControl.description, nistFunction: editingControl.nistFunction, nistCategory: editingControl.nistCategory, nistSubcategory: editingControl.nistSubcategory, status: editingControl.status, priority: editingControl.priority, owner: editingControl.owner, controlType: editingControl.controlType, implementationApproach: editingControl.implementationApproach });
     } else {
       setFormData({
-        controlId: '',
-        name: '',
-        description: '',
-        nistFunction: 'Identify',
-        nistCategory: '',
-        nistSubcategory: '',
-        status: 'not-implemented',
-        priority: 'medium',
-        owner: '',
-        controlType: 'administrative',
-        implementationApproach: 'manual'
+        controlId: '', name: '', description: '', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', status: 'not-implemented', priority: 'medium', owner: '', controlType: 'administrative', implementationApproach: 'manual'
       });
     }
   }, [editingControl]);
 
-  const filteredControls = controls.filter(control => {
+  const filteredControls = controls.filter(control =>) {
     const matchesSearch = control.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          control.controlId.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          control.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -958,102 +424,31 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     }
 
     const controlData: Partial<Control> = {
-      id: editingControl?.id || `ctrl-${Date.now()}`,
-      controlId: formData.controlId,
-      name: formData.name,
-      description: formData.description,
-      framework: 'nist-csf-v2',
-      nistFunction: formData.nistFunction,
-      nistCategory: formData.nistCategory,
-      nistSubcategory: formData.nistSubcategory,
-      controlFamily: formData.nistCategory,
-      controlType: formData.controlType,
-      implementationApproach: formData.implementationApproach,
-      status: formData.status,
-      priority: formData.priority,
-      owner: formData.owner,
-      implementers: [],
-      validators: [],
-      lastAssessed: new Date(),
-      nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-      assessmentFrequency: 'quarterly' as AssessmentFrequency,
+      id: editingControl?.id || `ctrl-${Date.now()}`, controlId: formData.controlId, name: formData.name, description: formData.description, framework: 'nist-csf-v2', nistFunction: formData.nistFunction, nistCategory: formData.nistCategory, nistSubcategory: formData.nistSubcategory, controlFamily: formData.nistCategory, controlType: formData.controlType, implementationApproach: formData.implementationApproach, status: formData.status, priority: formData.priority, owner: formData.owner, implementers: [], validators: [], lastAssessed: new Date(), nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), assessmentFrequency: 'quarterly' as AssessmentFrequency,
       // Add other required fields with defaults
       implementation: {
-        method: 'To be defined',
-        tools: [],
-        procedures: [],
-        configuration: {},
-        deployment: { scope: [], phases: [], rollbackPlan: '' },
-        validation: { criteria: [], methods: [], results: [] }
-      },
-      testing: {
+        method: 'To be defined', tools: [], procedures: [], configuration: {
+    }, deployment: { scope: [], phases: [], rollbackPlan: '' }, validation: { criteria: [], methods: [], results: [] }
+      }, testing: {
         testPlan: {
-          id: `tp-${Date.now()}`,
-          objectives: [],
-          scope: [],
-          methods: [],
-          criteria: [],
-          responsibilities: {},
-          timeline: ''
-        },
-        schedule: {
-          frequency: 'quarterly' as AssessmentFrequency,
-          nextTest: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-          plannedTests: []
-        },
-        results: [],
-        automation: {
-          enabled: false,
-          tools: [],
-          scripts: [],
-          schedule: 'manual',
-          alerting: { onFailure: false, recipients: [], escalation: [] }
+          id: `tp-${Date.now()}`, objectives: [], scope: [], methods: [], criteria: [], responsibilities: {}, timeline: ''
+        }, schedule: {
+          frequency: 'quarterly' as AssessmentFrequency, nextTest: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), plannedTests: []
+        }, results: [], automation: {
+          enabled: false, tools: [], scripts: [], schedule: 'manual', alerting: { onFailure: false, recipients: [], escalation: [] }
         }
-      },
-      monitoring: {
-        metrics: [],
-        alerting: {
-          enabled: false,
-          channels: [],
-          thresholds: {},
-          escalation: [],
-          suppression: []
-        },
-        reporting: {
-          dashboards: [],
-          reports: [],
-          schedule: {},
-          recipients: {},
-          formats: []
-        },
-        automation: {
-          dataCollection: { automated: false, sources: [], frequency: 'manual' },
-          analysis: { automated: false, algorithms: [], ml_enabled: false },
-          response: { automated: false, actions: [] }
+      }, monitoring: {
+        metrics: [], alerting: {
+          enabled: false, channels: [], thresholds: {}, escalation: [], suppression: []
+        }, reporting: {
+          dashboards: [], reports: [], schedule: {}, recipients: {}, formats: []
+        }, automation: {
+          dataCollection: { automated: false, sources: [], frequency: 'manual' }, analysis: { automated: false, algorithms: [], ml_enabled: false }, response: { automated: false, actions: [] }
         }
-      },
-      evidence: [],
-      policies: [],
-      assets: [],
-      dependencies: [],
-      effectiveness: {
-        implementationScore: 0,
-        operationalScore: 0,
-        complianceScore: 0,
-        costEffectiveness: 0,
-        riskReduction: 0,
-        maturityLevel: 1,
-        lastMeasured: new Date(),
-        trend: 'stable' as const
-      },
-      costs: {
-        implementation: { capital: 0, operational: 0, timeline: 'TBD' },
-        maintenance: { annual: 0, resources: [] },
-        testing: { frequency: 'quarterly', cost: 0, resources: [] },
-        training: { initial: 0, ongoing: 0, frequency: 'annually' }
-      },
-      risks: [],
-      exceptions: []
+      }, evidence: [], policies: [], assets: [], dependencies: [], effectiveness: {
+        implementationScore: 0, operationalScore: 0, complianceScore: 0, costEffectiveness: 0, riskReduction: 0, maturityLevel: 1, lastMeasured: new Date(), trend: 'stable' as const }, costs: {
+        implementation: { capital: 0, operational: 0, timeline: 'TBD' }, maintenance: { annual: 0, resources: [] }, testing: { frequency: 'quarterly', cost: 0, resources: [] }, training: { initial: 0, ongoing: 0, frequency: 'annually' }
+      }, risks: [], exceptions: []
     };
 
     if (editingControl) {
@@ -1068,15 +463,13 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setEditingControl(null);
   };
 
-
-
   const handleViewControl = (control: Control) => {
-    addNotification('info', `Viewing control details: ${control.controlId}`);
+    addNotification('info', `Viewing control details: ${control.controlId }`);
   };
 
   const handleExportControls = () => {
     const dataStr = JSON.stringify(controls, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const dataBlob = new Blob([dataStr],) { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -1099,11 +492,11 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             const importedControls = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedControls)) {
               setControls(prev => [...prev, ...importedControls]);
-              addNotification('success', `Imported ${importedControls.length} controls`);
+              addNotification('success', `Imported ${importedControls.length } controls`);
             } else {
               addNotification('error', 'Invalid file format');
             }
-          } catch (error) {
+          } catch {
             addNotification('error', 'Failed to parse file');
           }
         };
@@ -1119,25 +512,16 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   // Enhanced statistics
   const stats = {
-    total: controls.length,
-    operational: controls.filter(c => c.status === 'operational').length,
-    implemented: controls.filter(c => c.status === 'implemented').length,
-    inProgress: controls.filter(c => c.status === 'in-progress').length,
-    notImplemented: controls.filter(c => c.status === 'not-implemented').length,
-    avgEffectiveness: controls.length > 0 ? Math.round(controls.reduce((sum, c) => sum + c.effectiveness.implementationScore, 0) / controls.length) : 0,
-    highPriority: controls.filter(c => c.priority === 'critical' || c.priority === 'high').length,
-    costEffectiveControls: controls.filter(c => c.effectiveness.costEffectiveness >= 80).length
-  };
+    total: controls.length, operational: controls.filter(c => c.status === 'operational').length, implemented: controls.filter(c => c.status === 'implemented').length, inProgress: controls.filter(c => c.status === 'in-progress').length, notImplemented: controls.filter(c => c.status === 'not-implemented').length, avgEffectiveness: controls.length > 0 ? Math.round(controls.reduce((sum, c) => sum + c.effectiveness.implementationScore, 0) / controls.length) : 0, highPriority: controls.filter(c => c.priority === 'critical' || c.priority === 'high').length, costEffectiveControls: controls.filter(c => c.effectiveness.costEffectiveness >= 80).length 
+    };
 
   const implementationPercentage = controls.length > 0 ? Math.round(((stats.operational + stats.implemented) / controls.length) * 100) : 0;
-
-
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Breadcrumbs */}
@@ -1151,7 +535,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-6">
               <button
-                onClick={onBack}
+                onClick={onBack }
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors p-2 rounded-lg hover:bg-white/50 dark:hover:bg-gray-800/50"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -1175,7 +559,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             
             <div className="flex items-center space-x-4">
               <div className="text-right">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{implementationPercentage}%</div>
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{implementationPercentage }%</div>
                 <div className="text-sm text-blue-700 dark:text-blue-300">Implementation Rate</div>
               </div>
               
@@ -1201,7 +585,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Controls</p>
               <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
-                {stats.total}
+                {stats.total }
               </p>
               <div className="flex items-center space-x-1 mt-1">
                 <Globe className="w-4 h-4 text-blue-500" />
@@ -1217,7 +601,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Operational</p>
               <p className="text-3xl font-bold text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform">
-                {stats.operational}
+                {stats.operational }
               </p>
               <div className="flex items-center space-x-1 mt-1">
                 <CheckCircle className="w-4 h-4 text-green-500" />
@@ -1233,7 +617,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</p>
               <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 group-hover:scale-110 transition-transform">
-                {stats.inProgress}
+                {stats.inProgress }
               </p>
               <div className="flex items-center space-x-1 mt-1">
                 <Clock className="w-4 h-4 text-yellow-500" />
@@ -1249,7 +633,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">High Priority</p>
               <p className="text-3xl font-bold text-red-600 dark:text-red-400 group-hover:scale-110 transition-transform">
-                {stats.highPriority}
+                {stats.highPriority }
               </p>
               <div className="flex items-center space-x-1 mt-1">
                 <Flag className="w-4 h-4 text-red-500" />
@@ -1265,7 +649,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Avg Effectiveness</p>
               <p className={`text-3xl font-bold group-hover:scale-110 transition-transform ${getEffectivenessColor(stats.avgEffectiveness)}`}>
-                {stats.avgEffectiveness}%
+                {stats.avgEffectiveness }%
               </p>
               <div className="flex items-center space-x-1 mt-1">
                 <Award className="w-4 h-4 text-purple-500" />
@@ -1286,25 +670,25 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               <BarChart3 className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
               Implementation Progress
             </h3>
-            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">{implementationPercentage}%</span>
+            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">{implementationPercentage }%</span>
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-6">
             <div
               className="bg-gradient-to-r from-blue-500 to-green-500 h-4 rounded-full transition-all duration-500 shadow-sm"
-              style={{ width: `${implementationPercentage}%` }}
+              style={{ width: `${implementationPercentage }%` }}
             />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
               <div className="text-lg font-bold text-green-600 dark:text-green-400">
-                {stats.operational + stats.implemented}
+                {stats.operational + stats.implemented }
               </div>
               <div className="text-xs text-gray-600 dark:text-gray-300">Implemented</div>
             </div>
             <div className="text-center p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
               <div className="text-lg font-bold text-yellow-600 dark:text-yellow-400">
-                {stats.inProgress}
+                {stats.inProgress }
               </div>
               <div className="text-xs text-gray-600 dark:text-gray-300">In Progress</div>
             </div>
@@ -1332,7 +716,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               <input
                 type="text"
                 placeholder="Search controls by name, ID, or description..."
-                value={searchTerm}
+                value={searchTerm }
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
               />
@@ -1343,7 +727,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
               {(['grid', 'list', 'kanban'] as const).map((mode) => (
                 <button
-                  key={mode}
+                  key={mode }
                   onClick={() => setViewMode(mode)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
@@ -1351,28 +735,28 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {mode}
+                  {mode }
                 </button>
               ))}
             </div>
             
             <div className="flex items-center space-x-3">
               <button
-                onClick={handleImportControls}
+                onClick={handleImportControls }
                 className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
               </button>
               <button
-                onClick={handleExportControls}
+                onClick={handleExportControls }
                 className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
               </button>
               <button
-                onClick={handleCreateControl}
+                onClick={handleCreateControl }
                 className="flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl font-medium"
               >
                 <Plus className="w-4 h-4" />
@@ -1385,38 +769,38 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         {/* Advanced Filters */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <select
-            value={filterFunction}
+            value={filterFunction }
             onChange={(e) => setFilterFunction(e.target.value)}
             className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All NIST Functions</option>
             {functions.slice(1).map(func => (
-              <option key={func} value={func}>{func}</option>
+              <option key={func } value={func }>{func }</option>
             ))}
           </select>
           
           <select
-            value={filterStatus}
+            value={filterStatus }
             onChange={(e) => setFilterStatus(e.target.value)}
             className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Implementation Status</option>
             {statuses.slice(1).map(status => (
-              <option key={status} value={status}>
-                {status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              <option key={status } value={status }>
+               ) {status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
               </option>
             ))}
           </select>
           
           <select
-            value={filterPriority}
+            value={filterPriority }
             onChange={(e) => setFilterPriority(e.target.value)}
             className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Priority Levels</option>
             {priorities.slice(1).map(priority => (
-              <option key={priority} value={priority}>
-                {priority.charAt(0).toUpperCase() + priority.slice(1)} Priority
+              <option key={priority } value={priority }>
+               ) {priority.charAt(0).toUpperCase() + priority.slice(1)} Priority
               </option>
             ))}
           </select>
@@ -1441,14 +825,14 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
               <Activity className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
-              Security Controls ({filteredControls.length})
+              Security Controls ({filteredControls.length })
             </h2>
             <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
-              <span>{stats.operational} operational</span>
+              <span>{stats.operational } operational</span>
               <span>•</span>
-              <span>{stats.inProgress} in progress</span>
+              <span>{stats.inProgress } in progress</span>
               <span>•</span>
-              <span>{stats.notImplemented} not implemented</span>
+              <span>{stats.notImplemented } not implemented</span>
             </div>
           </div>
         </div>
@@ -1468,7 +852,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               </p>
               {controls.length === 0 && (
                 <button
-                  onClick={handleCreateControl}
+                  onClick={handleCreateControl }
                   className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Add First Control
@@ -1478,21 +862,21 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           ) : (
             <div className="space-y-6">
               {filteredControls.map((control) => (
-                <div key={control.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-8 hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-gray-50/50 to-blue-50/30 dark:from-gray-800/50 dark:to-blue-900/10">
+                <div key={control.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-8 hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-gray-50/50 to-blue-50/30 dark:from-gray-800/50 dark:to-blue-900/10">
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex-1">
                       <div className="flex items-center space-x-4 mb-3">
                         {getStatusIcon(control.status)}
                         <div>
                           <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                            {control.controlId}: {control.name}
+                            {control.controlId }: {control.name }
                           </h3>
                           <div className="flex items-center space-x-3 mt-2">
                             <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(control.status)}`}>
                               {control.status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                             </span>
                             <span className={`px-3 py-1 rounded-full text-sm font-medium ${getFunctionColor(control.nistFunction)}`}>
-                              {control.nistFunction}
+                              {control.nistFunction }
                             </span>
                             <span className={`text-sm font-bold ${getPriorityColor(control.priority)}`}>
                               {control.priority.toUpperCase()} PRIORITY
@@ -1502,14 +886,14 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       </div>
                       
                       <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                        {control.description}
+                        {control.description }
                       </p>
                     </div>
                     
                     <div className="text-right ml-6">
                       <div className="mb-4">
                         <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 flex items-center">
-                          {control.effectiveness.maturityLevel}
+                          {control.effectiveness.maturityLevel }
                           <Star className="w-6 h-6 ml-1" />
                         </div>
                         <div className="text-sm text-gray-600 dark:text-gray-300">Maturity Level</div>
@@ -1517,7 +901,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       <div className="flex items-center justify-end">
                         {getTrendIcon(control.effectiveness.trend)}
                         <span className="text-sm text-gray-600 dark:text-gray-300 ml-1 capitalize">
-                          {control.effectiveness.trend}
+                          {control.effectiveness.trend }
                         </span>
                       </div>
                     </div>
@@ -1527,15 +911,15 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
                     <div>
                       <span className="text-sm text-gray-500 dark:text-gray-400">Category</span>
-                      <div className="font-medium text-gray-900 dark:text-white">{control.nistCategory}</div>
+                      <div className="font-medium text-gray-900 dark:text-white">{control.nistCategory }</div>
                     </div>
                     <div>
                       <span className="text-sm text-gray-500 dark:text-gray-400">Subcategory</span>
-                      <div className="font-medium text-gray-900 dark:text-white">{control.nistSubcategory}</div>
+                      <div className="font-medium text-gray-900 dark:text-white">{control.nistSubcategory }</div>
                     </div>
                     <div>
                       <span className="text-sm text-gray-500 dark:text-gray-400">Owner</span>
-                      <div className="font-medium text-gray-900 dark:text-white">{control.owner}</div>
+                      <div className="font-medium text-gray-900 dark:text-white">{control.owner }</div>
                     </div>
                     <div>
                       <span className="text-sm text-gray-500 dark:text-gray-400">Next Assessment</span>
@@ -1549,25 +933,25 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
                       <div className={`text-2xl font-bold ${getEffectivenessColor(control.effectiveness.implementationScore)}`}>
-                        {control.effectiveness.implementationScore}%
+                        {control.effectiveness.implementationScore }%
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">Implementation</div>
                     </div>
                     <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
                       <div className={`text-2xl font-bold ${getEffectivenessColor(control.effectiveness.operationalScore)}`}>
-                        {control.effectiveness.operationalScore}%
+                        {control.effectiveness.operationalScore }%
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">Operational</div>
                     </div>
                     <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
                       <div className={`text-2xl font-bold ${getEffectivenessColor(control.effectiveness.complianceScore)}`}>
-                        {control.effectiveness.complianceScore}%
+                        {control.effectiveness.complianceScore }%
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">Compliance</div>
                     </div>
                     <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200 dark:border-orange-800">
                       <div className={`text-2xl font-bold ${getEffectivenessColor(control.effectiveness.riskReduction)}`}>
-                        {control.effectiveness.riskReduction}%
+                        {control.effectiveness.riskReduction }%
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">Risk Reduction</div>
                     </div>
@@ -1599,14 +983,14 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                             <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 space-y-3">
                               <div>
                                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Method:</span>
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{control.implementation.method}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{control.implementation.method }</p>
                               </div>
                               <div>
                                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Tools:</span>
                                 <div className="flex flex-wrap gap-1 mt-1">
                                   {control.implementation.tools.map((tool: string, index: number) => (
-                                    <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded">
-                                      {tool}
+                                    <span key={index } className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded">
+                                      {tool }
                                     </span>
                                   ))}
                                 </div>
@@ -1622,19 +1006,19 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                             </h4>
                             <div className="space-y-3">
                               {control.monitoring.metrics.map((metric, index: number) => (
-                                <div key={index} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+                                <div key={index } className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                      {metric.name}
+                                      {metric.name }
                                     </span>
                                     <div className="flex items-center space-x-2">
                                       <span className={`text-lg font-bold ${getEffectivenessColor(metric.currentValue)}`}>
-                                        {metric.currentValue}%
+                                        {metric.currentValue }%
                                       </span>
                                       {getTrendIcon(metric.trend)}
                                     </div>
                                   </div>
-                                  <p className="text-xs text-gray-600 dark:text-gray-400">{metric.description}</p>
+                                  <p className="text-xs text-gray-600 dark:text-gray-400">{metric.description }</p>
                                 </div>
                               ))}
                             </div>
@@ -1650,10 +1034,10 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                             </h4>
                             <div className="space-y-3">
                               {control.testing.results.slice(0, 2).map((result, index: number) => (
-                                <div key={index} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                                <div key={index } className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                      {result.testType}
+                                      {result.testType }
                                     </span>
                                     <div className="flex items-center space-x-2">
                                       <span className={`px-2 py-1 rounded text-xs font-medium ${
@@ -1661,17 +1045,17 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                                         result.outcome === 'partial' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                                         'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
                                       }`}>
-                                        {result.outcome}
+                                        {result.outcome }
                                       </span>
                                       {result.score && (
                                         <span className="text-sm font-bold text-gray-900 dark:text-white">
-                                          {result.score}%
+                                          {result.score }%
                                         </span>
                                       )}
                                     </div>
                                   </div>
                                   <p className="text-xs text-gray-600 dark:text-gray-400">
-                                    {result.testDate.toLocaleDateString()} • {result.tester}
+                                    {result.testDate.toLocaleDateString()} • {result.tester }
                                   </p>
                                 </div>
                               ))}
@@ -1766,7 +1150,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               </h3>
             </div>
             
-            <div onSubmit={handleSaveControl} className="space-y-6">
+            <div onSubmit={handleSaveControl } className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -1775,7 +1159,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   <input
                     type="text"
                     required
-                    value={formData.controlId}
+                    value={formData.controlId }
                     onChange={(e) => setFormData(prev => ({ ...prev, controlId: e.target.value }))}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="e.g., ID.AM-01, PR.AA-01"
@@ -1788,12 +1172,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <select
                     required
-                    value={formData.nistFunction}
+                    value={formData.nistFunction }
                     onChange={(e) => setFormData(prev => ({ ...prev, nistFunction: e.target.value }))}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     {functions.slice(1).map(func => (
-                      <option key={func} value={func}>{func}</option>
+                      <option key={func } value={func }>{func }</option>
                     ))}
                   </select>
                 </div>
@@ -1806,7 +1190,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <input
                   type="text"
                   required
-                  value={formData.name}
+                  value={formData.name }
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter descriptive control name"
@@ -1819,7 +1203,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 </label>
                 <textarea
                   required
-                  value={formData.description}
+                  value={formData.description }
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={4}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
@@ -1834,7 +1218,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <input
                     type="text"
-                    value={formData.nistCategory}
+                    value={formData.nistCategory }
                     onChange={(e) => setFormData(prev => ({ ...prev, nistCategory: e.target.value }))}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="e.g., Asset Management, Identity Management"
@@ -1847,7 +1231,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <input
                     type="text"
-                    value={formData.nistSubcategory}
+                    value={formData.nistSubcategory }
                     onChange={(e) => setFormData(prev => ({ ...prev, nistSubcategory: e.target.value }))}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="e.g., ID.AM-01, PR.AA-01"
@@ -1861,13 +1245,13 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     Implementation Status
                   </label>
                   <select
-                    value={formData.status}
+                    value={formData.status }
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as ControlStatus }))}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     {statuses.slice(1).map(status => (
-                      <option key={status} value={status}>
-                        {status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      <option key={status } value={status }>
+                       ) {status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                       </option>
                     ))}
                   </select>
@@ -1878,13 +1262,13 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     Priority Level
                   </label>
                   <select
-                    value={formData.priority}
+                    value={formData.priority }
                     onChange={(e) => setFormData(prev => ({ ...prev, priority: e.target.value as any }))}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     {priorities.slice(1).map(priority => (
-                      <option key={priority} value={priority}>
-                        {priority.charAt(0).toUpperCase() + priority.slice(1)}
+                      <option key={priority } value={priority }>
+                       ) {priority.charAt(0).toUpperCase() + priority.slice(1)}
                       </option>
                     ))}
                   </select>
@@ -1895,7 +1279,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     Control Type
                   </label>
                   <select
-                    value={formData.controlType}
+                    value={formData.controlType }
                     onChange={(e) => setFormData(prev => ({ ...prev, controlType: e.target.value as ControlType }))}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
@@ -1918,7 +1302,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <input
                   type="text"
                   required
-                  value={formData.owner}
+                  value={formData.owner }
                   onChange={(e) => setFormData(prev => ({ ...prev, owner: e.target.value }))}
                   className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Person or team responsible for this control"
@@ -1938,7 +1322,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 </button>
                 <button
                   type="submit"
-                  onClick={handleSaveControl}
+                  onClick={handleSaveControl }
                   className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium shadow-lg"
                 >
                   {editingControl ? 'Update Control' : 'Create Control'}

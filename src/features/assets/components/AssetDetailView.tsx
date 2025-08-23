@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  ChevronLeft, Save, Edit3, X, Shield, AlertTriangle, 
-  CheckCircle, Users, MapPin, FileText,
-  Server, Database, Building, Cloud, Plus, Trash2, Link2, Target
-} from 'lucide-react';
+import { ChevronLeft, Save, X, CheckCircle, MapPin, Server, Database, Building, Cloud, Link2} from 'lucide-react';
 import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -17,12 +13,7 @@ interface AssetDetailViewProps {
 }
 
 export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
-  asset,
-  onSave,
-  onBack,
-  onDelete,
-  allAssets
-}) => {
+  asset, onSave, onBack, onDelete, allAssets }) => {
   const { breadcrumbs } = useInternalLinking();
   const [isEditing, setIsEditing] = useState(false);
   const [editedAsset, setEditedAsset] = useState<Asset>(asset);
@@ -82,7 +73,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
@@ -91,7 +82,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack}
+                onClick={onBack }
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -104,14 +95,14 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {asset.name}
+                    {asset.name }
                   </h1>
                   <div className="flex items-center space-x-3 mt-1">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getCriticalityColor(asset.criticality)}`}>
-                      {asset.criticality} criticality
+                      {asset.criticality } criticality
                     </span>
                     <span className="text-gray-600 dark:text-gray-300">
-                      {asset.category} • {asset.type}
+                      {asset.category } • {asset.type }
                     </span>
                   </div>
                 </div>
@@ -122,7 +113,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               {isEditing ? (
                 <>
                   <button
-                    onClick={handleSave}
+                    onClick={handleSave }
                     className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
                   >
                     <Save className="w-4 h-4" />
@@ -146,7 +137,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     <span>Edit</span>
                   </button>
                   <button
-                    onClick={onDelete}
+                    onClick={onDelete }
                     className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -171,7 +162,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               { id: 'risk', label: 'Risk Assessment', icon: Target }
             ].map((tab) => (
               <button
-                key={tab.id}
+                key={tab.id }
                 onClick={() => setActiveTab(tab.id as 'overview' | 'details' | 'security' | 'compliance' | 'evidence' | 'dependencies' | 'vulnerabilities' | 'risk')}
                 className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
@@ -180,7 +171,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                 }`}
               >
                 <tab.icon className="w-4 h-4" />
-                <span>{tab.label}</span>
+                <span>{tab.label }</span>
               </button>
             ))}
           </nav>
@@ -203,12 +194,12 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       {isEditing ? (
                         <input
                           type="text"
-                          value={editedAsset.name}
+                          value={editedAsset.name }
                           onChange={(e) => setEditedAsset(prev => ({ ...prev, name: e.target.value }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       ) : (
-                        <p className="text-gray-900 dark:text-white">{asset.name}</p>
+                        <p className="text-gray-900 dark:text-white">{asset.name }</p>
                       )}
                     </div>
                     
@@ -218,13 +209,13 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </label>
                       {isEditing ? (
                         <textarea
-                          value={editedAsset.description}
+                          value={editedAsset.description }
                           onChange={(e) => setEditedAsset(prev => ({ ...prev, description: e.target.value }))}
                           rows={3}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                         />
                       ) : (
-                        <p className="text-gray-900 dark:text-white">{asset.description}</p>
+                        <p className="text-gray-900 dark:text-white">{asset.description }</p>
                       )}
                     </div>
                     
@@ -235,7 +226,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         </label>
                         {isEditing ? (
                           <select
-                            value={editedAsset.category}
+                            value={editedAsset.category }
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, category: e.target.value as Asset['category'] }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           >
@@ -259,7 +250,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         </label>
                         {isEditing ? (
                           <select
-                            value={editedAsset.criticality}
+                            value={editedAsset.criticality }
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, criticality: e.target.value as Asset['criticality'] }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           >
@@ -270,7 +261,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                           </select>
                         ) : (
                           <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getCriticalityColor(asset.criticality)}`}>
-                            {asset.criticality}
+                            {asset.criticality }
                           </span>
                         )}
                       </div>
@@ -290,7 +281,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </label>
                       {isEditing ? (
                         <select
-                          value={editedAsset.informationClassification}
+                          value={editedAsset.informationClassification }
                                                       onChange={(e) => setEditedAsset(prev => ({ ...prev, informationClassification: e.target.value as Asset['informationClassification'] }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         >
@@ -301,7 +292,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                           <option value="top-secret">Top Secret</option>
                         </select>
                       ) : (
-                        <p className="text-gray-900 dark:text-white capitalize">{asset.informationClassification}</p>
+                        <p className="text-gray-900 dark:text-white capitalize">{asset.informationClassification }</p>
                       )}
                     </div>
                     
@@ -313,12 +304,12 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         {isEditing ? (
                           <input
                             type="text"
-                            value={editedAsset.owner}
+                            value={editedAsset.owner }
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, owner: e.target.value }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         ) : (
-                          <p className="text-gray-900 dark:text-white">{asset.owner}</p>
+                          <p className="text-gray-900 dark:text-white">{asset.owner }</p>
                         )}
                       </div>
                       
@@ -329,12 +320,12 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         {isEditing ? (
                           <input
                             type="text"
-                            value={editedAsset.custodian}
+                            value={editedAsset.custodian }
                             onChange={(e) => setEditedAsset(prev => ({ ...prev, custodian: e.target.value }))}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         ) : (
-                          <p className="text-gray-900 dark:text-white">{asset.custodian}</p>
+                          <p className="text-gray-900 dark:text-white">{asset.custodian }</p>
                         )}
                       </div>
                     </div>
@@ -355,7 +346,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       </label>
                       {isEditing ? (
                         <select
-                          value={editedAsset.status}
+                          value={editedAsset.status }
                                                       onChange={(e) => setEditedAsset(prev => ({ ...prev, status: e.target.value as Asset['status'] }))}
                           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         >
@@ -367,7 +358,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                           <option value="decommissioned">Decommissioned</option>
                         </select>
                       ) : (
-                        <p className="text-gray-900 dark:text-white capitalize">{asset.status}</p>
+                        <p className="text-gray-900 dark:text-white capitalize">{asset.status }</p>
                       )}
                     </div>
                     
@@ -379,13 +370,13 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                         <div className="flex items-center space-x-2">
                           <MapPin className="w-4 h-4 text-gray-500" />
                           <span className="text-sm text-gray-900 dark:text-white">
-                            {asset.location.building ? `${asset.location.building}` : 'No building specified'}
-                            {asset.location.room && ` - Room ${asset.location.room}`}
+                            {asset.location.building ? `${asset.location.building }` : 'No building specified'}
+                            {asset.location.room && ` - Room ${asset.location.room }`}
                           </span>
                         </div>
                         {asset.location.address && (
                           <div className="text-sm text-gray-600 dark:text-gray-300 ml-6">
-                            {asset.location.address}
+                            {asset.location.address }
                           </div>
                         )}
                       </div>
@@ -401,21 +392,21 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                       <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                        {asset.controls.length}
+                        {asset.controls.length }
                       </div>
                       <div className="text-sm text-blue-800 dark:text-blue-300">Security Controls</div>
                     </div>
                     
                     <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
                       <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                        {asset.dependencies.length}
+                        {asset.dependencies.length }
                       </div>
                       <div className="text-sm text-green-800 dark:text-green-300">Dependencies</div>
                     </div>
                     
                     <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
                       <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                        {asset.vulnerabilities.filter(v => v.status === 'open').length}
+                        {asset.vulnerabilities.filter(v => v.status === 'open').length }
                       </div>
                       <div className="text-sm text-orange-800 dark:text-orange-300">Open Vulnerabilities</div>
                     </div>
@@ -436,7 +427,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Security Controls ({asset.controls.length})
+                  Security Controls ({asset.controls.length })
                 </h3>
                 <button className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   <Plus className="w-4 h-4" />
@@ -446,14 +437,14 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               
               <div className="space-y-4">
                 {asset.controls.map((control, index) => (
-                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <h4 className="font-medium text-gray-900 dark:text-white">
-                          {control.name}
+                          {control.name }
                         </h4>
                         <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                          {control.description}
+                          {control.description }
                         </p>
                       </div>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getControlStatusColor(control.implementationStatus)}`}>
@@ -464,11 +455,11 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
                         <span className="text-gray-600 dark:text-gray-300">Framework:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{control.framework}</div>
+                        <div className="font-medium text-gray-900 dark:text-white">{control.framework }</div>
                       </div>
                       <div>
                         <span className="text-gray-600 dark:text-gray-300">Family:</span>
-                        <div className="font-medium text-gray-900 dark:text-white">{control.controlFamily}</div>
+                        <div className="font-medium text-gray-900 dark:text-white">{control.controlFamily }</div>
                       </div>
                       <div>
                         <span className="text-gray-600 dark:text-gray-300">Last Tested:</span>
@@ -500,7 +491,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Asset Dependencies ({asset.dependencies.length})
+                  Asset Dependencies ({asset.dependencies.length })
                 </h3>
                 <button className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   <Plus className="w-4 h-4" />
@@ -512,7 +503,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                 {asset.dependencies.map((dependency, index) => {
                   const dependentAsset = allAssets.find(a => a.id === dependency.dependentAssetId);
                   return (
-                    <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                    <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-3">
                           <Link2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -526,11 +517,11 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                           </div>
                         </div>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCriticalityColor(dependency.criticalityImpact)}`}>
-                          {dependency.criticalityImpact} impact
+                          {dependency.criticalityImpact } impact
                         </span>
                       </div>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        {dependency.description}
+                        {dependency.description }
                       </p>
                     </div>
                   );
@@ -550,7 +541,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Vulnerabilities ({asset.vulnerabilities.length})
+                  Vulnerabilities ({asset.vulnerabilities.length })
                 </h3>
                 <button className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   <Plus className="w-4 h-4" />
@@ -560,30 +551,30 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               
               <div className="space-y-4">
                 {asset.vulnerabilities.map((vulnerability, index) => (
-                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <div className="flex items-center space-x-2 mb-2">
                           <h4 className="font-medium text-gray-900 dark:text-white">
-                            {vulnerability.title}
+                            {vulnerability.title }
                           </h4>
                           {vulnerability.cveId && (
                             <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
-                              {vulnerability.cveId}
+                              {vulnerability.cveId }
                             </span>
                           )}
                         </div>
                         <p className="text-sm text-gray-600 dark:text-gray-300">
-                          {vulnerability.description}
+                          {vulnerability.description }
                         </p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getVulnerabilityColor(vulnerability.severity)}`}>
-                          {vulnerability.severity}
+                          {vulnerability.severity }
                         </span>
                         {vulnerability.cvssScore && (
                           <span className="text-sm font-bold text-gray-900 dark:text-white">
-                            CVSS: {vulnerability.cvssScore}
+                            CVSS: {vulnerability.cvssScore }
                           </span>
                         )}
                       </div>
@@ -605,7 +596,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       <div>
                         <span className="text-gray-600 dark:text-gray-300">Priority:</span>
                         <div className="font-medium text-gray-900 dark:text-white">
-                          {vulnerability.remediation.priority}
+                          {vulnerability.remediation.priority }
                         </div>
                       </div>
                       <div>
@@ -669,7 +660,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       <div className="flex items-center justify-between">
                         <span className="text-gray-600 dark:text-gray-300">Assessed By</span>
                         <span className="font-medium text-gray-900 dark:text-white">
-                          {asset.riskAssessment.assessedBy}
+                          {asset.riskAssessment.assessedBy }
                         </span>
                       </div>
                     </div>
@@ -682,19 +673,19 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                       <span className="text-gray-600 dark:text-gray-300">Confidentiality</span>
                       <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.confidentiality)}`}>
-                        {asset.riskAssessment.impact.confidentiality}
+                        {asset.riskAssessment.impact.confidentiality }
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                       <span className="text-gray-600 dark:text-gray-300">Integrity</span>
                       <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.integrity)}`}>
-                        {asset.riskAssessment.impact.integrity}
+                        {asset.riskAssessment.impact.integrity }
                       </span>
                     </div>
                     <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                       <span className="text-gray-600 dark:text-gray-300">Availability</span>
                       <span className={`px-2 py-1 rounded text-xs font-medium ${getCriticalityColor(asset.riskAssessment.impact.availability)}`}>
-                        {asset.riskAssessment.impact.availability}
+                        {asset.riskAssessment.impact.availability }
                       </span>
                     </div>
                   </div>
@@ -703,11 +694,11 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   <div className="space-y-3 text-sm">
                     <div>
                       <span className="text-gray-600 dark:text-gray-300">Financial Impact:</span>
-                      <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.financialImpact}</p>
+                      <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.financialImpact }</p>
                     </div>
                     <div>
                       <span className="text-gray-600 dark:text-gray-300">Operational Impact:</span>
-                      <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.operationalImpact}</p>
+                      <p className="text-gray-900 dark:text-white mt-1">{asset.riskAssessment.impact.operationalImpact }</p>
                     </div>
                   </div>
                 </div>

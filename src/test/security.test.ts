@@ -25,22 +25,20 @@ describe('Security Tests', () => {
   describe('Input Validation', () => {
     it('should validate assessment responses', () => {
       const validResponse = {
-        questionId: 'q1',
-        value: 3,
-        notes: 'Implementation notes',
-        evidence: []
+        questionId: 'q1', value: 3, notes: 'Implementation notes', evidence: []
       };
       
       // Add Zod validation tests
       expect(() => assessmentResponseSchema.parse(validResponse)).not.toThrow();
+    
     });
   });
 
   describe('Authentication Security', () => {
     it('should handle JWT tokens securely', () => {
       // Test JWT validation and expiration
-      const mockToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
-      // Add JWT security tests
+      
+      // Add JWT security tests 
     });
   });
 });

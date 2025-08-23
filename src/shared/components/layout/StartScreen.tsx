@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Target, Users, ChevronRight, Play, BookOpen, Award, Clock, CheckCircle, Star, ArrowRight, Building, Zap, FileText, Sparkles, Rocket, Calendar, BarChart3, Eye } from 'lucide-react';
+import { Building, Zap, Sparkles, Rocket } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
-import { nistCSFv2ExtendedFramework } from '../../../data/frameworks/nist-csf-v2-extended';
+
 import { UserProfile } from '../../types';
 
 interface StartScreenProps {
@@ -12,13 +12,10 @@ interface StartScreenProps {
   userProfile: UserProfile | null;
 }
 
-import { cmmcFramework, privacyFramework, nistCSFv2StandardFramework } from '../../../data/frameworks';
+import { cmmcFramework, privacyFramework } from '../../../data/frameworks';
 
 export const StartScreen: React.FC<StartScreenProps> = ({
-  onStartAssessment,
-  onContinue,
-  userProfile
-}) => {
+  onStartAssessment, onContinue, userProfile }) => {
   const { theme } = useTheme();
   const [showQuickStart, setShowQuickStart] = useState(false);
   
@@ -26,7 +23,8 @@ export const StartScreen: React.FC<StartScreenProps> = ({
   const handleStartAssessment = useCallback(() => {
     console.log('StartScreen: Starting assessment');
     onStartAssessment();
-  }, [onStartAssessment]);
+  
+    }, [onStartAssessment]);
   
   const handleContinue = useCallback(() => {
     console.log('StartScreen: Continuing to dashboard');
@@ -34,96 +32,47 @@ export const StartScreen: React.FC<StartScreenProps> = ({
   }, [onContinue]);
   
   // Helper function to get feature links
-  const getFeatureLink = useCallback((featureTitle: string): string => {
-    const linkMap: Record<string, string> = {
-      'Assessment to Implementation': '/assessment-intro',
-      'Evidence Collection': '/evidence',
-      'Real-Time Compliance': '/compliance',
-      'Activity Calendar': '/calendar',
-      'Assets in Scope': '/assets',
-      'Policies & Controls': '/policies'
-    };
+  
     return linkMap[featureTitle] || '/dashboard';
-  }, []);
+  
+    }, []);
 
   const implementationSteps = [
     {
-      step: 1,
-      title: "Assessment",
-      description: "Complete NIST CSF v2.0 assessment to identify current state and gaps",
-      time: "2-3 hours",
-      icon: Target
-    },
+      step: 1, title: "Assessment", description: "Complete NIST CSF v2.0 assessment to identify current state and gaps", time: "2-3 hours", icon: Target },
     {
-      step: 2,
-      title: "Evidence Collection",
-      description: "Systematically collect and validate compliance evidence for each control",
-      time: "2-4 weeks",
-      icon: FileText
-    },
+      step: 2, title: "Evidence Collection", description: "Systematically collect and validate compliance evidence for each control", time: "2-4 weeks", icon: FileText },
     {
-      step: 3,
-      title: "Implementation",
-      description: "Deploy required policies, controls, and procedures based on assessment results",
-      time: "3-6 months",
-      icon: Shield
-    },
+      step: 3, title: "Implementation", description: "Deploy required policies, controls, and procedures based on assessment results", time: "3-6 months", icon: Shield },
     {
-      step: 4,
-      title: "Monitoring",
-      description: "Continuous monitoring and real-time compliance status tracking",
-      time: "Ongoing",
-      icon: BarChart3
+      step: 4, title: "Monitoring", description: "Continuous monitoring and real-time compliance status tracking", time: "Ongoing", icon: BarChart3
     }
   ];
 
   const platformFeatures = [
     {
-      title: "Assessment to Implementation",
-      description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation",
-      icon: Target,
-      color: "blue"
+      title: "Assessment to Implementation", description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation", icon: Target, color: "blue"
     },
     {
-      title: "Evidence Collection",
-      description: "Systematic collection and management of compliance evidence for all controls",
-      icon: FileText,
-      color: "green"
+      title: "Evidence Collection", description: "Systematic collection and management of compliance evidence for all controls", icon: FileText, color: "green"
     },
     {
-      title: "Real-Time Compliance",
-      description: "Live monitoring of implementation progress and compliance posture",
-      icon: BarChart3,
-      color: "purple"
+      title: "Real-Time Compliance", description: "Live monitoring of implementation progress and compliance posture", icon: BarChart3, color: "purple"
     },
     {
-      title: "Activity Calendar",
-      description: "Automated scheduling of assessments, reviews, and compliance activities",
-      icon: Calendar,
-      color: "orange"
+      title: "Activity Calendar", description: "Automated scheduling of assessments, reviews, and compliance activities", icon: Calendar, color: "orange"
     },
     {
-      title: "Assets in Scope",
-      description: "Comprehensive asset inventory and scope management for compliance",
-      icon: Shield,
-      color: "indigo"
+      title: "Assets in Scope", description: "Comprehensive asset inventory and scope management for compliance", icon: Shield, color: "indigo"
     },
     {
-      title: "Policies & Controls",
-      description: "Required policies and security controls mapped to NIST CSF v2.0",
-      icon: Award,
-      color: "pink"
+      title: "Policies & Controls", description: "Required policies and security controls mapped to NIST CSF v2.0", icon: Award, color: "pink"
     }
   ];
 
   const getColorClasses = (color: string) => {
     const colorMap = {
-      blue: 'from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 text-blue-600 dark:text-blue-400',
-      green: 'from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 text-green-600 dark:text-green-400',
-      purple: 'from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 text-purple-600 dark:text-purple-400',
-      orange: 'from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 text-orange-600 dark:text-orange-400',
-      indigo: 'from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 text-indigo-600 dark:text-indigo-400',
-      pink: 'from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 text-pink-600 dark:text-pink-400'
+      blue: 'from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 text-blue-600 dark:text-blue-400', green: 'from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 text-green-600 dark:text-green-400', purple: 'from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 text-purple-600 dark:text-purple-400', orange: 'from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 text-orange-600 dark:text-orange-400', indigo: 'from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 text-indigo-600 dark:text-indigo-400', pink: 'from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 text-pink-600 dark:text-pink-400'
     };
     return colorMap[color] || colorMap.blue;
   };
@@ -189,7 +138,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
             {/* Call to Action */}
             <div className="space-y-6">
               <button
-                onClick={handleStartAssessment}
+                onClick={handleStartAssessment }
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-12 py-6 rounded-2xl font-bold text-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 flex items-center space-x-3 mx-auto"
               >
                 <Play className="w-6 h-6" />
@@ -227,7 +176,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               
               {userProfile && (
                 <button
-                  onClick={handleContinue}
+                  onClick={handleContinue }
                   className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-3 rounded-xl font-bold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300"
                 >
                   Continue to Dashboard
@@ -246,10 +195,10 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                   </div>
                 </div>
                 <h2 className="text-4xl font-bold text-blue-900 dark:text-blue-100 mb-4">
-                  Welcome back, {userProfile.name}!
+                  Welcome back, {userProfile.name }!
                 </h2>
                 <p className="text-blue-700 dark:text-blue-300 text-xl font-medium">
-                  {userProfile.organization} • {userProfile.role}
+                  {userProfile.organization } • {userProfile.role }
                 </p>
                 <div className="mt-6">
                   <Link
@@ -277,17 +226,17 @@ export const StartScreen: React.FC<StartScreenProps> = ({
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {platformFeatures.map((feature, index) => (
-                <div key={index} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group">
+                <div key={index } className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group">
                   <div className={`flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${getColorClasses(feature.color)} mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
                     <feature.icon className="w-8 h-8" />
                   </div>
                   
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {feature.title}
+                    {feature.title }
                   </h3>
                   
                   <p className="text-gray-600 dark:text-gray-300 text-center leading-relaxed">
-                    {feature.description}
+                    {feature.description }
                   </p>
                 </div>
               ))}
@@ -307,7 +256,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {implementationSteps.map((step, index) => (
-                <div key={index} className="relative">
+                <div key={index } className="relative">
                   {index < implementationSteps.length - 1 && (
                     <div className="hidden lg:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 z-10">
                       <ArrowRight className="w-6 h-6 text-blue-500" />
@@ -316,19 +265,19 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                   
                   <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300 text-center">
                     <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-full mx-auto mb-4 font-bold text-lg">
-                      {step.step}
+                      {step.step }
                     </div>
                     
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                      {step.title}
+                      {step.title }
                     </h3>
                     
                     <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                      {step.description}
+                      {step.description }
                     </p>
                     
                     <div className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                      {step.time}
+                      {step.time }
                     </div>
                   </div>
                 </div>
@@ -347,18 +296,18 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                 </div>
                 
                 <h3 className="text-3xl font-bold text-blue-900 dark:text-blue-100 mb-4">
-                  {nistCSFv2Framework.name}
+                  {nistCSFv2Framework.name }
                 </h3>
                 
                 <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
-                  {nistCSFv2Framework.description}
+                  {nistCSFv2Framework.description }
                 </p>
 
                 {/* Framework Metrics */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                   <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
                     <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-                      {nistCSFv2Framework.sections.length}
+                      {nistCSFv2Framework.sections.length }
                     </div>
                     <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Functions
@@ -367,7 +316,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                   
                   <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
                     <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">
-                      {nistCSFv2Framework.estimatedTime}
+                      {nistCSFv2Framework.estimatedTime }
                     </div>
                     <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Minutes
@@ -386,7 +335,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                   
                   <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
                     <div className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-2">
-                      v{nistCSFv2Framework.version}
+                      v{nistCSFv2Framework.version }
                     </div>
                     <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Latest
@@ -414,7 +363,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               </p>
               
               <button
-                onClick={handleStartAssessment}
+                onClick={handleStartAssessment }
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-5 px-8 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center space-x-3 shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
                 <Play className="w-5 h-5" />

@@ -10,28 +10,25 @@ export class PerformanceMonitoring {
   }
 
   measureComponentRender(componentName: string, renderTime: number): void {
-    const key = `component_${componentName}_render`;
+    const key = `component_${componentName }_render`;
     this.metrics.set(key, renderTime);
     
     // Report to analytics if available
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'performance_timing', {
-        event_category: 'Component Render',
-        event_label: componentName,
-        value: Math.round(renderTime)
-      });
+      gtag('event', 'performance_timing',) {
+        event_category: 'Component Render', event_label: componentName, value: Math.round(renderTime)
+      
+    });
     }
   }
 
   measureAssessmentLoad(assessmentId: string, loadTime: number): void {
-    const key = `assessment_${assessmentId}_load`;
+    const key = `assessment_${assessmentId }_load`;
     this.metrics.set(key, loadTime);
     
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'performance_timing', {
-        event_category: 'Assessment Load',
-        event_label: assessmentId,
-        value: Math.round(loadTime)
+      gtag('event', 'performance_timing',) {
+        event_category: 'Assessment Load', event_label: assessmentId, value: Math.round(loadTime)
       });
     }
   }
@@ -43,7 +40,8 @@ export class PerformanceMonitoring {
   measureWebVitals(): void {
     // Core Web Vitals measurement
     if ('web-vitals' in window) {
-      const { getCLS, getFID, getFCP, getLCP, getTTFB } = (window as any)['web-vitals'];
+      const { getCLS, getFID, getFCP, getLCP, getTTFB 
+    } = (window as any)['web-vitals'];
       
       getCLS(this.sendToAnalytics);
       getFID(this.sendToAnalytics);
@@ -55,13 +53,9 @@ export class PerformanceMonitoring {
 
   private sendToAnalytics(metric: any): void {
     if (typeof gtag !== 'undefined') {
-      gtag('event', metric.name, {
-        event_category: 'Web Vitals',
-        value: Math.round(metric.value),
-        custom_parameter_1: metric.id
-      });
+      gtag('event', metric.name,) {
+        event_category: 'Web Vitals', value: Math.round(metric.value), custom_parameter_1: metric.id });
     }
   }
 }
 
-export const performanceMonitoring = PerformanceMonitoring.getInstance();

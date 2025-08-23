@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Upload, FileText, Image, Shield, Award, 
-  CheckCircle, Calendar, User, Eye, Trash2, Link,
-  Star
-} from 'lucide-react';
+import { Image, CheckCircle, User, Link } from 'lucide-react';
 import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
 
 interface EvidenceManagerProps {
@@ -17,26 +13,14 @@ interface EvidenceManagerProps {
 }
 
 export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
-  questionId,
-  questionEvidence,
-  evidenceLibrary,
-  onAddEvidence,
-  onRemoveEvidence,
-  onUploadEvidence,
-  className = ''
+  questionId, questionEvidence, evidenceLibrary, onAddEvidence, onRemoveEvidence, onUploadEvidence, className = ''
 }) => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showLibraryModal, setShowLibraryModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
   const [uploadForm, setUploadForm] = useState({
-    name: '',
-    type: 'document' as EvidenceItem['type'],
-    description: '',
-    tags: '',
-    confidentialityLevel: 'internal' as EvidenceItem['confidentialityLevel'],
-    relevance: 'primary' as QuestionEvidence['relevance'],
-    confidence: 'high' as QuestionEvidence['confidence']
+    name: '', type: 'document' as EvidenceItem['type'], description: '', tags: '', confidentialityLevel: 'internal' as EvidenceItem['confidentialityLevel'], relevance: 'primary' as QuestionEvidence['relevance'], confidence: 'high' as QuestionEvidence['confidence']
   });
 
   const getEvidenceTypeIcon = (type: string) => {
@@ -75,29 +59,15 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
     if (!file) return;
 
     const evidenceMetadata: Partial<EvidenceItem> = {
-      name: uploadForm.name || file.name,
-      type: uploadForm.type,
-      description: uploadForm.description,
-      tags: uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean),
-      confidentialityLevel: uploadForm.confidentialityLevel,
-      fileSize: file.size,
-      mimeType: file.type,
-      version: '1.0',
-      status: 'active',
-      linkedQuestions: [questionId]
+      name: uploadForm.name || file.name, type: uploadForm.type, description: uploadForm.description, tags: uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel, fileSize: file.size, mimeType: file.type, version: '1.0', status: 'active', linkedQuestions: [questionId]
     };
 
     onUploadEvidence(file, evidenceMetadata);
 
     // Reset form
     setUploadForm({
-      name: '',
-      type: 'document',
-      description: '',
-      tags: '',
-      confidentialityLevel: 'internal',
-      relevance: 'primary',
-      confidence: 'high'
+      name: '', type: 'document', description: '', tags: '', confidentialityLevel: 'internal', relevance: 'primary', confidence: 'high'
+    
     });
     setShowUploadModal(false);
     event.target.value = '';
@@ -105,23 +75,20 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
 
   const handleLinkExistingEvidence = (evidenceId: string) => {
     const newEvidence: QuestionEvidence = {
-      evidenceId,
-      relevance: uploadForm.relevance,
-      linkedAt: new Date(),
-      linkedBy: 'Current User', // This would come from user context
-      confidence: uploadForm.confidence
+      evidenceId, relevance: uploadForm.relevance, linkedAt: new Date(), linkedBy: 'Current User', // This would come from user context
+      confidence: uploadForm.confidence 
     };
 
     onAddEvidence(questionId, newEvidence);
     setShowLibraryModal(false);
   };
 
-  const linkedEvidenceItems = questionEvidence.map(qe => {
+  const linkedEvidenceItems = questionEvidence.map(qe =>) {
     const evidence = evidenceLibrary.find(e => e.id === qe.evidenceId);
     return evidence ? { ...evidence, questionEvidence: qe } : null;
   }).filter(Boolean) as (EvidenceItem & { questionEvidence: QuestionEvidence })[];
 
-  const filteredLibrary = evidenceLibrary.filter(evidence => {
+  const filteredLibrary = evidenceLibrary.filter(evidence =>) {
     const matchesSearch = evidence.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          evidence.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          evidence.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -132,7 +99,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
   });
 
   return (
-    <div className={`bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800 ${className}`}>
+    <div className={`bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800 ${className }`}>
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg">
@@ -173,7 +140,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
           {linkedEvidenceItems.map((evidence) => {
             const IconComponent = getEvidenceTypeIcon(evidence.type);
             return (
-              <div key={evidence.id} className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-purple-200 dark:border-purple-700 hover:shadow-md transition-shadow">
+              <div key={evidence.id } className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-purple-200 dark:border-purple-700 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-3 flex-1">
                     <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
@@ -183,18 +150,18 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-2 mb-2">
                         <h5 className="font-medium text-gray-900 dark:text-white truncate">
-                          {evidence.name}
+                          {evidence.name }
                         </h5>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRelevanceColor(evidence.questionEvidence.relevance)}`}>
-                          {evidence.questionEvidence.relevance}
+                          {evidence.questionEvidence.relevance }
                         </span>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getConfidentialityColor(evidence.confidentialityLevel)}`}>
-                          {evidence.confidentialityLevel}
+                          {evidence.confidentialityLevel }
                         </span>
                       </div>
                       
                       <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                        {evidence.description}
+                        {evidence.description }
                       </p>
                       
                       <div className="flex items-center space-x-4 text-xs text-gray-500 dark:text-gray-400">
@@ -204,19 +171,19 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                         </div>
                         <div className="flex items-center space-x-1">
                           <User className="w-3 h-3" />
-                          <span>{evidence.questionEvidence.linkedBy}</span>
+                          <span>{evidence.questionEvidence.linkedBy }</span>
                         </div>
                         <div className="flex items-center space-x-1">
                           <Star className="w-3 h-3" />
-                          <span>Confidence: {evidence.questionEvidence.confidence}</span>
+                          <span>Confidence: {evidence.questionEvidence.confidence }</span>
                         </div>
                       </div>
                       
                       {evidence.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-2">
                           {evidence.tags.map((tag, index) => (
-                            <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
-                              #{tag}
+                            <span key={index } className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded">
+                              #{tag }
                             </span>
                           ))}
                         </div>
@@ -263,7 +230,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 </label>
                 <input
                   type="text"
-                  value={uploadForm.name}
+                  value={uploadForm.name }
                   onChange={(e) => setUploadForm(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Enter document name (optional)"
@@ -275,7 +242,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                   Evidence Type
                 </label>
                 <select
-                  value={uploadForm.type}
+                  value={uploadForm.type }
                   onChange={(e) => setUploadForm(prev => ({ ...prev, type: e.target.value as EvidenceItem['type'] }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
@@ -294,7 +261,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                   Description
                 </label>
                 <textarea
-                  value={uploadForm.description}
+                  value={uploadForm.description }
                   onChange={(e) => setUploadForm(prev => ({ ...prev, description: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
                   rows={3}
@@ -308,7 +275,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                     Relevance
                   </label>
                   <select
-                    value={uploadForm.relevance}
+                    value={uploadForm.relevance }
                     onChange={(e) => setUploadForm(prev => ({ ...prev, relevance: e.target.value as QuestionEvidence['relevance'] }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   >
@@ -323,7 +290,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                     Confidence
                   </label>
                   <select
-                    value={uploadForm.confidence}
+                    value={uploadForm.confidence }
                     onChange={(e) => setUploadForm(prev => ({ ...prev, confidence: e.target.value as QuestionEvidence['confidence'] }))}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   >
@@ -340,7 +307,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 </label>
                 <input
                   type="text"
-                  value={uploadForm.tags}
+                  value={uploadForm.tags }
                   onChange={(e) => setUploadForm(prev => ({ ...prev, tags: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="policy, security, compliance"
@@ -353,7 +320,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 </label>
                 <input
                   type="file"
-                  onChange={handleFileUpload}
+                  onChange={handleFileUpload }
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.xlsx,.csv"
                 />
@@ -395,13 +362,13 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 <input
                   type="text"
                   placeholder="Search evidence..."
-                  value={searchTerm}
+                  value={searchTerm }
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 />
               </div>
               <select
-                value={filterType}
+                value={filterType }
                 onChange={(e) => setFilterType(e.target.value)}
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               >
@@ -422,7 +389,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 filteredLibrary.map((evidence) => {
                   const IconComponent = getEvidenceTypeIcon(evidence.type);
                   return (
-                    <div key={evidence.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <div key={evidence.id } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3 flex-1">
                           <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
@@ -431,18 +398,18 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                           
                           <div className="flex-1">
                             <h5 className="font-medium text-gray-900 dark:text-white mb-1">
-                              {evidence.name}
+                              {evidence.name }
                             </h5>
                             <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                              {evidence.description}
+                              {evidence.description }
                             </p>
                             <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
-                              <span>{evidence.type}</span>
+                              <span>{evidence.type }</span>
                               <span>•</span>
                               <span>{evidence.uploadedAt.toLocaleDateString()}</span>
                               <span>•</span>
                               <span className={getConfidentialityColor(evidence.confidentialityLevel)}>
-                                {evidence.confidentialityLevel}
+                                {evidence.confidentialityLevel }
                               </span>
                             </div>
                           </div>

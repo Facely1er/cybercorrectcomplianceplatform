@@ -23,9 +23,7 @@ export const useReportGeneration = () => {
   const [progress, setProgress] = useState(0);
 
   const generateReport = useCallback(async (
-    assessment: AssessmentData,
-    framework: Framework,
-    config: ReportConfig
+    assessment: AssessmentData, framework: Framework, config: ReportConfig
   ) => {
     setIsGenerating(true);
     setProgress(0);
@@ -48,18 +46,11 @@ export const useReportGeneration = () => {
       
       // Generate report data
       const reportData = {
-        assessment,
-        framework,
-        config,
-        generatedAt: new Date(),
-        metadata: {
+        assessment, framework, config, generatedAt: new Date(), metadata: {
           totalQuestions: framework.sections.reduce((sum, section) => 
             sum + section.categories.reduce((catSum, category) => 
-              catSum + category.questions.length, 0), 0),
-          answeredQuestions: Object.keys(assessment.responses).length,
-          overallScore: calculateOverallScore(assessment),
-          recommendations: generateRecommendations(assessment, framework)
-        }
+              catSum + category.questions.length, 0), 0), answeredQuestions: Object.keys(assessment.responses).length, overallScore: calculateOverallScore(assessment), recommendations: generateRecommendations(assessment, framework)
+    }
       };
 
       return reportData;
@@ -78,11 +69,9 @@ export const useReportGeneration = () => {
   const generateRecommendations = (assessment: AssessmentData, framework: Framework) => {
     // Implementation for generating smart recommendations
     return [];
-  };
+  
+    };
 
   return {
-    generateReport,
-    isGenerating,
-    progress
-  };
+    generateReport, isGenerating, progress };
 };
