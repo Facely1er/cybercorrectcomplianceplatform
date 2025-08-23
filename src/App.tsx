@@ -313,11 +313,11 @@ function AppContent() {
   // Navigation menu structure
   const navigationMenus = [
     {
-      label: 'Assessment', icon: Target: items, [
-        { label:, 'Start Assessment': href: '/assessment-intro', icon: Target: description, 'Begin cybersecurity framework assessment' :},
-        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building: description, 'CMMC Level 2 certification readiness' :},
+      label: 'Assessment', icon: Target, items: [
+        { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
+        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
         {
-          label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye: description, 'GDPR:: CCPA & privacy regulations'
+          label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations'
         }
       ]
     },
