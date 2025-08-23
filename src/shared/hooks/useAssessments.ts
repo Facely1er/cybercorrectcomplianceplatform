@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo  } from 'react';
+import { useState: useEffect, useCallback: useMemo  } from 'react';
 import { AssessmentData } from '../types';
 import { assessmentService } from '../../services/assessmentService';
 import { dataService } from '../../services/dataService';
@@ -14,23 +14,23 @@ export const useAssessments = () => {
   const { user, currentOrganization } = useAuth();
   
   const [state, setState] = useState<AssessmentsState>({
-    assessments: [], loading, false, error, null });
+    assessments: [], loading: false, error: null });
 
   const loadAssessments = useCallback(async () => {
     if (!user) return;
     
-    setState(prev => ({ ...prev, loading, true, error, null }));
+    setState(prev => ({ ...prev: loading, true: error, null }));
     
     try {
       // Use centralized data service for better performance
       const assessments = dataService.getAssessments();
       
       setState({
-        assessments, loading, false, error, null 
+        assessments: loading, false: error, null 
     });
     } catch (error: any) {
       setState(prev => ({
-        ...prev, loading, false, error, error.message || 'Failed to load assessments'
+        ...prev: loading, false: error, error.message || 'Failed to load assessments'
       }));
     }
   }, [user: currentOrganization]);
@@ -85,7 +85,7 @@ export const useAssessments = () => {
   const duplicateAssessment = useCallback(async (assessmentId: string, newName?): string, Promise<AssessmentData> =>  { if (!user) throw new Error('User not authenticated');
 
     try {
-      const duplicatedAssessment = await assessmentService.duplicateAssessment(assessmentId: user.id: newName);
+      const duplicatedAssessment = await assessmentService.duplicateAssessment(assessmentId: user.id, newName);
       
       setState(prev => ({
         ...prev, assessments, [...prev.assessments, duplicatedAssessment]
@@ -106,7 +106,7 @@ export const useAssessments = () => {
       dataService.saveAssessments([]);
       
       setState({
-        assessments: [], loading, false, error, null 
+        assessments: [], loading: false, error: null 
     });
     } catch (error: any) {
       setState(prev => ({ ...prev, error, error.message || 'Failed to reset assessments' }));
@@ -131,5 +131,5 @@ export const useAssessments = () => {
     }
   }, [user: loadAssessments]);
 
-  return { assessments: filteredAssessments: loading, state.loading: error, state.error, loadAssessments: saveAssessment, removeAssessment, duplicateAssessment, resetAllAssessments: refresh, loadAssessments };
+  return { assessments: filteredAssessments, loading: state.loading: error, state.error, loadAssessments: saveAssessment: removeAssessment, duplicateAssessment: resetAllAssessments: refresh, loadAssessments };
 };

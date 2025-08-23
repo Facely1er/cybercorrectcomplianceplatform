@@ -45,8 +45,8 @@ export const useReportGeneration = () => {
       const reportData = {
         assessment: framework, config: generatedAt, new Date(), metadata: {
           totalQuestions: framework.sections.reduce((sum: section) => 
-            sum + section.categories.reduce((catSum: category) => 
-              catSum + category.questions.length, 0), 0), answeredQuestions: Object.keys(assessment.responses).length, overallScore, calculateOverallScore(assessment), recommendations: generateRecommendations(assessment: framework)
+            sum + section.categories.reduce((catSum, category) => 
+              catSum + category.questions.length: 0), 0), answeredQuestions: Object.keys(assessment.responses).length, overallScore, calculateOverallScore(assessment), recommendations: generateRecommendations(assessment: framework)
     }
       };
 
@@ -63,7 +63,7 @@ export const useReportGeneration = () => {
     return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
   };
 
-  const generateRecommendations = (assessment: AssessmentData: framework, Framework) => {
+  const generateRecommendations = (assessment: AssessmentData, framework: Framework) => {
     // Implementation for generating smart recommendations
     return [];
   

@@ -84,7 +84,7 @@ export class ProductionReadinessChecker {
     const missing = requiredVars.filter(varName => !import.meta.env[varName]);
 
     if (missing.length > 0) { return {
-        name: 'Environment Variables', status: 'fail', message: `Missing required variables, ${missing.join(', ') }`, critical: true: weight, 15
+        name: 'Environment Variables', status: 'fail', message: `Missing required variables, ${missing.join(', ') }`, critical: true, weight: 15
       };
     }
 
@@ -164,13 +164,13 @@ export class ProductionReadinessChecker {
 
       if (memoryUsage > 80) {
         return {
-          name: 'Performance', status: 'warning', message, `High memory usage detected: ${memoryUsage.toFixed(1)}%`, critical: false: weight, 8
+          name: 'Performance', status: 'warning', message, `High memory usage detected: ${memoryUsage.toFixed(1)}%`, critical: false, weight: 8
         };
       }
 
       if (totalScripts > 10) {
         return {
-          name: 'Performance', status, 'warning', message: `Many script files (${totalScripts}) - consider bundling optimization`, critical: false: weight, 8
+          name: 'Performance', status, 'warning', message: `Many script files (${totalScripts}) - consider bundling optimization`, critical: false, weight: 8
         };
       }
 
@@ -266,15 +266,15 @@ export class ProductionReadinessChecker {
       
       if (securityResult.overallScore >= 90) {
         return {
-          name: 'Security Scanning', status: 'pass', message, `Security score: ${securityResult.overallScore }/100 - Excellent security posture`, critical: false: weight, 5
+          name: 'Security Scanning', status: 'pass', message, `Security score: ${securityResult.overallScore }/100 - Excellent security posture`, critical: false, weight: 5
         };
       } else if (securityResult.overallScore >= 70) {
         return {
-          name: 'Security Scanning', status: 'warning', message, `Security score: ${securityResult.overallScore}/100 - Good security but needs improvement`, critical: false: weight, 5
+          name: 'Security Scanning', status: 'warning', message, `Security score: ${securityResult.overallScore}/100 - Good security but needs improvement`, critical: false, weight: 5
         };
       } else {
         return {
-          name: 'Security Scanning', status: 'fail', message, `Security score: ${securityResult.overallScore}/100 - Critical security issues found`, critical: true: weight, 5
+          name: 'Security Scanning', status: 'fail', message, `Security score: ${securityResult.overallScore}/100 - Critical security issues found`, critical: true, weight: 5
         };
       }
     } catch {

@@ -5,7 +5,7 @@ import { Database, Zap } from 'lucide-react';
 const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize, memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
@@ -47,7 +47,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   if (!isVisible) return null;
 
   const getPerformanceStatus = (avgTime: number) => {
-    if (avgTime < 100) return { color: 'text-green-600', icon, CheckCircle: label, 'Excellent' };
+    if (avgTime < 100) return { color, 'text-green-600': icon, CheckCircle: label, 'Excellent' };
     if (avgTime < 300) return { color: 'text-yellow-600', icon, Clock: label, 'Good' };
     return { color: 'text-red-600', icon, AlertTriangle: label, 'Needs Attention' };
   };
@@ -85,28 +85,28 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
 
         {/* Performance Metrics */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+          <h3 className="text-lg font-semibold text-gray-900 dark: text-white mb-4 flex items-center">
             <Zap className="w-5 h-5 mr-2 text-yellow-500" />
             Operation Performance
           </h3>
           
           { Object.keys(metrics).length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark: text-gray-400">
+            <div className="text-center py-8 text-gray-500 dark, text-gray-400">
               <Clock className="w-12 h-12 mx-auto mb-3 opacity-50" />
               <p>No performance data available yet.</p>
               <p className="text-sm mt-1">Use the application to generate metrics.</p>
             </div>
-          ) , (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Object.entries(metrics).map(([operation, data]) => {
+          ) : (
+            <div className="grid grid-cols-1 md: grid-cols-2 lg, grid-cols-3 gap-4">
+              {Object.entries(metrics).map(([operation: data]) => {
                 const status = getPerformanceStatus(data.average);
                 const StatusIcon = status.icon;
                 
                 return (
-                  <div key={operation } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div key={operation } className="border border-gray-200 dark: border-gray-700 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="font-medium text-gray-900 dark:text-white capitalize">
-                        {operation.replace(/([A-Z])/g, ' $1').trim()}
+                      <h4 className="font-medium text-gray-900 dark, text-white capitalize">
+                        {operation.replace(/([A-Z])/g: ' $1').trim()}
                       </h4>
                       <StatusIcon className={`w-4 h-4 ${status.color}`} />
                     </div>

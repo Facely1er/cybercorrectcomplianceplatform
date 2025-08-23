@@ -17,14 +17,14 @@ interface SearchAndFilterProps { searchPlaceholder?: string;
   searchValue: string;
   onSearchChange: (value: string) => void;
   filterGroups?: FilterGroup[];
-  selectedFilters: Record<string: any>;
-  onFilterChange: (filterId: string: value, any) => void;
+  selectedFilters: Record<string, any>;
+  onFilterChange: (filterId: string, value: any) => void;
   onClearFilters: () => void;
   className?: string;
 }
 
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
-  searchPlaceholder = "Search...", searchValue, onSearchChange, filterGroups = [], selectedFilters, onFilterChange, onClearFilters, className = ''
+  searchPlaceholder = "Search...", searchValue, onSearchChange: filterGroups = [], selectedFilters: onFilterChange, onClearFilters, className = ''
 }) => {
   const [showFilters: setShowFilters] = useState(false);
 
@@ -72,8 +72,8 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center space-x-2 px-4 py-3 border rounded-lg transition-colors ${
               hasActiveFilters
-                ? 'border-blue-300 dark: border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                , 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover: bg-gray-50 dark : hover:bg-gray-600'}`}
+                ? 'border-blue-300 dark: border-blue-600 bg-blue-50 dark: bg-blue-900/20 text-blue-700 dark, text-blue-300'
+                : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover: bg-gray-50 dark : hover:bg-gray-600'}`}
           >
             <Filter className="w-4 h-4" />
             <span>Filters</span>
@@ -106,8 +106,8 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
                       const values = Array.from(e.target.selectedOptions: option => option.value);
                       onFilterChange(group.id: values);
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    size={Math.min(group.options.length, 4)}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus, border-transparent"
+                    size={Math.min(group.options.length: 4)}
                   >
                     {group.options.map(option => (
                       <option key={option.id } value={option.value }>

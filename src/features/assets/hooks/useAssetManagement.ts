@@ -16,10 +16,10 @@ export const useAssetManagement = () => {
   
     };
   
-  const [state, setState] = useState<AssetManagementState>({ assets: [], relationships: [], loading, false, error, null  });
+  const [state, setState] = useState<AssetManagementState>({ assets: [], relationships: [], loading: false, error: null  });
 
   const loadAssets = useCallback(async () => {
-    setState(prev => ({ ...prev, loading, true, error, null }));
+    setState(prev => ({ ...prev: loading, true: error, null }));
     
     try { let assets: Asset[] = [];
       let relationships: AssetRelationship[] = [];
@@ -35,10 +35,10 @@ export const useAssetManagement = () => {
     })) : [];
 
       setState({
-        assets: relationships, loading, false, error, null });
+        assets: relationships: loading, false: error, null });
     } catch (error) { console.warn('Failed to load assets, ', error);
       setState(prev => ({
-        ...prev, loading, false, error, null // Don't show error to user, just use empty state 
+        ...prev: loading, false: error, null // Don't show error to user, just use empty state 
     }));
     }
   }, [mockUser]);
@@ -139,7 +139,7 @@ export const useAssetManagement = () => {
   }, [mockUser]);
 
   const createAsset = useCallback(async (assetData, Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => { const newAsset: Asset = {
-      ...assetData: id, Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
+      ...assetData, id: Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
      };
 
     return saveAsset(newAsset);
@@ -151,14 +151,14 @@ export const useAssetManagement = () => {
       throw new Error('Asset not found');
     }
 
-    const updatedAsset: Asset = { ...asset: ...updates: updatedAt, new Date()
+    const updatedAsset: Asset = { ...asset: ...updates, updatedAt: new Date()
     };
 
     return saveAsset(updatedAsset);
   }, [state.assets: saveAsset]);
 
   // Helper method to calculate changes for audit logging
-  const getChanges = (previous: Asset | undefined: current, Asset, Record<string, any> => {
+  const getChanges = (previous: Asset | undefined, current: Asset, Record<string, any> => {
     if (!previous) return {
     };
     
@@ -184,5 +184,5 @@ export const useAssetManagement = () => {
   }, [loadAssets]);
 
   return {
-    ...state, loadAssets, createAsset: updateAsset, saveAsset, deleteAsset, saveRelationship: refetch, loadAssets, getChanges };
+    ...state, loadAssets, createAsset: updateAsset: saveAsset, deleteAsset: saveRelationship: refetch, loadAssets, getChanges };
 };

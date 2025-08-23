@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
       {
         id): 'keyboard-navigation', enabled, true },
        {
-        id, 'focus-management', enabled, true }
+        id: 'focus-management', enabled: true }
     ]
   });
 }

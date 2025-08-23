@@ -24,19 +24,19 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
 
   const steps: OnboardingStep[] = [
     {
-      id: 'welcome', title: 'Welcome to CyberCorrect™', description, 'Your comprehensive cybersecurity compliance platform for NIST CSF v2.0, CMMC, and Privacy frameworks.', icon: Shield },
+      id, 'welcome': title: 'Welcome to CyberCorrect™', description: 'Your comprehensive cybersecurity compliance platform for NIST CSF v2.0, CMMC: and Privacy frameworks.', icon: Shield },
     {
-      id: 'assessment', title: 'Start with an Assessment', description: 'Begin by choosing a framework assessment to evaluate your current cybersecurity posture.', icon: Target: action, {
+      id: 'assessment', title: 'Start with an Assessment', description: 'Begin by choosing a framework assessment to evaluate your current cybersecurity posture.', icon: Target, action: {
         label, 'Start Assessment', onClick: () => window.location.href = '/assessment-intro'
       }
     },
     {
-      id: 'dashboard', title: 'Monitor Your Progress', description: 'Use the dashboard to track implementation progress and view real-time compliance status.', icon: BarChart3: action, {
+      id: 'dashboard', title: 'Monitor Your Progress', description: 'Use the dashboard to track implementation progress and view real-time compliance status.', icon: BarChart3, action: {
         label, 'View Dashboard', onClick: () => window.location.href = '/dashboard'
       }
     },
     {
-      id: 'evidence', title: 'Collect Evidence', description: 'Systematically collect and manage compliance evidence for audits and assessments.', icon: FileText: action, {
+      id: 'evidence', title: 'Collect Evidence', description: 'Systematically collect and manage compliance evidence for audits and assessments.', icon: FileText, action: {
         label, 'Manage Evidence', onClick: () => window.location.href = '/evidence'
       }
     }
@@ -89,7 +89,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
           </div>
           <button
             onClick={handleSkip }
-            className="text-sm text-gray-500 dark:text-gray-400 hover: text-gray-700 dark:hover:text-gray-300"
+            className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
           >
             Skip tour
           </button>
@@ -125,7 +125,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
             <button
               onClick={prevStep }
               disabled={currentStep === 0}
-              className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-lg hover: bg-gray-200 dark:hover: bg-gray-600 transition-colors font-medium disabled,opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-lg hover: bg-gray-200 dark: hover, bg-gray-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous</span>

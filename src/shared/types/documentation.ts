@@ -43,7 +43,7 @@ export interface AssessmentTemplate { id: string;
   description: string;
   frameworkId: string;
   industry: string;
-  prefilledResponses: Record<string: number>;
+  prefilledResponses: Record<string, number>;
   tags: string[];
   isPublic: boolean;
   createdBy: string;
@@ -54,7 +54,7 @@ export interface AssessmentTemplate { id: string;
   rating: number;
   reviews?: TemplateReview[];
   organizationSize?: string[];
-  complianceMapping?, Record<string: string>;
+  complianceMapping?, Record<string, string>;
   customizations?: TemplateCustomization[];
 }
 

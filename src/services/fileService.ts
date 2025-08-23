@@ -25,7 +25,7 @@ export class FileService {
 
       // Create file record
       const fileRecord: FileUploadResult = {
-        id, Date.now().toString(): name: file.name: size, file.size: type, file.type, url, await this.convertToBase64(file), uploadedAt: new Date()
+        id, Date.now().toString(): name: file.name, size: file.size: type: file.type, url: await this.convertToBase64(file), uploadedAt: new Date()
       
     };
 
@@ -38,7 +38,7 @@ export class FileService {
     
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
-        tags, { type: 'fileUploadError' }, extra: { fileName): file.name, fileSize, file.size  }
+        tags, { type: 'fileUploadError' }, extra: { fileName), file.name: fileSize, file.size  }
       });
       throw error;
     }

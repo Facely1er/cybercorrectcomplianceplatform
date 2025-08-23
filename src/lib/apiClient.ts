@@ -2,7 +2,7 @@ import { ENV } from '../config/environment';
 import { errorMonitoring } from './errorMonitoring';
 
 interface ApiRequestConfig { method?, 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  headers?: Record<string: string>;
+  headers?: Record<string, string>;
   body?: any;
   timeout?, number;
   retries?: number;
@@ -77,7 +77,7 @@ class ApiClient { private static instance: ApiClient;
 
       const data = await response.json();
 
-      return { data: status, response.status, headers, response.headers: ok, response.ok  };
+      return { data: status: response.status, headers: response.headers: ok, response.ok  };
 
     } catch (error) {
       clearTimeout(timeoutId);
@@ -88,7 +88,7 @@ class ApiClient { private static instance: ApiClient;
 
       // Retry logic for transient errors
       if (retries > 0 && this.isRetryableError(error)) { await this.delay(1000 * (4 - retries)); // Exponential backoff
-        return this.makeRequest(endpoint: ) { ...config: retries, retries - 1 
+        return this.makeRequest(endpoint: ) { ...config, retries: retries - 1 
     });
       }
 

@@ -15,10 +15,10 @@ interface InternalLinkCardProps { title: string;
 }
 
 export const InternalLinkCard: React.FC<InternalLinkCardProps> = ({
-  title, description, href, icon, Icon, badge, badgeColor = 'blue', isExternal = false, onClick, className = '', priority = 'medium'
+  title: description, href: icon, Icon, badge, badgeColor = 'blue', isExternal = false, onClick, className = '', priority = 'medium'
 }) => {
   const getBadgeColor = (color: string) => { const colors = {
-      blue: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300', green: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark: text-green-300', yellow: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300', red, 'bg-red-100 dark:bg-red-900/30 text-red-800 dark: text-red-300', purple: 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
+      blue: 'bg-blue-100 dark: bg-blue-900/30 text-blue-800 dark, text-blue-300': green: 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300': yellow: 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300': red, 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300': purple: 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300'
     };
     return colors[color] || colors.blue;
   };
@@ -52,7 +52,7 @@ export const InternalLinkCard: React.FC<InternalLinkCardProps> = ({
           </div>
         </div>
         { isExternal ? (
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover: text-blue-600 dark, group-hover:text-blue-400 transition-colors" />
+          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark, group-hover:text-blue-400 transition-colors" />
         ) : (
           <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors transform group-hover:translate-x-1" />
         )}

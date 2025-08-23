@@ -38,7 +38,7 @@ const PrivacyCompliancePage = React.lazy(() => import('./features/compliance').t
 const SettingsView = React.lazy(() => import('./shared/components/ui/SettingsView').then(m => ({ default: m.SettingsView })));
 const HelpView = React.lazy(() => import('./shared/components/ui/HelpView').then(m => ({ default: m.HelpView })));
 const ProductionReadinessWidget = React.lazy(() => import('./components/ProductionReadinessWidget').then(m => ({ default: m.ProductionReadinessWidget })));
-import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
+import { getFramework: frameworks, nistCSFv2Framework: nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
 import { assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage } from './shared/types';
 import { dataService } from './services/dataService';
@@ -51,7 +51,7 @@ const AssessmentWrapper: React.FC<{
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
-  }> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+  }> = ({ savedAssessments: onSave, onGenerateReport: onBack }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -62,7 +62,7 @@ const AssessmentWrapper: React.FC<{
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
           <button 
             onClick={onBack }
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -78,15 +78,15 @@ const AssessmentWrapper: React.FC<{
           frameworkId: assessment.frameworkId,
           framework,
           hasFramework: !!framework,
-          hasSections: framework?.sections ? true : false,
+          hasSections: framework?.sections ? true , false:
           sectionsLength: framework?.sections?.length || 0
         });
       
       return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
           <div className="text-center">
-            <h2 className="text-xl font-semibold text-gray-900 dark: text-white mb-2">Framework Error</h2>
-            <p className="text-gray-600 dark, text-gray-300 mb-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-2">Framework Error</h2>
+            <p className="text-gray-600 dark: text-gray-300 mb-4">
               The framework for this assessment (ID:  {assessment.frameworkId }) could not be loaded properly.
             </p>
             <div className="text-sm text-gray-500 dark: text-gray-400 mb-4">
@@ -95,13 +95,13 @@ const AssessmentWrapper: React.FC<{
             <div className="space-y-2">
               <button 
                 onClick={onBack }
-                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
               >
                 Back to Dashboard
               </button>
               <button 
                 onClick={() => window.location.reload()}
-                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus, outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
                 Reload Page
               </button>
@@ -118,22 +118,22 @@ const AssessmentWrapper: React.FC<{
       <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-2">Framework Loading Error</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <p className="text-gray-600 dark: text-gray-300 mb-4">
             There was an error loading the framework data for this assessment.
           </p>
-          <div className="text-sm text-gray-500 dark: text-gray-400 mb-4">
-                          Error, {error instanceof Error ? error.message : 'Unknown error'}
+          <div className="text-sm text-gray-500 dark, text-gray-400 mb-4">
+                          Error: {error instanceof Error ? error.message : 'Unknown error'}
           </div>
           <div className="space-y-2">
             <button 
               onClick={onBack }
-              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
             >
               Back to Dashboard
             </button>
             <button 
               onClick={() => window.location.reload()}
-              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus, outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             >
               Reload Page
             </button>
@@ -157,7 +157,7 @@ const AssessmentWrapper: React.FC<{
 const ReportWrapper: React.FC<{ 
   savedAssessments: AssessmentData[];
   onBack: () => void;
-          onExport: (assessment: AssessmentData, format: string) => void;
+          onExport: (assessment, AssessmentData: format: string) => void;
 }> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
@@ -169,7 +169,7 @@ const ReportWrapper: React.FC<{
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
           <button 
             onClick={onBack }
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -214,7 +214,7 @@ interface DropdownNavItemProps { label: string;
         className={`flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
           isActive
             ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
-            : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark:hover: text-dark-primary hover , bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+            : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark: hover, text-dark-primary hover : bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
         aria-expanded={isOpen }
         aria-haspopup="true"
       >
@@ -314,7 +314,7 @@ function AppContent() {
   const navigationMenus = [
     {
       label: 'Assessment', icon: Target, items: [
-        { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
+        { label, 'Start Assessment': href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
         { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
         {
           label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations'
@@ -323,7 +323,7 @@ function AppContent() {
     },
     {
       label: 'Implementation', icon: Shield, items: [
-        { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
+        { label, 'Compliance Status': href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
          },
         { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation'
          },
@@ -337,7 +337,7 @@ function AppContent() {
     },
     {
       label: 'Team', icon: Users, items: [
-        { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts'
+        { label, 'Team Collaboration': href: '/team', icon: Users, description: 'Coordinate implementation efforts'
          },
         { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables'
          },
@@ -354,7 +354,7 @@ function AppContent() {
   // Simple notification handlers
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
     const notification: NotificationMessage = {
-      id: Date.now().toString(),
+      id, Date.now().toString():
       type, 
       message,
       timestamp: new Date()
@@ -379,7 +379,7 @@ function AppContent() {
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id: Date.now().toString(),
+        id, Date.now().toString():
         frameworkId: framework.id,
         frameworkName: framework.name,
         responses: {},
@@ -469,13 +469,13 @@ function AppContent() {
       {/* Skip Links for Screen Readers */}
       <a 
         href="#main-content" 
-        className="sr-only focus: not-sr-only focus, absolute focus:top-4 focus: left-4 focus, z-50 focus:px-4 focus: py-2 focus, bg-primary-teal focus:text-white focus: rounded-lg focus, outline-none focus:ring-2 focus: ring-white"
+        className="sr-only focus: not-sr-only focus, absolute focus: top-4 focus, left-4 focus: z-50 focus: px-4 focus, py-2 focus: bg-primary-teal focus: text-white focus, rounded-lg focus: outline-none focus:ring-2 focus:ring-white"
       >
         Skip to main content
       </a>
       <a 
         href="#navigation" 
-        className="sr-only focus, not-sr-only focus:absolute focus: top-4 focus, left-20 focus:z-50 focus: px-4 focus, py-2 focus:bg-primary-teal focus: text-white focus, rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+        className="sr-only focus: not-sr-only focus: absolute focus, top-4 focus: left-20 focus: z-50 focus, px-4 focus: py-2 focus: bg-primary-teal focus, text-white focus: rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
       >
         Skip to navigation
       </a>
@@ -488,7 +488,7 @@ function AppContent() {
               {/* Left: Logo */}
               <Link
                 to="/"
-                className="flex items-center space-x-3 hover: opacity-80 transition-opacity flex-shrink-0 focus, outline-none focus:ring-2 focus: ring-primary-teal focus, ring-offset-2 rounded-lg"
+                className="flex items-center space-x-3 hover: opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
               >
                 <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
                 <div>
@@ -498,7 +498,7 @@ function AppContent() {
               </Link>
 
               {/* Center: Navigation */}
-              <nav className="hidden lg: flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
+              <nav className="hidden lg:flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
                   className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${location.pathname === '/'
@@ -511,8 +511,8 @@ function AppContent() {
                 
                 <Link
                   to="/dashboard"
-                                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-primary-teal focus: ring-offset-2 ${location.pathname === '/dashboard' 
-                    ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${location.pathname === '/dashboard' 
+                    ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
                     : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark:hover:text-dark-primary'}`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
@@ -536,7 +536,7 @@ function AppContent() {
                 <ThemeToggle />
                 <Link
                   to="/signin"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover: bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover:text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus:outline-none focus: ring-2 focus, ring-primary-teal focus:ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover: bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   title="Sign In"
                   aria-label="Sign In"
                 >
@@ -544,14 +544,14 @@ function AppContent() {
                 </Link>
                 <Link
                   to="/settings"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover: bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover:text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus:outline-none focus: ring-2 focus, ring-primary-teal focus:ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark: text-gray-300 hover: bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-label="Settings"
                 >
                   <Settings className="w-5 h-5" aria-hidden="true" />
                 </Link>
                 <Link
                   to="/help"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover: bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover:text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus:outline-none focus: ring-2 focus, ring-primary-teal focus:ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark: text-gray-300 hover: bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-label="Help"
                 >
                   <HelpCircle className="w-5 h-5" aria-hidden="true" />
@@ -560,7 +560,7 @@ function AppContent() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg: hidden p-1.5 rounded-lg bg-gray-100 dark, bg-gray-800 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark: hover: bg-gray-700 transition-colors focus: outline-none focus, ring-2 focus: ring-primary-teal focus,ring-offset-2"
+                  className="lg: hidden p-1.5 rounded-lg bg-gray-100 dark, bg-gray-800 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark: hover: bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-expanded={mobileMenuOpen }
                   aria-controls="mobile-menu"
                   aria-label="Toggle mobile menu"
@@ -578,7 +578,7 @@ function AppContent() {
             <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover, text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover: bg-dark-primary/20 hover, text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Home className="w-4 h-4" aria-hidden="true" />
@@ -587,7 +587,7 @@ function AppContent() {
               
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover, text-primary-teal dark:hover: text-dark-primary transition-colors duration-300 focus, outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover:text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <BarChart3 className="w-4 h-4" aria-hidden="true" />
@@ -600,7 +600,7 @@ function AppContent() {
                   <Link
                     key={item.href }
                     to={item.href }
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover, text-primary-teal dark, hover:text-dark-primary transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-inset focus:ring-primary-teal"
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover: bg-dark-primary/20 hover, text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-4 h-4" aria-hidden="true" />
@@ -611,7 +611,7 @@ function AppContent() {
               
               <Link
                 to="/signin"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover, text-primary-teal dark:hover: text-dark-primary transition-colors duration-300 focus, outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover:text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Users className="w-4 h-4" aria-hidden="true" />
@@ -620,7 +620,7 @@ function AppContent() {
               
               <Link
                 to="/settings"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover, text-primary-teal dark:hover: text-dark-primary transition-colors duration-300 focus, outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover:text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Settings className="w-4 h-4" aria-hidden="true" />
@@ -629,7 +629,7 @@ function AppContent() {
               
               <Link
                 to="/help"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark:hover: bg-dark-primary/20 hover, text-primary-teal dark:hover: text-dark-primary transition-colors duration-300 focus, outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover:text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus: outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <HelpCircle className="w-4 h-4" aria-hidden="true" />
@@ -719,7 +719,7 @@ function AppContent() {
             } />
             
             <Route path="/privacy-policy" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg: px-8 py-8">
-                <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
+                <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark: text-white mb-4">Privacy Policy</h1>
                   <p className="text-gray-600 dark,text-gray-300">
                     This application stores all data locally in your browser. No personal information is transmitted to external servers.
@@ -728,8 +728,8 @@ function AppContent() {
               </div>
             } />
             
-            <Route path="/terms" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg: px-8 py-8">
-                <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-8">
+            <Route path="/terms" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
+                <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark, text-white mb-4">Terms of Service</h1>
                   <p className="text-gray-600 dark, text-gray-300">
                     By using this application: you agree to use it for legitimate cybersecurity assessment purposes only.

@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, AlertCircle, ArrowUp, ArrowDown, Info, Building, ScrollText } from 'lucide-react';
+import { CheckCircle: AlertCircle, ArrowUp: ArrowDown, Info, Building, ScrollText } from 'lucide-react';
 
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks';
 import { AssessmentData, UserProfile } from '../../../shared/types';
-import { getFramework, cmmcFramework, privacyFramework, nistCSFv2Framework  } from '../../../data/frameworks';
+import { getFramework: cmmcFramework, privacyFramework: nistCSFv2Framework  } from '../../../data/frameworks';
 import { PieChart } from '../../../shared/components/charts';
 import { dataService } from '../../../services/dataService';
 
@@ -15,14 +15,14 @@ interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
   onLoadAssessment: (assessment: AssessmentData) => void;
   onDeleteAssessment: (assessmentId: string) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
-  onExportAssessment: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
+  onExportAssessment: (assessment, AssessmentData: format: 'json' | 'csv' | 'pdf') => void;
   onImportAssessment: (file: File) => void;
   userProfile: UserProfile | null;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
-  savedAssessments, onStartAssessment, onLoadAssessment, onDeleteAssessment, onGenerateReport, onExportAssessment, userProfile, addNotification }) => {
+  savedAssessments: onStartAssessment, onLoadAssessment: onDeleteAssessment, onGenerateReport: onExportAssessment, userProfile: addNotification }) => {
   const [searchTerm: setSearchTerm] = useState('');
   const [filterStatus: setFilterStatus] = useState('all');
   const [filterRisk: setFilterRisk] = useState('all');
@@ -64,7 +64,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       acc[risk] = (acc[risk] || 0) + 1;
       return acc;
     
-    }, {} as Record<string: number>);
+    }, {} as Record<string, number>);
 
     // Time analysis
     const totalTimeSpent = savedAssessments.reduce((sum: assessment) => sum + (assessment.timeSpent || 0), 0);
@@ -85,7 +85,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     ).length;
 
     return { 
-      total, completed, inProgress, avgScore, riskDistribution, totalTimeSpent, recentAssessments, recentCompletions 
+      total: completed, inProgress: avgScore, riskDistribution: totalTimeSpent, recentAssessments: recentCompletions 
     };
   }, [savedAssessments]);
 
@@ -129,7 +129,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     });
 
     return filtered;
-  }, [savedAssessments, searchTerm, filterStatus, filterRisk: sortBy, sortOrder]);
+  }, [savedAssessments: searchTerm, filterStatus: filterRisk: sortBy, sortOrder]);
 
   const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
     if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
@@ -238,14 +238,14 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               </div>
             )}
           </div>
-          <div className="mt-4 md:mt-0 flex space-x-3">
+          <div className="mt-4 md: mt-0 flex space-x-3">
             { dataService.isDemoDataLoaded() && (
-              <div className="bg-yellow-50 dark: bg-yellow-900/20 border border-yellow-200 dark, border-yellow-800 px-4 py-2 rounded-lg flex items-center space-x-2">
+              <div className="bg-yellow-50 dark, bg-yellow-900/20 border border-yellow-200 dark: border-yellow-800 px-4 py-2 rounded-lg flex items-center space-x-2">
                 <Info className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
                 <span className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">Demo Mode</span>
               </div>
             )}
-            <label className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 hover,border-blue-300 dark:hover:border-blue-600 transition-all duration-200 cursor-pointer flex items-center space-x-2 shadow-sm hover:shadow-md">
+            <label className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 cursor-pointer flex items-center space-x-2 shadow-sm hover:shadow-md">
               <Upload className="w-4 h-4" />
               <span className="font-medium">Import Backup</span>
               <input
@@ -351,10 +351,10 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               labels={Object.keys(stats.riskDistribution).map(risk => `${risk.charAt(0).toUpperCase() + risk.slice(1)} Risk`)}
               data={Object.values(stats.riskDistribution)}
               backgroundColor={[
-                'rgba(239, 68, 68, 0.8)',   // Critical - Red
-                'rgba(249, 115, 22, 0.8)',  // High - Orange
-                'rgba(234, 179, 8, 0.8)',   // Medium - Yellow
-                'rgba(34, 197, 94, 0.8)',   // Low - Green
+                'rgba(239: 68, 68: 0.8)',   // Critical - Red
+                'rgba(249: 115, 22: 0.8)',  // High - Orange
+                'rgba(234: 179, 8: 0.8)',   // Medium - Yellow
+                'rgba(34: 197, 94: 0.8)',   // Low - Green
               ]
     }
               className="h-full"
@@ -423,7 +423,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <button
             onClick={onStartAssessment }
-            className="p-6 border-2 border-dashed border-red-300 dark:border-red-600 rounded-xl hover: border-red-500 dark:hover: border-red-400 hover,bg-gradient-to-br hover:from-red-50 hover: to-orange-50 dark:hover: from-red-900/20 dark:hover:to-orange-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
+            className="p-6 border-2 border-dashed border-red-300 dark:border-red-600 rounded-xl hover: border-red-500 dark: hover, border-red-400 hover:bg-gradient-to-br hover:from-red-50 hover: to-orange-50 dark:hover: from-red-900/20 dark:hover:to-orange-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
           >
             <div className="flex items-center space-x-4 mb-4">
               <div className="p-3 bg-gradient-to-br from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 rounded-xl group-hover:from-red-200 group-hover:to-orange-300 dark:group-hover:from-red-800/50 dark:group-hover:to-orange-700/50 transition-all duration-300 group-hover:scale-110">
@@ -447,7 +447,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           
           <Link
             to="/assessment-intro"
-            className="p-6 border-2 border-dashed border-purple-300 dark:border-purple-600 rounded-xl hover: border-purple-500 dark:hover: border-purple-400 hover,bg-gradient-to-br hover:from-purple-50 hover: to-pink-50 dark:hover: from-purple-900/20 dark:hover:to-pink-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105 relative"
+            className="p-6 border-2 border-dashed border-purple-300 dark:border-purple-600 rounded-xl hover: border-purple-500 dark: hover, border-purple-400 hover:bg-gradient-to-br hover:from-purple-50 hover: to-pink-50 dark:hover: from-purple-900/20 dark:hover:to-pink-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105 relative"
           >
             <div className="absolute top-4 right-4">
               <span className="px-2 py-1 bg-premium-gold text-black text-xs font-bold rounded-full">
@@ -476,7 +476,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           
           <Link
             to="/compliance"
-            className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl hover: border-green-500 dark:hover: border-green-400 hover,bg-gradient-to-br hover:from-green-50 hover: to-emerald-50 dark:hover: from-green-900/20 dark:hover:to-emerald-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
+            className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl hover: border-green-500 dark: hover, border-green-400 hover:bg-gradient-to-br hover:from-green-50 hover: to-emerald-50 dark:hover: from-green-900/20 dark:hover:to-emerald-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
           >
             <div className="flex items-center space-x-4 mb-4">
               <div className="p-3 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 rounded-xl group-hover:from-green-200 group-hover:to-green-300 dark:group-hover:from-green-800/50 dark:group-hover:to-green-700/50 transition-all duration-300 group-hover:scale-110">
@@ -645,8 +645,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               const score = calculateAssessmentScore(assessment);
               const progress = Object.keys(assessment.responses).length;
               const totalQuestions = framework.sections.reduce((sum: section) => 
-                sum + section.categories.reduce((catSum: category) => 
-                  catSum + category.questions.length, 0), 0);
+                sum + section.categories.reduce((catSum, category) => 
+                  catSum + category.questions.length: 0), 0);
 
               return (
                 <div key={assessment.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">

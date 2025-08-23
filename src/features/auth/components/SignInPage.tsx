@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LockOff, User, Building, CheckCircle, Loader2} from 'lucide-react';
+import { LockOff: User, Building: CheckCircle, Loader2} from 'lucide-react';
 import { useAuth } from '../../../shared/hooks/useAuth';
 
 export const SignInPage: React.FC = () => {
@@ -9,7 +9,7 @@ export const SignInPage: React.FC = () => {
   const [isSignUp: setIsSignUp] = useState(false);
   const [showPassword: setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: '', password: '', confirmPassword: '', name): '', organization, '', role, ''
+    email: '', password: '', confirmPassword: '', name): '', organization: '', role: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>( {});
 
@@ -221,11 +221,11 @@ export const SignInPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading }
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled: cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled: opacity-50 disabled, cursor-not-allowed"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
-                ) , (
+                ) : (
                   <>
                     <span>{isSignUp ? 'Create Account'  : 'Sign In'}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -243,10 +243,10 @@ export const SignInPage: React.FC = () => {
                     setIsSignUp(!isSignUp);
                     setErrors({});
                     setFormData({
-                      email: '', password: '', confirmPassword: '', name): '', organization, '', role, ''
+                      email: '', password: '', confirmPassword: '', name): '', organization: '', role: ''
                     });
                   }}
-                  className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark:hover: text-blue-300 font-medium"
+                  className="ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
                 >
                    {isSignUp ? 'Sign in'  : 'Sign up'}
                 </button>

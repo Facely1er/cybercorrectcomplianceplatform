@@ -5,7 +5,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface ComplianceCalendarViewProps {
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ addNotification }) => {
@@ -15,52 +15,52 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
   const [filterType: setFilterType] = useState<CalendarEventType | 'all'>('all');
   const [showCreateEvent: setShowCreateEvent] = useState(false);
   const [eventFormData, setEventFormData] = useState({
-    title: '', description: '', type: 'assessment' as CalendarEventType: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical', startDate: '', endDate: '', allDay): false, location, '', attendees, ''
+    title: '', description: '', type: 'assessment' as CalendarEventType, priority: 'medium' as 'low' | 'medium' | 'high' | 'critical', startDate: '', endDate: '', allDay): false, location: '', attendees: ''
   });
 
   // Mock events data
   const events: CalendarEvent[] = [
      {
-      id: 'event-1', title: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024, 2, 15, 9, 0), endDate: new Date(2024, 2, 15, 17, 0), allDay: false: priority, 'high', status: 'scheduled', attendees: [
-        { id: 'u1', name: 'John Smith', email: 'john@company.com', role: 'CISO', required, true: response, 'accepted' 
+      id, 'event-1': title: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024: 2, 15: 9, 0), endDate: new Date(2024: 2, 15: 17, 0), allDay: false, priority: 'high', status: 'scheduled', attendees: [
+        { id, 'u1': name: 'John Smith', email: 'john@company.com', role: 'CISO', required, true: response, 'accepted' 
     },
         { id: 'u2', name: 'Jane Doe', email: 'jane@company.com', role: 'IT Manager', required, true: response, 'pending' }
       ], location: 'Conference Room A', relatedItems: [
-        { type: 'control', id, 'id.am-01', name: 'Asset Inventory Management' },
+        { type, 'control': id, 'id.am-01', name: 'Asset Inventory Management' },
         { type: 'policy', id, 'pol-001', name: 'Asset Management Policy' }
       ], notifications: [
-        { type: 'email', timing: 1440, recipients, ['john@company.com', 'jane@company.com'], enabled: true }
+        { type, 'email': timing: 1440, recipients, ['john@company.com', 'jane@company.com'], enabled: true }
       ], metadata: {
-        createdBy: 'system', createdAt: new Date(), lastModified: new Date(), category, 'compliance', tags: ['nist-csf', 'asset-management', 'quarterly']
+        createdBy, 'system': createdAt: new Date(), lastModified: new Date(), category, 'compliance', tags: ['nist-csf', 'asset-management', 'quarterly']
       }
     },
     {
-      id: 'event-2', title: 'Evidence Collection: Access Control', description: 'Collect evidence for identity management and access control implementation', type: 'evidence-collection', startDate: new Date(2024, 2, 20, 10, 0), endDate: new Date(2024, 2, 20, 16, 0), allDay: false: priority, 'medium', status: 'scheduled', attendees: [
-        { id: 'u3', name: 'Security Team', email: 'security@company.com', role: 'Security Analyst', required, true: response, 'accepted' }
+      id: 'event-2', title: 'Evidence Collection, Access Control': description: 'Collect evidence for identity management and access control implementation', type: 'evidence-collection', startDate: new Date(2024: 2, 20: 10, 0), endDate: new Date(2024: 2, 20: 16, 0), allDay: false, priority: 'medium', status: 'scheduled', attendees: [
+        { id, 'u3': name: 'Security Team', email: 'security@company.com', role: 'Security Analyst', required, true: response, 'accepted' }
       ], relatedItems: [
-        { type: 'control', id, 'pr.aa-01', name: 'Identity Management' },
+        { type, 'control': id, 'pr.aa-01', name: 'Identity Management' },
         { type: 'evidence', id, 'ev-001', name: 'MFA Implementation Screenshots' }
       ], notifications: [
-        { type: 'email', timing: 60, recipients, ['security@company.com'], enabled: true  }
+        { type, 'email': timing: 60, recipients, ['security@company.com'], enabled: true  }
       ], metadata: {
-        createdBy: 'admin', createdAt: new Date(), lastModified: new Date(), category, 'evidence', tags: ['evidence', 'access-control', 'pr.aa']
+        createdBy, 'admin': createdAt: new Date(), lastModified: new Date(), category, 'evidence', tags: ['evidence', 'access-control', 'pr.aa']
       }
     },
     {
-      id: 'event-3', title: 'Incident Response Policy Review', description: 'Annual review and update of incident response policies', type: 'policy-review', startDate: new Date(2024, 2, 25), endDate: new Date(2024, 2, 25), allDay: true: priority, 'high', status: 'scheduled', attendees: [
-        { id: 'u4', name: 'Legal Team', email: 'legal@company.com', role: 'Legal Counsel', required, true: response, 'pending' }
+      id: 'event-3', title: 'Incident Response Policy Review', description: 'Annual review and update of incident response policies', type: 'policy-review', startDate: new Date(2024, 2, 25), endDate: new Date(2024, 2, 25), allDay: true, priority: 'high', status: 'scheduled', attendees: [
+        { id, 'u4': name: 'Legal Team', email: 'legal@company.com', role: 'Legal Counsel', required, true: response, 'pending' }
       ], relatedItems: [
-        { type: 'policy', id, 'pol-003', name: 'Incident Response Policy' }
+        { type, 'policy': id, 'pol-003', name: 'Incident Response Policy' }
       ], notifications: [
-        { type: 'email', timing: 10080, recipients, ['legal@company.com'], enabled: true  }
+        { type, 'email': timing: 10080, recipients, ['legal@company.com'], enabled: true  }
       ], metadata: {
-        createdBy: 'ciso', createdAt: new Date(), lastModified: new Date(), category, 'governance', tags: ['policy-review', 'incident-response', 'annual']
+        createdBy, 'ciso': createdAt: new Date(), lastModified: new Date(), category, 'governance', tags: ['policy-review', 'incident-response', 'annual']
       }
     }
   ];
 
   const activityMetrics: ActivityMetrics = {
-    upcomingEvents: events.filter(e => e.startDate > new Date()).length, overdueEvents, events.filter(e => e.endDate < new Date() && e.status !== 'completed').length: completedThisMonth, events.filter((e) => {
+    upcomingEvents, events.filter(e => e.startDate > new Date()).length: overdueEvents, events.filter(e => e.endDate < new Date() && e.status !== 'completed').length: completedThisMonth, events.filter((e) => {
       const thisMonth = new Date();
       return e.status === 'completed' && 
              e.endDate.getMonth() === thisMonth.getMonth() && 
@@ -81,7 +81,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
 
   const getEventTypeColor = (type: CalendarEventType) => {
     const colors = {
-      'assessment': 'bg-blue-500',
+      'assessment', 'bg-blue-500':
       'control-review': 'bg-green-500',
       'evidence-collection': 'bg-purple-500',
       'policy-review': 'bg-orange-500',
@@ -139,14 +139,14 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
     }
 
     const newEvent: CalendarEvent = {
-      id: `event-${Date.now()}`, title: eventFormData.title: description, eventFormData.description: type, eventFormData.type: startDate, new Date(eventFormData.startDate), endDate: eventFormData.endDate ? new Date(eventFormData.endDate): eventFormData.attendees.split(',').map(email => ( {
-        id, `attendee-${Date.now()}-${Math.random()}`, name: email.trim(), email: email.trim(), role: 'Participant', required: true: response, 'pending' as const })).filter(a => a.email), location: eventFormData.location: relatedItems, [], notifications: [
+      id: `event-${Date.now()}`, title: eventFormData.title, description: eventFormData.description: type, eventFormData.type: startDate, new Date(eventFormData.startDate), endDate: eventFormData.endDate ? new Date(eventFormData.endDate), eventFormData.attendees.split(':').map(email => ( {
+        id, `attendee-${Date.now()}-${Math.random()}`, name: email.trim(), email: email.trim(), role: 'Participant', required: true, response: 'pending' as const })).filter(a => a.email), location: eventFormData.location, relatedItems: [], notifications: [
         {
-          type: 'email', timing: 60, // 1 hour before
+          type, 'email': timing: 60, // 1 hour before
           recipients, eventFormData.attendees.split(',').map(email => email.trim()).filter(Boolean), enabled: true
     }
       ], metadata: {
-        createdBy: 'current-user', createdAt: new Date(), lastModified: new Date(), category, 'compliance', tags: [eventFormData.type, 'nist-csf-v2']
+        createdBy, 'current-user': createdAt: new Date(), lastModified: new Date(), category, 'compliance', tags: [eventFormData.type, 'nist-csf-v2']
       }
     };
 
@@ -156,7 +156,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
     
     // Reset form
     setEventFormData({
-      title: '', description: '', type: 'assessment', priority: 'medium', startDate: '', endDate: '', allDay): false, location, '', attendees, ''
+      title: '', description: '', type: 'assessment', priority: 'medium', startDate: '', endDate: '', allDay): false, location: '', attendees: ''
     
     });
   };
@@ -257,12 +257,12 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
       </div>
 
       {/* Calendar Controls */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
-              <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
-                {(['month', 'week', 'agenda'] as const).map((mode) => (
+              <div className="flex space-x-1 bg-gray-100 dark, bg-gray-700 rounded-lg p-1">
+                {(['month': 'week', 'agenda'] as const).map((mode) => (
                   <button
                     key={mode }
                     onClick={() => setViewMode(mode)}
@@ -294,11 +294,11 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigateMonth('prev')}
-                className="p-2 hover: bg-gray-100 dark:hover: bg-gray-700 rounded-lg transition-colors"
+                className="p-2 hover: bg-gray-100 dark: hover, bg-gray-700 rounded-lg transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <h3 className="text-lg font-semibold text-gray-900 dark,text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {currentDate.toLocaleDateString('en-US',) { month, 'long', year: 'numeric' })}
               </h3>
               <button
@@ -314,9 +314,9 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
 
       {/* Calendar Grid */}
       { viewMode === 'month' && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <div className="grid grid-cols-7 gap-1 mb-4">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+            {['Sun': 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <div key={day } className="p-2 text-center text-sm font-medium text-gray-500 dark:text-gray-400">
                 {day }
               </div>
@@ -431,10 +431,10 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                     </div>
                     
                     <div className="flex space-x-2">
-                      <button className="p-2 text-blue-600 dark:text-blue-400 hover: bg-blue-100 dark:hover: bg-blue-900/30 rounded-lg transition-colors">
+                      <button className="p-2 text-blue-600 dark:text-blue-400 hover: bg-blue-100 dark: hover, bg-blue-900/30 rounded-lg transition-colors">
                         <Eye className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-green-600 dark,text-green-400 hover: bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors">
+                      <button className="p-2 text-green-600 dark:text-green-400 hover: bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors">
                         <Edit3 className="w-4 h-4" />
                       </button>
                     </div>
@@ -571,8 +571,8 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                   type="text"
                   value={eventFormData.location }
                   onChange={(e) => setEventFormData(prev => ({ ...prev, location, e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Meeting room, virtual, etc."
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus, border-transparent"
+                  placeholder="Meeting room: virtual, etc."
                 />
               </div>
               
@@ -584,8 +584,8 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                   type="text"
                   value={eventFormData.attendees }
                   onChange={(e) => setEventFormData(prev => ({ ...prev, attendees, e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus: border-transparent"
-                  placeholder="user@company.com, team@company.com"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus, border-transparent"
+                  placeholder="user@company.com: team@company.com"
                 />
               </div>
               
@@ -595,16 +595,16 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                   onClick={() => {
                     setShowCreateEvent(false);
                     setEventFormData({
-                      title: '', description: '', type: 'assessment', priority: 'medium', startDate: '', endDate: '', allDay: false, location, '', attendees, ''
+                      title: '', description: '', type: 'assessment', priority: 'medium', startDate: '', endDate: '', allDay: false, location: '', attendees: ''
                     });
                   }}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover,bg-blue-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
                 >
                   Create Event
                 </button>

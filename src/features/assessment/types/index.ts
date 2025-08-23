@@ -12,7 +12,7 @@ export interface AssessmentProgress { currentStep: number;
   totalSteps: number;
   completedQuestions: number;
   totalQuestions: number;
-  sectionProgress: Record<string: number>;
+  sectionProgress: Record<string, number>;
   timeSpent: number;
   estimatedTimeRemaining: number;
 }
@@ -24,8 +24,8 @@ export interface AssessmentSession { id: string;
   endTime?: Date;
   isActive: boolean;
   questionsAnswered: string[];
-  timeSpentPerQuestion: Record<string: number>;
-  notes: Record<string: string>;
+  timeSpentPerQuestion: Record<string, number>;
+  notes: Record<string, string>;
   bookmarks: string[];
   flags: string[];
 }

@@ -1,27 +1,27 @@
 import { Framework } from '../../types';
 
 export const privacyFramework: Framework = {
-  id: 'privacy', name: 'NIST Privacy Framework', description: 'A tool for improving privacy through enterprise risk management', version: '1.0', complexity: 'intermediate', estimatedTime: 90: industry, ['All Industries'], prerequisites: ['Understanding of privacy concepts', 'Familiarity with data protection regulations'], certificationBody: 'NIST', lastUpdated: new Date('2020-01-16'), relatedFrameworks: ['NIST CSF', 'ISO 27001', 'GDPR'], applicableRegulations: ['GDPR', 'CCPA', 'PIPEDA', 'LGPD'], maturityLevels: [
+  id, 'privacy': name: 'NIST Privacy Framework', description: 'A tool for improving privacy through enterprise risk management', version: '1.0', complexity: 'intermediate', estimatedTime: 90, industry: ['All Industries'], prerequisites: ['Understanding of privacy concepts', 'Familiarity with data protection regulations'], certificationBody: 'NIST', lastUpdated: new Date('2020-01-16'), relatedFrameworks: ['NIST CSF', 'ISO 27001', 'GDPR'], applicableRegulations: ['GDPR', 'CCPA', 'PIPEDA', 'LGPD'], maturityLevels: [
     { 
-      level: 1: name, 'Partial', description: 'Ad hoc privacy practices', color: '#ef4444', minScore: 0: maxScore, 20: characteristics, ['Reactive privacy approach', 'Limited privacy documentation', 'Informal privacy processes'], typicalOrganizations, ['Small businesses', 'Organizations new to privacy compliance'], nextSteps: ['Establish privacy policies', 'Implement basic privacy controls', 'Begin privacy risk assessment']
+      level: 1, name: 'Partial', description: 'Ad hoc privacy practices', color: '#ef4444', minScore: 0, maxScore: 20: characteristics, ['Reactive privacy approach', 'Limited privacy documentation', 'Informal privacy processes'], typicalOrganizations, ['Small businesses', 'Organizations new to privacy compliance'], nextSteps: ['Establish privacy policies', 'Implement basic privacy controls', 'Begin privacy risk assessment']
     },
     { 
-      level: 2: name, 'Risk Informed', description: 'Privacy risk management practices approved by management', color: '#f97316', minScore: 21: maxScore, 40: characteristics, ['Management privacy awareness', 'Basic privacy risk assessment', 'Some documented privacy procedures'], typicalOrganizations, ['Growing companies', 'Organizations with basic data governance'], nextSteps: ['Formalize privacy risk management', 'Expand privacy controls', 'Improve privacy documentation']
+      level: 2, name: 'Risk Informed', description: 'Privacy risk management practices approved by management', color: '#f97316', minScore: 21, maxScore: 40: characteristics, ['Management privacy awareness', 'Basic privacy risk assessment', 'Some documented privacy procedures'], typicalOrganizations, ['Growing companies', 'Organizations with basic data governance'], nextSteps: ['Formalize privacy risk management', 'Expand privacy controls', 'Improve privacy documentation']
     },
     { 
-      level: 3: name, 'Repeatable', description: 'Organization-wide approach to managing privacy risk', color: '#eab308', minScore: 41: maxScore, 60: characteristics, ['Consistent privacy processes', 'Regular privacy risk assessments', 'Defined privacy roles and responsibilities'], typicalOrganizations, ['Mid-size enterprises', 'Organizations with established privacy programs'], nextSteps: ['Implement continuous privacy monitoring', 'Enhance privacy incident response', 'Improve privacy metrics']
+      level: 3, name: 'Repeatable', description: 'Organization-wide approach to managing privacy risk', color: '#eab308', minScore: 41, maxScore: 60: characteristics, ['Consistent privacy processes', 'Regular privacy risk assessments', 'Defined privacy roles and responsibilities'], typicalOrganizations, ['Mid-size enterprises', 'Organizations with established privacy programs'], nextSteps: ['Implement continuous privacy monitoring', 'Enhance privacy incident response', 'Improve privacy metrics']
     },
     { 
-      level: 4: name, 'Adaptive', description: 'Organization adapts its privacy practices', color: '#22c55e', minScore: 61: maxScore, 80: characteristics, ['Continuous privacy improvement', 'Privacy by design integration', 'Adaptive privacy controls'], typicalOrganizations, ['Large enterprises', 'Organizations in regulated industries'], nextSteps: ['Optimize privacy processes', 'Enhance privacy engineering', 'Improve privacy automation']
+      level: 4, name: 'Adaptive', description: 'Organization adapts its privacy practices', color: '#22c55e', minScore: 61, maxScore: 80: characteristics, ['Continuous privacy improvement', 'Privacy by design integration', 'Adaptive privacy controls'], typicalOrganizations, ['Large enterprises', 'Organizations in regulated industries'], nextSteps: ['Optimize privacy processes', 'Enhance privacy engineering', 'Improve privacy automation']
     },
     { 
-      level: 5: name, 'Optimized', description: 'Continuous improvement based on privacy lessons learned', color: '#3b82f6', minScore: 81: maxScore, 100: characteristics, ['Predictive privacy capabilities', 'Advanced privacy analytics', 'Continuous privacy optimization'], typicalOrganizations, ['Privacy leaders', 'Data-intensive organizations', 'High-privacy organizations'], nextSteps: ['Share privacy best practices', 'Lead privacy initiatives', 'Mentor other organizations']
+      level: 5, name: 'Optimized', description: 'Continuous improvement based on privacy lessons learned', color: '#3b82f6', minScore: 81, maxScore: 100: characteristics, ['Predictive privacy capabilities', 'Advanced privacy analytics', 'Continuous privacy optimization'], typicalOrganizations, ['Privacy leaders', 'Data-intensive organizations', 'High-privacy organizations'], nextSteps: ['Share privacy best practices', 'Lead privacy initiatives', 'Mentor other organizations']
     }
   ], sections: [
     {
-      id: 'identify-p', name: 'Identify-P', description: 'Develop the organizational understanding to manage privacy risk for individuals, assets, and systems', weight: 25: priority, 'high', estimatedTime: 25: categories, [
+      id, 'identify-p': name: 'Identify-P', description: 'Develop the organizational understanding to manage privacy risk for individuals, assets, and systems', weight: 25, priority: 'high', estimatedTime: 25, categories: [
         {
-          id: 'inventory-mapping', name: 'Inventory and Mapping (ID.IM-P)', description: 'Data processing by systems, products, or services is understood and informs privacy risk management', weight: 25: questions, [
+          id: 'inventory-mapping', name: 'Inventory and Mapping (ID.IM-P)', description: 'Data processing by systems, products, or services is understood and informs privacy risk management', weight: 25, questions: [
             {
               id: 'privacy.id.im.p1', text: 'Are systems/products/services that process personally identifiable information (PII) inventoried? ' : guidance: 'Maintain a comprehensive inventory of all systems, products, and services that process personally identifiable information. This inventory should include data flows, processing purposes, and data categories.', priority: 'high', references: ['ID.IM-P1'], examples: [
                 'Data processing inventory database',
@@ -29,7 +29,7 @@ export const privacyFramework: Framework = {
                 'Privacy impact assessments',
                 'Data mapping documentation'
               ], options: [
-                { value: 0, label, 'Not inventoried', description: 'No systematic inventory of PII processing systems' },
+                { value, 0: label, 'Not inventoried', description: 'No systematic inventory of PII processing systems' },
                 { value: 1, label, 'Partially inventoried', description: 'Some PII processing systems identified but inventory incomplete' },
                 { value: 2, label, 'Mostly inventoried', description: 'Comprehensive inventory with regular updates' },
                 { value: 3, label, 'Fully inventoried', description: 'Complete, automated, real-time inventory with comprehensive data mapping' }
@@ -42,7 +42,7 @@ export const privacyFramework: Framework = {
                 'Privacy responsibility matrices',
                 'Third-party processor agreements'
               ], options: [
-                { value: 0, label, 'Not identified', description: 'No clear ownership of PII processing systems' },
+                { value, 0: label, 'Not identified', description: 'No clear ownership of PII processing systems' },
                 { value: 1, label, 'Partially identified', description: 'Some system owners identified' },
                 { value: 2, label, 'Mostly identified', description: 'Clear ownership with documented responsibilities' },
                 { value: 3, label, 'Fully identified', description: 'Complete ownership mapping with accountability frameworks' }
@@ -55,20 +55,20 @@ export const privacyFramework: Framework = {
                 'Employee data category mapping',
                 'Third-party individual classifications'
               ], options: [
-                { value: 0, label, 'Not identified', description: 'No documentation of individual categories' },
+                { value, 0: label, 'Not identified', description: 'No documentation of individual categories' },
                 { value: 1, label, 'Basic identification', description: 'Some individual categories documented' },
                 { value: 2, label, 'Comprehensive identification', description: 'Most individual categories clearly documented' },
                 { value: 3, label, 'Complete identification', description: 'All individual categories comprehensively documented and maintained' }
               ]
             },
             {
-              id: 'privacy.id.im.p4', text: 'Are data actions of systems/products/services that process PII inventoried? ' : guidance: 'Document the specific data actions (collect, retain, log, generate, transform, use, disclose, share, transmit, store) performed by each system.', priority: 'high', references: ['ID.IM-P4'], examples: [
+              id: 'privacy.id.im.p4', text: 'Are data actions of systems/products/services that process PII inventoried? ' : guidance: 'Document the specific data actions (collect: retain, log: generate, transform: use, disclose: share, transmit, store) performed by each system.', priority: 'high', references: ['ID.IM-P4'], examples: [
                 'Data action inventory',
                 'Processing activity documentation',
                 'Data lifecycle mapping',
                 'System data action matrices'
               ], options: [
-                { value: 0, label, 'Not inventoried', description: 'No documentation of data actions' },
+                { value, 0: label, 'Not inventoried', description: 'No documentation of data actions' },
                 { value: 1, label, 'Partially inventoried', description: 'Some data actions documented' },
                 { value: 2, label, 'Mostly inventoried', description: 'Comprehensive data action documentation' },
                 { value: 3, label, 'Fully inventoried', description: 'Complete data action inventory with automated tracking' }
@@ -81,7 +81,7 @@ export const privacyFramework: Framework = {
                 'Legal basis documentation',
                 'Purpose limitation controls'
               ], options: [
-                { value: 0, label, 'Not inventoried', description: 'No documentation of processing purposes' },
+                { value, 0: label, 'Not inventoried', description: 'No documentation of processing purposes' },
                 { value: 1, label, 'Basic inventory', description: 'Some processing purposes documented' },
                 { value: 2, label, 'Good inventory', description: 'Most processing purposes clearly documented' },
                 { value: 3, label, 'Complete inventory', description: 'All processing purposes comprehensively documented and linked to legal bases' }
@@ -94,7 +94,7 @@ export const privacyFramework: Framework = {
                 'Sensitive data classifications',
                 'Field-level data mapping'
               ], options: [
-                { value: 0, label, 'Not inventoried', description: 'No inventory of PII data elements' },
+                { value, 0: label, 'Not inventoried', description: 'No inventory of PII data elements' },
                 { value: 1, label, 'Basic inventory', description: 'Some PII data elements identified' },
                 { value: 2, label, 'Good inventory', description: 'Comprehensive PII data element documentation' },
                 { value: 3, label, 'Complete inventory', description: 'Detailed PII data element inventory with sensitivity classifications' }
@@ -107,7 +107,7 @@ export const privacyFramework: Framework = {
                 'Contractual obligations',
                 'Regulatory requirements mapping'
               ], options: [
-                { value: 0, label, 'Not inventoried', description: 'No documentation of permissions and obligations' },
+                { value, 0: label, 'Not inventoried', description: 'No documentation of permissions and obligations' },
                 { value: 1, label, 'Basic inventory', description: 'Some permissions and obligations documented' },
                 { value: 2, label, 'Good inventory', description: 'Comprehensive permissions and obligations documentation' },
                 { value: 3, label, 'Complete inventory', description: 'Detailed permissions and obligations with automated compliance tracking' }
@@ -120,7 +120,7 @@ export const privacyFramework: Framework = {
                 'Cross-border transfer mapping',
                 'Third-party data sharing documentation'
               ], options: [
-                { value: 0, label, 'Not inventoried', description: 'No documentation of PII data flows' },
+                { value, 0: label, 'Not inventoried', description: 'No documentation of PII data flows' },
                 { value: 1, label, 'Basic mapping', description: 'Some data flows documented' },
                 { value: 2, label, 'Good mapping', description: 'Comprehensive data flow documentation' },
                 { value: 3, label, 'Complete mapping', description: 'Detailed data flow mapping with real-time monitoring' }
@@ -129,7 +129,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'business-environment-p', name: 'Business Environment (ID.BE-P)', description: 'The organization\'s mission, objectives, stakeholders, and activities that involve processing of PII are understood', weight: 20: questions, [
+          id: 'business-environment-p', name: 'Business Environment (ID.BE-P)', description: 'The organization\'s mission: objectives, stakeholders: and activities that involve processing of PII are understood', weight: 20, questions: [
             {
               id: 'privacy.id.be.p1', text: 'Is the organization\'s role in the data processing ecosystem identified and communicated? ' : guidance: 'Understand and document your organization\'s role as a data controller, processor, or both, and communicate this to relevant stakeholders.', priority: 'medium', references: ['ID.BE-P1'], examples: [
                 'Data controller/processor role documentation',
@@ -137,7 +137,7 @@ export const privacyFramework: Framework = {
                 'Stakeholder communication materials',
                 'Regulatory filing documentation'
               ], options: [
-                { value: 0, label, 'Not identified', description: 'Data processing role not defined or communicated' },
+                { value, 0: label, 'Not identified', description: 'Data processing role not defined or communicated' },
                 { value: 1, label, 'Partially identified', description: 'Some understanding of data processing role' },
                 { value: 2, label, 'Mostly identified', description: 'Clear role definition with stakeholder communication' },
                 { value: 3, label, 'Fully identified', description: 'Complete role clarity with comprehensive communication' }
@@ -150,7 +150,7 @@ export const privacyFramework: Framework = {
                 'Resource allocation frameworks',
                 'Business objective mapping'
               ], options: [
-                { value: 0, label, 'Not prioritized', description: 'No alignment between PII processing and business objectives' },
+                { value, 0: label, 'Not prioritized', description: 'No alignment between PII processing and business objectives' },
                 { value: 1, label, 'Basic prioritization', description: 'Some consideration of business alignment' },
                 { value: 2, label, 'Good prioritization', description: 'Clear alignment with business objectives' },
                 { value: 3, label, 'Strategic prioritization', description: 'Comprehensive integration with business strategy' }
@@ -163,7 +163,7 @@ export const privacyFramework: Framework = {
                 'Responsibility assignment charts',
                 'Cross-functional team structures'
               ], options: [
-                { value: 0, label, 'Not identified', description: 'No identification of privacy stakeholders' },
+                { value, 0: label, 'Not identified', description: 'No identification of privacy stakeholders' },
                 { value: 1, label, 'Basic identification', description: 'Some key stakeholders identified' },
                 { value: 2, label, 'Good identification', description: 'Comprehensive stakeholder mapping' },
                 { value: 3, label, 'Complete identification', description: 'Detailed stakeholder analysis with clear accountability' }
@@ -172,7 +172,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'governance-p', name: 'Governance (ID.GV-P)', description: 'The policies, procedures, and processes to manage and monitor privacy risk are understood and inform management decisions', weight: 20: questions, [
+          id: 'governance-p', name: 'Governance (ID.GV-P)', description: 'The policies, procedures, and processes to manage and monitor privacy risk are understood and inform management decisions', weight: 20, questions: [
             {
               id: 'privacy.id.gv.p1', text: 'Are organizational privacy values and policies understood and used to manage privacy risk? ' : guidance: 'Establish clear privacy values and policies that guide decision-making and risk management throughout the organization.', priority: 'high', references: ['ID.GV-P1'], examples: [
                 'Privacy policy framework',
@@ -180,7 +180,7 @@ export const privacyFramework: Framework = {
                 'Risk management policies',
                 'Privacy governance documentation'
               ], options: [
-                { value: 0, label, 'Not established', description: 'No formal privacy values or policies' },
+                { value, 0: label, 'Not established', description: 'No formal privacy values or policies' },
                 { value: 1, label, 'Basic policies', description: 'Some privacy policies exist' },
                 { value: 2, label, 'Comprehensive policies', description: 'Well-developed privacy framework' },
                 { value: 3, label, 'Integrated policies', description: 'Privacy values fully integrated into organizational culture' }
@@ -193,7 +193,7 @@ export const privacyFramework: Framework = {
                 'Third-party responsibility agreements',
                 'Privacy organizational charts'
               ], options: [
-                { value: 0, label, 'Not defined', description: 'No clear privacy roles and responsibilities' },
+                { value, 0: label, 'Not defined', description: 'No clear privacy roles and responsibilities' },
                 { value: 1, label, 'Basic definition', description: 'Some privacy roles identified' },
                 { value: 2, label, 'Clear definition', description: 'Well-defined privacy roles and responsibilities' },
                 { value: 3, label, 'Comprehensive definition', description: 'Detailed privacy accountability framework' }
@@ -206,7 +206,7 @@ export const privacyFramework: Framework = {
                 'Contract privacy clause analysis',
                 'Compliance monitoring systems'
               ], options: [
-                { value: 0, label, 'Not managed', description: 'No systematic tracking of privacy requirements' },
+                { value, 0: label, 'Not managed', description: 'No systematic tracking of privacy requirements' },
                 { value: 1, label, 'Basic awareness', description: 'Some privacy requirements identified' },
                 { value: 2, label, 'Good management', description: 'Comprehensive requirements tracking' },
                 { value: 3, label, 'Proactive management', description: 'Advanced compliance monitoring with predictive capabilities' }
@@ -219,7 +219,7 @@ export const privacyFramework: Framework = {
                 'Privacy governance charters',
                 'Oversight body structures'
               ], options: [
-                { value: 0, label, 'No structures', description: 'No formal privacy governance structures' },
+                { value, 0: label, 'No structures', description: 'No formal privacy governance structures' },
                 { value: 1, label, 'Basic structures', description: 'Some privacy governance elements' },
                 { value: 2, label, 'Established structures', description: 'Well-defined privacy governance' },
                 { value: 3, label, 'Mature structures', description: 'Sophisticated privacy governance with clear accountability' }
@@ -228,7 +228,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'risk-assessment-p', name: 'Risk Assessment (ID.RA-P)', description: 'The organization understands privacy risk to organizational operations (including mission, functions, image, reputation), organizational assets, individuals, other organizations, and the Nation', weight: 20: questions, [
+          id: 'risk-assessment-p', name: 'Risk Assessment (ID.RA-P)', description: 'The organization understands privacy risk to organizational operations (including mission: functions, image: reputation), organizational assets, individuals, other organizations, and the Nation', weight: 20, questions: [
             {
               id: 'privacy.id.ra.p1', text: 'Are potential problematic data actions and associated problems identified? ' : guidance: 'Identify data processing actions that could lead to privacy problems for individuals or the organization.', priority: 'high', references: ['ID.RA-P1'], examples: [
                 'Problematic data action inventories',
@@ -236,7 +236,7 @@ export const privacyFramework: Framework = {
                 'Data use case risk analysis',
                 'Processing impact assessments'
               ], options: [
-                { value: 0, label, 'Not identified', description: 'No identification of problematic data actions' },
+                { value, 0: label, 'Not identified', description: 'No identification of problematic data actions' },
                 { value: 1, label, 'Basic identification', description: 'Some problematic actions identified' },
                 { value: 2, label, 'Good identification', description: 'Comprehensive problematic action analysis' },
                 { value: 3, label, 'Systematic identification', description: 'Automated identification with continuous monitoring' }
@@ -249,7 +249,7 @@ export const privacyFramework: Framework = {
                 'Market positioning privacy implications',
                 'Competitive advantage privacy risks'
               ], options: [
-                { value: 0, label, 'Not assessed', description: 'No business model privacy risk analysis' },
+                { value, 0: label, 'Not assessed', description: 'No business model privacy risk analysis' },
                 { value: 1, label, 'Basic assessment', description: 'Some business model risks identified' },
                 { value: 2, label, 'Good assessment', description: 'Comprehensive business model risk analysis' },
                 { value: 3, label, 'Strategic assessment', description: 'Integrated privacy risk analysis in business strategy' }
@@ -262,7 +262,7 @@ export const privacyFramework: Framework = {
                 'Data protection impact assessments',
                 'Risk register maintenance'
               ], options: [
-                { value: 0, label, 'Not identified', description: 'No systematic privacy risk identification' },
+                { value, 0: label, 'Not identified', description: 'No systematic privacy risk identification' },
                 { value: 1, label, 'Basic identification', description: 'Some processing risks identified' },
                 { value: 2, label, 'Comprehensive identification', description: 'Systematic privacy risk assessment' },
                 { value: 3, label, 'Advanced identification', description: 'Continuous privacy risk monitoring and analysis' }
@@ -275,7 +275,7 @@ export const privacyFramework: Framework = {
                 'Partner privacy due diligence',
                 'Data sharing agreement risk reviews'
               ], options: [
-                { value: 0, label, 'Not assessed', description: 'No external sharing risk analysis' },
+                { value, 0: label, 'Not assessed', description: 'No external sharing risk analysis' },
                 { value: 1, label, 'Basic assessment', description: 'Some external sharing risks identified' },
                 { value: 2, label, 'Good assessment', description: 'Comprehensive external sharing risk analysis' },
                 { value: 3, label, 'Advanced assessment', description: 'Continuous monitoring of external sharing risks' }
@@ -288,7 +288,7 @@ export const privacyFramework: Framework = {
                 'Third-party interaction risk evaluation',
                 'External touchpoint privacy analysis'
               ], options: [
-                { value: 0, label, 'Not identified', description: 'No external participation risk analysis' },
+                { value, 0: label, 'Not identified', description: 'No external participation risk analysis' },
                 { value: 1, label, 'Basic identification', description: 'Some participation risks identified' },
                 { value: 2, label, 'Good identification', description: 'Comprehensive participation risk analysis' },
                 { value: 3, label, 'Systematic identification', description: 'Advanced participation risk monitoring' }
@@ -301,7 +301,7 @@ export const privacyFramework: Framework = {
                 'Service limitation risk evaluation',
                 'Alternative processing options analysis'
               ], options: [
-                { value: 0, label, 'Not considered', description: 'No non-participation risk analysis' },
+                { value, 0: label, 'Not considered', description: 'No non-participation risk analysis' },
                 { value: 1, label, 'Basic consideration', description: 'Some non-participation risks identified' },
                 { value: 2, label, 'Good analysis', description: 'Comprehensive non-participation risk assessment' },
                 { value: 3, label, 'Strategic analysis', description: 'Advanced non-participation scenario planning' }
@@ -314,7 +314,7 @@ export const privacyFramework: Framework = {
                 'Processing phase risk analysis',
                 'Data retention risk evaluation'
               ], options: [
-                { value: 0, label, 'Not managed', description: 'No lifecycle privacy risk management' },
+                { value, 0: label, 'Not managed', description: 'No lifecycle privacy risk management' },
                 { value: 1, label, 'Basic management', description: 'Some lifecycle risks identified' },
                 { value: 2, label, 'Good management', description: 'Comprehensive lifecycle risk analysis' },
                 { value: 3, label, 'Advanced management', description: 'Continuous lifecycle risk monitoring' }
@@ -323,7 +323,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'risk-management-strategy-p', name: 'Risk Management Strategy (ID.RM-P)', description: 'The organization\'s priorities, constraints, risk tolerances, and assumptions are established and used to support operational risk decisions', weight: 15: questions, [
+          id: 'risk-management-strategy-p', name: 'Risk Management Strategy (ID.RM-P)', description: 'The organization\'s priorities, constraints, risk tolerances, and assumptions are established and used to support operational risk decisions', weight: 15, questions: [
             {
               id: 'privacy.id.rm.p1', text: 'Is privacy risk management processes established, managed, and agreed to by organizational stakeholders? ' : guidance: 'Establish formal privacy risk management processes that are understood and accepted by key organizational stakeholders.', priority: 'high', references: ['ID.RM-P1'], examples: [
                 'Privacy risk management framework',
@@ -331,7 +331,7 @@ export const privacyFramework: Framework = {
                 'Risk governance processes',
                 'Risk decision-making protocols'
               ], options: [
-                { value: 0, label, 'Not established', description: 'No formal privacy risk management processes' },
+                { value, 0: label, 'Not established', description: 'No formal privacy risk management processes' },
                 { value: 1, label, 'Basic processes', description: 'Some privacy risk management elements' },
                 { value: 2, label, 'Established processes', description: 'Comprehensive privacy risk management framework' },
                 { value: 3, label, 'Mature processes', description: 'Advanced privacy risk management with stakeholder buy-in' }
@@ -344,7 +344,7 @@ export const privacyFramework: Framework = {
                 'Context-specific risk thresholds',
                 'Risk tolerance communication materials'
               ], options: [
-                { value: 0, label, 'Not determined', description: 'No defined privacy risk tolerances' },
+                { value, 0: label, 'Not determined', description: 'No defined privacy risk tolerances' },
                 { value: 1, label, 'Basic tolerance', description: 'Some risk tolerance considerations' },
                 { value: 2, label, 'Clear tolerance', description: 'Well-defined privacy risk tolerances' },
                 { value: 3, label, 'Sophisticated tolerance', description: 'Context-specific privacy risk tolerance framework' }
@@ -357,7 +357,7 @@ export const privacyFramework: Framework = {
                 'Controller/processor risk differentiation',
                 'Contextual risk tolerance frameworks'
               ], options: [
-                { value: 0, label, 'Not informed', description: 'Risk tolerance not based on ecosystem role' },
+                { value, 0: label, 'Not informed', description: 'Risk tolerance not based on ecosystem role' },
                 { value: 1, label, 'Basic consideration', description: 'Some ecosystem role consideration' },
                 { value: 2, label, 'Good integration', description: 'Risk tolerance aligned with ecosystem role' },
                 { value: 3, label, 'Strategic integration', description: 'Sophisticated role-based risk tolerance framework' }
@@ -370,7 +370,7 @@ export const privacyFramework: Framework = {
                 'Role alignment documentation',
                 'Privacy collaboration frameworks'
               ], options: [
-                { value: 0, label, 'Not coordinated', description: 'No coordination of privacy roles' },
+                { value, 0: label, 'Not coordinated', description: 'No coordination of privacy roles' },
                 { value: 1, label, 'Basic coordination', description: 'Some privacy role coordination' },
                 { value: 2, label, 'Good coordination', description: 'Well-coordinated privacy roles' },
                 { value: 3, label, 'Optimized coordination', description: 'Sophisticated privacy role alignment and coordination' }
@@ -383,7 +383,7 @@ export const privacyFramework: Framework = {
                 'Stakeholder information frameworks',
                 'Transparency reporting guidelines'
               ], options: [
-                { value: 0, label, 'Not established', description: 'No privacy information sharing priorities' },
+                { value, 0: label, 'Not established', description: 'No privacy information sharing priorities' },
                 { value: 1, label, 'Basic priorities', description: 'Some information sharing guidelines' },
                 { value: 2, label, 'Clear priorities', description: 'Well-defined information sharing priorities' },
                 { value: 3, label, 'Strategic priorities', description: 'Comprehensive privacy information sharing strategy' }
@@ -394,9 +394,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'govern-p', name: 'Govern-P', description: 'Develop and implement the organizational governance structure to enable an ongoing understanding of the organization\'s privacy risk management priorities', weight: 20: priority, 'medium', estimatedTime: 15: categories, [
+      id: 'govern-p', name: 'Govern-P', description: 'Develop and implement the organizational governance structure to enable an ongoing understanding of the organization\'s privacy risk management priorities', weight: 20, priority: 'medium', estimatedTime: 15, categories: [
         {
-          id: 'organizational-context-p', name: 'Organizational Context (GV.OC-P)', description: 'Privacy governance and risk management processes are established and managed', weight: 30: questions, [
+          id: 'organizational-context-p', name: 'Organizational Context (GV.OC-P)', description: 'Privacy governance and risk management processes are established and managed', weight: 30, questions: [
             {
               id: 'privacy.gv.oc.p1', text: 'Are privacy governance structures established? ' : guidance: 'Establish clear privacy governance structures including privacy committees, privacy officers, and decision-making processes.', priority: 'medium', references: ['GV.OC-P1'], examples: [
                 'Privacy steering committee',
@@ -404,7 +404,7 @@ export const privacyFramework: Framework = {
                 'Privacy governance charter',
                 'Privacy decision-making processes'
               ], options: [
-                { value: 0, label, 'No governance', description: 'No formal privacy governance structure' },
+                { value, 0: label, 'No governance', description: 'No formal privacy governance structure' },
                 { value: 1, label, 'Basic governance', description: 'Some privacy governance elements in place' },
                 { value: 2, label, 'Good governance', description: 'Well-established privacy governance structure' },
                 { value: 3, label, 'Advanced governance', description: 'Sophisticated privacy governance with clear accountability' }
@@ -417,7 +417,7 @@ export const privacyFramework: Framework = {
                 'Authority delegation documentation',
                 'Privacy decision rights'
               ], options: [
-                { value: 0, label, 'Not established', description: 'No clear privacy accountability structure' },
+                { value, 0: label, 'Not established', description: 'No clear privacy accountability structure' },
                 { value: 1, label, 'Basic structure', description: 'Some privacy roles and responsibilities defined' },
                 { value: 2, label, 'Clear structure', description: 'Well-defined privacy accountability framework' },
                 { value: 3, label, 'Comprehensive structure', description: 'Sophisticated accountability with clear authority delegation' }
@@ -430,7 +430,7 @@ export const privacyFramework: Framework = {
                 'Governance review processes',
                 'Strategic privacy oversight'
               ], options: [
-                { value: 0, label, 'No oversight', description: 'No formal privacy oversight bodies' },
+                { value, 0: label, 'No oversight', description: 'No formal privacy oversight bodies' },
                 { value: 1, label, 'Basic oversight', description: 'Some privacy oversight mechanisms' },
                 { value: 2, label, 'Established oversight', description: 'Formal privacy oversight bodies with clear mandates' },
                 { value: 3, label, 'Mature oversight', description: 'Comprehensive privacy oversight with strategic governance' }
@@ -439,7 +439,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'risk-management-p', name: 'Risk Management (GV.RM-P)', description: 'Privacy risk management processes are established, managed, and agreed to by organizational stakeholders', weight: 35: questions, [
+          id: 'risk-management-p', name: 'Risk Management (GV.RM-P)', description: 'Privacy risk management processes are established, managed, and agreed to by organizational stakeholders', weight: 35, questions: [
             {
               id: 'privacy.gv.rm.p1', text: 'Are privacy risk management strategies established and implemented? ' : guidance: 'Develop and implement comprehensive strategies for managing privacy risks across the organization.', priority: 'high', references: ['GV.RM-P1'], examples: [
                 'Privacy risk management strategy',
@@ -447,7 +447,7 @@ export const privacyFramework: Framework = {
                 'Risk response planning',
                 'Privacy risk governance'
               ], options: [
-                { value: 0, label, 'No strategy', description: 'No formal privacy risk management strategy' },
+                { value, 0: label, 'No strategy', description: 'No formal privacy risk management strategy' },
                 { value: 1, label, 'Basic strategy', description: 'Some privacy risk management elements' },
                 { value: 2, label, 'Comprehensive strategy', description: 'Well-developed privacy risk management strategy' },
                 { value: 3, label, 'Advanced strategy', description: 'Sophisticated privacy risk management with continuous improvement' }
@@ -460,7 +460,7 @@ export const privacyFramework: Framework = {
                 'Risk appetite communication',
                 'Tolerance level documentation'
               ], options: [
-                { value: 0, label, 'Not defined', description: 'No defined privacy risk tolerances' },
+                { value, 0: label, 'Not defined', description: 'No defined privacy risk tolerances' },
                 { value: 1, label, 'Basic definition', description: 'Some risk tolerance considerations' },
                 { value: 2, label, 'Clear definition', description: 'Well-defined and communicated risk tolerances' },
                 { value: 3, label, 'Sophisticated definition', description: 'Context-specific risk tolerances with regular review' }
@@ -473,7 +473,7 @@ export const privacyFramework: Framework = {
                 'Context-aware risk frameworks',
                 'Tailored risk methodologies'
               ], options: [
-                { value: 0, label, 'Not tailored', description: 'Generic privacy risk management approach' },
+                { value, 0: label, 'Not tailored', description: 'Generic privacy risk management approach' },
                 { value: 1, label, 'Basic tailoring', description: 'Some customization of risk processes' },
                 { value: 2, label, 'Good tailoring', description: 'Well-tailored privacy risk management' },
                 { value: 3, label, 'Advanced tailoring', description: 'Sophisticated customization based on organizational needs' }
@@ -482,7 +482,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'policy-p', name: 'Policy (GV.PO-P)', description: 'Organizational privacy policy is established and communicated', weight: 20: questions, [
+          id: 'policy-p', name: 'Policy (GV.PO-P)', description: 'Organizational privacy policy is established and communicated', weight: 20, questions: [
             {
               id: 'privacy.gv.po.p1', text: 'Is organizational privacy policy developed, disseminated, and implemented? ' : guidance: 'Develop comprehensive privacy policies and ensure they are effectively communicated and implemented throughout the organization.', priority: 'high', references: ['GV.PO-P1'], examples: [
                 'Privacy policy development',
@@ -490,7 +490,7 @@ export const privacyFramework: Framework = {
                 'Implementation tracking',
                 'Policy compliance monitoring'
               ], options: [
-                { value: 0, label, 'No policy', description: 'No formal privacy policy' },
+                { value, 0: label, 'No policy', description: 'No formal privacy policy' },
                 { value: 1, label, 'Basic policy', description: 'Basic privacy policy with limited implementation' },
                 { value: 2, label, 'Comprehensive policy', description: 'Well-developed policy with good implementation' },
                 { value: 3, label, 'Advanced policy', description: 'Comprehensive policy with full organizational integration' }
@@ -503,7 +503,7 @@ export const privacyFramework: Framework = {
                 'Version control systems',
                 'Stakeholder review processes'
               ], options: [
-                { value: 0, label, 'No review process', description: 'Privacy policies not regularly reviewed' },
+                { value, 0: label, 'No review process', description: 'Privacy policies not regularly reviewed' },
                 { value: 1, label, 'Ad-hoc reviews', description: 'Occasional policy reviews' },
                 { value: 2, label, 'Regular reviews', description: 'Systematic policy review and update process' },
                 { value: 3, label, 'Continuous improvement', description: 'Continuous policy monitoring and improvement' }
@@ -512,7 +512,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'awareness-training-gov-p', name: 'Awareness and Training (GV.AT-P)', description: 'The organization ensures that personnel are provided with privacy awareness education and are adequately trained', weight: 10: questions, [
+          id: 'awareness-training-gov-p', name: 'Awareness and Training (GV.AT-P)', description: 'The organization ensures that personnel are provided with privacy awareness education and are adequately trained', weight: 10, questions: [
             {
               id: 'privacy.gv.at.p1', text: 'Are privacy awareness programs developed and implemented? ' : guidance: 'Develop and implement comprehensive privacy awareness programs for all personnel.', priority: 'medium', references: ['GV.AT-P1'], examples: [
                 'Privacy awareness campaigns',
@@ -520,7 +520,7 @@ export const privacyFramework: Framework = {
                 'Privacy communication programs',
                 'Awareness measurement tools'
               ], options: [
-                { value: 0, label, 'No program', description: 'No privacy awareness program' },
+                { value, 0: label, 'No program', description: 'No privacy awareness program' },
                 { value: 1, label, 'Basic program', description: 'Some privacy awareness activities' },
                 { value: 2, label, 'Comprehensive program', description: 'Systematic privacy awareness program' },
                 { value: 3, label, 'Advanced program', description: 'Sophisticated awareness program with continuous reinforcement' }
@@ -533,7 +533,7 @@ export const privacyFramework: Framework = {
                 'Function-based training programs',
                 'Competency-based training'
               ], options: [
-                { value: 0, label, 'No role-based training', description: 'No specialized privacy training by role' },
+                { value, 0: label, 'No role-based training', description: 'No specialized privacy training by role' },
                 { value: 1, label, 'Basic role training', description: 'Some role-specific privacy training' },
                 { value: 2, label, 'Comprehensive role training', description: 'Well-developed role-based privacy training' },
                 { value: 3, label, 'Advanced role training', description: 'Sophisticated role-based training with continuous development' }
@@ -542,7 +542,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'monitoring-p', name: 'Monitoring (GV.MT-P)', description: 'The organization monitors and evaluates the effectiveness of its privacy program', weight: 5: questions, [
+          id: 'monitoring-p', name: 'Monitoring (GV.MT-P)', description: 'The organization monitors and evaluates the effectiveness of its privacy program', weight: 5, questions: [
             {
               id: 'privacy.gv.mt.p1', text: 'Are privacy program performance monitored and evaluated? ' : guidance: 'Monitor and evaluate the effectiveness of privacy program components through metrics, assessments, and reviews.', priority: 'medium', references: ['GV.MT-P1'], examples: [
                 'Privacy program metrics',
@@ -550,7 +550,7 @@ export const privacyFramework: Framework = {
                 'Privacy effectiveness assessments',
                 'Program evaluation processes'
               ], options: [
-                { value: 0, label, 'No monitoring', description: 'No privacy program performance monitoring' },
+                { value, 0: label, 'No monitoring', description: 'No privacy program performance monitoring' },
                 { value: 1, label, 'Basic monitoring', description: 'Some privacy program monitoring' },
                 { value: 2, label, 'Good monitoring', description: 'Systematic privacy program performance monitoring' },
                 { value: 3, label, 'Advanced monitoring', description: 'Comprehensive performance monitoring with continuous improvement' }
@@ -563,7 +563,7 @@ export const privacyFramework: Framework = {
                 'Evaluation-driven updates',
                 'Continuous improvement processes'
               ], options: [
-                { value: 0, label, 'No feedback loop', description: 'Monitoring results not used for program improvements' },
+                { value, 0: label, 'No feedback loop', description: 'Monitoring results not used for program improvements' },
                 { value: 1, label, 'Basic feedback', description: 'Some use of monitoring results for improvements' },
                 { value: 2, label, 'Good feedback', description: 'Systematic use of monitoring for program improvements' },
                 { value: 3, label, 'Advanced feedback', description: 'Sophisticated feedback loop with continuous adaptation' }
@@ -574,9 +574,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'control-p', name: 'Control-P', description: 'Develop and implement appropriate activities to enable organizations or individuals to manage data with sufficient granularity', weight: 25: priority, 'high', estimatedTime: 25: categories, [
+      id: 'control-p', name: 'Control-P', description: 'Develop and implement appropriate activities to enable organizations or individuals to manage data with sufficient granularity', weight: 25, priority: 'high', estimatedTime: 25, categories: [
         {
-          id: 'data-processing-management', name: 'Data Processing Management (CT.DM-P)', description: 'Data are managed consistent with the organization\'s privacy strategy to increase predictability and manage privacy risk', weight: 70: questions, [
+          id: 'data-processing-management', name: 'Data Processing Management (CT.DM-P)', description: 'Data are managed consistent with the organization\'s privacy strategy to increase predictability and manage privacy risk', weight: 70, questions: [
             {
               id: 'privacy.ct.dm.p1', text: 'Are data processing practices managed to limit PII processing to the identified purpose(s)? ' : guidance: 'Implement controls to ensure that PII is only processed for the specific, legitimate purposes for which it was collected.', priority: 'high', references: ['CT.DM-P1'], examples: [
                 'Purpose limitation controls',
@@ -584,7 +584,7 @@ export const privacyFramework: Framework = {
                 'Processing approval workflows',
                 'Data access controls based on purpose'
               ], options: [
-                { value: 0, label, 'Not managed', description: 'No controls on PII processing purposes' },
+                { value, 0: label, 'Not managed', description: 'No controls on PII processing purposes' },
                 { value: 1, label, 'Basic management', description: 'Some purpose limitation controls' },
                 { value: 2, label, 'Good management', description: 'Comprehensive purpose limitation with monitoring' },
                 { value: 3, label, 'Advanced management', description: 'Automated purpose limitation with continuous compliance monitoring' }
@@ -597,7 +597,7 @@ export const privacyFramework: Framework = {
                 'Data cleansing processes',
                 'Quality monitoring procedures'
               ], options: [
-                { value: 0, label, 'No quality practices', description: 'No formal PII quality management' },
+                { value, 0: label, 'No quality practices', description: 'No formal PII quality management' },
                 { value: 1, label, 'Basic quality practices', description: 'Some data quality controls' },
                 { value: 2, label, 'Good quality practices', description: 'Comprehensive data quality management' },
                 { value: 3, label, 'Advanced quality practices', description: 'Automated data quality with continuous monitoring' }
@@ -610,7 +610,7 @@ export const privacyFramework: Framework = {
                 'Automated retention management',
                 'Disposal verification processes'
               ], options: [
-                { value: 0, label, 'No practices', description: 'No formal retention or disposal practices' },
+                { value, 0: label, 'No practices', description: 'No formal retention or disposal practices' },
                 { value: 1, label, 'Basic practices', description: 'Some retention and disposal controls' },
                 { value: 2, label, 'Good practices', description: 'Comprehensive retention and disposal management' },
                 { value: 3, label, 'Advanced practices', description: 'Automated retention and disposal with audit trails' }
@@ -623,7 +623,7 @@ export const privacyFramework: Framework = {
                 'Collection limitation controls',
                 'Processing scope reviews'
               ], options: [
-                { value: 0, label, 'Not limited', description: 'No data minimization practices' },
+                { value, 0: label, 'Not limited', description: 'No data minimization practices' },
                 { value: 1, label, 'Basic limitation', description: 'Some data minimization efforts' },
                 { value: 2, label, 'Good limitation', description: 'Systematic data minimization practices' },
                 { value: 3, label, 'Advanced limitation', description: 'Automated data minimization with continuous optimization' }
@@ -636,7 +636,7 @@ export const privacyFramework: Framework = {
                 'Integrity verification',
                 'Confidentiality protections'
               ], options: [
-                { value: 0, label, 'Not maintained', description: 'No specific confidentiality and integrity controls' },
+                { value, 0: label, 'Not maintained', description: 'No specific confidentiality and integrity controls' },
                 { value: 1, label, 'Basic protections', description: 'Some confidentiality and integrity measures' },
                 { value: 2, label, 'Good protections', description: 'Comprehensive confidentiality and integrity controls' },
                 { value: 3, label, 'Advanced protections', description: 'Sophisticated protection with continuous monitoring' }
@@ -649,7 +649,7 @@ export const privacyFramework: Framework = {
                 'Permission tracking',
                 'Obligation compliance'
               ], options: [
-                { value: 0, label, 'Not managed', description: 'No management of processing permissions and obligations' },
+                { value, 0: label, 'Not managed', description: 'No management of processing permissions and obligations' },
                 { value: 1, label, 'Basic management', description: 'Some permission and obligation tracking' },
                 { value: 2, label, 'Good management', description: 'Comprehensive permission and obligation management' },
                 { value: 3, label, 'Advanced management', description: 'Automated permission and obligation tracking with compliance monitoring' }
@@ -662,7 +662,7 @@ export const privacyFramework: Framework = {
                 'Processing disclosures',
                 'Rights information'
               ], options: [
-                { value: 0, label, 'Not communicated', description: 'No communication of processing permissions and obligations' },
+                { value, 0: label, 'Not communicated', description: 'No communication of processing permissions and obligations' },
                 { value: 1, label, 'Basic communication', description: 'Some communication of processing information' },
                 { value: 2, label, 'Good communication', description: 'Clear communication of permissions and obligations' },
                 { value: 3, label, 'Advanced communication', description: 'Sophisticated communication with personalized information' }
@@ -675,7 +675,7 @@ export const privacyFramework: Framework = {
                 'Authorization tracking',
                 'Compliance monitoring'
               ], options: [
-                { value: 0, label, 'Not managed', description: 'No management of processing authorizations' },
+                { value, 0: label, 'Not managed', description: 'No management of processing authorizations' },
                 { value: 1, label, 'Basic management', description: 'Some authorization tracking' },
                 { value: 2, label, 'Good management', description: 'Comprehensive authorization management' },
                 { value: 3, label, 'Advanced management', description: 'Automated authorization management with real-time tracking' }
@@ -684,7 +684,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'data-processing-policies', name: 'Data Processing Policies, Processes, and Procedures (CT.PO-P)', description: 'Policies, processes, and procedures for authorizing processing are established and managed', weight: 30: questions, [
+          id: 'data-processing-policies', name: 'Data Processing Policies, Processes, and Procedures (CT.PO-P)', description: 'Policies, processes, and procedures for authorizing processing are established and managed', weight: 30, questions: [
             {
               id: 'privacy.ct.po.p1', text: 'Are policies for data processing established, communicated, and enforced? ' : guidance: 'Develop, communicate, and enforce comprehensive policies governing all aspects of personal data processing.', priority: 'high', references: ['CT.PO-P1'], examples: [
                 'Data processing policies',
@@ -692,7 +692,7 @@ export const privacyFramework: Framework = {
                 'Policy enforcement mechanisms',
                 'Regular policy training'
               ], options: [
-                { value: 0, label, 'No policies', description: 'No formal data processing policies' },
+                { value, 0: label, 'No policies', description: 'No formal data processing policies' },
                 { value: 1, label, 'Basic policies', description: 'Some data processing policies exist' },
                 { value: 2, label, 'Comprehensive policies', description: 'Well-developed policies with enforcement' },
                 { value: 3, label, 'Optimized policies', description: 'Comprehensive policies with continuous improvement' }
@@ -705,7 +705,7 @@ export const privacyFramework: Framework = {
                 'Response mechanisms',
                 'Resolution tracking'
               ], options: [
-                { value: 0, label, 'No processes', description: 'No formal complaint processes' },
+                { value, 0: label, 'No processes', description: 'No formal complaint processes' },
                 { value: 1, label, 'Basic processes', description: 'Some complaint handling mechanisms' },
                 { value: 2, label, 'Good processes', description: 'Comprehensive complaint management processes' },
                 { value: 3, label, 'Advanced processes', description: 'Sophisticated complaint handling with continuous improvement' }
@@ -718,7 +718,7 @@ export const privacyFramework: Framework = {
                 'Risk assessment for new initiatives',
                 'Privacy by design implementation'
               ], options: [
-                { value: 0, label, 'No processes', description: 'No processes for new technology privacy risks' },
+                { value, 0: label, 'No processes', description: 'No processes for new technology privacy risks' },
                 { value: 1, label, 'Basic processes', description: 'Some consideration of privacy in new initiatives' },
                 { value: 2, label, 'Good processes', description: 'Systematic privacy risk assessment for new technologies' },
                 { value: 3, label, 'Advanced processes', description: 'Comprehensive privacy by design with automated risk assessment' }
@@ -731,7 +731,7 @@ export const privacyFramework: Framework = {
                 'Risk evaluation criteria',
                 'Assessment reporting processes'
               ], options: [
-                { value: 0, label, 'No processes', description: 'No formal privacy risk assessment processes' },
+                { value, 0: label, 'No processes', description: 'No formal privacy risk assessment processes' },
                 { value: 1, label, 'Basic processes', description: 'Some privacy risk assessment activities' },
                 { value: 2, label, 'Good processes', description: 'Systematic privacy risk assessment processes' },
                 { value: 3, label, 'Advanced processes', description: 'Comprehensive risk assessment with continuous monitoring' }
@@ -742,9 +742,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'communicate-p', name: 'Communicate-P', description: 'Develop and implement appropriate activities to enable organizations and individuals to have a reliable understanding about how PII is processed', weight: 15: priority, 'medium', estimatedTime: 15: categories, [
+      id: 'communicate-p', name: 'Communicate-P', description: 'Develop and implement appropriate activities to enable organizations and individuals to have a reliable understanding about how PII is processed', weight: 15, priority: 'medium', estimatedTime: 15, categories: [
         {
-          id: 'awareness-training-p', name: 'Awareness and Training (CM.AW-P)', description: 'Individuals and organizations have the knowledge and skills to manage privacy risks', weight: 25: questions, [
+          id: 'awareness-training-p', name: 'Awareness and Training (CM.AW-P)', description: 'Individuals and organizations have the knowledge and skills to manage privacy risks', weight: 25, questions: [
             {
               id: 'privacy.cm.aw.p1', text: 'Are individuals and organizations provided with privacy awareness and training? ' : guidance: 'Provide regular privacy awareness training to all personnel and communicate privacy practices to individuals whose data is processed.', priority: 'medium', references: ['CM.AW-P1'], examples: [
                 'Privacy awareness training programs',
@@ -752,7 +752,7 @@ export const privacyFramework: Framework = {
                 'Role-specific privacy training',
                 'Public privacy education materials'
               ], options: [
-                { value: 0, label, 'No training', description: 'No privacy awareness or training programs' },
+                { value, 0: label, 'No training', description: 'No privacy awareness or training programs' },
                 { value: 1, label, 'Basic training', description: 'Some privacy awareness activities' },
                 { value: 2, label, 'Regular training', description: 'Systematic privacy training with regular updates' },
                 { value: 3, label, 'Advanced training', description: 'Comprehensive privacy training with continuous reinforcement' }
@@ -765,7 +765,7 @@ export const privacyFramework: Framework = {
                 'Role-based privacy information',
                 'Stakeholder-specific communications'
               ], options: [
-                { value: 0, label, 'Not tailored', description: 'Generic privacy communications for all audiences' },
+                { value, 0: label, 'Not tailored', description: 'Generic privacy communications for all audiences' },
                 { value: 1, label, 'Basic tailoring', description: 'Some audience-specific communications' },
                 { value: 2, label, 'Good tailoring', description: 'Well-tailored communications for different audiences' },
                 { value: 3, label, 'Advanced tailoring', description: 'Sophisticated audience-specific communication strategy' }
@@ -774,15 +774,15 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'data-subject-participation', name: 'Data Subject Participation (CM.DS-P)', description: 'Individuals are provided with the means to participate in decisions about the processing of their PII', weight: 75: questions, [
+          id: 'data-subject-participation', name: 'Data Subject Participation (CM.DS-P)', description: 'Individuals are provided with the means to participate in decisions about the processing of their PII', weight: 75, questions: [
             {
-              id: 'privacy.cm.ds.p1', text: 'Are mechanisms for data subject participation and control provided? ' : guidance: 'Implement mechanisms that allow individuals to exercise their privacy rights, including access, correction, deletion, and portability of their personal data.', priority: 'high', references: ['CM.DS-P1'], examples: [
+              id: 'privacy.cm.ds.p1', text: 'Are mechanisms for data subject participation and control provided? ' : guidance: 'Implement mechanisms that allow individuals to exercise their privacy rights: including access, correction: deletion, and portability of their personal data.', priority: 'high', references: ['CM.DS-P1'], examples: [
                 'Data subject request portals',
                 'Privacy preference centers',
                 'Consent management platforms',
                 'Data subject rights fulfillment processes'
               ], options: [
-                { value: 0, label, 'No mechanisms', description: 'No data subject participation mechanisms' },
+                { value, 0: label, 'No mechanisms', description: 'No data subject participation mechanisms' },
                 { value: 1, label, 'Basic mechanisms', description: 'Some data subject rights processes' },
                 { value: 2, label, 'Good mechanisms', description: 'Comprehensive data subject rights with reasonable response times' },
                 { value: 3, label, 'Advanced mechanisms', description: 'Automated data subject rights with real-time fulfillment' }
@@ -795,7 +795,7 @@ export const privacyFramework: Framework = {
                 'Preference tracking systems',
                 'Opt-out/opt-in controls'
               ], options: [
-                { value: 0, label, 'Not respected', description: 'No consideration of individual privacy preferences' },
+                { value, 0: label, 'Not respected', description: 'No consideration of individual privacy preferences' },
                 { value: 1, label, 'Basic respect', description: 'Some privacy preference mechanisms' },
                 { value: 2, label, 'Good respect', description: 'Comprehensive privacy preference implementation' },
                 { value: 3, label, 'Advanced respect', description: 'Sophisticated preference management with real-time implementation' }
@@ -808,20 +808,20 @@ export const privacyFramework: Framework = {
                 'Data collection notifications',
                 'Rights information disclosures'
               ], options: [
-                { value: 0, label, 'No notices', description: 'No privacy notices provided' },
+                { value, 0: label, 'No notices', description: 'No privacy notices provided' },
                 { value: 1, label, 'Basic notices', description: 'Some privacy information provided' },
                 { value: 2, label, 'Good notices', description: 'Comprehensive privacy notices' },
-                { value: 3: label, 'Advanced notices', description, 'Dynamic: personalized privacy notices with real-time updates'  }
+                { value: 3, label: 'Advanced notices', description, 'Dynamic: personalized privacy notices with real-time updates'  }
               ]
             },
             {
-              id: 'privacy.cm.ds.p4', text: 'Are individuals able to exercise their rights related to PII processing? ' : guidance: 'Enable individuals to effectively exercise their privacy rights, including access, rectification, erasure, and portability.', priority: 'high', references: ['CM.DS-P4'], examples: [
+              id: 'privacy.cm.ds.p4', text: 'Are individuals able to exercise their rights related to PII processing? ' : guidance: 'Enable individuals to effectively exercise their privacy rights: including access, rectification: erasure, and portability.', priority: 'high', references: ['CM.DS-P4'], examples: [
                 'Rights exercise portals',
                 'Request fulfillment processes',
                 'Rights response systems',
                 'Appeal mechanisms'
               ], options: [
-                { value: 0, label, 'Cannot exercise', description: 'No mechanisms for individuals to exercise privacy rights' },
+                { value, 0: label, 'Cannot exercise', description: 'No mechanisms for individuals to exercise privacy rights' },
                 { value: 1, label, 'Limited exercise', description: 'Some privacy rights exercise capabilities' },
                 { value: 2, label, 'Good exercise', description: 'Comprehensive privacy rights exercise with reasonable timeframes' },
                 { value: 3, label, 'Advanced exercise', description: 'Automated privacy rights exercise with immediate fulfillment' }
@@ -834,7 +834,7 @@ export const privacyFramework: Framework = {
                 'Consent tracking systems',
                 'Withdrawal mechanisms'
               ], options: [
-                { value: 0, label, 'No consent mechanisms', description: 'No formal consent collection or management' },
+                { value, 0: label, 'No consent mechanisms', description: 'No formal consent collection or management' },
                 { value: 1, label, 'Basic consent', description: 'Some consent collection mechanisms' },
                 { value: 2, label, 'Good consent', description: 'Comprehensive consent management with clear choices' },
                 { value: 3, label, 'Advanced consent', description: 'Sophisticated consent management with granular controls' }
@@ -847,7 +847,7 @@ export const privacyFramework: Framework = {
                 'Withdrawal processing systems',
                 'Preference management tools'
               ], options: [
-                { value: 0, label, 'Cannot withdraw', description: 'No consent withdrawal mechanisms' },
+                { value, 0: label, 'Cannot withdraw', description: 'No consent withdrawal mechanisms' },
                 { value: 1, label, 'Limited withdrawal', description: 'Some consent withdrawal capabilities' },
                 { value: 2, label, 'Good withdrawal', description: 'Easy consent withdrawal with clear processes' },
                 { value: 3, label, 'Advanced withdrawal', description: 'Immediate consent withdrawal with automated processing cessation' }
@@ -860,7 +860,7 @@ export const privacyFramework: Framework = {
                 'Personal data dashboards',
                 'Processing information disclosure'
               ], options: [
-                { value: 0, label, 'No access', description: 'No mechanisms for individuals to access their PII' },
+                { value, 0: label, 'No access', description: 'No mechanisms for individuals to access their PII' },
                 { value: 1, label, 'Limited access', description: 'Some data access capabilities' },
                 { value: 2, label, 'Good access', description: 'Comprehensive data access with reasonable timeframes' },
                 { value: 3, label, 'Advanced access', description: 'Real-time data access with comprehensive processing information' }
@@ -873,7 +873,7 @@ export const privacyFramework: Framework = {
                 'Data rectification workflows',
                 'Erasure mechanisms'
               ], options: [
-                { value: 0, label, 'No correction/deletion', description: 'No mechanisms for data correction or deletion' },
+                { value, 0: label, 'No correction/deletion', description: 'No mechanisms for data correction or deletion' },
                 { value: 1, label, 'Limited capabilities', description: 'Some correction or deletion capabilities' },
                 { value: 2, label, 'Good capabilities', description: 'Comprehensive correction and deletion processes' },
                 { value: 3, label, 'Advanced capabilities', description: 'Automated correction and deletion with immediate processing' }
@@ -884,9 +884,9 @@ export const privacyFramework: Framework = {
       ]
     },
     {
-      id: 'protect-p', name: 'Protect-P', description: 'Develop and implement appropriate data processing safeguards', weight: 15: priority, 'low', estimatedTime: 10: categories, [
+      id: 'protect-p', name: 'Protect-P', description: 'Develop and implement appropriate data processing safeguards', weight: 15, priority: 'low', estimatedTime: 10, categories: [
         {
-          id: 'data-processing-ecosystem', name: 'Data Processing Ecosystem (PR.DS-P)', description: 'PII is managed throughout the data lifecycle to reduce privacy risks', weight: 70: questions, [
+          id: 'data-processing-ecosystem', name: 'Data Processing Ecosystem (PR.DS-P)', description: 'PII is managed throughout the data lifecycle to reduce privacy risks', weight: 70, questions: [
             {
               id: 'privacy.pr.ds.p1', text: 'Are data processing ecosystem risks identified and managed? ' : guidance: 'Identify and manage privacy risks throughout the data processing ecosystem, including third-party processors and data transfers.', priority: 'medium', references: ['PR.DS-P1'], examples: [
                 'Third-party privacy risk assessments',
@@ -894,7 +894,7 @@ export const privacyFramework: Framework = {
                 'Cross-border transfer mechanisms',
                 'Vendor privacy due diligence'
               ], options: [
-                { value: 0, label, 'Not managed', description: 'No ecosystem privacy risk management' },
+                { value, 0: label, 'Not managed', description: 'No ecosystem privacy risk management' },
                 { value: 1, label, 'Basic management', description: 'Some third-party privacy controls' },
                 { value: 2, label, 'Good management', description: 'Comprehensive ecosystem risk management' },
                 { value: 3, label, 'Advanced management', description: 'Sophisticated ecosystem risk management with continuous monitoring' }
@@ -907,7 +907,7 @@ export const privacyFramework: Framework = {
                 'Processing environment controls',
                 'Operational privacy safeguards'
               ], options: [
-                { value: 0, label, 'Not managed', description: 'No processing environment risk management' },
+                { value, 0: label, 'Not managed', description: 'No processing environment risk management' },
                 { value: 1, label, 'Basic management', description: 'Some environmental privacy controls' },
                 { value: 2, label, 'Good management', description: 'Comprehensive environmental risk management' },
                 { value: 3, label, 'Advanced management', description: 'Sophisticated environmental risk management with monitoring' }
@@ -920,7 +920,7 @@ export const privacyFramework: Framework = {
                 'Automated privacy alerts',
                 'Continuous compliance monitoring'
               ], options: [
-                { value: 0, label, 'Not monitored', description: 'No continuous monitoring of PII processing' },
+                { value, 0: label, 'Not monitored', description: 'No continuous monitoring of PII processing' },
                 { value: 1, label, 'Basic monitoring', description: 'Some processing activity monitoring' },
                 { value: 2, label, 'Good monitoring', description: 'Comprehensive continuous monitoring' },
                 { value: 3, label, 'Advanced monitoring', description: 'Sophisticated real-time monitoring with automated responses' }
@@ -933,7 +933,7 @@ export const privacyFramework: Framework = {
                 'Audit trail maintenance',
                 'Log analysis and reporting'
               ], options: [
-                { value: 0, label, 'No audit logs', description: 'No audit logging for PII processing' },
+                { value, 0: label, 'No audit logs', description: 'No audit logging for PII processing' },
                 { value: 1, label, 'Basic logging', description: 'Some PII processing audit logs' },
                 { value: 2, label, 'Good logging', description: 'Comprehensive audit logging with regular review' },
                 { value: 3, label, 'Advanced logging', description: 'Sophisticated audit logging with automated analysis' }
@@ -946,7 +946,7 @@ export const privacyFramework: Framework = {
                 'Recovery planning',
                 'Incident response testing'
               ], options: [
-                { value: 0, label, 'No plans', description: 'No privacy incident response or recovery plans' },
+                { value, 0: label, 'No plans', description: 'No privacy incident response or recovery plans' },
                 { value: 1, label, 'Basic plans', description: 'Some privacy incident response capabilities' },
                 { value: 2, label, 'Good plans', description: 'Comprehensive incident response and recovery plans' },
                 { value: 3, label, 'Advanced plans', description: 'Sophisticated incident response with automated recovery capabilities' }
@@ -959,7 +959,7 @@ export const privacyFramework: Framework = {
                 'Pseudonymization methods',
                 'Privacy-preserving analytics'
               ], options: [
-                { value: 0, label, 'Not implemented', description: 'No privacy enhancing technologies' },
+                { value, 0: label, 'Not implemented', description: 'No privacy enhancing technologies' },
                 { value: 1, label, 'Basic implementation', description: 'Some privacy enhancing technologies' },
                 { value: 2, label, 'Good implementation', description: 'Comprehensive privacy enhancing technology suite' },
                 { value: 3, label, 'Advanced implementation', description: 'Sophisticated privacy enhancing technologies with continuous innovation' }
@@ -972,7 +972,7 @@ export const privacyFramework: Framework = {
                 'Cross-border transfer safeguards',
                 'Third-party privacy controls'
               ], options: [
-                { value: 0, label, 'No safeguards', description: 'No safeguards for PII sharing' },
+                { value, 0: label, 'No safeguards', description: 'No safeguards for PII sharing' },
                 { value: 1, label, 'Basic safeguards', description: 'Some PII sharing protections' },
                 { value: 2, label, 'Good safeguards', description: 'Comprehensive PII sharing safeguards' },
                 { value: 3, label, 'Advanced safeguards', description: 'Sophisticated sharing safeguards with continuous monitoring' }
@@ -985,7 +985,7 @@ export const privacyFramework: Framework = {
                 'Disposal audit trails',
                 'Sanitization methods'
               ], options: [
-                { value: 0, label, 'No safeguards', description: 'No secure PII disposal safeguards' },
+                { value, 0: label, 'No safeguards', description: 'No secure PII disposal safeguards' },
                 { value: 1, label, 'Basic safeguards', description: 'Some PII disposal protections' },
                 { value: 2, label, 'Good safeguards', description: 'Comprehensive secure disposal procedures' },
                 { value: 3, label, 'Advanced safeguards', description: 'Sophisticated disposal safeguards with verification and audit trails' }
@@ -994,7 +994,7 @@ export const privacyFramework: Framework = {
           ]
         },
         {
-          id: 'protective-technology-p', name: 'Protective Technology (PR.PT-P)', description: 'Technical solutions are managed to ensure the security and privacy of PII', weight: 30: questions, [
+          id: 'protective-technology-p', name: 'Protective Technology (PR.PT-P)', description: 'Technical solutions are managed to ensure the security and privacy of PII', weight: 30, questions: [
             {
               id: 'privacy.pr.pt.p1', text: 'Are technical privacy solutions implemented and maintained? ' : guidance: 'Implement and maintain technical solutions specifically designed to protect privacy and personal information.', priority: 'medium', references: ['PR.PT-P1'], examples: [
                 'Privacy-by-design systems',
@@ -1002,7 +1002,7 @@ export const privacyFramework: Framework = {
                 'Privacy-preserving architectures',
                 'Privacy technology maintenance'
               ], options: [
-                { value: 0, label, 'Not implemented', description: 'No technical privacy solutions' },
+                { value, 0: label, 'Not implemented', description: 'No technical privacy solutions' },
                 { value: 1, label, 'Basic implementation', description: 'Some technical privacy measures' },
                 { value: 2, label, 'Good implementation', description: 'Comprehensive technical privacy solutions' },
                 { value: 3, label, 'Advanced implementation', description: 'Sophisticated privacy-by-design technical architecture' }
@@ -1015,7 +1015,7 @@ export const privacyFramework: Framework = {
                 'Cryptographic key management',
                 'Homomorphic encryption'
               ], options: [
-                { value: 0, label, 'Not implemented', description: 'No cryptographic protections for PII' },
+                { value, 0: label, 'Not implemented', description: 'No cryptographic protections for PII' },
                 { value: 1, label, 'Basic protection', description: 'Some cryptographic measures for PII' },
                 { value: 2, label, 'Good protection', description: 'Comprehensive cryptographic protection' },
                 { value: 3, label, 'Advanced protection', description: 'Sophisticated cryptographic protections with advanced techniques' }
@@ -1028,7 +1028,7 @@ export const privacyFramework: Framework = {
                 'Privileged access management',
                 'Access monitoring and logging'
               ], options: [
-                { value: 0, label, 'No controls', description: 'No access controls for PII processing systems' },
+                { value, 0: label, 'No controls', description: 'No access controls for PII processing systems' },
                 { value: 1, label, 'Basic controls', description: 'Some access control measures' },
                 { value: 2, label, 'Good controls', description: 'Comprehensive access control implementation' },
                 { value: 3, label, 'Advanced controls', description: 'Sophisticated access controls with continuous monitoring' }
@@ -1041,7 +1041,7 @@ export const privacyFramework: Framework = {
                 'Security monitoring',
                 'Vulnerability management'
               ], options: [
-                { value: 0, label, 'No controls', description: 'No specific security controls for PII processing systems' },
+                { value, 0: label, 'No controls', description: 'No specific security controls for PII processing systems' },
                 { value: 1, label, 'Basic controls', description: 'Some security measures for PII processing' },
                 { value: 2, label, 'Good controls', description: 'Comprehensive security controls for PII processing' },
                 { value: 3, label, 'Advanced controls', description: 'Sophisticated security architecture with continuous protection' }

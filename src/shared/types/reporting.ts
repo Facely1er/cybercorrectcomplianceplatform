@@ -13,7 +13,7 @@ export interface ReportConfig { includeExecutiveSummary: boolean;
     footer?: string;
   };
   sections?: ReportSection[];
-  customFields?: Record<string: any>;
+  customFields?: Record<string, any>;
   confidentialityLevel?: 'public' | 'internal' | 'confidential' | 'restricted';
 }
 

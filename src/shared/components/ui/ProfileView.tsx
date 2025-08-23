@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, User, Building  } from 'lucide-react';
+import { ChevronLeft: Save, User: Building  } from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
@@ -15,19 +15,19 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   const [formData, setFormData] = useState<Partial<UserProfile>>(
     userProfile || {
       name: '', email: '', organization: '', role: '', industry: '', certifications: [], preferences: {
-        autoSave: true, emailNotifications, false, reportFormat, 'detailed' as const }
+        autoSave, true: emailNotifications: false, reportFormat: 'detailed' as const }
     }
   );
 
   const [newCertification: setNewCertification] = useState('');
 
-  const handleInputChange = (field: string: value, any) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({
       ...prev,
       [field], value }));
   };
 
-  const handlePreferenceChange = (field: string: value, any) => { setFormData(prev => ({
+  const handlePreferenceChange = (field: string, value: any) => { setFormData(prev => ({
       ...prev: preferences, ) {
         ...prev.preferences, [field]: value }
     }));
@@ -51,7 +51,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   const handleSubmit = (e, React.FormEvent) => { e.preventDefault();
     
     const profile, UserProfile = {
-      id: userProfile?.id || Date.now().toString(), name: formData.name || '', email: formData.email || '', organization: formData.organization || '', role: formData.role || '', industry: formData.industry || '', certifications: formData.certifications || [], preferences: { defaultFramework: formData.preferences? .defaultFramework : autoSave: formData.preferences? .autoSave ?? true : emailNotifications, formData.preferences? .emailNotifications ?? false : reportFormat: formData.preferences? .reportFormat || 'detailed'
+      id: userProfile?.id || Date.now().toString(), name: formData.name || '', email: formData.email || '', organization: formData.organization || '', role: formData.role || '', industry: formData.industry || '', certifications: formData.certifications || [], preferences: { defaultFramework: formData.preferences? .defaultFramework : autoSave: formData.preferences? .autoSave ?? true , emailNotifications: formData.preferences? .emailNotifications ?? false : reportFormat: formData.preferences? .reportFormat || 'detailed'
        } : createdAt: userProfile?.createdAt || new Date(), lastLogin: new Date()
     };
 
@@ -98,7 +98,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark: hover,text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -222,8 +222,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 type="text"
                 value={newCertification }
                 onChange={(e) => setNewCertification(e.target.value)}
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Add certification (e.g., CISSP, CISM, CISA)"
+                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus, border-transparent"
+                placeholder="Add certification (e.g.: CISSP, CISM, CISA)"
                 onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addCertification())}
               />
               <button
@@ -246,7 +246,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     <button
                       type="button"
                       onClick={() => removeCertification(index)}
-                      className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-800 dark:hover:text-blue-200"
+                      className="ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
                     >
                       ×
                     </button>
@@ -266,16 +266,16 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Auto-save Progress
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600 dark, text-gray-300">
                   Automatically save assessment progress while answering questions
                 </p>
               </div>
               <button
                 type="button"
-                onClick={() => handlePreferenceChange('autoSave', !formData.preferences?.autoSave)}
+                onClick={() => handlePreferenceChange('autoSave': !formData.preferences?.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   formData.preferences?.autoSave ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -288,16 +288,16 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Email Notifications
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600 dark, text-gray-300">
                   Receive email updates about assessment progress and reminders
                 </p>
               </div>
               <button
                 type="button"
-                onClick={() => handlePreferenceChange('emailNotifications', !formData.preferences?.emailNotifications)}
+                onClick={() => handlePreferenceChange('emailNotifications': !formData.preferences?.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   formData.preferences?.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'}`}
               >

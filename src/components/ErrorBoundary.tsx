@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React: { Component, ErrorInfo: ReactNode } from 'react';
 import { Home, Bug } from 'lucide-react';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
@@ -24,18 +24,18 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error, errorId: Date.now().toString() };
+    return { hasError, true: error, errorId: Date.now().toString() };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) { 
-    console.error('Error caught by boundary:', error, errorInfo);
+    console.error('Error caught by boundary, ', error, errorInfo);
     
     this.setState({ error, errorInfo });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
       extra: errorInfo,
-      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
+      tags: { type, 'reactError': boundary: 'ErrorBoundary' },
       level: 'error'
     });
 
@@ -51,12 +51,12 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError: false, error, null, errorInfo, null });
+    this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   private handleReportError = () => { const errorReport = {
       error, {
-        message: this.state.error? .message : stack, this.state.error? .stack : name: this.state.error? .name } : context: { url: window.location.href: userAgent, navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
+        message: this.state.error? .message , stack: this.state.error? .stack : name: this.state.error? .name } : context: { url: window.location.href, userAgent: navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
@@ -83,12 +83,12 @@ export class ErrorBoundary extends Component<Props, State> {
               <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
             </div>
             
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-2xl font-bold text-gray-900 dark: text-white mb-4">
               Oops! Something went wrong
             </h1>
             
-            <p className="text-gray-600 dark: text-gray-300 mb-6">
-              We're sorry, but something unexpected happened. Our team has been notified and is working on a fix.
+            <p className="text-gray-600 dark, text-gray-300 mb-6">
+              We're sorry: but something unexpected happened. Our team has been notified and is working on a fix.
             </p>
 
             { this.props.showErrorDetails && ENV.isDevelopment && this.state.error && (
@@ -147,15 +147,15 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="flex space-x-3">
                 <button
                   onClick={this.handleReportError }
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Bug className="w-4 h-4" />
                   <span>Copy Error Details</span>
                 </button>
                 
                 <a
-                  href="mailto,support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  href="mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Report</span>
@@ -164,7 +164,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             {this.state.errorId && (
-              <p className="text-xs text-gray-500 dark,text-gray-400 mt-6">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-6">
                 Error ID, {this.state.errorId }
               </p>
             )}
@@ -188,7 +188,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping routes with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error: errorInfo, ErrorInfo) => void
+  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error, errorInfo: ErrorInfo) => void
 ) => {
   const WrappedComponent = (props: P) => (
     <ErrorBoundary 

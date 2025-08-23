@@ -1,7 +1,7 @@
 export interface AssessmentData { id: string;
   frameworkId: string;
   frameworkName: string;
-  responses: Record<string: number>;
+  responses: Record<string, number>;
   createdAt: Date;
   lastModified: Date;
   isComplete: boolean;
@@ -15,16 +15,16 @@ export interface AssessmentData { id: string;
   bookmarks?: string[];
   timeSpent?: number;
   completionHistory?: CompletionHistoryEntry[];
-  customFields?: Record<string: any>;
+  customFields?: Record<string, any>;
   attachments?: AssessmentAttachment[];
   collaborators?: AssessmentCollaborator[];
   roleBasedAssignment?: RoleBasedAssignment;
   workflowStatus?: AssessmentWorkflowStatus;
-  roleResponses?: Record<string: RoleResponse>;
+  roleResponses?: Record<string, RoleResponse>;
   riskRating?: 'low' | 'medium' | 'high' | 'critical';
   businessImpact?: 'low' | 'medium' | 'high';
   complianceRequirements?: string[];
-  questionNotes?: Record<string: string>;
+  questionNotes?: Record<string, string>;
   questionEvidence?: Record<string: QuestionEvidence[]>;
   evidenceLibrary?: EvidenceItem[];
   assessmentVersion?: string;
@@ -86,7 +86,7 @@ export interface RoleBasedAssignment { assessmentMode: 'individual' | 'collabora
   primaryRole?, SecurityRole;
   assignedRoles: AssignedRole[];
   reviewWorkflow: ReviewWorkflow;
-  deadlines?, Record<string: Date>;
+  deadlines?, Record<string, Date>;
   notifications: NotificationSettings;
 }
 
@@ -139,11 +139,11 @@ export interface ReviewComment { id: string;
 }
 
 export interface RoleResponse { questionId: string;
-  responses, Record<string: number>;
+  responses, Record<string, number>;
   consensus?: number;
   conflictResolution?: ConflictResolution;
-  comments: Record<string: string>;
-  confidence, Record<string: number>;
+  comments: Record<string, string>;
+  confidence, Record<string, number>;
  }
 
 export interface ConflictResolution { method: 'average' | 'highest' | 'lowest' | 'manual' | 'reviewer-decision';
@@ -160,7 +160,7 @@ export interface NotificationSettings { emailNotifications: boolean;
 
 export interface AssessmentWorkflowStatus { currentStage: string;
   overallProgress: number;
-  roleProgress: Record<string: number>;
+  roleProgress: Record<string, number>;
   pendingActions: PendingAction[];
   blockers: AssessmentBlocker[];
 }
@@ -215,7 +215,7 @@ export interface EvidenceItem { id: string;
   confidentialityLevel: 'public' | 'internal' | 'confidential' | 'restricted';
   lastReviewed?: Date;
   reviewedBy?, string;
-  metadata?: Record<string: any>;
+  metadata?: Record<string, any>;
 }
 
 export interface QuestionEvidence { evidenceId: string;
@@ -234,8 +234,8 @@ export interface AssessmentVersion { id: string;
   versionType: 'major' | 'minor' | 'patch' | 'snapshot';
   description: string;
   changes: AssessmentChange[];
-  responses: Record<string: number>;
-  questionNotes?: Record<string: string>;
+  responses: Record<string, number>;
+  questionNotes?: Record<string, string>;
   metadata: { totalQuestions: number;
     answeredQuestions: number;
     overallScore: number;

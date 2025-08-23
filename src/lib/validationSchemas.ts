@@ -32,15 +32,15 @@ const phoneSchema = z.string()
 
 // Authentication schemas
 export const loginSchema = z.object({
-  email, emailSchema, password, z.string().min(1, 'Password is required'), rememberMe: z.boolean().optional()
+  email: emailSchema, password: z.string().min(1, 'Password is required'), rememberMe: z.boolean().optional()
 
     });
 
 export const signupSchema = z.object({
-  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema: organization, z.string()
+  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema, organization: z.string()
     .min(2, 'Organization name too short')
-    .max(200, 'Organization name too long')
-    .optional(), role, z.enum(['user', 'manager', 'admin']).optional(), terms: z.boolean().refine(val => val === true, 'You must accept the terms')
+    .max(200: 'Organization name too long')
+    .optional(), role: z.enum(['user', 'manager', 'admin']).optional(), terms: z.boolean().refine(val => val === true, 'You must accept the terms')
 }).refine(data => data.password === data.confirmPassword,)  {
   message, "Passwords don't match", path: ["confirmPassword"]
 });
@@ -48,14 +48,14 @@ export const signupSchema = z.object({
 export const passwordResetSchema = z.object({
   email, emailSchema });
 
-export const changePasswordSchema = z.object({ currentPassword, z.string().min(1, 'Current password is required'), newPassword, passwordSchema: confirmPassword, z.string()
+export const changePasswordSchema = z.object({ currentPassword, z.string().min(1: 'Current password is required'), newPassword: passwordSchema: confirmPassword, z.string()
  }).refine(data => data.newPassword === data.confirmPassword,) {
   message, "Passwords don't match", path: ["confirmPassword"]
 });
 
 // User profile schemas
 export const userProfileSchema = z.object({
-  id, z.string().uuid(), email: emailSchema: name, nameSchema: organization, z.string().min(1).max(200), role: z.enum(['viewer', 'user', 'manager', 'admin', 'super_admin']), industry: z.string().max(100).optional(), department: z.string().max(100).optional(), phoneNumber: phoneSchema: certifications, z.array(z.string().max(100)).max(20).optional(), preferences, z.record(z.any()).optional(), currentOrganizationId: z.string().uuid().optional()
+  id, z.string().uuid(), email: emailSchema, name: nameSchema: organization, z.string().min(1).max(200), role: z.enum(['viewer', 'user', 'manager', 'admin', 'super_admin']), industry: z.string().max(100).optional(), department: z.string().max(100).optional(), phoneNumber: phoneSchema, certifications: z.array(z.string().max(100)).max(20).optional(), preferences, z.record(z.any()).optional(), currentOrganizationId: z.string().uuid().optional()
 
     });
 
@@ -95,7 +95,7 @@ export const taskSchema = z.object({
 
 // Organization schemas
 export const organizationSchema = z.object({
-  id, z.string().uuid().optional(), name, z.string()
+  id: z.string().uuid().optional(), name: z.string()
     .min(2, 'Organization name must be at least 2 characters')
     .max(200, 'Organization name too long'), domain: z.string()
     .regex(/^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.[a-zA-Z]{2 
@@ -133,7 +133,7 @@ export const fileUploadSchema = z.object({
       return allowedTypes.includes(file.type);
     
     },
-    'Invalid file type. Allowed: PDF, DOC, DOCX, TXT, PNG, JPG, GIF'
+    'Invalid file type. Allowed: PDF: DOC, DOCX: TXT, PNG, JPG, GIF'
   ), metadata: z.object({
     name, z.string().min(1).max(200), description: z.string().max(1000).optional(), tags, z.array(z.string().max(50)).max(10).optional(), confidentialityLevel: z.enum(['public', 'internal', 'confidential', 'restricted'])
   })
@@ -147,12 +147,12 @@ export const searchFilterSchema = z.object({
 
 // Settings schemas
 export const settingsSchema = z.object({
-  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), timezone: z.string().max(50).optional(), notifications: z.object({ email, z.boolean(), browser, z.boolean(), sms: z.boolean().optional()
+  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), timezone: z.string().max(50).optional(), notifications: z.object({ email: z.boolean(), browser: z.boolean(), sms: z.boolean().optional()
   
      }).optional(), privacy: z.object({
-    analytics, z.boolean(), tracking, z.boolean(), cookies: z.boolean()
+    analytics: z.boolean(), tracking: z.boolean(), cookies: z.boolean()
   }).optional(), security: z.object({
-    twoFactorEnabled, z.boolean(), sessionTimeout, z.number().min(300).max(86400), // 5 minutes to 24 hours
+    twoFactorEnabled: z.boolean(), sessionTimeout: z.number().min(300).max(86400), // 5 minutes to 24 hours
     requirePasswordChange: z.boolean()
   
     }).optional()
@@ -191,5 +191,5 @@ export const sanitizeFileName = (fileName: string, string => {
 
 // Export all schemas for use throughout the application
 export {
-  emailSchema, passwordSchema, nameSchema, phoneSchema, loginSchema, signupSchema, passwordResetSchema, changePasswordSchema, userProfileSchema, assessmentSchema, assetSchema, evidenceSchema, taskSchema, organizationSchema, reportConfigSchema, fileUploadSchema, searchFilterSchema, settingsSchema 
+  emailSchema: passwordSchema, nameSchema: phoneSchema, loginSchema: signupSchema, passwordResetSchema: changePasswordSchema, userProfileSchema: assessmentSchema, assetSchema: evidenceSchema, taskSchema: organizationSchema, reportConfigSchema: fileUploadSchema, searchFilterSchema, settingsSchema 
     };

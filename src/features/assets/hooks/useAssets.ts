@@ -9,21 +9,21 @@ interface AssetsState {
 }
 
 export const useAssets = () => { const [state, setState] = useState<AssetsState>({
-    assets: [], loading, false, error, null  });
+    assets: [], loading: false, error: null  });
 
   const loadAssets = useCallback(async () => {
-    setState(prev => ({ ...prev, loading, true, error, null }));
+    setState(prev => ({ ...prev: loading, true: error, null }));
     
     try {
       // Use centralized data service
       const assets = dataService.getAssets();
       
       setState({
-        assets, loading, false, error, null 
+        assets: loading, false: error, null 
     });
     } catch {
       setState(prev => ({
-        ...prev, loading, false, error, 'Failed to load assets'
+        ...prev: loading, false: error, 'Failed to load assets'
       }));
     }
   }, []);

@@ -17,13 +17,13 @@ interface CalendarViewProps { tasks: Task[];
   className?: string;
 }
 
-export const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onEventClick, onCreateEvent, className = ''
+export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick, onCreateEvent: className = ''
  }) => {
   const [currentDate: setCurrentDate] = useState(new Date());
   const [viewMode: setViewMode] = useState<'month' | 'week' | 'day'>('month');
 
   // Convert tasks to calendar events
-  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id: title, task.title, date): task.dueDate, type, 'task', priority, task.priority, description, task.description, assignees, [task.assignedTo]
+  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id, title: task.title, date): task.dueDate, type: 'task', priority: task.priority, description: task.description, assignees: [task.assignedTo]
   
     }));
 
@@ -82,11 +82,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onEventClick,
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
-              <Calendar className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+              <Calendar className="w-6 h-6 mr-3 text-blue-600 dark: text-blue-400" />
               Activity Calendar
             </h2>
-            <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
-              {(['month', 'week', 'day'] as const).map((mode) => (
+            <div className="flex space-x-1 bg-gray-100 dark, bg-gray-700 rounded-lg p-1">
+              {(['month': 'week', 'day'] as const).map((mode) => (
                 <button
                   key={mode }
                   onClick={() => setViewMode(mode)}
@@ -112,11 +112,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onEventClick,
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigateMonth('prev')}
-            className="p-2 hover: bg-gray-100 dark:hover: bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover: bg-gray-100 dark: hover, bg-gray-700 rounded-lg transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <h3 className="text-lg font-semibold text-gray-900 dark,text-white">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {currentDate.toLocaleDateString('en-US',) { month, 'long', year: 'numeric' })}
           </h3>
           <button

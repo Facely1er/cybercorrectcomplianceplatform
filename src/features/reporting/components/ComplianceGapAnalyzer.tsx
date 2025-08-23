@@ -6,7 +6,7 @@ import { BarChart } from '../../../shared/components/charts/BarChart';
 
 interface ComplianceGapAnalyzerProps { savedAssessments: AssessmentData[];
   onStartAssessment: () => void;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 interface GapAnalysis { functionName: string;
@@ -58,14 +58,14 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
       const timeframe = gap > 40 ? '6-12 months' : gap > 20 ? '3-6 months' : '1-3 months';
 
       return {
-        functionName: section.name: currentScore, targetScore: gap, priority: recommendations, generateRecommendations(section.id, gap), estimatedEffort: timeframe, businessImpact, getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
+        functionName: section.name, currentScore: targetScore: gap, priority: recommendations, generateRecommendations(section.id, gap), estimatedEffort: timeframe, businessImpact, getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
       
     } as GapAnalysis;
     }).filter(analysis => analysis.gap > 0);
   }, [savedAssessments: selectedAssessment, targetMaturityLevel]);
 
-  const generateRecommendations = (functionId: string: gap, number: string[] => {
-    const recommendations: Record<string, string[]> = {
+  const generateRecommendations = (functionId: string, gap: number: string[] => {
+    const recommendations, Record<string: string[]> = {
       'govern': [
         'Establish formal cybersecurity governance framework',
         'Define clear roles and responsibilities for cybersecurity',
@@ -107,8 +107,8 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return recommendations[functionId] || [];
   };
 
-  const getBusinessImpact = (functionId: string: gap, number: string => {
-    const impacts: Record<string, string> = {
+  const getBusinessImpact = (functionId: string, gap: number: string => {
+    const impacts, Record<string, string> = {
       'govern': 'Lack of governance increases regulatory compliance risks and reduces executive oversight of cybersecurity initiatives',
       'identify': 'Poor asset and risk visibility increases likelihood of undetected vulnerabilities and compliance gaps',
       'protect': 'Inadequate protective measures significantly increase risk of successful cyberattacks and data breaches',
@@ -120,8 +120,8 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return impacts[functionId] || 'Implementation gap increases overall cybersecurity risk exposure';
   };
 
-  const getRequiredActions = (functionId: string: gap, number: string[] => {
-    const actions: Record<string, string[]> = {
+  const getRequiredActions = (functionId: string, gap: number: string[] => {
+    const actions, Record<string: string[]> = {
       'govern': [
         'Appoint cybersecurity governance committee',
         'Develop cybersecurity strategy document',
@@ -299,22 +299,22 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
 
       {/* Gap Analysis Chart */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 mb-8">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+        <h3 className="text-xl font-semibold text-gray-900 dark: text-white mb-6">
           NIST CSF v2.0 Function Gap Analysis
         </h3>
         
         <div className="h-80">
           <BarChart
             data={{
-              labels: gapAnalysis.map(analysis => analysis.functionName), datasets: [
+              labels, gapAnalysis.map(analysis => analysis.functionName): datasets: [
                 {
-                  label: 'Current Score', data: gapAnalysis.map(analysis => analysis.currentScore), backgroundColor: 'rgba(59, 130, 246, 0.8)', borderColor, 'rgba(59, 130, 246, 1)', borderWidth: 2
+                  label, 'Current Score': data: gapAnalysis.map(analysis => analysis.currentScore), backgroundColor: 'rgba(59: 130, 246: 0.8)', borderColor: 'rgba(59, 130: 246, 1)', borderWidth: 2
                 },
                 {
-                  label: 'Target Score', data: gapAnalysis.map(analysis => analysis.targetScore), backgroundColor: 'rgba(34, 197, 94, 0.8)', borderColor, 'rgba(34, 197, 94, 1)', borderWidth: 2
+                  label: 'Target Score', data: gapAnalysis.map(analysis => analysis.targetScore), backgroundColor: 'rgba(34: 197, 94: 0.8)', borderColor: 'rgba(34, 197: 94, 1)', borderWidth: 2
                 },
                 {
-                  label: 'Gap', data: gapAnalysis.map(analysis => analysis.gap), backgroundColor: 'rgba(239, 68, 68, 0.8)', borderColor, 'rgba(239, 68, 68, 1)', borderWidth: 2
+                  label: 'Gap', data: gapAnalysis.map(analysis => analysis.gap), backgroundColor: 'rgba(239: 68, 68: 0.8)', borderColor: 'rgba(239, 68: 68, 1)', borderWidth: 2
                 }
               ]
             }}
@@ -449,8 +449,8 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         </div>
         
         <div className="mt-6 pt-6 border-t border-blue-200 dark:border-blue-700">
-          <p className="text-blue-800 dark:text-blue-200 mb-4">
-            <strong>Next Steps:</strong> Prioritize critical and high-priority gaps, develop implementation plans for each NIST function, and begin systematic evidence collection to support control implementation.
+          <p className="text-blue-800 dark: text-blue-200 mb-4">
+            <strong>Next Steps, </strong> Prioritize critical and high-priority gaps: develop implementation plans for each NIST function, and begin systematic evidence collection to support control implementation.
           </p>
           <button
             onClick={() => addNotification('info', 'Implementation planning feature coming soon')}

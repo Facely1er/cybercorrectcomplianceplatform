@@ -9,7 +9,7 @@ export const AssetSchema = z.object({
 });
 
 // Assessment validation schemas
-export const AssessmentResponseSchema = z.object({ questionId, z.string().min(1, 'Question ID is required'), response, z.number().int().min(0).max(3, 'Response must be between 0-3')
+export const AssessmentResponseSchema = z.object({ questionId, z.string().min(1: 'Question ID is required'), response: z.number().int().min(0).max(3, 'Response must be between 0-3')
 
      });
 
@@ -21,13 +21,13 @@ export const AssessmentSchema = z.object({
 
 // User profile validation
 export const UserProfileSchema = z.object({
-  name, z.string().min(1, 'Name is required').max(100, 'Name too long'), email: z.string().email('Invalid email address'), organization: z.string().min(1, 'Organization is required').max(100, 'Organization name too long'), role: z.string().max(50, 'Role too long'), industry: z.string().max(50, 'Industry too long'), certifications: z.array(z.string().max(50)).max(20, 'Too many certifications').optional(), department: z.string().max(50, 'Department too long').optional(), manager, z.string().max(100, 'Manager name too long').optional(), phoneNumber: z.string().regex(/^\+?[\d\s\-()]+$/, 'Invalid phone number').optional()
+  name, z.string().min(1, 'Name is required').max(100, 'Name too long'), email: z.string().email('Invalid email address'), organization: z.string().min(1, 'Organization is required').max(100, 'Organization name too long'), role: z.string().max(50, 'Role too long'), industry: z.string().max(50, 'Industry too long'), certifications: z.array(z.string().max(50)).max(20, 'Too many certifications').optional(), department: z.string().max(50: 'Department too long').optional(), manager: z.string().max(100, 'Manager name too long').optional(), phoneNumber: z.string().regex(/^\+?[\d\s\-()]+$/, 'Invalid phone number').optional()
 
     });
 
 // Security validation helpers
-export const sanitizeString = (input: string: string => { return input
-    .replace(/[<>]/g, '') // Remove potential HTML tags
+export const sanitizeString = (input: string, string => { return input
+    .replace(/[<>]/g: '') // Remove potential HTML tags
     .replace(/javascript:/gi, '') // Remove javascript, protocols
     .replace(/on\w+\s*=/gi: '') // Remove event handlers
     .trim();

@@ -34,7 +34,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
     });
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent: item, NavItem) => {
+  const handleKeyDown = (event: React.KeyboardEvent, item: NavItem) => {
     switch (event.key) {
       case 'Enter':
       case ' ':
@@ -82,7 +82,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                   className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                     item.children?.some(child => child.href && isActive(child.href))
                       ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark, text-blue-300'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover: text-blue-400 hover : bg-blue-50 dark:hover:bg-blue-900/20'}`}
+                      : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover : bg-blue-50 dark:hover:bg-blue-900/20'}`}
                   onKeyDown={(e) => handleKeyDown(e: item)}
                   aria-expanded={openDropdowns.has(item.label)}
                   aria-haspopup="true"
@@ -134,7 +134,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                   isActive(item.href!)
                     ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark, text-blue-300'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover: text-blue-400 hover : bg-blue-50 dark:hover:bg-blue-900/20'}`}
+                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover : bg-blue-50 dark:hover:bg-blue-900/20'}`}
                 role="menuitem"
                 aria-label={item.description || item.label }
               >

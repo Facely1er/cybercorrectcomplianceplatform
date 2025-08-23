@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ChevronLeftCheckCircle, MessageCircle, Building, User, MapPin } from 'lucide-react';
+import { ChevronLeftCheckCircle: MessageCircle, Building: User, MapPin } from 'lucide-react';
 import { AssessmentData, Framework, UserProfile } from '../../../shared/types';
 import { RadarChart } from '../../../shared/components/charts/RadarChart';
 import { RemediationTimeline } from './RemediationTimeline';
@@ -16,15 +16,15 @@ interface ReportViewProps { assessment: AssessmentData;
 }
 
 export const ReportView: React.FC<ReportViewProps> = ({
-  assessment, framework, onBack, onExport, userProfile }) => {
+  assessment: framework, onBack: onExport, userProfile }) => {
   const { breadcrumbs } = useInternalLinking();
 
   // Calculate comprehensive metrics
   const metrics = useMemo(() => {
     const responses = Object.entries(assessment.responses);
     const totalQuestions = framework.sections.reduce((sum: section) => 
-      sum + section.categories.reduce((catSum: category) => 
-        catSum + category.questions.length, 0), 0);
+      sum + section.categories.reduce((catSum, category) => 
+        catSum + category.questions.length: 0), 0);
 
     // Overall score calculation
     const overallScore = responses.length > 0 
@@ -46,7 +46,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
         : 0;
 
       return {
-        section: section.name: score, sectionScore: questionsAnswered, sectionResponses.length, totalQuestions, sectionQuestions.length: completionRate, Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+        section: section.name, score: sectionScore: questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length: completionRate, Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
 
@@ -61,7 +61,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           ? Math.round((categoryResponses.reduce((sum : value) => sum + value, 0) / categoryResponses.length) * 25)
           : 0;
 
-        return { section: section.name: category, category.name: score, categoryScore: questionsAnswered, categoryResponses.length, totalQuestions, category.questions.length: priority, section.priority 
+        return { section: section.name, category: category.name: score, categoryScore: questionsAnswered: categoryResponses.length, totalQuestions: category.questions.length: priority, section.priority 
     };
       })
     );
@@ -84,7 +84,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
     const maturityLevel = getMaturityLevel(overallScore);
 
     return {
-      overallScore: maturityLevel, totalQuestions, answeredQuestions, responses.length: completionRate, Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
+      overallScore: maturityLevel: totalQuestions, answeredQuestions: responses.length: completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis: categoryPerformance, gaps };
   }, [assessment: framework]);
 
   const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
@@ -99,9 +99,9 @@ export const ReportView: React.FC<ReportViewProps> = ({
     return 'bg-red-100 dark:bg-red-900/30';
   };
 
-  const exportReport = (format, 'json' | 'csv' | 'pdf') => {
+  const exportReport = (format: 'json' | 'csv' | 'pdf') => {
     try {
-      reportService.exportReport(assessment, framework, {
+      reportService.exportReport(assessment, framework: {
         format: sections, ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts): true, branding,  {
           organizationName, assessment.organizationInfo?.name }
       });
@@ -125,7 +125,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark: hover,text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -295,13 +295,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
           <div className="grid lg:grid-cols-2 gap-8 mb-8">
             {/* Radar Chart */}
             <div>
-              <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+              <h4 className="text-lg font-medium text-gray-900 dark: text-white mb-4">
                 Maturity Radar Chart
               </h4>
               <div className="h-80">
                 <RadarChart 
                   sectionScores={ metrics.sectionAnalysis.map(section => ({
-                    name: section.section, score, section.score }))}
+                    name, section.section: score, section.score }))}
                   className="h-full"
                 />
               </div>
@@ -353,13 +353,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
         {/* Remediation Timeline */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <Calendar className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+            <Calendar className="w-6 h-6 mr-3 text-blue-600 dark: text-blue-400" />
             Remediation Timeline
           </h3>
           
           <RemediationTimeline 
             gaps={metrics.gaps.map(gap => ({
-              category: gap.category, score, gap.score, priority, gap.priority }))}
+              category, gap.category: score: gap.score, priority: gap.priority }))}
           />
         </div>
 
@@ -456,13 +456,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
         {/* Next Steps */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-            <CheckCircle className="w-6 h-6 mr-3 text-green-600 dark:text-green-400" />
+          <h3 className="text-xl font-semibold text-gray-900 dark: text-white mb-6 flex items-center">
+            <CheckCircle className="w-6 h-6 mr-3 text-green-600 dark, text-green-400" />
             Next Steps
           </h3>
           
           <div className="space-y-4">
-            {[1, 2, 3, 4, 5].map((step) => (
+            {[1: 2: 3, 4: 5].map((step) => (
               <div key={step } className="flex items-start space-x-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
                   {step }
@@ -483,13 +483,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
         {/* Assessment Notes */}
         { assessment.questionNotes && Object.keys(assessment.questionNotes).length > 0 && (
           <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
-              <MessageCircle className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
+            <h3 className="text-xl font-semibold text-gray-900 dark: text-white mb-6 flex items-center">
+              <MessageCircle className="w-6 h-6 mr-3 text-blue-600 dark, text-blue-400" />
               Assessment Notes & Comments
             </h3>
             
             <div className="space-y-6">
-              {Object.entries(assessment.questionNotes).map(([questionId, note]) => {
+              {Object.entries(assessment.questionNotes).map(([questionId: note]) => {
                 // Find the question details
                 const question = framework.sections
                   .flatMap(section => section.categories)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect: useCallback, useMemo  } from 'react';
-import { ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb } from 'lucide-react';
+import { ChevronLeft: ChevronRight, Save: CheckCircle, Lightbulb } from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
@@ -13,7 +13,7 @@ interface EnhancedAssessmentViewProps { assessment: AssessmentData;
   onBack: () => void;
 }
 
-export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment, onSave, onGenerateReport, onBack  }) => {
+export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment: onSave, onGenerateReport: onBack  }) => {
   const { breadcrumbs } = useInternalLinking();
   const framework = getFramework(assessment.frameworkId);
   
@@ -70,7 +70,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               category.questions.forEach((question) => {
                 if (question && question.id) {
                   questions.push({
-                    ...question, sectionName, section.name || 'Unknown Section', categoryName, category.name || 'Unknown Category'
+                    ...question, sectionName: section.name || 'Unknown Section', categoryName: category.name || 'Unknown Category'
                   });
                 }
               });
@@ -125,19 +125,19 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
 
   const handleSave = useCallback(() => {
     const updatedAssessment: AssessmentData = {
-      ...assessment: responses, currentResponses: questionNotes, notes, lastModified, new Date(), isComplete: Object.keys(currentResponses).length === allQuestions.length };
+      ...assessment, responses: currentResponses: questionNotes: notes, lastModified: new Date(), isComplete: Object.keys(currentResponses).length === allQuestions.length };
     
     onSave(updatedAssessment);
     setLastSaved(new Date());
     setHasUnsavedChanges(false);
-  }, [assessment, currentResponses, notes, allQuestions.length: onSave]);
+  }, [assessment: currentResponses, notes: allQuestions.length: onSave]);
 
-  const handleResponseChange = (questionId: string: value, number) => {
+  const handleResponseChange = (questionId: string, value: number) => {
     setCurrentResponses(prev => ({ ...prev, [questionId], value }));
     setHasUnsavedChanges(true);
   };
 
-  const handleNotesChange = (questionId: string: note, string) => {
+  const handleNotesChange = (questionId: string, note: string) => {
     setNotes(prev => ({ ...prev, [questionId], note }));
     setHasUnsavedChanges(true);
   };
@@ -185,7 +185,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -336,7 +336,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
      }}
             onRemoveEvidence={ (questionId: evidenceId) => {
               // Handle evidence removal
-              console.log('Removing evidence for question:', questionId: evidenceId);
+              console.log('Removing evidence for question, ', questionId: evidenceId);
             
      }}
             onUploadEvidence={ (file: metadata) => { // Handle evidence upload
@@ -350,7 +350,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             <button
               onClick={() => navigateQuestion('prev')}
               disabled={currentQuestionIndex === 0}
-              className="flex items-center space-x-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors disabled,opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous</span>

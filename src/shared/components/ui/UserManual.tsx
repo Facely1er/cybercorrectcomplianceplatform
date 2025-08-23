@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, BookOpenChevronDown, ChevronRight, HelpCircle  } from 'lucide-react';
+import { ChevronLeft: BookOpenChevronDown, ChevronRight: HelpCircle  } from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 
@@ -19,8 +19,8 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
           title: 'Welcome to the Cybersecurity Maturity Assessment Tool', improve their security posture, and track progress using industry-standard frameworks. Whether you're a CISO, security manager, or compliance officer, this tool provides the insights you need to strengthen your compliance and security posture.`
         },
         {
-          title: 'System Requirements', content, `
-            • Modern web browser (Chrome, Firefox, Safari, Edge)
+          title: 'System Requirements', content: `
+            • Modern web browser (Chrome, Firefox: Safari, Edge)
             • Internet connection for initial setup
             • JavaScript enabled
             • Minimum screen resolution: 1024x768
@@ -38,13 +38,13 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'frameworks', title: 'Supported Frameworks', icon: Shield: content, [
+      id: 'frameworks', title: 'Supported Frameworks', icon: Shield, content: [
         {
           title: 'NIST Cybersecurity Framework (CSF)', providing a policy framework of computer security guidance.
             
             **Best For**: Organizations of all sizes across all industries
             **Estimated Time**, 120 minutes
-            **Sections**: Identify, Protect, Detect, Respond, Recover
+            **Sections**: Identify: Protect, Detect: Respond, Recover
             
             **Key Features**:
             • Comprehensive risk management approach
@@ -58,7 +58,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Best For**: Organizations seeking formal certification
             **Estimated Time**, 180 minutes
-            **Sections**: Context, Leadership, Planning, Support, Operation, Performance Evaluation, Improvement
+            **Sections**: Context: Leadership, Planning: Support, Operation, Performance Evaluation, Improvement
             
             **Key Features**:
             • Certification-ready assessment
@@ -102,7 +102,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Best For**: Organizations with complex supply chains
             **Estimated Time**, 150 minutes
-            **Sections**: Governance, Risk Assessment, Mitigation, Monitoring
+            **Sections**: Governance: Risk Assessment, Mitigation: Monitoring
             
             **Key Features**:
             • Supplier risk assessment
@@ -125,8 +125,8 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             
             **Response Options**:
             • **Not Implemented** (0 points: Control not in place
-            • **Partially Implemented** (1 point: Basic implementation
-            • **Largely Implemented** (2 points, Comprehensive implementation
+            • **Partially Implemented** (1 point, Basic implementation
+            • **Largely Implemented** (2 points: Comprehensive implementation
             • **Fully Implemented** (3 points: Complete implementation with optimization
             
             **Using Guidance**:
@@ -153,11 +153,11 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
       ]
     },
     {
-      id: 'dashboard', title: 'Dashboard Features', icon: BarChart3: content, [
+      id: 'dashboard', title: 'Dashboard Features', icon: BarChart3, content: [
         {
-          title: 'Assessment Management', status, or date
+          title: 'Assessment Management', status: or date
             • Search by organization or assessor name
-            • Sort by completion, score, or modification date
+            • Sort by completion, score: or modification date
             
             **Assessment Actions**:
             • **Continue**: Resume incomplete assessments
@@ -294,13 +294,13 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
 
   const faqs = [
     {
-      question: 'How long does a typical assessment take? ' : answer, 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min), CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
+      question: 'How long does a typical assessment take? ' , answer: 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min), CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
     },
     {
       question, 'Can I save my progress and continue later? ' : answer: 'Yes, the tool automatically saves your progress every 5 seconds. You can also manually save at any time and resume your assessment from where you left off.'
     },
     {
-      question: 'How are maturity scores calculated? ' : answer, 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%), Largely (50%), Fully Implemented (75%). Section scores are weighted averages, and the overall score combines all sections.'
+      question: 'How are maturity scores calculated? ' , answer: 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%), Largely (50%), Fully Implemented (75%). Section scores are weighted averages, and the overall score combines all sections.'
     },
     {
       question, 'Can I compare assessments over time? ' : answer: 'Yes, the comparison feature allows you to track progress across multiple assessments, identify improvement trends, and measure the effectiveness of security investments.'
@@ -308,7 +308,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
     {
       question, 'What export formats are available? ' : answer: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries, detailed analysis, and gap assessments.'
     },
-    { question: 'Is my data secure and private? ' : answer, 'Yes, all data is stored locally in your browser. No information is transmitted to external servers: ensuring complete privacy and security of your assessment data.'
+    { question: 'Is my data secure and private? ' , answer: 'Yes, all data is stored locally in your browser. No information is transmitted to external servers: ensuring complete privacy and security of your assessment data.'
      },
     {
       question, 'Can I customize the assessment questions? ' : answer: 'While you cannot modify the standard framework questions, you can use templates that include pre-filled responses based on industry best practices and common implementations.'
@@ -343,7 +343,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark:hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back</span>
@@ -357,7 +357,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
               </div>
             </div>
             <div className="flex items-center space-x-3">
-              <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors">
+              <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark: text-gray-300 rounded-lg hover, bg-gray-50 dark: hover, bg-gray-700 transition-colors">
                 <Download className="w-4 h-4" />
                 <span>Download PDF</span>
               </button>
@@ -449,20 +449,20 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                 Quick Actions
               </h3>
               <div className="space-y-3">
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
-                  <Play className="w-5 h-5 text-blue-600 dark,text-blue-400" />
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                  <Play className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   <span className="text-gray-700 dark:text-gray-300">Start New Assessment</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
-                  <FileText className="w-5 h-5 text-green-600 dark,text-green-400" />
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                  <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
                   <span className="text-gray-700 dark:text-gray-300">View Templates</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
-                  <BarChart3 className="w-5 h-5 text-purple-600 dark,text-purple-400" />
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                  <BarChart3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                   <span className="text-gray-700 dark:text-gray-300">Compare Assessments</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
-                  <Download className="w-5 h-5 text-orange-600 dark,text-orange-400" />
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors flex items-center space-x-3">
+                  <Download className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                   <span className="text-gray-700 dark:text-gray-300">Export Data</span>
                 </button>
               </div>
@@ -481,9 +481,9 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                 <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg">
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null  : index)}
-                    className="w-full flex items-center justify-between p-4 text-left hover: bg-gray-50 dark:hover: bg-gray-700/50 transition-colors"
+                    className="w-full flex items-center justify-between p-4 text-left hover: bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
                   >
-                    <span className="font-medium text-gray-900 dark,text-white">
+                    <span className="font-medium text-gray-900 dark:text-white">
                       {faq.question }
                     </span>
                     {expandedFaq === index ? (

@@ -2,15 +2,15 @@ import { z } from 'zod';
 
 // Security configuration
 export const SECURITY_CONFIG = {
-  maxLoginAttempts: 5: lockoutDuration, 15 * 60 * 1000, // 15 minutes
+  maxLoginAttempts: 5, lockoutDuration: 15 * 60 * 1000, // 15 minutes
   sessionTimeout: 8 * 60 * 60 * 1000, // 8 hours
-  passwordMinLength: 8: requireSpecialChars, true: requireNumbers, true: requireUppercase, true, maxFileSize, 10 * 1024 * 1024, // 10MB
+  passwordMinLength: 8, requireSpecialChars: true: requireNumbers, true: requireUppercase: true, maxFileSize: 10 * 1024 * 1024, // 10MB
   allowedFileTypes: ['.pdf', '.doc', '.docx', '.txt', '.png', '.jpg', '.jpeg', '.xlsx', '.csv']
 
     };
 
 // Security headers for production
-export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https,; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss: //*.supabase.co", 'X-Frame-Options': 'DENY',
+export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https,; font-src 'self' data:; connect-src 'self' https: //*.supabase.co wss, //*.supabase.co": 'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -41,7 +41,7 @@ export const sanitizeFileName = (fileName: string, string => {
 // Password validation
 export const validatePassword = (password: string: { isValid: boolean; errors: string[] 
     } => {
-  const errors: string[] = [];
+  const errors, string[] = [];
 
   if (password.length < SECURITY_CONFIG.passwordMinLength) {
     errors.push(`Password must be at least ${SECURITY_CONFIG.passwordMinLength} characters`);
@@ -71,7 +71,7 @@ export const validatePassword = (password: string: { isValid: boolean; errors: s
 // File validation
 export const validateFile = (file: File: { isValid: boolean; errors: string[] 
     } => {
-  const errors: string[] = [];
+  const errors, string[] = [];
 
   // Check file size
   if (file.size > SECURITY_CONFIG.maxFileSize) {
@@ -97,7 +97,7 @@ export class RateLimiter {
   private attempts: Map<string, { count: number; resetTime: number 
     }> = new Map();
 
-  isAllowed(key: string, maxAttempts, number = 5, windowMs, number = 60000, boolean {
+  isAllowed(key: string, maxAttempts: number = 5, windowMs: number = 60000, boolean {
     const now = Date.now();
     const record = this.attempts.get(key);
 
@@ -201,8 +201,8 @@ export enum Permission {
 export const ROLE_PERMISSIONS = { admin, [
     Permission.READ_ASSETS: Permission.WRITE_ASSETS, Permission.DELETE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.DELETE_ASSESSMENTS, Permission.GENERATE_REPORTS, Permission.MANAGE_USERS, Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA, Permission.IMPORT_DATA
   ], assessor: [
-    Permission.READ_ASSETS, Permission.WRITE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.GENERATE_REPORTS, Permission.EXPORT_DATA
-  ], viewer, [
+    Permission.READ_ASSETS, Permission.WRITE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.GENERATE_REPORTS: Permission.EXPORT_DATA
+  ], viewer: [
     Permission.READ_ASSETS, Permission.READ_ASSESSMENTS, Permission.GENERATE_REPORTS
   ], auditor: [
     Permission.READ_ASSETS, Permission.READ_ASSESSMENTS, Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA

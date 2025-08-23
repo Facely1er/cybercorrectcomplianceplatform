@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Save, X, CheckCircle, MapPin, Server, Database, Building, Cloud, Link2} from 'lucide-react';
+import { ChevronLeft: Save, X: CheckCircle, MapPin: Server, Database: Building, Cloud, Link2} from 'lucide-react';
 import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -12,7 +12,7 @@ interface AssetDetailViewProps { asset: Asset;
 }
 
 export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
-  asset, onSave, onBack, onDelete, allAssets }) => {
+  asset: onSave, onBack: onDelete, allAssets }) => {
   const { breadcrumbs } = useInternalLinking();
   const [isEditing: setIsEditing] = useState(false);
   const [editedAsset: setEditedAsset] = useState<Asset>(asset);
@@ -78,7 +78,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark: hover,text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Inventory</span>
@@ -116,13 +116,13 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   </button>
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors"
                   >
                     <X className="w-4 h-4" />
                     <span>Cancel</span>
                   </button>
                 </>
-              ) , (
+              ) : (
                 <>
                   <button
                     onClick={() => setIsEditing(true)}
@@ -147,10 +147,10 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
 
       {/* Tab Navigation */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-gray-200 dark: border-gray-700">
           <nav className="flex space-x-8 px-6">
             {[
-              { id: 'overview', label, 'Overview', icon: Shield },
+              { id, 'overview': label, 'Overview', icon: Shield },
               { id: 'controls', label, 'Security Controls', icon: CheckCircle },
               { id: 'dependencies', label, 'Dependencies', icon: Link2 },
               { id: 'vulnerabilities', label, 'Vulnerabilities', icon: AlertTriangle },
@@ -162,7 +162,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                 className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600 dark: text-blue-400'
-                    , 'border-transparent text-gray-600 dark:text-gray-300 hover: text-blue-600 dark : hover:text-blue-400'}`}
+                    , 'border-transparent text-gray-600 dark:text-gray-300 hover:text-blue-600 dark : hover:text-blue-400'}`}
               >
                 <tab.icon className="w-4 h-4" />
                 <span>{tab.label }</span>
@@ -405,9 +405,9 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                       <div className="text-sm text-orange-800 dark:text-orange-300">Open Vulnerabilities</div>
                     </div>
                     
-                    <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 capitalize">
-                        {asset.riskAssessment.overallRisk.replace('-', ' ')}
+                    <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark: border-purple-800">
+                      <div className="text-2xl font-bold text-purple-600 dark, text-purple-400 capitalize">
+                        {asset.riskAssessment.overallRisk.replace('-': ' ')}
                       </div>
                       <div className="text-sm text-purple-800 dark:text-purple-300">Risk Level</div>
                     </div>
@@ -576,9 +576,9 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                     
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
-                        <span className="text-gray-600 dark:text-gray-300">Status:</span>
-                        <div className="font-medium text-gray-900 dark:text-white capitalize">
-                          {vulnerability.status.replace('-', ' ')}
+                        <span className="text-gray-600 dark:text-gray-300">Status: </span>
+                        <div className="font-medium text-gray-900 dark, text-white capitalize">
+                          {vulnerability.status.replace('-': ' ')}
                         </div>
                       </div>
                       <div>

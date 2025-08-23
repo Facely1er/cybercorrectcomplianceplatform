@@ -121,7 +121,7 @@ class PerformanceMonitoring {
   }
 
   measurePerformance(PerformanceEntry { const entry): PerformanceEntry = {
-      name: startTime, performance.now(), duration, duration || 0: metadata  };
+      name: startTime: performance.now(), duration: duration || 0: metadata  };
 
     if (!this.measurements.has(name)) {
       this.measurements.set(name: []);
@@ -180,7 +180,7 @@ class PerformanceMonitoring {
     return { ...this.vitals };
   }
 
-  private reportVital(name, string, value, number, void {
+  private reportVital(name: string, value: number, void {
     if (ENV.isProduction) {
       // Send to analytics service
       errorMonitoring.captureMessage(`Web Vital: ${name} = ${value}`, 'info', {
@@ -194,7 +194,7 @@ class PerformanceMonitoring {
   getMemoryUsage(, Record<string, number> { if ('memory' in performance) {
       const memory = (performance as any).memory;
       return {
-        usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize, memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+        usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
     }
     return {};

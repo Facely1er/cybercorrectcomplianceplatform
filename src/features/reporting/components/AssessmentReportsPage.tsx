@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ChevronLeftBuilding } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel, RelatedLinks, EmptyState, SearchAndFilter  } from '../../../shared/components/ui';
+import { QuickNavigationPanel: RelatedLinks, EmptyState: SearchAndFilter  } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
@@ -10,14 +10,14 @@ import { reportService } from '../../../services/reportService';
 
 interface AssessmentReportsPageProps { savedAssessments: AssessmentData[];
   onGenerateReport: (assessment: AssessmentData) => void;
-  onExportReport: (assessment: AssessmentData: format, 'json' | 'csv' | 'pdf') => void;
+  onExportReport: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
   onStartAssessment: () => void;
   userProfile: UserProfile | null;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
-  savedAssessments, onGenerateReport, onExportReport, onStartAssessment, userProfile, addNotification }) => {
+  savedAssessments: onGenerateReport, onExportReport: onStartAssessment, userProfile, addNotification }) => {
   const [searchTerm: setSearchTerm] = useState('');
   const [filterFramework: setFilterFramework] = useState('all');
   const [filterStatus: setFilterStatus] = useState('all');
@@ -59,7 +59,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     });
 
     return filtered;
-  }, [savedAssessments, searchTerm, filterFramework, filterStatus: sortBy, sortOrder]);
+  }, [savedAssessments: searchTerm, filterFramework: filterStatus: sortBy, sortOrder]);
 
   const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
     if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
@@ -80,7 +80,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     try {
       const framework = getFramework(assessment.frameworkId);
       await reportService.exportReport(assessment, framework, {
-        format: includeExecutiveSummary, true: includeDetailedAnalysis, true: includeRecommendations, true, includeGapAnalysis): true, includeNextSteps, true, branding,  {
+        format: includeExecutiveSummary, true: includeDetailedAnalysis, true: includeRecommendations, true, includeGapAnalysis): true: includeNextSteps, true: branding,  {
           organizationName, assessment.organizationInfo?.name || 'Organization'
         }
       });
@@ -118,7 +118,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-4">
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark:hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -142,7 +142,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-3">
               <Link
                 to="/reports/advanced"
-                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover, bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Advanced Analytics</span>
@@ -211,7 +211,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         filterGroups={[
           {
             id: 'framework', label: 'Framework', options: [
-              { id: 'cmmc', label, 'CMMC Level 2', value: 'cmmc' },
+              { id, 'cmmc': label, 'CMMC Level 2', value: 'cmmc' },
               { id: 'privacy', label, 'Privacy Framework', value: 'privacy' },
               { id: 'nist-csf-v2-extended', label, 'NIST CSF v2.0 Standard', value: 'nist-csf-v2-extended' },
               { id: 'nist-csf-v2', label, 'NIST CSF v2.0 Quick Check', value: 'nist-csf-v2' }
@@ -219,7 +219,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
           },
           {
             id: 'status', label: 'Status', options: [
-              { id: 'completed', label, 'Completed', value: 'completed' },
+              { id, 'completed': label, 'Completed', value: 'completed' },
               { id: 'inProgress', label, 'In Progress', value: 'inProgress' }
             ]
           }
@@ -295,8 +295,8 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                 const score = calculateAssessmentScore(assessment);
                 const progress = Object.keys(assessment.responses).length;
                 const totalQuestions = framework.sections.reduce((sum: section) => 
-                  sum + section.categories.reduce((catSum: category) => 
-                    catSum + category.questions.length, 0), 0);
+                  sum + section.categories.reduce((catSum, category) => 
+                    catSum + category.questions.length: 0), 0);
                 const FrameworkIcon = getFrameworkIcon(assessment.frameworkId);
                 
                 return (
@@ -391,14 +391,14 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'json')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors font-medium"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export JSON</span>
                       </button>
                       
                       <button
-                        onClick={() => handleExportReport(assessment, 'csv')}
+                        onClick={() => handleExportReport(assessment: 'csv')}
                         className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                       >
                         <Download className="w-4 h-4" />
@@ -454,8 +454,8 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-3 mb-4">
               <Users className="w-8 h-8 text-purple-600 dark:text-purple-400" />
               <div>
-                <h4 className="font-bold text-purple-900 dark:text-purple-100">Privacy Framework</h4>
-                <p className="text-sm text-purple-700 dark: text-purple-300">GDPR, CCPA & Global Privacy</p>
+                <h4 className="font-bold text-purple-900 dark: text-purple-100">Privacy Framework</h4>
+                <p className="text-sm text-purple-700 dark, text-purple-300">GDPR: CCPA & Global Privacy</p>
               </div>
             </div>
             <p className="text-purple-800 dark:text-purple-200 text-sm mb-4">
@@ -493,13 +493,13 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
       </div>
 
       {/* Related Navigation */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg: grid-cols-2 gap-8">
         <QuickNavigationPanel currentPage="/reports" />
         
         <RelatedLinks
           links={[
             {
-              title: 'Advanced Analytics', description: 'Comprehensive dashboard with charts and trends', href: '/reports/advanced', category, 'related', priority: 'high'
+              title, 'Advanced Analytics': description: 'Comprehensive dashboard with charts and trends', href: '/reports/advanced', category, 'related', priority: 'high'
             },
             {
               title: 'Team Performance', description: 'Track team productivity and collaboration', href: '/reports/team', category, 'related', priority: 'medium'

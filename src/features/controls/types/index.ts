@@ -69,7 +69,7 @@ export interface ControlImplementation { plannedDate?: Date;
   method: string;
   tools: string[];
   procedures: string[];
-  configuration: Record<string: any>;
+  configuration: Record<string, any>;
   deployment: {
     scope: string[];
     phases: DeploymentPhase[];
@@ -113,7 +113,7 @@ export interface TestPlan { id: string;
   scope: string[];
   methods: string[];
   criteria: string[];
-  responsibilities, Record<string: string>;
+  responsibilities, Record<string, string>;
   timeline: string;
 }
 
@@ -177,7 +177,7 @@ export interface MonitoringMetric { id: string;
   collectionMethod: string;
   frequency: string;
   thresholds: {
-    normal: { min?, number; max?: number };
+    normal, { min?: number; max?: number };
     warning: { min?, number; max?: number };
     critical: { min?, number; max?: number };
   };
@@ -188,7 +188,7 @@ export interface MonitoringMetric { id: string;
 
 export interface AlertingConfig { enabled: boolean;
   channels: string[];
-  thresholds: Record<string: number>;
+  thresholds: Record<string, number>;
   escalation: EscalationRule[];
   suppression: SuppressionRule[];
 }
@@ -205,7 +205,7 @@ export interface SuppressionRule {
     }
 export interface ReportingConfig { dashboards: string[];
   reports: string[];
-  schedule: Record<string: string>;
+  schedule: Record<string, string>;
   recipients, Record<string: string[]>;
   formats: string[];
 }
@@ -228,7 +228,7 @@ export interface MonitoringAutomation { dataCollection, {
 
 export interface AutomatedAction { trigger: string;
   action: string;
-  parameters: Record<string: any>;
+  parameters: Record<string, any>;
   approval_required: boolean;
   notification: boolean;
 }

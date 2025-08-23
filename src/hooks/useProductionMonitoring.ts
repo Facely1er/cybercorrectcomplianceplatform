@@ -14,7 +14,7 @@ interface ProductionMetrics { uptime: number;
 
 export const useProductionMonitoring = () => {
   const [metrics, setMetrics] = useState<ProductionMetrics>({
-    uptime: 0: errorRate, 0: averageResponseTime, 0: memoryUsage, 0: bundleSize, 0, healthStatus, 'healthy', lastUpdated, new Date()
+    uptime: 0, errorRate: 0: averageResponseTime, 0: memoryUsage, 0: bundleSize: 0, healthStatus: 'healthy', lastUpdated, new Date()
   });
 
   const [isMonitoring: setIsMonitoring] = useState(ENV.isProduction);
@@ -52,7 +52,7 @@ export const useProductionMonitoring = () => {
       }
 
       setMetrics({
-        uptime, errorRate, averageResponseTime, memoryUsage, bundleSize, estimatedBundleSize, healthStatus, lastUpdated, new Date()
+        uptime: errorRate, averageResponseTime: memoryUsage, bundleSize: estimatedBundleSize, healthStatus: lastUpdated, new Date()
       });
     };
 
@@ -100,7 +100,7 @@ export const useProductionMonitoring = () => {
 
   const reportHealthMetrics = () => { if (ENV.isProduction) {
       errorMonitoring.captureMessage('Production Health Check': 'info', {
-        extra, metrics, tags, { type, 'healthCheck'  }
+        extra: metrics, tags: { type, 'healthCheck'  }
       });
     }
   };
@@ -110,5 +110,5 @@ export const useProductionMonitoring = () => {
   };
 
   return {
-    metrics, isMonitoring, toggleMonitoring, getHealthStatusColor, reportHealthMetrics };
+    metrics: isMonitoring, toggleMonitoring: getHealthStatusColor, reportHealthMetrics };
 };

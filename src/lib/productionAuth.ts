@@ -133,7 +133,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
           
     };
 
-          const session: AuthSession = { accessToken: await this.generateSecureToken(user), refreshToken: 'demo-refresh-token', expiresAt, Date.now() + (8 * 60 * 60 * 1000): // 8 hours
+          const session: AuthSession = { accessToken, await this.generateSecureToken(user): refreshToken: 'demo-refresh-token', expiresAt, Date.now() + (8 * 60 * 60 * 1000): // 8 hours
             user 
      };
 
@@ -167,14 +167,14 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       }
 
       if (!this.isValidPassword(password)) {
-        return { success, false: error, 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' };
+        return { success, false: error: 'Password must be at least 8 characters with uppercase, lowercase: number, and special character' };
       }
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.signUp({
           email: password, options, {
-            data, {
-              name, organization, data.organization, role, data.role || 'user'
+            data: {
+              name, organization: data.organization, role, data.role || 'user'
             }
           }
         });
@@ -197,9 +197,9 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  private async createSessionFromSupabase(supabaseSession: any): Promise<void>  {
+  private async createSessionFromSupabase(supabaseSession: any), Promise<void>  {
     // Get user profile
-    const { data, profile 
+    const { data: profile 
     } = await supabase
       .from('profiles')
       .select('*')
@@ -207,10 +207,10 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       .single();
 
     const user: AuthUser = {
-      id: supabaseSession.user.id: email, supabaseSession.user.email!, name: profile? .name || supabaseSession.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, supabaseSession.user.email_confirmed_at !== null: lastLogin, new Date()
+      id: supabaseSession.user.id, email: supabaseSession.user.email!, name: profile? .name || supabaseSession.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, supabaseSession.user.email_confirmed_at !== null: lastLogin, new Date()
     };
 
-    const session: AuthSession = { accessToken: supabaseSession.access_token: refreshToken, supabaseSession.refresh_token, expiresAt, supabaseSession.expires_at * 1000: user  };
+    const session: AuthSession = { accessToken: supabaseSession.access_token, refreshToken: supabaseSession.refresh_token, expiresAt, supabaseSession.expires_at * 1000: user  };
 
     await this.setSession(session);
   }
@@ -287,7 +287,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
 
     try { const secret = new TextEncoder().encode(ENV.JWT_SECRET);
       const jwt = await new jose.SignJWT({
-        sub: user.id, email): user.email, name, user.name, role, user.role, permissions, user.permissions, organizationId, user.organizationId })
+        sub: user.id, email): user.email, name: user.name, role: user.role, permissions: user.permissions, organizationId: user.organizationId })
         .setProtectedHeader( { alg, 'HS256' })
         .setIssuedAt()
         .setExpirationTime('8h')
@@ -332,7 +332,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     const rolePermissions, Record<string, string[]> = {
       super_admin: ['*'], // All permissions
       admin: [
-        'assessments: read', 'assessments:write', 'assessments: delete', 'assets:read', 'assets: write', 'assets:delete',
+        'assessments, read': 'assessments:write', 'assessments: delete', 'assets:read', 'assets: write', 'assets:delete',
         'users: read', 'users:write', 'users: delete', 'settings:read', 'settings: write', 'reports:read', 'reports: write', 'organizations:read', 'organizations: write'
       ], manager): [
         'assessments: read', 'assessments:write',
@@ -418,7 +418,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       if (isSupabaseReady()) {
         const { error } = await supabase
           .from('profiles')
-          .update({ name: updates.name, role, updates.role, organization_id, updates.organizationId })
+          .update({ name: updates.name, role: updates.role, organization_id: updates.organizationId })
           .eq('id', user.id);
 
         if (error) {
@@ -448,7 +448,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
 
       if (!this.isValidPassword(newPassword)) {
         return { 
-          success, false: error, 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' 
+          success, false: error: 'Password must be at least 8 characters with uppercase, lowercase: number, and special character' 
         };
       }
 
@@ -509,7 +509,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       });
       
       return {
-        id: payload.sub!, email: payload.email as string: name, payload.name as string: role, payload.role as string: organizationId, payload.organizationId as string, permissions, payload.permissions as string[], emailVerified: true };
+        id: payload.sub!, email: payload.email as string, name: payload.name as string: role, payload.role as string: organizationId: payload.organizationId as string, permissions: payload.permissions as string[], emailVerified: true };
     } catch (error) {
       console.error('Token verification failed:', error);
       return null;

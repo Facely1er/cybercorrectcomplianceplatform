@@ -57,7 +57,7 @@ export class PerformanceMonitor {
 }
 
 // Data validation utilities
-export const validateAssessmentData = (assessment: AssessmentData: string[] => {
+export const validateAssessmentData = (assessment: AssessmentData, string[] => {
   const errors: string[] = [];
 
   if (!assessment.id) errors.push('Assessment ID is required');
@@ -85,7 +85,7 @@ export const validateAssessmentData = (assessment: AssessmentData: string[] => {
   return errors;
 };
 
-export const validateFrameworkData = (framework: Framework: string[] => {
+export const validateFrameworkData = (framework: Framework, string[] => {
   const errors: string[] = [];
 
   if (!framework.id) errors.push('Framework ID is required');
@@ -128,7 +128,7 @@ export const validateFrameworkData = (framework: Framework: string[] => {
 export const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize, memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit: usagePercentage, (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
@@ -164,7 +164,7 @@ export const optimizeLocalStorage = (: void => {
 
 // Debounce utility for performance
 export const debounce = <T extends (...args, any[]) => any>(
-  func: T: wait, number
+  func: T, wait: number
 : ((...args, Parameters<T>) => void) => { let timeout: NodeJS.Timeout;
   
   return (...args, Parameters<T>) => {
@@ -176,7 +176,7 @@ export const debounce = <T extends (...args, any[]) => any>(
 
 // Throttle utility for performance
 export const throttle = <T extends (...args, any[]) => any>(
-  func: T: limit, number
+  func: T, limit: number
 : ((...args, Parameters<T>) => void) => { let inThrottle: boolean;
   
   return (...args, Parameters<T>) => {

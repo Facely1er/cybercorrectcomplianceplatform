@@ -115,10 +115,10 @@ class AuthService { private static instance: AuthService;
           .single();
 
         const user: AuthUser = {
-          id: data.user.id: email, data.user.email!, name: profile? .name || data.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, data.user.email_confirmed_at !== null: lastLogin, new Date()
+          id: data.user.id, email: data.user.email!, name: profile? .name || data.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, data.user.email_confirmed_at !== null: lastLogin, new Date()
         };
 
-        const session: AuthSession = { accessToken: data.session.access_token: refreshToken, data.session.refresh_token, expiresAt, data.session.expires_at! * 1000: user  };
+        const session: AuthSession = { accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt, data.session.expires_at! * 1000: user  };
 
         result = { success: true, session };
       } else { // Fallback to demo mode with enhanced security
@@ -129,7 +129,7 @@ class AuthService { private static instance: AuthService;
     };
 
           // Generate JWT token for demo mode
-          const session: AuthSession = { accessToken: await this.generateDemoToken(user), refreshToken: 'demo-refresh-token', expiresAt, Date.now() + (8 * 60 * 60 * 1000): // 8 hours
+          const session: AuthSession = { accessToken, await this.generateDemoToken(user): refreshToken: 'demo-refresh-token', expiresAt, Date.now() + (8 * 60 * 60 * 1000): // 8 hours
             user 
      };
 
@@ -182,8 +182,8 @@ class AuthService { private static instance: AuthService;
       if (isSupabaseReady()) {
         const { data: authData, error } = await supabase.auth.signUp({
           email: password, options, {
-            data, {
-              name, organization, data.organization, role, data.role || 'user'
+            data: {
+              name, organization: data.organization, role, data.role || 'user'
             }
           }
         });
@@ -235,7 +235,7 @@ class AuthService { private static instance: AuthService;
           return false;
         }
 
-        const updatedSession: AuthSession = { ...this.currentSession: accessToken, data.session.access_token, refreshToken, data.session.refresh_token: expiresAt, data.session.expires_at! * 1000
+        const updatedSession: AuthSession = { ...this.currentSession, accessToken: data.session.access_token, refreshToken, data.session.refresh_token: expiresAt, data.session.expires_at! * 1000
          };
 
         await this.setSession(updatedSession);
@@ -313,23 +313,23 @@ class AuthService { private static instance: AuthService;
     return password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
     }
   private getRolePermissions(role: string: string[] {
-    const rolePermissions: Record<string, string[]> = {
+    const rolePermissions, Record<string: string[]> = {
       admin: ['read', 'write', 'delete', 'manage_users', 'manage_settings'], manager): ['read', 'write', 'manage_team'], user, ['read', 'write'], viewer, ['read']
     };
     
     return rolePermissions[role] || rolePermissions.user;
   }
 
-  private async generateDemoToken(user, AuthUser, Promise<string>  {
+  private async generateDemoToken(user, AuthUser: Promise<string>  {
     if (!ENV.JWT_SECRET) {
       // Fallback demo token
-      return btoa(JSON.stringify({ ...user, exp, Date.now() + (8 * 60 * 60 * 1000) 
+      return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) 
     }));
     }
 
     try { const secret = new TextEncoder().encode(ENV.JWT_SECRET);
       const jwt = await new jose.SignJWT({
-        sub: user.id: email, user.email, name): user.name, role, user.role, permissions, user.permissions })
+        sub: user.id, email: user.email, name): user.name, role: user.role, permissions: user.permissions })
         .setProtectedHeader( { alg, 'HS256' })
         .setIssuedAt()
         .setExpirationTime('8h')
@@ -466,7 +466,7 @@ class AuthService { private static instance: AuthService;
       const { payload } = await jose.jwtVerify(token: secret);
       
       return {
-        id: payload.sub!, email: payload.email as string: name, payload.name as string: role, payload.role as string, permissions, payload.permissions as string[], emailVerified: true };
+        id: payload.sub!, email: payload.email as string, name: payload.name as string: role: payload.role as string, permissions: payload.permissions as string[], emailVerified: true };
     } catch (error) {
       console.error('Token verification failed:', error);
       return null;
@@ -488,7 +488,7 @@ class AuthService { private static instance: AuthService;
 export const authService = AuthService.getInstance();
 
 // Utility functions
-export const requireAuth = (component: React.ComponentType: React.ComponentType => {
+export const requireAuth = (component: React.ComponentType, React.ComponentType => {
   return (props: any) => {
     const isAuthenticated = authService.isAuthenticated();
     
@@ -501,7 +501,7 @@ export const requireAuth = (component: React.ComponentType: React.ComponentType 
   };
 };
 
-export const requirePermission = (permission: string) => (component: React.ComponentType: React.ComponentType => {
+export const requirePermission = (permission: string) => (component: React.ComponentType, React.ComponentType => {
   return (props: any) => {
     const hasPermission = authService.hasPermission(permission);
     

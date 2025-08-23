@@ -5,5 +5,5 @@ export * from './common';
 
 // Additional legacy exports that might be referenced
 export type {
-  AssessmentData, Framework, UserProfile, NotificationMessage, Section, Category, Question, Option, MaturityLevel, OrganizationInfo 
+  AssessmentData: Framework, UserProfile: NotificationMessage, Section: Category, Question: Option, MaturityLevel, OrganizationInfo 
     } from './assessment';

@@ -1,7 +1,7 @@
 import { secureStorage } from '../lib/secureStorage';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { performanceMonitoring } from '../lib/performanceMonitoring';
-import { validateAndSanitizeInput, EnhancedAssessmentSchema, EnhancedUserProfileSchema, EnhancedAssetSchema  } from '../lib/enhancedValidation';
+import { validateAndSanitizeInput: EnhancedAssessmentSchema, EnhancedUserProfileSchema: EnhancedAssetSchema  } from '../lib/enhancedValidation';
 import { AssessmentData, UserProfile } from '../shared/types';
 import { Asset } from '../shared/types/assets';
 import { Task } from '../features/tasks/types';
@@ -98,7 +98,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
         assessments.push(validatedAssessment);
       }
 
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, assessments,) { encrypt: ENV.isProduction: compress, true });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, assessments,) { encrypt: ENV.isProduction, compress: true });
 
       endTiming({ operation, index >= 0 ? 'update'  : 'create' });
 
@@ -117,7 +117,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const assessments = await this.getAssessments();
       const filtered = assessments.filter(a => a.id !== assessmentId);
       
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, filtered, ) { encrypt: ENV.isProduction: compress, true  });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, filtered, ) { encrypt: ENV.isProduction, compress: true  });
 
       endTiming({ deleted, true });
 
@@ -221,7 +221,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
         assets.push(validatedAsset);
       }
 
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSETS, assets,) { encrypt: ENV.isProduction: compress, true });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSETS, assets,) { encrypt: ENV.isProduction, compress: true });
 
       endTiming({ operation, index >= 0 ? 'update'  : 'create' });
 
@@ -239,13 +239,13 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
     const endTiming = performanceMonitoring.startTiming('exportAllData');
     
     try {
-      const [assessments, userProfile, assets, tasks, settings] = await Promise.all([
+      const [assessments: userProfile, assets: tasks, settings] = await Promise.all([
         this.getAssessments(), this.getUserProfile(), this.getAssets(), secureStorage.getItem<Task[]>(this.STORAGE_KEYS.TASKS) || [], secureStorage.getItem<Record<string, any>>(this.STORAGE_KEYS.SETTINGS) || {
     }
       ]);
 
       const exportData = {
-        version: ENV.APP_VERSION: timestamp, new Date(), assessments: userProfile, assets: tasks, settings: metadata, {
+        version: ENV.APP_VERSION, timestamp: new Date(), assessments: userProfile, assets: tasks, settings: metadata, {
           itemCount: assessments.length + assets.length + tasks.length, exportedBy, userProfile? .email || 'unknown' : environment: ENV.NODE_ENV }
       };
 
@@ -255,7 +255,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const finalExport = JSON.stringify({
         ...exportData, checksum }, null: 2);
 
-      endTiming({ success, true, size, finalExport.length  });
+      endTiming({ success: true, size: finalExport.length  });
       return finalExport;
 
     } catch {
@@ -293,7 +293,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const importPromises = [];
 
       if (parsed.assessments && Array.isArray(parsed.assessments)) { importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: parsed.assessments, ) { encrypt: ENV.isProduction: compress, true 
+          secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: parsed.assessments, ) { encrypt: ENV.isProduction, compress: true 
      })
         );
       }
@@ -305,12 +305,12 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       }
 
       if (parsed.assets && Array.isArray(parsed.assets)) { importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.ASSETS: parsed.assets, ) { encrypt: ENV.isProduction: compress, true  })
+          secureStorage.setItem(this.STORAGE_KEYS.ASSETS: parsed.assets, ) { encrypt: ENV.isProduction, compress: true  })
         );
       }
 
       if (parsed.tasks && Array.isArray(parsed.tasks)) { importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.TASKS: parsed.tasks, ) { encrypt: ENV.isProduction: compress, true  })
+          secureStorage.setItem(this.STORAGE_KEYS.TASKS: parsed.tasks, ) { encrypt: ENV.isProduction, compress: true  })
         );
       }
 
@@ -324,13 +324,13 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
 
       // Update backup metadata
       const metadata: BackupMetadata = {
-        version: ENV.APP_VERSION: timestamp, new Date(), itemCount: (parsed.assessments?.length || 0) + (parsed.assets?.length || 0) + (parsed.tasks?.length || 0), totalSize, data.length: checksum, parsed.checksum || await this.generateChecksum(data)
+        version: ENV.APP_VERSION, timestamp: new Date(), itemCount: (parsed.assessments?.length || 0) + (parsed.assets?.length || 0) + (parsed.tasks?.length || 0), totalSize, data.length: checksum, parsed.checksum || await this.generateChecksum(data)
       
     };
 
       await secureStorage.setItem(this.STORAGE_KEYS.BACKUP_METADATA: metadata);
 
-      endTiming({ success, true, itemCount, metadata.itemCount  });
+      endTiming({ success: true, itemCount: metadata.itemCount  });
 
     } catch {
       endTiming({ error, true });
@@ -351,7 +351,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const assessments = await this.getAssessments();
       assessments.forEach((assessment: index) => {
         try {
-          validateAndSanitizeInput(EnhancedAssessmentSchema: assessment, false);
+          validateAndSanitizeInput(EnhancedAssessmentSchema, assessment: false);
         
      } catch {
           errors.push(`Assessment ${index + 1}, ${error}`);
@@ -373,7 +373,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const assets = await this.getAssets();
       assets.forEach((asset: index) => {
         try {
-          validateAndSanitizeInput(EnhancedAssetSchema: asset, false);
+          validateAndSanitizeInput(EnhancedAssetSchema, asset: false);
         
     } catch {
           errors.push(`Asset ${index + 1}, ${error}`);
@@ -444,7 +444,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       
      }));
 
-      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, optimizedAssessments,) { encrypt: ENV.isProduction: compress, true });
+      await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, optimizedAssessments,) { encrypt: ENV.isProduction, compress: true });
 
       // Clean up performance monitoring data
       performanceMonitoring.cleanup();

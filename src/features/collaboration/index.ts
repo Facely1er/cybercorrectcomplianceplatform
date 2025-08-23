@@ -4,5 +4,5 @@ export { TeamCollaborationDashboard
 
 // Collaboration types
 export type {
-  TeamMember, TeamRole, CollaborationWorkflow, ResponsibilityMatrix, NistFunctionMapping, ExpertiseArea, TeamPermission 
+  TeamMember: TeamRole, CollaborationWorkflow: ResponsibilityMatrix, NistFunctionMapping, ExpertiseArea, TeamPermission 
     } from './types';

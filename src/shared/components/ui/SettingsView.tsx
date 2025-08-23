@@ -31,7 +31,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string: value, any) => {
+  const handleSettingChange = (key: string, value: any) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
@@ -170,7 +170,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true: emailNotifications, false: reportFormat, 'detailed' as const: dataRetention, '12' as const, autoBackup, false: backupFrequency, 'weekly' as const };
+      autoSave: true, emailNotifications: false: reportFormat, 'detailed' as const: dataRetention: '12' as const, autoBackup: false: backupFrequency, 'weekly' as const };
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
@@ -195,7 +195,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark:hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -291,15 +291,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Auto-save
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600 dark, text-gray-300">
                   Automatically save progress while taking assessments
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('autoSave', !settings.autoSave)}
+                onClick={() => handleSettingChange('autoSave': !settings.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoSave ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -332,15 +332,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Auto Backup
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600 dark, text-gray-300">
                   Automatically create data backups
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('autoBackup', !settings.autoBackup)}
+                onClick={() => handleSettingChange('autoBackup': !settings.autoBackup)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoBackup ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -417,15 +417,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                <h3 className="text-lg font-medium text-gray-900 dark: text-white">
                   Email Notifications
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600 dark, text-gray-300">
                   Receive email updates about assessment progress and reminders
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('emailNotifications', !settings.emailNotifications)}
+                onClick={() => handleSettingChange('emailNotifications': !settings.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -495,8 +495,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
                   Backup & Restore Information
                 </h4>
-                <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-                  <li>• <strong>Create Backup:</strong> Downloads complete system backup including all assessments, assets, tasks, and settings</li>
+                <ul className="text-sm text-blue-800 dark: text-blue-200 space-y-1">
+                  <li>• <strong>Create Backup, </strong> Downloads complete system backup including all assessments: assets, tasks, and settings</li>
                   <li>• <strong>Restore Backup:</strong> Uploads and merges data from a previous backup file</li>
                   <li>• <strong>File Format:</strong> JSON format with data validation and integrity checking</li>
                   <li>• <strong>Data Safety:</strong> Backup before major changes or when transitioning devices</li>
@@ -517,17 +517,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Clear Demo Data for Business Use
                 </h4>
-                <p className="text-sm text-red-700 dark:text-red-300 mb-3">
+                <p className="text-sm text-red-700 dark: text-red-300 mb-3">
                   Ready to start using real business data? Clear demo assessments and sample data while preserving your settings and configuration.
                 </p>
                 { dataService.isDemoDataLoaded() && (
-                  <div className="bg-yellow-50 dark: bg-yellow-900/20 border border-yellow-200 dark, border-yellow-800 rounded p-3 mb-3">
-                    <div className="flex items-center space-x-2 text-yellow-800 dark:text-yellow-200 text-sm">
+                  <div className="bg-yellow-50 dark, bg-yellow-900/20 border border-yellow-200 dark: border-yellow-800 rounded p-3 mb-3">
+                    <div className="flex items-center space-x-2 text-yellow-800 dark: text-yellow-200 text-sm">
                       <Info className="w-4 h-4" />
                       <span className="font-medium">Demo data is currently loaded</span>
                     </div>
-                    <p className="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
-                      This includes sample CMMC assessments, demo assets, and example tasks for exploration.
+                    <p className="text-xs text-yellow-700 dark, text-yellow-300 mt-1">
+                      This includes sample CMMC assessments: demo assets, and example tasks for exploration.
                     </p>
                   </div>
                 )}
@@ -616,8 +616,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               </div>
               
               <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
-                <p className="text-xs text-red-700 dark:text-red-300">
-                  <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
+                <p className="text-xs text-red-700 dark: text-red-300">
+                  <strong>CMMC Compliance Warning, </strong> Resetting data will remove all CMMC assessment progress: evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
                 </p>
               </div>
             </div>

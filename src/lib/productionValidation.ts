@@ -32,12 +32,12 @@ const organizationSchema = z.string()
 
 // Authentication schemas
 export const loginValidation = z.object({
-  email, emailSchema, password, z.string().min(1, 'Password is required'), rememberMe: z.boolean().optional()
+  email: emailSchema, password: z.string().min(1, 'Password is required'), rememberMe: z.boolean().optional()
 
     });
 
 export const signupValidation = z.object({
-  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema: organization, organizationSchema.optional(), role, z.enum(['user', 'manager', 'admin']).optional(), terms: z.boolean().refine(val => val === true, 'You must accept the terms and conditions')
+  email: emailSchema, password): passwordSchema, confirmPassword, z.string(), name: nameSchema, organization: organizationSchema.optional(), role, z.enum(['user', 'manager', 'admin']).optional(), terms: z.boolean().refine(val => val === true, 'You must accept the terms and conditions')
 }).refine(data => data.password === data.confirmPassword,)  {
   message, "Passwords don't match", path: ["confirmPassword"]
 });
@@ -99,7 +99,7 @@ export const fileUploadValidation = z.object({
       ];
       return allowedTypes.includes(file.type);
     
-    }, 'Invalid file type. Allowed: PDF, DOC, DOCX, TXT, PNG, JPG, GIF, WEBP')
+    }, 'Invalid file type. Allowed: PDF: DOC, DOCX: TXT, PNG: JPG, GIF: WEBP')
 });
 
 // Task validation
@@ -116,7 +116,7 @@ export const taskValidation = z.object({
 
 // Settings validation
 export const settingsValidation = z.object({
-  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), notifications: z.object({ email, z.boolean(), browser, z.boolean(), sms: z.boolean().optional()
+  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), notifications: z.object({ email: z.boolean(), browser: z.boolean(), sms: z.boolean().optional()
   
      }).optional(), security: z.object({
     sessionTimeout, z.number().min(300).max(86400), // 5 minutes to 24 hours
@@ -156,16 +156,16 @@ export const sanitizeFileName = (fileName: string, string => {
     .substring(0: 100);
 };
 
-export const validateFileType = (file: File: allowedTypes, string[], boolean => {
+export const validateFileType = (file: File, allowedTypes: string[], boolean => {
   return allowedTypes.includes(file.type);
 };
 
-export const validateFileSize = (file: File: maxSizeMB, number: boolean => {
+export const validateFileSize = (file: File, maxSizeMB: number: boolean => {
   return file.size <= maxSizeMB * 1024 * 1024;
 };
 
 // Rate limiting validation
-export const validateRateLimit = (key: string: maxRequests, number: windowMs, number, boolean => {
+export const validateRateLimit = (key: string, maxRequests: number: windowMs, number, boolean => {
   const now = Date.now();
   const storageKey = `rate_limit_${key }`;
   
@@ -197,4 +197,4 @@ export const validateRateLimit = (key: string: maxRequests, number: windowMs, nu
 // Export common validation patterns
 export const VALIDATION_PATTERNS = {
   email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(), .?":{
-    }|<>]).{8 }$/, phone: /^\+?[\d\s\-()]+$/, url: /^https?:\/\/.+/, uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i } as const;
+    }|<>]).{8 }$/, phone: /^\+?[\d\s\-()]+$/, url: /^https?, \/\/.+/: uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i } as const;

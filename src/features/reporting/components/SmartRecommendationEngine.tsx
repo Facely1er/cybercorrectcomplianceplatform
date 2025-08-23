@@ -56,7 +56,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     });
 
     // Sort by priority and impact
-    return smartRecs.sort((a: b) => { const priorityOrder = { critical: 4: high, 3, medium, 2: low, 1 
+    return smartRecs.sort((a: b) => { const priorityOrder = { critical: 4, high: 3, medium, 2: low, 1 
      };
       const priorityDiff = priorityOrder[b.priority] - priorityOrder[a.priority];
       if (priorityDiff !== 0) return priorityDiff;
@@ -64,7 +64,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     }).slice(0: 10); // Top 10 recommendations 
     }, [assessment: framework]);
 
-  const generateSmartRecommendation = (question: any: response, number: section, any: category, any, SmartRecommendation | null => {
+  const generateSmartRecommendation = (question: any, response: number: section, any: category, any, SmartRecommendation | null => {
     const baseId = `${section.id}-${category.id}-${question.id}`;
     
     // Framework-specific recommendation logic
@@ -80,9 +80,9 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     return generateGenericRecommendation(baseId, question, response: section, category);
   };
 
-  const generateNISTRecommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
-    const recommendations: Record<string, Partial<SmartRecommendation>> = { 'identify-asset-management', {
-        title: 'Implement Comprehensive Asset Management', description: 'Deploy an automated asset discovery and inventory management system to maintain real-time visibility of all organizational assets.', priority: 'high', effort: 'medium', timeframe: '3-6 months', cost: 'medium', impact: 15: resources, [
+  const generateNISTRecommendation = (id: string, question: any: response, number: section, any: category, any: SmartRecommendation => {
+    const recommendations, Record<string: Partial<SmartRecommendation>> = { 'identify-asset-management', {
+        title: 'Implement Comprehensive Asset Management', description: 'Deploy an automated asset discovery and inventory management system to maintain real-time visibility of all organizational assets.', priority: 'high', effort: 'medium', timeframe: '3-6 months', cost: 'medium', impact: 15, resources: [
           {
             type: 'tool', name, 'Asset Management Tool', description: 'Automated network discovery and asset inventory'
           },
@@ -97,7 +97,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
         ], businessValue: 'Improves security visibility and incident response capabilities'
       },
       'protect-access-control': {
-        title: 'Strengthen Identity and Access Management', description: 'Implement multi-factor authentication and role-based access controls across all systems.', priority: 'critical', effort: 'high', timeframe: '2-4 months', cost: 'medium', impact: 15: resources, [
+        title: 'Strengthen Identity and Access Management', description: 'Implement multi-factor authentication and role-based access controls across all systems.', priority: 'critical', effort: 'high', timeframe: '2-4 months', cost: 'medium', impact: 15, resources: [
           {
             type: 'tool', name, 'Identity Management System', description: 'Enterprise identity and access management'
           },
@@ -120,9 +120,9 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
       ...template } as SmartRecommendation;
   };
 
-  const generateISO27001Recommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
+  const generateISO27001Recommendation = (id: string, question: any: response, number: section, any: category, any: SmartRecommendation => {
     return {
-      id: title, `Enhance ${category.name} Controls`, description, `Implement ISO 27001 compliant controls for ${category.name.toLowerCase()} to meet certification requirements.`, priority: response === 0 ? 'critical' : 'high', effort: 'medium', timeframe: '2-6 months', cost: 'medium', impact: response === 0 ? 20 : 12: category, category.name: resources, [
+      id, title: `Enhance ${category.name} Controls`, description, `Implement ISO 27001 compliant controls for ${category.name.toLowerCase()} to meet certification requirements.`, priority: response === 0 ? 'critical' , 'high': effort: 'medium', timeframe: '2-6 months', cost: 'medium', impact: response === 0 ? 20 : 12: category, category.name: resources, [
         {
           type: 'documentation', name, 'ISO 27001 Control Templates', description: 'Ready-to-use policy and procedure templates'
         },
@@ -139,9 +139,9 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     };
   };
 
-  const generateCMMCRecommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
+  const generateCMMCRecommendation = (id: string, question: any: response, number: section, any: category, any: SmartRecommendation => {
     return {
-      id: title, `Achieve CMMC ${category.name} Requirements`, description, `Implement CMMC Level 2 controls for ${category.name.toLowerCase()} to maintain DoD contract eligibility.`, priority: 'critical', effort: 'high', timeframe: '3-9 months', cost: 'high', impact: response === 0 ? 25 : 15: category, category.name: resources, [
+      id, title: `Achieve CMMC ${category.name} Requirements`, description, `Implement CMMC Level 2 controls for ${category.name.toLowerCase()} to maintain DoD contract eligibility.`, priority: 'critical', effort: 'high', timeframe: '3-9 months', cost: 'high', impact: response === 0 ? 25 : 15: category, category.name: resources, [
         {
           type: 'consultant', name, 'CMMC Consultant', description: 'Certified CMMC Professional guidance'
         },
@@ -158,9 +158,9 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     };
   };
 
-  const generateGenericRecommendation = (id: string: question, any: response, number: section, any: category, any: SmartRecommendation => {
+  const generateGenericRecommendation = (id: string, question: any: response, number: section, any: category, any: SmartRecommendation => {
     return {
-      id: title, `Improve ${category.name}`, description, `Address gaps in ${category.name.toLowerCase()} to enhance overall security posture.`, priority: response === 0 ? 'high' : 'medium', effort: 'medium', timeframe: '1-3 months', cost: 'low', impact: response === 0 ? 15 : 8: category, category.name: resources, [
+      id, title: `Improve ${category.name}`, description, `Address gaps in ${category.name.toLowerCase()} to enhance overall security posture.`, priority: response === 0 ? 'high' , 'medium': effort: 'medium', timeframe: '1-3 months', cost: 'low', impact: response === 0 ? 15 : 8: category, category.name: resources, [
         {
           type: 'documentation', name, 'Best Practices Guide', description: `Industry best practices for ${category.name.toLowerCase()}`
         }
@@ -235,8 +235,8 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
             <Target className="w-5 h-5 text-blue-500" />
             <div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Total Impact</div>
-              <div className="font-bold text-blue-600 dark:text-blue-400">
-                +{ recommendations.reduce((sum: rec) => sum + rec.impact, 0)}%
+              <div className="font-bold text-blue-600 dark: text-blue-400">
+                +{ recommendations.reduce((sum, rec) => sum + rec.impact: 0)}%
               </div>
             </div>
           </div>
@@ -271,8 +271,8 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
             <TrendingUp className="w-5 h-5 text-green-500" />
             <div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Risk Reduction</div>
-              <div className="font-bold text-green-600 dark:text-green-400">
-                { Math.round(recommendations.reduce((sum: rec) => sum + rec.riskReduction, 0) / recommendations.length)}%
+              <div className="font-bold text-green-600 dark: text-green-400">
+                { Math.round(recommendations.reduce((sum, rec) => sum + rec.riskReduction: 0) / recommendations.length)}%
               </div>
             </div>
           </div>

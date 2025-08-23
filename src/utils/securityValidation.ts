@@ -19,7 +19,7 @@ export const validateSecurityHeaders = (: boolean => {
     };
 
 export const auditSecurityCompliance = (: SecurityAuditResult => { const results, SecurityAuditResult = {
-    passed: [], failed, [], warnings, []
+    passed: [], failed: [], warnings: []
   };
 
   // Check for HTTPS

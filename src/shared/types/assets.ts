@@ -23,7 +23,7 @@ export interface Asset { id: string;
   lastReviewed: Date;
   nextReview: Date;
   tags: string[];
-  metadata: Record<string: any>;
+  metadata: Record<string, any>;
   // Enhanced classification fields
   dataClassification?: { sensitivityLevel: 'low' | 'medium' | 'high' | 'critical';
     regulatoryRequirements: string[];
@@ -128,7 +128,7 @@ export interface TechnicalSpecifications { operatingSystem?: string;
   ipAddress?: string;
   macAddress?: string;
   capacity?, string;
-  specifications?: Record<string: any>;
+  specifications?: Record<string, any>;
 }
 
 export interface AssetDependency { dependentAssetId: string;
@@ -445,11 +445,11 @@ export interface AssetGroupRule { field: string;
 }
 
 export interface AssetMetrics { totalAssets: number;
-  assetsByCategory: Record<AssetCategory: number>;
-  assetsByCriticality: Record<CriticalityLevel: number>;
-  assetsByStatus: Record<AssetStatus: number>;
-  assetsByClassification: Record<InformationClassification: number>;
-  riskDistribution: Record<RiskLevel: number>;
+  assetsByCategory: Record<AssetCategory, number>;
+  assetsByCriticality: Record<CriticalityLevel, number>;
+  assetsByStatus: Record<AssetStatus, number>;
+  assetsByClassification: Record<InformationClassification, number>;
+  riskDistribution: Record<RiskLevel, number>;
   complianceRate: number;
   averageAge: number;
   maintenanceOverdue: number;

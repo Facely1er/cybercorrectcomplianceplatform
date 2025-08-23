@@ -12,7 +12,7 @@ interface BreakpointState { isMobile: boolean;
 
 export const useResponsiveLayout = (: BreakpointState => {
   const [state, setState] = useState<BreakpointState>({
-    isMobile: false: isTablet, false: isDesktop, true: currentBreakpoint, 'lg', width: typeof window !== 'undefined' ? window.innerWidth : 1024, height, typeof window !== 'undefined' ? window.innerHeight  : 768
+    isMobile: false, isTablet: false: isDesktop, true: currentBreakpoint, 'lg', width: typeof window !== 'undefined' ? window.innerWidth , 1024: height, typeof window !== 'undefined' ? window.innerHeight  : 768
   });
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const useResponsiveLayout = (: BreakpointState => {
       const breakpoint = getBreakpoint(width);
 
       setState({
-        isMobile: width < 768: isTablet, width >= 768 && width < 1024, isDesktop, width >= 1024, currentBreakpoint, breakpoint, width, height });
+        isMobile: width < 768, isTablet: width >= 768 && width < 1024, isDesktop: width >= 1024, currentBreakpoint: breakpoint, width, height });
     };
 
     // Initial update

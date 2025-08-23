@@ -98,8 +98,8 @@ export interface ComplianceReport { id: string;
 }
 
 export interface ComplianceMetrics { overallScore: number;
-  functionScores: Record<string: number>;
-  categoryScores: Record<string: number>;
+  functionScores: Record<string, number>;
+  categoryScores: Record<string, number>;
   implementationProgress: number;
   evidenceCompleteness: number;
   riskReduction: number;
@@ -147,7 +147,7 @@ export interface NextAction { id: string;
 
 export interface RealTimeComplianceData { timestamp: Date;
   overallCompliance: number;
-  functionCompliance: Record<string: number>;
+  functionCompliance: Record<string, number>;
   activeGaps: number;
   criticalFindings: number;
   evidenceCollectionProgress: number;

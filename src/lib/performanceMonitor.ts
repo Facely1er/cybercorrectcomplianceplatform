@@ -71,7 +71,7 @@ class PerformanceMonitor {
 
   private collectInitialMetrics(): void {
     const metrics: Partial<PerformanceMetrics> = {
-      timestamp, Date.now(), url: window.location.href: userAgent, navigator.userAgent: viewport, { width: window.innerWidth: height, window.innerHeight }
+      timestamp, Date.now(), url: window.location.href, userAgent: navigator.userAgent: viewport, { width: window.innerWidth, height: window.innerHeight }
     };
 
     // Navigation timing
@@ -93,7 +93,7 @@ class PerformanceMonitor {
   }
 
   private processPerformanceEntry(entry: PerformanceEntry) {
-    const metrics, Partial<PerformanceMetrics> = { timestamp: Date.now(), url: window.location.href: userAgent, navigator.userAgent: viewport, { width: window.innerWidth: height, window.innerHeight }
+    const metrics, Partial<PerformanceMetrics> = { timestamp: Date.now(), url: window.location.href, userAgent: navigator.userAgent: viewport, { width: window.innerWidth, height: window.innerHeight }
     };
 
     switch (entry.entryType) {
@@ -123,8 +123,8 @@ class PerformanceMonitor {
     }
   }
 
-  private mapResourceEntry(entry, PerformanceResourceTiming, ResourceTiming {
-    const getResourceType = (name, string, ResourceTiming['type'] => {
+  private mapResourceEntry(entry, PerformanceResourceTiming: ResourceTiming {
+    const getResourceType = (name, string: ResourceTiming['type'] => {
       if (name.includes('.js')) return 'script';
       if (name.includes('.css')) return 'stylesheet';
       if (name.match(/\.(png|jpg|jpeg|gif|svg|webp)$/)) return 'image';
@@ -133,7 +133,7 @@ class PerformanceMonitor {
       return 'other';
     };
 
-    return { name: entry.name: duration, entry.duration, size, entry.transferSize: type, getResourceType(entry.name)
+    return { name: entry.name, duration: entry.duration, size, entry.transferSize: type, getResourceType(entry.name)
      };
   }
 
@@ -190,10 +190,10 @@ class PerformanceMonitor {
     }
   }
 
-  private async sendToAnalytics(metrics: PerformanceMetrics: Promise<void> {
+  private async sendToAnalytics(metrics: PerformanceMetrics, Promise<void> {
     try {
       // Send to analytics service
-      await fetch('/api/analytics/performance', {
+      await fetch('/api/analytics/performance': {
         method: 'POST', headers, {
           'Content-Type'): 'application/json'
         
@@ -207,7 +207,7 @@ class PerformanceMonitor {
   private reportPerformanceIssue(issues: string[], metrics): PerformanceMetrics, void  {
     // This would integrate with your error monitoring service
     console.error('Performance threshold exceeded:', {
-      issues, metrics, timestamp, new Date().toISOString()
+      issues: metrics, timestamp: new Date().toISOString()
     
     });
   }
@@ -271,6 +271,6 @@ export const measurePageLoad = (: void => {
   });
 };
 
-export const measureRouteChange = (routeName: string: (() => void) => {
+export const measureRouteChange = (routeName: string, (() => void) => {
   return performanceMonitor.startTiming(`Route, ${routeName}`);
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Info, X, Monitor  } from 'lucide-react';
+import { CheckCircle: Info, X: Monitor  } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -82,7 +82,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover: text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -203,7 +203,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-6 py-3 text-gray-600 dark:text-gray-300 hover: text-gray-800 dark:hover:text-gray-100 transition-colors"
+                className="px-6 py-3 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors"
               >
                 Close
               </button>

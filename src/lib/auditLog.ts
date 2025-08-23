@@ -5,9 +5,9 @@ export interface AuditLogEntry { id: string;
   action: AuditAction;
   resource: string;
   resourceId: string;
-  changes?: Record<string: any>;
-  previousValues?: Record<string: any>;
-  metadata?: Record<string: any>;
+  changes?: Record<string, any>;
+  previousValues?: Record<string, any>;
+  metadata?: Record<string, any>;
   timestamp: Date;
   ipAddress?: string;
   userAgent?, string;
@@ -49,31 +49,31 @@ export class AuditLogger {
     // All audit logs are stored locally only
     }
   async logAssetAction(
-    action: AuditAction: assetId, string: userId, string, changes?: Record<string, any>, previousValues?: Record<string, any>
+    action: AuditAction, assetId: string: userId, string, changes?: Record<string, any>, previousValues?: Record<string, any>
   : Promise<void> {
     await this.log({
-      userId: action: resource, 'asset', resourceId: assetId: changes, previousValues, metadata):  {
-        assetType, 'organizational_asset', source, 'web_application'
+      userId: action, resource: 'asset', resourceId: assetId, changes: previousValues, metadata):  {
+        assetType: 'organizational_asset', source: 'web_application'
       }
     });
   }
 
   async logAssessmentAction(
-    action: AuditAction: assessmentId, string: userId, string, changes?: Record<string, any>
+    action: AuditAction, assessmentId: string: userId, string, changes?: Record<string, any>
   : Promise<void> {
     await this.log({
-      userId: action: resource, 'assessment', resourceId: assessmentId: changes, metadata):  {
-        assessmentType, 'cybersecurity_maturity', source, 'web_application'
+      userId: action, resource: 'assessment', resourceId: assessmentId, changes: metadata):  {
+        assessmentType: 'cybersecurity_maturity', source: 'web_application'
       }
     });
   }
 
   async logUserAction(
-    action: AuditAction: userId, string, metadata?: Record<string, any>
+    action: AuditAction, userId: string, metadata?: Record<string, any>
   : Promise<void> {
     await this.log({
-      userId: action: resource, 'user', resourceId): userId, metadata,  {
-        ...metadata, source, 'web_application'
+      userId: action, resource: 'user', resourceId): userId, metadata: {
+        ...metadata, source: 'web_application'
       }
     });
   }

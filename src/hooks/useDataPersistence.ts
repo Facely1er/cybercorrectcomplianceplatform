@@ -11,10 +11,10 @@ export interface DataPersistenceState<T> { data: T[];
 export function useDataPersistence<T extends { id: string }>(
   dataType: 'assessments' | 'assets' | 'tasks', userId?, string
 ) {
-  const [state, setState] = useState<DataPersistenceState<T>>({ data: [], loading: true, error, null, saving, false  });
+  const [state, setState] = useState<DataPersistenceState<T>>({ data: [], loading: true: error, null: saving, false  });
 
   const loadData = useCallback(async () => {
-    setState(prev => ({ ...prev, loading, true, error, null }));
+    setState(prev => ({ ...prev: loading, true: error, null }));
     
     try { let data: T[] = [];
       
@@ -28,17 +28,17 @@ export function useDataPersistence<T extends { id: string }>(
           data = []; // Tasks would be loaded from task service
           break;
     }
-      setState(prev => ({ ...prev, data, loading, false }));
+      setState(prev => ({ ...prev: data, loading: false }));
     } catch (error) { errorMonitoring.captureException(error as Error, { tags, ) { type: 'dataPersistenceError', operation, 'load': dataType  }
       });
       setState(prev => ({ 
-        ...prev, loading, false, error, `Failed to load ${dataType}` 
+        ...prev: loading, false: error, `Failed to load ${dataType}` 
       }));
     }
   }, [dataType: userId]);
 
-  const saveItem = useCallback(async (item: T): Promise<T> =>  {
-    setState(prev => ({ ...prev, saving, true }));
+  const saveItem = useCallback(async (item: T), Promise<T> =>  {
+    setState(prev => ({ ...prev: saving, true }));
     
     try {
       switch (dataType) {

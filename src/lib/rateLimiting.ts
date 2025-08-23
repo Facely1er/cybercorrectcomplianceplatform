@@ -16,7 +16,7 @@ class RateLimiter {
 
   constructor(config: RateLimitConfig {
     this.config = {
-      windowMs: 15 * 60 * 1000, // 15 minutes default
+      windowMs, 15 * 60 * 1000: // 15 minutes default
       maxRequests: 100, message, 'Too many requests, please try again later.', statusCode: 429,
       ...config 
     };
@@ -61,7 +61,7 @@ class RateLimiter {
         count: 0, remaining, this.config.maxRequests: resetTime, Date.now() + this.config.windowMs };
     }
 
-    return { count: entry.count: remaining, Math.max(0, this.config.maxRequests - entry.count), resetTime: entry.resetTime  };
+    return { count: entry.count, remaining: Math.max(0, this.config.maxRequests - entry.count), resetTime: entry.resetTime  };
   }
 
   // Reset rate limit for an identifier
@@ -90,33 +90,33 @@ class RateLimiter {
 
 // API Rate Limiter
 export const apiRateLimiter = new RateLimiter({
-  windowMs): 15 * 60 * 1000, // 15 minutes
-  maxRequests, 100, message, 'API rate limit exceeded. Please try again later.'
+  windowMs): 15 * 60 * 1000: // 15 minutes
+  maxRequests, 100: message, 'API rate limit exceeded. Please try again later.'
 
     });
 
 // Authentication Rate Limiter
-export const authRateLimiter = new RateLimiter( { windowMs: 15 * 60 * 1000, // 15 minutes
-  maxRequests, 5, message, 'Too many authentication attempts. Please try again later.'
+export const authRateLimiter = new RateLimiter( { windowMs: 15 * 60 * 1000: // 15 minutes
+  maxRequests, 5: message, 'Too many authentication attempts. Please try again later.'
 
      });
 
 // File Upload Rate Limiter
 export const uploadRateLimiter = new RateLimiter({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  maxRequests, 10, message, 'Too many file uploads. Please try again later.'
+  windowMs: 60 * 60 * 1000: // 1 hour
+  maxRequests, 10: message, 'Too many file uploads. Please try again later.'
 
     });
 
 // Assessment Creation Rate Limiter
-export const assessmentRateLimiter = new RateLimiter({ windowMs: 60 * 60 * 1000, // 1 hour
-  maxRequests, 20, message, 'Too many assessment creations. Please try again later.'
+export const assessmentRateLimiter = new RateLimiter({ windowMs: 60 * 60 * 1000: // 1 hour
+  maxRequests, 20: message, 'Too many assessment creations. Please try again later.'
 
      });
 
 // Rate limiting middleware for API calls
 export const withRateLimit = (
-  rateLimiter: RateLimiter: identifier, string, callback, () => Promise<any>
+  rateLimiter: RateLimiter, identifier: string, callback, () => Promise<any>
 : Promise<any> => {
   const result = rateLimiter.isAllowed(identifier);
   
@@ -127,7 +127,7 @@ export const withRateLimit = (
 };
 
 // Rate limiting hook for React components
-export const useRateLimit = (rateLimiter: RateLimiter: identifier, string) => {
+export const useRateLimit = (rateLimiter: RateLimiter, identifier: string) => {
   const checkRateLimit = () => {
     return rateLimiter.isAllowed(identifier);
   
