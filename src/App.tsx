@@ -396,7 +396,7 @@ function AppContent() {
       navigate(`/assessment/${newAssessment.id }`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
-      console.error('Failed to create assessment: ', error));
+      console.error('Failed to create assessment:', error);
       addNotification('error', 'Failed to create assessment');
     }
   };

@@ -389,8 +389,8 @@ export class ReportService {
   private async exportToJSON(
     assessment: AssessmentData,
     framework: Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    options: ReportExportOptions
+  ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     const exportData = {
       assessment,
@@ -424,8 +424,8 @@ export class ReportService {
   private async exportToCSV(
     assessment: AssessmentData,
     framework: Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    options: ReportExportOptions
+  ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
     // Enhanced CSV with more comprehensive data
@@ -471,10 +471,10 @@ export class ReportService {
     );
   }
 
-  private generateReportData(assessment: AssessmentData, framework, Framework: , any {
+  private generateReportData(assessment: AssessmentData, framework: Framework): any {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
-      ? Math.round((responses.reduce((a  : b) => a + b 0) / responses.length) * 25)
+      ? Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25)
       : 0;
 
     const sectionScores = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions, category) => {
@@ -486,23 +486,27 @@ export class ReportService {
         .filter(r => r !== undefined);
       
       const sectionScore = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum  : value) => sum + value 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
-      return { name: section.name, score, sectionScore:, answered: sectionResponses.length, total:, sectionQuestions.length  };
+      return { name: section.name, score: sectionScore, answered: sectionResponses.length, total: sectionQuestions.length };
     });
 
     return {
-      overallScore: sectionScores, totalQuestions: framework.sections.reduce((sum, section) => 
-        sum + section.categories.reduce((catSum: , category) => 
-          catSum + category.questions.length, 0), 0):, answeredQuestions: Object.keys(assessment.responses).length };
+      overallScore,
+      sectionScores,
+      totalQuestions: framework.sections.reduce((sum, section) => 
+        sum + section.categories.reduce((catSum, category) => 
+          catSum + category.questions.length, 0), 0),
+      answeredQuestions: Object.keys(assessment.responses).length
+    };
   }
 
-  private downloadFile(): void {
-    try {
-      // Add UTF-8 BOM for CSV files to ensure proper character encoding
-      const bom = mimeType === 'text/csv' ? '\uFEFF'  : '';
-              const blob = new Blob([bom + content], { type, `${mimeType};charset=utf-8` });
+  private downloadFile(content: string, filename: string, mimeType: string): void {
+  try {
+    // Add UTF-8 BOM for CSV files to ensure proper character encoding
+    const bom = mimeType === 'text/csv' ? '\uFEFF' : '';
+    const blob = new Blob([bom + content], { type: `${mimeType};charset=utf-8` });
       
       // Use modern download API if available
       if ('showSaveFilePicker' in window) {
@@ -518,10 +522,13 @@ export class ReportService {
     }
   }
   
-  private async downloadWithAPI(blob: Blob, filename, string: , mimeType, string, Promise<void> { try {
+  private async downloadWithAPI(blob: Blob, filename: string, mimeType: string): Promise<void> {
+  try {
       const fileHandle = await (window as any).showSaveFilePicker({
-        suggestedName:, filename: types: [{
-          description, this.getFileTypeDescription(mimeType, accept:, { [mimeType], [this.getFileExtension(filename)]  }
+        suggestedName: filename,
+        types: [{
+          description: this.getFileTypeDescription(mimeType),
+          accept: { [mimeType]: [this.getFileExtension(filename)] }
         }]
       });
       
@@ -534,7 +541,7 @@ export class ReportService {
     }
   }
   
-  private downloadWithLink(): void {
+  private downloadWithLink(blob: Blob, filename: string): void {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -546,17 +553,18 @@ export class ReportService {
     URL.revokeObjectURL(url);
   }
   
-  private getFileTypeDescription(mimeType, string, string { switch (mimeType) {
-      case 'application/json':: return 'JSON Data';
-      case 'text/csv', return 'CSV Spreadsheet';
+  private getFileTypeDescription(mimeType: string): string {
+  switch (mimeType) {
+      case 'application/json': return 'JSON Data';
+      case 'text/csv': return 'CSV Spreadsheet';
       case 'text/html': return 'HTML Report';
-      case 'application/pdf', return 'PDF Document';
+            case 'application/pdf': return 'PDF Document';
       default: return 'File';
     }
   }
-  
-  private getFileExtension(filename, string, string {
-    const parts = filename.split('.'):;
+
+  private getFileExtension(filename: string): string {
+    const parts = filename.split('.');
     return parts.length > 1 ? `.${parts[parts.length - 1]}` : '';
   }
 }
