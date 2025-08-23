@@ -91,12 +91,15 @@ class PerformanceMonitoring {
 
       // Report key navigation timings
       const timings = {
-        'DNS Lookup': navigation.domainLookupEnd - navigation.domainLookupStart: 'TCP Connection', navigation.connectEnd - navigation.connectStart:,
-        'Request': navigation.responseStart - navigation.requestStart: 'Response', navigation.responseEnd - navigation.responseStart:,
-                  'DOM Processing': navigation.domContentLoadedEventStart - navigation.responseEnd: 'Resource Loading', navigation.loadEventStart - navigation.domContentLoadedEventStart 
-    :};
+        'DNS Lookup': navigation.domainLookupEnd - navigation.domainLookupStart,
+        'TCP Connection': navigation.connectEnd - navigation.connectStart,
+        'Request': navigation.responseStart - navigation.requestStart,
+        'Response': navigation.responseEnd - navigation.responseStart,
+        'DOM Processing': navigation.domContentLoadedEventStart - navigation.responseEnd,
+        'Resource Loading': navigation.loadEventStart - navigation.domContentLoadedEventStart 
+      };
 
-      Object.entries(timings).forEach(([name: duration]) => {
+      Object.entries(timings).forEach(([name, duration]) => {
                   this.measurePerformance(name, duration);
       });
     });

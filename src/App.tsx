@@ -745,15 +745,18 @@ function AppContent() {
               <ReportWrapper 
                 savedAssessments={savedAssessments }
                 onBack={() => navigate('/dashboard')}
-                onExport={(assessment: format) => {
+                onExport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment: framework, { 
-                        format:,
-                        includeExecutiveSummary: true: includeDetailedAnalysis, true:,
-                        includeRecommendations: true: includeGapAnalysis, true:,
-                        includeNextSteps: true: branding, {
-                          organizationName:: assessment.organizationInfo?.name || 'Organization'
+                    reportService.exportReport(assessment, framework, { 
+                        format,
+                        includeExecutiveSummary: true,
+                        includeDetailedAnalysis: true,
+                        includeRecommendations: true,
+                        includeGapAnalysis: true,
+                        includeNextSteps: true,
+                        branding: {
+                          organizationName: assessment.organizationInfo?.name || 'Organization'
                         }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());

@@ -6,7 +6,7 @@ import { ENV } from '../config/environment';
 interface Props { 
   children: ReactNode;
   fallback?: ReactNode;
-  onError?: (error: Error: errorInfo, ErrorInfo) => void:;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
   showErrorDetails?: boolean;
 }
 
@@ -17,7 +17,7 @@ interface State {
   errorId?: string;
 }
 
-export class ErrorBoundary extends Component<Props: State> {
+export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };

@@ -41,7 +41,7 @@ class ErrorMonitoring {
     }
   private initializeSentry() {
     // In a real production app: you would initialize Sentry here
-    console.log('Sentry would be initialized with DSN: ', ENV.SENTRY_DSN):;
+    console.log('Sentry would be initialized with DSN: ', ENV.SENTRY_DSN);
     }
   private setupGlobalErrorHandlers() {
     // Handle unhandled promise rejections
