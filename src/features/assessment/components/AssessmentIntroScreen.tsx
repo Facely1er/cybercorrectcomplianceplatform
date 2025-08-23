@@ -4,9 +4,8 @@ import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssessmentIntroScreenProps {
-  frameworks: Framework[];
-  onStartAssessment: (organizationInfo?: OrganizationInfo, selectedFramework?: string) => void;
+interface AssessmentIntroScreenProps { frameworks, Framework[];
+  onStartAssessment: (organizationInfo?, OrganizationInfo, selectedFramework?, string) => void;
   onBack: () => void;
 }
 
@@ -18,19 +17,16 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
   const [selectedFramework, setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
   const [organizationInfo, setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
     name: '', // Default to empty string
-    industry: '', size: '', location: '', assessor: ''
+    industry: '', size: '', location, '', assessor, ''
   
     });
 
   // Get the currently selected framework
   const currentFramework = frameworks.find(f => f.id === selectedFramework) || frameworks[0];
 
-  const getFrameworkIcon = (frameworkId: string) => {
-    switch (frameworkId) {
-      case 'nist':
-        return Shield;
-      case 'iso27001':
-        return Globe;
+  const getFrameworkIcon = (frameworkId, string) => { switch (frameworkId) {
+      case 'nist': return Shield;
+      case 'iso27001', return Globe;
       case 'cmmc':
         return Building;
       case 'privacy':
@@ -46,10 +42,8 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     }
   };
 
-  const getComplexityColor = (complexity: string) => {
-    switch (complexity) {
-      case 'basic':
-        return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
+  const getComplexityColor = (complexity, string) => { switch (complexity) {
+      case 'basic': return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
       case 'intermediate':
         return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
       case 'advanced':
@@ -59,10 +53,8 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     }
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high':
-        return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+  const getPriorityColor = (priority, string) => { switch (priority) {
+      case 'high': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300';
       case 'medium':
         return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
       case 'low':
@@ -76,7 +68,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     sum + section.categories.reduce((catSum, category) => 
       catSum + category.questions.length, 0), 0);
 
-  const getFrameworkBenefits = (frameworkId: string) => {
+  const getFrameworkBenefits = (frameworkId, string) => {
     const benefits: Record<string, string[]> = {
       'nist': [
         'Comprehensive cybersecurity risk management',
@@ -108,7 +100,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
         'Ensures vendor security compliance',
         'Reduces operational and reputational risks'
       ],
-      'hipaa': [
+      'hipaa', [
         'Protects patient health information (ePHI)',
         'Ensures healthcare regulatory compliance',
         'Reduces risk of costly data breaches',
@@ -124,7 +116,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     return benefits[frameworkId] || [];
   };
 
-  const getPreparationChecklist = (frameworkId: string) => {
+  const getPreparationChecklist = (frameworkId, string) => {
     const checklists: Record<string, string[]> = {
       'nist-csf-v2': [
         'Inventory of organizational assets and systems',
@@ -196,7 +188,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
         'Supply chain security requirements',
         'Vendor management and oversight processes'
       ],
-      'hipaa': [
+      'hipaa', [
         'ePHI inventory and data flow mapping',
         'Administrative, physical, and technical safeguards',
         'Business associate agreements (BAAs)',
@@ -213,7 +205,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     return checklists[frameworkId] || [];
   };
 
-  const handleOrganizationSubmit = (e: React.FormEvent) => {
+  const handleOrganizationSubmit = (e, React.FormEvent) => {
     e.preventDefault();
     onStartAssessment(organizationInfo as OrganizationInfo, selectedFramework);
   };
@@ -234,7 +226,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back</span>
@@ -280,9 +272,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                   <div key={framework.id } className="bg-white dark:bg-gray-700 p-3 rounded-lg">
                     <div className="font-medium text-gray-900 dark:text-white">{framework.name }</div>
                     <div className="text-blue-600 dark:text-blue-400">
-                      {framework.id === 'cmmc' ? '110 controls' : 
+                      {framework.id === 'cmmc' ? '110 controls' , 
                        framework.id === 'privacy' ? '73 questions' :
-                       framework.id === 'nist-csf-v2-extended' ? '106 subcategories' : 'questions'}
+                       framework.id === 'nist-csf-v2-extended' ? '106 subcategories' , 'questions'}
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
                       ~{framework?.estimatedTime || 'N/A'} minutes
@@ -302,28 +294,28 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                   <button
                     key={framework.id }
                     onClick={() => setSelectedFramework(framework.id)}
-                    className={`p-6 border-2 rounded-xl text-left transition-all duration-200 hover:shadow-lg ${
+                    className={ `p-6 border-2 rounded-xl text-left transition-all duration-200 hover, shadow-lg ${
                       isSelected
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-lg'
-                        : 'border-gray-200 dark:border-gray-700 hover: border-blue-300 dark, hover:border-blue-600'}`}
+                        ? 'border-blue-500 bg-blue-50 dark: bg-blue-900/20 shadow-lg'
+                        , 'border-gray-200 dark:border-gray-700 hover: border-blue-300 dark, hover:border-blue-600'}`}
                   >
                     <div className="flex items-start space-x-4">
-                      <div className={`p-3 rounded-xl ${
+                      <div className={ `p-3 rounded-xl ${
                         isSelected 
-                          ? 'bg-blue-100 dark:bg-blue-900/30' 
-                          : 'bg-gray-100 dark:bg-gray-700'}`}>
-                        <FrameworkIconComponent className={`w-8 h-8 ${
+                          ? 'bg-blue-100 dark: bg-blue-900/30' 
+                          , 'bg-gray-100 dark:bg-gray-700'}`}>
+                        <FrameworkIconComponent className={ `w-8 h-8 ${
                           isSelected 
-                            ? 'text-blue-600 dark:text-blue-400' 
-                            : 'text-gray-600 dark:text-gray-400'}`} />
+                            ? 'text-blue-600 dark: text-blue-400' 
+                            , 'text-gray-600 dark:text-gray-400'}`} />
                       </div>
                       
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <h3 className={`text-xl font-bold ${
+                          <h3 className={ `text-xl font-bold ${
                             isSelected 
-                              ? 'text-blue-900 dark:text-blue-100' 
-                              : 'text-gray-900 dark:text-white'}`}>
+                              ? 'text-blue-900 dark: text-blue-100' 
+                              , 'text-gray-900 dark:text-white'}`}>
                             {framework.name }
                           </h3>
                           {framework.id === 'nist-csf-v2-extended' && (
@@ -346,43 +338,43 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                           </span>
                         </div>
                         
-                        <p className={`text-sm mb-4 ${
+                        <p className={ `text-sm mb-4 ${
                           isSelected 
-                            ? 'text-blue-700 dark:text-blue-300' 
-                            : 'text-gray-600 dark:text-gray-300'}`}>
+                            ? 'text-blue-700 dark: text-blue-300' 
+                            , 'text-gray-600 dark:text-gray-300'}`}>
                           {framework.description }
                         </p>
                         
                         <div className="grid grid-cols-3 gap-4 text-sm">
                           <div className="text-center">
-                            <div className={`font-bold ${
+                            <div className={ `font-bold ${
                               isSelected 
-                                ? 'text-blue-600 dark:text-blue-400' 
-                                : 'text-gray-900 dark:text-white'}`}>
+                                ? 'text-blue-600 dark: text-blue-400' 
+                                , 'text-gray-900 dark:text-white'}`}>
                               {framework?.estimatedTime || 'N/A'}min
                             </div>
                             <div className="text-gray-600 dark:text-gray-400">Duration</div>
                           </div>
                           <div className="text-center">
-                            <div className={`font-bold ${
+                            <div className={ `font-bold ${
                               isSelected 
-                                ? 'text-blue-600 dark:text-blue-400' 
-                                : 'text-gray-900 dark:text-white'}`}>
+                                ? 'text-blue-600 dark: text-blue-400' 
+                                , 'text-gray-900 dark:text-white'}`}>
                               {framework?.sections?.length || 0}
                             </div>
                             <div className="text-gray-600 dark:text-gray-400">Domains</div>
                           </div>
                           <div className="text-center">
-                            <div className={`font-bold ${
+                            <div className={ `font-bold ${
                               isSelected 
-                                ? 'text-blue-600 dark:text-blue-400' 
-                                : 'text-gray-900 dark:text-white'}`}>
-                              {framework.id === 'cmmc' ? '110' : 
+                                ? 'text-blue-600 dark: text-blue-400' 
+                                , 'text-gray-900 dark:text-white'}`}>
+                              {framework.id === 'cmmc' ? '110' , 
                                framework.id === 'privacy' ? '73' :
                                framework.id === 'nist-csf-v2-extended' ? '106' : '0'}
                             </div>
                             <div className="text-gray-600 dark:text-gray-400">
-                              {framework.id === 'cmmc' ? 'Controls' : 
+                              {framework.id === 'cmmc' ? 'Controls' , 
                                framework.id === 'nist-csf-v2-extended' ? 'Subcategories' : 'Questions'}
                             </div>
                           </div>
@@ -430,7 +422,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               
               <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
                 <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2">
-                  {currentFramework.id === 'cmmc' ? '17' : 
+                  {currentFramework.id === 'cmmc' ? '17' , 
                    currentFramework.id === 'privacy' ? '5' :
                    currentFramework.id === 'nist-csf-v2-extended' ? '6' : currentFramework?.sections?.length || 0}
                 </div>
@@ -441,7 +433,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               
               <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
                 <div className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-2">
-                  {currentFramework.id === 'cmmc' ? 'Level 2' : 
+                  {currentFramework.id === 'cmmc' ? 'Level 2' , 
                    currentFramework.id === 'privacy' ? 'v1.0' :
                    currentFramework.id === 'nist-csf-v2-extended' ? 'v2.0' : 'v' + (currentFramework?.version || 'N/A')}
                 </div>
@@ -511,17 +503,17 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 {currentFramework.id === 'nist-csf-v2-extended' ? (
                   <>
                     <strong>NIST CSF v2.0 Complete Assessment:</strong> This comprehensive assessment covers all 106 subcategories 
-                    across 6 functions for complete NIST CSF v2.0 implementation. Estimated time: 120 minutes.
+                    across 6 functions for complete NIST CSF v2.0 implementation. Estimated time, 120 minutes.
                   </>
                 ) : currentFramework.id === 'cmmc' ? (
                   <>
                     <strong>CMMC Level 2 Assessment:</strong> This comprehensive assessment covers all 110 CMMC controls 
-                    across 17 domains for complete DoD compliance evaluation. Estimated time: 120 minutes.
+                    across 17 domains for complete DoD compliance evaluation. Estimated time, 120 minutes.
                   </>
                 ) : currentFramework.id === 'privacy' ? (
                   <>
                     <strong>NIST Privacy Framework Assessment:</strong> This assessment covers 73 privacy questions 
-                    for GDPR, CCPA, and global privacy regulation compliance. Estimated time: 90 minutes.
+                    for GDPR, CCPA, and global privacy regulation compliance. Estimated time, 90 minutes.
                   </>
                 ) : (
                   <>
@@ -533,8 +525,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             </div>
             
             <div className="space-y-6">
-              {currentFramework.sections.map((section, index) => {
-                const sectionQuestions = section.categories.reduce((sum, cat) => sum + cat.questions.length, 0);
+              {currentFramework.sections.map((section, index) => { const sectionQuestions = section.categories.reduce((sum: cat) => sum + cat.questions.length, 0);
                 const highPriorityInSection = section.categories.reduce((sum, cat) => 
                   sum + cat.questions.filter(q => q.priority === 'high').length, 0);
                 
@@ -650,7 +641,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               <div className="flex items-center justify-between">
                 <span className="text-gray-600 dark:text-gray-300">Total Questions</span>
                 <span className="font-medium text-gray-900 dark:text-white">
-                  {currentFramework.id === 'cmmc' ? '110' : 
+                  {currentFramework.id === 'cmmc' ? '110' , 
                    currentFramework.id === 'privacy' ? '73' :
                    currentFramework.id === 'nist-csf-v2-extended' ? '106' : totalQuestions || 'N/A'}
                 </span>
@@ -673,7 +664,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               <div className="flex items-center justify-between">
                 <span className="text-gray-600 dark:text-gray-300">Framework Type</span>
                 <span className="font-medium text-gray-900 dark:text-white capitalize">
-                  {currentFramework.id === 'cmmc' ? 'DoD Compliance' : 
+                  {currentFramework.id === 'cmmc' ? 'DoD Compliance' , 
                    currentFramework.id === 'nist-csf-v2-extended' ? 'NIST Standard' :
                    currentFramework.id === 'nist-csf-v2-standard' ? 'NIST Lite' :
                    currentFramework.id === 'nist-csf-v2' ? 'NIST Quick Check' :
@@ -692,7 +683,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                   <div key={index } className="flex items-center space-x-3">
                     <div 
                       className="w-4 h-4 rounded-full"
-                      style={{ backgroundColor: level.color }}
+                      style={{ backgroundColor, level.color }}
                     />
                     <div>
                       <div className="font-medium text-gray-900 dark:text-white text-sm">
@@ -737,10 +728,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             <ul className="space-y-3 text-sm text-green-800 dark:text-green-200">
               <li className="flex items-start space-x-2">
                 <CheckCircle className="w-4 h-4 mt-0.5 text-green-600" />
-                <span>This assessment has {
-                  currentFramework.id === 'nist-csf-v2-extended' ? '106 subcategories' :
-                  currentFramework.id === 'cmmc' ? '110 controls' :
-                  currentFramework.id === 'privacy' ? '73 questions' :
+                <span>This assessment has { currentFramework.id === 'nist-csf-v2-extended' ? '106 subcategories' : currentFramework.id === 'cmmc' ? '110 controls' , currentFramework.id === 'privacy' ? '73 questions' :
                   'comprehensive coverage'
                 } - take your time</span>
               </li>
@@ -766,9 +754,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
       </div>
 
       {/* Organization Information Modal */}
-      {showOrganizationForm && (
+      { showOrganizationForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
               Organization Information (Optional)
             </h3>
@@ -781,7 +769,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 <input
                   type="text"
                   value={organizationInfo.name || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, name: e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, name, e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter organization name"
                 />
@@ -793,7 +781,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 </label>
                 <select
                   value={organizationInfo.industry || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, industry: e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, industry, e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select industry</option>
@@ -815,7 +803,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 </label>
                 <select
                   value={organizationInfo.size || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, size: e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, size, e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select size</option>
@@ -833,7 +821,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 <input
                   type="text"
                   value={organizationInfo.assessor || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, assessor: e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, assessor, e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your name"
                 />

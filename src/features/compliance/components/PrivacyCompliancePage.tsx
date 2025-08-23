@@ -2,9 +2,8 @@ import React from 'react';
 import { Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export const PrivacyCompliancePage: React.FC = () => {
-  return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+export const PrivacyCompliancePage: React.FC = () => { return (
+    <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
         <div className="flex items-center justify-center mb-6">
           <div className="p-4 bg-pink-100 dark:bg-pink-900/30 rounded-2xl">

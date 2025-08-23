@@ -3,7 +3,7 @@ import { Loader2} from 'lucide-react';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'medium' | 'large';
-  text?: string;
+  text?, string;
   className?: string;
 }
 
@@ -11,7 +11,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'medium', text, className = '' 
 }) => {
   const sizeClasses = {
-    small: 'w-4 h-4', medium: 'w-8 h-8', large: 'w-12 h-12'
+    small: 'w-4 h-4', medium, 'w-8 h-8', large: 'w-12 h-12'
   };
 
   return (

@@ -46,21 +46,19 @@ import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
 
 // Assessment Wrapper Component
-const AssessmentWrapper: React.FC<{
+const AssessmentWrapper: React.FC<{ 
   savedAssessments: AssessmentData[];
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
-
-    }> = ({ savedAssessments: onSave, onGenerateReport: onBack  }) => {
+}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
-  if (!assessment) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+  if (!assessment) { return (
+      <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Assessment Not Found</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-2">Assessment Not Found</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
           <button 
             onClick={onBack }
@@ -74,15 +72,14 @@ const AssessmentWrapper: React.FC<{
   }
   
   // Validate that the assessment has a valid framework
-  try {
-    const framework = getFramework(assessment.frameworkId);
+  try { const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
-              console.error('Framework validation failed:', {
+              console.error('Framework validation failed: ', {
           frameworkId: assessment.frameworkId, 
           framework: framework, 
         hasFramework: !!framework, 
-        hasSections: framework?.sections ? true : false, 
-                            sectionsLength: framework?.sections?.length || 0
+        hasSections: framework?.sections ? true ): false, 
+        sectionsLength, framework?.sections?.length || 0
       });
       
       return (
@@ -90,7 +87,7 @@ const AssessmentWrapper: React.FC<{
           <div className="text-center">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Error</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              The framework for this assessment (ID: {assessment.frameworkId }) could not be loaded properly.
+              The framework for this assessment (ID,  {assessment.frameworkId }) could not be loaded properly.
             </p>
             <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
               Debug info: Framework exists: {framework ? 'Yes' : 'No'}, Sections: {framework?.sections?.length || 0}
@@ -115,7 +112,7 @@ const AssessmentWrapper: React.FC<{
     }
       } catch (error) { 
       console.error('Framework validation error:', error);
-      console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
+              console.error('Assessment data:', { id: assessment.id, frameworkId, assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -125,7 +122,7 @@ const AssessmentWrapper: React.FC<{
             There was an error loading the framework data for this assessment.
           </p>
           <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Error: {error instanceof Error ? error.message : 'Unknown error'}
+            Error: {error instanceof Error ? error.message , 'Unknown error'}
           </div>
           <div className="space-y-2">
             <button 
@@ -157,20 +154,18 @@ const AssessmentWrapper: React.FC<{
 };
 
 // Report Wrapper Component  
-const ReportWrapper: React.FC<{
-  savedAssessments: AssessmentData[];
-  onBack: () => void;
-  onExport: (assessment: AssessmentData, format: string) => void;
+const ReportWrapper: React.FC<{ savedAssessments: AssessmentData[];
+  onBack, () => void;
+  onExport: (assessment, AssessmentData, format, string) => void;
 
     }> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
-  if (!assessment) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+  if (!assessment) { return (
+      <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Report Not Found</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-2">Report Not Found</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
           <button 
             onClick={onBack }
@@ -193,20 +188,18 @@ const ReportWrapper: React.FC<{
 };
 
 // Dropdown Navigation Component
-interface DropdownNavItemProps {
-  label: string;
-  icon: React.ComponentType<any>;
-  items: Array<{
-    label: string;
+interface DropdownNavItemProps { label: string;
+  icon, React.ComponentType<any>;
+  items: Array<{ label, string;
     href: string;
-    icon: React.ComponentType<any>;
+    icon, React.ComponentType<any>;
     description?: string;
   
     }>;
   currentPath: string;
 }
 
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
+const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon, Icon, items, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
@@ -218,10 +211,10 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className={`flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
+        className={ `flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
           isActive
-            ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-            : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary hover,bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+            ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
+            : 'text-gray-600 dark:text-gray-300 hover, text-primary-teal dark, hover: text-dark-primary hover,bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
         aria-expanded={isOpen }
         aria-haspopup="true"
       >
@@ -243,7 +236,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
               className={`flex items-center space-x-2 px-3 py-2 hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors ${
                 currentPath === item.href
                   ? 'bg-primary-teal/10 dark,bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                  : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary hover,bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+                  : 'text-gray-600 dark:text-gray-300 hover, text-primary-teal dark, hover, text-dark-primary hover,bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -321,53 +314,52 @@ function AppContent() {
   const navigationMenus = [
     {
       label: 'Assessment', icon: Target, items: [
-        { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
-        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
+        { label: 'Start Assessment', href: '/assessment-intro', icon, Target, description: 'Begin cybersecurity framework assessment' },
+        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon, Building, description: 'CMMC Level 2 certification readiness' },
         {
-          label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations'
+          label: 'Privacy Assessment', href: '/compliance/privacy', icon, Eye, description: 'GDPR, CCPA & privacy regulations'
         }
       ]
     },
     {
       label: 'Implementation', icon: Shield, items: [
-        { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
+        { label: 'Compliance Status', href: '/compliance', icon, Activity, description: 'Real-time implementation progress'
          },
-        { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation'
+        { label: 'Evidence Collection', href: '/evidence', icon, FileText, description: 'Manage compliance documentation'
          },
-        { label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures'
+        { label: 'Policy Management', href: '/policies', icon, Shield, description: 'Required policies and procedures'
          },
-        { label: 'Controls Management', href: '/controls', icon: CheckSquare, description: 'Security controls implementation'
+        { label: 'Controls Management', href: '/controls', icon, CheckSquare, description: 'Security controls implementation'
          },
-        { label: 'Asset Management', href: '/assets', icon: BarChart3, description: 'Inventory and scope management'
+        { label: 'Asset Management', href: '/assets', icon, BarChart3, description: 'Inventory and scope management'
          }
       ]
     },
     {
       label: 'Team', icon: Users, items: [
-        { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts'
+        { label: 'Team Collaboration', href: '/team', icon, Users, description: 'Coordinate implementation efforts'
          },
-        { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables'
+        { label: 'Task Management', href: '/tasks', icon, CheckSquare, description: 'Track tasks and deliverables'
          },
-        { label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities'
+        { label: 'Activity Calendar', href: '/calendar', icon, Calendar, description: 'Schedule compliance activities'
          },
-        { label: 'Assessment Reports', href: '/reports', icon: FileText, description: 'Generate detailed reports'
+        { label: 'Assessment Reports', href: '/reports', icon, FileText, description: 'Generate detailed reports'
          },
-        { label: 'Advanced Analytics', href: '/reports/advanced', icon: BarChart3, description: 'Comprehensive analytics dashboard'
+        { label: 'Advanced Analytics', href: '/reports/advanced', icon, BarChart3, description: 'Comprehensive analytics dashboard'
          }
       ]
     }
   ];
 
   // Simple notification handlers
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
-    const notification: NotificationMessage = {
-              id: Date.now().toString(), type: message, timestamp: new Date()
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message, string) => { const notification, NotificationMessage = {
+              id: Date.now().toString(), type, message, timestamp: new Date()
     
     };
     setNotifications(prev => [...prev, notification]);
   };
 
-  const removeNotification = (id: string) => {
+  const removeNotification = (id, string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
   };
 
@@ -378,12 +370,12 @@ function AppContent() {
   
     };
 
-  const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => { console.log('Creating new assessment');
+  const createAssessment = async (organizationInfo?: any, selectedFramework?, string) => { console.log('Creating new assessment');
     
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id: Date.now().toString(), frameworkId: framework.id, frameworkName: framework.name, responses: { }, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version, organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
+        id, Date.now().toString(): frameworkId: framework.id, frameworkName, framework.name, responses: { }, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version, organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
       };
 
       // Save using local data service directly
@@ -397,12 +389,12 @@ function AppContent() {
     }
   };
 
-  const saveAssessment = async (assessment: AssessmentData) => {
+  const saveAssessment = async (assessment, AssessmentData) => {
     console.log('Saving assessment:', assessment.id);
     
     try {
       dataService.saveAssessment(assessment);
-              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
+              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment , a));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
       console.error('Failed to save assessment:', error);
@@ -410,7 +402,7 @@ function AppContent() {
     }
   };
 
-  const deleteAssessment = async (assessmentId: string) => {
+  const deleteAssessment = async (assessmentId, string) => {
     console.log('Deleting assessment:', assessmentId);
     
     try {
@@ -424,9 +416,9 @@ function AppContent() {
   };
 
   // Asset management handlers
-  const createAsset = async (assetData: any) => { try {
+  const createAsset = async (assetData, any) => { try {
       const newAsset = {
-                  ...assetData, id: Date.now().toString(), createdAt: new Date(), updatedAt: new Date()
+                  ...assetData, id: Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
       
      };
       
@@ -488,11 +480,9 @@ function AppContent() {
               <nav className="hidden lg:flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
-                    location.pathname === '/' // Adjust spacing for top-level menu items
-                      ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                      : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary'
-                  }`}
+                  className={ `flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-primary-teal focus:ring-offset-2 ${ location.pathname === '/' // Adjust spacing for top-level menu items
+                      ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark: text-dark-primary'
+                      , 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary'}`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -500,11 +490,9 @@ function AppContent() {
                 
                 <Link
                   to="/dashboard"
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
-                    location.pathname === '/dashboard' // Adjust spacing for top-level menu items
-                      ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                                              : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary'
-                  }`}
+                  className={ `flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-primary-teal focus:ring-offset-2 ${ location.pathname === '/dashboard' // Adjust spacing for top-level menu items
+                      ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark: text-dark-primary'
+                                              , 'text-gray-600 dark:text-gray-300 hover, text-primary-teal dark, hover:text-dark-primary'}`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
                   <span>Dashboard</span>
@@ -564,12 +552,12 @@ function AppContent() {
         </header>
         
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden bg-surface dark:bg-dark-surface border-t border-support-gray dark:border-dark-support">
+        { mobileMenuOpen && (
+          <div id="mobile-menu" className="md: hidden bg-surface dark, bg-dark-surface border-t border-support-gray dark:border-dark-support">
             <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Home className="w-4 h-4" aria-hidden="true" />
@@ -591,7 +579,7 @@ function AppContent() {
                   <Link
                     key={item.href }
                     to={item.href }
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-4 h-4" aria-hidden="true" />
@@ -709,8 +697,7 @@ function AppContent() {
               />
             } />
             
-            <Route path="/privacy-policy" element={
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <Route path="/privacy-policy" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Privacy Policy</h1>
                   <p className="text-gray-600 dark:text-gray-300">
@@ -720,8 +707,7 @@ function AppContent() {
               </div>
             } />
             
-            <Route path="/terms" element={
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <Route path="/terms" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Terms of Service</h1>
                   <p className="text-gray-600 dark:text-gray-300">
@@ -753,14 +739,14 @@ function AppContent() {
                                               includeDetailedAnalysis: true, 
                       includeRecommendations: true, 
                       includeGapAnalysis: true, 
-                      includeNextSteps: true, 
-                      branding: {
-                        organizationName: assessment.organizationInfo?.name || 'Organization'
+                      includeNextSteps): true, 
+                      branding,  {
+                        organizationName, assessment.organizationInfo?.name || 'Organization'
                       }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
                   } catch (error) {
-                    addNotification('error', 'Failed to export report: ' + (error as Error).message);
+                    addNotification('error', 'Failed to export report, ' + (error as Error).message);
                   }
                 }}
               />
@@ -775,10 +761,10 @@ function AppContent() {
                 onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
                 onDeleteAssessment={deleteAssessment }
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportAssessment={ (assessment: format) => {
+                onExportAssessment={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework: { format  });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
                   } catch {
                     addNotification('error', 'Failed to export assessment');
@@ -883,10 +869,10 @@ function AppContent() {
               <AssessmentReportsPage
                 savedAssessments={savedAssessments }
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportReport={ (assessment: format) => {
+                onExportReport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework: { format  });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
                   } catch {
                     addNotification('error', 'Failed to export report');

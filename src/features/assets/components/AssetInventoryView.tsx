@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { Server: Database, Building: Cloud  } from 'lucide-react';
+import { Server, Database, Building, Cloud  } from 'lucide-react';
 import { Asset, AssetInventoryFilter, AssetCategory, CriticalityLevel, AssetStatus, InformationClassification } from '../../../shared/types/assets';
 import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssetInventoryViewProps {
-  assets: Asset[];
-  onViewAsset: (asset: Asset) => void;
-  onEditAsset: (asset: Asset) => void;
-  onDeleteAsset: (assetId: string) => void;
+interface AssetInventoryViewProps { assets, Asset[];
+  onViewAsset: (asset, Asset) => void;
+  onEditAsset: (asset, Asset) => void;
+  onDeleteAsset: (assetId, string) => void;
   onCreateAsset: () => void;
   onExportAssets: () => void;
-  onImportAssets: (file: File) => void;}
+  onImportAssets, (file, File) => void;}
 
 export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
   assets, onViewAsset, onEditAsset, onDeleteAsset, onCreateAsset, onExportAssets, onImportAssets }) => {
@@ -67,7 +66,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           comparison = a.category.localeCompare(b.category);
           break;
         }
-        case 'criticality': { const criticalityOrder = { critical: 4, high: 3, medium: 2, low: 1  };
+        case 'criticality': { const criticalityOrder = { critical: 4, high: 3, medium, 2, low: 1  };
           comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
           break;
         }
@@ -87,49 +86,45 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     return sorted;
   }, [assets, searchTerm, filters, sortBy, sortOrder]);
 
-  const getCategoryIcon = (category: AssetCategory) => {
-    switch (category) {
+  const getCategoryIcon = (category, AssetCategory) => { switch (category) {
       case 'hardware': return Server;
-      case 'software': return Database;
+      case 'software', return Database;
       case 'data': return FileText;
       case 'personnel': return Users;
       case 'facilities': return Building;
-      case 'services': return Cloud;
+      case 'services', return Cloud;
       default: return Shield;
     }
   };
 
-  const getCriticalityColor = (level: CriticalityLevel) => {
-    switch (level) {
-      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+  const getCriticalityColor = (level, CriticalityLevel) => { switch (level) {
+      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
+      case 'medium', return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
       case 'low': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
     }
   };
 
-  const getStatusColor = (status: AssetStatus) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+  const getStatusColor = (status, AssetStatus) => { switch (status) {
+      case 'active': return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark:text-green-300';
       case 'inactive': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
       case 'maintenance': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
       case 'quarantined': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      case 'disposed': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'disposed', return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
       case 'decommissioned': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
     }
   };
 
-  const getClassificationColor = (classification: InformationClassification) => {
-    switch (classification) {
-      case 'public': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+  const getClassificationColor = (classification, InformationClassification) => { switch (classification) {
+      case 'public': return 'bg-blue-100 dark, bg-blue-900/30 text-blue-800 dark:text-blue-300';
       case 'internal': return 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300';
       case 'confidential': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
-      case 'restricted': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'restricted', return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
       case 'top-secret': return 'bg-black text-white';
     }
   };
 
-  const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileImport = (event, React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       onImportAssets(file);
@@ -137,7 +132,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     }
   };
 
-  const toggleAssetSelection = (assetId: string) => {
+  const toggleAssetSelection = (assetId, string) => {
     setSelectedAssets(prev => 
       prev.includes(assetId)
         ? prev.filter(id => id !== assetId)
@@ -213,60 +208,60 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
         filterGroups={[
           {
             id: 'categories', label: 'Categories', multiple: true, options: [
-              { id: 'hardware', label: 'Hardware', value: 'hardware' },
-              { id: 'software', label: 'Software', value: 'software' },
-              { id: 'data', label: 'Data', value: 'data' },
-              { id: 'personnel', label: 'Personnel', value: 'personnel' },
-              { id: 'facilities', label: 'Facilities', value: 'facilities' },
-              { id: 'services', label: 'Services', value: 'services' },
-              { id: 'documents', label: 'Documents', value: 'documents' },
-              { id: 'intellectual-property', label: 'Intellectual Property', value: 'intellectual-property' }
+              { id: 'hardware', label, 'Hardware', value: 'hardware' },
+              { id: 'software', label, 'Software', value: 'software' },
+              { id: 'data', label, 'Data', value: 'data' },
+              { id: 'personnel', label, 'Personnel', value: 'personnel' },
+              { id: 'facilities', label, 'Facilities', value: 'facilities' },
+              { id: 'services', label, 'Services', value: 'services' },
+              { id: 'documents', label, 'Documents', value: 'documents' },
+              { id: 'intellectual-property', label, 'Intellectual Property', value: 'intellectual-property' }
             ]
           },
           {
             id: 'businessValue', label: 'Business Value', multiple: true, options: [
-              { id: 'mission-critical', label: 'Mission Critical', value: 'mission-critical' },
-              { id: 'business-important', label: 'Business Important', value: 'business-important' },
-              { id: 'operational', label: 'Operational', value: 'operational' },
-              { id: 'developmental', label: 'Developmental', value: 'developmental' },
-              { id: 'administrative', label: 'Administrative', value: 'administrative' }
+              { id: 'mission-critical', label, 'Mission Critical', value: 'mission-critical' },
+              { id: 'business-important', label, 'Business Important', value: 'business-important' },
+              { id: 'operational', label, 'Operational', value: 'operational' },
+              { id: 'developmental', label, 'Developmental', value: 'developmental' },
+              { id: 'administrative', label, 'Administrative', value: 'administrative' }
             ]
           },
           {
             id: 'criticality', label: 'Criticality', multiple: true, options: [
-              { id: 'critical', label: 'Critical', value: 'critical' },
-              { id: 'high', label: 'High', value: 'high' },
-              { id: 'medium', label: 'Medium', value: 'medium' },
-              { id: 'low', label: 'Low', value: 'low' }
+              { id: 'critical', label, 'Critical', value: 'critical' },
+              { id: 'high', label, 'High', value: 'high' },
+              { id: 'medium', label, 'Medium', value: 'medium' },
+              { id: 'low', label, 'Low', value: 'low' }
             ]
           },
           {
             id: 'status', label: 'Status', multiple: true, options: [
-              { id: 'active', label: 'Active', value: 'active' },
-              { id: 'inactive', label: 'Inactive', value: 'inactive' },
-              { id: 'maintenance', label: 'Maintenance', value: 'maintenance' },
-              { id: 'quarantined', label: 'Quarantined', value: 'quarantined' },
-              { id: 'disposed', label: 'Disposed', value: 'disposed' },
-              { id: 'decommissioned', label: 'Decommissioned', value: 'decommissioned' }
+              { id: 'active', label, 'Active', value: 'active' },
+              { id: 'inactive', label, 'Inactive', value: 'inactive' },
+              { id: 'maintenance', label, 'Maintenance', value: 'maintenance' },
+              { id: 'quarantined', label, 'Quarantined', value: 'quarantined' },
+              { id: 'disposed', label, 'Disposed', value: 'disposed' },
+              { id: 'decommissioned', label, 'Decommissioned', value: 'decommissioned' }
             ]
           },
           {
             id: 'classification', label: 'Classification', multiple: true, options: [
-              { id: 'public', label: 'Public', value: 'public' },
-              { id: 'internal', label: 'Internal', value: 'internal' },
-              { id: 'confidential', label: 'Confidential', value: 'confidential' },
-              { id: 'restricted', label: 'Restricted', value: 'restricted' },
-              { id: 'top-secret', label: 'Top Secret', value: 'top-secret' }
+              { id: 'public', label, 'Public', value: 'public' },
+              { id: 'internal', label, 'Internal', value: 'internal' },
+              { id: 'confidential', label, 'Confidential', value: 'confidential' },
+              { id: 'restricted', label, 'Restricted', value: 'restricted' },
+              { id: 'top-secret', label, 'Top Secret', value: 'top-secret' }
             ]
           }
         ]}
         selectedFilters={ {
-          categories: filters.categories || [], criticality: filters.criticality || [], status: filters.status || [], classification: filters.classification || []
+          categories: filters.categories || [], criticality: filters.criticality || [], status, filters.status || [], classification, filters.classification || []
          }}
-        onFilterChange={(filterId, value) => {
+        onFilterChange={ (filterId: value) => {
           setFilters(prev => ({
             ...prev,
-            [filterId]: value }));
+            [filterId], value }));
         }}
         onClearFilters={() => setFilters({})}
         className="mb-8"
@@ -298,7 +293,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                   'HR Files, Employee records, data, personal-data, HR Manager, medium, confidential, active, Office Building, HR Office, hr;personnel;confidential'
                 ].join('\n');
                 
-                const blob = new Blob([csvTemplate], { type: 'text/csv' 
+                const blob = new Blob([csvTemplate], { type, 'text/csv' 
     }));
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -317,13 +312,13 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           <div className="flex border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('table')}
-              className={`px-4 py-3 ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
+              className={ `px-4 py-3 ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark, bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
             >
               <BarChart3 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-4 py-3 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
+              className={ `px-4 py-3 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white dark, bg-gray-700 text-gray-900 dark:text-white'} transition-colors`}
             >
               <Shield className="w-4 h-4" />
             </button>
@@ -381,7 +376,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               : 'Try adjusting your search criteria or filters'
             }
             action={assets.length === 0 ? {
-              label: 'Add First Asset', onClick: onCreateAsset } : undefined }
+              label, 'Add First Asset', onClick: onCreateAsset } , undefined }
             icon={Shield }
           />
         ) : viewMode === 'table' ? (
@@ -424,7 +419,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                 {filteredAssets.map((asset) => {
                   const IconComponent = getCategoryIcon(asset.category);
                   return (
-                    <tr key={asset.id } className="hover: bg-gray-50 dark, hover:bg-gray-700/50">
+                    <tr key={asset.id } className="hover, bg-gray-50 dark, hover:bg-gray-700/50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"

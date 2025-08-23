@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { X: CheckCircle, AlertCircle: Info  } from 'lucide-react';
+import { X, CheckCircle, AlertCircle, Info  } from 'lucide-react';
 import { NotificationMessage } from '../../types';
 
 interface NotificationSystemProps {
   notifications: NotificationMessage[];
-  onRemove: (id: string) => void;
+  onRemove, (id, string) => void;
 }
 
 export const NotificationSystem: React.FC<NotificationSystemProps> = ({
@@ -20,12 +20,9 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
     });
   }, [notifications, onRemove]);
 
-  const getIcon = (type: string) => {
-    switch (type) {
-      case 'success':
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'error':
-        return <AlertCircle className="w-5 h-5 text-red-500" />;
+  const getIcon = (type, string) => { switch (type) {
+      case 'success': return <CheckCircle className="w-5 h-5 text-green-500" />;
+      case 'error', return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'warning':
         return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
       case 'info':
@@ -35,10 +32,8 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
     }
   };
 
-  const getStyles = (type: string) => {
-    switch (type) {
-      case 'success':
-        return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200';
+  const getStyles = (type, string) => { switch (type) {
+      case 'success': return 'bg-green-50 dark, bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200';
       case 'error':
         return 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200';
       case 'warning':

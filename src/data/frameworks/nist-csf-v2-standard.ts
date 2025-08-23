@@ -12,15 +12,15 @@ export const nistCSFv2StandardFramework = {
                 'Regular stakeholder cybersecurity communication and feedback'
               ], options: [
                 {
-                  value: 0, label: 'Not Performed', description: 'The organization has not established understanding of its mission, stakeholders, or critical infrastructure role for cybersecurity purposes.', riskLevel: 'critical'
+                  value: 0, label: 'Not Performed', description, 'The organization has not established understanding of its mission, stakeholders, or critical infrastructure role for cybersecurity purposes.', riskLevel: 'critical'
                 },
-                { value: 1, label: 'Performed', description: 'The organization has basic understanding of mission and stakeholders but cybersecurity considerations are informal.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'The organization has basic understanding of mission and stakeholders but cybersecurity considerations are informal.', riskLevel: 'high'
                  },
                 {
-                  value: 2, label: 'Documented', description: 'Mission, stakeholders, and critical infrastructure role are documented with cybersecurity considerations included.', riskLevel: 'medium'
+                  value: 2, label: 'Documented', description, 'Mission, stakeholders, and critical infrastructure role are documented with cybersecurity considerations included.', riskLevel: 'medium'
                 },
                 {
-                  value: 3, label: 'Managed', description: 'Organizational context is regularly reviewed and updated with stakeholder input, fully integrated into cybersecurity strategy.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Organizational context is regularly reviewed and updated with stakeholder input, fully integrated into cybersecurity strategy.', riskLevel: 'low'
                 }
               ]
             },
@@ -32,15 +32,15 @@ export const nistCSFv2StandardFramework = {
                 'Regular legal and regulatory updates monitoring'
               ], options: [
                 {
-                  value: 0, label: 'Not Performed', description: 'Legal, regulatory, and contractual cybersecurity requirements are not systematically identified or managed.', riskLevel: 'critical'
+                  value: 0, label: 'Not Performed', description, 'Legal, regulatory, and contractual cybersecurity requirements are not systematically identified or managed.', riskLevel: 'critical'
                 },
-                { value: 1, label: 'Performed', description: 'Some cybersecurity requirements are known but not comprehensively documented or managed.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Some cybersecurity requirements are known but not comprehensively documented or managed.', riskLevel: 'high'
                  },
                 {
-                  value: 2, label: 'Documented', description: 'Legal, regulatory, and contractual cybersecurity requirements are identified and documented.', riskLevel: 'medium'
+                  value: 2, label: 'Documented', description, 'Legal, regulatory, and contractual cybersecurity requirements are identified and documented.', riskLevel: 'medium'
                 },
                 {
-                  value: 3, label: 'Managed', description: 'Requirements are continuously monitored, updated, and compliance is actively managed with regular reviews.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Requirements are continuously monitored, updated, and compliance is actively managed with regular reviews.', riskLevel: 'low'
                 }
               ]
             },
@@ -51,14 +51,14 @@ export const nistCSFv2StandardFramework = {
                 'Supply chain cybersecurity risk assessment',
                 'Third-party service provider security requirements'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Critical dependencies and supply chain relationships are not mapped or understood from a cybersecurity perspective.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'Critical dependencies and supply chain relationships are not mapped or understood from a cybersecurity perspective.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Some critical dependencies are known but documentation is incomplete.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Some critical dependencies are known but documentation is incomplete.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Critical dependencies and supply chain relationships are documented with cybersecurity considerations.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Critical dependencies and supply chain relationships are documented with cybersecurity considerations.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Dependencies are continuously monitored, assessed, and managed with formal supplier cybersecurity programs.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Dependencies are continuously monitored, assessed, and managed with formal supplier cybersecurity programs.', riskLevel: 'low'
                 }
               ]
             }
@@ -73,14 +73,14 @@ export const nistCSFv2StandardFramework = {
                 'Risk tolerance thresholds and escalation procedures',
                 'Integration with enterprise risk management program'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal cybersecurity risk management strategy exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No formal cybersecurity risk management strategy exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic risk management approach exists but is not formally documented or communicated.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic risk management approach exists but is not formally documented or communicated.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Cybersecurity risk management strategy is documented and communicated with defined risk tolerance.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Cybersecurity risk management strategy is documented and communicated with defined risk tolerance.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Strategy is regularly reviewed, updated, and integrated into all business decisions with board oversight.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Strategy is regularly reviewed, updated, and integrated into all business decisions with board oversight.', riskLevel: 'low'
                 }
               ]
             },
@@ -91,14 +91,14 @@ export const nistCSFv2StandardFramework = {
                 'Risk acceptance authorities and escalation procedures',
                 'Regular risk tolerance review and adjustment processes'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Risk tolerance and criteria are not defined for cybersecurity risks.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'Risk tolerance and criteria are not defined for cybersecurity risks.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic risk tolerance concepts exist but are not formally defined or consistently applied.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic risk tolerance concepts exist but are not formally defined or consistently applied.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Risk tolerance and criteria are documented and communicated across the organization.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Risk tolerance and criteria are documented and communicated across the organization.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Risk tolerance is regularly reviewed, consistently applied, and integrated into all cybersecurity decisions.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Risk tolerance is regularly reviewed, consistently applied, and integrated into all cybersecurity decisions.', riskLevel: 'low'
                 }
               ]
             }
@@ -113,15 +113,15 @@ export const nistCSFv2StandardFramework = {
                 'Cybersecurity organizational chart with reporting relationships',
                 'Regular communication of roles and expectations'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Cybersecurity roles and responsibilities are not defined or communicated.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'Cybersecurity roles and responsibilities are not defined or communicated.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Some cybersecurity roles exist but are not clearly defined or consistently understood.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Some cybersecurity roles exist but are not clearly defined or consistently understood.', riskLevel: 'high'
                  },
                 {
-                  value: 2, label: 'Documented', description: 'Cybersecurity roles, responsibilities, and authorities are documented and communicated.', riskLevel: 'medium'
+                  value: 2, label: 'Documented', description, 'Cybersecurity roles, responsibilities, and authorities are documented and communicated.', riskLevel: 'medium'
                 },
                 {
-                  value: 3, label: 'Managed', description: 'Roles are regularly reviewed, updated, and performance is measured against defined responsibilities.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Roles are regularly reviewed, updated, and performance is measured against defined responsibilities.', riskLevel: 'low'
                 }
               ]
             },
@@ -132,14 +132,14 @@ export const nistCSFv2StandardFramework = {
                 'Cybersecurity training requirements by role',
                 'Incentives and consequences for cybersecurity performance'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Cybersecurity responsibilities are not integrated into workforce management.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'Cybersecurity responsibilities are not integrated into workforce management.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Some integration exists but is not systematic or consistently applied.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Some integration exists but is not systematic or consistently applied.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Cybersecurity responsibilities are formally integrated into job functions and performance management.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Cybersecurity responsibilities are formally integrated into job functions and performance management.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Integration is comprehensive, regularly reviewed, and includes career development and succession planning.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Integration is comprehensive, regularly reviewed, and includes career development and succession planning.', riskLevel: 'low'
                 }
               ]
             }
@@ -154,14 +154,14 @@ export const nistCSFv2StandardFramework = {
                 'Regular policy review and update procedures',
                 'Policy enforcement and compliance monitoring'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal cybersecurity policy framework exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No formal cybersecurity policy framework exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic cybersecurity policies exist but are incomplete or outdated.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic cybersecurity policies exist but are incomplete or outdated.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Comprehensive cybersecurity policy framework is documented and current.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Comprehensive cybersecurity policy framework is documented and current.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Policy framework is regularly reviewed, updated, and compliance is actively monitored and enforced.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Policy framework is regularly reviewed, updated, and compliance is actively monitored and enforced.', riskLevel: 'low'
                 }
               ]
             },
@@ -172,14 +172,14 @@ export const nistCSFv2StandardFramework = {
                 'Clear policy violation consequences and enforcement',
                 'Regular policy effectiveness assessments'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Policies are not effectively communicated or enforced.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'Policies are not effectively communicated or enforced.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Some policy communication exists but enforcement is inconsistent.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Some policy communication exists but enforcement is inconsistent.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Systematic policy communication and enforcement procedures are in place.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Systematic policy communication and enforcement procedures are in place.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Policy effectiveness is regularly measured, and communication/enforcement is continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Policy effectiveness is regularly measured, and communication/enforcement is continuously improved.', riskLevel: 'low'
                 }
               ]
             }
@@ -194,14 +194,14 @@ export const nistCSFv2StandardFramework = {
                 'Cybersecurity budget approval and resource allocation',
                 'Strategic cybersecurity decision-making processes'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal senior leadership or board oversight of cybersecurity exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No formal senior leadership or board oversight of cybersecurity exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Some senior leadership involvement exists but is ad-hoc and not systematic.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Some senior leadership involvement exists but is ad-hoc and not systematic.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Formal oversight processes are documented with regular reporting to senior leadership and board.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Formal oversight processes are documented with regular reporting to senior leadership and board.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Oversight is comprehensive, strategic, and drives continuous improvement in cybersecurity risk management.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Oversight is comprehensive, strategic, and drives continuous improvement in cybersecurity risk management.', riskLevel: 'low'
                 }
               ]
             }
@@ -220,14 +220,14 @@ export const nistCSFv2StandardFramework = {
                 'Software inventory including applications, operating systems, and licenses',
                 'Cloud services and SaaS application inventory'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No systematic technology asset inventory exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No systematic technology asset inventory exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic asset inventory exists but is incomplete or outdated.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic asset inventory exists but is incomplete or outdated.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Comprehensive asset inventory is maintained and regularly updated.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Comprehensive asset inventory is maintained and regularly updated.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Asset inventory is automated, real-time, and integrated with security management tools.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Asset inventory is automated, real-time, and integrated with security management tools.', riskLevel: 'low'
                 }
               ]
             },
@@ -238,14 +238,14 @@ export const nistCSFv2StandardFramework = {
                 'Cloud service and SaaS inventory',
                 'Custom application and system documentation'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Software and applications are not systematically inventoried.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'Software and applications are not systematically inventoried.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Some software tracking exists but is incomplete.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Some software tracking exists but is incomplete.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Comprehensive software inventory is maintained with version and licensing information.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Comprehensive software inventory is maintained with version and licensing information.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Software assets are continuously tracked, managed, and integrated with vulnerability management.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Software assets are continuously tracked, managed, and integrated with vulnerability management.', riskLevel: 'low'
                 }
               ]
             },
@@ -256,13 +256,13 @@ export const nistCSFv2StandardFramework = {
                 'Data sharing agreements and security requirements',
                 'Third-party system integration security controls'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'External systems and relationships are not mapped or understood.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'External systems and relationships are not mapped or understood.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Some external connections are known but not comprehensively documented.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Some external connections are known but not comprehensively documented.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'External systems and relationships are documented with security considerations.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'External systems and relationships are documented with security considerations.', riskLevel: 'medium'
                  },
-                { value: 3, label: 'Managed', description: 'External relationships are continuously monitored and managed with formal security agreements.', riskLevel: 'low'
+                { value: 3, label: 'Managed', description, 'External relationships are continuously monitored and managed with formal security agreements.', riskLevel: 'low'
                  }
               ]
             },
@@ -273,14 +273,14 @@ export const nistCSFv2StandardFramework = {
                 'Information asset ownership and stewardship',
                 'Data retention and disposal procedures'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Information and data assets are not identified or classified.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'Information and data assets are not identified or classified.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic data identification exists but classification is informal or incomplete.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic data identification exists but classification is informal or incomplete.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Information assets are identified and classified with documented procedures.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Information assets are identified and classified with documented procedures.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Data classification is systematically applied, regularly reviewed, and integrated with protection controls.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Data classification is systematically applied, regularly reviewed, and integrated with protection controls.', riskLevel: 'low'
                 }
               ]
             },
@@ -291,14 +291,14 @@ export const nistCSFv2StandardFramework = {
                 'Resource allocation based on risk and value',
                 'Regular reassessment of asset priorities'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Resources are not prioritized based on cybersecurity considerations.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'Resources are not prioritized based on cybersecurity considerations.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Some prioritization exists but is not systematic or documented.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Some prioritization exists but is not systematic or documented.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Resource prioritization is documented based on classification and business value.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Resource prioritization is documented based on classification and business value.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Prioritization is regularly reviewed, updated, and drives resource allocation decisions.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Prioritization is regularly reviewed, updated, and drives resource allocation decisions.', riskLevel: 'low'
                 }
               ]
             }
@@ -313,13 +313,13 @@ export const nistCSFv2StandardFramework = {
                 'Customer data protection obligations',
                 'Critical supplier backup and contingency plans'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Supply chain role and cybersecurity impacts are not understood.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'Supply chain role and cybersecurity impacts are not understood.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic understanding exists but is not comprehensive or documented.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic understanding exists but is not comprehensive or documented.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Supply chain role and cybersecurity impacts are documented and understood.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Supply chain role and cybersecurity impacts are documented and understood.', riskLevel: 'medium'
                  },
-                { value: 3, label: 'Managed', description: 'Supply chain cybersecurity is actively managed with continuous monitoring and improvement.', riskLevel: 'low'
+                { value: 3, label: 'Managed', description, 'Supply chain cybersecurity is actively managed with continuous monitoring and improvement.', riskLevel: 'low'
                  }
               ]
             },
@@ -330,14 +330,14 @@ export const nistCSFv2StandardFramework = {
                 'Recovery time and point objectives',
                 'Resilience testing and validation procedures'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Resilience requirements for critical services are not established.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'Resilience requirements for critical services are not established.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic resilience planning exists but requirements are not formally defined.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic resilience planning exists but requirements are not formally defined.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Resilience requirements are documented and aligned with critical service delivery.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Resilience requirements are documented and aligned with critical service delivery.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Resilience requirements are regularly tested, validated, and improved based on lessons learned.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Resilience requirements are regularly tested, validated, and improved based on lessons learned.', riskLevel: 'low'
                 }
               ]
             }
@@ -352,14 +352,14 @@ export const nistCSFv2StandardFramework = {
                 'Business impact analysis for cybersecurity risks',
                 'Industry threat intelligence integration'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No systematic cybersecurity risk identification process exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No systematic cybersecurity risk identification process exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Ad-hoc risk identification occurs but is not systematic or comprehensive.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Ad-hoc risk identification occurs but is not systematic or comprehensive.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Systematic risk identification process is documented and regularly performed.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Systematic risk identification process is documented and regularly performed.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Risk identification is continuous, comprehensive, and integrated with threat intelligence.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Risk identification is continuous, comprehensive, and integrated with threat intelligence.', riskLevel: 'low'
                 }
               ]
             },
@@ -370,14 +370,14 @@ export const nistCSFv2StandardFramework = {
                 'Risk prioritization matrix and scoring',
                 'Regular risk assessment updates and reviews'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No consistent cybersecurity risk assessment methodology exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No consistent cybersecurity risk assessment methodology exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic risk assessment occurs but methodology is inconsistent.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic risk assessment occurs but methodology is inconsistent.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Consistent risk assessment methodology is documented and applied.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Consistent risk assessment methodology is documented and applied.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Risk assessment is comprehensive, regularly updated, and drives strategic decisions.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Risk assessment is comprehensive, regularly updated, and drives strategic decisions.', riskLevel: 'low'
                 }
               ]
             },
@@ -388,14 +388,14 @@ export const nistCSFv2StandardFramework = {
                 'External threat intelligence feeds and analysis',
                 'Threat actor profiling and capability assessment'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Cybersecurity threats are not systematically identified or characterized.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'Cybersecurity threats are not systematically identified or characterized.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic threat awareness exists but is not comprehensive or regularly updated.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic threat awareness exists but is not comprehensive or regularly updated.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Internal and external threats are systematically identified and documented.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Internal and external threats are systematically identified and documented.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Threat intelligence is continuously gathered, analyzed, and integrated into risk management.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Threat intelligence is continuously gathered, analyzed, and integrated into risk management.', riskLevel: 'low'
                 }
               ]
             },
@@ -406,14 +406,14 @@ export const nistCSFv2StandardFramework = {
                 'Code review and application security testing',
                 'Configuration and security baseline assessments'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No systematic vulnerability identification and assessment program exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No systematic vulnerability identification and assessment program exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Ad-hoc vulnerability assessments occur but are not comprehensive or regular.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Ad-hoc vulnerability assessments occur but are not comprehensive or regular.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Systematic vulnerability assessment program is documented and regularly executed.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Systematic vulnerability assessment program is documented and regularly executed.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Vulnerability management is continuous, comprehensive, and integrated with threat intelligence.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Vulnerability management is continuous, comprehensive, and integrated with threat intelligence.', riskLevel: 'low'
                 }
               ]
             }
@@ -432,14 +432,14 @@ export const nistCSFv2StandardFramework = {
                 'Single sign-on (SSO) deployment',
                 'Identity federation for external partners'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No centralized identity management system exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No centralized identity management system exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic user account management exists but is not centralized or comprehensive.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic user account management exists but is not centralized or comprehensive.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Centralized identity management is implemented with documented procedures.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Centralized identity management is implemented with documented procedures.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Identity management is comprehensive, automated, and continuously monitored.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Identity management is comprehensive, automated, and continuously monitored.', riskLevel: 'low'
                 }
               ]
             },
@@ -450,14 +450,14 @@ export const nistCSFv2StandardFramework = {
                 'Adaptive authentication based on risk',
                 'MFA for remote access and cloud services'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Multi-factor authentication is not implemented.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'Multi-factor authentication is not implemented.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'MFA is implemented for some users or systems but not comprehensive.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'MFA is implemented for some users or systems but not comprehensive.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'MFA is implemented for all users with documented policies and procedures.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'MFA is implemented for all users with documented policies and procedures.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'MFA implementation is comprehensive, risk-based, and continuously monitored.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'MFA implementation is comprehensive, risk-based, and continuously monitored.', riskLevel: 'low'
                 }
               ]
             },
@@ -468,14 +468,14 @@ export const nistCSFv2StandardFramework = {
                 'Regular access reviews and recertification',
                 'Segregation of duties enforcement'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'User access lifecycle is not systematically managed.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'User access lifecycle is not systematically managed.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic access management exists but lifecycle processes are manual or incomplete.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic access management exists but lifecycle processes are manual or incomplete.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Access lifecycle management is documented and systematically implemented.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Access lifecycle management is documented and systematically implemented.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Access lifecycle is fully automated, regularly audited, and continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Access lifecycle is fully automated, regularly audited, and continuously improved.', riskLevel: 'low'
                 }
               ]
             },
@@ -486,13 +486,13 @@ export const nistCSFv2StandardFramework = {
                 'Privileged session monitoring and recording',
                 'Regular privileged access reviews and cleanup'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'Privileged access is not specifically managed or monitored.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'Privileged access is not specifically managed or monitored.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Some privileged access controls exist but are not comprehensive.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Some privileged access controls exist but are not comprehensive.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Privileged access management procedures are documented and implemented.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Privileged access management procedures are documented and implemented.', riskLevel: 'medium'
                  },
-                { value: 3, label: 'Managed', description: 'Privileged access is comprehensively managed with advanced controls and continuous monitoring.', riskLevel: 'low'
+                { value: 3, label: 'Managed', description, 'Privileged access is comprehensively managed with advanced controls and continuous monitoring.', riskLevel: 'low'
                  }
               ]
             }
@@ -507,14 +507,14 @@ export const nistCSFv2StandardFramework = {
                 'Phishing simulation and testing',
                 'Regular security awareness communications'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal cybersecurity awareness training program exists.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No formal cybersecurity awareness training program exists.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic security awareness training is provided but is not comprehensive or regular.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic security awareness training is provided but is not comprehensive or regular.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Comprehensive awareness training program is documented and regularly delivered.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Comprehensive awareness training program is documented and regularly delivered.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Training effectiveness is measured, continuously improved, and tailored to emerging threats.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Training effectiveness is measured, continuously improved, and tailored to emerging threats.', riskLevel: 'low'
                 }
               ]
             },
@@ -525,14 +525,14 @@ export const nistCSFv2StandardFramework = {
                 'Security awareness for executives and board members',
                 'Third-party and contractor security training'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No specialized training exists for privileged users or cybersecurity personnel.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No specialized training exists for privileged users or cybersecurity personnel.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Some specialized training exists but is not comprehensive or current.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Some specialized training exists but is not comprehensive or current.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Specialized training programs are documented and regularly provided.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Specialized training programs are documented and regularly provided.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Training is comprehensive, competency-based, and continuously updated for emerging threats.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Training is comprehensive, competency-based, and continuously updated for emerging threats.', riskLevel: 'low'
                 }
               ]
             }
@@ -547,14 +547,14 @@ export const nistCSFv2StandardFramework = {
                 'Secure data disposal and destruction procedures',
                 'Data backup and recovery capabilities'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No systematic data protection throughout the lifecycle exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No systematic data protection throughout the lifecycle exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic data protection exists but is not comprehensive across the full lifecycle.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic data protection exists but is not comprehensive across the full lifecycle.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Data protection is systematically applied throughout the data lifecycle.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Data protection is systematically applied throughout the data lifecycle.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Data protection is comprehensive, automated, and continuously monitored and improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Data protection is comprehensive, automated, and continuously monitored and improved.', riskLevel: 'low'
                 }
               ]
             },
@@ -565,14 +565,14 @@ export const nistCSFv2StandardFramework = {
                 'Classification-based access controls',
                 'Data handling procedures for each classification level'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No data classification scheme or handling procedures exist.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No data classification scheme or handling procedures exist.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic data classification exists but is not consistently applied.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic data classification exists but is not consistently applied.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Data classification and handling procedures are documented and systematically applied.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Data classification and handling procedures are documented and systematically applied.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Data classification is automated, regularly reviewed, and enforcement is monitored.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Data classification is automated, regularly reviewed, and enforcement is monitored.', riskLevel: 'low'
                 }
               ]
             }
@@ -591,14 +591,14 @@ export const nistCSFv2StandardFramework = {
                 'System performance baseline establishment',
                 'Data flow mapping and monitoring'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No network or operational baselines are established for anomaly detection.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No network or operational baselines are established for anomaly detection.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic baseline monitoring exists but is limited in scope.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic baseline monitoring exists but is limited in scope.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Comprehensive baselines are documented and used for anomaly detection.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Comprehensive baselines are documented and used for anomaly detection.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Baselines are automatically maintained, continuously refined, and integrated with threat detection.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Baselines are automatically maintained, continuously refined, and integrated with threat detection.', riskLevel: 'low'
                 }
               ]
             },
@@ -609,14 +609,14 @@ export const nistCSFv2StandardFramework = {
                 'Malware analysis and reverse engineering',
                 'Digital forensics and evidence collection'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No systematic analysis of cybersecurity events occurs.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No systematic analysis of cybersecurity events occurs.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic event analysis occurs but is limited and not systematic.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic event analysis occurs but is limited and not systematic.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Systematic event analysis procedures are documented and implemented.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Systematic event analysis procedures are documented and implemented.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Event analysis is comprehensive, automated where possible, and continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Event analysis is comprehensive, automated where possible, and continuously improved.', riskLevel: 'low'
                 }
               ]
             }
@@ -631,14 +631,14 @@ export const nistCSFv2StandardFramework = {
                 'Network segmentation monitoring',
                 '24/7 security operations center (SOC) monitoring'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No network monitoring or intrusion detection capabilities exist.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No network monitoring or intrusion detection capabilities exist.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic network monitoring exists but coverage is limited.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic network monitoring exists but coverage is limited.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Comprehensive network monitoring is implemented with documented procedures.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Comprehensive network monitoring is implemented with documented procedures.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Network monitoring is comprehensive, automated, and continuously tuned for effectiveness.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Network monitoring is comprehensive, automated, and continuously tuned for effectiveness.', riskLevel: 'low'
                 }
               ]
             },
@@ -649,14 +649,14 @@ export const nistCSFv2StandardFramework = {
                 'Environmental monitoring (temperature, humidity)',
                 'Tamper detection on critical systems'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No physical environment monitoring for security purposes exists.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No physical environment monitoring for security purposes exists.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic physical monitoring exists but coverage is limited.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic physical monitoring exists but coverage is limited.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Physical monitoring is systematically implemented with documented procedures.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Physical monitoring is systematically implemented with documented procedures.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Physical monitoring is comprehensive, integrated with logical controls, and continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Physical monitoring is comprehensive, integrated with logical controls, and continuously improved.', riskLevel: 'low'
                 }
               ]
             },
@@ -667,14 +667,14 @@ export const nistCSFv2StandardFramework = {
                 'Data access and usage monitoring',
                 'Policy violation detection and alerting'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No personnel activity monitoring for cybersecurity purposes exists.', riskLevel: 'medium'
+                { value, 0: label, 'Not Performed', description, 'No personnel activity monitoring for cybersecurity purposes exists.', riskLevel: 'medium'
                  },
-                { value: 1, label: 'Performed', description: 'Basic activity monitoring exists but is limited in scope.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic activity monitoring exists but is limited in scope.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Personnel activity monitoring is systematically implemented with clear policies.', riskLevel: 'low'
+                { value: 2, label: 'Documented', description, 'Personnel activity monitoring is systematically implemented with clear policies.', riskLevel: 'low'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Monitoring is comprehensive, privacy-respecting, and integrated with broader security controls.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Monitoring is comprehensive, privacy-respecting, and integrated with broader security controls.', riskLevel: 'low'
                 }
               ]
             }
@@ -689,14 +689,14 @@ export const nistCSFv2StandardFramework = {
                 'Detection process improvement based on lessons learned',
                 'Integration with incident response procedures'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal detection processes or procedures exist.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No formal detection processes or procedures exist.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic detection processes exist but are not formally documented or tested.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic detection processes exist but are not formally documented or tested.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Detection processes are documented and regularly tested.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Detection processes are documented and regularly tested.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Detection processes are continuously improved, automated where possible, and regularly validated.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Detection processes are continuously improved, automated where possible, and regularly validated.', riskLevel: 'low'
                 }
               ]
             },
@@ -707,14 +707,14 @@ export const nistCSFv2StandardFramework = {
                 'Communication to executive leadership and board',
                 'External stakeholder notification procedures'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal communication processes for detection events exist.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No formal communication processes for detection events exist.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic communication occurs but is not systematic or timely.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic communication occurs but is not systematic or timely.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Communication processes are documented with clear roles and timelines.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Communication processes are documented with clear roles and timelines.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Communication is automated, tailored to stakeholder needs, and continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Communication is automated, tailored to stakeholder needs, and continuously improved.', riskLevel: 'low'
                 }
               ]
             }
@@ -733,14 +733,14 @@ export const nistCSFv2StandardFramework = {
                 'Clear escalation procedures and decision criteria',
                 'Regular plan testing and tabletop exercises'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal cybersecurity incident response plan exists.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No formal cybersecurity incident response plan exists.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic incident response procedures exist but are not comprehensive or current.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic incident response procedures exist but are not comprehensive or current.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Comprehensive incident response plan is documented and regularly updated.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Comprehensive incident response plan is documented and regularly updated.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Response plan is regularly tested, improved, and integrated with business continuity planning.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Response plan is regularly tested, improved, and integrated with business continuity planning.', riskLevel: 'low'
                 }
               ]
             }
@@ -755,14 +755,14 @@ export const nistCSFv2StandardFramework = {
                 'Cross-functional coordination (IT, Legal, HR, Communications)',
                 'Regular status updates and situation reporting'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal internal coordination procedures for incident response exist.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No formal internal coordination procedures for incident response exist.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic internal coordination occurs but is not systematic.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic internal coordination occurs but is not systematic.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Internal coordination procedures are documented and regularly practiced.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Internal coordination procedures are documented and regularly practiced.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Coordination is highly effective, automated where possible, and continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Coordination is highly effective, automated where possible, and continuously improved.', riskLevel: 'low'
                 }
               ]
             },
@@ -773,14 +773,14 @@ export const nistCSFv2StandardFramework = {
                 'Regulatory notification requirements and procedures',
                 'Business partner and supplier incident communication'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No external stakeholder coordination procedures exist.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No external stakeholder coordination procedures exist.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Ad-hoc external coordination occurs but is not systematic.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Ad-hoc external coordination occurs but is not systematic.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'External coordination procedures are documented with clear notification requirements.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'External coordination procedures are documented with clear notification requirements.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'External coordination is comprehensive, legally compliant, and supports business objectives.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'External coordination is comprehensive, legally compliant, and supports business objectives.', riskLevel: 'low'
                 }
               ]
             }
@@ -795,14 +795,14 @@ export const nistCSFv2StandardFramework = {
                 'Root cause analysis procedures',
                 'Threat attribution and intelligence gathering'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No incident analysis or investigation capabilities exist.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No incident analysis or investigation capabilities exist.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic incident analysis occurs but capabilities are limited.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic incident analysis occurs but capabilities are limited.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Incident analysis procedures are documented and systematically applied.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Incident analysis procedures are documented and systematically applied.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Analysis capabilities are comprehensive, continuously improved, and support strategic decisions.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Analysis capabilities are comprehensive, continuously improved, and support strategic decisions.', riskLevel: 'low'
                 }
               ]
             },
@@ -813,14 +813,14 @@ export const nistCSFv2StandardFramework = {
                 'Operational disruption analysis',
                 'Reputation and customer impact assessment'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No systematic impact analysis is conducted for cybersecurity incidents.', riskLevel: 'medium'
+                { value, 0: label, 'Not Performed', description, 'No systematic impact analysis is conducted for cybersecurity incidents.', riskLevel: 'medium'
                  },
-                { value: 1, label: 'Performed', description: 'Basic impact assessment occurs but is not comprehensive.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic impact assessment occurs but is not comprehensive.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Impact analysis procedures are documented and systematically applied.', riskLevel: 'low'
+                { value: 2, label: 'Documented', description, 'Impact analysis procedures are documented and systematically applied.', riskLevel: 'low'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Impact analysis is comprehensive, automated where possible, and drives strategic improvements.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Impact analysis is comprehensive, automated where possible, and drives strategic improvements.', riskLevel: 'low'
                 }
               ]
             }
@@ -835,14 +835,14 @@ export const nistCSFv2StandardFramework = {
                 'Malware containment and removal',
                 'Data breach containment and notification'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal containment or mitigation procedures exist.', riskLevel: 'critical'
+                { value, 0: label, 'Not Performed', description, 'No formal containment or mitigation procedures exist.', riskLevel: 'critical'
                  },
-                { value: 1, label: 'Performed', description: 'Basic containment procedures exist but are not comprehensive.', riskLevel: 'high'
+                { value: 1, label: 'Performed', description, 'Basic containment procedures exist but are not comprehensive.', riskLevel: 'high'
                  },
-                { value: 2, label: 'Documented', description: 'Containment and mitigation procedures are documented and regularly practiced.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Containment and mitigation procedures are documented and regularly practiced.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Procedures are comprehensive, automated where possible, and continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Procedures are comprehensive, automated where possible, and continuously improved.', riskLevel: 'low'
                 }
               ]
             },
@@ -853,14 +853,14 @@ export const nistCSFv2StandardFramework = {
                 'Information sharing with cybersecurity agencies',
                 'Legal evidence preservation procedures'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No procedures exist for coordinating with external authorities.', riskLevel: 'medium'
+                { value, 0: label, 'Not Performed', description, 'No procedures exist for coordinating with external authorities.', riskLevel: 'medium'
                  },
-                { value: 1, label: 'Performed', description: 'Basic coordination capability exists but is not well-defined.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic coordination capability exists but is not well-defined.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'External coordination procedures are documented and understood.', riskLevel: 'low'
+                { value: 2, label: 'Documented', description, 'External coordination procedures are documented and understood.', riskLevel: 'low'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Coordination is comprehensive, practiced, and supports both legal and operational objectives.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Coordination is comprehensive, practiced, and supports both legal and operational objectives.', riskLevel: 'low'
                 }
               ]
             }
@@ -879,14 +879,14 @@ export const nistCSFv2StandardFramework = {
                 'Recovery time and point objectives (RTO/RPO)',
                 'Regular recovery testing and validation'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal recovery planning for cybersecurity incidents exists.', riskLevel: 'high'
+                { value, 0: label, 'Not Performed', description, 'No formal recovery planning for cybersecurity incidents exists.', riskLevel: 'high'
                  },
-                { value: 1, label: 'Performed', description: 'Basic recovery procedures exist but are not comprehensive or tested.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic recovery procedures exist but are not comprehensive or tested.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Recovery plans are documented and regularly tested.', riskLevel: 'medium'
+                { value: 2, label: 'Documented', description, 'Recovery plans are documented and regularly tested.', riskLevel: 'medium'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Recovery planning is comprehensive, regularly tested, and continuously improved.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Recovery planning is comprehensive, regularly tested, and continuously improved.', riskLevel: 'low'
                 }
               ]
             }
@@ -901,13 +901,13 @@ export const nistCSFv2StandardFramework = {
                 'Process and control improvements based on incidents',
                 'Knowledge sharing and training updates'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No systematic capture or application of lessons learned from incidents.', riskLevel: 'medium'
+                { value, 0: label, 'Not Performed', description, 'No systematic capture or application of lessons learned from incidents.', riskLevel: 'medium'
                  },
-                { value: 1, label: 'Performed', description: 'Some lessons learned activities occur but are not systematic.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Some lessons learned activities occur but are not systematic.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Lessons learned procedures are documented and systematically applied.', riskLevel: 'low'
+                { value: 2, label: 'Documented', description, 'Lessons learned procedures are documented and systematically applied.', riskLevel: 'low'
                  },
-                { value: 3, label: 'Managed', description: 'Continuous improvement is embedded in cybersecurity culture and drives strategic enhancements.', riskLevel: 'low'
+                { value: 3, label: 'Managed', description, 'Continuous improvement is embedded in cybersecurity culture and drives strategic enhancements.', riskLevel: 'low'
                  }
               ]
             }
@@ -922,14 +922,14 @@ export const nistCSFv2StandardFramework = {
                 'Employee communication and updates',
                 'Recovery milestone reporting'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No formal communication procedures for recovery activities exist.', riskLevel: 'medium'
+                { value, 0: label, 'Not Performed', description, 'No formal communication procedures for recovery activities exist.', riskLevel: 'medium'
                  },
-                { value: 1, label: 'Performed', description: 'Basic recovery communication occurs but is not systematic.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Basic recovery communication occurs but is not systematic.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'Recovery communication procedures are documented and regularly practiced.', riskLevel: 'low'
+                { value: 2, label: 'Documented', description, 'Recovery communication procedures are documented and regularly practiced.', riskLevel: 'low'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'Communication is comprehensive, timely, and supports stakeholder confidence.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'Communication is comprehensive, timely, and supports stakeholder confidence.', riskLevel: 'low'
                 }
               ]
             },
@@ -940,14 +940,14 @@ export const nistCSFv2StandardFramework = {
                 'Regulatory and compliance reporting',
                 'Business partner and supplier notifications'
               ], options: [
-                { value, 0: label, 'Not Performed', description: 'No external communication procedures for recovery activities exist.', riskLevel: 'medium'
+                { value, 0: label, 'Not Performed', description, 'No external communication procedures for recovery activities exist.', riskLevel: 'medium'
                  },
-                { value: 1, label: 'Performed', description: 'Ad-hoc external communication occurs but is not systematic.', riskLevel: 'medium'
+                { value: 1, label: 'Performed', description, 'Ad-hoc external communication occurs but is not systematic.', riskLevel: 'medium'
                  },
-                { value: 2, label: 'Documented', description: 'External communication procedures are documented and legally compliant.', riskLevel: 'low'
+                { value: 2, label: 'Documented', description, 'External communication procedures are documented and legally compliant.', riskLevel: 'low'
                  },
                 {
-                  value: 3, label: 'Managed', description: 'External communications are strategic, stakeholder-focused, and support business recovery.', riskLevel: 'low'
+                  value: 3, label: 'Managed', description, 'External communications are strategic, stakeholder-focused, and support business recovery.', riskLevel: 'low'
                 }
               ]
             }
@@ -957,7 +957,7 @@ export const nistCSFv2StandardFramework = {
     }
   ], maturityLevels: [
     {
-      level: 1, name: 'Partial', description: 'The organization has partial implementation of cybersecurity practices. Processes are ad-hoc and reactive.', color: '#ef4444', minScore: 0, maxScore: 25, characteristics: [
+      level: 1, name: 'Partial', description: 'The organization has partial implementation of cybersecurity practices. Processes are ad-hoc and reactive.', color: '#ef4444', minScore: 0, maxScore, 25, characteristics: [
         'Ad-hoc cybersecurity processes',
         'Limited documentation and procedures',
         'Reactive approach to cybersecurity',
@@ -965,7 +965,7 @@ export const nistCSFv2StandardFramework = {
       ]
     },
     {
-      level: 2, name: 'Risk Informed', description: 'The organization has risk management practices approved by management but may not be organization-wide.', color: '#f97316', minScore: 26, maxScore: 50, characteristics: [
+      level: 2, name: 'Risk Informed', description: 'The organization has risk management practices approved by management but may not be organization-wide.', color: '#f97316', minScore: 26, maxScore, 50, characteristics: [
         'Risk-based cybersecurity practices',
         'Management awareness and approval',
         'Some documentation and procedures',
@@ -973,7 +973,7 @@ export const nistCSFv2StandardFramework = {
       ]
     },
     {
-      level: 3, name: 'Repeatable', description: 'The organization has formalized and documented cybersecurity practices that are regularly updated.', color: '#eab308', minScore: 51, maxScore: 75, characteristics: [
+      level: 3, name: 'Repeatable', description: 'The organization has formalized and documented cybersecurity practices that are regularly updated.', color: '#eab308', minScore: 51, maxScore, 75, characteristics: [
         'Formal policies and procedures',
         'Regular updates to cybersecurity practices',
         'Organization-wide implementation',
@@ -981,7 +981,7 @@ export const nistCSFv2StandardFramework = {
       ]
     }, 
     {
-      level: 4, name: 'Adaptive', description: 'The organization adapts its cybersecurity practices based on lessons learned and predictive indicators.', color: '#22c55e', minScore: 76, maxScore: 100, characteristics: [
+      level: 4, name: 'Adaptive', description: 'The organization adapts its cybersecurity practices based on lessons learned and predictive indicators.', color: '#22c55e', minScore: 76, maxScore, 100, characteristics: [
         'Continuous improvement culture',
         'Predictive and adaptive capabilities',
         'Integration with business strategy',

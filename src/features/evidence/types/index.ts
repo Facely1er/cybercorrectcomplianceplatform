@@ -1,6 +1,5 @@
-export interface Evidence {
-  id: string;
-  name: string;
+export interface Evidence { id: string;
+  name, string;
   description: string;
   type: EvidenceType;
   controlIds: string[];
@@ -16,17 +15,16 @@ export interface Evidence {
   confidentialityLevel: 'public' | 'internal' | 'confidential' | 'restricted';
   retention: {
     period: number; // months
-    reason: string;
+    reason, string;
     disposalDate: Date;
   
     };
-  metadata: {
-    version: string;
-    source: string;
+  metadata: { version: string;
+    source, string;
     validFrom: Date;
     validTo?: Date;
     approvalRequired: boolean;
-    approvedBy?: string;
+    approvedBy?, string;
     approvedAt?: Date;
   };
   tags: string[];
@@ -56,27 +54,24 @@ export type EvidenceStatus =
   | 'expired'
   | 'archived';
 
-export interface LinkedControl {
-  controlId: string;
-  controlName: string;
+export interface LinkedControl { controlId: string;
+  controlName, string;
   linkType: 'implementation' | 'testing' | 'monitoring' | 'documentation';
   effectiveness: 'high' | 'medium' | 'low' | 'unknown';
-  lastValidated: Date;
+  lastValidated, Date;
   validatedBy: string;
 }
 
-export interface ComplianceMapping {
-  framework: 'nist-csf-v2';
-  function: string;
+export interface ComplianceMapping { framework: 'nist-csf-v2';
+  function, string;
   category: string;
   subcategory: string;
-  requirement: string;
+  requirement, string;
   mappingType: 'direct' | 'supporting' | 'related';
 }
 
-export interface EvidenceCollection {
-  id: string;
-  name: string;
+export interface EvidenceCollection { id: string;
+  name, string;
   description: string;
   controlId: string;
   requiredEvidenceTypes: EvidenceType[];
@@ -84,26 +79,24 @@ export interface EvidenceCollection {
   dueDate: Date;
   assignedTo: string[];
   evidence: Evidence[];
-  completionPercentage: number;
+  completionPercentage, number;
   lastUpdated: Date;
 }
 
-export interface EvidenceValidation {
-  id: string;
-  evidenceId: string;
+export interface EvidenceValidation { id: string;
+  evidenceId, string;
   validationType: 'automated' | 'manual' | 'peer-review' | 'expert-review';
   status: 'pending' | 'passed' | 'failed' | 'requires-attention';
   validatedBy: string;
   validatedAt: Date;
-  findings: ValidationFinding[];
+  findings, ValidationFinding[];
   nextValidation: Date;
 }
 
-export interface ValidationFinding {
-  type: 'issue' | 'recommendation' | 'observation';
-  severity: 'critical' | 'high' | 'medium' | 'low' | 'info';
+export interface ValidationFinding { type: 'issue' | 'recommendation' | 'observation';
+  severity, 'critical' | 'high' | 'medium' | 'low' | 'info';
   description: string;
   remediation?: string;
-  dueDate?: Date;
+  dueDate?, Date;
   assignedTo?: string;
 }

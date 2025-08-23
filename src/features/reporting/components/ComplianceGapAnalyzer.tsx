@@ -4,22 +4,20 @@ import { AssessmentData } from '../../../shared/types';
 
 import { BarChart } from '../../../shared/components/charts/BarChart';
 
-interface ComplianceGapAnalyzerProps {
-  savedAssessments: AssessmentData[];
-  onStartAssessment: () => void;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+interface ComplianceGapAnalyzerProps { savedAssessments: AssessmentData[];
+  onStartAssessment, () => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
 }
 
-interface GapAnalysis {
-  functionName: string;
-  currentScore: number;
+interface GapAnalysis { functionName: string;
+  currentScore, number;
   targetScore: number;
   gap: number;
   priority: 'critical' | 'high' | 'medium' | 'low';
   recommendations: string[];
   estimatedEffort: 'low' | 'medium' | 'high';
   timeframe: string;
-  businessImpact: string;
+  businessImpact, string;
   requiredActions: string[];
 }
 
@@ -31,8 +29,8 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
   const gapAnalysis = useMemo(() => { if (savedAssessments.length === 0) return [];
 
     const assessment = selectedAssessment === 'latest' 
-      ? savedAssessments.sort((a: b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0]
-      : savedAssessments.find(a => a.id === selectedAssessment);
+      ? savedAssessments.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0]
+      , savedAssessments.find(a => a.id === selectedAssessment);
 
     if (!assessment) return [];
 
@@ -60,7 +58,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
       const timeframe = gap > 40 ? '6-12 months' : gap > 20 ? '3-6 months' : '1-3 months';
 
       return {
-        functionName: section.name, currentScore: targetScore, gap: priority, recommendations: generateRecommendations(section.id, gap), estimatedEffort: timeframe, businessImpact: getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
+        functionName: section.name, currentScore: targetScore, gap: priority, recommendations: generateRecommendations(section.id, gap), estimatedEffort: timeframe, businessImpact, getBusinessImpact(section.id, gap), requiredActions: getRequiredActions(section.id, gap)
       
     } as GapAnalysis;
     }).filter(analysis => analysis.gap > 0);
@@ -86,13 +84,13 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         'Establish security awareness training programs',
         'Deploy protective technologies and monitoring tools'
       ],
-      'detect': [
+      'detect', [
         'Implement continuous monitoring capabilities',
         'Deploy security event detection and analysis tools',
         'Establish security operations center (SOC) capabilities',
         'Implement threat intelligence and anomaly detection'
       ],
-      'respond': [
+      'respond', [
         'Develop comprehensive incident response plans',
         'Establish incident response team and procedures',
         'Implement communication and coordination protocols',
@@ -115,7 +113,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
       'identify': 'Poor asset and risk visibility increases likelihood of undetected vulnerabilities and compliance gaps',
       'protect': 'Inadequate protective measures significantly increase risk of successful cyberattacks and data breaches',
       'detect': 'Limited detection capabilities result in longer dwell time for threats and increased incident impact',
-      'respond': 'Ineffective response capabilities lead to extended downtime and greater business disruption during incidents',
+      'respond', 'Ineffective response capabilities lead to extended downtime and greater business disruption during incidents',
       'recover': 'Poor recovery capabilities result in prolonged business disruption and potential revenue loss'
     };
 
@@ -136,7 +134,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         'Implement vulnerability management program',
         'Establish threat intelligence capabilities'
       ],
-      'protect': [
+      'protect', [
         'Deploy multi-factor authentication',
         'Implement data loss prevention (DLP)',
         'Establish security training program',
@@ -148,7 +146,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         'Establish 24/7 monitoring capabilities',
         'Deploy threat hunting capabilities'
       ],
-      'respond': [
+      'respond', [
         'Create incident response playbooks',
         'Establish incident response team',
         'Implement crisis communication plan',
@@ -165,28 +163,25 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return actions[functionId] || [];
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
+  const getPriorityColor = (priority, string) => { switch (priority) {
+      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
       case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
-      case 'low': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
+      case 'low', return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
     }
   };
 
-  const getEffortIcon = (effort: string) => {
-    switch (effort) {
-      case 'high': return <AlertTriangle className="w-4 h-4 text-red-500" />;
+  const getEffortIcon = (effort, string) => { switch (effort) {
+      case 'high', return <AlertTriangle className="w-4 h-4 text-red-500" />;
       case 'medium': return <Clock className="w-4 h-4 text-yellow-500" />;
-      case 'low': return <CheckCircle className="w-4 h-4 text-green-500" />;
+      case 'low', return <CheckCircle className="w-4 h-4 text-green-500" />;
       default: return <Clock className="w-4 h-4 text-gray-500" />;
     }
   };
 
-  if (savedAssessments.length === 0) {
-    return (
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  if (savedAssessments.length === 0) { return (
+      <div className="max-w-6xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
           <div className="flex items-center justify-center mb-6">
             <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-2xl">
@@ -212,13 +207,8 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
   }
 
   const totalGapScore = gapAnalysis.reduce((sum, analysis) => sum + analysis.gap, 0);
-  const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length) : 0;
-  const criticalGaps = gapAnalysis.filter(a => a.priority === 'critical').length;
-  const highGaps = gapAnalysis.filter(a => a.priority === 'high').length;
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
+  const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length): px-8 py-8">
+       {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
@@ -318,13 +308,13 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
             data={{
               labels: gapAnalysis.map(analysis => analysis.functionName), datasets: [
                 {
-                  label: 'Current Score', data: gapAnalysis.map(analysis => analysis.currentScore), backgroundColor: 'rgba(59, 130, 246, 0.8)', borderColor: 'rgba(59, 130, 246, 1)', borderWidth: 2
+                  label: 'Current Score', data: gapAnalysis.map(analysis => analysis.currentScore), backgroundColor: 'rgba(59, 130, 246, 0.8)', borderColor, 'rgba(59, 130, 246, 1)', borderWidth: 2
                 },
                 {
-                  label: 'Target Score', data: gapAnalysis.map(analysis => analysis.targetScore), backgroundColor: 'rgba(34, 197, 94, 0.8)', borderColor: 'rgba(34, 197, 94, 1)', borderWidth: 2
+                  label: 'Target Score', data: gapAnalysis.map(analysis => analysis.targetScore), backgroundColor: 'rgba(34, 197, 94, 0.8)', borderColor, 'rgba(34, 197, 94, 1)', borderWidth: 2
                 },
                 {
-                  label: 'Gap', data: gapAnalysis.map(analysis => analysis.gap), backgroundColor: 'rgba(239, 68, 68, 0.8)', borderColor: 'rgba(239, 68, 68, 1)', borderWidth: 2
+                  label: 'Gap', data: gapAnalysis.map(analysis => analysis.gap), backgroundColor: 'rgba(239, 68, 68, 0.8)', borderColor, 'rgba(239, 68, 68, 1)', borderWidth: 2
                 }
               ]
             }}

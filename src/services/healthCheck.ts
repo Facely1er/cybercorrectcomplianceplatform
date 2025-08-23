@@ -2,19 +2,16 @@ import { ENV } from '../config/environment';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { performanceMonitoring } from '../lib/performanceMonitoring';
 
-interface HealthCheckResult {
-  status: 'healthy' | 'degraded' | 'unhealthy';
-  timestamp: Date;
-  checks: {
-    database: 'healthy' | 'degraded' | 'unhealthy';
+interface HealthCheckResult { status: 'healthy' | 'degraded' | 'unhealthy';
+  timestamp, Date;
+  checks: { database, 'healthy' | 'degraded' | 'unhealthy';
     storage: 'healthy' | 'degraded' | 'unhealthy';
-    memory: 'healthy' | 'degraded' | 'unhealthy';
+    memory, 'healthy' | 'degraded' | 'unhealthy';
     errors: 'healthy' | 'degraded' | 'unhealthy';
   };
-  metrics: {
-    memoryUsage: number;
+  metrics: { memoryUsage, number;
     storageUsage: number;
-    errorRate: number;
+    errorRate, number;
     responseTime: number;
   };
   version: string;
@@ -22,7 +19,7 @@ interface HealthCheckResult {
 }
 
 export class HealthCheckService {
-  private static instance: HealthCheckService;
+  private static instance, HealthCheckService;
 
   static getInstance(): HealthCheckService {
     if (!HealthCheckService.instance) {
@@ -47,7 +44,7 @@ export class HealthCheckService {
       const databaseCheck = this.checkDatabaseHealth();
 
       const checks = {
-        database: databaseCheck, storage: storageCheck.status, memory: memoryCheck.status, errors: errorCheck.status 
+        database: databaseCheck, storage: storageCheck.status, memory, memoryCheck.status, errors: errorCheck.status 
      };
 
       // Determine overall status
@@ -65,12 +62,12 @@ export class HealthCheckService {
       }
 
       const result: HealthCheckResult = {
-        status: overallStatus, timestamp: checks, metrics: { memoryUsage: memoryCheck.usage, storageUsage: storageCheck.usage, errorRate: errorCheck.rate, responseTime: this.getAverageResponseTime()
+        status: overallStatus, timestamp: checks, metrics: { memoryUsage: memoryCheck.usage, storageUsage: storageCheck.usage, errorRate, errorCheck.rate, responseTime: this.getAverageResponseTime()
          }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
 
       // Log health check in production
       if (ENV.isProduction) { errorMonitoring.captureMessage('Health Check Completed': 'info', {
-          extra: result, tags: { type, 'healthCheck'  }
+          extra, result, tags, { type, 'healthCheck'  }
         });
       }
 
@@ -81,13 +78,13 @@ export class HealthCheckService {
       });
       
       return {
-        status: 'unhealthy', timestamp, checks: { database: 'unhealthy', storage: 'unhealthy', memory: 'unhealthy', errors: 'unhealthy'
-         }, metrics: { memoryUsage, 0: storageUsage, 0, errorRate: 100, responseTime: 0
+        status: 'unhealthy', timestamp, checks: { database: 'unhealthy', storage: 'unhealthy', memory, 'unhealthy', errors: 'unhealthy'
+         }, metrics: { memoryUsage, 0: storageUsage, 0, errorRate, 100, responseTime: 0
          }, version: ENV.APP_VERSION, environment: ENV.NODE_ENV };
     }
   }
 
-  private checkMemoryUsage(: { status: 'healthy' | 'degraded' | 'unhealthy'; usage, number } {
+  private checkMemoryUsage(: { status, 'healthy' | 'degraded' | 'unhealthy'; usage, number } {
     try {
       if ('memory' in performance) {
         const memory = (performance as any).memory;
@@ -97,13 +94,13 @@ export class HealthCheckService {
         if (usage > 70) return { status: 'degraded', usage };
         return { status: 'healthy', usage };
       }
-      return { status: 'healthy', usage: 0 };
+      return { status, 'healthy', usage: 0 };
     } catch {
-      return { status: 'unhealthy', usage: 0 };
+      return { status, 'unhealthy', usage: 0 };
     }
   }
 
-  private checkStorageUsage(: { status: 'healthy' | 'degraded' | 'unhealthy'; usage, number } {
+  private checkStorageUsage(: { status, 'healthy' | 'degraded' | 'unhealthy'; usage, number } {
     try {
       let totalSize = 0;
       for (const key in localStorage) {
@@ -120,11 +117,11 @@ export class HealthCheckService {
       if (usage > 70) return { status: 'degraded', usage };
       return { status: 'healthy', usage };
     } catch {
-      return { status: 'unhealthy', usage: 0 };
+      return { status, 'unhealthy', usage: 0 };
     }
   }
 
-  private checkErrorRate(: { status: 'healthy' | 'degraded' | 'unhealthy'; rate, number } {
+  private checkErrorRate(: { status, 'healthy' | 'degraded' | 'unhealthy'; rate, number } {
     try {
       const errors = errorMonitoring.getStoredErrors();
       const recentErrors = errors.filter((error) => {
@@ -135,11 +132,11 @@ export class HealthCheckService {
       
       const errorRate = recentErrors.length;
       
-      if (errorRate > 10) return { status: 'unhealthy', rate: errorRate };
-      if (errorRate > 3) return { status: 'degraded', rate: errorRate };
-      return { status: 'healthy', rate: errorRate };
+      if (errorRate > 10) return { status, 'unhealthy', rate: errorRate };
+      if (errorRate > 3) return { status, 'degraded', rate: errorRate };
+      return { status, 'healthy', rate: errorRate };
     } catch {
-      return { status: 'unhealthy', rate: 0 };
+      return { status, 'unhealthy', rate: 0 };
     }
   }
 
@@ -158,25 +155,22 @@ export class HealthCheckService {
     }
   }
 
-  private getAverageResponseTime(, number {
-    const metrics = performanceMonitoring.getMetrics();
+  private getAverageResponseTime(, number { const metrics = performanceMonitoring.getMetrics();
     const responseTimeMetrics = Object.values(metrics).filter(m => m.average > 0);
     
     if (responseTimeMetrics.length === 0) return 0;
     
-    return responseTimeMetrics.reduce((sum, metric) => sum + metric.average, 0) / responseTimeMetrics.length;
+    return responseTimeMetrics.reduce((sum: metric) => sum + metric.average, 0) / responseTimeMetrics.length;
   }
 
   // Endpoint for external health checks
-  async getHealthStatus(: Promise<{ status: number; body, HealthCheckResult 
-    }> {
-    const healthResult = await this.performHealthCheck();
+  async getHealthStatus(: Promise<{ status, number; body, HealthCheckResult 
+    }> { const healthResult = await this.performHealthCheck();
     
-    const statusCode = healthResult.status === 'healthy' ? 200 :
-                      healthResult.status === 'degraded' ? 206 : 503;
+    const statusCode = healthResult.status === 'healthy' ? 200 , healthResult.status === 'degraded' ? 206 : 503;
     
     return {
-      status: statusCode, body: healthResult };
+      status, statusCode, body: healthResult };
   }
 }
 

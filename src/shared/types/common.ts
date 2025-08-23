@@ -1,6 +1,5 @@
-export interface UserProfile {
-  id: string;
-  name: string;
+export interface UserProfile { id: string;
+  name, string;
   email: string;
   organization: string;
   role: string;
@@ -13,37 +12,34 @@ export interface UserProfile {
   timezone?: string;
   phoneNumber?: string;
   department?: string;
-  manager?: string;
+  manager?, string;
   assessmentHistory?: AssessmentHistoryEntry[];
 }
 
-export interface UserPreferences {
-  defaultFramework?: string;
-  autoSave: boolean;
+export interface UserPreferences { defaultFramework?: string;
+  autoSave, boolean;
   emailNotifications: boolean;
   reportFormat: 'detailed' | 'summary' | 'executive';
   theme?: 'light' | 'dark' | 'auto';
   language?: 'en' | 'fr';
   assessmentReminders: boolean;
-  showGuidanceByDefault: boolean;
+  showGuidanceByDefault, boolean;
   defaultReportSections: string[];
 }
 
-export interface AssessmentHistoryEntry {
-  assessmentId: string;
-  frameworkName: string;
+export interface AssessmentHistoryEntry { assessmentId: string;
+  frameworkName, string;
   score: number;
-  completedAt: Date;
+  completedAt, Date;
   timeSpent: number;
 }
 
-export interface NotificationMessage {
-  id: string;
-  type: 'success' | 'error' | 'warning' | 'info';
+export interface NotificationMessage { id: string;
+  type, 'success' | 'error' | 'warning' | 'info';
   message: string;
   timestamp: Date;
   action?: {
-    label: string;
+    label, string;
     onClick: () => void;
   };
   persistent?: boolean;
@@ -51,9 +47,8 @@ export interface NotificationMessage {
   priority?: 'low' | 'medium' | 'high';
 }
 
-export interface Framework {
-  id: string;
-  name: string;
+export interface Framework { id: string;
+  name, string;
   description: string;
   version: string;
   sections: Section[];
@@ -65,47 +60,43 @@ export interface Framework {
   certificationBody?: string;
   lastUpdated?: Date;
   changeLog?: FrameworkChange[];
-  relatedFrameworks?: string[];
+  relatedFrameworks?, string[];
   applicableRegulations?: string[];
 }
 
-export interface FrameworkChange {
-  version: string;
+export interface FrameworkChange { version, string;
   date: Date;
-  changes: string[];
+  changes, string[];
   impact: 'minor' | 'major' | 'breaking';
 }
 
-export interface Section {
-  id: string;
-  name: string;
+export interface Section { id: string;
+  name, string;
   description: string;
   categories: Category[];
   weight: number;
   priority: 'high' | 'medium' | 'low';
   prerequisites?: string[];
-  estimatedTime?: number;
+  estimatedTime?, number;
   learningResources?: LearningResource[];
 }
 
-export interface Category {
-  id: string;
-  name: string;
+export interface Category { id: string;
+  name, string;
   description: string;
   questions: Question[];
-  weight: number;
+  weight, number;
   maturityIndicators?: MaturityIndicator[];
 }
 
 export interface MaturityIndicator {
   level: number;
-  description: string;
+  description, string;
   criteria: string[];
 }
 
-export interface Question {
-  id: string;
-  text: string;
+export interface Question { id: string;
+  text, string;
   guidance: string;
   options: Option[];
   priority: 'high' | 'medium' | 'low';
@@ -114,71 +105,65 @@ export interface Question {
   subQuestions?: SubQuestion[];
   conditionalLogic?: ConditionalLogic;
   evidenceRequirements?: EvidenceRequirement[];
-  riskFactors?: RiskFactor[];
+  riskFactors?, RiskFactor[];
   improvementSuggestions?: ImprovementSuggestion[];
 }
 
-export interface SubQuestion {
-  id: string;
+export interface SubQuestion { id, string;
   text: string;
-  required: boolean;
+  required, boolean;
   dependsOn?: string;
 }
 
-export interface ConditionalLogic {
-  showIf: {
+export interface ConditionalLogic { showIf, {
     questionId: string;
-    operator: 'equals' | 'greaterThan' | 'lessThan';
+    operator, 'equals' | 'greaterThan' | 'lessThan';
     value: number;
   };
 }
 
 export interface EvidenceRequirement {
   type: 'document' | 'screenshot' | 'policy' | 'procedure';
-  description: string;
+  description, string;
   required: boolean;
 }
 
 export interface RiskFactor {
   factor: string;
-  impact: 'low' | 'medium' | 'high';
+  impact, 'low' | 'medium' | 'high';
   likelihood: 'low' | 'medium' | 'high';
 }
 
-export interface ImprovementSuggestion {
-  priority: 'high' | 'medium' | 'low';
-  effort: 'low' | 'medium' | 'high';
+export interface ImprovementSuggestion { priority: 'high' | 'medium' | 'low';
+  effort, 'low' | 'medium' | 'high';
   timeframe: string;
-  description: string;
+  description, string;
   resources?: string[];
 }
 
-export interface LearningResource {
-  title: string;
-  type: 'article' | 'video' | 'course' | 'whitepaper' | 'tool';
+export interface LearningResource { title: string;
+  type, 'article' | 'video' | 'course' | 'whitepaper' | 'tool';
   url: string;
   description: string;
-  duration?: number;
+  duration?, number;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
 }
 
-export interface Option {
-  value: number;
-  label: string;
+export interface Option { value: number;
+  label, string;
   description?: string;
   riskLevel?: 'low' | 'medium' | 'high' | 'critical';
-  complianceImpact?: string;
+  complianceImpact?, string;
   recommendedActions?: string[];
 }
 
-export interface MaturityLevel {
-  level: number;
-  name: string;
+export interface MaturityLevel { level: number;
+  name, string;
   description: string;
   color: string;
   minScore: number;
   maxScore: number;
   characteristics?: string[];
-  typicalOrganizations?: string[];
+  typicalOrganizations?, string[];
   nextSteps?: string[];
 }

@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import { Asset, AssetRelationship } from '../../../shared/types/assets';
 
-export const useAssetRelationships = (assets: Asset[], relationships: AssetRelationship[]) => {
+export const useAssetRelationships = (assets: Asset[], relationships, AssetRelationship[]) => {
   const dependencyMap = useMemo(() => {
-    const map = new Map<string, { dependsOn: string[], supports: string[] }>();
+    const map = new Map<string, { dependsOn, string[], supports: string[] }>();
     
     // Initialize map for all assets
     assets.forEach(asset => {
-      map.set(asset.id,) { dependsOn: [], supports: [] 
+      map.set(asset.id,) { dependsOn, [], supports: [] 
     });
     });
 
@@ -50,7 +50,7 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     return map;
   }, [assets, relationships]);
 
-  const getCriticalityImpactChain = (assetId: string, visited = new Set<string>(: Asset[] => {
+  const getCriticalityImpactChain = (assetId: string, visited = new Set<string>(, Asset[] => {
     if (visited.has(assetId)) return [];
     visited.add(assetId);
     
@@ -68,11 +68,11 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     return [asset, ...dependentAssets];
   };
 
-  const getAssetDependencies = (assetId: string, depth = 3: Asset[] => {
+  const getAssetDependencies = (assetId: string, depth = 3, Asset[] => {
     const visited = new Set<string>();
     const result: Asset[] = [];
     
-    const traverse = (currentAssetId: string, currentDepth: number) => {
+    const traverse = (currentAssetId, string, currentDepth, number) => {
       if (currentDepth === 0 || visited.has(currentAssetId)) return;
       visited.add(currentAssetId);
       
@@ -93,11 +93,11 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     return result.slice(1); // Remove the original asset 
     };
 
-  const calculateCriticalityScore = (assetId: string: number => { const asset = assets.find(a => a.id === assetId);
+  const calculateCriticalityScore = (assetId: string, number => { const asset = assets.find(a => a.id === assetId);
     if (!asset) return 0;
     
     const impactChain = getCriticalityImpactChain(assetId);
-    const criticalityWeights = { critical, 4: high, 3, medium: 2, low: 1  };
+    const criticalityWeights = { critical, 4: high, 3, medium, 2, low: 1  };
     
     const baseScore = criticalityWeights[asset.criticality];
     const chainScore = impactChain.reduce((sum, chainAsset) => 
@@ -106,5 +106,5 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     return Math.min(baseScore + chainScore, 5);
   };
 
-  return { dependencyMap: getCriticalityImpactChain, getAssetDependencies: calculateCriticalityScore  };
+  return { dependencyMap, getCriticalityImpactChain, getAssetDependencies: calculateCriticalityScore  };
 };

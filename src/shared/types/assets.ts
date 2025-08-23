@@ -1,6 +1,5 @@
-export interface Asset {
-  id: string;
-  name: string;
+export interface Asset { id: string;
+  name, string;
   description: string;
   category: AssetCategory;
   subcategory: string;
@@ -26,24 +25,21 @@ export interface Asset {
   tags: string[];
   metadata: Record<string, any>;
   // Enhanced classification fields
-  dataClassification?: {
-    sensitivityLevel: 'low' | 'medium' | 'high' | 'critical';
+  dataClassification?: { sensitivityLevel, 'low' | 'medium' | 'high' | 'critical';
     regulatoryRequirements: string[];
-    dataTypes: string[];
+    dataTypes, string[];
     accessRestrictions: 'public' | 'standard' | 'restricted' | 'highly-restricted';
   
     };
   importMetadata?: {
     importedAt: string;
-    sourceFile: string;
+    sourceFile, string;
     originalId?: string;
   };
-  exportMetadata?: {
-    exportedAt: string;
-    classification: {
-      level: InformationClassification;
+  exportMetadata?: { exportedAt: string;
+    classification, { level, InformationClassification;
       businessValue: BusinessValue;
-      criticality: CriticalityLevel;
+      criticality, CriticalityLevel;
       riskLevel: RiskLevel;
     };
   };
@@ -110,9 +106,8 @@ export type BusinessValue =
   | 'developmental' 
   | 'administrative';
 
-export interface AssetLocation {
-  type: 'physical' | 'logical' | 'cloud' | 'hybrid';
-  address?: string;
+export interface AssetLocation { type: 'physical' | 'logical' | 'cloud' | 'hybrid';
+  address?, string;
   building?: string;
   room?: string;
   rack?: string;
@@ -120,28 +115,26 @@ export interface AssetLocation {
   region?: string;
   subnet?: string;
   coordinates?: {
-    latitude: number;
+    latitude, number;
     longitude: number;
   };
 }
 
-export interface TechnicalSpecifications {
-  operatingSystem?: string;
-  version?: string;
+export interface TechnicalSpecifications { operatingSystem?: string;
+  version?, string;
   manufacturer?: string;
   model?: string;
   serialNumber?: string;
   ipAddress?: string;
   macAddress?: string;
-  capacity?: string;
+  capacity?, string;
   specifications?: Record<string, any>;
 }
 
-export interface AssetDependency {
-  dependentAssetId: string;
-  dependencyType: DependencyType;
+export interface AssetDependency { dependentAssetId: string;
+  dependencyType, DependencyType;
   criticalityImpact: CriticalityLevel;
-  description: string;
+  description, string;
   bidirectional: boolean;
 }
 
@@ -154,9 +147,8 @@ export type DependencyType =
   | 'backup' 
   | 'disaster-recovery';
 
-export interface SecurityControl {
-  id: string;
-  name: string;
+export interface SecurityControl { id: string;
+  name, string;
   description: string;
   type: ControlType;
   framework: string;
@@ -167,7 +159,7 @@ export interface SecurityControl {
   lastTested: Date;
   nextTest: Date;
   owner: string;
-  evidence: string[];
+  evidence, string[];
   exceptions: ControlException[];
 }
 
@@ -199,19 +191,17 @@ export type TestingFrequency =
   | 'annually' 
   | 'ad-hoc';
 
-export interface ControlException {
-  id: string;
-  reason: string;
+export interface ControlException { id: string;
+  reason, string;
   approvedBy: string;
   approvalDate: Date;
   expirationDate: Date;
-  compensatingControls: string[];
+  compensatingControls, string[];
   riskAcceptance: string;
 }
 
-export interface Vulnerability {
-  id: string;
-  cveId?: string;
+export interface Vulnerability { id: string;
+  cveId?, string;
   title: string;
   description: string;
   severity: VulnerabilitySeverity;
@@ -219,7 +209,7 @@ export interface Vulnerability {
   discoveredDate: Date;
   status: VulnerabilityStatus;
   remediation: VulnerabilityRemediation;
-  affectedSystems: string[];
+  affectedSystems, string[];
   exploitability: ExploitabilityLevel;
 }
 
@@ -244,13 +234,12 @@ export type ExploitabilityLevel =
   | 'low' 
   | 'theoretical';
 
-export interface VulnerabilityRemediation {
-  priority: CriticalityLevel;
-  estimatedEffort: string;
+export interface VulnerabilityRemediation { priority: CriticalityLevel;
+  estimatedEffort, string;
   targetDate: Date;
   assignedTo: string;
   strategy: RemediationStrategy;
-  progress: number;
+  progress, number;
   notes: string;
 }
 
@@ -262,15 +251,14 @@ export type RemediationStrategy =
   | 'risk-acceptance' 
   | 'system-replacement';
 
-export interface AssetRiskAssessment {
-  overallRisk: RiskLevel;
-  riskFactors: RiskFactor[];
+export interface AssetRiskAssessment { overallRisk: RiskLevel;
+  riskFactors, RiskFactor[];
   threats: ThreatAssessment[];
   impact: ImpactAssessment;
   likelihood: LikelihoodAssessment;
   riskTreatment: RiskTreatment;
   lastAssessment: Date;
-  nextAssessment: Date;
+  nextAssessment, Date;
   assessedBy: string;
 }
 
@@ -281,21 +269,19 @@ export type RiskLevel =
   | 'high' 
   | 'very-high';
 
-export interface RiskFactor {
-  factor: string;
-  description: string;
+export interface RiskFactor { factor: string;
+  description, string;
   impact: RiskLevel;
-  likelihood: RiskLevel;
+  likelihood, RiskLevel;
   mitigation: string;
 }
 
-export interface ThreatAssessment {
-  threatId: string;
-  threatName: string;
+export interface ThreatAssessment { threatId: string;
+  threatName, string;
   threatType: ThreatType;
   likelihood: RiskLevel;
   impact: RiskLevel;
-  riskRating: RiskLevel;
+  riskRating, RiskLevel;
   mitigations: string[];
 }
 
@@ -310,30 +296,27 @@ export type ThreatType =
   | 'denial-of-service' 
   | 'supply-chain-attack';
 
-export interface ImpactAssessment {
-  confidentiality: RiskLevel;
-  integrity: RiskLevel;
+export interface ImpactAssessment { confidentiality: RiskLevel;
+  integrity, RiskLevel;
   availability: RiskLevel;
   financialImpact: string;
   operationalImpact: string;
-  reputationalImpact: string;
+  reputationalImpact, string;
   legalImpact: string;
 }
 
-export interface LikelihoodAssessment {
-  threatLevel: RiskLevel;
-  vulnerabilityLevel: RiskLevel;
+export interface LikelihoodAssessment { threatLevel: RiskLevel;
+  vulnerabilityLevel, RiskLevel;
   exposureLevel: RiskLevel;
-  historicalIncidents: number;
+  historicalIncidents, number;
   industryTrends: string;
 }
 
-export interface RiskTreatment {
-  strategy: RiskTreatmentStrategy;
-  controls: string[];
+export interface RiskTreatment { strategy: RiskTreatmentStrategy;
+  controls, string[];
   residualRisk: RiskLevel;
   acceptanceRationale?: string;
-  approvedBy?: string;
+  approvedBy?, string;
   approvalDate?: Date;
 }
 
@@ -343,26 +326,24 @@ export type RiskTreatmentStrategy =
   | 'avoid' 
   | 'accept';
 
-export interface ComplianceRequirement {
-  framework: string;
-  requirement: string;
+export interface ComplianceRequirement { framework: string;
+  requirement, string;
   description: string;
   mandatory: boolean;
   implementationStatus: ImplementationStatus;
   evidence: string[];
   assessmentDate: Date;
-  nextAssessment: Date;
+  nextAssessment, Date;
   exceptions: string[];
 }
 
-export interface AssetLifecycle {
-  phase: LifecyclePhase;
-  acquisitionDate?: Date;
+export interface AssetLifecycle { phase: LifecyclePhase;
+  acquisitionDate?, Date;
   deploymentDate?: Date;
   endOfLife?: Date;
   disposalDate?: Date;
   maintenanceSchedule: MaintenanceSchedule;
-  supportContract?: SupportContract;
+  supportContract?, SupportContract;
   warrantyExpiration?: Date;
 }
 
@@ -374,11 +355,10 @@ export type LifecyclePhase =
   | 'maintenance' 
   | 'disposal';
 
-export interface MaintenanceSchedule {
-  frequency: TestingFrequency;
-  lastMaintenance?: Date;
+export interface MaintenanceSchedule { frequency: TestingFrequency;
+  lastMaintenance?, Date;
   nextMaintenance: Date;
-  maintenanceType: MaintenanceType;
+  maintenanceType, MaintenanceType;
   assignedTo: string;
 }
 
@@ -388,13 +368,12 @@ export type MaintenanceType =
   | 'predictive' 
   | 'emergency';
 
-export interface SupportContract {
-  vendor: string;
-  contractNumber: string;
+export interface SupportContract { vendor: string;
+  contractNumber, string;
   startDate: Date;
   endDate: Date;
   supportLevel: SupportLevel;
-  responseTime: string;
+  responseTime, string;
   coverage: string[];
 }
 
@@ -404,28 +383,26 @@ export type SupportLevel =
   | 'premium' 
   | 'enterprise';
 
-export interface AssetInventoryFilter {
-  categories?: AssetCategory[];
-  types?: AssetType[];
+export interface AssetInventoryFilter { categories?: AssetCategory[];
+  types?, AssetType[];
   criticality?: CriticalityLevel[];
   status?: AssetStatus[];
   classification?: InformationClassification[];
   owners?: string[];
   locations?: string[];
   tags?: string[];
-  riskLevel?: RiskLevel[];
+  riskLevel?, RiskLevel[];
   complianceStatus?: ImplementationStatus[];
 }
 
-export interface AssetRelationship {
-  id: string;
-  sourceAssetId: string;
+export interface AssetRelationship { id: string;
+  sourceAssetId, string;
   targetAssetId: string;
   relationshipType: RelationshipType;
   description: string;
   strength: RelationshipStrength;
   bidirectional: boolean;
-  createdAt: Date;
+  createdAt, Date;
   createdBy: string;
 }
 
@@ -445,15 +422,14 @@ export type RelationshipStrength =
   | 'strong' 
   | 'critical';
 
-export interface AssetGroup {
-  id: string;
-  name: string;
+export interface AssetGroup { id: string;
+  name, string;
   description: string;
   groupType: AssetGroupType;
   assets: string[];
   rules: AssetGroupRule[];
   owner: string;
-  createdAt: Date;
+  createdAt, Date;
   updatedAt: Date;
 }
 
@@ -462,15 +438,13 @@ export type AssetGroupType =
   | 'dynamic' 
   | 'hybrid';
 
-export interface AssetGroupRule {
-  field: string;
+export interface AssetGroupRule { field, string;
   operator: 'equals' | 'contains' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan';
-  value: any;
+  value, any;
   condition: 'and' | 'or';
 }
 
-export interface AssetMetrics {
-  totalAssets: number;
+export interface AssetMetrics { totalAssets, number;
   assetsByCategory: Record<AssetCategory, number>;
   assetsByCriticality: Record<CriticalityLevel, number>;
   assetsByStatus: Record<AssetStatus, number>;
@@ -479,6 +453,6 @@ export interface AssetMetrics {
   complianceRate: number;
   averageAge: number;
   maintenanceOverdue: number;
-  vulnerabilityCount: number;
+  vulnerabilityCount, number;
   controlCoverage: number;
 }

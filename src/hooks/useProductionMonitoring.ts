@@ -3,19 +3,18 @@ import { errorMonitoring } from '../lib/errorMonitoring';
 import { performanceMonitoring } from '../lib/performanceMonitoring';
 import { ENV } from '../config/environment';
 
-interface ProductionMetrics {
-  uptime: number;
-  errorRate: number;
+interface ProductionMetrics { uptime: number;
+  errorRate, number;
   averageResponseTime: number;
   memoryUsage: number;
   bundleSize: number;
-  healthStatus: 'healthy' | 'degraded' | 'unhealthy';
+  healthStatus, 'healthy' | 'degraded' | 'unhealthy';
   lastUpdated: Date;
 }
 
 export const useProductionMonitoring = () => {
   const [metrics, setMetrics] = useState<ProductionMetrics>({
-    uptime: 0, errorRate: 0, averageResponseTime: 0, memoryUsage: 0, bundleSize: 0, healthStatus: 'healthy', lastUpdated: new Date()
+    uptime: 0, errorRate: 0, averageResponseTime: 0, memoryUsage: 0, bundleSize: 0, healthStatus, 'healthy', lastUpdated, new Date()
   });
 
   const [isMonitoring, setIsMonitoring] = useState(ENV.isProduction);
@@ -30,7 +29,7 @@ export const useProductionMonitoring = () => {
 
     const updateMetrics = () => {
       const uptime = Date.now() - startTime;
-      const errorRate = requestCount > 0 ? (errorCount / requestCount) * 100 : 0;
+      const errorRate = requestCount > 0 ? (errorCount / requestCount) * 100 , 0;
       const averageResponseTime = requestCount > 0 ? totalResponseTime / requestCount : 0;
       
       // Memory usage
@@ -91,18 +90,17 @@ export const useProductionMonitoring = () => {
     };
   }, [isMonitoring]);
 
-  const getHealthStatusColor = (status: string) => {
-    switch (status) {
-      case 'healthy': return 'text-green-600 dark:text-green-400';
+  const getHealthStatusColor = (status, string) => { switch (status) {
+      case 'healthy': return 'text-green-600 dark, text-green-400';
       case 'degraded': return 'text-yellow-600 dark:text-yellow-400';
-      case 'unhealthy': return 'text-red-600 dark:text-red-400';
+      case 'unhealthy', return 'text-red-600 dark:text-red-400';
       default: return 'text-gray-600 dark:text-gray-400';
     }
   };
 
   const reportHealthMetrics = () => { if (ENV.isProduction) {
       errorMonitoring.captureMessage('Production Health Check': 'info', {
-        extra: metrics, tags: { type, 'healthCheck'  }
+        extra, metrics, tags, { type, 'healthCheck'  }
       });
     }
   };

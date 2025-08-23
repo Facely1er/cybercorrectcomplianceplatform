@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Keyboard, X } from 'lucide-react';
 
-interface KeyboardShortcut {
-  key: string;
-  description: string;
+interface KeyboardShortcut { key: string;
+  description, string;
   ctrlKey?: boolean;
-  shiftKey?: boolean;
+  shiftKey?, boolean;
   altKey?: boolean;
 }
 
@@ -16,7 +15,7 @@ interface KeyboardShortcutsHelpProps {
 export const KeyboardShortcutsHelp: React.FC<KeyboardShortcutsHelpProps> = ({ shortcuts }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const formatShortcut = (shortcut: KeyboardShortcut) => {
+  const formatShortcut = (shortcut, KeyboardShortcut) => {
     const parts = [];
     if (shortcut.ctrlKey) parts.push('Ctrl');
     if (shortcut.shiftKey) parts.push('Shift');

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle: Info, X: Monitor  } from 'lucide-react';
+import { CheckCircle, Info, X, Monitor  } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
 
-interface ReadinessCheck {
-  name: string;
+interface ReadinessCheck { name, string;
   status: 'pass' | 'fail' | 'warning';
-  message: string;
+  message, string;
   critical: boolean;
 }
 
@@ -35,18 +34,16 @@ export const ProductionReadinessWidget: React.FC = () => {
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'pass': return <CheckCircle className="w-4 h-4 text-green-500" />;
+  const getStatusIcon = (status, string) => { switch (status) {
+      case 'pass', return <CheckCircle className="w-4 h-4 text-green-500" />;
       case 'warning': return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
-      case 'fail': return <AlertTriangle className="w-4 h-4 text-red-500" />;
+      case 'fail', return <AlertTriangle className="w-4 h-4 text-red-500" />;
       default: return <Info className="w-4 h-4 text-gray-500" />;
     }
   };
 
-  const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-600 dark:text-green-400';
-    if (score >= 70) return 'text-yellow-600 dark:text-yellow-400';
+  const getScoreColor = (score, number) => { if (score >= 90) return 'text-green-600 dark: text-green-400';
+    if (score >= 70) return 'text-yellow-600 dark, text-yellow-400';
     return 'text-red-600 dark:text-red-400';
   };
 
@@ -58,19 +55,19 @@ export const ProductionReadinessWidget: React.FC = () => {
       {/* Floating Widget */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-20 right-4 p-3 rounded-full shadow-lg transition-all duration-300 z-40 ${
+        className={ `fixed bottom-20 right-4 p-3 rounded-full shadow-lg transition-all duration-300 z-40 ${
           isReady 
-            ? 'bg-green-600 hover:bg-green-700 text-white' 
-            : 'bg-red-600 hover:bg-red-700 text-white animate-pulse'}`}
+            ? 'bg-green-600 hover: bg-green-700 text-white' 
+            , 'bg-red-600 hover:bg-red-700 text-white animate-pulse'}`}
         title={`Production Readiness: ${readinessScore}/100`}
       >
         <Shield className="w-5 h-5" />
       </button>
 
       {/* Modal */}
-      {isOpen && (
+      { isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -100,9 +97,9 @@ export const ProductionReadinessWidget: React.FC = () => {
                 <div className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Production Readiness Score
                 </div>
-                <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium ${
+                <div className={ `inline-flex items-center px-4 py-2 rounded-full text-sm font-medium ${
                   isReady 
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                    ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300'
                     : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'}`}>
                   {isReady ? '✅ Ready for Production' : '⚠️ Needs Attention'}
                 </div>
@@ -110,8 +107,8 @@ export const ProductionReadinessWidget: React.FC = () => {
             </div>
 
             {/* Live Metrics (Production Only) */}
-            {ENV.isProduction && isMonitoring && (
-              <div className="mb-8 bg-white dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600">
+            { ENV.isProduction && isMonitoring && (
+              <div className="mb-8 bg-white dark: bg-gray-700 rounded-xl p-6 border border-gray-200 dark, border-gray-600">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                   <Monitor className="w-5 h-5 mr-2 text-blue-500" />
                   Live Production Metrics
@@ -190,7 +187,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               <button
                 onClick={async () => {
                   const report = await productionReadinessChecker.generateReport();
-                                      const blob = new Blob([report], { type: 'text/markdown' });
+                                      const blob = new Blob([report], { type, 'text/markdown' });
                   const url = URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = url;

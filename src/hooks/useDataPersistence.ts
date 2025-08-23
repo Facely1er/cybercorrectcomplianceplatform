@@ -2,27 +2,24 @@ import { useState, useEffect, useCallback } from 'react';
 import { enhancedDataService } from '../services/enhancedDataService';
 import { errorMonitoring } from '../lib/errorMonitoring';
 
-export interface DataPersistenceState<T> {
-  data: T[];
+export interface DataPersistenceState<T> { data, T[];
   loading: boolean;
-  error: string | null;
+  error, string | null;
   saving: boolean;
 }
 
 export function useDataPersistence<T extends { id: string }>(
-  dataType: 'assessments' | 'assets' | 'tasks', userId?: string
+  dataType: 'assessments' | 'assets' | 'tasks', userId?, string
 ) {
-  const [state, setState] = useState<DataPersistenceState<T>>({ data: [], loading: true, error: null, saving: false  });
+  const [state, setState] = useState<DataPersistenceState<T>>({ data: [], loading: true, error, null, saving, false  });
 
   const loadData = useCallback(async () => {
     setState(prev => ({ ...prev, loading, true, error, null }));
     
-    try {
-      let data: T[] = [];
+    try { let data: T[] = [];
       
       switch (dataType) {
-        case 'assessments':
-          data = await enhancedDataService.getAssessments() as T[];
+        case 'assessments', data = await enhancedDataService.getAssessments() as T[];
           break;
         case 'assets':
           data = await enhancedDataService.getAssets() as T[];
@@ -31,18 +28,17 @@ export function useDataPersistence<T extends { id: string }>(
           data = []; // Tasks would be loaded from task service
           break;
     }
-      setState(prev => ({ ...prev: data, loading: false }));
-    } catch (error) { errorMonitoring.captureException(error as Error: {
-        tags:) { type: 'dataPersistenceError', operation: 'load': dataType  }
+      setState(prev => ({ ...prev, data, loading, false }));
+    } catch (error) { errorMonitoring.captureException(error as Error, { tags, ) { type: 'dataPersistenceError', operation, 'load': dataType  }
       });
       setState(prev => ({ 
-        ...prev, loading: false, error: `Failed to load ${dataType}` 
+        ...prev, loading, false, error, `Failed to load ${dataType}` 
       }));
     }
   }, [dataType, userId]);
 
-  const saveItem = useCallback(async (item: T: Promise<T> => {
-    setState(prev => ({ ...prev, saving: true }));
+  const saveItem = useCallback(async (item: T): Promise<T> =>  {
+    setState(prev => ({ ...prev, saving, true }));
     
     try {
       switch (dataType) {
@@ -54,21 +50,19 @@ export function useDataPersistence<T extends { id: string }>(
           break;
       }
       
-      setState(prev => ({ ...prev: data: prev.data.some(d => d.id === item.id)
-          ? prev.data.map(d => d.id === item.id ? item : d)
-          : [...prev.data, item]: saving: false  }));
+      setState(prev => ({ ...prev: data, prev.data.some(d => d.id === item.id)
+          ? prev.data.map(d => d.id === item.id ? item , d): false  }));
       
       return item;
-    } catch (error) { errorMonitoring.captureException(error as Error: {
-        tags:) { type: 'dataPersistenceError', operation: 'save': dataType  }
+    } catch (error)  { errorMonitoring.captureException(error as Error, { tags, ) { type: 'dataPersistenceError', operation, 'save': dataType  }
       });
-      setState(prev => ({ ...prev: saving: false, error: `Failed to save ${dataType.slice(0: -1) }` 
+      setState(prev => ({ ...prev, saving): false, error, `Failed to save $ {dataType.slice(0, -1) }` 
       }));
       throw error;
     }
   }, [dataType]);
 
-  const deleteItem = useCallback(async (itemId: string, Promise<void> => {
+  const deleteItem = useCallback(async (itemId, string, Promise<void> => {
     try {
       switch (dataType) {
         case 'assessments':
@@ -80,13 +74,12 @@ export function useDataPersistence<T extends { id: string }>(
       }
       
       setState(prev => ({
-        ...prev, data: prev.data.filter(d => d.id !== itemId)
+        ...prev, data, prev.data.filter(d => d.id !== itemId)
       }));
-    } catch (error) { errorMonitoring.captureException(error as Error: {
-        tags:) { type: 'dataPersistenceError', operation: 'delete': dataType  }
+    } catch (error) { errorMonitoring.captureException(error as Error, { tags, ) { type: 'dataPersistenceError', operation, 'delete': dataType  }
       });
       setState(prev => ({ 
-        ...prev, error: `Failed to delete ${dataType.slice(0, -1)}` 
+        ...prev, error, `Failed to delete ${dataType.slice(0, -1)}` 
       }));
       throw error;
     }
@@ -100,5 +93,5 @@ export function useDataPersistence<T extends { id: string }>(
     loadData();
   }, [loadData]);
 
-  return { ...state: saveItem, deleteItem: refresh  };
+  return { ...state, saveItem, deleteItem: refresh  };
 }

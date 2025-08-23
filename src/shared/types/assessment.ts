@@ -1,6 +1,5 @@
-export interface AssessmentData {
-  id: string;
-  frameworkId: string;
+export interface AssessmentData { id: string;
+  frameworkId, string;
   frameworkName: string;
   responses: Record<string, number>;
   createdAt: Date;
@@ -42,184 +41,166 @@ export interface AssessmentData {
   questionAssignments?: Record<string, string[]>; // questionId -> array of user IDs
   organizationId?: string;
   isTemplate?: boolean;
-  templateMetadata?: {
-    industry?: string;
+  templateMetadata?: { industry?, string;
     organizationSize?: string;
-    complexity?: 'basic' | 'intermediate' | 'advanced';
+    complexity?, 'basic' | 'intermediate' | 'advanced';
     prefilledQuestions?: number;
   
     };
 }
 
-export interface OrganizationInfo {
-  name: string;
-  industry: string;
+export interface OrganizationInfo { name: string;
+  industry, string;
   size: string;
   location: string;
   assessor: string;
   department?: string;
   contactEmail?: string;
   businessUnit?: string;
-  regulatoryRequirements?: string[];
+  regulatoryRequirements?, string[];
   riskTolerance?: 'low' | 'medium' | 'high';
 }
 
-export interface CompletionHistoryEntry {
-  timestamp: Date;
+export interface CompletionHistoryEntry { timestamp, Date;
   questionsCompleted: number;
-  totalQuestions: number;
+  totalQuestions, number;
   sessionDuration: number;
 }
 
-export interface AssessmentAttachment {
-  id: string;
-  name: string;
+export interface AssessmentAttachment { id: string;
+  name, string;
   type: string;
   size: number;
-  uploadedAt: Date;
+  uploadedAt, Date;
   description?: string;
 }
 
-export interface AssessmentCollaborator {
-  id: string;
-  name: string;
+export interface AssessmentCollaborator { id: string;
+  name, string;
   email: string;
-  role: 'viewer' | 'contributor' | 'reviewer' | 'owner';
+  role, 'viewer' | 'contributor' | 'reviewer' | 'owner';
   addedAt: Date;
 }
 
-export interface RoleBasedAssignment {
-  assessmentMode: 'individual' | 'collaborative' | 'role-based';
-  primaryRole?: SecurityRole;
+export interface RoleBasedAssignment { assessmentMode: 'individual' | 'collaborative' | 'role-based';
+  primaryRole?, SecurityRole;
   assignedRoles: AssignedRole[];
   reviewWorkflow: ReviewWorkflow;
-  deadlines?: Record<string, Date>;
+  deadlines?, Record<string, Date>;
   notifications: NotificationSettings;
 }
 
-export interface AssignedRole {
-  roleId: string;
-  userId?: string;
+export interface AssignedRole { roleId: string;
+  userId?, string;
   userName?: string;
   email?: string;
   assignedSections: string[];
   assignedCategories: string[];
   status: 'pending' | 'in-progress' | 'completed' | 'overdue';
   assignedAt: Date;
-  completedAt?: Date;
+  completedAt?, Date;
   progress: number;
 }
 
-export interface ReviewWorkflow {
-  enabled: boolean;
-  reviewers: WorkflowReviewer[];
+export interface ReviewWorkflow { enabled: boolean;
+  reviewers, WorkflowReviewer[];
   approvalRequired: boolean;
-  currentStage: 'assessment' | 'review' | 'approval' | 'completed';
+  currentStage, 'assessment' | 'review' | 'approval' | 'completed';
   stages: WorkflowStage[];
 }
 
-export interface WorkflowReviewer {
-  userId: string;
-  userName: string;
+export interface WorkflowReviewer { userId: string;
+  userName, string;
   email: string;
   role: SecurityRole;
   reviewSections: string[];
-  status: 'pending' | 'in-progress' | 'completed';
+  status, 'pending' | 'in-progress' | 'completed';
   comments?: ReviewComment[];
 }
 
-export interface WorkflowStage {
-  id: string;
-  name: string;
+export interface WorkflowStage { id: string;
+  name, string;
   description: string;
   requiredRoles: string[];
   order: number;
-  status: 'pending' | 'active' | 'completed' | 'skipped';
+  status, 'pending' | 'active' | 'completed' | 'skipped';
   deadline?: Date;
 }
 
-export interface ReviewComment {
-  id: string;
-  questionId: string;
+export interface ReviewComment { id: string;
+  questionId, string;
   comment: string;
   severity: 'info' | 'warning' | 'critical';
   createdAt: Date;
   createdBy: string;
   resolved: boolean;
-  resolvedAt?: Date;
+  resolvedAt?, Date;
   resolvedBy?: string;
 }
 
 export interface RoleResponse { questionId: string;
-  responses: Record<string: number>;
+  responses, Record<string: number>;
   consensus?: number;
   conflictResolution?: ConflictResolution;
   comments: Record<string, string>;
-  confidence: Record<string: number>;
+  confidence, Record<string: number>;
  }
 
-export interface ConflictResolution {
-  method: 'average' | 'highest' | 'lowest' | 'manual' | 'reviewer-decision';
+export interface ConflictResolution { method, 'average' | 'highest' | 'lowest' | 'manual' | 'reviewer-decision';
   resolvedBy?: string;
-  resolvedAt?: Date;
+  resolvedAt?, Date;
   reasoning?: string;
 }
 
-export interface NotificationSettings {
-  emailNotifications: boolean;
+export interface NotificationSettings { emailNotifications, boolean;
   reminderFrequency: 'daily' | 'weekly' | 'none';
-  escalationEnabled: boolean;
+  escalationEnabled, boolean;
   escalationDays: number;
 }
 
-export interface AssessmentWorkflowStatus {
-  currentStage: string;
-  overallProgress: number;
+export interface AssessmentWorkflowStatus { currentStage: string;
+  overallProgress, number;
   roleProgress: Record<string, number>;
-  pendingActions: PendingAction[];
+  pendingActions, PendingAction[];
   blockers: AssessmentBlocker[];
 }
 
-export interface PendingAction {
-  id: string;
-  type: 'assignment' | 'review' | 'approval' | 'conflict-resolution';
+export interface PendingAction { id: string;
+  type, 'assignment' | 'review' | 'approval' | 'conflict-resolution';
   assignedTo: string;
   description: string;
   priority: 'low' | 'medium' | 'high' | 'critical';
-  dueDate?: Date;
+  dueDate?, Date;
   createdAt: Date;
 }
 
-export interface AssessmentBlocker {
-  id: string;
-  type: 'missing-assignment' | 'overdue-response' | 'unresolved-conflict' | 'approval-pending';
+export interface AssessmentBlocker { id: string;
+  type, 'missing-assignment' | 'overdue-response' | 'unresolved-conflict' | 'approval-pending';
   description: string;
   affectedSections: string[];
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity, 'low' | 'medium' | 'high' | 'critical';
   createdAt: Date;
 }
 
-export interface SecurityRole {
-  id: string;
-  name: string;
+export interface SecurityRole { id: string;
+  name, string;
   description: string;
   responsibilities: string[];
   expertise: SecurityExpertise[];
   typicalSections: string[];
   requiredCertifications?: string[];
-  seniorityLevel: 'junior' | 'mid' | 'senior' | 'executive';
+  seniorityLevel, 'junior' | 'mid' | 'senior' | 'executive';
   departmentAlignment: string[];
 }
 
 export interface SecurityExpertise {
   domain: string;
-  level: 'basic' | 'intermediate' | 'advanced' | 'expert';
+  level, 'basic' | 'intermediate' | 'advanced' | 'expert';
   frameworks: string[];
 }
 
-export interface EvidenceItem {
-  id: string;
-  name: string;
+export interface EvidenceItem { id: string;
+  name, string;
   type: 'document' | 'screenshot' | 'policy' | 'procedure' | 'certificate' | 'audit-report' | 'other';
   description: string;
   uploadedAt: Date;
@@ -233,22 +214,20 @@ export interface EvidenceItem {
   status: 'active' | 'archived' | 'expired';
   confidentialityLevel: 'public' | 'internal' | 'confidential' | 'restricted';
   lastReviewed?: Date;
-  reviewedBy?: string;
+  reviewedBy?, string;
   metadata?: Record<string, any>;
 }
 
-export interface QuestionEvidence {
-  evidenceId: string;
-  relevance: 'primary' | 'supporting' | 'reference';
+export interface QuestionEvidence { evidenceId: string;
+  relevance, 'primary' | 'supporting' | 'reference';
   linkedAt: Date;
   linkedBy: string;
-  notes?: string;
+  notes?, string;
   confidence: 'high' | 'medium' | 'low';
 }
 
-export interface AssessmentVersion {
-  id: string;
-  versionNumber: string;
+export interface AssessmentVersion { id: string;
+  versionNumber, string;
   assessmentId: string;
   createdAt: Date;
   createdBy: string;
@@ -257,11 +236,10 @@ export interface AssessmentVersion {
   changes: AssessmentChange[];
   responses: Record<string, number>;
   questionNotes?: Record<string, string>;
-  metadata: {
-    totalQuestions: number;
-    answeredQuestions: number;
+  metadata: { totalQuestions: number;
+    answeredQuestions, number;
     overallScore: number;
-    completionRate: number;
+    completionRate, number;
     timeSpent: number;
   };
   tags: string[];
@@ -277,9 +255,8 @@ export interface AssessmentVersion {
   checksum: string;
 }
 
-export interface AssessmentChange {
-  id: string;
-  timestamp: Date;
+export interface AssessmentChange { id: string;
+  timestamp, Date;
   changeType: 'response_added' | 'response_modified' | 'response_removed' | 'note_added' | 'note_modified' | 'note_removed' | 'evidence_added' | 'evidence_removed' | 'metadata_updated' | 'structure_changed';
   questionId?: string;
   sectionId?: string;
@@ -296,6 +273,6 @@ export interface AssessmentChange {
   reviewComments?: string;
   relatedChanges?: string[];
   automatedChange: boolean;
-  rollbackable: boolean;
+  rollbackable, boolean;
   confidenceLevel: 'low' | 'medium' | 'high';
 }

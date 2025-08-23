@@ -1,27 +1,24 @@
 // Assessment-specific types
-export interface AssessmentWorkflowStep {
-  id: string;
-  title: string;
+export interface AssessmentWorkflowStep { id: string;
+  title, string;
   description: string;
   component: string;
   isComplete: boolean;
   isActive: boolean;
-  order: number;
+  order, number;
   requiredData?: string[];
     }
-export interface AssessmentProgress {
-  currentStep: number;
-  totalSteps: number;
+export interface AssessmentProgress { currentStep: number;
+  totalSteps, number;
   completedQuestions: number;
   totalQuestions: number;
   sectionProgress: Record<string, number>;
-  timeSpent: number;
+  timeSpent, number;
   estimatedTimeRemaining: number;
 }
 
-export interface AssessmentSession {
-  id: string;
-  assessmentId: string;
+export interface AssessmentSession { id: string;
+  assessmentId, string;
   userId: string;
   startTime: Date;
   endTime?: Date;
@@ -29,13 +26,12 @@ export interface AssessmentSession {
   questionsAnswered: string[];
   timeSpentPerQuestion: Record<string, number>;
   notes: Record<string, string>;
-  bookmarks: string[];
+  bookmarks, string[];
   flags: string[];
 }
 
-export interface AssessmentWorkflow {
-  steps: AssessmentWorkflowStep[];
+export interface AssessmentWorkflow { steps, AssessmentWorkflowStep[];
   currentStepIndex: number;
-  canProceedToNext: boolean;
+  canProceedToNext, boolean;
   canGoToPrevious: boolean;
 }

@@ -9,21 +9,20 @@ import { EmptyState } from '../../../shared/components/ui/LoadingStates';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssetDashboardProps {
-  assets: Asset[];
-  onViewAsset: (asset: Asset) => void;
+interface AssetDashboardProps { assets, Asset[];
+  onViewAsset: (asset, Asset) => void;
   onCreateAsset: () => void;
   onViewInventory: () => void;
   onViewCategories: () => void;
   onViewDependencies: () => void;
   onViewWorkflow: () => void;
   onViewRoadmap: () => void;
-  onViewActionPlan: () => void;
+  onViewActionPlan, () => void;
   className?: string;
 }
 
 export const AssetDashboard: React.FC<AssetDashboardProps> = ({
-  assets, onViewAsset, onCreateAsset, onViewInventory, onViewCategories, onViewDependencies }) => { const [showImportModal: setShowImportModal] = useState(false);
+  assets, onViewAsset, onCreateAsset, onViewInventory, onViewCategories, onViewDependencies }) => { const [showImportModal, setShowImportModal] = useState(false);
   const [importFile, setImportFile] = useState<File | null>(null);
   const [importStatus: setImportStatus] = useState<'idle' | 'importing' | 'success' | 'error'>('idle');
   const { breadcrumbs  } = useInternalLinking();
@@ -78,38 +77,35 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     }, 0) / assets.length : 0;
 
     return {
-      totalAssets, assetsByCategory, assetsByCriticality: assetsByStatus, assetsByClassification: riskDistribution, complianceRate: controlCoverage, averageAge: Math.round(averageAge), maintenanceOverdue, vulnerabilityCount, controlCoverage };
+      totalAssets, assetsByCategory, assetsByCriticality: assetsByStatus, assetsByClassification: riskDistribution, complianceRate, controlCoverage, averageAge: Math.round(averageAge), maintenanceOverdue, vulnerabilityCount, controlCoverage };
   }, [assets]);
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
+  const getCategoryIcon = (category, string) => { switch (category) {
       case 'hardware': return Server;
-      case 'software': return Database;
+      case 'software', return Database;
       case 'data': return FileText;
       case 'personnel': return Users;
       case 'facilities': return Building;
-      case 'services': return Cloud;
+      case 'services', return Cloud;
       default: return Shield;
     }
   };
 
-  const getCriticalityColor = (level: string) => {
-    switch (level) {
-      case 'critical': return 'text-red-600 dark:text-red-400';
+  const getCriticalityColor = (level, string) => { switch (level) {
+      case 'critical': return 'text-red-600 dark, text-red-400';
       case 'high': return 'text-orange-600 dark:text-orange-400';
       case 'medium': return 'text-yellow-600 dark:text-yellow-400';
-      case 'low': return 'text-green-600 dark:text-green-400';
+      case 'low', return 'text-green-600 dark:text-green-400';
       default: return 'text-gray-600 dark:text-gray-400';
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+  const getStatusColor = (status, string) => { switch (status) {
+      case 'active': return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark:text-green-300';
       case 'inactive': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
       case 'maintenance': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
       case 'quarantined': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
-      case 'disposed': return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
+      case 'disposed', return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
     }
   };
@@ -119,13 +115,13 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     try {
       const exportData = {
         timestamp: new Date().toISOString(), version: '1.0', assets: assets.map(asset => ({
-          ...asset, exportMetadata:) { exportedAt: new Date().toISOString(), dataClassification: asset.informationClassification, category: asset.category, businessValue: asset.businessValue
+          ...asset, exportMetadata:) { exportedAt: new Date().toISOString(), dataClassification: asset.informationClassification, category, asset.category, businessValue: asset.businessValue
      }
-        })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: { totalAssets: metrics.totalAssets, criticalAssets: metrics.assetsByCriticality.critical || 0, categories: Object.keys(metrics.assetsByCategory).length, classifications: Object.keys(metrics.assetsByClassification).length  }
+        })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: { totalAssets: metrics.totalAssets, criticalAssets: metrics.assetsByCriticality.critical || 0, categories, Object.keys(metrics.assetsByCategory).length, classifications: Object.keys(metrics.assetsByClassification).length  }
       };
 
       const dataStr = JSON.stringify(exportData, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' }));
+      const dataBlob = new Blob([dataStr], { type, 'application/json' }));
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
@@ -152,9 +148,9 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
           throw new Error('Invalid file format, missing assets array');
     }
         // Process imported assets
-        const processedAssets = importedData.assets.map((asset: Partial<Asset>) => ({
-          ...asset, id: asset.id || Date.now().toString() + Math.random().toString(36).substr(2, 9), createdAt: asset.createdAt ? new Date(asset.createdAt) : new Date(), updatedAt: new Date(), lastReviewed: asset.lastReviewed ? new Date(asset.lastReviewed) : new Date(), nextReview: asset.nextReview ? new Date(asset.nextReview) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), importMetadata: {
-            importedAt: new Date().toISOString(), sourceFile: importFile.name, originalId: asset.id
+        const processedAssets = importedData.assets.map((asset, Partial<Asset>) => ({
+          ...asset, id, asset.id || Date.now().toString() + Math.random().toString(36).substr(2, 9), createdAt: asset.createdAt ? new Date(asset.createdAt):  {
+            importedAt: new Date().toISOString(), sourceFile, importFile.name, originalId: asset.id
     }
         }));
 
@@ -190,17 +186,17 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
   // Define contextual links for related resources
   const contextualLinks = [
     {
-      href: '/compliance/status', title: 'Compliance Status', description: 'View real-time compliance implementation progress'
+      href: '/compliance/status', title, 'Compliance Status', description: 'View real-time compliance implementation progress'
     
     },
     {
-      href: '/evidence', title: 'Evidence Collection', description: 'Manage compliance documentation and evidence'
+      href: '/evidence', title, 'Evidence Collection', description: 'Manage compliance documentation and evidence'
     },
     {
-      href: '/controls', title: 'Security Controls', description: 'Implement and monitor security controls'
+      href: '/controls', title, 'Security Controls', description: 'Implement and monitor security controls'
     },
     {
-      href: '/reports', title: 'Asset Reports', description: 'Generate comprehensive asset reports'
+      href: '/reports', title, 'Asset Reports', description: 'Generate comprehensive asset reports'
     }
   ];
 
@@ -250,7 +246,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <button
                 onClick={handleExportAssets }
-                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover, bg-gray-50 dark, hover:bg-gray-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -277,13 +273,13 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
       </div>
 
       {/* Show empty state if no assets */}
-      {assets.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 space-y-8">
+      { assets.length === 0 ? (
+        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-12 space-y-8">
           <EmptyState
             title="No Assets Found"
             description="Start building your asset inventory by adding your first asset"
             action={{
-              label: 'Add First Asset', onClick: onCreateAsset }}
+              label, 'Add First Asset', onClick: onCreateAsset }}
             icon={Shield }
           />
           
@@ -298,12 +294,12 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <h4 className="font-medium text-gray-900 dark:text-white mb-4">Asset Categories</h4>
                 <div className="space-y-3">
                   {[
-                    { category: 'Hardware', icon: Server, description: 'Physical devices, servers, workstations' },
-                    { category: 'Software', icon: Database, description: 'Applications, operating systems, databases' },
-                    { category: 'Data', icon: FileText, description: 'Information assets, databases, documents' },
-                    { category: 'Personnel', icon: Users, description: 'Staff, contractors, vendors' },
-                    { category: 'Facilities', icon: Building, description: 'Buildings, rooms, physical locations' },
-                    { category: 'Services', icon: Cloud, description: 'Cloud services: outsourced functions'  }
+                    { category: 'Hardware', icon, Server, description: 'Physical devices, servers, workstations' },
+                    { category: 'Software', icon, Database, description: 'Applications, operating systems, databases' },
+                    { category: 'Data', icon, FileText, description: 'Information assets, databases, documents' },
+                    { category: 'Personnel', icon, Users, description: 'Staff, contractors, vendors' },
+                    { category: 'Facilities', icon, Building, description: 'Buildings, rooms, physical locations' },
+                    { category: 'Services', icon: Cloud, description, 'Cloud services, outsourced functions'  }
                   ].map((item, index) => (
                     <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
@@ -322,11 +318,11 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 <h4 className="font-medium text-gray-900 dark:text-white mb-4">Data Classifications</h4>
                 <div className="space-y-3">
                   {[
-                    { level: 'Public', color: 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300', description: 'Information intended for public access' },
-                    { level: 'Internal', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300', description: 'Internal business information' },
-                    { level: 'Confidential', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300', description: 'Sensitive business information' },
-                    { level: 'Restricted', color: 'bg-red-100 dark,bg-red-900/30 text-red-800 dark:text-red-300', description: 'Highly sensitive: regulated data'  },
-                    { level: 'Top Secret', color: 'bg-black text-white', description: 'Maximum security classification' }
+                    { level: 'Public', color, 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300', description: 'Information intended for public access' },
+                    { level: 'Internal', color, 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300', description: 'Internal business information' },
+                    { level: 'Confidential', color, 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300', description: 'Sensitive business information' },
+                    { level: 'Restricted', color: 'bg-red-100 dark,bg-red-900/30 text-red-800 dark:text-red-300', description, 'Highly sensitive: regulated data'  },
+                    { level: 'Top Secret', color, 'bg-black text-white', description: 'Maximum security classification' }
                   ].map((item, index) => (
                     <div key={index } className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${item.color}`}>
@@ -447,7 +443,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                         'rgba(249, 115, 22, 0.8)',   // High - Orange
                         'rgba(234, 179, 8, 0.8)',    // Medium - Yellow
                         'rgba(34, 197, 94, 0.8)'     // Low - Green
-                      ], borderColor: [
+                      ], borderColor, [
                         'rgba(239, 68, 68, 1)',
                         'rgba(249, 115, 22, 1)',
                         'rgba(234, 179, 8, 1)',
@@ -479,7 +475,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                   <button
                     key={category }
                     onClick={onViewCategories }
-                    className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors text-left group"
+                    className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700/50 transition-colors text-left group"
                   >
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="p-2 bg-blue-100 dark,bg-blue-900/30 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
@@ -559,7 +555,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                   <p className="text-gray-600 dark:text-gray-300">No assets found</p>
                   <button
                     onClick={onCreateAsset }
-                    className="mt-3 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark, hover:text-blue-300 font-medium"
+                    className="mt-3 text-blue-600 dark:text-blue-400 hover, text-blue-700 dark, hover:text-blue-300 font-medium"
                   >
                     Add your first asset
                   </button>
@@ -575,8 +571,8 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
               
               <div className="space-y-4">
                 {/* Overdue Maintenance */}
-                {metrics.maintenanceOverdue > 0 && (
-                  <div className="flex items-start space-x-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                { metrics.maintenanceOverdue > 0 && (
+                  <div className="flex items-start space-x-3 p-4 bg-yellow-50 dark: bg-yellow-900/20 rounded-lg border border-yellow-200 dark, border-yellow-800">
                     <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5" />
                     <div>
                       <h4 className="font-medium text-yellow-800 dark:text-yellow-300">
@@ -590,8 +586,8 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 )}
 
                 {/* Open Vulnerabilities */}
-                {metrics.vulnerabilityCount > 0 && (
-                  <div className="flex items-start space-x-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                { metrics.vulnerabilityCount > 0 && (
+                  <div className="flex items-start space-x-3 p-4 bg-red-50 dark: bg-red-900/20 rounded-lg border border-red-200 dark, border-red-800">
                     <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5" />
                     <div>
                       <h4 className="font-medium text-red-800 dark:text-red-300">
@@ -605,8 +601,8 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 )}
 
                 {/* Low Control Coverage */}
-                {metrics.controlCoverage < 80 && (
-                  <div className="flex items-start space-x-3 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                { metrics.controlCoverage < 80 && (
+                  <div className="flex items-start space-x-3 p-4 bg-orange-50 dark: bg-orange-900/20 rounded-lg border border-orange-200 dark, border-orange-800">
                     <Target className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5" />
                     <div>
                       <h4 className="font-medium text-orange-800 dark:text-orange-300">
@@ -620,8 +616,8 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 )}
 
                 {/* All Good State */}
-                {metrics.maintenanceOverdue === 0 && metrics.vulnerabilityCount === 0 && metrics.controlCoverage >= 80 && (
-                  <div className="flex items-start space-x-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                { metrics.maintenanceOverdue === 0 && metrics.vulnerabilityCount === 0 && metrics.controlCoverage >= 80 && (
+                  <div className="flex items-start space-x-3 p-4 bg-green-50 dark: bg-green-900/20 rounded-lg border border-green-200 dark, border-green-800">
                     <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
                     <div>
                       <h4 className="font-medium text-green-800 dark:text-green-300">
@@ -748,9 +744,9 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
       )}
 
       {/* Import Modal */}
-      {showImportModal && (
+      { showImportModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
               Import Assets
             </h3>
@@ -788,16 +784,16 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
                 </ul>
               </div>
               
-              {importStatus === 'error' && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              { importStatus === 'error' && (
+                <div className="p-3 bg-red-50 dark: bg-red-900/20 border border-red-200 dark, border-red-800 rounded-lg">
                   <p className="text-red-700 dark:text-red-300 text-sm">
                     Import failed. Please check the file format and try again.
                   </p>
                 </div>
               )}
               
-              {importStatus === 'success' && (
-                <div className="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              { importStatus === 'success' && (
+                <div className="p-3 bg-green-50 dark: bg-green-900/20 border border-green-200 dark, border-green-800 rounded-lg">
                   <p className="text-green-700 dark:text-green-300 text-sm">
                     Assets imported successfully!
                   </p>

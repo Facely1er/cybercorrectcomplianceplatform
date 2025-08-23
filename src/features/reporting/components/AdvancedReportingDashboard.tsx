@@ -7,10 +7,9 @@ import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 
-interface AdvancedReportingDashboardProps {
-  savedAssessments: AssessmentData[];
+interface AdvancedReportingDashboardProps { savedAssessments, AssessmentData[];
   userProfile: UserProfile | null;
-  onExportReport: (format: 'pdf' | 'excel' | 'json') => void;
+  onExportReport, (format, 'pdf' | 'excel' | 'json') => void;
 }
 
 export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
@@ -19,7 +18,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
   const [selectedMetric, setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
   const [reportType, setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
 
-  const calculateAssessmentScore = (assessment: AssessmentData) => {
+  const calculateAssessmentScore = (assessment, AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
     return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
@@ -45,7 +44,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         : 0;
 
       months.push({
-        month: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore, assessments: monthAssessments.length, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
+        month: monthDate.toLocaleDateString('en-US', { month, 'short', year, '2-digit' }), score: avgScore, assessments: monthAssessments.length, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
       });
     }
     
@@ -55,7 +54,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
   // Function-level analysis
   const functionAnalysis = React.useMemo(() => { if (savedAssessments.length === 0) return [];
 
-    const latestAssessment = savedAssessments.sort((a: b) => 
+    const latestAssessment = savedAssessments.sort((a, b) => 
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
     )[0];
 
@@ -73,8 +72,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
-      return {
-        name: section.name: score, weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+      return { name: section.name, score: weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions, sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
   }, [savedAssessments]);
@@ -89,13 +87,12 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const complianceRate = avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100);
     
     return {
-      totalAssessments: completedAssessments, avgScore: complianceRate, improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
+      totalAssessments: completedAssessments, avgScore: complianceRate, improvementTrend, trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0
     };
   }, [savedAssessments, trendData]);
 
-  if (savedAssessments.length === 0) {
-    return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
+  if (savedAssessments.length === 0) { return (
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-12 text-center">
         <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
           No Assessment Data Available
@@ -115,7 +112,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center space-x-4">
             <Link
               to="/dashboard"
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
+              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Back to Dashboard</span>
@@ -166,7 +163,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               <div className="flex items-center space-x-1 mt-1">
                 {overallMetrics.improvementTrend > 0 ? (
                   <TrendingUp className="w-4 h-4 text-green-500" />
-                ) : overallMetrics.improvementTrend < 0 ? (
+                ) , overallMetrics.improvementTrend < 0 ? (
                   <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
                 ) : null }
                 <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -209,10 +206,10 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Maturity Level</p>
               <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
-                {overallMetrics.avgScore >= 76 ? '4' : overallMetrics.avgScore >= 51 ? '3' : overallMetrics.avgScore >= 26 ? '2' : '1'}
+                {overallMetrics.avgScore >= 76 ? '4' : overallMetrics.avgScore >= 51 ? '3' , overallMetrics.avgScore >= 26 ? '2' : '1'}
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                {overallMetrics.avgScore >= 76 ? 'Adaptive' : overallMetrics.avgScore >= 51 ? 'Repeatable' : overallMetrics.avgScore >= 26 ? 'Risk Informed' : 'Partial'}
+                {overallMetrics.avgScore >= 76 ? 'Adaptive' : overallMetrics.avgScore >= 51 ? 'Repeatable' , overallMetrics.avgScore >= 26 ? 'Risk Informed' : 'Partial'}
               </p>
             </div>
             <Award className="w-8 h-8 text-orange-600 dark:text-orange-400" />
@@ -239,7 +236,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                     'rgba(249, 115, 22, 0.8)',   // Detect - Orange
                     'rgba(239, 68, 68, 0.8)',    // Respond - Red
                     'rgba(234, 179, 8, 0.8)'     // Recover - Yellow
-                  ], borderColor: [
+                  ], borderColor, [
                     'rgba(59, 130, 246, 1)',
                     'rgba(34, 197, 94, 1)',
                     'rgba(147, 51, 234, 1)',
@@ -265,9 +262,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
             <LineChartComponent
               data={{
                 labels: trendData.map(d => d.month), datasets: [{
-                  label: 'Average Score (%)', data: trendData.map(d => d.score), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.4
+                  label: 'Average Score (%)', data: trendData.map(d => d.score), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill, true, tension: 0.4
                 }, {
-                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill: true, tension: 0.4
+                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill, true, tension: 0.4
                 }]
               }}
               height={320}
@@ -312,9 +309,8 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <span className={`text-lg font-bold ${
-                      func.score >= 80 ? 'text-green-600 dark:text-green-400' :
-                      func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
+                    <span className={ `text-lg font-bold ${
+                      func.score >= 80 ? 'text-green-600 dark: text-green-400' , func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       func.score >= 40 ? 'text-orange-600 dark:text-orange-400' :
                       'text-red-600 dark:text-red-400'}`}>
                       {func.score }%
@@ -332,14 +328,12 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      func.score >= 80 ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
+                    <span className={ `px-2 py-1 rounded-full text-xs font-medium ${
+                      func.score >= 80 ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300' :
                       func.score >= 60 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                       func.score >= 40 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
                       'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'}`}>
-                      {func.score >= 80 ? 'Adaptive' :
-                       func.score >= 60 ? 'Repeatable' :
-                       func.score >= 40 ? 'Risk Informed' : 'Partial'}
+                      { func.score >= 80 ? 'Adaptive' , func.score >= 60 ? 'Repeatable' : func.score >= 40 ? 'Risk Informed' , 'Partial'}
                     </span>
                   </td>
                 </tr>
@@ -350,8 +344,8 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
       </div>
 
       {/* Executive Summary */}
-      {reportType === 'executive' && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark:border-blue-800">
+      { reportType === 'executive' && (
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark: from-blue-900/20 dark, to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark:border-blue-800">
           <h3 className="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-6">
             Executive Summary - NIST CSF v2.0 Implementation
           </h3>
@@ -364,10 +358,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               <ul className="space-y-2 text-blue-700 dark:text-blue-300">
                 <li>• Overall maturity score: {overallMetrics.avgScore }%</li>
                 <li>• {overallMetrics.completedAssessments } assessments completed</li>
-                <li>• Current maturity level: {
-                  overallMetrics.avgScore >= 76 ? 'Adaptive (Level 4)' :
-                  overallMetrics.avgScore >= 51 ? 'Repeatable (Level 3)' :
-                  overallMetrics.avgScore >= 26 ? 'Risk Informed (Level 2)' : 'Partial (Level 1)'
+                <li>• Current maturity level, { overallMetrics.avgScore >= 76 ? 'Adaptive (Level 4)' : overallMetrics.avgScore >= 51 ? 'Repeatable (Level 3)' , overallMetrics.avgScore >= 26 ? 'Risk Informed (Level 2)' : 'Partial (Level 1)'
                 }</li>
                 <li>• Compliance rate: {overallMetrics.complianceRate }%</li>
               </ul>

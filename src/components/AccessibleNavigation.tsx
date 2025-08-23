@@ -2,16 +2,15 @@ import React, { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 
-interface NavItem {
-  label: string;
-  href?: string;
+interface NavItem { label: string;
+  href?, string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  children?: NavItem[];
+  children?, NavItem[];
   description?: string;
 }
 
 interface AccessibleNavigationProps {
-  items: NavItem[];
+  items, NavItem[];
   className?: string;
 }
 
@@ -23,7 +22,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
   const location = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdown = (label: string) => {
+  const toggleDropdown = (label, string) => {
     setOpenDropdowns((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(label)) {
@@ -35,7 +34,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
     });
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent, item: NavItem) => {
+  const handleKeyDown = (event: React.KeyboardEvent, item, NavItem) => {
     switch (event.key) {
       case 'Enter':
       case ' ':
@@ -61,7 +60,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
     }
   };
 
-  const isActive = (href: string) => location.pathname === href;
+  const isActive = (href, string) => location.pathname === href;
 
   return (
     <nav 
@@ -80,10 +79,10 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 onMouseLeave={() => toggleDropdown(item.label)}
               >
                 <button
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
+                  className={ `flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                     item.children?.some(child => child.href && isActive(child.href))
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 hover,bg-blue-50 dark:hover:bg-blue-900/20'}`}
+                      ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark, text-blue-300'
+                      : 'text-gray-600 dark:text-gray-300 hover, text-blue-600 dark, hover: text-blue-400 hover,bg-blue-50 dark:hover:bg-blue-900/20'}`}
                   onKeyDown={(e) => handleKeyDown(e, item)}
                   aria-expanded={openDropdowns.has(item.label)}
                   aria-haspopup="true"
@@ -108,7 +107,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                       <Link
                         key={child.href }
                         to={child.href!}
-                        className={`flex items-center space-x-3 px-4 py-3 hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors ${
+                        className={`flex items-center space-x-3 px-4 py-3 hover, bg-gray-50 dark, hover, bg-gray-700/50 transition-colors ${
                           isActive(child.href!)
                             ? 'bg-blue-50 dark,bg-blue-900/20 text-blue-700 dark:text-blue-300'
                             : 'text-gray-700 dark:text-gray-300'}`}
@@ -132,10 +131,10 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
             ) : (
               <Link
                 to={item.href!}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
+                className={ `flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                   isActive(item.href!)
-                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
-                    : 'text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 hover,bg-blue-50 dark:hover:bg-blue-900/20'}`}
+                    ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark, text-blue-300'
+                    : 'text-gray-600 dark:text-gray-300 hover, text-blue-600 dark, hover: text-blue-400 hover,bg-blue-50 dark:hover:bg-blue-900/20'}`}
                 role="menuitem"
                 aria-label={item.description || item.label }
               >

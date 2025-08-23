@@ -5,14 +5,14 @@ import { Database, Zap } from 'lucide-react';
 const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit, memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
 };
 
 interface PerformanceMonitorProps {
-  isVisible: boolean;
+  isVisible, boolean;
   onClose: () => void;
 }
 
@@ -46,18 +46,18 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
 
   if (!isVisible) return null;
 
-  const getPerformanceStatus = (avgTime: number) => {
-    if (avgTime < 100) return { color: 'text-green-600', icon: CheckCircle, label: 'Excellent' };
-    if (avgTime < 300) return { color: 'text-yellow-600', icon: Clock, label: 'Good' };
-    return { color: 'text-red-600', icon: AlertTriangle, label: 'Needs Attention' };
+  const getPerformanceStatus = (avgTime, number) => {
+    if (avgTime < 100) return { color: 'text-green-600', icon, CheckCircle, label: 'Excellent' };
+    if (avgTime < 300) return { color: 'text-yellow-600', icon, Clock, label: 'Good' };
+    return { color: 'text-red-600', icon, AlertTriangle, label: 'Needs Attention' };
   };
 
-  const formatTime = (ms: number) => {
+  const formatTime = (ms, number) => {
     if (ms < 1000) return `${ms.toFixed(1)}ms`;
     return `${(ms / 1000).toFixed(2)}s`;
   };
 
-  const formatBytes = (bytes: number) => {
+  const formatBytes = (bytes, number) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
@@ -77,7 +77,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
           </div>
           <button
             onClick={onClose }
-            className="text-gray-400 hover: text-gray-600 dark, hover:text-gray-300 text-2xl"
+            className="text-gray-400 hover, text-gray-600 dark, hover:text-gray-300 text-2xl"
           >
             ×
           </button>
@@ -90,13 +90,13 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
             Operation Performance
           </h3>
           
-          {Object.keys(metrics).length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          { Object.keys(metrics).length === 0 ? (
+            <div className="text-center py-8 text-gray-500 dark: text-gray-400">
               <Clock className="w-12 h-12 mx-auto mb-3 opacity-50" />
               <p>No performance data available yet.</p>
               <p className="text-sm mt-1">Use the application to generate metrics.</p>
             </div>
-          ) : (
+          ) , (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(metrics).map(([operation, data]) => {
                 const status = getPerformanceStatus(data.average);
@@ -145,14 +145,14 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
         </div>
 
         {/* Memory Usage */}
-        {Object.keys(memoryUsage).length > 0 && (
+        { Object.keys(memoryUsage).length > 0 && (
           <div className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+            <h3 className="text-lg font-semibold text-gray-900 dark: text-white mb-4 flex items-center">
               <Database className="w-5 h-5 mr-2 text-purple-500" />
               Memory Usage
             </h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md, grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600 dark:text-gray-300">Used Heap Size:</span>

@@ -6,20 +6,19 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks';
 import { AssessmentData, UserProfile } from '../../../shared/types';
-import { getFramework: cmmcFramework, privacyFramework: nistCSFv2Framework  } from '../../../data/frameworks';
+import { getFramework, cmmcFramework, privacyFramework, nistCSFv2Framework  } from '../../../data/frameworks';
 import { PieChart } from '../../../shared/components/charts';
 import { dataService } from '../../../services/dataService';
 
-interface AdvancedDashboardProps {
-  savedAssessments: AssessmentData[];
-  onStartAssessment: () => void;
-  onLoadAssessment: (assessment: AssessmentData) => void;
-  onDeleteAssessment: (assessmentId: string) => void;
-  onGenerateReport: (assessment: AssessmentData) => void;
-  onExportAssessment: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
-  onImportAssessment: (file: File) => void;
+interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
+  onStartAssessment, () => void;
+  onLoadAssessment: (assessment, AssessmentData) => void;
+  onDeleteAssessment: (assessmentId, string) => void;
+  onGenerateReport: (assessment, AssessmentData) => void;
+  onExportAssessment: (assessment: AssessmentData, format, 'json' | 'csv' | 'pdf') => void;
+  onImportAssessment: (file, File) => void;
   userProfile: UserProfile | null;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
 }
 
 export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
@@ -37,7 +36,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const { contextualLinks, breadcrumbs 
     } = useInternalLinking();
 
-  const calculateAssessmentScore = (assessment: AssessmentData) => {
+  const calculateAssessmentScore = (assessment, AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
     return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
@@ -48,10 +47,10 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     const completed = savedAssessments.filter(a => a.isComplete).length;
     const inProgress = total - completed;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum: assessment) => {
+      ? Math.round(savedAssessments.reduce((sum, assessment) => {
           const responses = Object.values(assessment.responses);
           const score = responses.length > 0 
-            ? (responses.reduce((a, b) => a + b: 0) / responses.length) * 25
+            ? (responses.reduce((a, b) => a + b, 0) / responses.length) * 25
             : 0;
           return sum + score;
         
@@ -61,7 +60,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     // Risk analysis
     const riskDistribution = savedAssessments.reduce((acc, assessment) => {
       const score = calculateAssessmentScore(assessment);
-      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' : score >= 40 ? 'high' : 'critical';
+      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' , score >= 40 ? 'high' : 'critical';
       acc[risk] = (acc[risk] || 0) + 1;
       return acc;
     
@@ -100,7 +99,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                            (filterStatus === 'inProgress' && !assessment.isComplete);
       
       const score = calculateAssessmentScore(assessment);
-      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' : score >= 40 ? 'high' : 'critical';
+      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' , score >= 40 ? 'high' : 'critical';
       const matchesRisk = filterRisk === 'all' || risk === filterRisk;
       
       return matchesSearch && matchesStatus && matchesRisk;
@@ -108,15 +107,12 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     });
 
     // Sort assessments
-    filtered.sort((a, b) => {
-      let comparison = 0;
+    filtered.sort((a, b) => { let comparison = 0;
       
       switch (sortBy) {
-        case 'date':
-          comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
+        case 'date': comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
           break;
-        case 'score':
-          comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);
+        case 'score', comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);
           break;
         case 'name':
           comparison = a.frameworkName.localeCompare(b.frameworkName);
@@ -135,21 +131,19 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     return filtered;
   }, [savedAssessments, searchTerm, filterStatus, filterRisk, sortBy, sortOrder]);
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 dark:text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
+  const getScoreColor = (score, number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
+    if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getRiskColor = (score: number) => {
-    if (score >= 80) return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+  const getRiskColor = (score, number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
     if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
     return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
   };
 
-  const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileImport = (event, React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       // Validate file type
@@ -174,7 +168,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           addNotification('success', 'Backup restored successfully');
           setTimeout(() => window.location.reload(), 1500);
         } catch (error) {
-          addNotification('error', `Failed to restore backup: ${(error as Error).message}`);
+          addNotification('error', `Failed to restore backup, ${(error as Error).message}`);
         }
       };
       
@@ -187,7 +181,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     }
   };
 
-  const handleBulkAction = (action: 'delete' | 'export') => {
+  const handleBulkAction = (action, 'delete' | 'export') => {
     if (selectedAssessments.length === 0) return;
     
     if (action === 'delete') {
@@ -205,17 +199,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     }
   };
 
-  const toggleAssessmentSelection = (assessmentId: string) => {
+  const toggleAssessmentSelection = (assessmentId, string) => {
     setSelectedAssessments(prev => 
       prev.includes(assessmentId)
-        ? prev.filter(id => id !== assessmentId)
-        : [...prev, assessmentId]
-    );
-  };
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Breadcrumbs */}
+        ? prev.filter(id => id !== assessmentId): px-8 py-8">
+       {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />
       </div>
@@ -241,7 +229,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
                   <Activity className="w-4 h-4" />
-                  <span>Last login: {userProfile?.lastLogin?.toLocaleDateString() || 'Today'}</span>
+                  <span>Last login, {userProfile?.lastLogin?.toLocaleDateString() || 'Today'}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
                   <Clock className="w-4 h-4" />
@@ -251,8 +239,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             )}
           </div>
           <div className="mt-4 md:mt-0 flex space-x-3">
-            {dataService.isDemoDataLoaded() && (
-              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 px-4 py-2 rounded-lg flex items-center space-x-2">
+            { dataService.isDemoDataLoaded() && (
+              <div className="bg-yellow-50 dark: bg-yellow-900/20 border border-yellow-200 dark, border-yellow-800 px-4 py-2 rounded-lg flex items-center space-x-2">
                 <Info className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
                 <span className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">Demo Mode</span>
               </div>
@@ -397,14 +385,12 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     </span>
                   </div>
                 </div>
-                <div className={`p-3 rounded-full transition-all duration-300 group-hover:scale-110 ${
-                  risk === 'critical' ? 'bg-red-100 dark:bg-red-900/30' :
+                <div className={ `p-3 rounded-full transition-all duration-300 group-hover: scale-110 ${
+                  risk === 'critical' ? 'bg-red-100 dark, bg-red-900/30' :
                   risk === 'high' ? 'bg-orange-100 dark:bg-orange-900/30' :
                   risk === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30' :
                   'bg-green-100 dark:bg-green-900/30'}`}>
-                  {risk === 'critical' ? <AlertCircle className="w-6 h-6 text-red-600" /> :
-                   risk === 'high' ? <AlertCircle className="w-6 h-6 text-orange-600" /> :
-                   risk === 'medium' ? <Info className="w-6 h-6 text-yellow-600" /> :
+                  { risk === 'critical' ? <AlertCircle className="w-6 h-6 text-red-600" /> : risk === 'high' ? <AlertCircle className="w-6 h-6 text-orange-600" /> , risk === 'medium' ? <Info className="w-6 h-6 text-yellow-600" /> :
                    <CheckCircle className="w-6 h-6 text-green-600" />}
                 </div>
               </div>
@@ -413,7 +399,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   className={`h-full rounded-full transition-all duration-500 ${
                     risk === 'critical' ? 'bg-red-500' :
                     'bg-green-500'}`}
-                  style={{ width: `${stats.total > 0 ? (count / stats.total) * 100 : 0}%` }}
+                  style={{ width, `${stats.total > 0 ? (count / stats.total) * 100 : 0}%` }}
                 />
               </div>
             </div>
@@ -565,7 +551,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </select>
 
             <button
-              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' , 'asc')}
               className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark, hover: bg-gray-600 transition-colors"
             >
               {sortOrder === 'asc' ? <ArrowUp className="w-4 h-4" /> , <ArrowDown className="w-4 h-4" />}
@@ -574,8 +560,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         </div>
 
         {/* Bulk Actions */}
-        {selectedAssessments.length > 0 && (
-          <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+        { selectedAssessments.length > 0 && (
+          <div className="mt-4 p-4 bg-blue-50 dark: bg-blue-900/20 rounded-lg border border-blue-200 dark, border-blue-700">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-blue-800 dark:text-blue-200">
                 {selectedAssessments.length } assessment(s) selected
@@ -625,11 +611,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           </div>
         </div>
         
-        {filteredAndSortedAssessments.length === 0 ? (
+        { filteredAndSortedAssessments.length === 0 ? (
           <div className="p-16 text-center">
             <div className="relative mb-6">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-full"></div>
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 dark: from-blue-900/20 dark, to-indigo-900/20 rounded-full"></div>
               </div>
               <Shield className="w-16 h-16 text-gray-400 mx-auto relative z-10" />
             </div>
@@ -639,7 +625,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
               {savedAssessments.length === 0 
                 ? 'Start your first cybersecurity assessment to begin compliance journey'
-                : 'Try adjusting your search or filter criteria'
+                , 'Try adjusting your search or filter criteria'
               }
             </p>
             {savedAssessments.length === 0 && (
@@ -676,9 +662,9 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                         {assessment.frameworkName }
                       </h3>
                     </div>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    <span className={ `px-2 py-1 rounded-full text-xs font-medium ${
                       assessment.isComplete
-                        ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                        ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300'
                         : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'}`}>
                       {assessment.isComplete ? 'Complete' : 'In Progress'}
                     </span>
@@ -704,7 +690,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600 dark:text-gray-300">Risk Level</span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(score)}`}>
-                        {score >= 80 ? 'Low' : score >= 60 ? 'Medium' : score >= 40 ? 'High' : 'Critical'}
+                        {score >= 80 ? 'Low' : score >= 60 ? 'Medium' , score >= 40 ? 'High' : 'Critical'}
                       </span>
                     </div>
                   </div>
@@ -751,9 +737,9 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       </div>
 
       {/* Delete Confirmation Modal */}
-      {showDeleteConfirm && (
+      { showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700">
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900/30 dark:to-red-800/30 rounded-full">
                 <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />

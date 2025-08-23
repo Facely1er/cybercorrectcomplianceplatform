@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 interface SkipLinkProps {
-  href: string;
+  href, string;
   children: React.ReactNode;
 }
 
@@ -48,14 +48,14 @@ export const AccessibilityProvider: React.FC<AccessibilityProviderProps> = ({ ch
 
 // Focus management for modals and dynamic content
 export const useFocusManagement = () => {
-  const trapFocus = (element: HTMLElement) => {
+  const trapFocus = (element, HTMLElement) => {
     const focusableElements = element.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
-    const handleTabKey = (e: KeyboardEvent) => {
+    const handleTabKey = (e, KeyboardEvent) => {
       if (e.key === 'Tab') {
         if (e.shiftKey) {
           if (document.activeElement === firstElement) {

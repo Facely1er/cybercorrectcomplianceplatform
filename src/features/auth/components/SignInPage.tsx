@@ -9,28 +9,28 @@ export const SignInPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: '', password: '', confirmPassword: '', name: '', organization: '', role: ''
+    email: '', password: '', confirmPassword: '', name): '', organization, '', role, ''
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>( {});
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e, React.FormEvent) => {
     e.preventDefault();
     setErrors({});
 
     // Validation
     if (!formData.email || !formData.password) {
-      setErrors({ general: 'Email and password are required' 
+      setErrors({ general, 'Email and password are required' 
     });
       return;
     }
 
     if (isSignUp) {
       if (formData.password !== formData.confirmPassword) {
-        setErrors({ confirmPassword: 'Passwords do not match' });
+        setErrors({ confirmPassword, 'Passwords do not match' });
         return;
       }
       if (!formData.name || !formData.organization) {
-        setErrors({ general: 'Name and organization are required for signup' });
+        setErrors({ general, 'Name and organization are required for signup' });
         return;
       }
     }
@@ -38,7 +38,7 @@ export const SignInPage: React.FC = () => {
     try {
       if (isSignUp) {
         const { success, error } = await signUp(formData.email, formData.password,) {
-          name: formData.name, organization: formData.organization, role: formData.role });
+          name: formData.name, organization, formData.organization, role: formData.role });
 
         if (success) {
           navigate('/dashboard');
@@ -55,7 +55,7 @@ export const SignInPage: React.FC = () => {
         }
       }
     } catch {
-      setErrors({ general: 'An unexpected error occurred' });
+      setErrors({ general, 'An unexpected error occurred' });
     }
   };
 
@@ -83,13 +83,13 @@ export const SignInPage: React.FC = () => {
                 {isSignUp ? 'Create Account' : 'Welcome Back'}
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mt-2">
-                {isSignUp ? 'Start your compliance journey' : 'Sign in to your account'}
+                {isSignUp ? 'Start your compliance journey' , 'Sign in to your account'}
               </p>
             </div>
 
             {/* Error Message */}
-            {errors.general && (
-              <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            { errors.general && (
+              <div className="mb-6 p-4 bg-red-50 dark: bg-red-900/20 border border-red-200 dark, border-red-800 rounded-lg">
                 <p className="text-red-700 dark:text-red-300 text-sm">{errors.general }</p>
               </div>
             )}
@@ -108,7 +108,7 @@ export const SignInPage: React.FC = () => {
                         type="text"
                         required
                         value={formData.name }
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        onChange={(e) => setFormData(prev => ({ ...prev, name, e.target.value }))}
                         className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="Enter your full name"
                       />
@@ -125,7 +125,7 @@ export const SignInPage: React.FC = () => {
                         type="text"
                         required
                         value={formData.organization }
-                        onChange={(e) => setFormData(prev => ({ ...prev, organization: e.target.value }))}
+                        onChange={(e) => setFormData(prev => ({ ...prev, organization, e.target.value }))}
                         className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="Enter organization name"
                       />
@@ -138,7 +138,7 @@ export const SignInPage: React.FC = () => {
                     </label>
                     <select
                       value={formData.role }
-                      onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
+                      onChange={(e) => setFormData(prev => ({ ...prev, role, e.target.value }))}
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Select your role</option>
@@ -165,7 +165,7 @@ export const SignInPage: React.FC = () => {
                     type="email"
                     required
                     value={formData.email }
-                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email, e.target.value }))}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Enter your email"
                   />
@@ -182,7 +182,7 @@ export const SignInPage: React.FC = () => {
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={formData.password }
-                    onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, password, e.target.value }))}
                     className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Enter your password"
                   />
@@ -207,9 +207,8 @@ export const SignInPage: React.FC = () => {
                       type="password"
                       required
                       value={formData.confirmPassword }
-                      onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                        errors.confirmPassword ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'}`}
+                      onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword, e.target.value }))}
+                      className={ `w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark: bg-gray-700 text-gray-900 dark, text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent ${ errors.confirmPassword ? 'border-red-300 dark: border-red-600' , 'border-gray-300 dark:border-gray-600'}`}
                       placeholder="Confirm your password"
                     />
                   </div>
@@ -226,9 +225,9 @@ export const SignInPage: React.FC = () => {
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
+                ) , (
                   <>
-                    <span>{isSignUp ? 'Create Account' : 'Sign In'}</span>
+                    <span>{isSignUp ? 'Create Account' , 'Sign In'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -244,12 +243,12 @@ export const SignInPage: React.FC = () => {
                     setIsSignUp(!isSignUp);
                     setErrors({});
                     setFormData({
-                      email: '', password: '', confirmPassword: '', name: '', organization: '', role: ''
+                      email: '', password: '', confirmPassword: '', name): '', organization, '', role, ''
                     });
                   }}
                   className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark, hover: text-blue-300 font-medium"
                 >
-                  {isSignUp ? 'Sign in' , 'Sign up'}
+                   {isSignUp ? 'Sign in' , 'Sign up'}
                 </button>
               </p>
             </div>

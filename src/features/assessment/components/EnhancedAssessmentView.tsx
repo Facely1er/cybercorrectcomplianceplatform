@@ -1,4 +1,4 @@
-import React, { useState: useEffect, useCallback: useMemo  } from 'react';
+import React, { useState, useEffect, useCallback: useMemo  } from 'react';
 import { ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb } from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
@@ -7,29 +7,27 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { EvidenceManager } from './EvidenceManager';
 
-interface EnhancedAssessmentViewProps {
-  assessment: AssessmentData;
-  onSave: (assessment: AssessmentData) => void;
-  onGenerateReport: (assessment: AssessmentData) => void;
+interface EnhancedAssessmentViewProps { assessment, AssessmentData;
+  onSave: (assessment, AssessmentData) => void;
+  onGenerateReport: (assessment, AssessmentData) => void;
   onBack: () => void;
 }
 
-export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment: onSave, onGenerateReport: onBack  }) => {
+export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment, onSave, onGenerateReport, onBack  }) => {
   const { breadcrumbs } = useInternalLinking();
   const framework = getFramework(assessment.frameworkId);
   
   // Early return if framework is not valid
-  if (!framework || !framework.sections || !Array.isArray(framework.sections)) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+  if (!framework || !framework.sections || !Array.isArray(framework.sections)) { return (
+      <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
           <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-2">
             Framework Loading Error
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             The framework data for this assessment could not be loaded properly. 
-            Framework ID: {assessment.frameworkId
+            Framework ID, {assessment.frameworkId
     }
           </p>
           <div className="space-y-3">
@@ -61,7 +59,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
 
   // Get all questions in order with additional safety checks
   const allQuestions = useMemo(() => {
-    const questions: (Question & { sectionName: string; categoryName: string 
+    const questions: (Question & { sectionName, string; categoryName, string 
     })[] = [];
     
     if (framework && framework.sections && Array.isArray(framework.sections)) {
@@ -72,7 +70,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               category.questions.forEach((question) => {
                 if (question && question.id) {
                   questions.push({
-                    ...question, sectionName: section.name || 'Unknown Section', categoryName: category.name || 'Unknown Category'
+                    ...question, sectionName, section.name || 'Unknown Section', categoryName, category.name || 'Unknown Category'
                   });
                 }
               });
@@ -86,18 +84,17 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
   }, [framework]);
 
   // Additional safety check for questions
-  if (allQuestions.length === 0) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+  if (allQuestions.length === 0) { return (
+      <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
           <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-2">
             No Questions Available
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             This framework doesn't contain any questions to assess.
             Framework: {framework.name 
-    } (ID: {assessment.frameworkId })
+    } (ID, {assessment.frameworkId })
           </p>
           <button 
             onClick={onBack }
@@ -128,24 +125,24 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
 
   const handleSave = useCallback(() => {
     const updatedAssessment: AssessmentData = {
-      ...assessment, responses: currentResponses, questionNotes: notes, lastModified: new Date(), isComplete: Object.keys(currentResponses).length === allQuestions.length };
+      ...assessment, responses: currentResponses, questionNotes: notes, lastModified, new Date(), isComplete: Object.keys(currentResponses).length === allQuestions.length };
     
     onSave(updatedAssessment);
     setLastSaved(new Date());
     setHasUnsavedChanges(false);
   }, [assessment, currentResponses, notes, allQuestions.length, onSave]);
 
-  const handleResponseChange = (questionId: string, value: number) => {
+  const handleResponseChange = (questionId: string, value, number) => {
     setCurrentResponses(prev => ({ ...prev, [questionId], value }));
     setHasUnsavedChanges(true);
   };
 
-  const handleNotesChange = (questionId: string, note: string) => {
+  const handleNotesChange = (questionId: string, note, string) => {
     setNotes(prev => ({ ...prev, [questionId], note }));
     setHasUnsavedChanges(true);
   };
 
-  const navigateQuestion = (direction: 'prev' | 'next') => {
+  const navigateQuestion = (direction, 'prev' | 'next') => {
     if (direction === 'prev' && currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     } else if (direction === 'next' && currentQuestionIndex < allQuestions.length - 1) {
@@ -153,12 +150,11 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
     }
   };
 
-  if (!currentQuestion) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+  if (!currentQuestion) { return (
+      <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-2">
             Assessment Loading Error
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
@@ -208,7 +204,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             <div className="flex items-center space-x-3">
               <div className="text-right">
                 <div className="text-sm text-gray-600 dark:text-gray-300">
-                  Progress: {Math.round(progress)}%
+                  Progress, {Math.round(progress)}%
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
                   Last saved: {lastSaved.toLocaleTimeString()}
@@ -256,8 +252,8 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               {currentQuestion.text }
             </h2>
             
-            {showGuidance && currentQuestion.guidance && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800 mb-6">
+            { showGuidance && currentQuestion.guidance && (
+              <div className="bg-blue-50 dark: bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark, border-blue-800 mb-6">
                 <div className="flex items-start space-x-3">
                   <Lightbulb className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                   <div>
@@ -287,7 +283,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
                     className={`w-full p-4 text-left border-2 rounded-lg transition-all duration-200 ${
                       isSelected
                         ? 'border-primary-teal bg-primary-teal/5 dark:bg-dark-primary/10'
-                        : 'border-gray-200 dark:border-gray-700 hover: border-primary-teal/50 dark, hover:border-dark-primary/50'}`}
+                        , 'border-gray-200 dark:border-gray-700 hover: border-primary-teal/50 dark, hover:border-dark-primary/50'}`}
                   >
                     <div className="flex items-start space-x-3">
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mt-0.5 ${
@@ -333,19 +329,18 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             questionId={currentQuestion.id }
             questionEvidence={assessment.questionEvidence?.[currentQuestion.id] || []}
             evidenceLibrary={assessment.evidenceLibrary || []}
-            onAddEvidence={ (questionId: evidence) => {
+            onAddEvidence={ (questionId, evidence) => {
               // Handle evidence addition
-              console.log('Adding evidence for question:', questionId: evidence);
+              console.log('Adding evidence for question:', questionId, evidence);
             
      }}
-            onRemoveEvidence={ (questionId: evidenceId) => {
+            onRemoveEvidence={ (questionId, evidenceId) => {
               // Handle evidence removal
-              console.log('Removing evidence for question:', questionId: evidenceId);
+              console.log('Removing evidence for question:', questionId, evidenceId);
             
      }}
-            onUploadEvidence={ (file: metadata) => {
-              // Handle evidence upload
-              console.log('Uploading evidence:', file.name: metadata);
+            onUploadEvidence={ (file, metadata) => { // Handle evidence upload
+              console.log('Uploading evidence, ': file.name, metadata);
             
      }}
           />
@@ -381,8 +376,8 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
           </div>
 
           {/* Completion Actions */}
-          {currentQuestionIndex === allQuestions.length - 1 && (
-            <div className="mt-8 p-6 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+          { currentQuestionIndex === allQuestions.length - 1 && (
+            <div className="mt-8 p-6 bg-green-50 dark: bg-green-900/20 rounded-xl border border-green-200 dark, border-green-800">
               <div className="text-center">
                 <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">

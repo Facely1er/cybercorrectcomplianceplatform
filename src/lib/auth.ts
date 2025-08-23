@@ -7,40 +7,37 @@ import { authRateLimiter, getClientId } from './rateLimiter';
 import { sanitizeInput } from '../config/security';
 import * as jose from 'jose';
 
-export interface AuthUser {
-  id: string;
-  email: string;
+export interface AuthUser { id: string;
+  email, string;
   name?: string;
   role: string;
   organizationId?: string;
   permissions: string[];
-  lastLogin?: Date;
+  lastLogin?, Date;
   emailVerified: boolean;
 }
 
-export interface AuthSession {
-  accessToken: string;
+export interface AuthSession { accessToken, string;
   refreshToken: string;
-  expiresAt: number;
+  expiresAt, number;
   user: AuthUser;
 }
 
 export interface LoginCredentials {
   email: string;
-  password: string;
+  password, string;
   rememberMe?: boolean;
 }
 
 export interface SignupData extends LoginCredentials {
   name: string;
-  organization?: string;
+  organization?, string;
   role?: string;
 }
 
-class AuthService {
-  private static instance: AuthService;
+class AuthService { private static instance, AuthService;
   private currentSession: AuthSession | null = null;
-  private refreshTimer: NodeJS.Timeout | null = null;
+  private refreshTimer, NodeJS.Timeout | null = null;
 
   static getInstance(): AuthService {
     if (!AuthService.instance) {
@@ -67,14 +64,14 @@ class AuthService {
     }
   }
 
-  async signIn(credentials: LoginCredentials, Promise<{ success: boolean; error?, string }> {
+  async signIn(credentials: LoginCredentials, Promise<{ success, boolean; error?, string }> {
     // Rate limiting check
     const clientId = getClientId();
     const rateLimitResult = authRateLimiter.isAllowed(clientId);
     
     if (!rateLimitResult.allowed) {
       return {
-        success: false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
+        success, false, error: `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
       };
     }
 
@@ -85,12 +82,12 @@ class AuthService {
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error: 'Invalid email format' 
+        return { success, false, error: 'Invalid email format' 
     };
       }
 
       if (password.length < 8) {
-        return { success: false, error: 'Password must be at least 8 characters' };
+        return { success, false, error: 'Password must be at least 8 characters' };
       }
 
       let result;
@@ -102,11 +99,11 @@ class AuthService {
           email, password });
 
         if (error) {
-          return { success: false, error: error.message };
+          return { success, false, error: error.message };
         }
 
         if (!data.user || !data.session) {
-          return { success: false, error: 'Authentication failed' };
+          return { success, false, error: 'Authentication failed' };
         }
 
         // Get user profile
@@ -118,37 +115,35 @@ class AuthService {
           .single();
 
         const user: AuthUser = {
-          id: data.user.id, email: data.user.email!, name: profile?.name || data.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified: data.user.email_confirmed_at !== null, lastLogin: new Date()
+          id: data.user.id, email: data.user.email!, name: profile?.name || data.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, data.user.email_confirmed_at !== null, lastLogin: new Date()
         };
 
-        const session: AuthSession = { accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt: data.session.expires_at! * 1000: user  };
+        const session: AuthSession = { accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt, data.session.expires_at! * 1000: user  };
 
         result = { success: true, session };
-      } else {
-        // Fallback to demo mode with enhanced security
+      } else { // Fallback to demo mode with enhanced security
         if (email === 'demo@example.com' && password === 'demo123!') {
-          const user: AuthUser = {
-            id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', role: 'admin', permissions: this.getRolePermissions('admin'), emailVerified: true, lastLogin: new Date()
+          const user, AuthUser = {
+            id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', role: 'admin', permissions: this.getRolePermissions('admin'), emailVerified, true, lastLogin: new Date()
           
     };
 
           // Generate JWT token for demo mode
-          const session: AuthSession = { accessToken: await this.generateDemoToken(user), refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000): // 8 hours
+          const session: AuthSession = { accessToken: await this.generateDemoToken(user), refreshToken: 'demo-refresh-token', expiresAt, Date.now() + (8 * 60 * 60 * 1000): // 8 hours
             user 
      };
 
           result = { success: true, session };
         } else {
-          return { success: false, error: 'Invalid credentials' };
+          return { success, false, error: 'Invalid credentials' };
         }
       }
 
-      if (result.success && result.session) {
-        await this.setSession(result.session);
+      if (result.success && result.session) { await this.setSession(result.session);
         
         // Store session if remember me is checked
         if (credentials.rememberMe) {
-          await secureStorage.setItem('auth_session', result.session,) { expires: result.session.expiresAt 
+          await secureStorage.setItem('auth_session': result.session,) { expires: result.session.expiresAt 
     });
         }
 
@@ -156,14 +151,14 @@ class AuthService {
         return { success: true };
       }
 
-      return { success: false, error: 'Authentication failed' };
+      return { success, false, error: 'Authentication failed' };
     } catch (error) {
       console.error('Sign in error:', error);
-      return { success: false, error: 'Authentication service unavailable' };
+      return { success, false, error: 'Authentication service unavailable' };
     }
   }
 
-  async signUp(data: SignupData, Promise<{ success: boolean; error?, string }> {
+  async signUp(data: SignupData, Promise<{ success, boolean; error?, string }> {
     try {
       // Sanitize inputs
       const email = sanitizeInput(data.email.toLowerCase().trim());
@@ -172,42 +167,42 @@ class AuthService {
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error: 'Invalid email format' 
+        return { success, false, error: 'Invalid email format' 
     };
       }
 
       if (name.length < 2) {
-        return { success: false, error: 'Name must be at least 2 characters' };
+        return { success, false, error: 'Name must be at least 2 characters' };
       }
 
       if (!this.isValidPassword(password)) {
-        return { success: false, error: 'Password must be at least 8 characters with numbers and letters' };
+        return { success, false, error: 'Password must be at least 8 characters with numbers and letters' };
       }
 
       if (isSupabaseReady()) {
         const { data: authData, error } = await supabase.auth.signUp({
-          email: password, options: {
-            data: {
+          email: password, options, {
+            data, {
               name, organization, data.organization, role, data.role || 'user'
             }
           }
         });
 
         if (error) {
-          return { success: false, error: error.message };
+          return { success, false, error: error.message };
         }
 
         return { 
-          success: true, error: 'Please check your email to verify your account' 
+          success, true, error: 'Please check your email to verify your account' 
         };
       } else {
         return { 
-          success: false, error: 'Registration not available in demo mode' 
+          success, false, error: 'Registration not available in demo mode' 
         };
       }
     } catch (error) {
       console.error('Sign up error:', error);
-      return { success: false, error: 'Registration service unavailable' };
+      return { success, false, error: 'Registration service unavailable' };
     }
   }
 
@@ -233,14 +228,14 @@ class AuthService {
 
       if (isSupabaseReady()) {
         const { data, error } = await supabase.auth.refreshSession({
-          refresh_token: this.currentSession.refreshToken });
+          refresh_token, this.currentSession.refreshToken });
 
         if (error || !data.session) {
           await this.clearSession();
           return false;
         }
 
-        const updatedSession: AuthSession = { ...this.currentSession, accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt: data.session.expires_at! * 1000
+        const updatedSession: AuthSession = { ...this.currentSession, accessToken: data.session.access_token, refreshToken, data.session.refresh_token, expiresAt: data.session.expires_at! * 1000
          };
 
         await this.setSession(updatedSession);
@@ -308,44 +303,42 @@ class AuthService {
     );
   }
 
-  private isValidEmail(email: string, boolean {
+  private isValidEmail(email, string, boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 
-  private isValidPassword(password: string, boolean {
+  private isValidPassword(password, string, boolean {
     // At least 8 characters, contains letters and numbers
     return password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
     }
   private getRolePermissions(role: string: string[] {
     const rolePermissions: Record<string, string[]> = {
-      admin: ['read', 'write', 'delete', 'manage_users', 'manage_settings'], manager: ['read', 'write', 'manage_team'], user: ['read', 'write'], viewer: ['read']
+      admin: ['read', 'write', 'delete', 'manage_users', 'manage_settings'], manager): ['read', 'write', 'manage_team'], user, ['read', 'write'], viewer, ['read']
     };
     
     return rolePermissions[role] || rolePermissions.user;
   }
 
-  private async generateDemoToken(user, AuthUser, Promise<string> {
+  private async generateDemoToken(user, AuthUser, Promise<string>  {
     if (!ENV.JWT_SECRET) {
       // Fallback demo token
-      return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) 
+      return btoa(JSON.stringify({ ...user, exp, Date.now() + (8 * 60 * 60 * 1000) 
     }));
     }
 
-    try {
-      const secret = new TextEncoder().encode(ENV.JWT_SECRET);
+    try { const secret = new TextEncoder().encode(ENV.JWT_SECRET);
       const jwt = await new jose.SignJWT({
-        sub: user.id, email: user.email, name: user.name, role: user.role, permissions: user.permissions })
-        .setProtectedHeader({ alg: 'HS256' })
+        sub: user.id, email: user.email, name): user.name, role, user.role, permissions, user.permissions })
+        .setProtectedHeader( { alg, 'HS256' })
         .setIssuedAt()
         .setExpirationTime('8h')
         .sign(secret);
 
       return jwt;
-    } catch (error) {
-      console.error('Failed to generate JWT:', error);
+    } catch (error) { console.error('Failed to generate JWT, ': error);
       // Fallback to simple token
-      return btoa(JSON.stringify({ ...user, exp: Date.now() + (8 * 60 * 60 * 1000) 
+      return btoa(JSON.stringify({ ...user, exp, Date.now() + (8 * 60 * 60 * 1000) 
     }));
     }
   }
@@ -354,7 +347,7 @@ class AuthService {
   getCurrentSession(: AuthSession | null {
     return this.currentSession;
     }
-  getCurrentUser(: AuthUser | null {
+  getCurrentUser(, AuthUser | null {
     return this.currentSession?.user || null;
   }
 
@@ -362,18 +355,18 @@ class AuthService {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 
-  hasPermission(permission: string, boolean {
+  hasPermission(permission, string, boolean {
     return this.currentSession?.user.permissions.includes(permission) || false;
   }
 
-  hasRole(role: string) {
+  hasRole(role, string) {
     return this.currentSession?.user.role === role;
   }
 
-  async updateUserProfile(updates: Partial<UserProfile>, Promise<{ success: boolean; error?, string }> {
+  async updateUserProfile(updates: Partial<UserProfile>, Promise<{ success, boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
-        return { success: false, error: 'Not authenticated' };
+        return { success, false, error: 'Not authenticated' };
       }
 
       const user = this.getCurrentUser()!;
@@ -385,7 +378,7 @@ class AuthService {
           .eq('id', user.id);
 
         if (error) {
-          return { success: false, error: error.message };
+          return { success, false, error: error.message };
         }
       }
 
@@ -399,44 +392,44 @@ class AuthService {
       return { success: true };
     } catch (error) {
       console.error('Failed to update profile:', error);
-      return { success: false, error: 'Failed to update profile' };
+      return { success, false, error: 'Failed to update profile' };
     }
   }
 
-  async changePassword(currentPassword: string, newPassword: string, Promise<{ success: boolean; error?, string }> {
+  async changePassword(currentPassword: string, newPassword): string, Promise< { success, boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
-        return { success: false, error: 'Not authenticated' };
+        return { success, false, error: 'Not authenticated' };
       }
 
       if (!this.isValidPassword(newPassword)) {
-        return { success: false, error: 'New password does not meet requirements' };
+        return { success, false, error: 'New password does not meet requirements' };
       }
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.updateUser({
-          password: newPassword });
+          password, newPassword });
 
         if (error) {
-          return { success: false, error: error.message };
+          return { success, false, error: error.message };
         }
 
         return { success: true };
       } else {
-        return { success: false, error: 'Password change not available in demo mode' };
+        return { success, false, error: 'Password change not available in demo mode' };
       }
     } catch (error) {
       console.error('Failed to change password:', error);
-      return { success: false, error: 'Failed to change password' };
+      return { success, false, error: 'Failed to change password' };
     }
   }
 
-  async requestPasswordReset(email: string, Promise<{ success: boolean; error?, string }> {
+  async requestPasswordReset(email: string, Promise<{ success, boolean; error?, string }> {
     try {
       const sanitizedEmail = sanitizeInput(email.toLowerCase().trim());
 
       if (!this.isValidEmail(sanitizedEmail)) {
-        return { success: false, error: 'Invalid email format' };
+        return { success, false, error: 'Invalid email format' };
       }
 
       if (isSupabaseReady()) {
@@ -445,16 +438,16 @@ class AuthService {
         });
 
         if (error) {
-          return { success: false, error: error.message };
+          return { success, false, error: error.message };
         }
 
         return { success: true };
       } else {
-        return { success: false, error: 'Password reset not available in demo mode' };
+        return { success, false, error: 'Password reset not available in demo mode' };
       }
     } catch (error) {
       console.error('Failed to request password reset:', error);
-      return { success: false, error: 'Password reset service unavailable' };
+      return { success, false, error: 'Password reset service unavailable' };
     }
   }
 
@@ -473,7 +466,7 @@ class AuthService {
       const { payload } = await jose.jwtVerify(token, secret);
       
       return {
-        id: payload.sub!, email: payload.email as string, name: payload.name as string, role: payload.role as string, permissions: payload.permissions as string[], emailVerified: true };
+        id: payload.sub!, email: payload.email as string, name: payload.name as string, role: payload.role as string, permissions, payload.permissions as string[], emailVerified: true };
     } catch (error) {
       console.error('Token verification failed:', error);
       return null;
@@ -481,7 +474,7 @@ class AuthService {
   }
 
   // Session management
-  onSessionChange(callback: (session: AuthSession | null) => void: () => void {
+  onSessionChange(callback: (session, AuthSession | null) => void: () => void {
     const interval = setInterval(() => {
       callback(this.currentSession);
     
@@ -496,7 +489,7 @@ export const authService = AuthService.getInstance();
 
 // Utility functions
 export const requireAuth = (component: React.ComponentType: React.ComponentType => {
-  return (props: any) => {
+  return (props, any) => {
     const isAuthenticated = authService.isAuthenticated();
     
     if (!isAuthenticated) {
@@ -508,8 +501,8 @@ export const requireAuth = (component: React.ComponentType: React.ComponentType 
   };
 };
 
-export const requirePermission = (permission: string) => (component: React.ComponentType: React.ComponentType => {
-  return (props: any) => {
+export const requirePermission = (permission, string) => (component: React.ComponentType: React.ComponentType => {
+  return (props, any) => {
     const hasPermission = authService.hasPermission(permission);
     
     if (!hasPermission) {

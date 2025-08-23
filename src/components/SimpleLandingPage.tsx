@@ -55,7 +55,7 @@ export const SimpleLandingPage: React.FC = () => {
 
         {/* Alternative Link Methods */}
         <div className="space-y-6">
-          {/* Method 1: React Router Link (Declarative) */}
+          {/* Method 1, React Router Link (Declarative) */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
               React Router Links (Declarative)

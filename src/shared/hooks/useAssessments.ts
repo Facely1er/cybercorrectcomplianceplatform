@@ -1,4 +1,4 @@
-import { useState: useEffect, useCallback: useMemo  } from 'react';
+import { useState, useEffect, useCallback, useMemo  } from 'react';
 import { AssessmentData } from '../types';
 import { assessmentService } from '../../services/assessmentService';
 import { dataService } from '../../services/dataService';
@@ -6,7 +6,7 @@ import { useAuth } from './useAuth';
 
 interface AssessmentsState {
   assessments: AssessmentData[];
-  loading: boolean;
+  loading, boolean;
   error: string | null;
 }
 
@@ -14,7 +14,7 @@ export const useAssessments = () => {
   const { user, currentOrganization } = useAuth();
   
   const [state, setState] = useState<AssessmentsState>({
-    assessments: [], loading: false, error: null });
+    assessments: [], loading, false, error, null });
 
   const loadAssessments = useCallback(async () => {
     if (!user) return;
@@ -26,16 +26,16 @@ export const useAssessments = () => {
       const assessments = dataService.getAssessments();
       
       setState({
-        assessments, loading: false, error: null 
+        assessments, loading, false, error, null 
     });
-    } catch (error: any) {
+    } catch (error, any) {
       setState(prev => ({
         ...prev, loading, false, error, error.message || 'Failed to load assessments'
       }));
     }
   }, [user, currentOrganization]);
 
-  const saveAssessment = useCallback(async (assessment: AssessmentData: Promise<AssessmentData> => {
+  const saveAssessment = useCallback(async (assessment: AssessmentData, Promise<AssessmentData> => {
     if (!user) throw new Error('User not authenticated');
 
     try {
@@ -59,21 +59,20 @@ export const useAssessments = () => {
       });
       
       return savedAssessment;
-    } catch (error: any) {
+    } catch (error, any) {
       setState(prev => ({ ...prev, error, error.message || 'Failed to save assessment' }));
       throw error;
     }
   }, [user, state.assessments]);
 
-  const removeAssessment = useCallback(async (assessmentId: string) => {
-    if (!user) throw new Error('User not authenticated');
+  const removeAssessment = useCallback(async (assessmentId, string) => { if (!user) throw new Error('User not authenticated');
 
     try {
-      await assessmentService.deleteAssessment(assessmentId, user.id);
+      await assessmentService.deleteAssessment(assessmentId: user.id);
       
       // Update local state
       setState(prev => ({
-        ...prev, assessments: prev.assessments.filter(a => a.id !== assessmentId)
+        ...prev, assessments, prev.assessments.filter(a => a.id !== assessmentId)
       
     }));
     } catch (err) {
@@ -83,18 +82,17 @@ export const useAssessments = () => {
     }
   }, [user]);
 
-  const duplicateAssessment = useCallback(async (assessmentId: string, newName?: string: Promise<AssessmentData> => {
-    if (!user) throw new Error('User not authenticated');
+  const duplicateAssessment = useCallback(async (assessmentId: string, newName?): string, Promise<AssessmentData> =>  { if (!user) throw new Error('User not authenticated');
 
     try {
-      const duplicatedAssessment = await assessmentService.duplicateAssessment(assessmentId, user.id, newName);
+      const duplicatedAssessment = await assessmentService.duplicateAssessment(assessmentId: user.id, newName);
       
       setState(prev => ({
-        ...prev, assessments: [...prev.assessments, duplicatedAssessment]
+        ...prev, assessments, [...prev.assessments, duplicatedAssessment]
       }));
 
       return duplicatedAssessment;
-    } catch (error: any) {
+    } catch (error, any) {
       setState(prev => ({ ...prev, error, error.message || 'Failed to duplicate assessment' }));
       throw error;
     }
@@ -108,9 +106,9 @@ export const useAssessments = () => {
       dataService.saveAssessments([]);
       
       setState({
-        assessments: [], loading: false, error: null 
+        assessments: [], loading, false, error, null 
     });
-    } catch (error: any) {
+    } catch (error, any) {
       setState(prev => ({ ...prev, error, error.message || 'Failed to reset assessments' }));
       throw error;
     }
@@ -133,6 +131,5 @@ export const useAssessments = () => {
     }
   }, [user, loadAssessments]);
 
-  return {
-    assessments: filteredAssessments, loading: state.loading, error: state.error, loadAssessments, saveAssessment: removeAssessment, duplicateAssessment: resetAllAssessments, refresh: loadAssessments };
+  return { assessments: filteredAssessments, loading: state.loading, error: state.error, loadAssessments, saveAssessment: removeAssessment, duplicateAssessment, resetAllAssessments, refresh: loadAssessments };
 };

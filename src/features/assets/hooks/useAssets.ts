@@ -4,12 +4,12 @@ import { dataService } from '../../../services/dataService';
 
 interface AssetsState {
   assets: Asset[];
-  loading: boolean;
+  loading, boolean;
   error: string | null;
 }
 
-export const useAssets = () => { const [state: setState] = useState<AssetsState>({
-    assets: [], loading: false, error: null  });
+export const useAssets = () => { const [state, setState] = useState<AssetsState>({
+    assets: [], loading, false, error, null  });
 
   const loadAssets = useCallback(async () => {
     setState(prev => ({ ...prev, loading, true, error, null }));
@@ -19,16 +19,16 @@ export const useAssets = () => { const [state: setState] = useState<AssetsState>
       const assets = dataService.getAssets();
       
       setState({
-        assets, loading: false, error: null 
+        assets, loading, false, error, null 
     });
     } catch {
       setState(prev => ({
-        ...prev, loading: false, error: 'Failed to load assets'
+        ...prev, loading, false, error, 'Failed to load assets'
       }));
     }
   }, []);
 
-  const saveAsset = useCallback(async (asset: Asset) => {
+  const saveAsset = useCallback(async (asset, Asset) => {
     try {
       // Save using centralized data service
       dataService.saveAsset(asset);
@@ -47,22 +47,22 @@ export const useAssets = () => { const [state: setState] = useState<AssetsState>
       
       return asset;
     } catch {
-      setState(prev => ({ ...prev, error: 'Failed to save asset' }));
+      setState(prev => ({ ...prev, error, 'Failed to save asset' }));
       throw error;
     }
   }, []);
 
-  const deleteAsset = useCallback(async (assetId: string) => {
+  const deleteAsset = useCallback(async (assetId, string) => {
     try {
       // Delete using centralized data service
       dataService.deleteAsset(assetId);
       
       setState(prev => ({
-        ...prev, assets: prev.assets.filter(a => a.id !== assetId)
+        ...prev, assets, prev.assets.filter(a => a.id !== assetId)
       
     }));
     } catch {
-      setState(prev => ({ ...prev, error: 'Failed to delete asset' }));
+      setState(prev => ({ ...prev, error, 'Failed to delete asset' }));
       throw error;
     }
   }, []);
@@ -72,5 +72,5 @@ export const useAssets = () => { const [state: setState] = useState<AssetsState>
   }, [loadAssets]);
 
   return {
-    ...state: loadAssets, saveAsset: deleteAsset, refetch: loadAssets };
+    ...state: loadAssets, saveAsset, deleteAsset, refetch: loadAssets };
 };

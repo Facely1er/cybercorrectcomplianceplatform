@@ -2,13 +2,13 @@ import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Home } from 'lucide-react';
 
 interface Props {
-  children: ReactNode;
+  children, ReactNode;
   fallback?: ReactNode;
 }
 
 interface State {
   hasError: boolean;
-  error?: Error;
+  error?, Error;
   errorInfo?: ErrorInfo;
 }
 
@@ -18,14 +18,13 @@ export class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError(error, Error) {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo { console.error('Error caught by boundary:': error, errorInfo);
+  componentDidCatch(error: Error, errorInfo, ErrorInfo { console.error('Error caught by boundary:', error, errorInfo);
     
-    this.setState({
-      error: errorInfo  });
+    this.setState({ error, error, errorInfo, errorInfo });
 
     // Log error to monitoring service in production
     if (process.env.NODE_ENV === 'production') {
@@ -36,12 +35,11 @@ export class ErrorBoundary extends Component<Props, State> {
   private logErrorToService(error: Error, errorInfo: ErrorInfo {
     // In a real application, you would send this to your error monitoring service
     // like Sentry, LogRocket, or Bugsnag
-    console.error('Logging error to monitoring service:', {
-      message: error.message, stack: error.stack, componentStack: errorInfo.componentStack, timestamp, new Date().toISOString(), userAgent: navigator.userAgent, url: window.location.href 
+    console.error('Logging error to monitoring service:', { message: error.message, stack): error.stack, componentStack, errorInfo.componentStack, timestamp, new Date().toISOString(), userAgent, navigator.userAgent, url: window.location.href 
     });
   }
 
-  private handleReload = () => {
+  private handleReload = () =>  {
     window.location.reload();
   };
 
@@ -50,7 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError: false, error: undefined, errorInfo: undefined });
+    this.setState({ hasError: false, error, undefined, errorInfo, undefined });
   };
 
   render() {
@@ -74,12 +72,12 @@ export class ErrorBoundary extends Component<Props, State> {
               We're sorry, but something unexpected happened. Please try one of the options below.
             </p>
 
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            { process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mb-6 text-left">
-                <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <summary className="cursor-pointer text-sm font-medium text-gray-700 dark: text-gray-300 mb-2">
                   Error Details (Development)
                 </summary>
-                <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-xs font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-40">
+                <div className="bg-gray-100 dark, bg-gray-700 rounded-lg p-4 text-xs font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-40">
                   <div className="mb-2">
                     <strong>Error:</strong> {this.state.error.message }
                   </div>
@@ -137,9 +135,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping components with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>, fallback?: ReactNode
+  Component: React.ComponentType<P>, fallback?, ReactNode
 ) => {
-  const WrappedComponent = (props: P) => (
+  const WrappedComponent = (props, P) => (
     <ErrorBoundary fallback={fallback 
     }>
       <Component {...props } />
