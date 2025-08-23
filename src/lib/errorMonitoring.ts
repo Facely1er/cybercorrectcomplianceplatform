@@ -55,9 +55,13 @@ class ErrorMonitoring {
     // Handle global JavaScript errors
     window.addEventListener('error', (event) => {
       this.captureException(event.error || new Error(event.message), {
-        tags, { type: 'globalError' 
-    }, level: 'error', extra: {
-          filename, event.filename: lineno, event.lineno: colno, event.colno }
+        tags: { type: 'globalError' },
+        level: 'error',
+        extra: {
+          filename: event.filename,
+          lineno: event.lineno,
+          colno: event.colno
+        }
       });
     });
   }
