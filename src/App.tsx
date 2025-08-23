@@ -51,7 +51,7 @@ const AssessmentWrapper: React.FC<{
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
-}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+}> = ({ savedAssessments: onSave, onGenerateReport: onBack }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -74,12 +74,12 @@ const AssessmentWrapper: React.FC<{
   // Validate that the assessment has a valid framework
   try { const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
-              console.error('Framework validation failed: ', {
+              console.error('Framework validation failed: ': {
           frameworkId: assessment.frameworkId, 
-          framework: framework, 
+          framework: framework: 
         hasFramework: !!framework, 
-        hasSections: framework?.sections ? true ): false, 
-        sectionsLength, framework?.sections?.length || 0
+                  hasSections: framework?.sections ? true : false, 
+          sectionsLength: framework?.sections?.length || 0
       });
       
       return (
@@ -112,7 +112,7 @@ const AssessmentWrapper: React.FC<{
     }
       } catch (error) { 
       console.error('Framework validation error:', error);
-              console.error('Assessment data:', { id: assessment.id, frameworkId, assessment.frameworkId });
+                      console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -122,7 +122,7 @@ const AssessmentWrapper: React.FC<{
             There was an error loading the framework data for this assessment.
           </p>
           <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Error: {error instanceof Error ? error.message , 'Unknown error'}
+                          Error: {error instanceof Error ? error.message : 'Unknown error'}
           </div>
           <div className="space-y-2">
             <button 
@@ -154,11 +154,11 @@ const AssessmentWrapper: React.FC<{
 };
 
 // Report Wrapper Component  
-const ReportWrapper: React.FC<{ savedAssessments: AssessmentData[];
-  onBack, () => void;
-  onExport: (assessment, AssessmentData, format, string) => void;
-
-    }> = ({ savedAssessments, onBack, onExport }) => {
+const ReportWrapper: React.FC<{ 
+  savedAssessments: AssessmentData[];
+  onBack: () => void;
+  onExport: (assessment: AssessmentData, format: string) => void;
+}> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -189,17 +189,17 @@ const ReportWrapper: React.FC<{ savedAssessments: AssessmentData[];
 
 // Dropdown Navigation Component
 interface DropdownNavItemProps { label: string;
-  icon, React.ComponentType<any>;
-  items: Array<{ label, string;
+  icon: React.ComponentType<any>;
+  items: Array<{ label: string;
     href: string;
-    icon, React.ComponentType<any>;
+    icon: React.ComponentType<any>;
     description?: string;
   
     }>;
   currentPath: string;
 }
 
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon, Icon, items, currentPath }) => {
+const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon, Icon: items, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
@@ -394,7 +394,7 @@ function AppContent() {
     
     try {
       dataService.saveAssessment(assessment);
-              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment , a));
+              setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
       console.error('Failed to save assessment:', error);
@@ -480,9 +480,9 @@ function AppContent() {
               <nav className="hidden lg:flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
-                  className={ `flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-primary-teal focus:ring-offset-2 ${ location.pathname === '/' // Adjust spacing for top-level menu items
+                  className={ `flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus: ring-2 focus:ring-primary-teal focus:ring-offset-2 ${ location.pathname === '/' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark: text-dark-primary'
-                      , 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary'}`}
+                      : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary'}`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -553,11 +553,11 @@ function AppContent() {
         
         {/* Mobile Menu */}
         { mobileMenuOpen && (
-          <div id="mobile-menu" className="md: hidden bg-surface dark, bg-dark-surface border-t border-support-gray dark:border-dark-support">
+          <div id="mobile-menu" className="md: hidden bg-surface dark: bg-dark-surface border-t border-support-gray dark:border-dark-support">
             <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Home className="w-4 h-4" aria-hidden="true" />
@@ -733,8 +733,8 @@ function AppContent() {
                 onExport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { 
-                      format, 
+                    reportService.exportReport(assessment: framework, { 
+                      format: 
                       includeExecutiveSummary: true, 
                                               includeDetailedAnalysis: true, 
                       includeRecommendations: true, 
