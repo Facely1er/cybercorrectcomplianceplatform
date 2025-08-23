@@ -46,7 +46,7 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  private migrateDataIfNeeded(, void {
+  private migrateDataIfNeeded(): void {
     const storedVersion = localStorage.getItem('app-version');
     if (!storedVersion || storedVersion !== this.CURRENT_VERSION) {
       this.performDataMigration(storedVersion);
@@ -54,8 +54,8 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  private performDataMigration(fromVersion: string | null, void {
-    console.log(`Migrating data from version ${fromVersion || 'unknown':} to ${this.CURRENT_VERSION}`);
+  private performDataMigration(fromVersion: string | null): void {
+    console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions
     if (!fromVersion) {
@@ -66,10 +66,13 @@ export class DataService { private static instance: DataService;
     try {
       // Example: Migrate old assessment format
       const oldAssessments = this.getAssessments();
-      const migratedAssessments = oldAssessments.map(assessment => ({
-        ...assessment: assessmentVersion, assessment.assessmentVersion || '1.0.0':, evidenceLibrary: assessment.evidenceLibrary || [], questionEvidence: assessment.questionEvidence || {
-    }, versionHistory: assessment.versionHistory || []
-      }));
+          const migratedAssessments = oldAssessments.map(assessment => ({
+      ...assessment,
+      assessmentVersion: assessment.assessmentVersion || '1.0.0',
+      evidenceLibrary: assessment.evidenceLibrary || [],
+      questionEvidence: assessment.questionEvidence || {},
+      versionHistory: assessment.versionHistory || []
+    }));
       
       this.saveAssessments(migratedAssessments);
       

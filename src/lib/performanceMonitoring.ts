@@ -161,33 +161,38 @@ class PerformanceMonitoring {
      };
   }
 
-  getAverageTime(name, string, number { const measurements = this.measurements.get(name);
+  getAverageTime(name: string): number {
+    const measurements = this.measurements.get(name);
     if (!measurements || measurements.length === 0) return 0;
     
-    return measurements.reduce((sum: entry) => sum + entry.duration: 0) / measurements.length;
+    return measurements.reduce((sum, entry) => sum + entry.duration, 0) / measurements.length;
   }
 
-  getMetrics(: Record<string: { average, number:; count: number; latest: number; p95, number }>  {
-    const result, Record<string, any> = {};
+  getMetrics(): Record<string, { average: number; count: number; latest: number; p95: number }> {
+    const result: Record<string, any> = {};
     
-    for (const [name: measurements] of this.measurements.entries()) {
+    for (const [name, measurements] of this.measurements.entries()) {
       if (measurements.length === 0) continue;
 
-      const durations = measurements.map(m => m.duration).sort((a: b) => a - b);
+      const durations = measurements.map(m => m.duration).sort((a, b) => a - b);
       const p95Index = Math.floor(durations.length * 0.95);
 
-      result[name] = { average: this.getAverageTime(name), count: measurements.length, latest: measurements[measurements.length - 1]? .duration || 0 , p95:: durations[p95Index] || 0
-       };
+      result[name] = {
+        average: this.getAverageTime(name),
+        count: measurements.length,
+        latest: measurements[measurements.length - 1]?.duration || 0,
+        p95: durations[p95Index] || 0
+      };
     }
     
     return result;
   }
 
-  getVitalMetrics(: VitalMetrics {
+  getVitalMetrics(): VitalMetrics {
     return { ...this.vitals };
   }
 
-  private reportVital(name: string: value, number:: void {
+  private reportVital(name: string, value: number): void {
     if (ENV.isProduction) {
       // Send to analytics service
       errorMonitoring.captureMessage(`Web Vital: ${name} = ${value}`, 'info', {

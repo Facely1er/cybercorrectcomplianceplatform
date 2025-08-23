@@ -52,13 +52,15 @@ export class ReportService {
   }
 
   private async exportToPDF(
-    assessment: AssessmentData: framework, Framework:: options: ReportExportOptions
-  , Promise<void>  {
+    assessment: AssessmentData,
+    framework: Framework,
+    options: ReportExportOptions
+  ): Promise<void> {
     // Enhanced PDF generation with better formatting
-    const reportData = this.generateReportData(assessment:, framework);
+    const reportData = this.generateReportData(assessment, framework);
     
     // Generate comprehensive HTML report
-    const htmlContent = this.generateHTMLReport(assessment: framework, reportData:, options);
+    const htmlContent = this.generateHTMLReport(assessment, framework, reportData, options);
     
     // Method 1: Try to use browser's PDF generation API if available
     if ('showSaveFilePicker' in window) {

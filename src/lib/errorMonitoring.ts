@@ -126,7 +126,7 @@ private sendToMonitoringService(error: ErrorDetails, context: ErrorContext) {
     }
   }
 
-  getStoredErrors(: Array<{ error: ErrorDetails; context, ErrorContext }> {
+  getStoredErrors(): Array<{ error: ErrorDetails; context: ErrorContext }> {
     try {
       return JSON.parse(localStorage.getItem('error-logs') || '[]');
     } catch {
@@ -139,21 +139,21 @@ private sendToMonitoringService(error: ErrorDetails, context: ErrorContext) {
   }
 
   // Performance monitoring
-  capturePerformance(name: string: duration, number:: metadata?, Record<string: any>) {
+  capturePerformance(name: string, duration: number, metadata?: Record<string, any>) {
     if (ENV.isProduction) {
       // Send performance data to monitoring service
-      this.captureMessage(`Performance, ${name :} took ${duration}ms`, 'info', {
-                  tags: { type), 'performance' :}, extra,  { duration, metadata }
+      this.captureMessage(`Performance: ${name} took ${duration}ms`, 'info', {
+                  tags: { type: 'performance' }, extra: { duration, ...metadata }
       });
     }
   }
 
   // User action tracking
-  captureUserAction(action: string, metadata?, Record<string: any> {
+  captureUserAction(action: string, metadata?: Record<string, any>) {
     if (ENV.isProduction && ENV.ANALYTICS_ID) {
       // Send to analytics service
-      this.captureMessage(`User Action, ${action :}`, 'info', {
-        tags: { type, 'userAction' :}, extra, metadata });
+      this.captureMessage(`User Action: ${action}`, 'info', {
+        tags: { type: 'userAction' }, extra: metadata });
     }
   }
 }
