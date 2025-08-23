@@ -2,9 +2,10 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Theme = 'light' | 'dark';
 
-interface ThemeContextType { theme, Theme;
+interface ThemeContextType { 
+  theme: Theme;
   toggleTheme: () => void;
-  setTheme, (theme, Theme) => void;
+  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);

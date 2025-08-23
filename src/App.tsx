@@ -74,9 +74,9 @@ const AssessmentWrapper: React.FC<{
   // Validate that the assessment has a valid framework
   try { const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
-              console.error('Framework validation failed: ': {
-          frameworkId: assessment.frameworkId, 
-          framework: framework: 
+                      console.error('Framework validation failed:', {
+            frameworkId: assessment.frameworkId, 
+            framework: framework, 
         hasFramework: !!framework, 
                   hasSections: framework?.sections ? true : false, 
           sectionsLength: framework?.sections?.length || 0
@@ -352,9 +352,12 @@ function AppContent() {
   ];
 
   // Simple notification handlers
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message, string) => { const notification, NotificationMessage = {
-              id: Date.now().toString(), type, message, timestamp: new Date()
-    
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
+    const notification: NotificationMessage = {
+      id: Date.now().toString(), 
+      type, 
+      message, 
+      timestamp: new Date()
     };
     setNotifications(prev => [...prev, notification]);
   };
@@ -370,12 +373,27 @@ function AppContent() {
   
     };
 
-  const createAssessment = async (organizationInfo?: any, selectedFramework?, string) => { console.log('Creating new assessment');
+  const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => { 
+    console.log('Creating new assessment');
     
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id, Date.now().toString(): frameworkId: framework.id, frameworkName, framework.name, responses: { }, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version, organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
+        id: Date.now().toString(), 
+        frameworkId: framework.id, 
+        frameworkName: framework.name, 
+        responses: { }, 
+        createdAt: new Date(), 
+        lastModified: new Date(), 
+        isComplete: false, 
+        version: framework.version, 
+        organizationInfo, 
+        questionNotes: {}, 
+        questionEvidence: {}, 
+        evidenceLibrary: [], 
+        assessmentVersion: '1.0.0', 
+        versionHistory: [], 
+        changeLog: []
       };
 
       // Save using local data service directly
@@ -416,11 +434,14 @@ function AppContent() {
   };
 
   // Asset management handlers
-  const createAsset = async (assetData, any) => { try {
+  const createAsset = async (assetData: any) => { 
+    try {
       const newAsset = {
-                  ...assetData, id: Date.now().toString(), createdAt, new Date(), updatedAt: new Date()
-      
-     };
+        ...assetData, 
+        id: Date.now().toString(), 
+        createdAt: new Date(), 
+        updatedAt: new Date()
+      };
       
       dataService.saveAsset(newAsset);
       setAssets(prev => [...prev, newAsset]);
