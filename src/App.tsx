@@ -157,7 +157,7 @@ const AssessmentWrapper: React.FC<{
 const ReportWrapper: React.FC<{ 
   savedAssessments: AssessmentData[];
   onBack: () => void;
-  onExport: (assessment: AssessmentData, format:: string) => void;
+  onExport: (assessment: AssessmentData, format: string) => void;
 }> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
@@ -199,7 +199,7 @@ interface DropdownNavItemProps { label: string;
   currentPath: string;
 }
 
-  const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon, Icon:, items, currentPath }) => {
+  const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
     const [isOpen, setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
