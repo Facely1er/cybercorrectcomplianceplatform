@@ -299,9 +299,9 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {functionProgress.map((func, index) => (
-                <tr key={index } className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <tr key={index } className="hover: bg-gray-50 dark, hover: bg-gray-700/50">
                   <td className="py-4 px-4">
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="font-medium text-gray-900 dark,text-white">
                       {func.function }
                     </div>
                   </td>

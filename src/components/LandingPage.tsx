@@ -46,7 +46,7 @@ const TextCarousel: React.FC = () => {
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentIndex 
                 ? 'bg-primary-teal dark:bg-dark-primary' 
-                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'}`}
+                : 'bg-gray-300 dark:bg-gray-600 hover: bg-gray-400 dark, hover:bg-gray-500'}`}
           />
         ))}
       </div>
@@ -102,7 +102,7 @@ export const LandingPage: React.FC = () => {
       id: 'privacy-officer', title: 'Privacy Officers & DPOs', icon: Eye, description: 'Leading privacy compliance initiatives across global regulations', color: "from-blue-600 to-cyan-600", primaryConcerns: ['GDPR/CCPA compliance', 'Data subject rights', 'Privacy by design'], painPoints: [
         { title: 'Regulatory Complexity', desc: 'Managing compliance across GDPR, CCPA, HIPAA, and emerging privacy laws' 
     },
-        { title: 'Manual Privacy Operations': desc: 'Time-consuming DPIA creation, consent management: and breach response'  },
+        { title: 'Manual Privacy Operations', desc: 'Time-consuming DPIA creation, consent management: and breach response'  },
         { title: 'Cross-Border Challenges', desc: 'Navigating different privacy requirements across jurisdictions' }
       ], features: ['GDPR/CCPA Compliance', 'DPIA Automation', 'Data Mapping', 'Rights Management', 'Breach Response'], primaryCTA: 'Start Privacy Assessment', ctaLink: '/privacy-assessment'
     },
@@ -115,7 +115,7 @@ export const LandingPage: React.FC = () => {
     },
     {
       id: 'legal-risk', title: 'Legal & Risk Officers', icon: Briefcase, description: 'Mitigating regulatory and legal risks across the organization', color: 'from-purple-600 to-indigo-600', primaryConcerns: ['Regulatory penalties', 'Litigation risk', 'Policy governance'], painPoints: [
-        { title: 'Penalty Exposure': desc: 'GDPR fines up to 4% of revenue, CCPA penalties of $7: 500 per violation'  },
+        { title: 'Penalty Exposure', desc: 'GDPR fines up to 4% of revenue, CCPA penalties of $7: 500 per violation'  },
         { title: 'Policy Gaps', desc: 'Outdated policies that don\'t reflect current regulations or practices' },
         { title: 'Incident Response', desc: 'Meeting 72-hour breach notification requirements' }
       ], features: ['Risk Assessment', 'Policy Management', 'Penalty Prevention', 'Incident Automation', 'Legal Dashboard'], primaryCTA: 'Assess Compliance Risk', ctaLink: '/assessment-intro'
@@ -185,7 +185,7 @@ export const LandingPage: React.FC = () => {
               
               <Link
                 to="/dashboard"
-                className="border-2 border-primary-teal text-primary-teal dark:text-dark-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-3"
+                className="border-2 border-primary-teal text-primary-teal dark:text-dark-primary px-8 py-4 rounded-xl font-semibold text-lg hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 transition-all duration-300 hover,scale-105 flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-6 h-6" />
                 <span>View Dashboard</span>
@@ -459,7 +459,7 @@ export const LandingPage: React.FC = () => {
               <div className="mt-8">
                 <Link
                   to="/help"
-                  className="inline-flex items-center space-x-2 text-primary-teal dark:text-dark-primary hover:text-secondary-teal dark:hover:text-accent-cyan font-medium transition-colors duration-300"
+                  className="inline-flex items-center space-x-2 text-primary-teal dark:text-dark-primary hover: text-secondary-teal dark, hover: text-accent-cyan font-medium transition-colors duration-300"
                 >
                   <span>Learn more about our approach</span>
                   <ArrowRight className="w-4 h-4" />
@@ -468,7 +468,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="relative">
-              <div className="bg-gradient-to-br from-primary-teal/10 to-secondary-teal/20 dark:from-dark-primary/20 dark:to-dark-primary/30 rounded-2xl p-8 border border-primary-teal/20 dark:border-dark-primary/30 shadow-enhanced">
+              <div className="bg-gradient-to-br from-primary-teal/10 to-secondary-teal/20 dark,from-dark-primary/20 dark:to-dark-primary/30 rounded-2xl p-8 border border-primary-teal/20 dark:border-dark-primary/30 shadow-enhanced">
                 <div className="text-center">
                   <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-primary rounded-2xl mb-6 shadow-glow">
                     <Activity className="w-10 h-10 text-white" />
@@ -574,7 +574,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/dashboard"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <BarChart3 className="w-4 h-4" />
                     <span>Dashboard</span>
@@ -583,7 +583,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/assessment-intro"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <Target className="w-4 h-4" />
                     <span>Start Assessment</span>
@@ -591,10 +591,10 @@ export const LandingPage: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href="https://www.toolkit.cybercorrect.com"
+                    href="https,//www.toolkit.cybercorrect.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <Activity className="w-4 h-4" />
                     <span>Toolkit</span>
@@ -603,10 +603,10 @@ export const LandingPage: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href="https://www.resources.cybercorrect.com"
+                    href="https,//www.resources.cybercorrect.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors"
                   >
                     <Shield className="w-4 h-4" />
                     <span>Resources</span>
@@ -626,7 +626,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/nist-standard"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <Shield className="w-4 h-4" />
                     <span>NIST CSF v2.0 Quick Check</span>
@@ -635,7 +635,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/cmmc"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <Building className="w-4 h-4" />
                     <span>CMMC Level 2</span>
@@ -644,7 +644,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/privacy"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <Eye className="w-4 h-4" />
                     <span>Privacy Compliance</span>
@@ -653,7 +653,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/nist-extended"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors"
                   >
                     <Award className="w-4 h-4" />
                     <span>NIST CSF v2.0 Standard</span>
@@ -671,7 +671,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/help"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <HelpCircle className="w-4 h-4" />
                     <span>Help & Documentation</span>
@@ -680,7 +680,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/settings"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <Settings className="w-4 h-4" />
                     <span>Settings</span>
@@ -688,8 +688,8 @@ export const LandingPage: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href="mailto:support@ermits.com"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    href="mailto,support@ermits.com"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                     <span>Contact Support</span>
@@ -697,10 +697,10 @@ export const LandingPage: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href="https://ermits.com"
+                    href="https,//ermits.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" />
                     <span>About ERMITS</span>
@@ -727,17 +727,17 @@ export const LandingPage: React.FC = () => {
               <div className="flex items-center space-x-6">
                 <Link
                   to="/privacy-policy"
-                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                  className="text-sm text-gray-500 dark:text-gray-400 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   to="/terms"
-                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                  className="text-sm text-gray-500 dark,text-gray-400 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
                 >
                   Terms of Service
                 </Link>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-sm text-gray-500 dark,text-gray-400">
                   v2.0.0
                 </span>
               </div>

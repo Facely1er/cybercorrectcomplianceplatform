@@ -130,12 +130,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Assessment Report
               </h1>
@@ -144,7 +144,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => exportReport('json')}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export JSON</span>

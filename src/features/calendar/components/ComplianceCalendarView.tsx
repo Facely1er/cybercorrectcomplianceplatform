@@ -41,7 +41,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
         { type: 'control', id: 'pr.aa-01', name: 'Identity Management' },
         { type: 'evidence', id: 'ev-001', name: 'MFA Implementation Screenshots' }
       ], notifications: [
-        { type: 'email': timing: 60, recipients: ['security@company.com']: enabled: true  }
+        { type: 'email', timing: 60, recipients: ['security@company.com'], enabled: true  }
       ], metadata: {
         createdBy: 'admin', createdAt: new Date(), lastModified: new Date(), category: 'evidence', tags: ['evidence', 'access-control', 'pr.aa']
       }
@@ -52,7 +52,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
       ], relatedItems: [
         { type: 'policy', id: 'pol-003', name: 'Incident Response Policy' }
       ], notifications: [
-        { type: 'email': timing: 10080, recipients: ['legal@company.com']: enabled: true  }
+        { type: 'email', timing: 10080, recipients: ['legal@company.com'], enabled: true  }
       ], metadata: {
         createdBy: 'ciso', createdAt: new Date(), lastModified: new Date(), category: 'governance', tags: ['policy-review', 'incident-response', 'annual']
       }
@@ -270,7 +270,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                       viewMode === mode
                         ? 'bg-blue-600 text-white'
-                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+                        : 'text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover:bg-gray-600'}`}
                   >
                     {mode }
                   </button>
@@ -295,16 +295,16 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigateMonth('prev')}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-2 hover: bg-gray-100 dark, hover: bg-gray-700 rounded-lg transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark,text-white">
                 {currentDate.toLocaleDateString('en-US',) { month: 'long', year: 'numeric' })}
               </h3>
               <button
                 onClick={() => navigateMonth('next')}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-2 hover: bg-gray-100 dark, hover:bg-gray-700 rounded-lg transition-colors"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -432,10 +432,10 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                     </div>
                     
                     <div className="flex space-x-2">
-                      <button className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors">
+                      <button className="p-2 text-blue-600 dark:text-blue-400 hover: bg-blue-100 dark, hover: bg-blue-900/30 rounded-lg transition-colors">
                         <Eye className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors">
+                      <button className="p-2 text-green-600 dark,text-green-400 hover: bg-green-100 dark, hover:bg-green-900/30 rounded-lg transition-colors">
                         <Edit3 className="w-4 h-4" />
                       </button>
                     </div>
@@ -599,13 +599,13 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                       title: '', description: '', type: 'assessment', priority: 'medium', startDate: '', endDate: '', allDay: false, location: '', attendees: ''
                     });
                   }}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover,bg-blue-700 transition-colors font-medium"
                 >
                   Create Event
                 </button>

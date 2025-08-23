@@ -79,7 +79,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
             <div className="ml-4 flex-shrink-0">
               <button
                 onClick={() => onRemove(notification.id)}
-                className="inline-flex rounded-md p-1.5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+                className="inline-flex rounded-md p-1.5 hover: bg-black/10 dark, hover:bg-white/10 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>

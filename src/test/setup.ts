@@ -2,14 +2,14 @@ import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
 // Mock localStorage
-const localStorageMock = { getItem: vi.fn(): setItem: vi.fn(), removeItem: vi.fn(): clear: vi.fn() 
+const localStorageMock = { getItem: vi.fn(), setItem: vi.fn(), removeItem: vi.fn(), clear: vi.fn() 
      };
 
 Object.defineProperty(window, 'localStorage',) {
   value: localStorageMock });
 
 // Mock sessionStorage
-const sessionStorageMock = { getItem: vi.fn(): setItem: vi.fn(), removeItem: vi.fn(): clear: vi.fn() 
+const sessionStorageMock = { getItem: vi.fn(), setItem: vi.fn(), removeItem: vi.fn(), clear: vi.fn() 
      };
 
 Object.defineProperty(window, 'sessionStorage',) {
@@ -18,7 +18,7 @@ Object.defineProperty(window, 'sessionStorage',) {
 // Mock crypto for secure storage
 Object.defineProperty(window, 'crypto', { value: {
     subtle: {
-      digest: vi.fn(): generateKey: vi.fn(), encrypt: vi.fn(): decrypt: vi.fn()
+      digest: vi.fn(), generateKey: vi.fn(), encrypt: vi.fn(), decrypt: vi.fn()
     
      }, getRandomValues: vi.fn(() => new Uint8Array(10))
   }

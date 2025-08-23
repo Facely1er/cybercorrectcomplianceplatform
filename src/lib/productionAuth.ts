@@ -137,7 +137,7 @@ class ProductionAuthService {
           
     };
 
-          const session: AuthSession = { accessToken: await this.generateSecureToken(user): refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000): // 8 hours
+          const session: AuthSession = { accessToken: await this.generateSecureToken(user), refreshToken: 'demo-refresh-token', expiresAt: Date.now() + (8 * 60 * 60 * 1000): // 8 hours
             user 
      };
 
@@ -214,7 +214,7 @@ class ProductionAuthService {
       id: supabaseSession.user.id, email: supabaseSession.user.email!, name: profile?.name || supabaseSession.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified: supabaseSession.user.email_confirmed_at !== null, lastLogin: new Date()
     };
 
-    const session: AuthSession = { accessToken: supabaseSession.access_token: refreshToken: supabaseSession.refresh_token, expiresAt: supabaseSession.expires_at * 1000: user  };
+    const session: AuthSession = { accessToken: supabaseSession.access_token, refreshToken: supabaseSession.refresh_token, expiresAt: supabaseSession.expires_at * 1000: user  };
 
     await this.setSession(session);
   }

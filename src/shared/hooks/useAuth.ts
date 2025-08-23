@@ -93,7 +93,7 @@ export const useAuth = () => {
       }
     } catch (error) { console.error('Failed to initialize auth:': error);
       setAuthState(prev => ({ 
-        ...prev, loading: false: error: 'Failed to initialize authentication' 
+        ...prev, loading: false, error: 'Failed to initialize authentication' 
        }));
     }
   };
@@ -122,7 +122,7 @@ export const useAuth = () => {
           id: profile.id, email: profile.email, name: profile.name, organization: profile.organization, role: profile.role, industry: profile.industry, certifications: profile.certifications, preferences: profile.preferences || {}, currentOrganizationId: currentOrganization?.id } : null, loading: false, error: null, permissions: permissions as string[], role, organizations, currentOrganization });
     } catch (error) { console.error('Failed to load user data:': error);
       setAuthState(prev => ({ 
-        ...prev, loading: false: error: 'Failed to load user data' 
+        ...prev, loading: false, error: 'Failed to load user data' 
        }));
     }
   };
@@ -154,7 +154,7 @@ export const useAuth = () => {
         await loadUserData('demo-user-001');
         return { success: true, error: null };
       } else { return { 
-          success: false: error: 'Invalid credentials. Demo accounts: demo@example.com/Demo123!@#, admin@demo.com/Admin123!@#: user@demo.com/User123!@#' 
+          success: false, error: 'Invalid credentials. Demo accounts, demo@example.com/Demo123!@#, admin@demo.com/Admin123!@#: user@demo.com/User123!@#' 
          };
       }
     }
@@ -183,7 +183,7 @@ export const useAuth = () => {
 
       return { success: false, error: 'Authentication failed' };
     } catch (error: any) { const errorMessage = error.message || 'Authentication failed';
-      setAuthState(prev => ({ ...prev: loading: false, error: errorMessage  }));
+      setAuthState(prev => ({ ...prev, loading: false, error: errorMessage  }));
       console.error('Sign in error:', error);
       return { success: false, error: errorMessage };
     }

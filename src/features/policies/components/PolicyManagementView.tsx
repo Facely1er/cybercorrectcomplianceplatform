@@ -25,7 +25,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     const mockPolicies: any[] = [
       {
         id: 'pol-001', name: 'Information Security Policy', description: 'Comprehensive policy outlining information security requirements and procedures', type: 'governance', framework: 'nist-csf-v2', nistFunction: 'Govern', nistCategory: 'Organizational Context', nistSubcategories: ['GV.OC-01', 'GV.OC-02'], status: 'effective', version: '2.1', effectiveDate: new Date('2024-01-15'), lastReviewed: new Date('2024-01-15'), nextReview: new Date('2024-07-15'), reviewCycle: 'annually' as const, owner: 'CISO', approver: 'CEO', stakeholders: ['Executive Team', 'Security Team'], scope: ['Organization-wide'], exceptions: [], relatedPolicies: [], relatedControls: ['gv.oc-01', 'gv.oc-02'], evidence: [], implementationGuide: {
-          objectives: [], procedures: [], roles: [], timeline: { phases: []: milestones: [], dependencies: []: riskFactors: [] 
+          objectives: [], procedures: [], roles: [], timeline: { phases: [], milestones: [], dependencies: [], riskFactors: [] 
      }, successCriteria: [], measurableOutcomes: []
         }, complianceRequirements: [], metadata: {
           businessJustification: 'Required for cybersecurity governance', riskRating: 'high', implementationCost: 'low', technicalComplexity: 'low', trainingRequired: true, auditFrequency: 'annually'
@@ -75,12 +75,12 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover: bg-gray-600 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-gray-900 dark,text-white">
                   Policy Management
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400">

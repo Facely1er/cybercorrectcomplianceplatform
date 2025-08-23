@@ -5,9 +5,9 @@ import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
 interface EvidenceManagerProps { questionId: string;
   questionEvidence: QuestionEvidence[];
   evidenceLibrary: EvidenceItem[];
-  onAddEvidence: (questionId: string: evidence: QuestionEvidence) => void;
+  onAddEvidence: (questionId, string: evidence, QuestionEvidence) => void;
   onRemoveEvidence: (questionId: string, evidenceId: string) => void;
-  onUploadEvidence: (file: File: metadata: Partial<EvidenceItem>) => void;
+  onUploadEvidence: (file, File: metadata, Partial<EvidenceItem>) => void;
   className?: string;
  }
 
@@ -125,7 +125,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
           
           <button
             onClick={() => setShowLibraryModal(true)}
-            className="flex items-center space-x-2 border border-purple-600 text-purple-600 dark:text-purple-400 px-4 py-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors text-sm font-medium"
+            className="flex items-center space-x-2 border border-purple-600 text-purple-600 dark:text-purple-400 px-4 py-2 rounded-lg hover: bg-purple-50 dark, hover:bg-purple-900/20 transition-colors text-sm font-medium"
           >
             <Link className="w-4 h-4" />
             <span>Link Existing</span>
@@ -191,12 +191,12 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                   </div>
                   
                   <div className="flex space-x-2">
-                    <button className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    <button className="p-2 text-gray-400 hover: text-blue-600 dark, hover:text-blue-400 transition-colors">
                       <Eye className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => onRemoveEvidence(questionId, evidence.id)}
-                      className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                      className="p-2 text-gray-400 hover: text-red-600 dark, hover:text-red-400 transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -329,7 +329,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
             <div className="flex space-x-4 mt-8">
               <button
                 onClick={() => setShowUploadModal(false)}
-                className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
               >
                 Cancel
               </button>
@@ -348,7 +348,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
               </h3>
               <button
                 onClick={() => setShowLibraryModal(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
+                className="text-gray-400 hover: text-gray-600 dark, hover:text-gray-300 text-2xl"
               >
                 ×
               </button>
@@ -388,10 +388,10 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
                 filteredLibrary.map((evidence) => {
                   const IconComponent = getEvidenceTypeIcon(evidence.type);
                   return (
-                    <div key={evidence.id } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <div key={evidence.id } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start space-x-3 flex-1">
-                          <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                          <div className="p-2 bg-purple-100 dark,bg-purple-900/30 rounded-lg">
                             <IconComponent className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                           </div>
                           

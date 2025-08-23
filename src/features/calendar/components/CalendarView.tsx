@@ -97,7 +97,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick,
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
                       ? 'bg-blue-600 text-white'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+                      : 'text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover:bg-gray-600'}`}
                 >
                   {mode }
                 </button>
@@ -116,16 +116,16 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick,
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigateMonth('prev')}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover: bg-gray-100 dark, hover: bg-gray-700 rounded-lg transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-gray-900 dark,text-white">
             {currentDate.toLocaleDateString('en-US',) { month: 'long', year: 'numeric' })}
           </h3>
           <button
             onClick={() => navigateMonth('next')}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover: bg-gray-100 dark, hover:bg-gray-700 rounded-lg transition-colors"
           >
             <ChevronRight className="w-5 h-5" />
           </button>

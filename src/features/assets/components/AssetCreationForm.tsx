@@ -12,8 +12,8 @@ interface AssetCreationFormProps {
 export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
   onSubmit, onCancel, initialData }) => {
   const [formData, setFormData] = useState({
-    name: initialData?.name || '', description: initialData?.description || '', category: initialData?.category || 'hardware' as AssetCategory, subcategory: initialData?.subcategory || '', type: initialData?.type || 'server' as AssetType, owner: initialData?.owner || '', custodian: initialData?.custodian || '', status: initialData?.status || 'active' as AssetStatus, criticality: initialData?.criticality || 'medium' as CriticalityLevel, informationClassification: initialData?.informationClassification || 'internal' as InformationClassification, businessValue, initialData?.businessValue || 'operational' as BusinessValue, dataClassification: { sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical': regulatoryRequirements: [] as string[], dataTypes: [] as string[]: accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
-     }, location: { type: 'physical' as const: building: '', room: '': address: ''
+    name: initialData?.name || '', description: initialData?.description || '', category: initialData?.category || 'hardware' as AssetCategory, subcategory: initialData?.subcategory || '', type: initialData?.type || 'server' as AssetType, owner: initialData?.owner || '', custodian: initialData?.custodian || '', status: initialData?.status || 'active' as AssetStatus, criticality: initialData?.criticality || 'medium' as CriticalityLevel, informationClassification: initialData?.informationClassification || 'internal' as InformationClassification, businessValue, initialData?.businessValue || 'operational' as BusinessValue, dataClassification: { sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical', regulatoryRequirements: [] as string[], dataTypes: [] as string[], accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
+     }, location: { type: 'physical' as const, building: '', room: '', address: ''
      }, tags, initialData?.tags?.join(', ') || ''
   });
   
@@ -48,8 +48,8 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
         }, lastAssessment: new Date(), nextAssessment: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
         assessedBy: formData.owner 
     }, compliance: [], lifecycle: {
-        phase: 'operation', deploymentDate: new Date(), maintenanceSchedule: { frequency: 'quarterly': nextMaintenance: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-          maintenanceType: 'preventive': assignedTo: formData.custodian
+        phase: 'operation', deploymentDate: new Date(), maintenanceSchedule: { frequency: 'quarterly', nextMaintenance: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+          maintenanceType: 'preventive', assignedTo: formData.custodian
      }
       }, lastReviewed: new Date(), nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
       tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean), metadata: {
@@ -79,7 +79,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
           </h2>
           <button
             onClick={onCancel }
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="text-gray-400 hover: text-gray-600 dark, hover:text-gray-300"
           >
             <X className="w-6 h-6" />
           </button>
@@ -160,7 +160,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowClassificationHelp(!showClassificationHelp)}
-                  className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-gray-400 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
                 >
                   <Info className="w-4 h-4" />
                 </button>
@@ -409,7 +409,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'customer-data, privacy, high-risk'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600 transition-colors text-left"
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover: bg-blue-50 dark, hover: bg-blue-900/20 hover,border-blue-300 dark:hover:border-blue-600 transition-colors text-left"
               >
                 <div className="font-medium text-gray-900 dark:text-white">Customer Data</div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">PII, GDPR/CCPA protected</div>
@@ -424,7 +424,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'healthcare, phi, hipaa-protected'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 dark:hover:border-red-600 transition-colors text-left"
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover: bg-red-50 dark, hover: bg-red-900/20 hover,border-red-300 dark:hover:border-red-600 transition-colors text-left"
               >
                 <div className="font-medium text-gray-900 dark:text-white">Healthcare Data</div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">PHI, HIPAA protected</div>
@@ -439,7 +439,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'financial, payment-data, sox-compliance'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:border-yellow-300 dark:hover:border-yellow-600 transition-colors text-left"
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover: bg-yellow-50 dark, hover: bg-yellow-900/20 hover,border-yellow-300 dark:hover:border-yellow-600 transition-colors text-left"
               >
                 <div className="font-medium text-gray-900 dark:text-white">Financial Data</div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">SOX, PCI-DSS protected</div>
@@ -454,7 +454,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                     }, tags: prev.tags + (prev.tags ? ', ' : '') + 'public, non-sensitive'
                   }));
                 }}
-                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 hover:border-green-300 dark:hover:border-green-600 transition-colors text-left"
+                className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover: bg-green-50 dark, hover: bg-green-900/20 hover,border-green-300 dark:hover:border-green-600 transition-colors text-left"
               >
                 <div className="font-medium text-gray-900 dark:text-white">Public Information</div>
                 <div className="text-sm text-gray-600 dark:text-gray-300">No access restrictions</div>
@@ -485,13 +485,13 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
             <button
               type="button"
               onClick={onCancel }
-              className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+              className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
+              className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover,bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
             >
               <Save className="w-4 h-4" />
               <span>{initialData ? 'Update Asset' : 'Create Asset'}</span>

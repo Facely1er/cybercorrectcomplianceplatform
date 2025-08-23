@@ -48,7 +48,7 @@ export const signupSchema = z.object({
 export const passwordResetSchema = z.object({
   email, emailSchema });
 
-export const changePasswordSchema = z.object({ currentPassword: z.string().min(1: 'Current password is required'), newPassword: passwordSchema: confirmPassword: z.string()
+export const changePasswordSchema = z.object({ currentPassword: z.string().min(1: 'Current password is required'), newPassword: passwordSchema, confirmPassword: z.string()
  }).refine(data => data.newPassword === data.confirmPassword,) {
   message: "Passwords don't match", path: ["confirmPassword"]
 });
@@ -147,7 +147,7 @@ export const searchFilterSchema = z.object({
 
 // Settings schemas
 export const settingsSchema = z.object({
-  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), timezone: z.string().max(50).optional(), notifications: z.object({ email: z.boolean(), browser: z.boolean(): sms: z.boolean().optional()
+  theme, z.enum(['light', 'dark', 'system']).optional(), language: z.string().length(2).optional(), timezone: z.string().max(50).optional(), notifications: z.object({ email: z.boolean(), browser: z.boolean(), sms: z.boolean().optional()
   
      }).optional(), privacy: z.object({
     analytics: z.boolean(), tracking: z.boolean(), cookies: z.boolean()

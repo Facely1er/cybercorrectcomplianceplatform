@@ -34,7 +34,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     const mockControls: Control[] = [
       {
         id: 'ctrl-001', controlId: 'ID.AM-1', name: 'Asset Inventory and Documentation', description: 'Maintain comprehensive inventory of physical devices, systems, platforms, and applications within the organization', framework: 'nist-csf-v2', nistFunction: 'Identify', nistCategory: 'Asset Management', nistSubcategory: 'ID.AM-01', controlFamily: 'Asset Management', controlType: 'administrative', implementationApproach: 'automated', status: 'operational', priority: 'high', owner: 'IT Infrastructure Manager', implementers: ['IT Operations Team', 'Security Team', 'Network Team'], validators: ['CISO', 'Internal Audit', 'Compliance Officer'], lastAssessed: new Date(2024, 6, 15), nextAssessment: new Date(2024, 9, 15), assessmentFrequency: 'quarterly' as AssessmentFrequency, implementation: {
-          actualDate: new Date(2024, 0, 15), method: 'Automated discovery with centralized CMDB and manual validation procedures', tools: ['Lansweeper Enterprise', 'ServiceNow CMDB', 'Microsoft SCCM', 'Network Discovery Tools'], procedures: ['Asset Discovery SOP v2.1', 'CMDB Update Process', 'Asset Classification Guide'], configuration: { discovery_frequency: 'daily': validation_frequency: 'weekly', classification_rules: 'automated': approval_workflow: 'enabled'
+          actualDate: new Date(2024, 0, 15), method: 'Automated discovery with centralized CMDB and manual validation procedures', tools: ['Lansweeper Enterprise', 'ServiceNow CMDB', 'Microsoft SCCM', 'Network Discovery Tools'], procedures: ['Asset Discovery SOP v2.1', 'CMDB Update Process', 'Asset Classification Guide'], configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly', classification_rules: 'automated', approval_workflow: 'enabled'
           
      }, deployment: {
             scope: ['All Corporate Networks', 'Data Centers', 'Cloud Infrastructure', 'Remote Offices'], phases: [
@@ -105,9 +105,9 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             dataCollection: {
               automated: true, sources: ['Lansweeper', 'SCCM', 'Cloud APIs', 'Network Scanners'], frequency: 'Continuous with 15-minute updates'
             }, analysis: {
-              automated: true, algorithms: ['Asset Classification ML', 'Anomaly Detection', 'Risk Scoring'], ml_enabled: true }, response: { automated: true: actions: [
+              automated: true, algorithms: ['Asset Classification ML', 'Anomaly Detection', 'Risk Scoring'], ml_enabled: true }, response: { automated, true: actions, [
                 {
-                  trigger: 'new_asset_detected', action: 'auto_classify_and_notify': parameters: { notify_threshold: 'medium_risk'  }, approval_required: false, notification: true }
+                  trigger: 'new_asset_detected', action: 'auto_classify_and_notify', parameters: { notify_threshold, 'medium_risk'  }, approval_required: false, notification: true }
               ]
             }
           }
@@ -118,8 +118,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         }, costs: {
           implementation: {
             capital: 75000, operational: 25000, timeline: '4 months'
-          }, maintenance: { annual: 35000: resources: ['2 FTE IT Staff', '0.5 FTE Security Analyst': 'Tool licensing']
-           }, testing: { frequency: 'quarterly': cost: 8000, resources: ['Security Team': 'External Auditor']
+          }, maintenance: { annual, 35000: resources, ['2 FTE IT Staff', '0.5 FTE Security Analyst': 'Tool licensing']
+           }, testing: { frequency: 'quarterly', cost: 8000, resources: ['Security Team': 'External Auditor']
            }, training: {
             initial: 15000, ongoing: 7500, frequency: 'annually'
           }
@@ -165,7 +165,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               ], evidence: ['pentest-report-jul-2024.pdf', 'vulnerability-details.xlsx'], recommendations: ['Implement FIDO2 tokens', 'Enhanced user training', 'SMS deprecation plan'], nextTestDate: new Date(2024, 7, 15)
             }
           ], automation: {
-            enabled: true, tools: ['Azure AD Reports API', 'PowerShell MFA Module', 'Custom monitoring scripts'], scripts: ['mfa_compliance_check.ps1', 'enrollment_monitoring.py'], schedule: 'Daily compliance checks with real-time alerting', alerting: { onFailure: true: recipients: ['iam-team@company.com', 'security-ops@company.com']: escalation: ['security-manager@company.com']
+            enabled: true, tools: ['Azure AD Reports API', 'PowerShell MFA Module', 'Custom monitoring scripts'], scripts: ['mfa_compliance_check.ps1', 'enrollment_monitoring.py'], schedule: 'Daily compliance checks with real-time alerting', alerting: { onFailure, true: recipients, ['iam-team@company.com', 'security-ops@company.com']: escalation: ['security-manager@company.com']
              }
           }
         }, monitoring: {
@@ -189,14 +189,14 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             dataCollection: {
               automated: true, sources: ['Azure AD', 'Duo Admin API', 'Authentication Logs'], frequency: 'Real-time streaming with 15-minute batching'
             }, analysis: {
-              automated: true, algorithms: ['Usage Pattern Analysis', 'Risk Scoring', 'Behavioral Analytics'], ml_enabled: true }, response: { automated: true: actions: [
+              automated: true, algorithms: ['Usage Pattern Analysis', 'Risk Scoring', 'Behavioral Analytics'], ml_enabled: true }, response: { automated, true: actions, [
                 {
-                  trigger: 'adoption_below_threshold', action: 'notify_user_manager': parameters: { threshold: 85  }, approval_required: false, notification: true }
+                  trigger: 'adoption_below_threshold', action: 'notify_user_manager', parameters: { threshold, 85  }, approval_required: false, notification: true }
               ]
             }
           }
         }, evidence: ['mfa-policy-v2.pdf', 'enrollment-procedures.docx', 'pentest-results-2024.pdf'], policies: ['pol-identity-management', 'pol-access-control'], assets: ['active-directory', 'office365', 'vpn-systems'], dependencies: [
-          { dependentControlId: 'ctrl-003': dependencyType: 'prerequisite' as const, criticality: 'high' as const: description: 'Privileged access management requires MFA foundation'
+          { dependentControlId: 'ctrl-003', dependencyType: 'prerequisite' as const, criticality: 'high' as const, description: 'Privileged access management requires MFA foundation'
            }
         ], effectiveness: {
           implementationScore: 75, operationalScore: 82, complianceScore: 78, costEffectiveness: 85, riskReduction: 75, maturityLevel: 3, lastMeasured: new Date(2024, 6, 1), trend: 'improving' as const, benchmarkComparison: {
@@ -207,7 +207,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             capital: 125000, operational: 45000, timeline: '6 months'
           }, maintenance: {
             annual: 65000, resources: ['1 FTE IAM Specialist', '0.5 FTE Help Desk', 'Tool licensing', 'Training']
-          }, testing: { frequency: 'monthly': cost: 12000, resources: ['Security Team': 'External Penetration Testers']
+          }, testing: { frequency: 'monthly', cost: 12000, resources: ['Security Team': 'External Penetration Testers']
            }, training: {
             initial: 25000, ongoing: 15000, frequency: 'quarterly'
           }
@@ -260,8 +260,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           }, reporting: {
             dashboards: ['SOC Operations Dashboard'], reports: ['Monthly Incident Report'], schedule: { monthly: 'Incident response metrics and trends' }, recipients: { monthly: ['security-leadership@company.com'] }, formats: ['PDF', 'PowerBI']
           }, automation: { dataCollection: {
-              automated: true: sources: ['Incident Management System', 'SOAR Platform']: frequency: 'Real-time'
-             }, analysis: { automated: true: algorithms: ['Incident Classification', 'Trend Analysis']: ml_enabled: false  }, response: {
+              automated, true: sources, ['Incident Management System', 'SOAR Platform']: frequency: 'Real-time'
+             }, analysis: { automated, true: algorithms, ['Incident Classification', 'Trend Analysis']: ml_enabled: false  }, response: {
               automated: true, actions: []
             }
           }
@@ -269,8 +269,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           implementationScore: 92, operationalScore: 89, complianceScore: 95, costEffectiveness: 78, riskReduction: 80, maturityLevel: 4, lastMeasured: new Date(2024, 5, 20), trend: 'stable' as const }, costs: {
           implementation: {
             capital: 95000, operational: 35000, timeline: '5 months'
-          }, maintenance: { annual: 55000: resources: ['1.5 FTE SOC Analysts', 'Tool subscriptions': 'Training']
-           }, testing: { frequency: 'quarterly': cost: 15000, resources: ['Internal Team': 'External Facilitator']
+          }, maintenance: { annual, 55000: resources, ['1.5 FTE SOC Analysts', 'Tool subscriptions': 'Training']
+           }, testing: { frequency: 'quarterly', cost: 15000, resources: ['Internal Team': 'External Facilitator']
            }, training: {
             initial: 20000, ongoing: 12000, frequency: 'quarterly'
           }
@@ -413,7 +413,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     const controlData: Partial<Control> = {
       id: editingControl?.id || `ctrl-${Date.now()}`, controlId: formData.controlId, name: formData.name, description: formData.description, framework: 'nist-csf-v2', nistFunction: formData.nistFunction, nistCategory: formData.nistCategory, nistSubcategory: formData.nistSubcategory, controlFamily: formData.nistCategory, controlType: formData.controlType, implementationApproach: formData.implementationApproach, status: formData.status, priority: formData.priority, owner: formData.owner, implementers: [], validators: [], lastAssessed: new Date(), nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), assessmentFrequency: 'quarterly' as AssessmentFrequency,
       // Add other required fields with defaults
-      implementation: { method: 'To be defined': tools: [], procedures: []: configuration: {
+      implementation: { method: 'To be defined', tools: [], procedures: [], configuration: {
      }, deployment: { scope: [], phases: [], rollbackPlan: '' }, validation: { criteria: [], methods: [], results: [] }
       }, testing: {
         testPlan: {
@@ -423,8 +423,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         }, results: [], automation: {
           enabled: false, tools: [], scripts: [], schedule: 'manual', alerting: { onFailure: false, recipients: [], escalation: [] }
         }
-      }, monitoring: { metrics: []: alerting: {
-          enabled: false, channels: []: thresholds: { }, escalation: [], suppression: []
+      }, monitoring: { metrics: [], alerting: {
+          enabled, false, channels: [], thresholds: { }, escalation: [], suppression: []
         }, reporting: {
           dashboards: [], reports: [], schedule: {}, recipients: {}, formats: []
         }, automation: {
@@ -520,7 +520,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-6">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors p-2 rounded-lg hover:bg-white/50 dark:hover:bg-gray-800/50"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors p-2 rounded-lg hover,bg-white/50 dark:hover:bg-gray-800/50"
               >
                 <ArrowLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -715,7 +715,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
                       ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+                      : 'text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover:bg-gray-600'}`}
                 >
                   {mode }
                 </button>
@@ -725,14 +725,14 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleImportControls }
-                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover: bg-gray-200 dark, hover:bg-gray-600 transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
               </button>
               <button
                 onClick={handleExportControls }
-                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover: bg-gray-200 dark, hover:bg-gray-600 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -794,7 +794,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               setFilterPriority('all');
               setSearchTerm('');
             }}
-            className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+            className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark, hover:bg-gray-600 transition-colors"
           >
             Clear Filters
           </button>
@@ -943,11 +943,11 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
                     <button
                       onClick={() => setExpandedControl(expandedControl === control.id ? null : control.id)}
-                      className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors mb-4"
+                      className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark, hover: text-blue-300 transition-colors mb-4"
                     >
                       {expandedControl === control.id ? (
                         <ChevronDown className="w-4 h-4" />
-                      ) : (
+                      ) , (
                         <ChevronRight className="w-4 h-4" />
                       )}
                       <span className="font-medium">View Detailed Information</span>
@@ -1098,7 +1098,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       
                       <button
                         onClick={() => addNotification('info', 'Monitoring dashboard opened')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
                       >
                         <BarChart3 className="w-4 h-4" />
                         <span>Monitor</span>
@@ -1106,7 +1106,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       
                       <button
                         onClick={() => addNotification('info', 'Evidence collection opened')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
                       >
                         <FileText className="w-4 h-4" />
                         <span>Evidence</span>
@@ -1297,7 +1297,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     setShowCreateForm(false);
                     setEditingControl(null);
                   }}
-                  className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>

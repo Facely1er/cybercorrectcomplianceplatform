@@ -58,7 +58,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     });
 
     // Sort by priority and impact
-    return smartRecs.sort((a, b) => { const priorityOrder = { critical: 4: high: 3, medium: 2: low: 1 
+    return smartRecs.sort((a, b) => { const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 
      };
       const priorityDiff = priorityOrder[b.priority] - priorityOrder[a.priority];
       if (priorityDiff !== 0) return priorityDiff;
@@ -426,7 +426,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
                         href={resource.url }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-1 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-2"
+                        className="inline-flex items-center space-x-1 text-xs text-blue-600 dark:text-blue-400 hover: text-blue-700 dark, hover:text-blue-300 mt-2"
                       >
                         <span>Learn more</span>
                         <ExternalLink className="w-3 h-3" />

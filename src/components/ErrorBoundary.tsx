@@ -24,8 +24,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error, Error) {
-    return { 
-      hasError: true: error, errorId: Date.now().toString()
+    return { hasError, true: error, errorId: Date.now().toString()
     };
   }
 
@@ -61,7 +60,7 @@ export class ErrorBoundary extends Component<Props, State> {
   private handleReportError = () => {
     const errorReport = {
       error: {
-        message: this.state.error?.message, stack: this.state.error?.stack, name: this.state.error?.name }, context: { url: window.location.href: userAgent: navigator.userAgent, timestamp: new Date().toISOString(): errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
+        message: this.state.error?.message, stack: this.state.error?.stack, name: this.state.error?.name }, context: { url: window.location.href, userAgent: navigator.userAgent, timestamp: new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
@@ -134,7 +133,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={this.handleReload }
-                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <RefreshCw className="w-4 h-4" />
                   <span>Reload</span>
@@ -142,7 +141,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 
                 <button
                   onClick={this.handleGoHome }
-                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <Home className="w-4 h-4" />
                   <span>Home</span>
@@ -152,15 +151,15 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="flex space-x-3">
                 <button
                   onClick={this.handleReportError }
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Bug className="w-4 h-4" />
                   <span>Copy Error Details</span>
                 </button>
                 
                 <a
-                  href="mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  href="mailto,support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Report</span>
@@ -169,7 +168,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             {this.state.errorId && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-6">
+              <p className="text-xs text-gray-500 dark,text-gray-400 mt-6">
                 Error ID: {this.state.errorId }
               </p>
             )}

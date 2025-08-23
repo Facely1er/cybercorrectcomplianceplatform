@@ -50,18 +50,18 @@ export const StartScreen: React.FC<StartScreenProps> = ({
   ];
 
   const platformFeatures = [
-    { title: "Assessment to Implementation": description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation", icon: Target: color: "blue"
+    { title: "Assessment to Implementation", description: "Guided workflow from initial assessment through full NIST CSF v2.0 implementation", icon: Target, color: "blue"
      },
-    { title: "Evidence Collection": description: "Systematic collection and management of compliance evidence for all controls", icon: FileText: color: "green"
+    { title: "Evidence Collection", description: "Systematic collection and management of compliance evidence for all controls", icon: FileText, color: "green"
      },
-    { title: "Real-Time Compliance": description: "Live monitoring of implementation progress and compliance posture", icon: BarChart3: color: "purple"
+    { title: "Real-Time Compliance", description: "Live monitoring of implementation progress and compliance posture", icon: BarChart3, color: "purple"
      },
     {
       title: "Activity Calendar", description: "Automated scheduling of assessments, reviews, and compliance activities", icon: Calendar, color: "orange"
     },
-    { title: "Assets in Scope": description: "Comprehensive asset inventory and scope management for compliance", icon: Shield: color: "indigo"
+    { title: "Assets in Scope", description: "Comprehensive asset inventory and scope management for compliance", icon: Shield, color: "indigo"
      },
-    { title: "Policies & Controls": description: "Required policies and security controls mapped to NIST CSF v2.0", icon: Award: color: "pink"
+    { title: "Policies & Controls", description: "Required policies and security controls mapped to NIST CSF v2.0", icon: Award, color: "pink"
      }
   ];
 
@@ -147,7 +147,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center">
                   <Link
                     to="/assessment-intro"
-                    className="border-2 border-red-600 text-red-600 dark:text-red-400 px-6 py-3 rounded-xl font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="border-2 border-red-600 text-red-600 dark:text-red-400 px-6 py-3 rounded-xl font-medium hover: bg-red-50 dark, hover:bg-red-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
                   >
                     <Building className="w-5 h-5" />
                     <span>CMMC Level 2 ({cmmcFramework?.sections?.reduce((sum, section) => sum + section.categories.reduce((catSum, category) => catSum + category.questions.length, 0), 0) || 110} controls)</span>
@@ -161,7 +161,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                   </Link>
                   <Link
                     to="/assessment-intro"
-                    className="border-2 border-green-600 text-green-600 dark:text-green-400 px-6 py-3 rounded-xl font-medium hover:bg-green-50 dark:hover:bg-green-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="border-2 border-green-600 text-green-600 dark:text-green-400 px-6 py-3 rounded-xl font-medium hover: bg-green-50 dark, hover:bg-green-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
                   >
                     <Zap className="w-5 h-5" />
                     <span>NIST CSF v2.0 Quick Check ({nistCSFv2Framework?.sections?.reduce((sum, section) => sum + section.categories.reduce((catSum, category) => catSum + category.questions.length, 0), 0) || 10} questions)</span>
@@ -172,7 +172,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               {userProfile && (
                 <button
                   onClick={handleContinue }
-                  className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-3 rounded-xl font-bold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300"
+                  className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-3 rounded-xl font-bold hover: bg-blue-50 dark, hover:bg-blue-900/20 transition-all duration-300"
                 >
                   Continue to Dashboard
                 </button>

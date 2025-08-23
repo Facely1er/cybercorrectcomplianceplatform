@@ -399,7 +399,7 @@ export class ReportService {
   , Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     const exportData = {
-      assessment, framework: { id: framework.id: name: framework.name, version: framework.version: description: framework.description  }, reportData, exportedAt: new Date(), options, metadata: {
+      assessment, framework: { id: framework.id, name: framework.name, version: framework.version, description: framework.description  }, reportData, exportedAt: new Date(), options, metadata: {
         totalQuestions: reportData.totalQuestions, answeredQuestions: reportData.answeredQuestions, overallScore: reportData.overallScore, completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100), exportFormat: 'json', exportVersion: '2.0.0'
       }
     };
@@ -481,7 +481,7 @@ export class ReportService {
         ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
-      return { name: section.name: score: sectionScore, answered: sectionResponses.length: total: sectionQuestions.length  };
+      return { name: section.name, score: sectionScore, answered: sectionResponses.length, total: sectionQuestions.length  };
     });
 
     return {
@@ -512,7 +512,7 @@ export class ReportService {
   
   private async downloadWithAPI(blob: Blob, filename: string, mimeType, string, Promise<void> { try {
       const fileHandle = await (window as any).showSaveFilePicker({
-        suggestedName: filename: types: [{
+        suggestedName: filename, types: [{
           description, this.getFileTypeDescription(mimeType): accept: { [mimeType]: [this.getFileExtension(filename)]  }
         }]
       });

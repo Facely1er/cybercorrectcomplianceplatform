@@ -194,7 +194,7 @@ export class OrganizationService {
 
       this.updateLocalMemberRole(organizationId, userId, newRole);
       
-      await auditLogger.log({ userId: updatedBy: action: 'update', resource: 'organization_member': resourceId: `${organizationId }-${userId}`, changes: { role, newRole }
+      await auditLogger.log({ userId: updatedBy, action: 'update', resource: 'organization_member', resourceId: `${organizationId }-${userId}`, changes: { role, newRole }
       });
     } catch { console.warn('Failed to update member role in Supabase:': error);
       this.updateLocalMemberRole(organizationId, userId: newRole);

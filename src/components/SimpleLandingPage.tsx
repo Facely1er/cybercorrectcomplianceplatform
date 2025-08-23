@@ -46,7 +46,7 @@ export const SimpleLandingPage: React.FC = () => {
           
           <button
             onClick={handleDashboardClick }
-            className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors inline-flex items-center justify-center space-x-3"
+            className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-xl font-semibold hover: bg-blue-50 dark, hover:bg-blue-900/20 transition-colors inline-flex items-center justify-center space-x-3"
           >
             <BarChart3 className="w-5 h-5" />
             <span>Dashboard</span>
@@ -71,7 +71,7 @@ export const SimpleLandingPage: React.FC = () => {
               
               <Link
                 to="/dashboard"
-                className="border-2 border-green-600 text-green-600 dark:text-green-400 px-8 py-4 rounded-xl font-semibold hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors inline-flex items-center justify-center space-x-3"
+                className="border-2 border-green-600 text-green-600 dark:text-green-400 px-8 py-4 rounded-xl font-semibold hover: bg-green-50 dark, hover: bg-green-900/20 transition-colors inline-flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-5 h-5" />
                 <span>Dashboard (Link)</span>
@@ -79,7 +79,7 @@ export const SimpleLandingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Method 2: useNavigate Hook */}
+          {/* Method 2, useNavigate Hook */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
               useNavigate Hook (Programmatic)
@@ -95,7 +95,7 @@ export const SimpleLandingPage: React.FC = () => {
               
               <button
                 onClick={handleDashboardClick }
-                className="border-2 border-purple-600 text-purple-600 dark:text-purple-400 px-8 py-4 rounded-xl font-semibold hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors inline-flex items-center justify-center space-x-3"
+                className="border-2 border-purple-600 text-purple-600 dark:text-purple-400 px-8 py-4 rounded-xl font-semibold hover: bg-purple-50 dark, hover:bg-purple-900/20 transition-colors inline-flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-5 h-5" />
                 <span>Dashboard (Navigate)</span>

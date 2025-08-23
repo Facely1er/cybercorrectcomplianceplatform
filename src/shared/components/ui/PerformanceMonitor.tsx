@@ -5,7 +5,7 @@ import { Database, Zap } from 'lucide-react';
 const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit: usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
@@ -77,7 +77,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
           </div>
           <button
             onClick={onClose }
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
+            className="text-gray-400 hover: text-gray-600 dark, hover:text-gray-300 text-2xl"
           >
             ×
           </button>
@@ -230,7 +230,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
           </button>
           <button
             onClick={onClose }
-            className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+            className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
           >
             Close
           </button>

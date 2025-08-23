@@ -811,7 +811,7 @@ export const privacyFramework: Framework = {
                 { value: 0, label: 'No notices', description: 'No privacy notices provided' },
                 { value: 1, label: 'Basic notices', description: 'Some privacy information provided' },
                 { value: 2, label: 'Good notices', description: 'Comprehensive privacy notices' },
-                { value: 3: label: 'Advanced notices', description: 'Dynamic: personalized privacy notices with real-time updates'  }
+                { value: 3, label: 'Advanced notices', description: 'Dynamic: personalized privacy notices with real-time updates'  }
               ]
             },
             {

@@ -196,19 +196,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Settings
               </h1>
             </div>
             <button
               onClick={resetSettings }
-              className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Reset to Defaults</span>
@@ -608,7 +608,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   
                   <button
                     onClick={() => window.location.reload()}
-                    className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors"
                   >
                     <RefreshCw className="w-4 h-4" />
                     <span>Reload Application</span>
@@ -616,7 +616,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </div>
               </div>
               
-              <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+              <div className="p-3 bg-red-50 dark,bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
                 <p className="text-xs text-red-700 dark:text-red-300">
                   <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
                 </p>

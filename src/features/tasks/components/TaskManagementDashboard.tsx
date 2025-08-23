@@ -73,7 +73,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
           procedures: ['Asset Discovery SOP', 'Inventory Validation Process'],
           configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly' },
-          deployment: { scope: ['All Networks': 'All Systems'], phases: []: rollbackPlan: 'Manual inventory as fallback'
+          deployment: { scope: ['All Networks': 'All Systems'], phases: [], rollbackPlan: 'Manual inventory as fallback'
            },
           validation: {
             criteria: ['95% discovery accuracy', 'Real-time updates'],
@@ -112,7 +112,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
         },
         monitoring: {
           metrics: [],
-          alerting: { enabled: true: channels: ['email', 'slack']: thresholds: { accuracy: 90  },
+          alerting: { enabled, true: channels, ['email', 'slack']: thresholds: { accuracy: 90  },
             escalation: [],
             suppression: []
           },
@@ -124,9 +124,9 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             formats: ['PDF', 'Excel']
           },
           automation: { dataCollection: {
-              automated: true: sources: ['Lansweeper', 'Network Scanners']: frequency: 'daily'
+              automated, true: sources, ['Lansweeper', 'Network Scanners']: frequency: 'daily'
              },
-            analysis: { automated: true: algorithms: ['Asset Classification', 'Anomaly Detection']: ml_enabled: false
+            analysis: { automated, true: algorithms, ['Asset Classification', 'Anomaly Detection']: ml_enabled: false
              },
             response: {
               automated: false,
@@ -318,7 +318,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       lastAssessed: new Date(),
       nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
       assessmentFrequency: 'quarterly' as AssessmentFrequency,
-      implementation: { method: 'Manual implementation': tools: [], procedures: []: configuration: { },
+      implementation: { method: 'Manual implementation', tools: [], procedures: [], configuration: { },
         deployment: {
           scope: [],
           phases: [],
@@ -358,8 +358,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           }
         }
       },
-      monitoring: { metrics: []: alerting: {
-          enabled: false, channels: []: thresholds: { },
+      monitoring: { metrics: [], alerting: {
+          enabled, false, channels: [], thresholds: { },
           escalation: [],
           suppression: []
         },
@@ -511,12 +511,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover: bg-gray-600 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-gray-900 dark,text-white">
                   Controls Management
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400">
@@ -528,14 +528,14 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleImportControls}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover: bg-gray-200 dark, hover:bg-gray-600 transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
               </button>
               <button
                 onClick={handleExportControls}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover: bg-gray-200 dark, hover:bg-gray-600 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -759,21 +759,21 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleViewControl(control)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-blue-600 dark, hover: text-blue-400 hover,bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="View Control Details"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleEditControl(control)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-green-600 dark, hover: text-green-400 hover,bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="Edit Control"
                   >
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteControl(control.id)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-red-600 dark, hover: text-red-400 hover,bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="Delete Control"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -979,13 +979,13 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     setShowControlForm(false);
                     setEditingControl(null);
                   }}
-                  className="px-4 py-2 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-2 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover,bg-blue-700 transition-colors"
                 >
                   {editingControl ? 'Update Control' : 'Add Control'}
                 </button>
@@ -1005,7 +1005,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               </h3>
               <button
                 onClick={() => setViewingControl(null)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
+                className="text-gray-400 hover: text-gray-600 dark, hover: text-gray-300 text-2xl"
               >
                 ×
               </button>
@@ -1013,7 +1013,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             
             <div className="space-y-6">
               <div>
-                <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <h4 className="text-xl font-semibold text-gray-900 dark,text-white mb-2">
                   {viewingControl.controlId || viewingControl.nistSubcategory}: {viewingControl.name}
                 </h4>
                 <p className="text-gray-600 dark:text-gray-300">
@@ -1148,7 +1148,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 </button>
                 <button
                   onClick={() => setViewingControl(null)}
-                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
                 >
                   Close
                 </button>

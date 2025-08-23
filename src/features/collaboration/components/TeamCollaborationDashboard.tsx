@@ -28,7 +28,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
   const [filterRole, setFilterRole] = useState('all');
   const [filterFunction, setFilterFunction] = useState('all');
   const [showInviteModal, setShowInviteModal] = useState(false);
-  const [inviteFormData, setInviteFormData] = useState({ email: '': role: 'member', functions: [] as string[]: message: ''
+  const [inviteFormData, setInviteFormData] = useState({ email: '', role: 'member', functions: [] as string[], message: ''
    });
 
   // Mock team data
@@ -99,7 +99,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     setShowInviteModal(false);
     
     // Reset form
-    setInviteFormData({ email: '': role: 'member', functions: []: message: ''
+    setInviteFormData({ email: '', role: 'member', functions: [], message: ''
     
      });
   };
@@ -395,13 +395,13 @@ Workload Assessment: ${
                   </button>
                   <button
                     onClick={() => addNotification('info', `Messaging ${member.name}`)}
-                    className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                    className="p-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 hover,bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
                   >
                     <MessageSquare className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => addNotification('info', `Assigning tasks to ${member.name}`)}
-                    className="p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                    className="p-2 text-gray-600 dark:text-gray-300 hover: text-green-600 dark, hover: text-green-400 hover,bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
                   >
                     <CheckSquare className="w-4 h-4" />
                   </button>
@@ -511,16 +511,16 @@ Workload Assessment: ${
                   onClick={ () => {
                     setShowInviteModal(false);
                     setInviteFormData({
-                      email: '': role: 'member', functions: []: message: ''
+                      email: '', role: 'member', functions: [], message: ''
                      });
                   }}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover,bg-blue-700 transition-colors font-medium"
                 >
                   Send Invitation
                 </button>

@@ -42,7 +42,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         <>
           <Link
             to={homePath }
-            className="flex items-center text-gray-500 dark:text-gray-400 hover:text-primary-teal dark:hover:text-dark-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
+            className="flex items-center text-gray-500 dark:text-gray-400 hover: text-primary-teal dark, hover: text-dark-primary transition-colors focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
             aria-label="Go to dashboard"
           >
             <Home className="w-4 h-4" />
@@ -61,7 +61,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
           {item.path && !item.isActive ? (
             <Link
               to={item.path }
-              className="text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
+              className="text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors font-medium focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
               aria-label={`Go to ${item.label}`}
             >
               {item.label }
@@ -69,7 +69,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
           ) : item.onClick && !item.isActive ? (
             <button
               onClick={item.onClick }
-              className="text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
+              className="text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors font-medium focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
               aria-label={`Go to ${item.label}`}
             >
               {item.label }

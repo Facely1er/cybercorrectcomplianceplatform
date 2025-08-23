@@ -124,12 +124,12 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-4">
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </Link>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
               <div className="flex items-center space-x-3">
                 <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
                   <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -148,7 +148,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-3">
               <Link
                 to="/reports/advanced"
-                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Advanced Analytics</span>
@@ -262,9 +262,9 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             
             <button
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark, hover: bg-gray-600 transition-colors"
             >
-              {sortOrder === 'asc' ? '↑' : '↓'} {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+              {sortOrder === 'asc' ? '↑' , '↓'} {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
             </button>
           </div>
           
@@ -397,7 +397,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'json')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export JSON</span>
@@ -405,7 +405,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'csv')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export CSV</span>

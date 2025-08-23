@@ -138,7 +138,7 @@ class PerformanceMonitor {
       return 'other';
     };
 
-    return { name: entry.name: duration: entry.duration, size: entry.transferSize: type: getResourceType(entry.name)
+    return { name: entry.name, duration: entry.duration, size: entry.transferSize, type: getResourceType(entry.name)
      };
   }
 

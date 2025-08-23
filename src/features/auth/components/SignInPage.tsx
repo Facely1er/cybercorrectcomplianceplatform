@@ -247,9 +247,9 @@ export const SignInPage: React.FC = () => {
                       email: '', password: '', confirmPassword: '', name: '', organization: '', role: ''
                     });
                   }}
-                  className="ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                  className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark, hover: text-blue-300 font-medium"
                 >
-                  {isSignUp ? 'Sign in' : 'Sign up'}
+                  {isSignUp ? 'Sign in' , 'Sign up'}
                 </button>
               </p>
             </div>
@@ -258,7 +258,7 @@ export const SignInPage: React.FC = () => {
             <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
               >
                 Continue as Demo User
               </button>

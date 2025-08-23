@@ -97,7 +97,7 @@ export const useAssetRelationships = (assets: Asset[], relationships: AssetRelat
     if (!asset) return 0;
     
     const impactChain = getCriticalityImpactChain(assetId);
-    const criticalityWeights = { critical: 4: high: 3, medium: 2: low: 1  };
+    const criticalityWeights = { critical, 4: high, 3, medium: 2, low: 1  };
     
     const baseScore = criticalityWeights[asset.criticality];
     const chainScore = impactChain.reduce((sum, chainAsset) => 

@@ -234,12 +234,12 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
               <div className="flex items-center space-x-3">
                 <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
                   <FrameworkIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -305,7 +305,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                     className={`p-6 border-2 rounded-xl text-left transition-all duration-200 hover:shadow-lg ${
                       isSelected
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-lg'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'}`}
+                        : 'border-gray-200 dark:border-gray-700 hover: border-blue-300 dark, hover:border-blue-600'}`}
                   >
                     <div className="flex items-start space-x-4">
                       <div className={`p-3 rounded-xl ${
@@ -719,7 +719,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               
               <button
                 onClick={() => onStartAssessment(undefined, selectedFramework)}
-                className="w-full border-2 border-blue-600 text-blue-600 dark:text-blue-400 py-3 px-6 rounded-xl font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
+                className="w-full border-2 border-blue-600 text-blue-600 dark:text-blue-400 py-3 px-6 rounded-xl font-medium hover: bg-blue-50 dark, hover:bg-blue-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
               >
                 <ArrowRight className="w-4 h-4" />
                 <span>Quick Start</span>
@@ -843,13 +843,13 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 <button
                   type="button"
                   onClick={() => setShowOrganizationForm(false)}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover,from-blue-700 hover:to-indigo-700 transition-colors font-medium"
                 >
                   Start Assessment
                 </button>

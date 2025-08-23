@@ -128,7 +128,7 @@ export const validateFrameworkData = (framework: Framework: string[] => {
 export const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit: usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
@@ -151,7 +151,7 @@ export const optimizeLocalStorage = (: void => {
       
       // Remove old assessment versions if they exist
       const assessments = JSON.parse(localStorage.getItem('maturity-assessments') || '[]');
-      const optimizedAssessments = assessments.map((assessment: AssessmentData) => ({ ...assessment: versionHistory: assessment.versionHistory?.slice(-5), // Keep only last 5 versions
+      const optimizedAssessments = assessments.map((assessment: AssessmentData) => ({ ...assessment, versionHistory: assessment.versionHistory?.slice(-5), // Keep only last 5 versions
         changeLog: assessment.changeLog?.slice(-20): // Keep only last 20 changes 
      }));
       

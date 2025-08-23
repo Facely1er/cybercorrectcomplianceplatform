@@ -55,7 +55,7 @@ export class TaskService {
   async deleteTask(taskId: string, userId: string: Promise<void> { dataService.deleteTask(taskId);
     
     await auditLogger.log({
-      userId: action: 'delete', resource: 'task': resourceId: taskId  });
+      userId, action: 'delete', resource: 'task', resourceId: taskId  });
   }
 
   async assignTasksFromAssessment(

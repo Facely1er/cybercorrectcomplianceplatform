@@ -62,7 +62,7 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links: title = 'Rela
                 href={link.href }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200"
+                className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover: border-blue-300 dark, hover: border-blue-600 hover,shadow-md transition-all duration-200"
                 aria-label={`Open ${link.title} in new tab`}
               >
                 <div className="flex-1">
@@ -86,7 +86,7 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links: title = 'Rela
             ) : (
               <Link
                 to={link.href }
-                className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200"
+                className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover: border-blue-300 dark, hover: border-blue-600 hover,shadow-md transition-all duration-200"
                 aria-label={`Navigate to ${link.title}`}
               >
                 <div className="flex-1">

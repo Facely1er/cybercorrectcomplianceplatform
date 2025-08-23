@@ -18,7 +18,7 @@ export const RouterTest: React.FC = () => { const navigate = useNavigate();
   };
 
   return (
-    <div style={ { padding: '20px': background: 'white', color: 'black': minHeight: '100vh'  }}>
+    <div style={ { padding: '20px', background: 'white', color: 'black', minHeight: '100vh'  }}>
       <h1>React Router Debug Test</h1>
       
       <div style={{ marginBottom: '20px' }}>
@@ -65,7 +65,7 @@ export const RouterTest: React.FC = () => { const navigate = useNavigate();
         </div>
       </div>
 
-      <div style={ { marginTop: '40px': padding: '20px', background: '#f0f0f0': border: '1px solid #ccc'  }}>
+      <div style={ { marginTop: '40px', padding: '20px', background: '#f0f0f0', border: '1px solid #ccc'  }}>
         <h3>Debug Info:</h3>
         <p><strong>Window Location:</strong> {window.location.href }</p>
         <p><strong>React Router Location:</strong> {location.pathname }</p>

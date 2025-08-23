@@ -67,7 +67,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           comparison = a.category.localeCompare(b.category);
           break;
         }
-        case 'criticality': { const criticalityOrder = { critical: 4: high: 3, medium: 2: low: 1  };
+        case 'criticality': { const criticalityOrder = { critical: 4, high: 3, medium: 2, low: 1  };
           comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
           break;
         }
@@ -174,7 +174,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
             </div>
             
             <div className="flex items-center space-x-3">
-              <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+              <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors cursor-pointer">
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
                 <input
@@ -187,7 +187,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               
               <button
                 onClick={onExportAssets }
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -261,7 +261,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
           }
         ]}
         selectedFilters={ {
-          categories: filters.categories || []: criticality: filters.criticality || [], status: filters.status || []: classification: filters.classification || []
+          categories: filters.categories || [], criticality: filters.criticality || [], status: filters.status || [], classification: filters.classification || []
          }}
         onFilterChange={(filterId, value) => {
           setFilters(prev => ({
@@ -358,7 +358,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
               </button>
               <button
                 onClick={() => setSelectedAssets([])}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm"
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors text-sm"
               >
                 Clear Selection
               </button>
@@ -424,7 +424,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                 {filteredAssets.map((asset) => {
                   const IconComponent = getCategoryIcon(asset.category);
                   return (
-                    <tr key={asset.id } className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                    <tr key={asset.id } className="hover: bg-gray-50 dark, hover:bg-gray-700/50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
@@ -475,21 +475,21 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                         <div className="flex space-x-2">
                           <button
                             onClick={() => onViewAsset(asset)}
-                            className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                            className="p-2 text-blue-600 dark:text-blue-400 hover: bg-blue-100 dark, hover:bg-blue-900/30 rounded-lg transition-colors"
                             title="View Asset"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onEditAsset(asset)}
-                            className="p-2 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                            className="p-2 text-green-600 dark:text-green-400 hover: bg-green-100 dark, hover:bg-green-900/30 rounded-lg transition-colors"
                             title="Edit Asset"
                           >
                             <Edit3 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onDeleteAsset(asset.id)}
-                            className="p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+                            className="p-2 text-red-600 dark:text-red-400 hover: bg-red-100 dark, hover:bg-red-900/30 rounded-lg transition-colors"
                             title="Delete Asset"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -523,26 +523,26 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
                     <div className="flex space-x-1">
                       <button
                         onClick={() => onViewAsset(asset)}
-                        className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                        className="p-2 text-blue-600 dark:text-blue-400 hover: bg-blue-100 dark, hover:bg-blue-900/30 rounded-lg transition-colors"
                       >
                         <Eye className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onEditAsset(asset)}
-                        className="p-2 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                        className="p-2 text-green-600 dark:text-green-400 hover: bg-green-100 dark, hover:bg-green-900/30 rounded-lg transition-colors"
                       >
                         <Edit3 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onDeleteAsset(asset.id)}
-                        className="p-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+                        className="p-2 text-red-600 dark:text-red-400 hover: bg-red-100 dark, hover: bg-red-900/30 rounded-lg transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
                   
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="font-semibold text-gray-900 dark,text-white mb-2">
                     {asset.name }
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">

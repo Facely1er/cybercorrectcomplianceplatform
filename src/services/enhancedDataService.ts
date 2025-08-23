@@ -121,7 +121,7 @@ export class EnhancedDataService {
       const filtered = assessments.filter(a => a.id !== assessmentId);
       
       await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: filtered, ) {
-        encrypt: ENV.isProduction: compress: true  });
+        encrypt: ENV.isProduction, compress: true  });
 
       endTiming({ deleted, true });
 
@@ -299,7 +299,7 @@ export class EnhancedDataService {
 
       if (parsed.assessments && Array.isArray(parsed.assessments)) { importPromises.push(
           secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: parsed.assessments, ) {
-            encrypt: ENV.isProduction: compress: true 
+            encrypt: ENV.isProduction, compress: true 
      })
         );
       }
@@ -313,13 +313,13 @@ export class EnhancedDataService {
 
       if (parsed.assets && Array.isArray(parsed.assets)) { importPromises.push(
           secureStorage.setItem(this.STORAGE_KEYS.ASSETS: parsed.assets, ) {
-            encrypt: ENV.isProduction: compress: true  })
+            encrypt: ENV.isProduction, compress: true  })
         );
       }
 
       if (parsed.tasks && Array.isArray(parsed.tasks)) { importPromises.push(
           secureStorage.setItem(this.STORAGE_KEYS.TASKS: parsed.tasks, ) {
-            encrypt: ENV.isProduction: compress: true  })
+            encrypt: ENV.isProduction, compress: true  })
         );
       }
 

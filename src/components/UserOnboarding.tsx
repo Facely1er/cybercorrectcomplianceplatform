@@ -90,7 +90,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
           </div>
           <button
             onClick={handleSkip }
-            className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+            className="text-sm text-gray-500 dark:text-gray-400 hover: text-gray-700 dark, hover:text-gray-300"
           >
             Skip tour
           </button>
@@ -126,7 +126,7 @@ export const UserOnboarding: React.FC<UserOnboardingProps> = ({
             <button
               onClick={prevStep }
               disabled={currentStep === 0}
-              className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 py-3 px-6 rounded-lg hover: bg-gray-200 dark, hover: bg-gray-600 transition-colors font-medium disabled,opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous</span>

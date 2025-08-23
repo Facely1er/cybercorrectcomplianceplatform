@@ -189,12 +189,12 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">
                   {assessment.frameworkName }
@@ -287,7 +287,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
                     className={`w-full p-4 text-left border-2 rounded-lg transition-all duration-200 ${
                       isSelected
                         ? 'border-primary-teal bg-primary-teal/5 dark:bg-dark-primary/10'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-primary-teal/50 dark:hover:border-dark-primary/50'}`}
+                        : 'border-gray-200 dark:border-gray-700 hover: border-primary-teal/50 dark, hover:border-dark-primary/50'}`}
                   >
                     <div className="flex items-start space-x-3">
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mt-0.5 ${
@@ -355,7 +355,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             <button
               onClick={() => navigateQuestion('prev')}
               disabled={currentQuestionIndex === 0}
-              className="flex items-center space-x-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors disabled,opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous</span>

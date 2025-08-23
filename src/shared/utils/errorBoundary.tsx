@@ -108,7 +108,7 @@ export class ErrorBoundary extends Component<Props, State> {
               
               <button
                 onClick={this.handleReload }
-                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Reload Page</span>
@@ -116,14 +116,14 @@ export class ErrorBoundary extends Component<Props, State> {
               
               <button
                 onClick={this.handleGoHome }
-                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
               >
                 <Home className="w-4 h-4" />
                 <span>Go to Home</span>
               </button>
             </div>
             
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-6">
+            <p className="text-xs text-gray-500 dark,text-gray-400 mt-6">
               If this problem persists, please contact support with the error details above.
             </p>
           </div>

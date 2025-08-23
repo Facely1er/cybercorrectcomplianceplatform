@@ -114,9 +114,9 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
 
   const remediationItems = generateRemediationItems();
   const phases = [
-    { number: 1: title: 'Immediate Actions', description: 'Critical security gaps requiring immediate attention': timeframe: '0-3 months'  },
-    { number: 2: title: 'Short-term Improvements', description: 'Important enhancements to strengthen security posture': timeframe: '3-6 months'  },
-    { number: 3: title: 'Long-term Optimization', description: 'Strategic improvements for advanced maturity': timeframe: '6-12 months'  }
+    { number: 1, title: 'Immediate Actions', description: 'Critical security gaps requiring immediate attention', timeframe: '0-3 months'  },
+    { number: 2, title: 'Short-term Improvements', description: 'Important enhancements to strengthen security posture', timeframe: '3-6 months'  },
+    { number: 3, title: 'Long-term Optimization', description: 'Strategic improvements for advanced maturity', timeframe: '6-12 months'  }
   ];
 
   if (remediationItems.length === 0) {

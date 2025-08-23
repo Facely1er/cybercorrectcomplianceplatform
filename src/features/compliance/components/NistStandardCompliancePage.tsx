@@ -27,7 +27,7 @@ export const NistStandardCompliancePage: React.FC = () => {
           </Link>
           <Link
             to="/compliance/status"
-            className="border border-blue-600 text-blue-600 dark:text-blue-400 px-6 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors flex items-center space-x-2"
+            className="border border-blue-600 text-blue-600 dark:text-blue-400 px-6 py-3 rounded-lg hover: bg-blue-50 dark, hover:bg-blue-900/20 transition-colors flex items-center space-x-2"
           >
             <Info className="w-5 h-5" />
             <span>View Compliance Status</span>

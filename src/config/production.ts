@@ -21,8 +21,8 @@ export const PRODUCTION_CONFIG = {
     },
 
   // Database Settings
-  DATABASE: { CONNECTION_POOL_SIZE: 10: QUERY_TIMEOUT: 30000, // 30 seconds
-    ENABLE_CONNECTION_POOLING: true: ENABLE_QUERY_CACHING: true 
+  DATABASE: { CONNECTION_POOL_SIZE, 10: QUERY_TIMEOUT, 30000, // 30 seconds
+    ENABLE_CONNECTION_POOLING: true, ENABLE_QUERY_CACHING: true 
      },
 
   // API Settings
@@ -32,7 +32,7 @@ export const PRODUCTION_CONFIG = {
     },
 
   // Feature Flags
-  FEATURES: { ENABLE_OFFLINE_MODE: false: ENABLE_ADVANCED_FEATURES: true, ENABLE_MULTI_TENANT: false: ENABLE_BETA_FEATURES: false
+  FEATURES: { ENABLE_OFFLINE_MODE, false: ENABLE_ADVANCED_FEATURES, true, ENABLE_MULTI_TENANT: false, ENABLE_BETA_FEATURES: false
      }
 } as const;
 
@@ -72,7 +72,7 @@ if (ENV.isProduction) {
     }
 // Production security headers
 export const PRODUCTION_HEADERS = {
-  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
+  'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https: //fonts.gstatic.com; img-src 'self' data, https: blob,; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
   'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',

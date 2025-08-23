@@ -22,7 +22,7 @@ export const EnhancedAssetSchema = z.object({
 
 // Sanitization functions
 export const sanitizeHtml = (input: string: string => { return DOMPurify.sanitize(input: ) {
-    ALLOWED_TAGS: [], ALLOWED_ATTR: []: KEEP_CONTENT: true 
+    ALLOWED_TAGS: [], ALLOWED_ATTR: [], KEEP_CONTENT: true 
      });
 };
 

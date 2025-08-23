@@ -115,12 +115,12 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center space-x-4">
             <Link
               to="/dashboard"
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Back to Dashboard</span>
             </Link>
-            <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+            <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
             <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl">
               <BarChart3 className="w-8 h-8 text-purple-600 dark:text-purple-400" />
             </div>
@@ -305,9 +305,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
               {functionAnalysis.map((func, index) => (
-                <tr key={index } className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <tr key={index } className="hover: bg-gray-50 dark, hover: bg-gray-700/50">
                   <td className="py-4 px-4">
-                    <div className="font-medium text-gray-900 dark:text-white">
+                    <div className="font-medium text-gray-900 dark,text-white">
                       {func.name }
                     </div>
                   </td>
@@ -397,9 +397,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         <div className="grid md:grid-cols-3 gap-4">
           <button
             onClick={() => onExportReport('pdf')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors"
           >
-            <FileText className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <FileText className="w-6 h-6 text-red-600 dark,text-red-400" />
             <div className="text-left">
               <div className="font-medium text-gray-900 dark:text-white">PDF Report</div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Executive summary and detailed analysis</div>
@@ -408,9 +408,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('excel')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors"
           >
-            <BarChart3 className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <BarChart3 className="w-6 h-6 text-green-600 dark,text-green-400" />
             <div className="text-left">
               <div className="font-medium text-gray-900 dark:text-white">Excel Workbook</div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Data analysis and pivot tables</div>
@@ -419,9 +419,9 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('json')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors"
           >
-            <Settings className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <Settings className="w-6 h-6 text-blue-600 dark,text-blue-400" />
             <div className="text-left">
               <div className="font-medium text-gray-900 dark:text-white">JSON Data</div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Raw data for integration</div>

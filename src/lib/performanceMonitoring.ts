@@ -174,7 +174,7 @@ class PerformanceMonitoring {
       const durations = measurements.map(m => m.duration).sort((a, b) => a - b);
       const p95Index = Math.floor(durations.length * 0.95);
 
-      result[name] = { average: this.getAverageTime(name): count: measurements.length, latest: measurements[measurements.length - 1]?.duration || 0: p95: durations[p95Index] || 0
+      result[name] = { average: this.getAverageTime(name), count: measurements.length, latest: measurements[measurements.length - 1]?.duration || 0, p95: durations[p95Index] || 0
        };
     }
     
@@ -199,7 +199,7 @@ class PerformanceMonitoring {
   getMemoryUsage(, Record<string, number> { if ('memory' in performance) {
       const memory = (performance as any).memory;
       return {
-        usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit: usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+        usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
     }
     return {};

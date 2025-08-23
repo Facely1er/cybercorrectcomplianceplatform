@@ -29,7 +29,7 @@ export const KeyboardShortcutsHelp: React.FC<KeyboardShortcutsHelpProps> = ({ sh
     <>
       <button
         onClick={() => setIsVisible(true)}
-        className="fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-700 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors z-40"
+        className="fixed bottom-4 right-4 bg-gray-800 dark:bg-gray-700 text-white p-3 rounded-full shadow-lg hover: bg-gray-700 dark, hover: bg-gray-600 transition-colors z-40"
         title="Keyboard shortcuts"
         aria-label="Show keyboard shortcuts"
       >
@@ -38,14 +38,14 @@ export const KeyboardShortcutsHelp: React.FC<KeyboardShortcutsHelpProps> = ({ sh
 
       {isVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
+          <div className="bg-white dark,bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl border border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Keyboard Shortcuts
               </h3>
               <button
                 onClick={() => setIsVisible(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-400 hover: text-gray-600 dark, hover:text-gray-300"
                 aria-label="Close shortcuts help"
               >
                 <X className="w-5 h-5" />

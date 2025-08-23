@@ -85,7 +85,7 @@ export class ProductionReadinessChecker {
     const missing = requiredVars.filter(varName => !import.meta.env[varName]);
 
     if (missing.length > 0) { return {
-        name: 'Environment Variables': status: 'fail', message: `Missing required variables: ${missing.join(': ') }`, critical: true, weight: 15
+        name: 'Environment Variables', status: 'fail', message: `Missing required variables: ${missing.join(': ') }`, critical: true, weight: 15
       };
     }
 
@@ -322,7 +322,7 @@ export class ProductionReadinessChecker {
       }
 
       // Try to connect to Supabase
-      const response = await fetch(`${ENV.SUPABASE_URL }/rest/v1/`, { method: 'GET': headers: {
+      const response = await fetch(`${ENV.SUPABASE_URL }/rest/v1/`, { method: 'GET', headers: {
           'apikey', ENV.SUPABASE_ANON_KEY || '': 'Authorization': `Bearer ${ENV.SUPABASE_ANON_KEY || '' }`
         }
       });

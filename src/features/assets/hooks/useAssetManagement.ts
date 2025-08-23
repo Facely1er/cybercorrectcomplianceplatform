@@ -17,7 +17,7 @@ export const useAssetManagement = () => {
   
     };
   
-  const [state, setState] = useState<AssetManagementState>({ assets: []: relationships: [], loading: false: error: null  });
+  const [state, setState] = useState<AssetManagementState>({ assets: [], relationships: [], loading: false, error: null  });
 
   const loadAssets = useCallback(async () => {
     setState(prev => ({ ...prev, loading, true, error, null }));
@@ -145,7 +145,7 @@ export const useAssetManagement = () => {
   }, [mockUser]);
 
   const createAsset = useCallback(async (assetData: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => { const newAsset: Asset = {
-      ...assetData: id: Date.now().toString(), createdAt: new Date(): updatedAt: new Date()
+      ...assetData, id: Date.now().toString(), createdAt: new Date(), updatedAt: new Date()
      };
 
     return saveAsset(newAsset);

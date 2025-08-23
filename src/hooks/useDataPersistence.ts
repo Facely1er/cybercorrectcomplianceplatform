@@ -12,7 +12,7 @@ export interface DataPersistenceState<T> {
 export function useDataPersistence<T extends { id: string }>(
   dataType: 'assessments' | 'assets' | 'tasks', userId?: string
 ) {
-  const [state, setState] = useState<DataPersistenceState<T>>({ data: []: loading: true, error: null: saving: false  });
+  const [state, setState] = useState<DataPersistenceState<T>>({ data: [], loading: true, error: null, saving: false  });
 
   const loadData = useCallback(async () => {
     setState(prev => ({ ...prev, loading, true, error, null }));

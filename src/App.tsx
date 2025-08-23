@@ -206,7 +206,7 @@ interface DropdownNavItemProps {
   currentPath: string;
 }
 
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon: Icon, items: currentPath  }) => {
+const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
@@ -221,7 +221,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon: Icon, it
         className={`flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
           isActive
             ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-            : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+            : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary hover,bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
         aria-expanded={isOpen }
         aria-haspopup="true"
       >
@@ -240,10 +240,10 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon: Icon, it
             <Link
               key={item.href }
               to={item.href }
-              className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
+              className={`flex items-center space-x-2 px-3 py-2 hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors ${
                 currentPath === item.href
-                  ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+                  ? 'bg-primary-teal/10 dark,bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                  : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary hover,bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -321,11 +321,8 @@ function AppContent() {
   const navigationMenus = [
     {
       label: 'Assessment', icon: Target, items: [
-        { label: 'Start Assessment': href: '/assessment-intro', icon: Target: description: 'Begin cybersecurity framework assessment'
-        
-     },
-        { label: 'CMMC Assessment': href: '/compliance/cmmc', icon: Building: description: 'CMMC Level 2 certification readiness'
-         },
+        { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
+        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
         {
           label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations'
         }
@@ -333,29 +330,29 @@ function AppContent() {
     },
     {
       label: 'Implementation', icon: Shield, items: [
-        { label: 'Compliance Status': href: '/compliance', icon: Activity: description: 'Real-time implementation progress'
+        { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
          },
-        { label: 'Evidence Collection': href: '/evidence', icon: FileText: description: 'Manage compliance documentation'
+        { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation'
          },
-        { label: 'Policy Management': href: '/policies', icon: Shield: description: 'Required policies and procedures'
+        { label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures'
          },
-        { label: 'Controls Management': href: '/controls', icon: CheckSquare: description: 'Security controls implementation'
+        { label: 'Controls Management', href: '/controls', icon: CheckSquare, description: 'Security controls implementation'
          },
-        { label: 'Asset Management': href: '/assets', icon: BarChart3: description: 'Inventory and scope management'
+        { label: 'Asset Management', href: '/assets', icon: BarChart3, description: 'Inventory and scope management'
          }
       ]
     },
     {
       label: 'Team', icon: Users, items: [
-        { label: 'Team Collaboration': href: '/team', icon: Users: description: 'Coordinate implementation efforts'
+        { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts'
          },
-        { label: 'Task Management': href: '/tasks', icon: CheckSquare: description: 'Track tasks and deliverables'
+        { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables'
          },
-        { label: 'Activity Calendar': href: '/calendar', icon: Calendar: description: 'Schedule compliance activities'
+        { label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities'
          },
-        { label: 'Assessment Reports': href: '/reports', icon: FileText: description: 'Generate detailed reports'
+        { label: 'Assessment Reports', href: '/reports', icon: FileText, description: 'Generate detailed reports'
          },
-        { label: 'Advanced Analytics': href: '/reports/advanced', icon: BarChart3: description: 'Comprehensive analytics dashboard'
+        { label: 'Advanced Analytics', href: '/reports/advanced', icon: BarChart3, description: 'Comprehensive analytics dashboard'
          }
       ]
     }
@@ -386,7 +383,7 @@ function AppContent() {
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id: Date.now().toString(): frameworkId: framework.id, frameworkName: framework.name: responses: { }, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version: organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
+        id: Date.now().toString(), frameworkId: framework.id, frameworkName: framework.name, responses: { }, createdAt: new Date(), lastModified: new Date(), isComplete: false, version: framework.version, organizationInfo, questionNotes: {}, questionEvidence: {}, evidenceLibrary: [], assessmentVersion: '1.0.0', versionHistory: [], changeLog: []
       };
 
       // Save using local data service directly
@@ -429,7 +426,7 @@ function AppContent() {
   // Asset management handlers
   const createAsset = async (assetData: any) => { try {
       const newAsset = {
-                  ...assetData: id: Date.now().toString(), createdAt: new Date(): updatedAt: new Date()
+                  ...assetData, id: Date.now().toString(), createdAt: new Date(), updatedAt: new Date()
       
      };
       
@@ -494,7 +491,7 @@ function AppContent() {
                   className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                     location.pathname === '/' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
+                      : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary'
                   }`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
@@ -506,7 +503,7 @@ function AppContent() {
                   className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${
                     location.pathname === '/dashboard' // Adjust spacing for top-level menu items
                       ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                                              : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'
+                                              : 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary'
                   }`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
@@ -530,7 +527,7 @@ function AppContent() {
                 <ThemeToggle />
                 <Link
                   to="/signin"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   title="Sign In"
                   aria-label="Sign In"
                 >
@@ -538,14 +535,14 @@ function AppContent() {
                 </Link>
                 <Link
                   to="/settings"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-label="Settings"
                 >
                   <Settings className="w-5 h-5" aria-hidden="true" />
                 </Link>
                 <Link
                   to="/help"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-label="Help"
                 >
                   <HelpCircle className="w-5 h-5" aria-hidden="true" />
@@ -554,7 +551,7 @@ function AppContent() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg:hidden p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="lg:hidden p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover: bg-gray-700 transition-colors focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
                   aria-expanded={mobileMenuOpen }
                   aria-controls="mobile-menu"
                   aria-label="Toggle mobile menu"
@@ -572,7 +569,7 @@ function AppContent() {
             <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Home className="w-4 h-4" aria-hidden="true" />
@@ -581,7 +578,7 @@ function AppContent() {
               
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <BarChart3 className="w-4 h-4" aria-hidden="true" />
@@ -594,7 +591,7 @@ function AppContent() {
                   <Link
                     key={item.href }
                     to={item.href }
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-4 h-4" aria-hidden="true" />
@@ -605,7 +602,7 @@ function AppContent() {
               
               <Link
                 to="/signin"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Users className="w-4 h-4" aria-hidden="true" />
@@ -614,7 +611,7 @@ function AppContent() {
               
               <Link
                 to="/settings"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Settings className="w-4 h-4" aria-hidden="true" />
@@ -623,7 +620,7 @@ function AppContent() {
               
               <Link
                 to="/help"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover,text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <HelpCircle className="w-4 h-4" aria-hidden="true" />

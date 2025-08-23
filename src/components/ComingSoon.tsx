@@ -80,7 +80,7 @@ export const ComingSoon: React.FC<ComingSoonProps> = ({
             
             <a
               href="mailto:support@ermits.com?subject=Feature Request&body=I'm interested in learning more about this upcoming feature."
-              className="flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+              className="flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
             >
               <span>Request Updates</span>
             </a>

@@ -121,7 +121,7 @@ export class FileService {
       const used = files.reduce((sum: file) => sum + file.size, 0);
       const total = 5 * 1024 * 1024; // 5MB estimate for localStorage
       return {
-        used: total: percentage: (used / total) * 100
+        used: total, percentage: (used / total) * 100
       
      };
     } catch {

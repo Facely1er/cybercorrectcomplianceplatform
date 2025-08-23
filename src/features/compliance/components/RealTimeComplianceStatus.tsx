@@ -233,10 +233,10 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
             <button
               key={func }
               onClick={() => onViewDetails(func)}
-              className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
+              className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors text-left group"
             >
               <div className="flex items-center justify-between mb-3">
-                <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                <h4 className="font-semibold text-gray-900 dark,text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {func }
                 </h4>
                 <span className={`text-lg font-bold ${getComplianceColor(score)}`}>
@@ -273,7 +273,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
           <div className="space-y-4">
             {complianceData.alerts
               .filter(alert => !alert.acknowledged)
-              .sort((a, b) => { const severityOrder = { critical: 4: high: 3, medium: 2: low: 1  };
+              .sort((a, b) => { const severityOrder = { critical: 4, high: 3, medium: 2, low: 1  };
                 return severityOrder[b.severity] - severityOrder[a.severity];
               })
               .map((alert) => (
@@ -335,12 +335,12 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                     <div className="flex flex-col space-y-2">
                       <button
                         onClick={() => onAcknowledgeAlert(alert.id)}
-                        className="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                        className="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors"
                       >
                         Acknowledge
                       </button>
                       
-                      <button className="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                      <button className="px-3 py-1 bg-white dark,bg-gray-800 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors">
                         View Details
                       </button>
                     </div>
@@ -359,32 +359,32 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left">
-            <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors text-left">
+            <Target className="w-6 h-6 text-blue-600 dark,text-blue-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Start Assessment</div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Begin new evaluation</div>
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left">
-            <FileText className="w-6 h-6 text-green-600 dark:text-green-400" />
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors text-left">
+            <FileText className="w-6 h-6 text-green-600 dark,text-green-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Collect Evidence</div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Upload documentation</div>
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left">
-            <Calendar className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors text-left">
+            <Calendar className="w-6 h-6 text-purple-600 dark,text-purple-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">View Calendar</div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Check activities</div>
             </div>
           </button>
           
-          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left">
-            <BarChart3 className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+          <button className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors text-left">
+            <BarChart3 className="w-6 h-6 text-orange-600 dark,text-orange-400" />
             <div>
               <div className="font-medium text-gray-900 dark:text-white">Generate Report</div>
               <div className="text-sm text-gray-600 dark:text-gray-300">Export status</div>

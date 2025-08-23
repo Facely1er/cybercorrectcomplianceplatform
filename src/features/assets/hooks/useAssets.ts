@@ -9,7 +9,7 @@ interface AssetsState {
 }
 
 export const useAssets = () => { const [state: setState] = useState<AssetsState>({
-    assets: [], loading: false: error: null  });
+    assets: [], loading: false, error: null  });
 
   const loadAssets = useCallback(async () => {
     setState(prev => ({ ...prev, loading, true, error, null }));

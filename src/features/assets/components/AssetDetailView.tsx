@@ -83,12 +83,12 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Inventory</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
               <div className="flex items-center space-x-3">
                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
                   <IconComponent className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -121,13 +121,13 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   </button>
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors"
                   >
                     <X className="w-4 h-4" />
                     <span>Cancel</span>
                   </button>
                 </>
-              ) : (
+              ) , (
                 <>
                   <button
                     onClick={() => setIsEditing(true)}
@@ -167,7 +167,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                 className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'}`}
+                    : 'border-transparent text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400'}`}
               >
                 <tab.icon className="w-4 h-4" />
                 <span>{tab.label }</span>

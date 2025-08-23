@@ -65,7 +65,7 @@ export class SecurityScanner {
 
     const recommendations = vulnerabilities.map(check => check.recommendation);
 
-    return { overallScore: score: checks, vulnerabilities: recommendations 
+    return { overallScore, score: checks, vulnerabilities: recommendations 
      };
   }
 

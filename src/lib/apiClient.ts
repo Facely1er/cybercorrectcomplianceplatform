@@ -80,7 +80,7 @@ class ApiClient {
 
       const data = await response.json();
 
-      return { data: status: response.status, headers: response.headers: ok: response.ok  };
+      return { data: status: response.status, headers: response.headers, ok: response.ok  };
 
     } catch (error) {
       clearTimeout(timeoutId);

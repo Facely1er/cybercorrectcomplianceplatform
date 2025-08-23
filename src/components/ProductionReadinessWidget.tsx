@@ -85,7 +85,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-400 hover: text-gray-600 dark, hover:text-gray-300"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -198,7 +198,7 @@ export const ProductionReadinessWidget: React.FC = () => {
                   link.click();
                   URL.revokeObjectURL(url);
                 }}
-                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Export Report</span>
@@ -206,7 +206,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-6 py-3 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors"
+                className="px-6 py-3 text-gray-600 dark:text-gray-300 hover: text-gray-800 dark, hover:text-gray-100 transition-colors"
               >
                 Close
               </button>

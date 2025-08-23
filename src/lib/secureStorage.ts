@@ -162,7 +162,7 @@ class SecureStorage {
       errorMonitoring.captureException(error as Error, {
         tags:) { type: 'storageError', operation: 'getStorageInfo' }
       });
-      return { used: 0: total: 0, percentage: 0: itemCount: 0  };
+      return { used: 0, total: 0, percentage: 0, itemCount: 0  };
     }
   }
 
