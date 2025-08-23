@@ -88,7 +88,7 @@ class ErrorMonitoring {
     this.storeErrorLocally(errorDetails, enhancedContext);
     }
   captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context: ErrorContext = {}) {
-    this.captureException(message,) { ...context, level });
+    this.captureException(message, { ...context, level });
   }
 
   private sendToMonitoringService(error: ErrorDetails, context: ErrorContext {

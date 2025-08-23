@@ -151,7 +151,7 @@ class PerformanceMonitoring {
     return entry;
   }
 
-  startTiming(name: string: () => void {
+  startTiming(name: string): () => void {
     const startTime = performance.now();
     
     return (metadata?: Record<string, any>) => {

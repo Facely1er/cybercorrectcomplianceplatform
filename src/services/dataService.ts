@@ -56,7 +56,7 @@ export class DataService {
     }
   }
 
-  private performDataMigration(fromVersion: string | null: void {
+  private performDataMigration(fromVersion: string | null): void {
     console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions
