@@ -24,7 +24,7 @@ export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
 
   // Close on Escape key
   useEffect(() => {
-    const handleEscape = (event, KeyboardEvent) => {
+    const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
         onClose();
     }
@@ -56,7 +56,7 @@ export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
           {showCloseButton && (
             <button
               onClick={onClose }
-              className="text-gray-400 hover: text-gray-600 dark, hover, text-gray-300 p-1 rounded-lg hover,bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="text-gray-400 hover: text-gray-600 dark, hover:text-gray-300 p-1 rounded-lg hover,bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />

@@ -57,7 +57,7 @@ export const sanitizeObject = (obj: Record<string, any>: Record<string, any> => 
 export const validateAndSanitize = <T>(schema: z.ZodSchema<T>, data: unknown, T => {
   // First sanitize if it's an object
   const sanitizedData = typeof data === 'object' && data !== null 
-    ? sanitizeObject(data as Record<string, any>)
+    ? sanitizeObject(data as Record<string : any>)
     : data;
   
   // Then validate

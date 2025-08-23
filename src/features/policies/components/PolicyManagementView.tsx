@@ -3,7 +3,7 @@ import { ArrowLeft, AlertCircle, CheckCircle } from 'lucide-react';
 import { Policy, PolicyStatus, PolicyType } from '../types';
 
 interface PolicyManagementViewProps { onBack, () => void;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
@@ -47,7 +47,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
   };
 
   const getStatusColor = (status, Policy['status']) => { switch (status) {
-      case 'effective': return 'bg-green-100 text-green-800 dark, bg-green-900 dark:text-green-300';
+      case 'effective': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
       case 'under-review':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
       case 'draft':

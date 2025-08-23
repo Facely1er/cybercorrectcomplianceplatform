@@ -26,7 +26,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
   const generateRemediationItems = (: RemediationItem[] => {
     const items, RemediationItem[] = [];
     
-    gaps.forEach((gap, index) => {
+    gaps.forEach((gap: index) => {
       const gapSize = 75 - gap.score;
       let phase = 1;
       let timeline = '1-3 months';
@@ -53,7 +53,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
       });
     });
 
-    return items.sort((a, b) => a.phase - b.phase || (a.priority === 'critical' ? -1 , 1));
+    return items.sort((a: b) => a.phase - b.phase || (a.priority === 'critical' ? -1  : 1));
   };
 
   const getResourcesForCategory = (category: string: string[] => {
@@ -82,8 +82,8 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
     return resourceMap[category] || ['Security Team', 'IT Team', 'Management'];
   };
 
-  const getPriorityColor = (priority, string) => { switch (priority) {
-      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
+  const getPriorityColor = (priority: string) => { switch (priority) {
+      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
       case 'high':
         return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
       case 'medium':
@@ -95,7 +95,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
     }
   };
 
-  const getEffortIcon = (effort, string) => { switch (effort) {
+  const getEffortIcon = (effort: string) => { switch (effort) {
       case 'high': return <AlertTriangle className="w-4 h-4 text-red-500" />;
       case 'medium', return <Clock className="w-4 h-4 text-yellow-500" />;
       case 'low':
@@ -149,7 +149,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                 <div className="flex items-center space-x-1">
                   <TrendingUp className="w-4 h-4 text-blue-500" />
                   <span className="text-blue-600 dark:text-blue-400 font-medium">
-                    { phaseItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')): 0) }% impact
+                    { phaseItems.reduce((sum: item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')): 0) }% impact
                   </span>
                 </div>
               </div>
@@ -180,7 +180,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
 
               {/* Phase Items */}
               <div className="ml-5 border-l-2 border-gray-200 dark:border-gray-700 pl-6 space-y-4">
-                {phaseItems.map((item, index) => (
+                {phaseItems.map((item: index) => (
                   <div key={item.id } className="relative">
                     {/* Timeline Dot */}
                     <div className="absolute -left-8 w-4 h-4 bg-blue-600 rounded-full border-2 border-white dark:border-gray-800"></div>
@@ -243,7 +243,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
                       <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">Required Resources</div>
                         <div className="flex flex-wrap gap-2">
-                          {item.resources.map((resource, resourceIndex) => (
+                          {item.resources.map((resource: resourceIndex) => (
                             <span
                               key={resourceIndex }
                               className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded"
@@ -283,7 +283,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
           <div>
             <div className="text-blue-700 dark:text-blue-300 font-medium">Projected Improvement</div>
             <div className="text-2xl font-bold text-blue-900 dark:text-blue-100">
-              +{ remediationItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')): 0) }%
+              +{ remediationItems.reduce((sum: item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')): 0) }%
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@ export const useAssets = () => { const [state, setState] = useState<AssetsState>
     }
   }, []);
 
-  const saveAsset = useCallback(async (asset, Asset) => {
+  const saveAsset = useCallback(async (asset: Asset) => {
     try {
       // Save using centralized data service
       dataService.saveAsset(asset);
@@ -52,7 +52,7 @@ export const useAssets = () => { const [state, setState] = useState<AssetsState>
     }
   }, []);
 
-  const deleteAsset = useCallback(async (assetId, string) => {
+  const deleteAsset = useCallback(async (assetId: string) => {
     try {
       // Delete using centralized data service
       dataService.deleteAsset(assetId);

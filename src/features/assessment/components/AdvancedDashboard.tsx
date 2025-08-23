@@ -12,13 +12,13 @@ import { dataService } from '../../../services/dataService';
 
 interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
   onStartAssessment, () => void;
-  onLoadAssessment: (assessment, AssessmentData) => void;
-  onDeleteAssessment: (assessmentId, string) => void;
-  onGenerateReport: (assessment, AssessmentData) => void;
+  onLoadAssessment: (assessment: AssessmentData) => void;
+  onDeleteAssessment: (assessmentId: string) => void;
+  onGenerateReport: (assessment: AssessmentData) => void;
   onExportAssessment: (assessment: AssessmentData, format, 'json' | 'csv' | 'pdf') => void;
-  onImportAssessment: (file, File) => void;
+  onImportAssessment: (file: File) => void;
   userProfile: UserProfile | null;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
@@ -36,10 +36,10 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const { contextualLinks, breadcrumbs 
     } = useInternalLinking();
 
-  const calculateAssessmentScore = (assessment, AssessmentData) => {
+  const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a: b) => a + b, 0) / responses.length) * 25);
   };
 
   // Calculate comprehensive statistics
@@ -47,10 +47,10 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     const completed = savedAssessments.filter(a => a.isComplete).length;
     const inProgress = total - completed;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum, assessment) => {
+      ? Math.round(savedAssessments.reduce((sum : assessment) => {
           const responses = Object.values(assessment.responses);
           const score = responses.length > 0 
-            ? (responses.reduce((a, b) => a + b, 0) / responses.length) * 25
+            ? (responses.reduce((a : b) => a + b, 0) / responses.length) * 25
             : 0;
           return sum + score;
         
@@ -58,16 +58,16 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       : 0;
 
     // Risk analysis
-    const riskDistribution = savedAssessments.reduce((acc, assessment) => {
+    const riskDistribution = savedAssessments.reduce((acc: assessment) => {
       const score = calculateAssessmentScore(assessment);
-      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' , score >= 40 ? 'high' : 'critical';
+      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium'  : score >= 40 ? 'high' : 'critical';
       acc[risk] = (acc[risk] || 0) + 1;
       return acc;
     
     }, {} as Record<string, number>);
 
     // Time analysis
-    const totalTimeSpent = savedAssessments.reduce((sum, assessment) => sum + (assessment.timeSpent || 0), 0);
+    const totalTimeSpent = savedAssessments.reduce((sum: assessment) => sum + (assessment.timeSpent || 0), 0);
 
     // Recent activity
     const recentAssessments = savedAssessments
@@ -99,7 +99,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                            (filterStatus === 'inProgress' && !assessment.isComplete);
       
       const score = calculateAssessmentScore(assessment);
-      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' , score >= 40 ? 'high' : 'critical';
+      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium'  : score >= 40 ? 'high' : 'critical';
       const matchesRisk = filterRisk === 'all' || risk === filterRisk;
       
       return matchesSearch && matchesStatus && matchesRisk;
@@ -107,7 +107,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     });
 
     // Sort assessments
-    filtered.sort((a, b) => { let comparison = 0;
+    filtered.sort((a: b) => { let comparison = 0;
       
       switch (sortBy) {
         case 'date': comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
@@ -131,13 +131,13 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     return filtered;
   }, [savedAssessments, searchTerm, filterStatus, filterRisk, sortBy, sortOrder]);
 
-  const getScoreColor = (score, number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
+  const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
     if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getRiskColor = (score, number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
+  const getRiskColor = (score: number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
     if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
     return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
@@ -199,7 +199,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     }
   };
 
-  const toggleAssessmentSelection = (assessmentId, string) => {
+  const toggleAssessmentSelection = (assessmentId: string) => {
     setSelectedAssessments(prev => 
       prev.includes(assessmentId)
         ? prev.filter(id => id !== assessmentId): px-8 py-8">
@@ -213,7 +213,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
-              {userProfile ? `Welcome back, ${userProfile.name}` : 'CMMC Cybersecurity Compliance'}
+              {userProfile ? `Welcome back : ${userProfile.name}` : 'CMMC Cybersecurity Compliance'}
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-300">
               {userProfile 
@@ -245,7 +245,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                 <span className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">Demo Mode</span>
               </div>
             )}
-            <label className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 hover: bg-gray-50 dark, hover: bg-gray-700 hover,border-blue-300 dark:hover:border-blue-600 transition-all duration-200 cursor-pointer flex items-center space-x-2 shadow-sm hover:shadow-md">
+            <label className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 hover,border-blue-300 dark:hover:border-blue-600 transition-all duration-200 cursor-pointer flex items-center space-x-2 shadow-sm hover:shadow-md">
               <Upload className="w-4 h-4" />
               <span className="font-medium">Import Backup</span>
               <input
@@ -386,11 +386,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   </div>
                 </div>
                 <div className={ `p-3 rounded-full transition-all duration-300 group-hover: scale-110 ${
-                  risk === 'critical' ? 'bg-red-100 dark, bg-red-900/30' :
+                  risk === 'critical' ? 'bg-red-100 dark : bg-red-900/30' :
                   risk === 'high' ? 'bg-orange-100 dark:bg-orange-900/30' :
                   risk === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30' :
                   'bg-green-100 dark:bg-green-900/30'}`}>
-                  { risk === 'critical' ? <AlertCircle className="w-6 h-6 text-red-600" /> : risk === 'high' ? <AlertCircle className="w-6 h-6 text-orange-600" /> , risk === 'medium' ? <Info className="w-6 h-6 text-yellow-600" /> :
+                  { risk === 'critical' ? <AlertCircle className="w-6 h-6 text-red-600" /> : risk === 'high' ? <AlertCircle className="w-6 h-6 text-orange-600" />  : risk === 'medium' ? <Info className="w-6 h-6 text-yellow-600" /> :
                    <CheckCircle className="w-6 h-6 text-green-600" />}
                 </div>
               </div>
@@ -423,7 +423,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <button
             onClick={onStartAssessment }
-            className="p-6 border-2 border-dashed border-red-300 dark:border-red-600 rounded-xl hover: border-red-500 dark, hover: border-red-400 hover,bg-gradient-to-br hover:from-red-50 hover: to-orange-50 dark, hover: from-red-900/20 dark,hover:to-orange-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
+            className="p-6 border-2 border-dashed border-red-300 dark:border-red-600 rounded-xl hover: border-red-500 dark:hover: border-red-400 hover,bg-gradient-to-br hover:from-red-50 hover: to-orange-50 dark:hover: from-red-900/20 dark:hover:to-orange-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
           >
             <div className="flex items-center space-x-4 mb-4">
               <div className="p-3 bg-gradient-to-br from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 rounded-xl group-hover:from-red-200 group-hover:to-orange-300 dark:group-hover:from-red-800/50 dark:group-hover:to-orange-700/50 transition-all duration-300 group-hover:scale-110">
@@ -434,8 +434,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   CMMC Level 2
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-                  {cmmcFramework?.estimatedTime || 240} minutes • {cmmcFramework?.sections?.reduce((sum, section) => 
-                    sum + section.categories.reduce((catSum, category) => 
+                  {cmmcFramework? .estimatedTime || 240} minutes • {cmmcFramework?.sections?.reduce((sum : section) => 
+                    sum + section.categories.reduce((catSum: category) => 
                       catSum + category.questions.length, 0), 0) || 110} controls
                 </p>
               </div>
@@ -447,7 +447,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           
           <Link
             to="/assessment-intro"
-            className="p-6 border-2 border-dashed border-purple-300 dark:border-purple-600 rounded-xl hover: border-purple-500 dark, hover: border-purple-400 hover,bg-gradient-to-br hover:from-purple-50 hover: to-pink-50 dark, hover: from-purple-900/20 dark,hover:to-pink-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105 relative"
+            className="p-6 border-2 border-dashed border-purple-300 dark:border-purple-600 rounded-xl hover: border-purple-500 dark:hover: border-purple-400 hover,bg-gradient-to-br hover:from-purple-50 hover: to-pink-50 dark:hover: from-purple-900/20 dark:hover:to-pink-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105 relative"
           >
             <div className="absolute top-4 right-4">
               <span className="px-2 py-1 bg-premium-gold text-black text-xs font-bold rounded-full">
@@ -463,8 +463,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   Privacy Framework
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-                  {privacyFramework?.estimatedTime || 90} minutes • {privacyFramework?.sections?.reduce((sum, section) => 
-                    sum + section.categories.reduce((catSum, category) => 
+                  {privacyFramework? .estimatedTime || 90} minutes • {privacyFramework?.sections?.reduce((sum : section) => 
+                    sum + section.categories.reduce((catSum: category) => 
                       catSum + category.questions.length, 0), 0) || 45} questions
                 </p>
               </div>
@@ -476,7 +476,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           
           <Link
             to="/compliance"
-            className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl hover: border-green-500 dark, hover: border-green-400 hover,bg-gradient-to-br hover:from-green-50 hover: to-emerald-50 dark, hover: from-green-900/20 dark,hover:to-emerald-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
+            className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl hover: border-green-500 dark:hover: border-green-400 hover,bg-gradient-to-br hover:from-green-50 hover: to-emerald-50 dark:hover: from-green-900/20 dark:hover:to-emerald-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
           >
             <div className="flex items-center space-x-4 mb-4">
               <div className="p-3 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 rounded-xl group-hover:from-green-200 group-hover:to-green-300 dark:group-hover:from-green-800/50 dark:group-hover:to-green-700/50 transition-all duration-300 group-hover:scale-110">
@@ -487,8 +487,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   NIST CSF v2.0 Quick Check
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-                  {nistCSFv2Framework?.estimatedTime || 15} minutes • {nistCSFv2Framework?.sections?.reduce((sum, section) => 
-                    sum + section.categories.reduce((catSum, category) => 
+                  {nistCSFv2Framework? .estimatedTime || 15} minutes • {nistCSFv2Framework?.sections?.reduce((sum : section) => 
+                    sum + section.categories.reduce((catSum: category) => 
                       catSum + category.questions.length, 0), 0) || 10} questions
                 </p>
               </div>
@@ -551,10 +551,10 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             </select>
 
             <button
-              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' , 'asc')}
-              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark, hover: bg-gray-600 transition-colors"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc'  : 'asc')}
+              className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark:hover: bg-gray-600 transition-colors"
             >
-              {sortOrder === 'asc' ? <ArrowUp className="w-4 h-4" /> , <ArrowDown className="w-4 h-4" />}
+              {sortOrder === 'asc' ? <ArrowUp className="w-4 h-4" />  : <ArrowDown className="w-4 h-4" />}
             </button>
           </div>
         </div>
@@ -625,7 +625,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
               {savedAssessments.length === 0 
                 ? 'Start your first cybersecurity assessment to begin compliance journey'
-                , 'Try adjusting your search or filter criteria'
+                 : 'Try adjusting your search or filter criteria'
               }
             </p>
             {savedAssessments.length === 0 && (
@@ -644,8 +644,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               const framework = getFramework(assessment.frameworkId);
               const score = calculateAssessmentScore(assessment);
               const progress = Object.keys(assessment.responses).length;
-              const totalQuestions = framework.sections.reduce((sum, section) => 
-                sum + section.categories.reduce((catSum, category) => 
+              const totalQuestions = framework.sections.reduce((sum: section) => 
+                sum + section.categories.reduce((catSum: category) => 
                   catSum + category.questions.length, 0), 0);
 
               return (
@@ -662,9 +662,9 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                         {assessment.frameworkName }
                       </h3>
                     </div>
-                    <span className={ `px-2 py-1 rounded-full text-xs font-medium ${
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       assessment.isComplete
-                        ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300'
+                        ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark : text-green-300'
                         : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'}`}>
                       {assessment.isComplete ? 'Complete' : 'In Progress'}
                     </span>
@@ -690,7 +690,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600 dark:text-gray-300">Risk Level</span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(score)}`}>
-                        {score >= 80 ? 'Low' : score >= 60 ? 'Medium' , score >= 40 ? 'High' : 'Critical'}
+                        {score >= 80 ? 'Low' : score >= 60 ? 'Medium'  : score >= 40 ? 'High' : 'Critical'}
                       </span>
                     </div>
                   </div>
@@ -724,7 +724,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                     </button>
                     <button
                       onClick={() => setShowDeleteConfirm(assessment.id)}
-                      className="p-2 text-red-600 dark:text-red-400 hover: bg-red-100 dark, hover:bg-red-900/30 rounded-lg transition-colors"
+                      className="p-2 text-red-600 dark:text-red-400 hover: bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -754,7 +754,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             <div className="flex space-x-4">
               <button
                 onClick={() => setShowDeleteConfirm(null)}
-                className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover:bg-gray-700 transition-all duration-200 font-medium"
+                className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium"
               >
                 Cancel
               </button>

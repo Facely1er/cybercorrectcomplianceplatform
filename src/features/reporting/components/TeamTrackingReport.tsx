@@ -83,10 +83,10 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
     { name: 'Overloaded (>90%)', value, 1, color: 'rgba(239, 68, 68, 0.8)' }
   ];
 
-  const getRiskColor = (level, string) => { switch (level) {
-      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300';
+  const getRiskColor = (level: string) => { switch (level) {
+      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
+      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark: text-yellow-300';
       case 'low', return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
     }
@@ -295,8 +295,8 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {functionProgress.map((func, index) => (
-                <tr key={index } className="hover: bg-gray-50 dark, hover: bg-gray-700/50">
+              {functionProgress.map((func: index) => (
+                <tr key={index } className="hover: bg-gray-50 dark:hover: bg-gray-700/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-gray-900 dark,text-white">
                       {func.function }
@@ -319,8 +319,8 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
                     </span>
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <span className={ `font-bold ${
-                      func.averageScore >= 80 ? 'text-green-600 dark: text-green-400' , func.averageScore >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
+                    <span className={`font-bold ${
+                      func.averageScore >= 80 ? 'text-green-600 dark: text-green-400'  : func.averageScore >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       'text-red-600 dark:text-red-400'}`}>
                       {func.averageScore }%
                     </span>

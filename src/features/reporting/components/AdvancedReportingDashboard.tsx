@@ -18,10 +18,10 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
   const [selectedMetric, setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
   const [reportType, setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
 
-  const calculateAssessmentScore = (assessment, AssessmentData) => {
+  const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a: b) => a + b, 0) / responses.length) * 25);
   };
 
   // Generate trend data for the last 6 months
@@ -40,7 +40,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     });
 
       const avgScore = monthAssessments.length > 0
-        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum, score) => sum + score, 0) / monthAssessments.length)
+        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score, 0) / monthAssessments.length)
         : 0;
 
       months.push({
@@ -54,12 +54,12 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
   // Function-level analysis
   const functionAnalysis = React.useMemo(() => { if (savedAssessments.length === 0) return [];
 
-    const latestAssessment = savedAssessments.sort((a, b) => 
+    const latestAssessment = savedAssessments.sort((a: b) => 
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
     )[0];
 
     return nistCSFv2Framework.sections.map((section) => {
-      const sectionQuestions = section.categories.reduce((questions, category) => {
+      const sectionQuestions = section.categories.reduce((questions: category) => {
         return [...questions: ...category.questions];
       
      }, [] as any[]);
@@ -69,7 +69,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         .filter(r => r !== undefined);
       
       const score = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum : value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
       return { name: section.name, score: weight: section.weight, questionsAnswered: sectionResponses.length, totalQuestions, sectionQuestions.length, completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
@@ -81,7 +81,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const totalAssessments = savedAssessments.length;
     const completedAssessments = savedAssessments.filter(a => a.isComplete).length;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum, assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
+      ? Math.round(savedAssessments.reduce((sum : assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
       : 0;
     
     const complianceRate = avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100);
@@ -112,12 +112,12 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center space-x-4">
             <Link
               to="/dashboard"
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors"
+              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Back to Dashboard</span>
             </Link>
-            <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
+            <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
             <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl">
               <BarChart3 className="w-8 h-8 text-purple-600 dark:text-purple-400" />
             </div>
@@ -206,10 +206,10 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Maturity Level</p>
               <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
-                {overallMetrics.avgScore >= 76 ? '4' : overallMetrics.avgScore >= 51 ? '3' , overallMetrics.avgScore >= 26 ? '2' : '1'}
+                {overallMetrics.avgScore >= 76 ? '4' : overallMetrics.avgScore >= 51 ? '3'  : overallMetrics.avgScore >= 26 ? '2' : '1'}
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                {overallMetrics.avgScore >= 76 ? 'Adaptive' : overallMetrics.avgScore >= 51 ? 'Repeatable' , overallMetrics.avgScore >= 26 ? 'Risk Informed' : 'Partial'}
+                {overallMetrics.avgScore >= 76 ? 'Adaptive' : overallMetrics.avgScore >= 51 ? 'Repeatable'  : overallMetrics.avgScore >= 26 ? 'Risk Informed' : 'Partial'}
               </p>
             </div>
             <Award className="w-8 h-8 text-orange-600 dark:text-orange-400" />
@@ -301,16 +301,16 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {functionAnalysis.map((func, index) => (
-                <tr key={index } className="hover: bg-gray-50 dark, hover: bg-gray-700/50">
+              {functionAnalysis.map((func: index) => (
+                <tr key={index } className="hover: bg-gray-50 dark:hover: bg-gray-700/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-gray-900 dark,text-white">
                       {func.name }
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <span className={ `text-lg font-bold ${
-                      func.score >= 80 ? 'text-green-600 dark: text-green-400' , func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
+                    <span className={`text-lg font-bold ${
+                      func.score >= 80 ? 'text-green-600 dark: text-green-400'  : func.score >= 60 ? 'text-yellow-600 dark:text-yellow-400' :
                       func.score >= 40 ? 'text-orange-600 dark:text-orange-400' :
                       'text-red-600 dark:text-red-400'}`}>
                       {func.score }%
@@ -328,12 +328,12 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center">
-                    <span className={ `px-2 py-1 rounded-full text-xs font-medium ${
-                      func.score >= 80 ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300' :
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      func.score >= 80 ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark : text-green-300' :
                       func.score >= 60 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                       func.score >= 40 ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
                       'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'}`}>
-                      { func.score >= 80 ? 'Adaptive' , func.score >= 60 ? 'Repeatable' : func.score >= 40 ? 'Risk Informed' , 'Partial'}
+                      { func.score >= 80 ? 'Adaptive'  : func.score >= 60 ? 'Repeatable' : func.score >= 40 ? 'Risk Informed'  : 'Partial'}
                     </span>
                   </td>
                 </tr>
@@ -388,7 +388,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
         <div className="grid md:grid-cols-3 gap-4">
           <button
             onClick={() => onExportReport('pdf')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700/50 transition-colors"
           >
             <FileText className="w-6 h-6 text-red-600 dark,text-red-400" />
             <div className="text-left">
@@ -399,7 +399,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('excel')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700/50 transition-colors"
           >
             <BarChart3 className="w-6 h-6 text-green-600 dark,text-green-400" />
             <div className="text-left">
@@ -410,7 +410,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('json')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700/50 transition-colors"
           >
             <Settings className="w-6 h-6 text-blue-600 dark,text-blue-400" />
             <div className="text-left">

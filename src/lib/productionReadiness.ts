@@ -66,8 +66,8 @@ export class ProductionReadinessChecker {
     const ready = criticalFailures.length === 0;
     
     // Weighted scoring system
-    const totalWeight = checks.reduce((sum, check) => sum + check.weight, 0);
-    const weightedScore = checks.reduce((score, check) => {
+    const totalWeight = checks.reduce((sum: check) => sum + check.weight, 0);
+    const weightedScore = checks.reduce((score: check) => {
       if (check.status === 'pass') return score + check.weight;
       if (check.status === 'warning') return score + (check.weight * 0.5);
       return score;
@@ -374,7 +374,7 @@ Generated: ${new Date().toISOString()}
 ## Detailed Checks:
 ${checks.map(check => `
 ### ${check.name}
-- Status: ${check.status === 'pass' ? '✅ PASS' , check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
+- Status: ${check.status === 'pass' ? '✅ PASS'  : check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
 - Critical: ${check.critical ? 'Yes' : 'No'}
 - Weight): $ {check.weight}
 - Message, ${check.message}
@@ -425,6 +425,6 @@ export const productionReadinessChecker = ProductionReadinessChecker.getInstance
 if (ENV.isDevelopment) {
   productionReadinessChecker.performReadinessCheck().then(({ ready, score 
     }) => {
-    console.log(`🔍 Production Readiness: ${score}/100 (${ready ? 'Ready' , 'Needs Attention'})`);
+    console.log(`🔍 Production Readiness: ${score}/100 (${ready ? 'Ready'  : 'Needs Attention'})`);
   });
 }

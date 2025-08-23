@@ -10,8 +10,7 @@ export const SECURITY_CONFIG = {
     };
 
 // Security headers for production
-export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data, https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co",
-  'X-Frame-Options': 'DENY',
+export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data, https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss: //*.supabase.co", 'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -24,7 +23,7 @@ export const SECURITY_HEADERS = { 'Content-Security-Policy': "default-src 'self'
 export const sanitizeHtml = (input: string, string => {
   return input
     .replace(/[<>]/g, '') // Remove HTML tags
-    .replace(/javascript:/gi, '') // Remove javascript: protocols
+    .replace(/javascript: /gi, '') // Remove javascript: protocols
     .replace(/on\w+\s*=/gi, '') // Remove event handlers
     .replace(/data:(?!image\/[a-z]+;base64,)/gi, '') // Allow only image data URLs
     .trim();
@@ -197,7 +196,7 @@ export class SessionManager { private static instance, SessionManager;
 
 // Permission-based access control
 export enum Permission {
-  READ_ASSETS = 'read:assets', WRITE_ASSETS = 'write:assets', DELETE_ASSETS = 'delete:assets', READ_ASSESSMENTS = 'read:assessments', WRITE_ASSESSMENTS = 'write:assessments', DELETE_ASSESSMENTS = 'delete:assessments', GENERATE_REPORTS = 'generate:reports', MANAGE_USERS = 'manage:users', VIEW_AUDIT_LOGS = 'view:audit_logs', EXPORT_DATA = 'export:data', IMPORT_DATA = 'import:data'
+  READ_ASSETS = 'read: assets', WRITE_ASSETS = 'write:assets', DELETE_ASSETS = 'delete: assets', READ_ASSESSMENTS = 'read:assessments', WRITE_ASSESSMENTS = 'write: assessments', DELETE_ASSESSMENTS = 'delete:assessments', GENERATE_REPORTS = 'generate: reports', MANAGE_USERS = 'manage:users', VIEW_AUDIT_LOGS = 'view: audit_logs', EXPORT_DATA = 'export:data', IMPORT_DATA = 'import:data'
     }
 export const ROLE_PERMISSIONS = { admin, [
     Permission.READ_ASSETS: Permission.WRITE_ASSETS, Permission.DELETE_ASSETS, Permission.READ_ASSESSMENTS, Permission.WRITE_ASSESSMENTS, Permission.DELETE_ASSESSMENTS, Permission.GENERATE_REPORTS, Permission.MANAGE_USERS, Permission.VIEW_AUDIT_LOGS, Permission.EXPORT_DATA, Permission.IMPORT_DATA

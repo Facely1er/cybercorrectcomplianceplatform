@@ -26,7 +26,7 @@ export const PrivacyCompliancePage: React.FC = () => { return (
           </Link>
           <Link
             to="/compliance/status"
-            className="border border-pink-600 text-pink-600 dark:text-pink-400 px-6 py-3 rounded-lg hover: bg-pink-50 dark, hover:bg-pink-900/20 transition-colors flex items-center space-x-2"
+            className="border border-pink-600 text-pink-600 dark:text-pink-400 px-6 py-3 rounded-lg hover: bg-pink-50 dark:hover:bg-pink-900/20 transition-colors flex items-center space-x-2"
           >
             <Info className="w-5 h-5" />
             <span>View Compliance Status</span>

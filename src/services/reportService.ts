@@ -24,8 +24,7 @@ export class ReportService {
   }
 
   async exportReport(
-    assessment: AssessmentData, 
-    framework): Framework, 
+    assessment: AssessmentData, framework): Framework, 
     options, ReportExportOptions
   ): Promise<void>  {
     try {
@@ -293,14 +292,14 @@ export class ReportService {
                 </tr>
               </thead>
               <tbody>
-                ${reportData.sectionScores.map((section, any) => `
+                ${reportData.sectionScores.map((section: any) => `
                   <tr>
                     <td><strong>${section.name}</strong></td>
-                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669' , section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score}%</td>
+                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669'  : section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score}%</td>
                     <td style="text-align: center;">${section.answered}/${section.total}</td>
                     <td>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981' , section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
+                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981'  : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
                       </div>
                     </td>
                   </tr>
@@ -413,7 +412,7 @@ export class ReportService {
       'Priority'
     ];
     
-    const csvRows = reportData.sectionScores.map((section, any) => [
+    const csvRows = reportData.sectionScores.map((section: any) => [
         section.name, section.score.toString(), section.answered.toString(), section.total.toString(), section.total > 0 ? Math.round((section.answered / section.total) * 100).toString(): 'Low'
     ];
     
@@ -426,8 +425,7 @@ export class ReportService {
     // Add metadata header
     const metadataHeader = [
       `# ${framework.name } Assessment Report`,
-      `# Organization: ${assessment.organizationInfo?.name || 'Not specified'}`,
-      `# Generated: ${new Date().toLocaleDateString()}`,
+      `# Organization: ${assessment.organizationInfo? .name || 'Not specified'}` : `# Generated: ${new Date().toLocaleDateString()}`,
       `# Assessment ID: ${assessment.id}`,
       `# Framework Version: ${framework.version}`,
       '#',
@@ -444,7 +442,7 @@ export class ReportService {
   private generateReportData(assessment, AssessmentData, framework, Framework, any {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
-      ? Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25)
+      ? Math.round((responses.reduce((a : b) => a + b, 0) / responses.length) * 25)
       : 0;
 
     const sectionScores = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions: category) => {
@@ -456,22 +454,22 @@ export class ReportService {
         .filter(r => r !== undefined);
       
       const sectionScore = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum : value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
       return { name: section.name, score: sectionScore, answered, sectionResponses.length, total: sectionQuestions.length  };
     });
 
     return {
-      overallScore: sectionScores, totalQuestions, framework.sections.reduce((sum, section) => 
-        sum + section.categories.reduce((catSum, category) => 
+      overallScore: sectionScores, totalQuestions, framework.sections.reduce((sum: section) => 
+        sum + section.categories.reduce((catSum: category) => 
           catSum + category.questions.length, 0), 0), answeredQuestions: Object.keys(assessment.responses).length };
   }
 
   private downloadFile(content: string, filename): string, mimeType, string, void  {
     try {
       // Add UTF-8 BOM for CSV files to ensure proper character encoding
-      const bom = mimeType === 'text/csv' ? '\uFEFF' , '';
+      const bom = mimeType === 'text/csv' ? '\uFEFF'  : '';
               const blob = new Blob([bom + content], { type, `${mimeType};charset=utf-8` });
       
       // Use modern download API if available

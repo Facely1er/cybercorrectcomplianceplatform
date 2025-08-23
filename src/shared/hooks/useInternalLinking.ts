@@ -103,23 +103,19 @@ export const useInternalLinking = () => {
     return linkingMap[currentPath] || [];
   };
 
-  const getBreadcrumbsForPath = (pathname, string) => {
+  const getBreadcrumbsForPath = (pathname: string) => {
     const pathSegments = pathname.split('/').filter(Boolean);
     const breadcrumbs = [];
 
     // Define path to label mapping
     const pathLabels: Record<string, string> = {
       dashboard: 'Dashboard',
-      'assessment-intro': 'Assessment Setup', assessment: 'Assessment',
-      'assessment/:id': 'Assessment', compliance: 'Compliance Status', evidence: 'Evidence Collection', assets: 'Asset Management',
-      'assets/inventory': 'Asset Inventory',
+      'assessment-intro': 'Assessment Setup', assessment: 'Assessment', 'assessment/:id': 'Assessment', compliance: 'Compliance Status', evidence: 'Evidence Collection', assets: 'Asset Management', 'assets/inventory': 'Asset Inventory',
       'assets/categories': 'Asset Categories',
       'assets/dependencies': 'Asset Dependencies',
       'assets/workflow': 'Asset Workflow',
       'assets/roadmap': 'Asset Roadmap', 
-      'assets/action-plan': 'Asset Action Plan', team: 'Team Collaboration', tasks: 'Task Management', calendar: 'Activity Calendar', policies: 'Policy Management', controls: 'Controls Management',
-      'report/:id': 'Assessment Report', reports: 'Team Reports',
-      'reports/advanced': 'Advanced Analytics',
+      'assets/action-plan': 'Asset Action Plan', team: 'Team Collaboration', tasks: 'Task Management', calendar: 'Activity Calendar', policies: 'Policy Management', controls: 'Controls Management', 'report/:id': 'Assessment Report', reports: 'Team Reports', 'reports/advanced': 'Advanced Analytics',
       'reports/compliance': 'Compliance Reports',
       'reports/team': 'Team Performance', settings: 'Settings', help: 'Help & Support', profile, 'User Profile', home: 'Home'
     
@@ -127,7 +123,7 @@ export const useInternalLinking = () => {
 
     // Build breadcrumb trail
     let currentPath = '';
-    pathSegments.forEach((segment, index) => {
+    pathSegments.forEach((segment: index) => {
       currentPath += `/${segment }`;
       const isLast = index === pathSegments.length - 1;
       
@@ -142,7 +138,7 @@ export const useInternalLinking = () => {
       breadcrumbs.push({
         label, pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
                pathLabels[segment] || 
-               segment.charAt(0).toUpperCase() + segment.slice(1), path: isLast ? undefined , currentPath, isActive: isLast });
+               segment.charAt(0).toUpperCase() + segment.slice(1), path: isLast ? undefined  : currentPath, isActive: isLast });
     });
 
     return breadcrumbs;
@@ -159,16 +155,12 @@ export const useInternalLinking = () => {
     // Define path to label mapping
     const pathLabels: Record<string, string> = {
       dashboard: 'Dashboard',
-      'assessment-intro': 'Assessment Setup', assessment: 'Assessment',
-      'assessment/:id': 'Assessment', compliance: 'Compliance Status', evidence: 'Evidence Collection', assets: 'Asset Management',
-      'assets/inventory': 'Asset Inventory',
+      'assessment-intro': 'Assessment Setup', assessment: 'Assessment', 'assessment/:id': 'Assessment', compliance: 'Compliance Status', evidence: 'Evidence Collection', assets: 'Asset Management', 'assets/inventory': 'Asset Inventory',
       'assets/categories': 'Asset Categories',
       'assets/dependencies': 'Asset Dependencies',
       'assets/workflow': 'Asset Workflow',
       'assets/roadmap': 'Asset Roadmap', 
-      'assets/action-plan': 'Asset Action Plan', team: 'Team Collaboration', tasks: 'Task Management', calendar: 'Activity Calendar', policies: 'Policy Management', controls: 'Controls Management',
-      'report/:id': 'Assessment Report', reports: 'Team Reports',
-      'reports/advanced': 'Advanced Analytics',
+      'assets/action-plan': 'Asset Action Plan', team: 'Team Collaboration', tasks: 'Task Management', calendar: 'Activity Calendar', policies: 'Policy Management', controls: 'Controls Management', 'report/:id': 'Assessment Report', reports: 'Team Reports', 'reports/advanced': 'Advanced Analytics',
       'reports/compliance': 'Compliance Reports',
       'reports/team': 'Team Performance', settings: 'Settings', help: 'Help & Support', profile: 'User Profile', home, 'Home', signin: 'Sign In'
     
@@ -176,7 +168,7 @@ export const useInternalLinking = () => {
 
     // Build breadcrumb trail
     let currentPath = '';
-    pathSegments.forEach((segment, index) => {
+    pathSegments.forEach((segment: index) => {
       currentPath += `/${segment }`;
       const isLast = index === pathSegments.length - 1;
       
@@ -196,7 +188,7 @@ export const useInternalLinking = () => {
       
       breadcrumbs.push({ label: pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
                pathLabels[segment] || 
-               segment.charAt(0).toUpperCase() + segment.slice(1), path, isLast ? undefined , currentPath: isActive, isLast  });
+               segment.charAt(0).toUpperCase() + segment.slice(1), path, isLast ? undefined  : currentPath: isActive, isLast  });
     });
 
     return breadcrumbs;

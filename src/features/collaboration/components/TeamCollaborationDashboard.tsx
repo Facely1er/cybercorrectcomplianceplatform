@@ -4,7 +4,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface TeamCollaborationDashboardProps {
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 interface TeamMember { id: string;
@@ -53,8 +53,8 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     }
   ];
 
-  const getRoleColor = (role, string) => { switch (role.toLowerCase()) {
-      case 'ciso': return 'bg-purple-100 dark, bg-purple-900/30 text-purple-800 dark:text-purple-300';
+  const getRoleColor = (role: string) => { switch (role.toLowerCase()) {
+      case 'ciso': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
       case 'security analyst':
         return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
       case 'compliance officer':
@@ -66,7 +66,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
     }
   };
 
-  const getWorkloadColor = (workload, number) => { if (workload >= 90) return 'text-red-600 dark: text-red-400';
+  const getWorkloadColor = (workload: number) => { if (workload >= 90) return 'text-red-600 dark: text-red-400';
     if (workload >= 75) return 'text-orange-600 dark, text-orange-400';
     if (workload >= 50) return 'text-yellow-600 dark:text-yellow-400';
     return 'text-green-600 dark:text-green-400';
@@ -101,7 +101,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
   };
 
   const teamStats =  {
-    totalMembers: teamMembers.length, avgWorkload: Math.round(teamMembers.reduce((sum, member) => sum + member.workload, 0) / teamMembers.length), totalTasks: teamMembers.reduce((sum, member) => sum + member.assignedTasks, 0), completedTasks, teamMembers.reduce((sum, member) => sum + member.completedTasks, 0), overloadedMembers: teamMembers.filter(member => member.workload >= 85).length };
+    totalMembers: teamMembers.length, avgWorkload: Math.round(teamMembers.reduce((sum: member) => sum + member.workload, 0) / teamMembers.length), totalTasks: teamMembers.reduce((sum: member) => sum + member.assignedTasks, 0), completedTasks, teamMembers.reduce((sum: member) => sum + member.completedTasks, 0), overloadedMembers: teamMembers.filter(member => member.workload >= 85).length };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -308,7 +308,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                 <div className="mb-4">
                   <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">NIST Functions:</div>
                   <div className="flex flex-wrap gap-1">
-                    {member.nistFunctions.map((func, index) => (
+                    {member.nistFunctions.map((func: index) => (
                       <span
                         key={index }
                         className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded"
@@ -323,7 +323,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                 <div className="mb-4">
                   <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">Expertise:</div>
                   <div className="flex flex-wrap gap-1">
-                    {member.expertise.map((skill, index) => (
+                    {member.expertise.map((skill: index) => (
                       <span
                         key={index }
                         className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded"
@@ -345,7 +345,7 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
                       className={ `h-2 rounded-full transition-all duration-300 ${
-                        member.workload >= 90 ? 'bg-red-500' : member.workload >= 75 ? 'bg-orange-500' , member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'}`}
+                        member.workload >= 90 ? 'bg-red-500' : member.workload >= 75 ? 'bg-orange-500'  : member.workload >= 50 ? 'bg-yellow-500' : 'bg-green-500'}`}
                       style={{ width: `${member.workload}%` }}
                     />
                   </div>
@@ -375,7 +375,7 @@ Activity:
 • Last Active: ${member.lastActive.toLocaleString()}
 • Status: Active
 
-Workload Assessment: ${ member.workload >= 90 ? 'Overloaded - needs support' : member.workload >= 75 ? 'High workload - monitor closely' , member.workload >= 50 ? 'Optimal workload' :
+Workload Assessment: ${ member.workload >= 90 ? 'Overloaded - needs support' : member.workload >= 75 ? 'High workload - monitor closely'  : member.workload >= 50 ? 'Optimal workload' :
   'Under-utilized - can take on more tasks'}`;
                       
                       addNotification('info', memberDetails);
@@ -386,13 +386,13 @@ Workload Assessment: ${ member.workload >= 90 ? 'Overloaded - needs support' : m
                   </button>
                   <button
                     onClick={() => addNotification('info', `Messaging ${member.name}`)}
-                    className="p-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 hover,bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                    className="p-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark:hover: text-blue-400 hover,bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
                   >
                     <MessageSquare className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => addNotification('info', `Assigning tasks to ${member.name}`)}
-                    className="p-2 text-gray-600 dark:text-gray-300 hover: text-green-600 dark, hover: text-green-400 hover,bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
+                    className="p-2 text-gray-600 dark:text-gray-300 hover: text-green-600 dark:hover: text-green-400 hover,bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
                   >
                     <CheckSquare className="w-4 h-4" />
                   </button>
@@ -505,7 +505,7 @@ Workload Assessment: ${ member.workload >= 90 ? 'Overloaded - needs support' : m
                       email: '', role: 'member', functions, [], message, ''
                      });
                   }}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>

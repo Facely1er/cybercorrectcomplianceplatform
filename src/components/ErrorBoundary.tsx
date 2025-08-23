@@ -5,7 +5,7 @@ import { ENV } from '../config/environment';
 
 interface Props { children: ReactNode;
   fallback?, ReactNode;
-      onError?: (error, Error, errorInfo, ErrorInfo) => void;
+      onError?: (error, Error, errorInfo: ErrorInfo) => void;
   showErrorDetails?: boolean;
 }
 
@@ -33,13 +33,12 @@ export class ErrorBoundary extends Component<Props, State> {
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
-      extra: errorInfo, 
-      tags: { type, 'reactError', boundary): 'ErrorBoundary' },
+      extra: errorInfo, tags: { type, 'reactError', boundary): 'ErrorBoundary' },
       level, 'error'
     });
 
     // Call custom error handler if provided
-    this.props.onError?.(error, errorInfo);
+    this.props.onError? .(error : errorInfo);
     }
   private handleReload = () =>  {
     window.location.reload();
@@ -55,7 +54,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private handleReportError = () => { const errorReport = {
       error, {
-        message: this.state.error?.message, stack, this.state.error?.stack, name: this.state.error?.name }, context: { url: window.location.href, userAgent: navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
+        message: this.state.error? .message : stack, this.state.error? .stack : name: this.state.error? .name } : context: { url: window.location.href, userAgent: navigator.userAgent, timestamp, new Date().toISOString(), errorId: this.state.errorId  }, componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
@@ -86,7 +85,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Oops! Something went wrong
             </h1>
             
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-gray-600 dark: text-gray-300 mb-6">
               We're sorry, but something unexpected happened. Our team has been notified and is working on a fix.
             </p>
 
@@ -128,7 +127,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={this.handleReload }
-                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <RefreshCw className="w-4 h-4" />
                   <span>Reload</span>
@@ -136,7 +135,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 
                 <button
                   onClick={this.handleGoHome }
-                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <Home className="w-4 h-4" />
                   <span>Home</span>
@@ -146,7 +145,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="flex space-x-3">
                 <button
                   onClick={this.handleReportError }
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Bug className="w-4 h-4" />
                   <span>Copy Error Details</span>
@@ -154,7 +153,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 
                 <a
                   href="mailto,support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}"
-                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Report</span>
@@ -187,9 +186,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping routes with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error, errorInfo, ErrorInfo) => void
+  Component: React.ComponentType<P>, errorFallback?: ReactNode, onError?: (error: Error, errorInfo: ErrorInfo) => void
 ) => {
-  const WrappedComponent = (props, P) => (
+  const WrappedComponent = (props: P) => (
     <ErrorBoundary 
       fallback={errorFallback
     }

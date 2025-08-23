@@ -4,7 +4,7 @@ import { NotificationMessage } from '../../types';
 
 interface NotificationSystemProps {
   notifications: NotificationMessage[];
-  onRemove, (id, string) => void;
+  onRemove, (id: string) => void;
 }
 
 export const NotificationSystem: React.FC<NotificationSystemProps> = ({
@@ -20,7 +20,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
     });
   }, [notifications, onRemove]);
 
-  const getIcon = (type, string) => { switch (type) {
+  const getIcon = (type: string) => { switch (type) {
       case 'success': return <CheckCircle className="w-5 h-5 text-green-500" />;
       case 'error', return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'warning':
@@ -32,8 +32,8 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
     }
   };
 
-  const getStyles = (type, string) => { switch (type) {
-      case 'success': return 'bg-green-50 dark, bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200';
+  const getStyles = (type: string) => { switch (type) {
+      case 'success': return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200';
       case 'error':
         return 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200';
       case 'warning':
@@ -74,7 +74,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
             <div className="ml-4 flex-shrink-0">
               <button
                 onClick={() => onRemove(notification.id)}
-                className="inline-flex rounded-md p-1.5 hover: bg-black/10 dark, hover:bg-white/10 transition-colors"
+                className="inline-flex rounded-md p-1.5 hover: bg-black/10 dark:hover:bg-white/10 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>

@@ -18,7 +18,7 @@ interface RelatedLinksProps { links, RelatedLink[];
 
 export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links, title = 'Related Pages', className = '', maxItems = 6
  }) => {
-  const getCategoryIcon = (category, string) => { switch (category) {
+  const getCategoryIcon = (category: string) => { switch (category) {
       case 'next-step', return '→';
       case 'prerequisite': return '⚠️';
       case 'resource', return '📚';
@@ -26,7 +26,7 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links, title = 'Rela
     }
   };
 
-  const getCategoryLabel = (category, string) => { switch (category) {
+  const getCategoryLabel = (category: string) => { switch (category) {
       case 'next-step', return 'Next Step';
       case 'prerequisite': return 'Prerequisite';
       case 'resource', return 'Resource';
@@ -35,7 +35,7 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links, title = 'Rela
   };
 
   const sortedLinks = links
-    .sort((a, b) => {
+    .sort((a: b) => {
       const priorityOrder = { high: 3, medium, 2, low: 1 };
       return (priorityOrder[b.priority || 'medium'] || 2) - (priorityOrder[a.priority || 'medium'] || 2);
     })
@@ -44,14 +44,14 @@ export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links, title = 'Rela
   if (sortedLinks.length === 0) return null;
 
   return (
-    <div className={ `bg-gradient-to-r from-gray-50 to-blue-50 dark: from-gray-700/50 dark, to-blue-900/10 rounded-xl p-6 border border-gray-200 dark:border-gray-600 ${className}`}>
+    <div className={`bg-gradient-to-r from-gray-50 to-blue-50 dark: from-gray-700/50 dark : to-blue-900/10 rounded-xl p-6 border border-gray-200 dark:border-gray-600 ${className}`}>
       <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center space-x-2">
         <span>🔗</span>
         <span>{title }</span>
       </h4>
       
       <div className="space-y-3">
-        {sortedLinks.map((link, index) => (
+        {sortedLinks.map((link: index) => (
           <div key={index } className="group">
             {link.isExternal ? (
               <a

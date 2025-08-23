@@ -9,11 +9,11 @@ import { getFramework } from '../../../data/frameworks';
 import { reportService } from '../../../services/reportService';
 
 interface AssessmentReportsPageProps { savedAssessments, AssessmentData[];
-  onGenerateReport: (assessment, AssessmentData) => void;
+  onGenerateReport: (assessment: AssessmentData) => void;
   onExportReport: (assessment: AssessmentData, format, 'json' | 'csv' | 'pdf') => void;
   onStartAssessment: () => void;
   userProfile: UserProfile | null;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
@@ -25,10 +25,10 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const { breadcrumbs, contextualLinks } = useInternalLinking();
 
-  const calculateAssessmentScore = (assessment, AssessmentData) => {
+  const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a: b) => a + b, 0) / responses.length) * 25);
   };
 
   const filteredAndSortedAssessments = useMemo(() => {
@@ -44,7 +44,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     });
 
     // Sort assessments
-    filtered.sort((a, b) => { let comparison = 0;
+    filtered.sort((a: b) => { let comparison = 0;
       
       switch (sortBy) {
         case 'date': comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
@@ -61,13 +61,13 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     return filtered;
   }, [savedAssessments, searchTerm, filterFramework, filterStatus, sortBy, sortOrder]);
 
-  const getScoreColor = (score, number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
+  const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
     if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getFrameworkIcon = (frameworkId, string) => { switch (frameworkId) {
+  const getFrameworkIcon = (frameworkId: string) => { switch (frameworkId) {
       case 'cmmc': return Building;
       case 'privacy', return Users;
       case 'nist-csf-v2-extended': return Award;
@@ -94,7 +94,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     const total = savedAssessments.length;
     const completed = savedAssessments.filter(a => a.isComplete).length;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum, assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
+      ? Math.round(savedAssessments.reduce((sum : assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
       : 0;
     const recentReports = savedAssessments.filter((a) => {
       const daysSinceModified = (new Date().getTime() - new Date(a.lastModified).getTime()) / (1000 * 60 * 60 * 24);
@@ -118,12 +118,12 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-4">
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark:hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </Link>
-              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
               <div className="flex items-center space-x-3">
                 <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl">
                   <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -142,7 +142,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             <div className="flex items-center space-x-3">
               <Link
                 to="/reports/advanced"
-                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover, bg-gray-50 dark, hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover, bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <BarChart3 className="w-4 h-4" />
                 <span>Advanced Analytics</span>
@@ -226,7 +226,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         ]}
         selectedFilters={ {
           framework, filterFramework === 'all' ? '' : filterFramework, status, filterStatus === 'all' ? '' : filterStatus }}
-        onFilterChange={(filterId, value) => {
+        onFilterChange={(filterId: value) => {
           if (filterId === 'framework') {
             setFilterFramework(value || 'all');
           } else if (filterId === 'status') {
@@ -255,10 +255,10 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             </select>
             
             <button
-              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' , 'asc')}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark, hover: bg-gray-600 transition-colors"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc'  : 'asc')}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark:hover: bg-gray-600 transition-colors"
             >
-              {sortOrder === 'asc' ? '↑' , '↓'} {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+              {sortOrder === 'asc' ? '↑'  : '↓'} {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
             </button>
           </div>
           
@@ -284,7 +284,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               : 'Try adjusting your search criteria or filters'
             }
             action={savedAssessments.length === 0 ? {
-              label, 'Start First Assessment', onClick: onStartAssessment } , undefined }
+              label : 'Start First Assessment', onClick: onStartAssessment } , undefined }
             icon={FileText }
           />
         ) : (
@@ -294,8 +294,8 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                 const framework = getFramework(assessment.frameworkId);
                 const score = calculateAssessmentScore(assessment);
                 const progress = Object.keys(assessment.responses).length;
-                const totalQuestions = framework.sections.reduce((sum, section) => 
-                  sum + section.categories.reduce((catSum, category) => 
+                const totalQuestions = framework.sections.reduce((sum: section) => 
+                  sum + section.categories.reduce((catSum: category) => 
                     catSum + category.questions.length, 0), 0);
                 const FrameworkIcon = getFrameworkIcon(assessment.frameworkId);
                 
@@ -312,9 +312,9 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                               {assessment.frameworkName }
                             </h3>
-                            <span className={ `px-3 py-1 rounded-full text-xs font-medium ${
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                               assessment.isComplete
-                                ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300'
+                                ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark : text-green-300'
                                 : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'}`}>
                               {assessment.isComplete ? 'Complete' : 'In Progress'}
                             </span>
@@ -391,7 +391,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'json')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export JSON</span>
@@ -399,7 +399,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       
                       <button
                         onClick={() => handleExportReport(assessment, 'csv')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                       >
                         <Download className="w-4 h-4" />
                         <span>Export CSV</span>
@@ -455,7 +455,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               <Users className="w-8 h-8 text-purple-600 dark:text-purple-400" />
               <div>
                 <h4 className="font-bold text-purple-900 dark:text-purple-100">Privacy Framework</h4>
-                <p className="text-sm text-purple-700 dark:text-purple-300">GDPR, CCPA & Global Privacy</p>
+                <p className="text-sm text-purple-700 dark: text-purple-300">GDPR, CCPA & Global Privacy</p>
               </div>
             </div>
             <p className="text-purple-800 dark:text-purple-200 text-sm mb-4">

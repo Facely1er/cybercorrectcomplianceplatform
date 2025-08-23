@@ -31,13 +31,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string, value, any) => {
+  const handleSettingChange = (key: string, value: any) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
   };
 
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message, string) => {
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     // This would normally come from props, but we'll implement it locally for now
     console.log(`${type.toUpperCase()}: ${message}`);
   };
@@ -176,7 +176,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   };
 
   // Storage usage display
-  const getStorageStatusColor = (percentage, number) => { if (percentage > 80) return 'text-red-600 dark: text-red-400';
+  const getStorageStatusColor = (percentage: number) => { if (percentage > 80) return 'text-red-600 dark: text-red-400';
     if (percentage > 60) return 'text-yellow-600 dark, text-yellow-400';
     return 'text-green-600 dark:text-green-400';
   
@@ -195,19 +195,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark:hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Settings
               </h1>
             </div>
             <button
               onClick={resetSettings }
-              className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Reset to Defaults</span>
@@ -221,17 +221,17 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         { importStatus !== 'idle' && (
           <div className={`p-4 rounded-lg flex items-center space-x-3 ${
             importStatus === 'success' 
-              ? 'bg-green-50 dark, bg-green-900/20 border border-green-200 dark: border-green-800' 
-              , 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
+              ? 'bg-green-50 dark : bg-green-900/20 border border-green-200 dark: border-green-800' 
+               : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
             { importStatus === 'success' ? (
               <CheckCircle className="w-5 h-5 text-green-600 dark: text-green-400" />
             ) , (
               <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
             )}
-            <span className={ `font-medium ${
+            <span className={`font-medium ${
               importStatus === 'success' 
                 ? 'text-green-800 dark: text-green-200' 
-                , 'text-red-800 dark:text-red-200'}`}>
+                 : 'text-red-800 dark:text-red-200'}`}>
               {importStatus === 'success' 
                 ? 'Data imported successfully!' 
                 : 'Import failed. Please check the file format.'
@@ -607,7 +607,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                   
                   <button
                     onClick={() => window.location.reload()}
-                    className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors"
+                    className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors"
                   >
                     <RefreshCw className="w-4 h-4" />
                     <span>Reload Application</span>
@@ -615,7 +615,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </div>
               </div>
               
-              <div className="p-3 bg-red-50 dark,bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+              <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
                 <p className="text-xs text-red-700 dark:text-red-300">
                   <strong>CMMC Compliance Warning:</strong> Resetting data will remove all CMMC assessment progress, evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
                 </p>

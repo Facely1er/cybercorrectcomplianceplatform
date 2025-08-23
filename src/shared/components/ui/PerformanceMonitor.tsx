@@ -46,18 +46,18 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
 
   if (!isVisible) return null;
 
-  const getPerformanceStatus = (avgTime, number) => {
+  const getPerformanceStatus = (avgTime: number) => {
     if (avgTime < 100) return { color: 'text-green-600', icon, CheckCircle, label: 'Excellent' };
     if (avgTime < 300) return { color: 'text-yellow-600', icon, Clock, label: 'Good' };
     return { color: 'text-red-600', icon, AlertTriangle, label: 'Needs Attention' };
   };
 
-  const formatTime = (ms, number) => {
+  const formatTime = (ms: number) => {
     if (ms < 1000) return `${ms.toFixed(1)}ms`;
     return `${(ms / 1000).toFixed(2)}s`;
   };
 
-  const formatBytes = (bytes, number) => {
+  const formatBytes = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
@@ -77,7 +77,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
           </div>
           <button
             onClick={onClose }
-            className="text-gray-400 hover, text-gray-600 dark, hover:text-gray-300 text-2xl"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-2xl"
           >
             ×
           </button>
@@ -230,7 +230,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
           </button>
           <button
             onClick={onClose }
-            className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
+            className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             Close
           </button>

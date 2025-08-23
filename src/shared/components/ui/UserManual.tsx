@@ -294,27 +294,27 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
 
   const faqs = [
     {
-      question: 'How long does a typical assessment take?', answer, 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min), CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
+      question: 'How long does a typical assessment take? ' : answer, 'Assessment time varies by framework: NIST CSF (120 min), ISO 27001 (180 min), CMMC (240 min), Privacy Framework (90 min), and SCRM (150 min). Using templates can reduce time by 30-40%.'
     },
     {
-      question, 'Can I save my progress and continue later?', answer: 'Yes, the tool automatically saves your progress every 5 seconds. You can also manually save at any time and resume your assessment from where you left off.'
+      question, 'Can I save my progress and continue later? ' : answer: 'Yes, the tool automatically saves your progress every 5 seconds. You can also manually save at any time and resume your assessment from where you left off.'
     },
     {
-      question: 'How are maturity scores calculated?', answer, 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%), Largely (50%), Fully Implemented (75%). Section scores are weighted averages, and the overall score combines all sections.'
+      question: 'How are maturity scores calculated? ' : answer, 'Scores are calculated based on your responses: Not Implemented (0%), Partially (25%), Largely (50%), Fully Implemented (75%). Section scores are weighted averages, and the overall score combines all sections.'
     },
     {
-      question, 'Can I compare assessments over time?', answer: 'Yes, the comparison feature allows you to track progress across multiple assessments, identify improvement trends, and measure the effectiveness of security investments.'
+      question, 'Can I compare assessments over time? ' : answer: 'Yes, the comparison feature allows you to track progress across multiple assessments, identify improvement trends, and measure the effectiveness of security investments.'
     },
     {
-      question, 'What export formats are available?', answer: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries, detailed analysis, and gap assessments.'
+      question, 'What export formats are available? ' : answer: 'You can export assessments in PDF (for reports), JSON (for data integration), and CSV (for spreadsheet analysis). Reports include executive summaries, detailed analysis, and gap assessments.'
     },
-    { question: 'Is my data secure and private?', answer, 'Yes, all data is stored locally in your browser. No information is transmitted to external servers: ensuring complete privacy and security of your assessment data.'
+    { question: 'Is my data secure and private? ' : answer, 'Yes, all data is stored locally in your browser. No information is transmitted to external servers: ensuring complete privacy and security of your assessment data.'
      },
     {
-      question, 'Can I customize the assessment questions?', answer: 'While you cannot modify the standard framework questions, you can use templates that include pre-filled responses based on industry best practices and common implementations.'
+      question, 'Can I customize the assessment questions? ' : answer: 'While you cannot modify the standard framework questions, you can use templates that include pre-filled responses based on industry best practices and common implementations.'
     },
     {
-      question, 'How do I choose the right framework?', answer: 'Consider your industry (healthcare = NIST CSF + Privacy, DoD contractors = CMMC, all industries = NIST CSF), compliance requirements, and organizational maturity level. The tool provides guidance for each framework.'
+      question, 'How do I choose the right framework? ' : answer: 'Consider your industry (healthcare = NIST CSF + Privacy, DoD contractors = CMMC, all industries = NIST CSF), compliance requirements, and organizational maturity level. The tool provides guidance for each framework.'
     }
   ];
 
@@ -343,12 +343,12 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover: text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark:hover: text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
               <div className="flex items-center space-x-3">
                 <BookOpen className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -379,10 +379,10 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                   <button
                     key={section.id }
                     onClick={() => setActiveSection(section.id)}
-                    className={ `w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
+                    className={`w-full text-left p-3 rounded-lg transition-colors flex items-center space-x-3 ${
                       activeSection === section.id
                         ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark, text-blue-300'
-                        : 'hover, bg-gray-100 dark, hover: bg-gray-700 text-gray-700 dark,text-gray-300'}`}
+                        : 'hover, bg-gray-100 dark:hover: bg-gray-700 text-gray-700 dark : text-gray-300'}`}
                   >
                     <section.icon className="w-5 h-5" />
                     <span className="font-medium">{section.title }</span>
@@ -406,7 +406,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
               </div>
               
               <div className="space-y-8">
-                {currentSection.content.map((item, index) => (
+                {currentSection.content.map((item: index) => (
                   <div key={index }>
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                       {item.title }
@@ -431,7 +431,7 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                 Keyboard Shortcuts
               </h3>
               <div className="space-y-3">
-                {shortcuts.map((shortcut, index) => (
+                {shortcuts.map((shortcut: index) => (
                   <div key={index } className="flex items-center justify-between">
                     <span className="text-gray-600 dark:text-gray-300">{shortcut.action }</span>
                     <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded text-sm font-mono">
@@ -449,19 +449,19 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
                 Quick Actions
               </h3>
               <div className="space-y-3">
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <Play className="w-5 h-5 text-blue-600 dark,text-blue-400" />
                   <span className="text-gray-700 dark:text-gray-300">Start New Assessment</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <FileText className="w-5 h-5 text-green-600 dark,text-green-400" />
                   <span className="text-gray-700 dark:text-gray-300">View Templates</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <BarChart3 className="w-5 h-5 text-purple-600 dark,text-purple-400" />
                   <span className="text-gray-700 dark:text-gray-300">Compare Assessments</span>
                 </button>
-                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors flex items-center space-x-3">
+                <button className="w-full text-left p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors flex items-center space-x-3">
                   <Download className="w-5 h-5 text-orange-600 dark,text-orange-400" />
                   <span className="text-gray-700 dark:text-gray-300">Export Data</span>
                 </button>
@@ -477,11 +477,11 @@ export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
             </h2>
             
             <div className="space-y-4">
-              {faqs.map((faq, index) => (
+              {faqs.map((faq: index) => (
                 <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg">
                   <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null , index)}
-                    className="w-full flex items-center justify-between p-4 text-left hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors"
+                    onClick={() => setExpandedFaq(expandedFaq === index ? null  : index)}
+                    className="w-full flex items-center justify-between p-4 text-left hover: bg-gray-50 dark:hover: bg-gray-700/50 transition-colors"
                   >
                     <span className="font-medium text-gray-900 dark,text-white">
                       {faq.question }

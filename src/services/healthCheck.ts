@@ -167,7 +167,7 @@ export class HealthCheckService {
   async getHealthStatus(: Promise<{ status, number; body, HealthCheckResult 
     }> { const healthResult = await this.performHealthCheck();
     
-    const statusCode = healthResult.status === 'healthy' ? 200 , healthResult.status === 'degraded' ? 206 : 503;
+    const statusCode = healthResult.status === 'healthy' ? 200  : healthResult.status === 'degraded' ? 206 : 503;
     
     return {
       status, statusCode, body: healthResult };

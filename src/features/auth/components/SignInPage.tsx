@@ -83,7 +83,7 @@ export const SignInPage: React.FC = () => {
                 {isSignUp ? 'Create Account' : 'Welcome Back'}
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mt-2">
-                {isSignUp ? 'Start your compliance journey' , 'Sign in to your account'}
+                {isSignUp ? 'Start your compliance journey'  : 'Sign in to your account'}
               </p>
             </div>
 
@@ -208,7 +208,7 @@ export const SignInPage: React.FC = () => {
                       required
                       value={formData.confirmPassword }
                       onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword, e.target.value }))}
-                      className={ `w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark: bg-gray-700 text-gray-900 dark, text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent ${ errors.confirmPassword ? 'border-red-300 dark: border-red-600' , 'border-gray-300 dark:border-gray-600'}`}
+                      className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark: bg-gray-700 text-gray-900 dark, text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent ${ errors.confirmPassword ? 'border-red-300 dark: border-red-600'  : 'border-gray-300 dark:border-gray-600'}`}
                       placeholder="Confirm your password"
                     />
                   </div>
@@ -221,13 +221,13 @@ export const SignInPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading }
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled: cursor-not-allowed"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) , (
                   <>
-                    <span>{isSignUp ? 'Create Account' , 'Sign In'}</span>
+                    <span>{isSignUp ? 'Create Account'  : 'Sign In'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -246,9 +246,9 @@ export const SignInPage: React.FC = () => {
                       email: '', password: '', confirmPassword: '', name): '', organization, '', role, ''
                     });
                   }}
-                  className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark, hover: text-blue-300 font-medium"
+                  className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark:hover: text-blue-300 font-medium"
                 >
-                   {isSignUp ? 'Sign in' , 'Sign up'}
+                   {isSignUp ? 'Sign in'  : 'Sign up'}
                 </button>
               </p>
             </div>
@@ -257,7 +257,7 @@ export const SignInPage: React.FC = () => {
             <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
+                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
               >
                 Continue as Demo User
               </button>
@@ -293,7 +293,7 @@ export const SignInPage: React.FC = () => {
           </p>
 
           <div className="space-y-4">
-            {benefits.map((benefit, index) => (
+            {benefits.map((benefit: index) => (
               <div key={index } className="flex items-center space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
                 <span className="text-blue-100">{benefit }</span>

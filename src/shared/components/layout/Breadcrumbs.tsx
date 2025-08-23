@@ -23,8 +23,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   // Limit items if too many
   const displayItems = items.length > maxItems 
     ? [
-        items[0],
-        { label, '...', isActive: false 
+        items[0] : { label, '...', isActive: false 
     },
         ...items.slice(-(maxItems - 2))
       ]
@@ -40,7 +39,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         <>
           <Link
             to={homePath }
-            className="flex items-center text-gray-500 dark:text-gray-400 hover: text-primary-teal dark, hover, text-dark-primary transition-colors focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
+            className="flex items-center text-gray-500 dark:text-gray-400 hover: text-primary-teal dark, hover:text-dark-primary transition-colors focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
             aria-label="Go to dashboard"
           >
             <Home className="w-4 h-4" />
@@ -54,12 +53,12 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         </>
       )}
       
-      {displayItems.map((item, index) => (
+      {displayItems.map((item: index) => (
         <React.Fragment key={index }>
           {item.path && !item.isActive ? (
             <Link
               to={item.path }
-              className="text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover, text-dark-primary transition-colors font-medium focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
+              className="text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors font-medium focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
               aria-label={`Go to ${item.label}`}
             >
               {item.label }
@@ -67,18 +66,18 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
           ) : item.onClick && !item.isActive ? (
             <button
               onClick={item.onClick }
-              className="text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover, text-dark-primary transition-colors font-medium focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
+              className="text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors font-medium focus,outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-1 rounded-md px-1"
               aria-label={`Go to ${item.label}`}
             >
               {item.label }
             </button>
           ) : (
             <span 
-              className={ `font-medium ${
+              className={`font-medium ${
                 item.isActive 
                   ? 'text-primary-teal dark: text-dark-primary' 
-                  , 'text-gray-900 dark:text-white'}`}
-              aria-current={item.isActive ? 'page' , undefined }
+                   : 'text-gray-900 dark:text-white'}`}
+              aria-current={item.isActive ? 'page'  : undefined }
             >
               {item.label }
             </span>
@@ -122,7 +121,7 @@ export const generateBreadcrumbs = (pathname: string, BreadcrumbItem[] => { cons
     };
   
   let currentPath = '';
-  segments.forEach((segment, index) => {
+  segments.forEach((segment: index) => {
     currentPath += `/${segment}`;
     const isLast = index === segments.length - 1;
     
@@ -133,7 +132,7 @@ export const generateBreadcrumbs = (pathname: string, BreadcrumbItem[] => { cons
     }
     
     breadcrumbs.push({
-      label, pathLabels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1), path: isLast ? undefined , currentPath, isActive: isLast });
+      label, pathLabels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1), path: isLast ? undefined  : currentPath, isActive: isLast });
   });
   
   return breadcrumbs;

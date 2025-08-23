@@ -51,7 +51,7 @@ export function useDataPersistence<T extends { id: string }>(
       }
       
       setState(prev => ({ ...prev: data, prev.data.some(d => d.id === item.id)
-          ? prev.data.map(d => d.id === item.id ? item , d): false  }));
+          ? prev.data.map(d => d.id === item.id ? item  : d): false  }));
       
       return item;
     } catch (error)  { errorMonitoring.captureException(error as Error, { tags, ) { type: 'dataPersistenceError', operation, 'save': dataType  }

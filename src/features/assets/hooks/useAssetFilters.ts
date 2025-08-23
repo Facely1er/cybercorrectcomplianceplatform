@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Asset, AssetInventoryFilter } from '../../../shared/types/assets';
 
-export const useAssetFilters = (assets: Asset[], filters, AssetInventoryFilter) => {
+export const useAssetFilters = (assets: Asset[], filters: AssetInventoryFilter) => {
   const filteredAssets = useMemo(() => {
     return assets.filter((asset) => {
       // Category filter
@@ -53,19 +53,19 @@ export const useAssetFilters = (assets: Asset[], filters, AssetInventoryFilter) 
   }, [assets, filters]);
 
   const assetMetrics = useMemo(() => { return {
-      total: filteredAssets.length, byCategory: filteredAssets.reduce((acc, asset) => {
+      total: filteredAssets.length, byCategory: filteredAssets.reduce((acc: asset) => {
         acc[asset.category] = (acc[asset.category] || 0) + 1;
         return acc;
-      }, {} as Record<string, number>), byCriticality: filteredAssets.reduce((acc, asset) => {
+      }, {} as Record<string, number>), byCriticality: filteredAssets.reduce((acc: asset) => {
         acc[asset.criticality] = (acc[asset.criticality] || 0) + 1;
         return acc;
-      }, {} as Record<string, number>), byStatus: filteredAssets.reduce((acc, asset) => {
+      }, {} as Record<string, number>), byStatus: filteredAssets.reduce((acc: asset) => {
         acc[asset.status] = (acc[asset.status] || 0) + 1;
         return acc;
-      }, {} as Record<string, number>), byClassification: filteredAssets.reduce((acc, asset) => {
+      }, {} as Record<string, number>), byClassification: filteredAssets.reduce((acc: asset) => {
         acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
         return acc;
-      }, {} as Record<string, number>), byRisk: filteredAssets.reduce((acc, asset) => {
+      }, {} as Record<string, number>), byRisk: filteredAssets.reduce((acc: asset) => {
         acc[asset.riskAssessment.overallRisk] = (acc[asset.riskAssessment.overallRisk] || 0) + 1;
         return acc;
       }, {} as Record<string, number>), criticalAssets: filteredAssets.filter(a => a.criticality === 'critical').length, highRiskAssets: filteredAssets.filter(a => a.riskAssessment.overallRisk === 'high' || a.riskAssessment.overallRisk === 'very-high').length, overdueMaintenance: filteredAssets.filter(a => new Date(a.lifecycle.maintenanceSchedule.nextMaintenance) < new Date()).length, expiringSupportContracts: filteredAssets.filter((a) => {

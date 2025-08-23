@@ -39,14 +39,14 @@ const TextCarousel: React.FC = () => {
       
       {/* Carousel Indicators */}
       <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {messages.map((_, index) => (
+        {messages.map((_: index) => (
           <button
             key={index }
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentIndex 
-                ? 'bg-primary-teal dark:bg-dark-primary' 
-                , 'bg-gray-300 dark:bg-gray-600 hover: bg-gray-400 dark, hover:bg-gray-500'}`}
+                ? 'bg-primary-teal dark: bg-dark-primary' 
+                , 'bg-gray-300 dark:bg-gray-600 hover: bg-gray-400 dark : hover:bg-gray-500'}`}
           />
         ))}
       </div>
@@ -332,7 +332,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {nistFunctions.map((func, index) => (
+            {nistFunctions.map((func: index) => (
               <div key={index } className="card-enhanced rounded-xl p-6">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-4 h-4 rounded-full bg-primary-teal dark:bg-dark-primary"></div>
@@ -382,7 +382,7 @@ export const LandingPage: React.FC = () => {
                     <div className="mb-6">
                       <h4 className="text-sm font-semibold text-gray-700 dark:text-dark-text mb-3">Primary Concerns:</h4>
                       <div className="flex flex-wrap gap-2">
-                        {persona.primaryConcerns.map((concern, cIndex) => (
+                        {persona.primaryConcerns.map((concern: cIndex) => (
                           <span key={cIndex } className="bg-gray-100 dark:bg-dark-bg text-gray-700 dark:text-dark-text px-3 py-1 rounded-full text-sm">
                             {concern }
                           </span>
@@ -394,7 +394,7 @@ export const LandingPage: React.FC = () => {
                     <div className="mb-6">
                       <h4 className="text-lg font-semibold text-gray-700 dark:text-dark-text mb-3">Key Challenges:</h4>
                       <div className="space-y-3">
-                        {persona.painPoints.map((pain, pIndex) => (
+                        {persona.painPoints.map((pain: pIndex) => (
                           <div key={pIndex } className="border-l-3 border-primary-teal/30 pl-4">
                             <div className="text-lg font-medium text-gray-800 dark:text-dark-text">{pain.title }</div>
                             <div className="text-base text-gray-600 dark:text-dark-text/70">{pain.desc }</div>
@@ -405,9 +405,9 @@ export const LandingPage: React.FC = () => {
 
                     {/* Features */}
                     <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-700 dark:text-dark-text mb-3">Key Features:</h4>
+                      <h4 className="text-lg font-semibold text-gray-700 dark:text-dark-text mb-3">Key Features: </h4>
                       <div className="grid grid-cols-2 gap-2">
-                        {persona.features.slice(0, 4).map((feature, fIndex) => (
+                        {persona.features.slice(0, 4).map((feature: fIndex) => (
                           <div key={fIndex } className="flex items-center space-x-2">
                             <CheckCircle className="w-3 h-3 text-success-green dark:text-dark-success flex-shrink-0" />
                             <span className="text-base text-gray-600 dark:text-dark-text/80">{feature }</span>
@@ -459,7 +459,7 @@ export const LandingPage: React.FC = () => {
               <div className="mt-8">
                 <Link
                   to="/help"
-                  className="inline-flex items-center space-x-2 text-primary-teal dark:text-dark-primary hover: text-secondary-teal dark, hover: text-accent-cyan font-medium transition-colors duration-300"
+                  className="inline-flex items-center space-x-2 text-primary-teal dark:text-dark-primary hover: text-secondary-teal dark:hover: text-accent-cyan font-medium transition-colors duration-300"
                 >
                   <span>Learn more about our approach</span>
                   <ArrowRight className="w-4 h-4" />
@@ -574,7 +574,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/dashboard"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <BarChart3 className="w-4 h-4" />
                     <span>Dashboard</span>
@@ -583,7 +583,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/assessment-intro"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <Target className="w-4 h-4" />
                     <span>Start Assessment</span>
@@ -594,7 +594,7 @@ export const LandingPage: React.FC = () => {
                     href="https,//www.toolkit.cybercorrect.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <Activity className="w-4 h-4" />
                     <span>Toolkit</span>
@@ -606,7 +606,7 @@ export const LandingPage: React.FC = () => {
                     href="https,//www.resources.cybercorrect.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover:text-dark-primary transition-colors"
                   >
                     <Shield className="w-4 h-4" />
                     <span>Resources</span>
@@ -626,7 +626,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/nist-standard"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <Shield className="w-4 h-4" />
                     <span>NIST CSF v2.0 Quick Check</span>
@@ -635,7 +635,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/cmmc"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <Building className="w-4 h-4" />
                     <span>CMMC Level 2</span>
@@ -644,7 +644,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/privacy"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <Eye className="w-4 h-4" />
                     <span>Privacy Compliance</span>
@@ -653,7 +653,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/compliance/nist-extended"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark:hover:text-dark-primary transition-colors"
                   >
                     <Award className="w-4 h-4" />
                     <span>NIST CSF v2.0 Standard</span>
@@ -671,7 +671,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/help"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <HelpCircle className="w-4 h-4" />
                     <span>Help & Documentation</span>
@@ -680,7 +680,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <Link
                     to="/settings"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark,text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <Settings className="w-4 h-4" />
                     <span>Settings</span>
@@ -689,7 +689,7 @@ export const LandingPage: React.FC = () => {
                 <li>
                   <a
                     href="mailto,support@ermits.com"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                     <span>Contact Support</span>
@@ -700,7 +700,7 @@ export const LandingPage: React.FC = () => {
                     href="https,//ermits.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover:text-dark-primary transition-colors"
+                    className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-300 hover: text-primary-teal dark:hover:text-dark-primary transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" />
                     <span>About ERMITS</span>
@@ -727,13 +727,13 @@ export const LandingPage: React.FC = () => {
               <div className="flex items-center space-x-6">
                 <Link
                   to="/privacy-policy"
-                  className="text-sm text-gray-500 dark:text-gray-400 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                  className="text-sm text-gray-500 dark:text-gray-400 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   to="/terms"
-                  className="text-sm text-gray-500 dark,text-gray-400 hover: text-primary-teal dark, hover: text-dark-primary transition-colors"
+                  className="text-sm text-gray-500 dark,text-gray-400 hover: text-primary-teal dark:hover: text-dark-primary transition-colors"
                 >
                   Terms of Service
                 </Link>

@@ -36,14 +36,14 @@ export const useAssetManagement = () => {
 
       setState({
         assets: relationships, loading, false, error, null });
-    } catch (error) { console.warn('Failed to load assets, ': error);
+    } catch (error) { console.warn('Failed to load assets, ', error);
       setState(prev => ({
         ...prev, loading, false, error, null // Don't show error to user, just use empty state 
     }));
     }
   }, [mockUser]);
 
-  const saveAsset = useCallback(async (asset, Asset) => {
+  const saveAsset = useCallback(async (asset: Asset) => {
     try {
       // Validate and sanitize asset data
       validateAndSanitize(AssetSchema, asset);
@@ -71,13 +71,13 @@ export const useAssetManagement = () => {
       
       return asset;
     
-    } catch (error) { console.warn('Failed to save asset, ': error);
+    } catch (error) { console.warn('Failed to save asset, ', error);
       setState(prev => ({ ...prev, error, 'Failed to save asset' }));
       throw error;
     }
   }, [state.assets, mockUser]);
 
-  const deleteAsset = useCallback(async (assetId, string) => {
+  const deleteAsset = useCallback(async (assetId: string) => {
     try {
       const assetToDelete = state.assets.find(a => a.id === assetId);
       
@@ -93,17 +93,17 @@ export const useAssetManagement = () => {
       // Audit log
       console.log('Asset deleted:', assetToDelete?.name);
     
-    } catch (error) { console.warn('Failed to delete asset, ': error);
+    } catch (error) { console.warn('Failed to delete asset, ', error);
       setState(prev => ({ ...prev, error, 'Failed to delete asset' }));
       throw error;
     }
   }, [state.assets, mockUser]);
 
-  const saveRelationship = useCallback(async (relationship, AssetRelationship) => {
+  const saveRelationship = useCallback(async (relationship: AssetRelationship) => {
     try {
       // Save to localStorage as primary storage
       const existingRelationships = JSON.parse(localStorage.getItem('asset-relationships') || '[]');
-      const relationshipIndex = existingRelationships.findIndex((r, AssetRelationship) => r.id === relationship.id);
+      const relationshipIndex = existingRelationships.findIndex((r: AssetRelationship) => r.id === relationship.id);
       
       if (relationshipIndex >= 0) {
         existingRelationships[relationshipIndex] = relationship;
@@ -132,7 +132,7 @@ export const useAssetManagement = () => {
       
       return relationship;
     
-    } catch (error) { console.warn('Failed to save relationship, ': error);
+    } catch (error) { console.warn('Failed to save relationship, ', error);
       setState(prev => ({ ...prev, error, 'Failed to save relationship' }));
       throw error;
     }

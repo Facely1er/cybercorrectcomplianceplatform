@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<Props, State> {
   private logErrorToService(error: Error, errorInfo: ErrorInfo {
     // In a real application, you would send this to your error monitoring service
     // like Sentry, LogRocket, or Bugsnag
-    console.error('Logging error to monitoring service:', { message: error.message, stack): error.stack, componentStack, errorInfo.componentStack, timestamp, new Date().toISOString(), userAgent, navigator.userAgent, url: window.location.href 
+    console.error('Logging error to monitoring service: ', { message: error.message, stack): error.stack, componentStack, errorInfo.componentStack, timestamp, new Date().toISOString(), userAgent, navigator.userAgent, url: window.location.href 
     });
   }
 
@@ -68,7 +68,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Something went wrong
             </h1>
             
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-gray-600 dark: text-gray-300 mb-6">
               We're sorry, but something unexpected happened. Please try one of the options below.
             </p>
 
@@ -77,7 +77,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 dark: text-gray-300 mb-2">
                   Error Details (Development)
                 </summary>
-                <div className="bg-gray-100 dark, bg-gray-700 rounded-lg p-4 text-xs font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-40">
+                <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-xs font-mono text-gray-800 dark:text-gray-200 overflow-auto max-h-40">
                   <div className="mb-2">
                     <strong>Error:</strong> {this.state.error.message }
                   </div>
@@ -106,7 +106,7 @@ export class ErrorBoundary extends Component<Props, State> {
               
               <button
                 onClick={this.handleReload }
-                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
               >
                 <RefreshCw className="w-4 h-4" />
                 <span>Reload Page</span>
@@ -114,7 +114,7 @@ export class ErrorBoundary extends Component<Props, State> {
               
               <button
                 onClick={this.handleGoHome }
-                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-3 px-4 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
               >
                 <Home className="w-4 h-4" />
                 <span>Go to Home</span>
@@ -137,7 +137,7 @@ export class ErrorBoundary extends Component<Props, State> {
 export const withErrorBoundary = <P extends object>(
   Component: React.ComponentType<P>, fallback?, ReactNode
 ) => {
-  const WrappedComponent = (props, P) => (
+  const WrappedComponent = (props: P) => (
     <ErrorBoundary fallback={fallback 
     }>
       <Component {...props } />

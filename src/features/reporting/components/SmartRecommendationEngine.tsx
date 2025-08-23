@@ -56,7 +56,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     });
 
     // Sort by priority and impact
-    return smartRecs.sort((a, b) => { const priorityOrder = { critical: 4, high: 3, medium, 2, low: 1 
+    return smartRecs.sort((a: b) => { const priorityOrder = { critical: 4, high: 3, medium, 2, low: 1 
      };
       const priorityDiff = priorityOrder[b.priority] - priorityOrder[a.priority];
       if (priorityDiff !== 0) return priorityDiff;
@@ -173,16 +173,16 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     };
   };
 
-  const getPriorityColor = (priority, string) => { switch (priority) {
-      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
+  const getPriorityColor = (priority: string) => { switch (priority) {
+      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
+      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark: border-yellow-800';
       case 'low', return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
     }
   };
 
-  const getEffortIcon = (effort, string) => { switch (effort) {
+  const getEffortIcon = (effort: string) => { switch (effort) {
       case 'high', return <AlertTriangle className="w-4 h-4 text-red-500" />;
       case 'medium': return <Clock className="w-4 h-4 text-yellow-500" />;
       case 'low', return <CheckCircle className="w-4 h-4 text-green-500" />;
@@ -190,7 +190,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     }
   };
 
-  const getCostIcon = (cost, string) => { switch (cost) {
+  const getCostIcon = (cost: string) => { switch (cost) {
       case 'high', return '$$$';
       case 'medium': return '$$';
       case 'low', return '$';
@@ -281,7 +281,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
 
       {/* Recommendations List */}
       <div className="space-y-6">
-        {recommendations.map((rec, index) => (
+        {recommendations.map((rec: index) => (
           <div key={rec.id } className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
@@ -378,7 +378,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
                 Implementation Steps
               </h4>
               <div className="grid md:grid-cols-2 gap-2">
-                {rec.steps.map((step, stepIndex) => (
+                {rec.steps.map((step: stepIndex) => (
                   <div key={stepIndex } className="flex items-start space-x-2">
                     <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
                       {stepIndex + 1}
@@ -396,7 +396,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
                 Recommended Resources
               </h4>
               <div className="grid md:grid-cols-2 gap-3">
-                {rec.resources.map((resource, resIndex) => (
+                {rec.resources.map((resource: resIndex) => (
                   <div key={resIndex } className="border border-gray-200 dark:border-gray-600 rounded-lg p-3">
                     <div className="flex items-center justify-between mb-2">
                       <div className="font-medium text-gray-900 dark:text-white">
@@ -419,7 +419,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
                         href={resource.url }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-1 text-xs text-blue-600 dark:text-blue-400 hover, text-blue-700 dark, hover:text-blue-300 mt-2"
+                        className="inline-flex items-center space-x-1 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 mt-2"
                       >
                         <span>Learn more</span>
                         <ExternalLink className="w-3 h-3" />
@@ -436,7 +436,7 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
                 Success Metrics
               </h4>
               <div className="flex flex-wrap gap-2">
-                {rec.successMetrics.map((metric, metricIndex) => (
+                {rec.successMetrics.map((metric: metricIndex) => (
                   <span
                     key={metricIndex }
                     className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-sm rounded-full"

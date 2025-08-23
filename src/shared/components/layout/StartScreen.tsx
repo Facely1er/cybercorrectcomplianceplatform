@@ -65,8 +65,8 @@ export const StartScreen: React.FC<StartScreenProps> = ({
      }
   ];
 
-  const getColorClasses = (color, string) => { const colorMap = {
-      blue: 'from-blue-100 to-blue-200 dark, from-blue-900/30 dark:to-blue-800/30 text-blue-600 dark:text-blue-400', green: 'from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 text-green-600 dark:text-green-400', purple: 'from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 text-purple-600 dark:text-purple-400', orange: 'from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 text-orange-600 dark:text-orange-400', indigo, 'from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 text-indigo-600 dark:text-indigo-400', pink: 'from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 text-pink-600 dark:text-pink-400'
+  const getColorClasses = (color: string) => { const colorMap = {
+      blue: 'from-blue-100 to-blue-200 dark, from-blue-900/30 dark:to-blue-800/30 text-blue-600 dark: text-blue-400', green: 'from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 text-green-600 dark: text-green-400', purple: 'from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 text-purple-600 dark: text-purple-400', orange: 'from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 text-orange-600 dark:text-orange-400', indigo, 'from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-800/30 text-indigo-600 dark: text-indigo-400', pink: 'from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-800/30 text-pink-600 dark:text-pink-400'
     };
     return colorMap[color] || colorMap.blue;
   };
@@ -146,24 +146,24 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center">
                   <Link
                     to="/assessment-intro"
-                    className="border-2 border-red-600 text-red-600 dark:text-red-400 px-6 py-3 rounded-xl font-medium hover, bg-red-50 dark, hover:bg-red-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="border-2 border-red-600 text-red-600 dark:text-red-400 px-6 py-3 rounded-xl font-medium hover, bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
                   >
                     <Building className="w-5 h-5" />
-                    <span>CMMC Level 2 ({cmmcFramework?.sections?.reduce((sum, section) => sum + section.categories.reduce((catSum, category) => catSum + category.questions.length, 0), 0) || 110} controls)</span>
+                    <span>CMMC Level 2 ({cmmcFramework? .sections?.reduce((sum : section) => sum + section.categories.reduce((catSum: category) => catSum + category.questions.length, 0), 0) || 110} controls)</span>
                   </Link>
                   <Link
                     to="/assessment-intro"
                     className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-medium hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg flex items-center justify-center space-x-2"
                   >
                     <Eye className="w-5 h-5" />
-                    <span>Privacy Framework ({privacyFramework?.sections?.reduce((sum, section) => sum + section.categories.reduce((catSum, category) => catSum + category.questions.length, 0), 0) || 45} questions)</span>
+                    <span>Privacy Framework ({privacyFramework? .sections?.reduce((sum : section) => sum + section.categories.reduce((catSum: category) => catSum + category.questions.length, 0), 0) || 45} questions)</span>
                   </Link>
                   <Link
                     to="/assessment-intro"
-                    className="border-2 border-green-600 text-green-600 dark:text-green-400 px-6 py-3 rounded-xl font-medium hover: bg-green-50 dark, hover:bg-green-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="border-2 border-green-600 text-green-600 dark:text-green-400 px-6 py-3 rounded-xl font-medium hover: bg-green-50 dark:hover:bg-green-900/20 transition-all duration-300 flex items-center justify-center space-x-2"
                   >
                     <Zap className="w-5 h-5" />
-                    <span>NIST CSF v2.0 Quick Check ({nistCSFv2Framework?.sections?.reduce((sum, section) => sum + section.categories.reduce((catSum, category) => catSum + category.questions.length, 0), 0) || 10} questions)</span>
+                    <span>NIST CSF v2.0 Quick Check ({nistCSFv2Framework? .sections?.reduce((sum : section) => sum + section.categories.reduce((catSum: category) => catSum + category.questions.length, 0), 0) || 10} questions)</span>
                   </Link>
                 </div>
               </div>
@@ -171,7 +171,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               {userProfile && (
                 <button
                   onClick={handleContinue }
-                  className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-3 rounded-xl font-bold hover, bg-blue-50 dark, hover:bg-blue-900/20 transition-all duration-300"
+                  className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-3 rounded-xl font-bold hover, bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300"
                 >
                   Continue to Dashboard
                 </button>
@@ -219,7 +219,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {platformFeatures.map((feature, index) => (
+              {platformFeatures.map((feature: index) => (
                 <div key={index } className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group">
                   <div className={`flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${getColorClasses(feature.color)} mb-6 mx-auto group-hover:scale-110 transition-transform duration-300`}>
                     <feature.icon className="w-8 h-8" />
@@ -249,7 +249,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {implementationSteps.map((step, index) => (
+              {implementationSteps.map((step: index) => (
                 <div key={index } className="relative">
                   {index < implementationSteps.length - 1 && (
                     <div className="hidden lg:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 z-10">

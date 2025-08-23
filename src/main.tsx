@@ -15,7 +15,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
         // Check for updates
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
-          newWorker?.addEventListener('statechange', () => {
+                      newWorker?.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
               // Show update notification
               if (window.confirm('New version available. Reload to update?')) {

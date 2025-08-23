@@ -20,7 +20,7 @@ export const ComingSoon: React.FC<ComingSoonProps> = ({
 }) => { return (
     <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full">
-        <div className="bg-white dark, bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8 text-center">
           {/* Icon */}
           <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-full">
             <Construction className="w-10 h-10 text-blue-600 dark:text-blue-400" />
@@ -56,7 +56,7 @@ export const ComingSoon: React.FC<ComingSoonProps> = ({
                 Planned Features
               </h3>
               <div className="space-y-2">
-                {features.map((feature, index) => (
+                {features.map((feature: index) => (
                   <div key={index} className="flex items-center space-x-3 text-gray-700 dark:text-gray-300">
                     <ArrowRight className="w-4 h-4 text-blue-500 flex-shrink-0" />
                     <span>{feature}</span>
@@ -78,7 +78,7 @@ export const ComingSoon: React.FC<ComingSoonProps> = ({
             
             <a
               href="mailto:support@ermits.com?subject=Feature Request&body=I'm interested in learning more about this upcoming feature."
-              className="flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
+              className="flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
             >
               <span>Request Updates</span>
             </a>

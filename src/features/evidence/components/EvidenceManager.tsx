@@ -11,8 +11,8 @@ interface EvidenceManagerProps { questionId: string;
     relevance, string;
     confidence: string;
   };
-  setUploadForm: (form, any) => void;
-  setShowUploadModal: (show, boolean) => void;
+  setUploadForm: (form: any) => void;
+  setShowUploadModal: (show: boolean) => void;
   onUploadEvidence: (file: File, metadata, Partial<EvidenceItem>) => Promise<void>;
 }
 

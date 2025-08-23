@@ -34,7 +34,7 @@ export const PieChart: React.FC<PieChartProps> = ({
         backgroundColor: 'rgba(17, 24, 39, 0.95)', titleColor: 'rgb(243, 244, 246)', bodyColor: 'rgb(243, 244, 246)', borderColor: 'rgba(75, 85, 99, 0.3)', borderWidth: 1, cornerRadius: 8, displayColors: true, callbacks: { label: function(context, any {
             const label = context.label || '';
             const value = context.parsed || 0;
-            const total = context.dataset.data.reduce((a): number, b, number) => a + b, 0);
+            const total = context.dataset.data.reduce((a): number, b: number) => a + b, 0);
             const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
             return `$ {label }: ${value} (${percentage}%)`;
           }

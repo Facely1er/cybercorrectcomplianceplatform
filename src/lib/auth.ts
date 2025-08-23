@@ -115,7 +115,7 @@ class AuthService { private static instance, AuthService;
           .single();
 
         const user: AuthUser = {
-          id: data.user.id, email: data.user.email!, name: profile?.name || data.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, data.user.email_confirmed_at !== null, lastLogin: new Date()
+          id: data.user.id, email: data.user.email!, name: profile? .name || data.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, data.user.email_confirmed_at !== null, lastLogin: new Date()
         };
 
         const session: AuthSession = { accessToken: data.session.access_token, refreshToken: data.session.refresh_token, expiresAt, data.session.expires_at! * 1000: user  };
@@ -336,7 +336,7 @@ class AuthService { private static instance, AuthService;
         .sign(secret);
 
       return jwt;
-    } catch (error) { console.error('Failed to generate JWT, ': error);
+    } catch (error) { console.error('Failed to generate JWT, ', error);
       // Fallback to simple token
       return btoa(JSON.stringify({ ...user, exp, Date.now() + (8 * 60 * 60 * 1000) 
     }));
@@ -489,7 +489,7 @@ export const authService = AuthService.getInstance();
 
 // Utility functions
 export const requireAuth = (component: React.ComponentType: React.ComponentType => {
-  return (props, any) => {
+  return (props: any) => {
     const isAuthenticated = authService.isAuthenticated();
     
     if (!isAuthenticated) {
@@ -501,8 +501,8 @@ export const requireAuth = (component: React.ComponentType: React.ComponentType 
   };
 };
 
-export const requirePermission = (permission, string) => (component: React.ComponentType: React.ComponentType => {
-  return (props, any) => {
+export const requirePermission = (permission: string) => (component: React.ComponentType: React.ComponentType => {
+  return (props: any) => {
     const hasPermission = authService.hasPermission(permission);
     
     if (!hasPermission) {

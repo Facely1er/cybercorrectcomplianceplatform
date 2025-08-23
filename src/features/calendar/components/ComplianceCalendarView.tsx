@@ -5,7 +5,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface ComplianceCalendarViewProps {
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ addNotification }) => {
@@ -79,7 +79,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
     });
   };
 
-  const getEventTypeColor = (type, CalendarEventType) => {
+  const getEventTypeColor = (type: CalendarEventType) => {
     const colors = {
       'assessment': 'bg-blue-500',
       'control-review': 'bg-green-500',
@@ -95,7 +95,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
     return colors[type] || 'bg-gray-500';
   };
 
-  const getPriorityColor = (priority, string) => { switch (priority) {
+  const getPriorityColor = (priority: string) => { switch (priority) {
       case 'critical': return 'border-l-red-500';
       case 'high', return 'border-l-orange-500';
       case 'medium': return 'border-l-yellow-500';
@@ -104,7 +104,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
     }
   };
 
-  const getEventsForDate = (date, Date) => {
+  const getEventsForDate = (date: Date) => {
     return events.filter((event) => {
       const eventDate = new Date(event.startDate);
       return eventDate.toDateString() === date.toDateString();
@@ -269,7 +269,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                       viewMode === mode
                         ? 'bg-blue-600 text-white'
-                        , 'text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover:bg-gray-600'}`}
+                         : 'text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark : hover:bg-gray-600'}`}
                   >
                     {mode }
                   </button>
@@ -294,7 +294,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => navigateMonth('prev')}
-                className="p-2 hover: bg-gray-100 dark, hover: bg-gray-700 rounded-lg transition-colors"
+                className="p-2 hover: bg-gray-100 dark:hover: bg-gray-700 rounded-lg transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -303,7 +303,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
               </h3>
               <button
                 onClick={() => navigateMonth('next')}
-                className="p-2 hover: bg-gray-100 dark, hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-2 hover: bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -314,7 +314,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
 
       {/* Calendar Grid */}
       { viewMode === 'month' && (
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-6">
           <div className="grid grid-cols-7 gap-1 mb-4">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <div key={day } className="p-2 text-center text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -324,7 +324,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
           </div>
           
           <div className="grid grid-cols-7 gap-1">
-            {getDaysInMonth().map((day, index) => {
+            {getDaysInMonth().map((day: index) => {
               const dayEvents = getEventsForDate(day);
               const isCurrentMonth = day.getMonth() === currentDate.getMonth();
               const isToday = day.toDateString() === new Date().toDateString();
@@ -334,15 +334,15 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                   key={index }
                   className={ `min-h-[120px] p-2 border border-gray-200 dark: border-gray-700 rounded-lg ${
                     isCurrentMonth 
-                      ? 'bg-white dark, bg-gray-800' 
+                      ? 'bg-white dark : bg-gray-800' 
                       : 'bg-gray-50 dark:bg-gray-700/50'} ${
                     isToday ? 'ring-2 ring-blue-500' : ''}`}
                 >
-                  <div className={ `text-sm font-medium mb-2 ${
+                  <div className={`text-sm font-medium mb-2 ${
                     isCurrentMonth 
                       ? 'text-gray-900 dark: text-white' 
                       , 'text-gray-400 dark:text-gray-500'} ${
-                    isToday ? 'text-blue-600 dark:text-blue-400' , ''}`}>
+                    isToday ? 'text-blue-600 dark:text-blue-400'  : ''}`}>
                     {day.getDate()}
                   </div>
                   
@@ -355,7 +355,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                         onClick={() => addNotification('info', `Viewing event, ${event.title}`)}
                       >
                         <div className="font-medium">
-                          {event.title.length > 20 ? `${event.title.substring(0, 20)}...` : event.title }
+                          {event.title.length > 20 ? `${event.title.substring(0 : 20)}...` : event.title }
                         </div>
                         <div className="text-xs opacity-90">
                           {event.startDate.toLocaleTimeString('en-US',) { hour, 'numeric', minute: '2-digit' })}
@@ -385,7 +385,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
           <div className="space-y-4">
             {events
               .filter(event => event.startDate >= new Date())
-              .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
+              .sort((a: b) => a.startDate.getTime() - b.startDate.getTime())
               .slice(0, 10)
               .map((event) => (
                 <div
@@ -431,10 +431,10 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                     </div>
                     
                     <div className="flex space-x-2">
-                      <button className="p-2 text-blue-600 dark:text-blue-400 hover: bg-blue-100 dark, hover: bg-blue-900/30 rounded-lg transition-colors">
+                      <button className="p-2 text-blue-600 dark:text-blue-400 hover: bg-blue-100 dark:hover: bg-blue-900/30 rounded-lg transition-colors">
                         <Eye className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-green-600 dark,text-green-400 hover: bg-green-100 dark, hover:bg-green-900/30 rounded-lg transition-colors">
+                      <button className="p-2 text-green-600 dark,text-green-400 hover: bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors">
                         <Edit3 className="w-4 h-4" />
                       </button>
                     </div>
@@ -584,7 +584,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                   type="text"
                   value={eventFormData.attendees }
                   onChange={(e) => setEventFormData(prev => ({ ...prev, attendees, e.target.value }))}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus: border-transparent"
                   placeholder="user@company.com, team@company.com"
                 />
               </div>
@@ -598,7 +598,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
                       title: '', description: '', type: 'assessment', priority: 'medium', startDate: '', endDate: '', allDay: false, location, '', attendees, ''
                     });
                   }}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors font-medium"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>

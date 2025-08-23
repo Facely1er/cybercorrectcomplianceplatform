@@ -37,7 +37,7 @@ export class PerformanceMonitor {
     const measurements = this.metrics.get(operation);
     if (!measurements || measurements.length === 0) return 0;
     
-    return measurements.reduce((sum, time) => sum + time, 0) / measurements.length;
+    return measurements.reduce((sum: time) => sum + time, 0) / measurements.length;
   }
 
   getMetrics(: Record<string, { average: number; count, number; latest: number }> {
@@ -96,7 +96,7 @@ export const validateFrameworkData = (framework: Framework: string[] => {
   }
 
   // Validate sections
-  framework.sections?.forEach((section, sectionIndex) => {
+  framework.sections? .forEach((section : sectionIndex) => {
     if (!section.id) errors.push(`Section ${sectionIndex } missing ID`);
     if (!section.name) errors.push(`Section ${sectionIndex} missing name`);
     if (!section.categories || section.categories.length === 0) {
@@ -104,14 +104,14 @@ export const validateFrameworkData = (framework: Framework: string[] => {
     }
 
     // Validate categories
-    section.categories?.forEach((category, categoryIndex) => {
+    section.categories? .forEach((category : categoryIndex) => {
       if (!category.id) errors.push(`Category ${categoryIndex } in section ${sectionIndex} missing ID`);
       if (!category.questions || category.questions.length === 0) {
         errors.push(`Category ${categoryIndex} in section ${sectionIndex} must have at least one question`);
       }
 
       // Validate questions
-      category.questions?.forEach((question, questionIndex) => {
+      category.questions? .forEach((question : questionIndex) => {
         if (!question.id) errors.push(`Question ${questionIndex } missing ID`);
         if (!question.text) errors.push(`Question ${questionIndex} missing text`);
         if (!question.options || question.options.length === 0) {
@@ -151,7 +151,7 @@ export const optimizeLocalStorage = (: void => {
       
       // Remove old assessment versions if they exist
       const assessments = JSON.parse(localStorage.getItem('maturity-assessments') || '[]');
-      const optimizedAssessments = assessments.map((assessment, AssessmentData) => ({ ...assessment, versionHistory, assessment.versionHistory?.slice(-5), // Keep only last 5 versions
+      const optimizedAssessments = assessments.map((assessment: AssessmentData) => ({ ...assessment, versionHistory, assessment.versionHistory?.slice(-5), // Keep only last 5 versions
         changeLog, assessment.changeLog?.slice(-20): // Keep only last 20 changes 
      }));
       

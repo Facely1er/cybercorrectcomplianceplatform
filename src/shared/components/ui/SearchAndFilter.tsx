@@ -15,10 +15,10 @@ interface FilterGroup { id, string;
 
 interface SearchAndFilterProps { searchPlaceholder?: string;
   searchValue, string;
-  onSearchChange: (value, string) => void;
+  onSearchChange: (value: string) => void;
   filterGroups?: FilterGroup[];
   selectedFilters: Record<string, any>;
-  onFilterChange: (filterId: string, value, any) => void;
+  onFilterChange: (filterId: string, value: any) => void;
   onClearFilters, () => void;
   className?: string;
 }
@@ -62,7 +62,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           {hasActiveFilters && (
             <button
               onClick={onClearFilters }
-              className="text-sm text-gray-600 dark:text-gray-300 hover, text-red-600 dark, hover:text-red-400 transition-colors"
+              className="text-sm text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
             >
               Clear Filters
             </button>
@@ -70,10 +70,10 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
           
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={ `flex items-center space-x-2 px-4 py-3 border rounded-lg transition-colors ${
+            className={`flex items-center space-x-2 px-4 py-3 border rounded-lg transition-colors ${
               hasActiveFilters
-                ? 'border-blue-300 dark: border-blue-600 bg-blue-50 dark, bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                , 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover: bg-gray-50 dark, hover:bg-gray-600'}`}
+                ? 'border-blue-300 dark: border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                , 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover: bg-gray-50 dark : hover:bg-gray-600'}`}
           >
             <Filter className="w-4 h-4" />
             <span>Filters</span>

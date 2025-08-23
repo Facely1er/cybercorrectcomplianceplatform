@@ -10,7 +10,7 @@ interface KeyboardShortcut { key: string;
 
 export const useKeyboardShortcuts = (shortcuts, KeyboardShortcut[]) => {
   useEffect(() => {
-    const handleKeyDown = (event, KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       const shortcut = shortcuts.find(s => 
         event.key.toLowerCase() === s.key.toLowerCase() &&
         !!event.ctrlKey === !!s.ctrlKey &&

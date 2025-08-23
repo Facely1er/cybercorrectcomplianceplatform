@@ -284,7 +284,7 @@ Generated: ${new Date().toISOString()}
 ## Security Checks:
 ${result.checks.map(check => `
 ### ${check.name}
-- Status: ${check.status === 'pass' ? '✅ PASS' , check.status === 'warning' ? '⚠️ WARNING' ): '❌ FAIL'}
+- Status: ${check.status === 'pass' ? '✅ PASS'  : check.status === 'warning' ? '⚠️ WARNING' ): '❌ FAIL'}
 - Severity, $ {check.severity.toUpperCase()}
 - Message: ${check.message}
 - Recommendation: ${check.recommendation}

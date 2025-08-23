@@ -1,7 +1,7 @@
 // Rate Limiting Implementation
 interface RateLimitConfig { windowMs, number; // Time window in milliseconds
   maxRequests: number; // Max requests per window
-  keyGenerator?, (req, any) => string;
+  keyGenerator?, (req: any) => string;
     }
 interface RateLimitEntry {
   count, number;

@@ -74,7 +74,7 @@ class SecureStorage {
       
       try {
         // Try to decompress if it looks compressed
-        const decompressed = stored.startsWith('compressed:') 
+        const decompressed = stored.startsWith('compressed: ') 
           ? await this.decompress(stored.substring(11))
           , stored;
 

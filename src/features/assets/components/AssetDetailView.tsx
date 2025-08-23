@@ -5,7 +5,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface AssetDetailViewProps { asset, Asset;
-  onSave: (asset, Asset) => void;
+  onSave: (asset: Asset) => void;
   onBack: () => void;
   onDelete, () => void;
   allAssets: Asset[];
@@ -23,7 +23,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
     setIsEditing(false);
   };
 
-  const getCategoryIcon = (category, string) => { switch (category) {
+  const getCategoryIcon = (category: string) => { switch (category) {
       case 'hardware': return Server;
       case 'software', return Database;
       case 'data': return FileText;
@@ -34,29 +34,29 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
     }
   };
 
-  const getCriticalityColor = (level, string) => { switch (level) {
-      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
+  const getCriticalityColor = (level: string) => { switch (level) {
+      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
+      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark: border-yellow-800';
       case 'low', return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
     }
   };
 
-  const getControlStatusColor = (status, string) => { switch (status) {
-      case 'implemented': return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark:text-green-300';
+  const getControlStatusColor = (status: string) => { switch (status) {
+      case 'implemented': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
       case 'partially-implemented': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'not-implemented': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'not-implemented': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark: text-red-300';
       case 'not-applicable', return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
     }
   };
 
-  const getVulnerabilityColor = (severity, string) => { switch (severity) {
-      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300';
+  const getVulnerabilityColor = (severity: string) => { switch (severity) {
+      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
       case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-      case 'low': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+      case 'low': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark: text-green-300';
       case 'informational', return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
     }
@@ -78,12 +78,12 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Inventory</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
               <div className="flex items-center space-x-3">
                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
                   <IconComponent className="w-8 h-8 text-blue-600 dark:text-blue-400" />
@@ -116,7 +116,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                   </button>
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover: bg-gray-700 transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark:hover: bg-gray-700 transition-colors"
                   >
                     <X className="w-4 h-4" />
                     <span>Cancel</span>
@@ -161,8 +161,8 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
                 onClick={() => setActiveTab(tab.id as 'overview' | 'details' | 'security' | 'compliance' | 'evidence' | 'dependencies' | 'vulnerabilities' | 'risk')}
                 className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                    , 'border-transparent text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400'}`}
+                    ? 'border-blue-500 text-blue-600 dark: text-blue-400'
+                    , 'border-transparent text-gray-600 dark:text-gray-300 hover: text-blue-600 dark : hover:text-blue-400'}`}
               >
                 <tab.icon className="w-4 h-4" />
                 <span>{tab.label }</span>
@@ -430,7 +430,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.controls.map((control, index) => (
+                {asset.controls.map((control: index) => (
                   <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -494,7 +494,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.dependencies.map((dependency, index) => {
+                {asset.dependencies.map((dependency: index) => {
                   const dependentAsset = allAssets.find(a => a.id === dependency.dependentAssetId);
                   return (
                     <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
@@ -544,7 +544,7 @@ export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.vulnerabilities.map((vulnerability, index) => (
+                {asset.vulnerabilities.map((vulnerability: index) => (
                   <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>

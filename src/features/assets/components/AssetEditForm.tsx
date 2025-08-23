@@ -3,7 +3,7 @@ import { Asset } from '../../../shared/types/assets';
 import { AssetCreationForm } from './AssetCreationForm';
 
 interface AssetEditFormProps { asset, Asset;
-  onSave: (updatedAsset, Asset) => void;
+  onSave: (updatedAsset: Asset) => void;
   onCancel: () => void;
 }
 

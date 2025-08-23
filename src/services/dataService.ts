@@ -235,7 +235,7 @@ export class DataService { private static instance, DataService;
       const existingAssets = this.getAssets();
       const validAssets: Asset[] = [];
       
-      data.assets.forEach((importedAsset: any, index, number) => {
+      data.assets.forEach((importedAsset: any, index: number) => {
         try {
           // Validate required fields
           if (!importedAsset.name || !importedAsset.owner || !importedAsset.category) {
@@ -253,7 +253,7 @@ export class DataService { private static instance, DataService;
           // Convert dates
           const processedAsset: Asset = {
             ...importedAsset, id: importedAsset.id || `imported-${Date.now()}-${index}`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt):  { ...importedAsset.riskAssessment: lastAssessment, importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment):  { ...importedAsset.lifecycle, deploymentDate: importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) , new Date(), maintenanceSchedule, {
-                ...importedAsset.lifecycle?.maintenanceSchedule, nextMaintenance: importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
+                ...importedAsset.lifecycle? .maintenanceSchedule : nextMaintenance: importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
                   new Date(importedAsset.lifecycle.maintenanceSchedule.nextMaintenance) , new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
                }
             }
@@ -282,14 +282,14 @@ export class DataService { private static instance, DataService;
   }
   
   private getAssetCategorySummary(assets: Asset[], Record<string, number> {
-    return assets.reduce((acc, asset) => {
+    return assets.reduce((acc: asset) => {
       acc[asset.category] = (acc[asset.category] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
   }
   
   private getClassificationSummary(assets: Asset[], Record<string, number> {
-    return assets.reduce((acc, asset) => {
+    return assets.reduce((acc: asset) => {
       acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -490,7 +490,7 @@ export class DataService { private static instance, DataService;
       return { used: totalSize, total: estimatedTotal, percentage, Math.min(percentage, 100)
       
      };
-    } catch (error) { console.error('Failed to calculate storage usage:', error);
+    } catch (error) { console.error('Failed to calculate storage usage: ', error);
       return {
         used: 0, total, 0, percentage: 0
        };
@@ -505,7 +505,7 @@ export class DataService { private static instance, DataService;
     try {
       // Validate assessments
       const assessments = this.getAssessments();
-      assessments.forEach((assessment, index) => {
+      assessments.forEach((assessment: index) => {
         if (!assessment.id || !assessment.frameworkId) {
           errors.push(`Assessment ${index + 1}, Missing required fields`);
         }
@@ -513,7 +513,7 @@ export class DataService { private static instance, DataService;
 
       // Validate assets
       const assets = this.getAssets();
-      assets.forEach((asset, index) => {
+      assets.forEach((asset: index) => {
         if (!asset.id || !asset.name || !asset.owner) {
           errors.push(`Asset ${index + 1}, Missing required fields`);
         }
@@ -521,7 +521,7 @@ export class DataService { private static instance, DataService;
 
       // Validate tasks
       const tasks = this.getTasks();
-      tasks.forEach((task, index) => {
+      tasks.forEach((task: index) => {
         if (!task.id || !task.title || !task.assignedBy) {
           errors.push(`Task ${index + 1}, Missing required fields`);
         }

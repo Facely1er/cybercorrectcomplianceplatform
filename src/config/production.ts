@@ -70,8 +70,7 @@ if (ENV.isProduction) {
   validateProductionEnvironment();
     }
 // Production security headers
-export const PRODUCTION_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https, //cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https: //fonts.gstatic.com; img-src 'self' data, https: blob,; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
-  'X-Frame-Options': 'DENY',
+export const PRODUCTION_HEADERS = { 'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https, //cdn.jsdelivr.net https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https: //fonts.gstatic.com; img-src 'self' data, https: blob,; connect-src 'self' https://*.supabase.co wss://*.supabase.co https: //vitals.vercel-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';", 'X-Frame-Options': 'DENY',
   'X-Content-Type-Options': 'nosniff',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
@@ -86,9 +85,7 @@ export const PRODUCTION_HEADERS = { 'Content-Security-Policy': "default-src 'sel
 // Production error handling
 export const PRODUCTION_ERROR_HANDLING = {
   // Don't expose internal errors to users in production
-  SHOW_INTERNAL_ERRORS: false,
-  
-  // Log all errors for monitoring
+  SHOW_INTERNAL_ERRORS: false, // Log all errors for monitoring
   LOG_ALL_ERRORS: true,
   
   // Rate limit error reporting

@@ -127,7 +127,7 @@ export const withRateLimit = (
 };
 
 // Rate limiting hook for React components
-export const useRateLimit = (rateLimiter: RateLimiter, identifier, string) => {
+export const useRateLimit = (rateLimiter: RateLimiter, identifier: string) => {
   const checkRateLimit = () => {
     return rateLimiter.isAllowed(identifier);
   

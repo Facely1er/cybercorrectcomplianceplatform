@@ -100,7 +100,7 @@ export class EnhancedDataService { private static instance, EnhancedDataService;
 
       await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, assessments,) { encrypt: ENV.isProduction, compress: true });
 
-      endTiming({ operation, index >= 0 ? 'update' , 'create' });
+      endTiming({ operation, index >= 0 ? 'update'  : 'create' });
 
     } catch {
       endTiming({ error, true });
@@ -223,7 +223,7 @@ export class EnhancedDataService { private static instance, EnhancedDataService;
 
       await secureStorage.setItem(this.STORAGE_KEYS.ASSETS, assets,) { encrypt: ENV.isProduction, compress: true });
 
-      endTiming({ operation, index >= 0 ? 'update' , 'create' });
+      endTiming({ operation, index >= 0 ? 'update'  : 'create' });
 
     } catch {
       endTiming({ error, true });
@@ -246,7 +246,7 @@ export class EnhancedDataService { private static instance, EnhancedDataService;
 
       const exportData = {
         version: ENV.APP_VERSION, timestamp: new Date(), assessments, userProfile: assets, tasks: settings, metadata: {
-          itemCount: assessments.length + assets.length + tasks.length, exportedBy, userProfile?.email || 'unknown', environment: ENV.NODE_ENV }
+          itemCount: assessments.length + assets.length + tasks.length, exportedBy, userProfile? .email || 'unknown' : environment: ENV.NODE_ENV }
       };
 
       const serialized = JSON.stringify(exportData, null, 2);
@@ -299,7 +299,7 @@ export class EnhancedDataService { private static instance, EnhancedDataService;
       }
 
       if (parsed.userProfile) { importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE: parsed.userProfile,) {
+          secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE: parsed.userProfile, ) {
             encrypt: ENV.isProduction })
         );
       }
@@ -349,7 +349,7 @@ export class EnhancedDataService { private static instance, EnhancedDataService;
     try  {
       // Validate assessments
       const assessments = await this.getAssessments();
-      assessments.forEach((assessment, index) => {
+      assessments.forEach((assessment: index) => {
         try {
           validateAndSanitizeInput(EnhancedAssessmentSchema, assessment, false);
         
@@ -371,7 +371,7 @@ export class EnhancedDataService { private static instance, EnhancedDataService;
 
       // Validate assets
       const assets = await this.getAssets();
-      assets.forEach((asset, index) => {
+      assets.forEach((asset: index) => {
         try {
           validateAndSanitizeInput(EnhancedAssetSchema, asset, false);
         

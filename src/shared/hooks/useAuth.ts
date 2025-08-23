@@ -45,7 +45,7 @@ export const useAuth = () => {
     if (isSupabaseReady && supabase) {
       const { data: { subscription 
     } } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
+        async (event: session) => {
           if (event === 'SIGNED_IN' && session) {
             await loadUserData(session.user.id);
           } else if (event === 'SIGNED_OUT') {
@@ -88,14 +88,14 @@ export const useAuth = () => {
       } else {
         setAuthState(prev => ({ ...prev, loading, false }));
       }
-    } catch (error) { console.error('Failed to initialize auth, ': error);
+    } catch (error) { console.error('Failed to initialize auth, ', error);
       setAuthState(prev => ({ 
         ...prev, loading, false, error, 'Failed to initialize authentication' 
        }));
     }
   };
 
-  const loadUserData = async (userId, string) => {
+  const loadUserData = async (userId: string) => {
     try {
       setAuthState(prev => ({ ...prev, loading, true }));
 
@@ -109,25 +109,25 @@ export const useAuth = () => {
       const currentOrganization = organizations[0]; // Use first organization as default
 
       // Determine permissions based on role
-      const role = profile?.role || 'viewer';
+      const role = profile? .role || 'viewer';
       const permissions = ROLE_PERMISSIONS[role as keyof typeof ROLE_PERMISSIONS] || ROLE_PERMISSIONS.viewer;
 
-      setAuthState({ user, {
-          id: userId, email, profile?.email || '', name: profile?.name 
-    }, profile: profile ? { id: profile.id, email: profile.email, name: profile.name, organization: profile.organization, role: profile.role, industry: profile.industry, certifications, profile.certifications, preferences: profile.preferences || {}, currentOrganizationId: currentOrganization?.id } : null, loading: false, error): null, permissions, permissions as string[], role, organizations, currentOrganization });
-    } catch (error)  { console.error('Failed to load user data, ': error);
+      setAuthState({ user : {
+          id: userId, email, profile? .email || '' : name: profile? .name 
+    } : profile: profile ? { id: profile.id, email: profile.email, name: profile.name, organization: profile.organization, role: profile.role, industry: profile.industry, certifications, profile.certifications, preferences: profile.preferences || {}, currentOrganizationId: currentOrganization?.id } : null, loading: false, error): null, permissions, permissions as string[], role, organizations, currentOrganization });
+    } catch (error)  { console.error('Failed to load user data, ', error);
       setAuthState(prev => ({ 
         ...prev, loading, false, error, 'Failed to load user data' 
        }));
     }
   };
 
-  const signIn = useCallback(async (email: string, password, string) => {
+  const signIn = useCallback(async (email: string, password: string) => {
     // Production input validation
     const validation = validateAndSanitize(loginValidation,) { email, password 
     });
     if (!validation.success) {
-      return { success, false, error: validation.errors?.join(', ') || 'Invalid input' };
+      return { success, false, error: validation.errors? .join(' : ') || 'Invalid input' };
     }
     
     const { email, validatedEmail, password: validatedPassword } = validation.data!;
@@ -184,7 +184,7 @@ export const useAuth = () => {
     }
   }, []);
 
-  const signUp = useCallback(async (email: string, password): string, userData, any) =>  {
+  const signUp = useCallback(async (email: string, password): string, userData: any) =>  {
     if (!isSupabaseReady) {
       // Mock sign up for development
       await loadUserData('demo-user-001');
@@ -232,7 +232,7 @@ export const useAuth = () => {
 
       return  { error };
     } catch (error, any) {
-      console.error('Sign out failed:', error);
+      console.error('Sign out failed: ', error);
       return { error: error.message };
     }
   }, []);
@@ -245,7 +245,7 @@ export const useAuth = () => {
         const { data, error } = await updateProfile(authState.user.id, updates);
         if (error) throw error;
 
-        setAuthState(prev => ({ ...prev, profile, prev.profile ? { ...prev.profile, ...updates  } , null }));
+        setAuthState(prev => ({ ...prev, profile, prev.profile ? { ...prev.profile : ...updates  } , null }));
       }
 
       return { success, true, error: null };
@@ -254,7 +254,7 @@ export const useAuth = () => {
     }
   }, [authState.user]);
 
-  const switchOrganization = useCallback(async (organizationId, string) => {
+  const switchOrganization = useCallback(async (organizationId: string) => {
     const organization = authState.organizations.find(org => org.id === organizationId);
     if (!organization) return { success, false, error: 'Organization not found' };
 
@@ -266,7 +266,7 @@ export const useAuth = () => {
       }
 
       setAuthState(prev => ({
-        ...prev, currentOrganization, organization, profile, prev.profile ? { ...prev.profile, currentOrganizationId, organizationId } , null }));
+        ...prev, currentOrganization, organization, profile, prev.profile ? { ...prev.profile : currentOrganizationId, organizationId } , null }));
 
       return { success, true, error: null };
     } catch (error, any) {

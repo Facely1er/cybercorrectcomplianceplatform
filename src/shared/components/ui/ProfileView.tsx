@@ -5,7 +5,7 @@ import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
 
 interface ProfileViewProps { userProfile, UserProfile | null;
-  onUpdateProfile: (profile, UserProfile) => void;
+  onUpdateProfile: (profile: UserProfile) => void;
   onBack: () => void;
 }
 
@@ -21,16 +21,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
   const [newCertification, setNewCertification] = useState('');
 
-  const handleInputChange = (field: string, value, any) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({
       ...prev,
       [field], value }));
   };
 
-  const handlePreferenceChange = (field: string, value, any) => { setFormData(prev => ({
+  const handlePreferenceChange = (field: string, value: any) => { setFormData(prev => ({
       ...prev, preferences: ) {
-        ...prev.preferences,
-        [field]: value }
+        ...prev.preferences, [field]: value }
     }));
   };
 
@@ -43,17 +42,17 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     }
   };
 
-  const removeCertification = (index, number) => {
+  const removeCertification = (index: number) => {
     setFormData(prev => ({
-      ...prev, certifications, prev.certifications?.filter((_, i) => i !== index) || []
+      ...prev, certifications, prev.certifications? .filter((_ : i) => i !== index) || []
     }));
   };
 
   const handleSubmit = (e, React.FormEvent) => { e.preventDefault();
     
     const profile, UserProfile = {
-      id: userProfile?.id || Date.now().toString(), name: formData.name || '', email: formData.email || '', organization: formData.organization || '', role: formData.role || '', industry: formData.industry || '', certifications: formData.certifications || [], preferences: { defaultFramework: formData.preferences?.defaultFramework, autoSave: formData.preferences?.autoSave ?? true, emailNotifications, formData.preferences?.emailNotifications ?? false, reportFormat: formData.preferences?.reportFormat || 'detailed'
-       }, createdAt: userProfile?.createdAt || new Date(), lastLogin: new Date()
+      id: userProfile?.id || Date.now().toString(), name: formData.name || '', email: formData.email || '', organization: formData.organization || '', role: formData.role || '', industry: formData.industry || '', certifications: formData.certifications || [], preferences: { defaultFramework: formData.preferences? .defaultFramework : autoSave: formData.preferences? .autoSave ?? true : emailNotifications, formData.preferences? .emailNotifications ?? false : reportFormat: formData.preferences? .reportFormat || 'detailed'
+       } : createdAt: userProfile?.createdAt || new Date(), lastLogin: new Date()
     };
 
     onUpdateProfile(profile);
@@ -99,12 +98,12 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 User Profile
               </h1>
@@ -238,7 +237,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             
             {formData.certifications && formData.certifications.length > 0 && (
               <div className="flex flex-wrap gap-2">
-                {formData.certifications.map((cert, index) => (
+                {formData.certifications.map((cert: index) => (
                   <span
                     key={index }
                     className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300"
@@ -247,7 +246,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     <button
                       type="button"
                       onClick={() => removeCertification(index)}
-                      className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-800 dark, hover:text-blue-200"
+                      className="ml-2 text-blue-600 dark:text-blue-400 hover: text-blue-800 dark:hover:text-blue-200"
                     >
                       ×
                     </button>

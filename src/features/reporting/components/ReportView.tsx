@@ -22,13 +22,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
   // Calculate comprehensive metrics
   const metrics = useMemo(() => {
     const responses = Object.entries(assessment.responses);
-    const totalQuestions = framework.sections.reduce((sum, section) => 
-      sum + section.categories.reduce((catSum, category) => 
+    const totalQuestions = framework.sections.reduce((sum: section) => 
+      sum + section.categories.reduce((catSum: category) => 
         catSum + category.questions.length, 0), 0);
 
     // Overall score calculation
     const overallScore = responses.length > 0 
-      ? Math.round((responses.reduce((sum, [, value]) => sum + value, 0) / responses.length) * 25)
+      ? Math.round((responses.reduce((sum : [, value]) => sum + value, 0) / responses.length) * 25)
       : 0;
 
     // Section analysis
@@ -42,7 +42,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
         .filter(r => r !== undefined);
       
       const sectionScore = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum : value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
       return {
@@ -58,7 +58,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           .filter(r => r !== undefined);
         
         const categoryScore = categoryResponses.length > 0
-          ? Math.round((categoryResponses.reduce((sum, value) => sum + value, 0) / categoryResponses.length) * 25)
+          ? Math.round((categoryResponses.reduce((sum : value) => sum + value, 0) / categoryResponses.length) * 25)
           : 0;
 
         return { section: section.name, category: category.name, score: categoryScore, questionsAnswered: categoryResponses.length, totalQuestions, category.questions.length, priority: section.priority 
@@ -69,11 +69,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
     // Gap analysis
     const gaps = categoryPerformance
       .filter(cat => cat.score < 75) // Categories scoring below 75%
-      .sort((a, b) => a.score - b.score)
+      .sort((a: b) => a.score - b.score)
       .slice(0, 10); // Top 10 gaps
 
     // Maturity level determination
-    const getMaturityLevel = (score, number) => {
+    const getMaturityLevel = (score: number) => {
       const level = framework.maturityLevels.find(ml => 
         score >= ml.minScore && score <= ml.maxScore
       ) || framework.maturityLevels[0];
@@ -87,14 +87,14 @@ export const ReportView: React.FC<ReportViewProps> = ({
       overallScore, maturityLevel: totalQuestions, answeredQuestions, responses.length, completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis, categoryPerformance, gaps };
   }, [assessment, framework]);
 
-  const getScoreColor = (score, number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
+  const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
     if (score >= 60) return 'text-yellow-600 dark, text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getScoreBgColor = (score, number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30';
-    if (score >= 60) return 'bg-yellow-100 dark, bg-yellow-900/30';
+  const getScoreBgColor = (score: number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30';
+    if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30';
     return 'bg-red-100 dark:bg-red-900/30';
   };
@@ -125,12 +125,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
               </button>
-              <div className="h-6 w-px bg-gray-300 dark,bg-gray-600" />
+              <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Assessment Report
               </h1>
@@ -139,7 +139,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => exportReport('json')}
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export JSON</span>
@@ -316,7 +316,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 Section Breakdown
               </h4>
               <div className="space-y-4">
-                {metrics.sectionAnalysis.map((section, index) => (
+                {metrics.sectionAnalysis.map((section: index) => (
                   <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <h5 className="font-medium text-gray-900 dark:text-white">
@@ -335,7 +335,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                       <div
                         className={ `h-2 rounded-full transition-all duration-300 ${
-                          section.score >= 80 ? 'bg-green-500' : section.score >= 60 ? 'bg-yellow-500' , section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'}`}
+                          section.score >= 80 ? 'bg-green-500' : section.score >= 60 ? 'bg-yellow-500'  : section.score >= 40 ? 'bg-orange-500' : 'bg-red-500'}`}
                         style={{ width: `${section.score}%` }}
                       />
                     </div>
@@ -390,7 +390,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {metrics.categoryPerformance.map((category, index) => (
+                {metrics.categoryPerformance.map((category: index) => (
                   <tr key={index } className="border-b border-gray-100 dark:border-gray-700/50">
                     <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{category.section }</td>
                     <td className="py-3 px-4 text-gray-900 dark:text-white font-medium">{category.category }</td>
@@ -403,8 +403,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
                       {category.questionsAnswered }/{category.totalQuestions }
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className={ `px-2 py-1 rounded-full text-xs font-medium ${
-                        category.priority === 'high' ? 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300' :
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        category.priority === 'high' ? 'bg-red-100 dark: bg-red-900/30 text-red-800 dark : text-red-300' :
                         category.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                         'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'}`}>
                         {category.priority }
@@ -426,7 +426,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </h3>
             
             <div className="space-y-4">
-              {metrics.gaps.map((gap, index) => (
+              {metrics.gaps.map((gap: index) => (
                 <div key={index } className="border border-orange-200 dark:border-orange-800 rounded-lg p-4 bg-orange-50 dark:bg-orange-900/20">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="font-medium text-gray-900 dark:text-white">
@@ -469,7 +469,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 </div>
                 <div className="flex-1">
                   <p className="text-gray-700 dark:text-gray-300">
-                    Step {step }, { step === 1 ? 'Review and prioritize identified gaps' : step === 2 ? 'Develop remediation plans for high-priority items' , step === 3 ? 'Allocate resources and assign responsibilities' :
+                    Step {step }, { step === 1 ? 'Review and prioritize identified gaps' : step === 2 ? 'Develop remediation plans for high-priority items'  : step === 3 ? 'Allocate resources and assign responsibilities' :
                       step === 4 ? 'Implement security improvements and controls' :
                       'Schedule follow-up assessment to measure progress'
                     }

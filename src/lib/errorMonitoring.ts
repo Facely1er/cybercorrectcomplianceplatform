@@ -73,7 +73,7 @@ class ErrorMonitoring {
     // Log to console in development
     if (ENV.isDevelopment) {
       console.group('🚨 Error Captured');
-      console.error('Error:', errorDetails);
+      console.error('Error: ', errorDetails);
       console.log('Context:', enhancedContext);
       console.groupEnd();
     }

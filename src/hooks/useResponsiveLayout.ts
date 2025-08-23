@@ -12,7 +12,7 @@ interface BreakpointState { isMobile: boolean;
 
 export const useResponsiveLayout = (: BreakpointState => {
   const [state, setState] = useState<BreakpointState>({
-    isMobile: false, isTablet: false, isDesktop: true, currentBreakpoint: 'lg', width: typeof window !== 'undefined' ? window.innerWidth : 1024, height, typeof window !== 'undefined' ? window.innerHeight , 768
+    isMobile: false, isTablet: false, isDesktop: true, currentBreakpoint: 'lg', width: typeof window !== 'undefined' ? window.innerWidth : 1024, height, typeof window !== 'undefined' ? window.innerHeight  : 768
   });
 
   useEffect(() => {

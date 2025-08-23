@@ -72,7 +72,7 @@ export const useAssetRelationships = (assets: Asset[], relationships, AssetRelat
     const visited = new Set<string>();
     const result: Asset[] = [];
     
-    const traverse = (currentAssetId, string, currentDepth, number) => {
+    const traverse = (currentAssetId, string, currentDepth: number) => {
       if (currentDepth === 0 || visited.has(currentAssetId)) return;
       visited.add(currentAssetId);
       
@@ -100,7 +100,7 @@ export const useAssetRelationships = (assets: Asset[], relationships, AssetRelat
     const criticalityWeights = { critical, 4: high, 3, medium, 2, low: 1  };
     
     const baseScore = criticalityWeights[asset.criticality];
-    const chainScore = impactChain.reduce((sum, chainAsset) => 
+    const chainScore = impactChain.reduce((sum: chainAsset) => 
       sum + criticalityWeights[chainAsset.criticality] * 0.1, 0);
     
     return Math.min(baseScore + chainScore, 5);

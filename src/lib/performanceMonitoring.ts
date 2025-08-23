@@ -166,10 +166,10 @@ class PerformanceMonitoring {
     for (const [name, measurements] of this.measurements.entries()) {
       if (measurements.length === 0) continue;
 
-      const durations = measurements.map(m => m.duration).sort((a, b) => a - b);
+      const durations = measurements.map(m => m.duration).sort((a: b) => a - b);
       const p95Index = Math.floor(durations.length * 0.95);
 
-      result[name] = { average: this.getAverageTime(name), count: measurements.length, latest, measurements[measurements.length - 1]?.duration || 0, p95: durations[p95Index] || 0
+      result[name] = { average: this.getAverageTime(name), count: measurements.length, latest, measurements[measurements.length - 1]? .duration || 0 : p95: durations[p95Index] || 0
        };
     }
     

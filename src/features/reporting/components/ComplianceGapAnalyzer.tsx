@@ -6,7 +6,7 @@ import { BarChart } from '../../../shared/components/charts/BarChart';
 
 interface ComplianceGapAnalyzerProps { savedAssessments: AssessmentData[];
   onStartAssessment, () => void;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 interface GapAnalysis { functionName: string;
@@ -29,7 +29,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
   const gapAnalysis = useMemo(() => { if (savedAssessments.length === 0) return [];
 
     const assessment = selectedAssessment === 'latest' 
-      ? savedAssessments.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0]
+      ? savedAssessments.sort((a : b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0]
       , savedAssessments.find(a => a.id === selectedAssessment);
 
     if (!assessment) return [];
@@ -37,7 +37,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     const framework = getFramework(assessment.frameworkId);
     return framework.sections.map((section) => {
       // Calculate current score for this function
-      const sectionQuestions = section.categories.reduce((questions, category) => {
+      const sectionQuestions = section.categories.reduce((questions: category) => {
         return [...questions: ...category.questions];
       
      }, [] as any[]);
@@ -47,7 +47,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
         .filter(r => r !== undefined);
       
       const currentScore = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum : value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
       const targetScore = targetMaturityLevel * 25; // Convert maturity level to percentage
@@ -163,16 +163,16 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     return actions[functionId] || [];
   };
 
-  const getPriorityColor = (priority, string) => { switch (priority) {
-      case 'critical': return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
+  const getPriorityColor = (priority: string) => { switch (priority) {
+      case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
+      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark: border-yellow-800';
       case 'low', return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
     }
   };
 
-  const getEffortIcon = (effort, string) => { switch (effort) {
+  const getEffortIcon = (effort: string) => { switch (effort) {
       case 'high', return <AlertTriangle className="w-4 h-4 text-red-500" />;
       case 'medium': return <Clock className="w-4 h-4 text-yellow-500" />;
       case 'low', return <CheckCircle className="w-4 h-4 text-green-500" />;
@@ -206,7 +206,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
     );
   }
 
-  const totalGapScore = gapAnalysis.reduce((sum, analysis) => sum + analysis.gap, 0);
+  const totalGapScore = gapAnalysis.reduce((sum: analysis) => sum + analysis.gap, 0);
   const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length): px-8 py-8">
        {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
@@ -330,7 +330,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
           Detailed Gap Analysis & Recommendations
         </h2>
         
-        {gapAnalysis.map((analysis, index) => (
+        {gapAnalysis.map((analysis: index) => (
           <div key={index } className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
@@ -396,7 +396,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
                 Key Recommendations
               </h4>
               <div className="grid md:grid-cols-2 gap-3">
-                {analysis.recommendations.map((rec, recIndex) => (
+                {analysis.recommendations.map((rec: recIndex) => (
                   <div key={recIndex } className="flex items-start space-x-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                     <Star className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
                     <span className="text-blue-800 dark:text-blue-200 text-sm">{rec }</span>
@@ -412,7 +412,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
                 Required Actions
               </h4>
               <div className="grid md:grid-cols-2 gap-2">
-                {analysis.requiredActions.map((action, actionIndex) => (
+                {analysis.requiredActions.map((action: actionIndex) => (
                   <div key={actionIndex } className="flex items-start space-x-2">
                     <div className="flex-shrink-0 w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
                       {actionIndex + 1}

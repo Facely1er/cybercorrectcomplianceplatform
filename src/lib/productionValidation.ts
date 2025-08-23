@@ -196,5 +196,5 @@ export const validateRateLimit = (key: string, maxRequests: number, windowMs: nu
 
 // Export common validation patterns
 export const VALIDATION_PATTERNS = {
-  email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{
+  email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(), .?":{
     }|<>]).{8 }$/, phone: /^\+?[\d\s\-()]+$/, url: /^https?:\/\/.+/, uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i } as const;

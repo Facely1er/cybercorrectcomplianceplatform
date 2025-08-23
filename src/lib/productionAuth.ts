@@ -207,7 +207,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       .single();
 
     const user: AuthUser = {
-      id: supabaseSession.user.id, email: supabaseSession.user.email!, name: profile?.name || supabaseSession.user.user_metadata?.name, role: profile?.role || 'user', organizationId: profile?.organization_id, permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, supabaseSession.user.email_confirmed_at !== null, lastLogin: new Date()
+      id: supabaseSession.user.id, email: supabaseSession.user.email!, name: profile? .name || supabaseSession.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified, supabaseSession.user.email_confirmed_at !== null, lastLogin: new Date()
     };
 
     const session: AuthSession = { accessToken: supabaseSession.access_token, refreshToken: supabaseSession.refresh_token, expiresAt, supabaseSession.expires_at * 1000: user  };
@@ -332,25 +332,18 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     const rolePermissions, Record<string, string[]> = {
       super_admin: ['*'], // All permissions
       admin: [
-        'assessments:read', 'assessments:write', 'assessments:delete',
-        'assets:read', 'assets:write', 'assets:delete',
-        'users:read', 'users:write', 'users:delete',
-        'settings:read', 'settings:write',
-        'reports:read', 'reports:write',
-        'organizations:read', 'organizations:write'
+        'assessments: read', 'assessments:write', 'assessments: delete', 'assets:read', 'assets: write', 'assets:delete',
+        'users: read', 'users:write', 'users: delete', 'settings:read', 'settings: write', 'reports:read', 'reports: write', 'organizations:read', 'organizations: write'
       ], manager): [
-        'assessments:read', 'assessments:write',
-        'assets:read', 'assets:write',
-        'users:read',
-        'reports:read', 'reports:write',
-        'organizations:read'
+        'assessments: read', 'assessments:write',
+        'assets: read', 'assets:write',
+        'users: read', 'reports:read', 'reports: write', 'organizations:read'
       ], user, [
-        'assessments:read', 'assessments:write',
-        'assets:read', 'assets:write',
+        'assessments: read', 'assessments:write',
+        'assets: read', 'assets:write',
         'reports:read'
       ], viewer, [
-        'assessments:read',
-        'assets:read',
+        'assessments: read', 'assets:read',
         'reports:read'
       ]
     
@@ -387,10 +380,10 @@ class ProductionAuthService { private static instance: ProductionAuthService;
   }
 
   hasRole(role: string, boolean {
-    return this.currentSession?.user.role === role;
+    return this.currentSession? .user.role === role;
   }
 
-  async signOut(, Promise<void> {
+  async signOut( : Promise<void> {
     try {
       if (isSupabaseReady()) {
         await supabase.auth.signOut();

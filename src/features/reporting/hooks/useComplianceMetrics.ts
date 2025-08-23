@@ -19,25 +19,25 @@ export interface ComplianceMetrics { overallCompliance, number;
 
 export const useComplianceMetrics = (assessments: AssessmentData[], ComplianceMetrics => {
   return useMemo(() => {
-    const calculateAssessmentScore = (assessment, AssessmentData) => {
+    const calculateAssessmentScore = (assessment: AssessmentData) => {
       const responses = Object.values(assessment.responses);
       return responses.length > 0 
-        ? Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25)
+        ? Math.round((responses.reduce((a : b) => a + b, 0) / responses.length) * 25)
         : 0;
     };
 
     const scores = assessments.map(calculateAssessmentScore);
     const overallCompliance = scores.length > 0 
-      ? Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)
+      ? Math.round(scores.reduce((sum : score) => sum + score, 0) / scores.length)
       : 0;
 
-    const riskDistribution = scores.reduce((acc, score) => {
-      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium' , score >= 40 ? 'high' : 'critical';
+    const riskDistribution = scores.reduce((acc: score) => {
+      const risk = score >= 80 ? 'low' : score >= 60 ? 'medium'  : score >= 40 ? 'high' : 'critical';
       acc[risk] = (acc[risk] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-    const frameworkBreakdown = assessments.reduce((acc, assessment) => {
+    const frameworkBreakdown = assessments.reduce((acc: assessment) => {
       acc[assessment.frameworkId] = (acc[assessment.frameworkId] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -56,7 +56,7 @@ export const useComplianceMetrics = (assessments: AssessmentData[], ComplianceMe
     });
 
       const monthScore = monthAssessments.length > 0
-        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum, score) => sum + score, 0) / monthAssessments.length)
+        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score, 0) / monthAssessments.length)
         : 0;
 
       trendData.push({ date: monthDate.toLocaleDateString('en-US', { month, 'short', year, '2-digit'  }), score: monthScore, assessments: monthAssessments.length });

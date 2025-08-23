@@ -5,7 +5,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'gv-oc', name: 'Organizational Context (GV.OC)', description: 'The circumstances - mission, stakeholder expectations, dependencies, and legal/regulatory requirements - surrounding the organization\'s cybersecurity risk management decisions are understood.', weight: 30, questions: [
             {
-              id: 'gv-oc-01', text: 'How effectively does your organization understand its mission, stakeholders, and place in critical infrastructure sectors for cybersecurity risk management?', guidance: 'Organizations should clearly understand their mission, identify key stakeholders including customers, suppliers, and regulators, and recognize their role in critical infrastructure. This understanding forms the foundation for all cybersecurity risk management decisions.', priority: 'high', examples: [
+              id: 'gv-oc-01', text: 'How effectively does your organization understand its mission, stakeholders, and place in critical infrastructure sectors for cybersecurity risk management? ' : guidance: 'Organizations should clearly understand their mission, identify key stakeholders including customers, suppliers, and regulators, and recognize their role in critical infrastructure. This understanding forms the foundation for all cybersecurity risk management decisions.', priority: 'high', examples: [
                 'Documented organizational mission statement with cybersecurity considerations',
                 'Stakeholder mapping including cybersecurity dependencies',
                 'Critical infrastructure sector designation and requirements',
@@ -25,7 +25,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'gv-oc-02', text: 'How well are legal, regulatory, and contractual requirements regarding cybersecurity identified, understood, and managed?', guidance: 'Organizations must identify all applicable cybersecurity laws, regulations, and contractual obligations. This includes sector-specific requirements, data protection laws, and customer contractual obligations.', priority: 'high', examples: [
+              id: 'gv-oc-02', text: 'How well are legal, regulatory, and contractual requirements regarding cybersecurity identified, understood, and managed? ' : guidance: 'Organizations must identify all applicable cybersecurity laws, regulations, and contractual obligations. This includes sector-specific requirements, data protection laws, and customer contractual obligations.', priority: 'high', examples: [
                 'Legal requirements register including GDPR, CCPA, HIPAA, SOX',
                 'Regulatory compliance mapping (SEC, FDA, NIST, FTC)',
                 'Contractual cybersecurity obligations tracking',
@@ -45,7 +45,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'gv-oc-03', text: 'How effectively does your organization understand and document its critical infrastructure dependencies and supply chain relationships?', guidance: 'Organizations should map their critical dependencies including technology suppliers, service providers, and infrastructure partners that could impact cybersecurity posture.', priority: 'medium', examples: [
+              id: 'gv-oc-03', text: 'How effectively does your organization understand and document its critical infrastructure dependencies and supply chain relationships? ' : guidance: 'Organizations should map their critical dependencies including technology suppliers, service providers, and infrastructure partners that could impact cybersecurity posture.', priority: 'medium', examples: [
                 'Critical supplier and vendor dependency mapping',
                 'Infrastructure interdependency analysis',
                 'Supply chain cybersecurity risk assessment',
@@ -67,7 +67,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'gv-rm', name: 'Risk Management Strategy (GV.RM)', description: 'The organization\'s priorities, constraints, risk tolerance and assumptions are established and used to support risk decisions.', weight: 25, questions: [
             {
-              id: 'gv-rm-01', text: 'How well has your organization established and communicated its cybersecurity risk management strategy including risk appetite and tolerance levels?', guidance: 'A clear cybersecurity risk management strategy should define the organization\'s approach to identifying, assessing, and managing cybersecurity risks, including specific risk tolerance levels.', priority: 'high', examples: [
+              id: 'gv-rm-01', text: 'How well has your organization established and communicated its cybersecurity risk management strategy including risk appetite and tolerance levels? ' : guidance: 'A clear cybersecurity risk management strategy should define the organization\'s approach to identifying, assessing, and managing cybersecurity risks, including specific risk tolerance levels.', priority: 'high', examples: [
                 'Board-approved cybersecurity risk management strategy',
                 'Defined risk appetite statements for different risk categories',
                 'Risk tolerance thresholds and escalation procedures',
@@ -85,7 +85,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'gv-rm-02', text: 'How effectively are organizational cybersecurity risk tolerance and risk criteria defined, documented, and applied consistently?', guidance: 'Risk tolerance defines the level of risk the organization is willing to accept. Risk criteria provide the framework for evaluating the significance of cybersecurity risks.', priority: 'high', examples: [
+              id: 'gv-rm-02', text: 'How effectively are organizational cybersecurity risk tolerance and risk criteria defined, documented, and applied consistently? ' : guidance: 'Risk tolerance defines the level of risk the organization is willing to accept. Risk criteria provide the framework for evaluating the significance of cybersecurity risks.', priority: 'high', examples: [
                 'Quantitative and qualitative risk tolerance statements',
                 'Risk criteria including impact and likelihood scales',
                 'Risk acceptance authorities and escalation procedures',
@@ -107,7 +107,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'gv-rr', name: 'Roles, Responsibilities & Authorities (GV.RR)', description: 'Cybersecurity roles, responsibilities, and authorities to foster accountability, performance assessment, and continuous improvement are established and communicated.', weight: 20, questions: [
             {
-              id: 'gv-rr-01', text: 'How clearly are cybersecurity roles, responsibilities, and authorities defined and communicated throughout the organization?', guidance: 'All personnel should understand their cybersecurity responsibilities. Clear role definitions prevent gaps in coverage and ensure accountability.', priority: 'high', examples: [
+              id: 'gv-rr-01', text: 'How clearly are cybersecurity roles, responsibilities, and authorities defined and communicated throughout the organization? ' : guidance: 'All personnel should understand their cybersecurity responsibilities. Clear role definitions prevent gaps in coverage and ensure accountability.', priority: 'high', examples: [
                 'RACI matrix for cybersecurity functions',
                 'Job descriptions with cybersecurity responsibilities',
                 'Cybersecurity organizational chart with reporting relationships',
@@ -126,7 +126,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'gv-rr-02', text: 'How effectively are cybersecurity responsibilities integrated into workforce job functions and performance management?', guidance: 'Cybersecurity should be integrated into job descriptions, performance reviews, and career development to ensure sustained accountability.', priority: 'medium', examples: [
+              id: 'gv-rr-02', text: 'How effectively are cybersecurity responsibilities integrated into workforce job functions and performance management? ' : guidance: 'Cybersecurity should be integrated into job descriptions, performance reviews, and career development to ensure sustained accountability.', priority: 'medium', examples: [
                 'Cybersecurity objectives in job descriptions',
                 'Security performance metrics in reviews',
                 'Cybersecurity training requirements by role',
@@ -148,7 +148,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'gv-po', name: 'Policy (GV.PO)', description: 'Organizational cybersecurity policy is established, communicated, and enforced.', weight: 15, questions: [
             {
-              id: 'gv-po-01', text: 'How comprehensive and current is your organization\'s cybersecurity policy framework?', guidance: 'A comprehensive cybersecurity policy framework should cover all aspects of cybersecurity including governance, risk management, and operational procedures.', priority: 'high', examples: [
+              id: 'gv-po-01', text: 'How comprehensive and current is your organization\'s cybersecurity policy framework? ' : guidance: 'A comprehensive cybersecurity policy framework should cover all aspects of cybersecurity including governance, risk management, and operational procedures.', priority: 'high', examples: [
                 'Board-approved cybersecurity policy',
                 'Comprehensive policy covering all NIST CSF functions',
                 'Regular policy review and update procedures',
@@ -166,7 +166,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'gv-po-02', text: 'How effectively are cybersecurity policies communicated, understood, and enforced across the organization?', guidance: 'Policies must be effectively communicated to all relevant personnel, with mechanisms to ensure understanding and compliance.', priority: 'medium', examples: [
+              id: 'gv-po-02', text: 'How effectively are cybersecurity policies communicated, understood, and enforced across the organization? ' : guidance: 'Policies must be effectively communicated to all relevant personnel, with mechanisms to ensure understanding and compliance.', priority: 'medium', examples: [
                 'Regular policy training and awareness programs',
                 'Policy acknowledgment and compliance tracking',
                 'Clear policy violation consequences and enforcement',
@@ -188,7 +188,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'gv-ov', name: 'Oversight (GV.OV)', description: 'Results of organizational cybersecurity risk management activities are used to inform, improve, and adjust the risk management strategy.', weight: 10, questions: [
             {
-              id: 'gv-ov-01', text: 'How effectively does senior leadership and the board provide oversight of cybersecurity risk management activities?', guidance: 'Senior leadership and board oversight ensures cybersecurity receives appropriate attention and resources. This includes regular reporting and strategic decision-making.', priority: 'high', examples: [
+              id: 'gv-ov-01', text: 'How effectively does senior leadership and the board provide oversight of cybersecurity risk management activities? ' : guidance: 'Senior leadership and board oversight ensures cybersecurity receives appropriate attention and resources. This includes regular reporting and strategic decision-making.', priority: 'high', examples: [
                 'Regular board cybersecurity risk reporting',
                 'Senior leadership cybersecurity committee',
                 'Cybersecurity budget approval and resource allocation',
@@ -214,7 +214,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'id-am', name: 'Asset Management (ID.AM)', description: 'Assets (devices, systems, platforms, data, applications, personnel, facilities) are identified and managed consistent with their relative importance.', weight: 40, questions: [
             {
-              id: 'id-am-01', text: 'How comprehensive and current is your organization\'s inventory of all technology assets including hardware, software, and systems?', guidance: 'A complete and current asset inventory is fundamental to cybersecurity. This includes all devices, systems, software, and technology components.', priority: 'high', examples: [
+              id: 'id-am-01', text: 'How comprehensive and current is your organization\'s inventory of all technology assets including hardware, software, and systems? ' : guidance: 'A complete and current asset inventory is fundamental to cybersecurity. This includes all devices, systems, software, and technology components.', priority: 'high', examples: [
                 'Automated network discovery and asset tracking',
                 'Hardware inventory including servers, workstations, network devices',
                 'Software inventory including applications, operating systems, and licenses',
@@ -232,7 +232,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-am-02', text: 'How effectively are software platforms, applications, and systems within the organization inventoried and managed?', guidance: 'Software asset management includes tracking all applications, systems, and platforms including cloud services, with version control and licensing information.', priority: 'high', examples: [
+              id: 'id-am-02', text: 'How effectively are software platforms, applications, and systems within the organization inventoried and managed? ' : guidance: 'Software asset management includes tracking all applications, systems, and platforms including cloud services, with version control and licensing information.', priority: 'high', examples: [
                 'Application portfolio inventory and management',
                 'Software license tracking and compliance',
                 'Cloud service and SaaS inventory',
@@ -250,7 +250,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-am-03', text: 'How well does your organization map and understand external information systems and organizational relationships?', guidance: 'Understanding connections to external systems and business relationships is critical for managing supply chain and third-party risks.', priority: 'medium', examples: [
+              id: 'id-am-03', text: 'How well does your organization map and understand external information systems and organizational relationships? ' : guidance: 'Understanding connections to external systems and business relationships is critical for managing supply chain and third-party risks.', priority: 'medium', examples: [
                 'Network connection mapping to external systems',
                 'Business partner and supplier relationship documentation',
                 'Data sharing agreements and security requirements',
@@ -267,7 +267,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-am-04', text: 'How effectively are information and data assets identified, classified, and managed according to their relative importance?', guidance: 'Data classification helps prioritize protection efforts based on sensitivity and business value. This includes personal data, intellectual property, and business-critical information.', priority: 'high', examples: [
+              id: 'id-am-04', text: 'How effectively are information and data assets identified, classified, and managed according to their relative importance? ' : guidance: 'Data classification helps prioritize protection efforts based on sensitivity and business value. This includes personal data, intellectual property, and business-critical information.', priority: 'high', examples: [
                 'Data classification scheme (public, internal, confidential, restricted)',
                 'Data inventory including personal and sensitive data',
                 'Information asset ownership and stewardship',
@@ -285,7 +285,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-am-05', text: 'How well are resources (personnel, equipment, technology, facilities) prioritized based on classification, criticality, and business value?', guidance: 'Resource prioritization ensures that the most critical assets receive appropriate protection levels based on their business value and risk exposure.', priority: 'medium', examples: [
+              id: 'id-am-05', text: 'How well are resources (personnel, equipment, technology, facilities) prioritized based on classification, criticality, and business value? ' : guidance: 'Resource prioritization ensures that the most critical assets receive appropriate protection levels based on their business value and risk exposure.', priority: 'medium', examples: [
                 'Asset criticality assessment and ranking',
                 'Business impact analysis for key resources',
                 'Resource allocation based on risk and value',
@@ -307,7 +307,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'id-be', name: 'Business Environment (ID.BE)', description: 'The organization\'s mission, objectives, stakeholders, and activities are understood and prioritized.', weight: 25, questions: [
             {
-              id: 'id-be-01', text: 'How well does your organization understand its role in the supply chain and the potential cybersecurity impacts?', guidance: 'Understanding supply chain position helps identify upstream and downstream cybersecurity risks and dependencies that could affect business operations.', priority: 'medium', examples: [
+              id: 'id-be-01', text: 'How well does your organization understand its role in the supply chain and the potential cybersecurity impacts? ' : guidance: 'Understanding supply chain position helps identify upstream and downstream cybersecurity risks and dependencies that could affect business operations.', priority: 'medium', examples: [
                 'Supply chain mapping and risk assessment',
                 'Supplier cybersecurity requirements and monitoring',
                 'Customer data protection obligations',
@@ -324,7 +324,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-be-02', text: 'How effectively has your organization established resilience requirements to support delivery of critical services?', guidance: 'Resilience requirements define how the organization maintains critical operations during and after cybersecurity incidents.', priority: 'medium', examples: [
+              id: 'id-be-02', text: 'How effectively has your organization established resilience requirements to support delivery of critical services? ' : guidance: 'Resilience requirements define how the organization maintains critical operations during and after cybersecurity incidents.', priority: 'medium', examples: [
                 'Business continuity and disaster recovery plans',
                 'Critical service identification and protection requirements',
                 'Recovery time and point objectives',
@@ -346,7 +346,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'id-ra', name: 'Risk Assessment (ID.RA)', description: 'The organization understands cybersecurity risk to organizational operations, assets, and individuals.', weight: 35, questions: [
             {
-              id: 'id-ra-01', text: 'How comprehensive and systematic is your organization\'s cybersecurity risk identification process?', guidance: 'Risk identification should systematically identify cybersecurity threats, vulnerabilities, and potential impacts across all business functions and assets.', priority: 'high', examples: [
+              id: 'id-ra-01', text: 'How comprehensive and systematic is your organization\'s cybersecurity risk identification process? ' : guidance: 'Risk identification should systematically identify cybersecurity threats, vulnerabilities, and potential impacts across all business functions and assets.', priority: 'high', examples: [
                 'Systematic threat modeling and risk assessment',
                 'Vulnerability assessments and penetration testing',
                 'Business impact analysis for cybersecurity risks',
@@ -364,7 +364,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-ra-02', text: 'How effectively does your organization assess and prioritize cybersecurity risks using consistent criteria?', guidance: 'Risk assessment should use consistent methodology to evaluate likelihood and impact, enabling proper risk prioritization and resource allocation.', priority: 'high', examples: [
+              id: 'id-ra-02', text: 'How effectively does your organization assess and prioritize cybersecurity risks using consistent criteria? ' : guidance: 'Risk assessment should use consistent methodology to evaluate likelihood and impact, enabling proper risk prioritization and resource allocation.', priority: 'high', examples: [
                 'Standardized risk assessment methodology',
                 'Quantitative and qualitative risk analysis',
                 'Risk prioritization matrix and scoring',
@@ -382,7 +382,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-ra-03', text: 'How well are internal and external cybersecurity threats identified and characterized?', guidance: 'Threat identification should consider both internal threats (insider threats, employee errors) and external threats (cybercriminals, nation-states, hacktivists).', priority: 'high', examples: [
+              id: 'id-ra-03', text: 'How well are internal and external cybersecurity threats identified and characterized? ' : guidance: 'Threat identification should consider both internal threats (insider threats, employee errors) and external threats (cybercriminals, nation-states, hacktivists).', priority: 'high', examples: [
                 'Threat landscape analysis and monitoring',
                 'Insider threat program and monitoring',
                 'External threat intelligence feeds and analysis',
@@ -400,7 +400,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'id-ra-04', text: 'How comprehensive is your organization\'s vulnerability identification and assessment program?', guidance: 'Vulnerability management should systematically identify, assess, and prioritize vulnerabilities across all systems and applications.', priority: 'high', examples: [
+              id: 'id-ra-04', text: 'How comprehensive is your organization\'s vulnerability identification and assessment program? ' : guidance: 'Vulnerability management should systematically identify, assess, and prioritize vulnerabilities across all systems and applications.', priority: 'high', examples: [
                 'Regular vulnerability scanning and assessment',
                 'Penetration testing and red team exercises',
                 'Code review and application security testing',
@@ -426,7 +426,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'pr-aa', name: 'Identity Management & Access Control (PR.AA)', description: 'Access to assets and associated facilities is limited to authorized users, processes, and devices.', weight: 30, questions: [
             {
-              id: 'pr-aa-01', text: 'How effectively does your organization manage user identities and authentication across all systems and applications?', guidance: 'Identity management includes user provisioning, authentication methods, and identity lifecycle management across all organizational systems.', priority: 'high', examples: [
+              id: 'pr-aa-01', text: 'How effectively does your organization manage user identities and authentication across all systems and applications? ' : guidance: 'Identity management includes user provisioning, authentication methods, and identity lifecycle management across all organizational systems.', priority: 'high', examples: [
                 'Centralized identity management system (Active Directory, LDAP)',
                 'Multi-factor authentication implementation',
                 'Single sign-on (SSO) deployment',
@@ -444,7 +444,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'pr-aa-02', text: 'How comprehensive is your organization\'s implementation of multi-factor authentication for user access?', guidance: 'Multi-factor authentication significantly reduces the risk of unauthorized access and should be implemented for all users, especially for privileged accounts.', priority: 'critical', examples: [
+              id: 'pr-aa-02', text: 'How comprehensive is your organization\'s implementation of multi-factor authentication for user access? ' : guidance: 'Multi-factor authentication significantly reduces the risk of unauthorized access and should be implemented for all users, especially for privileged accounts.', priority: 'critical', examples: [
                 'MFA for all user accounts',
                 'Strong authentication for privileged accounts',
                 'Adaptive authentication based on risk',
@@ -462,7 +462,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'pr-aa-03', text: 'How effectively are user access rights managed through the complete access lifecycle?', guidance: 'Access lifecycle management includes provisioning, modification, review, and deprovisioning of user access rights based on job responsibilities.', priority: 'high', examples: [
+              id: 'pr-aa-03', text: 'How effectively are user access rights managed through the complete access lifecycle? ' : guidance: 'Access lifecycle management includes provisioning, modification, review, and deprovisioning of user access rights based on job responsibilities.', priority: 'high', examples: [
                 'Automated user provisioning and deprovisioning',
                 'Role-based access control (RBAC) implementation',
                 'Regular access reviews and recertification',
@@ -480,7 +480,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'pr-aa-04', text: 'How well are privileged access rights managed and monitored?', guidance: 'Privileged access poses the highest risk and requires enhanced controls including approval workflows, monitoring, and regular review.', priority: 'critical', examples: [
+              id: 'pr-aa-04', text: 'How well are privileged access rights managed and monitored? ' : guidance: 'Privileged access poses the highest risk and requires enhanced controls including approval workflows, monitoring, and regular review.', priority: 'critical', examples: [
                 'Privileged access management (PAM) solution',
                 'Just-in-time privileged access',
                 'Privileged session monitoring and recording',
@@ -501,7 +501,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'pr-at', name: 'Awareness & Training (PR.AT)', description: 'The organization\'s personnel are provided with cybersecurity awareness education and are trained to perform their cybersecurity-related duties.', weight: 15, questions: [
             {
-              id: 'pr-at-01', text: 'How comprehensive and effective is your organization\'s cybersecurity awareness training program?', guidance: 'Cybersecurity awareness training should be provided to all personnel, regularly updated, and tailored to different roles and responsibilities.', priority: 'medium', examples: [
+              id: 'pr-at-01', text: 'How comprehensive and effective is your organization\'s cybersecurity awareness training program? ' : guidance: 'Cybersecurity awareness training should be provided to all personnel, regularly updated, and tailored to different roles and responsibilities.', priority: 'medium', examples: [
                 'Annual cybersecurity awareness training for all employees',
                 'Role-specific security training programs',
                 'Phishing simulation and testing',
@@ -519,7 +519,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'pr-at-02', text: 'How well are privileged users and key cybersecurity personnel trained on their specific responsibilities?', guidance: 'Personnel with privileged access or cybersecurity responsibilities require specialized training appropriate to their roles and the sensitivity of their access.', priority: 'high', examples: [
+              id: 'pr-at-02', text: 'How well are privileged users and key cybersecurity personnel trained on their specific responsibilities? ' : guidance: 'Personnel with privileged access or cybersecurity responsibilities require specialized training appropriate to their roles and the sensitivity of their access.', priority: 'high', examples: [
                 'Specialized training for system administrators',
                 'Cybersecurity team certification requirements',
                 'Security awareness for executives and board members',
@@ -541,7 +541,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'pr-ds', name: 'Data Security (PR.DS)', description: 'Information and records are managed consistent with the organization\'s risk strategy to protect confidentiality, integrity, and availability.', weight: 25, questions: [
             {
-              id: 'pr-ds-01', text: 'How effectively is data protected throughout its lifecycle (creation, processing, storage, transmission, disposal)?', guidance: 'Data protection should address all phases of the data lifecycle with appropriate controls for confidentiality, integrity, and availability.', priority: 'high', examples: [
+              id: 'pr-ds-01', text: 'How effectively is data protected throughout its lifecycle (creation, processing, storage, transmission, disposal)? ' : guidance: 'Data protection should address all phases of the data lifecycle with appropriate controls for confidentiality, integrity, and availability.', priority: 'high', examples: [
                 'Data encryption in transit and at rest',
                 'Data loss prevention (DLP) systems',
                 'Secure data disposal and destruction procedures',
@@ -559,7 +559,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'pr-ds-02', text: 'How comprehensive is your organization\'s data classification and handling procedures?', guidance: 'Data should be classified based on sensitivity and business value, with appropriate handling, storage, and transmission requirements for each classification level.', priority: 'high', examples: [
+              id: 'pr-ds-02', text: 'How comprehensive is your organization\'s data classification and handling procedures? ' : guidance: 'Data should be classified based on sensitivity and business value, with appropriate handling, storage, and transmission requirements for each classification level.', priority: 'high', examples: [
                 'Data classification scheme (public, internal, confidential, restricted)',
                 'Automated data classification tools',
                 'Classification-based access controls',
@@ -585,7 +585,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'de-ae', name: 'Anomalies & Events (DE.AE)', description: 'Anomalous activity is detected in a timely manner and the potential impact is understood.', weight: 20, questions: [
             {
-              id: 'de-ae-01', text: 'How effectively does your organization establish and maintain baselines of network operations and expected data flows?', guidance: 'Network baselines help identify anomalous activities that may indicate cybersecurity events. This includes understanding normal traffic patterns and user behaviors.', priority: 'medium', examples: [
+              id: 'de-ae-01', text: 'How effectively does your organization establish and maintain baselines of network operations and expected data flows? ' : guidance: 'Network baselines help identify anomalous activities that may indicate cybersecurity events. This includes understanding normal traffic patterns and user behaviors.', priority: 'medium', examples: [
                 'Network traffic baseline monitoring',
                 'User behavior analytics (UBA)',
                 'System performance baseline establishment',
@@ -603,7 +603,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'de-ae-02', text: 'How well are detected cybersecurity events analyzed to understand attack targets and methods?', guidance: 'Event analysis helps understand the nature, scope, and potential impact of cybersecurity incidents to inform response decisions.', priority: 'high', examples: [
+              id: 'de-ae-02', text: 'How well are detected cybersecurity events analyzed to understand attack targets and methods? ' : guidance: 'Event analysis helps understand the nature, scope, and potential impact of cybersecurity incidents to inform response decisions.', priority: 'high', examples: [
                 'Security event correlation and analysis',
                 'Threat hunting and investigation capabilities',
                 'Malware analysis and reverse engineering',
@@ -625,7 +625,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'de-cm', name: 'Security Continuous Monitoring (DE.CM)', description: 'The information system and assets are monitored at discrete intervals to identify cybersecurity events.', weight: 50, questions: [
             {
-              id: 'de-cm-01', text: 'How comprehensive is your organization\'s network monitoring and intrusion detection capability?', guidance: 'Network monitoring should provide visibility into all network traffic and the ability to detect unauthorized access attempts and malicious activities.', priority: 'high', examples: [
+              id: 'de-cm-01', text: 'How comprehensive is your organization\'s network monitoring and intrusion detection capability? ' : guidance: 'Network monitoring should provide visibility into all network traffic and the ability to detect unauthorized access attempts and malicious activities.', priority: 'high', examples: [
                 'Network intrusion detection system (NIDS)',
                 'Network behavior analysis and monitoring',
                 'Network segmentation monitoring',
@@ -643,7 +643,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'de-cm-02', text: 'How effectively does your organization monitor physical environment for unauthorized access and tampering?', guidance: 'Physical monitoring complements logical controls by detecting unauthorized physical access to facilities, systems, and infrastructure.', priority: 'medium', examples: [
+              id: 'de-cm-02', text: 'How effectively does your organization monitor physical environment for unauthorized access and tampering? ' : guidance: 'Physical monitoring complements logical controls by detecting unauthorized physical access to facilities, systems, and infrastructure.', priority: 'medium', examples: [
                 'Physical access control systems with logging',
                 'Video surveillance and monitoring',
                 'Environmental monitoring (temperature, humidity)',
@@ -661,7 +661,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'de-cm-03', text: 'How comprehensive is your organization\'s monitoring of personnel activity for insider threats and policy violations?', guidance: 'Personnel monitoring helps detect insider threats, policy violations, and unauthorized activities while respecting privacy and legal requirements.', priority: 'medium', examples: [
+              id: 'de-cm-03', text: 'How comprehensive is your organization\'s monitoring of personnel activity for insider threats and policy violations? ' : guidance: 'Personnel monitoring helps detect insider threats, policy violations, and unauthorized activities while respecting privacy and legal requirements.', priority: 'medium', examples: [
                 'User activity monitoring and analytics',
                 'Privileged user session monitoring',
                 'Data access and usage monitoring',
@@ -683,7 +683,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'de-dp', name: 'Detection Processes (DE.DP)', description: 'Detection processes and procedures are maintained and tested to ensure timely and adequate awareness of anomalous events.', weight: 30, questions: [
             {
-              id: 'de-dp-01', text: 'How well-defined and tested are your organization\'s cybersecurity detection processes and procedures?', guidance: 'Detection processes should be clearly defined, regularly tested, and continuously improved to ensure effective identification of cybersecurity events.', priority: 'high', examples: [
+              id: 'de-dp-01', text: 'How well-defined and tested are your organization\'s cybersecurity detection processes and procedures? ' : guidance: 'Detection processes should be clearly defined, regularly tested, and continuously improved to ensure effective identification of cybersecurity events.', priority: 'high', examples: [
                 'Documented incident detection procedures',
                 'Regular testing of detection capabilities',
                 'Detection process improvement based on lessons learned',
@@ -701,7 +701,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'de-dp-02', text: 'How effectively are detection events communicated to appropriate personnel and stakeholders?', guidance: 'Effective communication ensures that cybersecurity events reach the right people at the right time to enable appropriate response actions.', priority: 'high', examples: [
+              id: 'de-dp-02', text: 'How effectively are detection events communicated to appropriate personnel and stakeholders? ' : guidance: 'Effective communication ensures that cybersecurity events reach the right people at the right time to enable appropriate response actions.', priority: 'high', examples: [
                 'Automated alerting and notification systems',
                 'Escalation procedures for different event types',
                 'Communication to executive leadership and board',
@@ -727,7 +727,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'rs-rp', name: 'Response Planning (RS.RP)', description: 'Response processes and procedures are executed and maintained to ensure timely response to detected cybersecurity events.', weight: 25, questions: [
             {
-              id: 'rs-rp-01', text: 'How comprehensive and current is your organization\'s cybersecurity incident response plan?', guidance: 'An effective incident response plan provides clear procedures for responding to various types of cybersecurity incidents with defined roles and responsibilities.', priority: 'high', examples: [
+              id: 'rs-rp-01', text: 'How comprehensive and current is your organization\'s cybersecurity incident response plan? ' : guidance: 'An effective incident response plan provides clear procedures for responding to various types of cybersecurity incidents with defined roles and responsibilities.', priority: 'high', examples: [
                 'Comprehensive incident response plan covering all incident types',
                 'Defined incident response team roles and responsibilities',
                 'Clear escalation procedures and decision criteria',
@@ -749,7 +749,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'rs-co', name: 'Communications (RS.CO)', description: 'Response activities are coordinated with internal and external stakeholders as appropriate.', weight: 25, questions: [
             {
-              id: 'rs-co-01', text: 'How effectively are internal stakeholders coordinated during cybersecurity incident response?', guidance: 'Internal coordination ensures all relevant parties are informed and can contribute to effective incident response.', priority: 'high', examples: [
+              id: 'rs-co-01', text: 'How effectively are internal stakeholders coordinated during cybersecurity incident response? ' : guidance: 'Internal coordination ensures all relevant parties are informed and can contribute to effective incident response.', priority: 'high', examples: [
                 'Incident response team communication procedures',
                 'Executive and board notification protocols',
                 'Cross-functional coordination (IT, Legal, HR, Communications)',
@@ -767,7 +767,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'rs-co-02', text: 'How well are external stakeholders (customers, partners, authorities) coordinated during cybersecurity incidents?', guidance: 'External coordination includes customers, business partners, law enforcement, and regulatory authorities as appropriate to the incident.', priority: 'medium', examples: [
+              id: 'rs-co-02', text: 'How well are external stakeholders (customers, partners, authorities) coordinated during cybersecurity incidents? ' : guidance: 'External coordination includes customers, business partners, law enforcement, and regulatory authorities as appropriate to the incident.', priority: 'medium', examples: [
                 'Customer notification procedures and templates',
                 'Law enforcement coordination and reporting',
                 'Regulatory notification requirements and procedures',
@@ -789,7 +789,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'rs-an', name: 'Analysis (RS.AN)', description: 'Analysis is conducted to ensure effective response and support recovery activities.', weight: 25, questions: [
             {
-              id: 'rs-an-01', text: 'How comprehensive is your organization\'s capability to analyze and investigate cybersecurity incidents?', guidance: 'Incident analysis helps understand the scope, impact, and root causes of cybersecurity incidents to inform response and prevention efforts.', priority: 'high', examples: [
+              id: 'rs-an-01', text: 'How comprehensive is your organization\'s capability to analyze and investigate cybersecurity incidents? ' : guidance: 'Incident analysis helps understand the scope, impact, and root causes of cybersecurity incidents to inform response and prevention efforts.', priority: 'high', examples: [
                 'Digital forensics capabilities and procedures',
                 'Incident timeline reconstruction and analysis',
                 'Root cause analysis procedures',
@@ -807,7 +807,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'rs-an-02', text: 'How effectively does your organization conduct impact analysis to understand incident effects on operations?', guidance: 'Impact analysis helps determine the business effects of cybersecurity incidents and prioritize response efforts.', priority: 'medium', examples: [
+              id: 'rs-an-02', text: 'How effectively does your organization conduct impact analysis to understand incident effects on operations? ' : guidance: 'Impact analysis helps determine the business effects of cybersecurity incidents and prioritize response efforts.', priority: 'medium', examples: [
                 'Business impact assessment procedures',
                 'Financial impact calculation methods',
                 'Operational disruption analysis',
@@ -829,7 +829,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'rs-mi', name: 'Mitigation (RS.MI)', description: 'Activities are performed to prevent expansion of an event and mitigate its effects.', weight: 25, questions: [
             {
-              id: 'rs-mi-01', text: 'How effective are your organization\'s incident containment and mitigation procedures?', guidance: 'Containment prevents incident expansion while mitigation reduces ongoing impact. Both are critical for minimizing damage from cybersecurity incidents.', priority: 'high', examples: [
+              id: 'rs-mi-01', text: 'How effective are your organization\'s incident containment and mitigation procedures? ' : guidance: 'Containment prevents incident expansion while mitigation reduces ongoing impact. Both are critical for minimizing damage from cybersecurity incidents.', priority: 'high', examples: [
                 'Network isolation and quarantine procedures',
                 'System shutdown and recovery procedures',
                 'Malware containment and removal',
@@ -847,7 +847,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'rs-mi-02', text: 'How well does your organization coordinate mitigation activities with law enforcement and regulatory authorities?', guidance: 'Coordination with external authorities may be required for certain incidents and can provide additional resources and expertise.', priority: 'medium', examples: [
+              id: 'rs-mi-02', text: 'How well does your organization coordinate mitigation activities with law enforcement and regulatory authorities? ' : guidance: 'Coordination with external authorities may be required for certain incidents and can provide additional resources and expertise.', priority: 'medium', examples: [
                 'Law enforcement coordination procedures',
                 'Regulatory reporting and coordination',
                 'Information sharing with cybersecurity agencies',
@@ -873,7 +873,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'rc-rp', name: 'Recovery Planning (RC.RP)', description: 'Recovery processes and procedures are executed and maintained to ensure timely restoration of systems or services affected by cybersecurity events.', weight: 40, questions: [
             {
-              id: 'rc-rp-01', text: 'How comprehensive and tested is your organization\'s cybersecurity recovery planning?', guidance: 'Recovery planning ensures rapid restoration of critical systems and services following cybersecurity incidents with minimal business disruption.', priority: 'high', examples: [
+              id: 'rc-rp-01', text: 'How comprehensive and tested is your organization\'s cybersecurity recovery planning? ' : guidance: 'Recovery planning ensures rapid restoration of critical systems and services following cybersecurity incidents with minimal business disruption.', priority: 'high', examples: [
                 'Disaster recovery plans for cybersecurity incidents',
                 'Business continuity procedures',
                 'Recovery time and point objectives (RTO/RPO)',
@@ -895,7 +895,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'rc-im', name: 'Improvements (RC.IM)', description: 'Organizational cybersecurity is improved by incorporating lessons learned from current and previous detection/response activities.', weight: 30, questions: [
             {
-              id: 'rc-im-01', text: 'How effectively does your organization capture and apply lessons learned from cybersecurity incidents?', guidance: 'Learning from incidents helps improve cybersecurity posture and prevent similar incidents in the future.', priority: 'medium', examples: [
+              id: 'rc-im-01', text: 'How effectively does your organization capture and apply lessons learned from cybersecurity incidents? ' : guidance: 'Learning from incidents helps improve cybersecurity posture and prevent similar incidents in the future.', priority: 'medium', examples: [
                 'Post-incident review and lessons learned procedures',
                 'Incident database and trend analysis',
                 'Process and control improvements based on incidents',
@@ -916,7 +916,7 @@ export const nistCSFv2StandardFramework = {
         {
           id: 'rc-co', name: 'Communications (RC.CO)', description: 'Restoration activities are communicated to internal and external stakeholders and executive and management teams.', weight: 30, questions: [
             {
-              id: 'rc-co-01', text: 'How effectively does your organization communicate recovery status and progress to internal stakeholders?', guidance: 'Clear communication during recovery helps maintain stakeholder confidence and ensures appropriate resource allocation and decision-making.', priority: 'medium', examples: [
+              id: 'rc-co-01', text: 'How effectively does your organization communicate recovery status and progress to internal stakeholders? ' : guidance: 'Clear communication during recovery helps maintain stakeholder confidence and ensures appropriate resource allocation and decision-making.', priority: 'medium', examples: [
                 'Recovery status reporting procedures',
                 'Executive and board communication protocols',
                 'Employee communication and updates',
@@ -934,7 +934,7 @@ export const nistCSFv2StandardFramework = {
               ]
             },
             {
-              id: 'rc-co-02', text: 'How well does your organization manage external communications during cybersecurity recovery?', guidance: 'External recovery communications must balance transparency with security concerns while meeting legal and regulatory requirements.', priority: 'medium', examples: [
+              id: 'rc-co-02', text: 'How well does your organization manage external communications during cybersecurity recovery? ' : guidance: 'External recovery communications must balance transparency with security concerns while meeting legal and regulatory requirements.', priority: 'medium', examples: [
                 'Customer communication procedures and templates',
                 'Media relations and public communications',
                 'Regulatory and compliance reporting',

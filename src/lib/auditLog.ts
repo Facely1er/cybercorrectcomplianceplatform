@@ -104,7 +104,7 @@ export class AuditLogger {
       }
     }
 
-    return filteredLogs.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+    return filteredLogs.sort((a: b) => b.timestamp.getTime() - a.timestamp.getTime());
   }
 
   async exportLogs(format, 'json' | 'csv' = 'json', Promise<string> {

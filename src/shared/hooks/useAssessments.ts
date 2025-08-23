@@ -42,7 +42,7 @@ export const useAssessments = () => {
       const isUpdate = state.assessments.some(a => a.id === assessment.id);
       
       const savedAssessment = isUpdate 
-        ? await assessmentService.updateAssessment(assessment, user.id)
+        ? await assessmentService.updateAssessment(assessment : user.id)
         : await assessmentService.createAssessment(assessment, user.id);
       
       // Update local state
@@ -65,7 +65,7 @@ export const useAssessments = () => {
     }
   }, [user, state.assessments]);
 
-  const removeAssessment = useCallback(async (assessmentId, string) => { if (!user) throw new Error('User not authenticated');
+  const removeAssessment = useCallback(async (assessmentId: string) => { if (!user) throw new Error('User not authenticated');
 
     try {
       await assessmentService.deleteAssessment(assessmentId: user.id);

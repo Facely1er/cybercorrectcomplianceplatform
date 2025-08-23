@@ -6,7 +6,7 @@ import { Control, ControlStatus, ControlType, AssessmentFrequency  } from '../ty
  
 
 interface ControlsManagementViewProps { onBack, () => void;
-  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message, string) => void;
+  addNotification: (type, 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
@@ -289,7 +289,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     return matchesSearch && matchesFunction && matchesStatus && matchesPriority;
   });
 
-  const getStatusIcon = (status, string) => { switch (status) {
+  const getStatusIcon = (status: string) => { switch (status) {
       case 'operational': return <CheckCircle className="w-5 h-5 text-green-500" />;
       case 'implemented', return <CheckCircle className="w-5 h-5 text-blue-500" />;
       case 'in-progress':
@@ -305,8 +305,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     }
   };
 
-  const getStatusColor = (status, string) => { switch (status) {
-      case 'operational': return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
+  const getStatusColor = (status: string) => { switch (status) {
+      case 'operational': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
       case 'implemented':
         return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800';
       case 'in-progress':
@@ -322,8 +322,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     }
   };
 
-  const getFunctionColor = (func, string) => { switch (func) {
-      case 'Govern': return 'bg-purple-100 dark, bg-purple-900/30 text-purple-800 dark:text-purple-300';
+  const getFunctionColor = (func: string) => { switch (func) {
+      case 'Govern': return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
       case 'Identify':
         return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
       case 'Protect':
@@ -339,7 +339,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     }
   };
 
-  const getPriorityColor = (priority, string) => { switch (priority) {
+  const getPriorityColor = (priority: string) => { switch (priority) {
       case 'critical': return 'text-red-600 dark, text-red-400';
       case 'high':
         return 'text-orange-600 dark:text-orange-400';
@@ -352,13 +352,13 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     }
   };
 
-  const getEffectivenessColor = (score, number) => { if (score >= 90) return 'text-green-600 dark: text-green-400';
+  const getEffectivenessColor = (score: number) => { if (score >= 90) return 'text-green-600 dark: text-green-400';
     if (score >= 75) return 'text-blue-600 dark, text-blue-400';
     if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getTrendIcon = (trend, string) => { switch (trend) {
+  const getTrendIcon = (trend: string) => { switch (trend) {
       case 'improving': return <TrendingUp className="w-4 h-4 text-green-500" />;
       case 'declining', return <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />;
       default:
@@ -371,7 +371,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setShowCreateForm(true);
   };
 
-  const handleEditControl = (control, Control) => {
+  const handleEditControl = (control: Control) => {
     setEditingControl(control);
     setShowCreateForm(true);
   };
@@ -408,7 +408,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     };
 
     if (editingControl) {
-      setControls(prev => prev.map(c => c.id === editingControl.id ? controlData , c));
+      setControls(prev => prev.map(c => c.id === editingControl.id ? controlData  : c));
       addNotification('success', 'Control updated successfully');
     } else {
       setControls(prev => [...prev, controlData]);
@@ -419,7 +419,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setEditingControl(null);
   };
 
-  const handleViewControl = (control, Control) => {
+  const handleViewControl = (control: Control) => {
     addNotification('info', `Viewing control details, ${control.controlId}`);
   };
 
@@ -466,7 +466,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const priorities = ['all', 'low', 'medium', 'high', 'critical'];
 
   // Enhanced statistics
-  const stats = { total: controls.length, operational: controls.filter(c => c.status === 'operational').length, implemented: controls.filter(c => c.status === 'implemented').length, inProgress: controls.filter(c => c.status === 'in-progress').length, notImplemented: controls.filter(c => c.status === 'not-implemented').length, avgEffectiveness: controls.length > 0 ? Math.round(controls.reduce((sum, c) => sum + c.effectiveness.implementationScore, 0) / controls.length) : 0, highPriority, controls.filter(c => c.priority === 'critical' || c.priority === 'high').length, costEffectiveControls: controls.filter(c => c.effectiveness.costEffectiveness >= 80).length 
+  const stats = { total: controls.length, operational: controls.filter(c => c.status === 'operational').length, implemented: controls.filter(c => c.status === 'implemented').length, inProgress: controls.filter(c => c.status === 'in-progress').length, notImplemented: controls.filter(c => c.status === 'not-implemented').length, avgEffectiveness: controls.length > 0 ? Math.round(controls.reduce((sum : c) => sum + c.effectiveness.implementationScore, 0) / controls.length) : 0, highPriority, controls.filter(c => c.priority === 'critical' || c.priority === 'high').length, costEffectiveControls: controls.filter(c => c.effectiveness.costEffectiveness >= 80).length 
     };
 
   const implementationPercentage = controls.length > 0 ? Math.round(((stats.operational + stats.implemented) / controls.length) * 100) : 0;
@@ -490,7 +490,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-6">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover, text-blue-400 transition-colors p-2 rounded-lg hover,bg-white/50 dark:hover:bg-gray-800/50"
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover: text-blue-600 dark, hover:text-blue-400 transition-colors p-2 rounded-lg hover,bg-white/50 dark:hover:bg-gray-800/50"
               >
                 <ArrowLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -519,8 +519,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               
               <button
                 onClick={() => setAutoRefresh(!autoRefresh)}
-                className={ `p-2 rounded-lg transition-colors ${autoRefresh 
-                  ? 'bg-green-100 dark: bg-green-900/30 text-green-600 dark, text-green-400' 
+                className={`p-2 rounded-lg transition-colors ${autoRefresh 
+                  ? 'bg-green-100 dark: bg-green-900/30 text-green-600 dark : text-green-400' 
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`}
                 title={autoRefresh ? 'Auto-refresh enabled' : 'Auto-refresh disabled'}
               >
@@ -685,7 +685,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
                       ? 'bg-blue-600 text-white shadow-sm'
-                      , 'text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark, hover:bg-gray-600'}`}
+                       : 'text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark : hover:bg-gray-600'}`}
                 >
                   {mode }
                 </button>
@@ -695,14 +695,14 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleImportControls }
-                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover: bg-gray-200 dark, hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover: bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
               </button>
               <button
                 onClick={handleExportControls }
-                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover: bg-gray-200 dark, hover:bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-3 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-xl hover: bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -764,7 +764,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               setFilterPriority('all');
               setSearchTerm('');
             }}
-            className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark, hover:bg-gray-600 transition-colors"
+            className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark:hover:bg-gray-600 transition-colors"
           >
             Clear Filters
           </button>
@@ -793,13 +793,13 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           { filteredControls.length === 0 ? (
             <div className="text-center py-16">
               <Shield className="w-20 h-20 text-gray-400 mx-auto mb-6" />
-              <h3 className="text-xl font-medium text-gray-900 dark, text-white mb-3">
+              <h3 className="text-xl font-medium text-gray-900 dark : text-white mb-3">
                 No Controls Found
               </h3>
               <p className="text-gray-600 dark: text-gray-300 mb-6">
                 {controls.length === 0 
                   ? 'Start by adding your first security control'
-                  , 'Try adjusting your search criteria or filters'
+                   : 'Try adjusting your search criteria or filters'
                 }
               </p>
               {controls.length === 0 && (
@@ -912,8 +912,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   {/* Expandable Details */}
                   <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
                     <button
-                      onClick={() => setExpandedControl(expandedControl === control.id ? null , control.id)}
-                      className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark, hover: text-blue-300 transition-colors mb-4"
+                      onClick={() => setExpandedControl(expandedControl === control.id ? null  : control.id)}
+                      className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover: text-blue-700 dark:hover: text-blue-300 transition-colors mb-4"
                     >
                       {expandedControl === control.id ? (
                         <ChevronDown className="w-4 h-4" />
@@ -940,7 +940,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                               <div>
                                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Tools:</span>
                                 <div className="flex flex-wrap gap-1 mt-1">
-                                  {control.implementation.tools.map((tool, string, index, number) => (
+                                  {control.implementation.tools.map((tool, string, index: number) => (
                                     <span key={index } className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded">
                                       {tool }
                                     </span>
@@ -952,12 +952,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
                           {/* Monitoring Metrics */}
                           <div>
-                            <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                            <h4 className="font-semibold text-gray-900 dark: text-white mb-3 flex items-center">
                               <Gauge className="w-5 h-5 mr-2 text-green-500" />
                               Live Monitoring
                             </h4>
                             <div className="space-y-3">
-                              {control.monitoring.metrics.map((metric, index, number) => (
+                              {control.monitoring.metrics.map((metric, index: number) => (
                                 <div key={index } className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -985,15 +985,15 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                               Testing Results
                             </h4>
                             <div className="space-y-3">
-                              {control.testing.results.slice(0, 2).map((result, index, number) => (
+                              {control.testing.results.slice(0, 2).map((result, index: number) => (
                                 <div key={index } className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                                       {result.testType }
                                     </span>
                                     <div className="flex items-center space-x-2">
-                                      <span className={ `px-2 py-1 rounded text-xs font-medium ${
-                                        result.outcome === 'pass' ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300' :
+                                      <span className={`px-2 py-1 rounded text-xs font-medium ${
+                                        result.outcome === 'pass' ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark : text-green-300' :
                                         result.outcome === 'partial' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                                         'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'}`}>
                                         {result.outcome }
@@ -1068,7 +1068,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       
                       <button
                         onClick={() => addNotification('info', 'Monitoring dashboard opened')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                       >
                         <BarChart3 className="w-4 h-4" />
                         <span>Monitor</span>
@@ -1076,7 +1076,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                       
                       <button
                         onClick={() => addNotification('info', 'Evidence collection opened')}
-                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
+                        className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                       >
                         <FileText className="w-4 h-4" />
                         <span>Evidence</span>
@@ -1097,7 +1097,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-3 mb-6">
               <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {editingControl ? 'Edit Security Control' , 'Add New Security Control'}
+                {editingControl ? 'Edit Security Control'  : 'Add New Security Control'}
               </h3>
             </div>
             
@@ -1267,7 +1267,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     setShowCreateForm(false);
                     setEditingControl(null);
                   }}
-                  className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark, hover:bg-gray-700 transition-colors font-medium"
+                  className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                 >
                   Cancel
                 </button>
