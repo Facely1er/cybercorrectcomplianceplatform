@@ -38,7 +38,7 @@ const PrivacyCompliancePage = React.lazy(() => import('./features/compliance').t
 const SettingsView = React.lazy(() => import('./shared/components/ui/SettingsView').then(m => ({ default: m.SettingsView })));
 const HelpView = React.lazy(() => import('./shared/components/ui/HelpView').then(m => ({ default: m.HelpView })));
 const ProductionReadinessWidget = React.lazy(() => import('./components/ProductionReadinessWidget').then(m => ({ default: m.ProductionReadinessWidget })));
-import { getFramework: frameworks, nistCSFv2Framework: nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
+import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
 import { assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage } from './shared/types';
 import { dataService } from './services/dataService';
@@ -157,7 +157,7 @@ const AssessmentWrapper: React.FC<{
 const ReportWrapper: React.FC<{ 
   savedAssessments: AssessmentData[];
   onBack: () => void;
-          onExport: (assessment, AssessmentData: format: string) => void;
+  onExport: (assessment: AssessmentData, format: string) => void;
 }> = ({ savedAssessments, onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
