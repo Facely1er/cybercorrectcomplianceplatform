@@ -501,9 +501,9 @@ function AppContent() {
               <nav className="hidden lg: flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus, outline-none focus: ring-2 focus: ring-primary-teal focus, ring-offset-2 ${ location.pathname === '/' // Adjust spacing for top-level menu items
-                      ? 'bg-primary-teal/10 dark : bg-dark-primary/20 text-primary-teal dark: text-dark-primary'
-                      , 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark , hover:text-dark-primary'}`}
+                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${location.pathname === '/'
+                      ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'}`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -751,12 +751,18 @@ function AppContent() {
               <ReportWrapper 
                 savedAssessments={savedAssessments }
                 onBack={() => navigate('/dashboard')}
-                onExport={(assessment: format) => {
+                onExport={(assessment, format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment: framework: { 
-                        format: includeExecutiveSummary, true: includeDetailedAnalysis, true, includeRecommendations: true, includeGapAnalysis, true: includeNextSteps, true, branding: {
-                          organizationName, assessment.organizationInfo?.name || 'Organization'
+                    reportService.exportReport(assessment, framework, { 
+                        format,
+                        includeExecutiveSummary: true,
+                        includeDetailedAnalysis: true,
+                        includeRecommendations: true,
+                        includeGapAnalysis: true,
+                        includeNextSteps: true,
+                        branding: {
+                          organizationName: assessment.organizationInfo?.name || 'Organization'
                         }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());

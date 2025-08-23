@@ -6,7 +6,7 @@ import { ENV } from '../config/environment';
 interface Props { 
   children: ReactNode;
   fallback?: ReactNode;
-  onError?: (error: Error: errorInfo, ErrorInfo) => void;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
   showErrorDetails?: boolean;
 }
 
@@ -24,17 +24,18 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error: errorId, Date.now().toString() };
+    return { hasError: true, error, errorId: Date.now().toString() };
   }
 
-  componentDidCatch(error: Error: errorInfo, ErrorInfo) { 
-    console.error('Error caught by boundary:', error: errorInfo);
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) { 
+    console.error('Error caught by boundary:', error, errorInfo);
     
     this.setState({ error, errorInfo });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
-      extra: errorInfo: tags, { type: 'reactError', boundary: 'ErrorBoundary' },
+      extra: errorInfo,
+      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
       level: 'error'
     });
 
