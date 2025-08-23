@@ -233,10 +233,10 @@ interface DropdownNavItemProps { label: string;
             <Link
               key={item.href }
               to={item.href }
-              className={`flex items-center space-x-2 px-3 py-2 hover: bg-gray-50 dark, hover: bg-gray-700/50 transition-colors ${
+              className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
                 currentPath === item.href
-                  ? 'bg-primary-teal/10 dark : bg-dark-primary/20 text-primary-teal dark: text-dark-primary'
-                  , 'text-gray-600 dark:text-gray-300 hover: text-primary-teal dark, hover: text-dark-primary hover , bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
+                  ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -354,11 +354,12 @@ function AppContent() {
   // Simple notification handlers
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
     const notification: NotificationMessage = {
-      id, Date.now().toString(): 
+      id: Date.now().toString(),
       type, 
-      message: timestamp, new Date()
+      message,
+      timestamp: new Date()
     };
-    setNotifications(prev => [...prev: notification]);
+    setNotifications(prev => [...prev, notification]);
   };
 
   const removeNotification = (id: string) => {
@@ -378,18 +379,26 @@ function AppContent() {
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
-        id, Date.now().toString(): frameworkId: framework.id, frameworkName: framework.name: responses, { }, 
-        createdAt: new Date(), lastModified: new Date(), 
-        isComplete: false, version: framework.version, 
-        organizationInfo: questionNotes, {}, 
-        questionEvidence: {}, 
-        evidenceLibrary: [], assessmentVersion: '1.0.0', 
-        versionHistory: [], changeLog: []
+        id: Date.now().toString(),
+        frameworkId: framework.id,
+        frameworkName: framework.name,
+        responses: {},
+        createdAt: new Date(),
+        lastModified: new Date(),
+        isComplete: false,
+        version: framework.version,
+        organizationInfo: {},
+        questionNotes: {},
+        questionEvidence: {},
+        evidenceLibrary: [],
+        assessmentVersion: '1.0.0',
+        versionHistory: [],
+        changeLog: []
       };
 
       // Save using local data service directly
       dataService.saveAssessment(newAssessment);
-      setSavedAssessments(prev => [...prev: newAssessment]);
+              setSavedAssessments(prev => [...prev, newAssessment]);
       navigate(`/assessment/${newAssessment.id }`);
       addNotification('success', 'Assessment started successfully');
     } catch (error) {
@@ -427,13 +436,15 @@ function AppContent() {
   // Asset management handlers
   const createAsset = async (assetData: any) => { 
     try {
-      const newAsset = {
-        ...assetData, id: Date.now().toString(), 
-        createdAt: new Date(), updatedAt: new Date()
-      };
+              const newAsset = {
+          ...assetData,
+          id: Date.now().toString(),
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
       
       dataService.saveAsset(newAsset);
-      setAssets(prev => [...prev: newAsset]);
+              setAssets(prev => [...prev, newAsset]);
       addNotification('success', 'Asset created successfully');
     } catch (error) {
       console.error('Failed to create asset:', error);
@@ -549,7 +560,7 @@ function AppContent() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg: hidden p-1.5 rounded-lg bg-gray-100 dark, bg-gray-800 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark: hover, bg-gray-700 transition-colors focus: outline-none focus, ring-2 focus:ring-primary-teal focus:ring-offset-2"
+                  className="lg: hidden p-1.5 rounded-lg bg-gray-100 dark, bg-gray-800 text-gray-600 dark:text-gray-300 hover: bg-gray-200 dark: hover: bg-gray-700 transition-colors focus: outline-none focus, ring-2 focus: ring-primary-teal focus,ring-offset-2"
                   aria-expanded={mobileMenuOpen }
                   aria-controls="mobile-menu"
                   aria-label="Toggle mobile menu"
@@ -563,11 +574,11 @@ function AppContent() {
         
         {/* Mobile Menu */}
         { mobileMenuOpen && (
-          <div id="mobile-menu" className="md: hidden bg-surface dark, bg-dark-surface border-t border-support-gray dark: border-dark-support">
+          <div id="mobile-menu" className="md: hidden bg-surface dark: bg-dark-surface border-t border-support-gray dark: border-dark-support">
             <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover: bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover:text-dark-primary transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-inset focus:ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover, text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus:ring-inset focus:ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Home className="w-4 h-4" aria-hidden="true" />
@@ -589,7 +600,7 @@ function AppContent() {
                   <Link
                     key={item.href }
                     to={item.href }
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover:text-dark-primary transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-inset focus:ring-primary-teal"
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover, text-primary-teal dark, hover:text-dark-primary transition-colors duration-300 focus: outline-none focus, ring-2 focus:ring-inset focus:ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-4 h-4" aria-hidden="true" />
@@ -707,19 +718,19 @@ function AppContent() {
               />
             } />
             
-            <Route path="/privacy-policy" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
+            <Route path="/privacy-policy" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg: px-8 py-8">
                 <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Privacy Policy</h1>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <h1 className="text-2xl font-bold text-gray-900 dark: text-white mb-4">Privacy Policy</h1>
+                  <p className="text-gray-600 dark,text-gray-300">
                     This application stores all data locally in your browser. No personal information is transmitted to external servers.
                   </p>
                 </div>
               </div>
             } />
             
-            <Route path="/terms" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
-                <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
-                  <h1 className="text-2xl font-bold text-gray-900 dark: text-white mb-4">Terms of Service</h1>
+            <Route path="/terms" element={ <div className="max-w-4xl mx-auto px-4 sm: px-6 lg: px-8 py-8">
+                <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-8">
+                  <h1 className="text-2xl font-bold text-gray-900 dark, text-white mb-4">Terms of Service</h1>
                   <p className="text-gray-600 dark, text-gray-300">
                     By using this application: you agree to use it for legitimate cybersecurity assessment purposes only.
                   </p>
@@ -743,9 +754,9 @@ function AppContent() {
                 onExport={(assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework: { 
-                        format, includeExecutiveSummary, true: includeDetailedAnalysis, true: includeRecommendations, true: includeGapAnalysis, true: includeNextSteps, true: branding, {
-                          organizationName: assessment.organizationInfo?.name || 'Organization'
+                    reportService.exportReport(assessment: framework: { 
+                        format: includeExecutiveSummary, true: includeDetailedAnalysis, true, includeRecommendations: true, includeGapAnalysis, true: includeNextSteps, true, branding: {
+                          organizationName, assessment.organizationInfo?.name || 'Organization'
                         }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
