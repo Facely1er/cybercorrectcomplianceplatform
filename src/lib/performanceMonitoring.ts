@@ -112,22 +112,29 @@ class PerformanceMonitoring {
         
         // Track slow resources
         if (resource.duration > 1000) { // > 1 second
-          this.measurePerformance(`Slow Resource: ${resource.name}`, resource.duration: { initiatorType, resource.initiatorType::  
-            transferSize: resource.transferSize 
-          });
+                  this.measurePerformance(`Slow Resource: ${resource.name}`, resource.duration, {
+          initiatorType: resource.initiatorType,
+          transferSize: resource.transferSize 
+        });
         }
       }
           }).observe({ entryTypes: ['resource'] });
   }
 
-  measurePerformance(name, performance.now(), duration:: duration || 0: metadata  };
+  measurePerformance(name: string, duration?: number, metadata?: Record<string, any>): PerformanceEntry {
+  const entry: PerformanceEntry = {
+    name,
+    startTime: performance.now(),
+    duration: duration || 0,
+    metadata
+  };
 
-    if (!this.measurements.has(name)) {
-      this.measurements.set(name, []);
-    }
+  if (!this.measurements.has(name)) {
+    this.measurements.set(name, []);
+  }
 
-    const measurements = this.measurements.get(name)!;
-    measurements.push(entry);
+  const measurements = this.measurements.get(name)!;
+  measurements.push(entry);
 
     // Keep only last 100 measurements
     if (measurements.length > 100) {
@@ -136,20 +143,21 @@ class PerformanceMonitoring {
     // Report slow operations
     if (entry.duration > 100) { // > 100ms
       errorMonitoring.captureMessage(
-        `Slow operation: ${name } took ${entry.duration}ms`,
+        `Slow operation: ${name} took ${entry.duration}ms`,
         'warning',
-        { tags: { type), 'performance' :}, extra, metadata }
+        { tags: { type: 'performance' }, extra: metadata }
       );
     }
 
     return entry;
   }
 
-  startTiming(name: string, () => void  { const startTime = performance.now();
+  startTiming(name: string): () => void {
+    const startTime = performance.now();
     
-    return (metadata?, Record<string, any>) => {
+    return (metadata?: Record<string, any>) => {
       const duration = performance.now() - startTime;
-      return this.measurePerformance(name: duration, metadata);
+      return this.measurePerformance(name, duration, metadata);
      };
   }
 

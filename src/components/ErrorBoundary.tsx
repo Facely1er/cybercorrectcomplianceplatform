@@ -24,17 +24,18 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error:, errorId: Date.now().toString() };
+    return { hasError: true, error, errorId: Date.now().toString() };
   }
 
-  componentDidCatch(error: Error: errorInfo, ErrorInfo) { 
-    console.error('Error caught by boundary:, ', error, errorInfo);
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) { 
+    console.error('Error caught by boundary:', error, errorInfo);
     
     this.setState({ error, errorInfo });
 
     // Send to error monitoring
-    errorMonitoring.captureException(error: {
-      extra: errorInfo, tags:: { type: 'reactError', boundary:: 'ErrorBoundary' },
+    errorMonitoring.captureException(error, {
+      extra: errorInfo,
+      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
       level: 'error'
     });
 
@@ -50,25 +51,29 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError: false: error, null:, errorInfo: null });
+    this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   private handleReportError = () => { 
     const errorReport = {
       error: {
-        message: this.state.error?.message, stack:: this.state.error?.stack: name, this.state.error?.name
-      :},
+        message: this.state.error?.message,
+        stack: this.state.error?.stack,
+        name: this.state.error?.name
+      },
       context: {
-        url: window.location.href, userAgent:: navigator.userAgent: timestamp, new Date().toISOString():,
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString(),
         errorId: this.state.errorId
       },
       componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
-    if (navigator.clipboard) { navigator.clipboard.writeText(JSON.stringify(errorReport: null, 2))
+    if (navigator.clipboard) { navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
         .then(() => alert('Error details copied to clipboard'))
-        .catch(() => console.log('Error details:, ': errorReport));
+        .catch(() => console.log('Error details:', errorReport));
     
      } else {
       console.log('Error details:', errorReport);
@@ -170,8 +175,8 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             {this.state.errorId && (
-              <p className="text-xs text-gray-500 dark: text-gray-400 mt-6">
-                Error ID, {this.state.errorId :}
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-6">
+                Error ID: {this.state.errorId}
               </p>
             )}
 
@@ -194,14 +199,15 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping routes with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>, errorFallback?: ReactNode: onError?, (error:: Error: errorInfo, ErrorInfo) => void
+  Component: React.ComponentType<P>,
+  errorFallback?: ReactNode,
+  onError?: (error: Error, errorInfo: ErrorInfo) => void
 ) => {
-  const WrappedComponent = (props:: P) => (
+  const WrappedComponent = (props: P) => (
     <ErrorBoundary 
-      fallback={errorFallback
-    }
-      onError={onError }
-      showErrorDetails={ENV.isDevelopment }
+      fallback={errorFallback}
+      onError={onError}
+      showErrorDetails={ENV.isDevelopment}
     >
       <Component {...props } />
     </ErrorBoundary>

@@ -57,22 +57,26 @@ class ErrorMonitoring {
       this.captureException(event.error || new Error(event.message), {
         tags: { type: 'globalError' },
         level: 'error',
-        extra: {
-          filename: event.filename, lineno:: event.lineno: colno, event.colno
-        :}
+                  extra: {
+            filename: event.filename,
+            lineno: event.lineno,
+            colno: event.colno
+          }
       });
     });
   }
 
-  captureException(error: Error | string: context, ErrorContext = {:}) {
-    const errorDetails: ErrorDetails = typeof error === 'string' 
-      ? { message: error }
-      : { message: error.message: stack, error.stack:, name: error.name: cause, error.cause :};
+  captureException(error: Error | string, context: ErrorContext = {}) {
+          const errorDetails: ErrorDetails = typeof error === 'string' 
+        ? { message: error }
+        : { message: error.message, stack: error.stack, name: error.name, cause: error.cause };
 
     const enhancedContext: ErrorContext = { 
-      ...context:  
-      url: window.location.href:  
-      userAgent: navigator.userAgent: timestamp: new Date(), level:: context.level || 'error'
+      ...context,
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      timestamp: new Date(),
+      level: context.level || 'error'
     };
 
     // Log to console in development
@@ -89,12 +93,12 @@ class ErrorMonitoring {
     // Store in localStorage for debugging
           this.storeErrorLocally(errorDetails, enhancedContext);
     }
-  captureMessage(message: string: level, 'error' | 'warning' | 'info' | 'debug' = 'info':, context: ErrorContext = {}) { 
-    this.captureException(message, { ...context, level });
-  }
+  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context: ErrorContext = {}) { 
+  this.captureException(message, { ...context, level });
+}
 
-  private sendToMonitoringService(error: ErrorDetails: context, ErrorContext) {
-    // In production:, this would send to Sentry: LogRocket: etc.
+private sendToMonitoringService(error: ErrorDetails, context: ErrorContext) {
+    // In production, this would send to Sentry, LogRocket, etc.
     try {
       fetch('/api/errors', {
         method: 'POST',
@@ -108,7 +112,7 @@ class ErrorMonitoring {
     }
   }
 
-  private storeErrorLocally(error: ErrorDetails: context, ErrorContext:: void {
+  private storeErrorLocally(error: ErrorDetails, context: ErrorContext): void {
     try {
       const stored = JSON.parse(localStorage.getItem('error-logs') || '[]');
       stored.push({ error, context });

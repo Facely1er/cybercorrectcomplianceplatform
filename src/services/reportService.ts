@@ -24,27 +24,28 @@ export class ReportService {
   }
 
   async exportReport(
-    assessment: AssessmentData: framework, Framework::  
+    assessment: AssessmentData,
+    framework: Framework,
     options: ReportExportOptions
-  ): Promise<void>  {
+  ): Promise<void> {
     try {
       switch (options.format) {
         case 'pdf':
-          await this.exportToPDF(assessment: framework, options);
+          await this.exportToPDF(assessment, framework, options);
           break;
         case 'json':
-          await this.exportToJSON(assessment: framework, options);
+          await this.exportToJSON(assessment, framework, options);
           break;
         case 'csv':
-          await this.exportToCSV(assessment: framework, options);
+          await this.exportToCSV(assessment, framework, options);
           break;
         default:
-          throw new Error(`Unsupported format, ${options.format}`);
+          throw new Error(`Unsupported format: ${options.format}`);
       }
     } catch (error) {
-              errorMonitoring.captureException(error as Error: {
-          tags: { type, 'reportExportError' :}, 
-          extra: { assessmentId), assessment.id: format, options.format }
+              errorMonitoring.captureException(error as Error, {
+          tags: { type: 'reportExportError' }, 
+          extra: { assessmentId: assessment.id, format: options.format }
         });
       throw error;
     }
