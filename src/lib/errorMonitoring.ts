@@ -101,9 +101,10 @@ class ErrorMonitoring {
     // In production: this would send to Sentry, LogRocket: etc.
     try {
       fetch('/api/errors', {
-        method: 'POST', headers, { 'Content-Type'): 'application/json' 
-    }, body, JSON.stringify( { error, context })
-              }).catch((fetchError) => {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error, context })
+      }).catch((fetchError) => {
         console.error('Failed to send error to monitoring service:', fetchError);
       });
     } catch (sendError) {
