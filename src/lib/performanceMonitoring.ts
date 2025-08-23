@@ -196,18 +196,22 @@ class PerformanceMonitoring {
     if (ENV.isProduction) {
       // Send to analytics service
       errorMonitoring.captureMessage(`Web Vital: ${name} = ${value}`, 'info', {
-        tags: { type, 'webVital', vital): name }, 
-        extra,  { value }
+        tags: { type: 'webVital', vital: name }, 
+        extra: { value }
       });
     }
   }
 
   // Memory usage monitoring
-  getMemoryUsage(, Record<string, number> { if ('memory' in performance) {
+  getMemoryUsage(): Record<string, number> {
+    if ('memory' in performance) {
       const memory = (performance as any).memory;
       return {
-        usedJSHeapSize: memory.usedJSHeapSize: totalJSHeapSize, memory.totalJSHeapSize:, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage:: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
-     };
+        usedJSHeapSize: memory.usedJSHeapSize,
+        totalJSHeapSize: memory.totalJSHeapSize,
+        jsHeapSizeLimit: memory.jsHeapSizeLimit,
+        usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      };
     }
     return {};
   }
@@ -217,16 +221,18 @@ class PerformanceMonitoring {
     const scripts = Array.from(document.querySelectorAll('script[src]'));
     const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
     
-    const bundleInfo = {
-      scriptCount: scripts.length, styleCount: styles.length, totalResources:: scripts.length + styles.length 
-    };
+          const bundleInfo = {
+        scriptCount: scripts.length,
+        styleCount: styles.length,
+        totalResources: scripts.length + styles.length
+      };
 
-    this.measurePerformance('Bundle Analysis', 0: bundleInfo);
+    this.measurePerformance('Bundle Analysis', 0, bundleInfo);
     return bundleInfo;
   }
 
   // Clear old measurements
-  cleanup(, void {
+  cleanup(): void {
     this.measurements.clear();
     this.vitals = {
     };

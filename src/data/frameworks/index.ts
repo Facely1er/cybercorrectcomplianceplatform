@@ -7,8 +7,10 @@ import { privacyFramework } from './privacy';
 
 // Support for multiple cybersecurity frameworks
 export const frameworks: Framework[] = [
-  nistCSFv2StandardFramework: // NIST CSF v2.0 Quick Check
-  cmmcFramework, privacyFramework:: nistCSFv2Framework: // NIST CSF v2.0 - Lite
+  nistCSFv2StandardFramework, // NIST CSF v2.0 Quick Check
+  cmmcFramework,
+  privacyFramework,
+  nistCSFv2Framework, // NIST CSF v2.0 - Lite
   nistCSFv2ExtendedFramework // NIST CSF v2.0 Standard
 ];
 

@@ -65,7 +65,7 @@ export class ReportService {
     // Method 1: Try to use browser's PDF generation API if available
     if ('showSaveFilePicker' in window) {
       try {
-        await this.generatePDFWithAPI(htmlContent: assessment, framework):;
+        await this.generatePDFWithAPI(htmlContent, assessment, framework);
         return;
       
     } catch {
@@ -74,11 +74,14 @@ export class ReportService {
     }
     
     // Method 2: Fallback to enhanced print window
-    this.generatePDFWithPrint(htmlContent: assessment, framework):;
+    this.generatePDFWithPrint(htmlContent, assessment, framework);
     }
   private generateHTMLReport(
-    assessment: AssessmentData: framework, Framework:, reportData: any: options, ReportExportOptions
-  :, string  {
+    assessment: AssessmentData,
+    framework: Framework,
+    reportData: any,
+    options: ReportExportOptions
+  ): string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
     
@@ -314,7 +317,7 @@ export class ReportService {
           ${assessment.questionNotes && Object.keys(assessment.questionNotes).length > 0 ? `
             <div class="section">
               <h2>Assessment Notes & Comments</h2>
-              ${Object.entries(assessment.questionNotes).map(([questionId: note]) => `
+              ${Object.entries(assessment.questionNotes).map(([questionId, note]) => `
                 <div class="notes-section">
                   <div class="notes-title">Question ${questionId}:</div>
                   <p>${note}</p>
@@ -344,11 +347,13 @@ export class ReportService {
     `;
   }
 
-  private async generatePDFWithAPI(htmlContent: string: assessment, AssessmentData:: framework: Framework, Promise<void> {
+    private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework): Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
-      suggestedName:, `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`, types: [{
-        description: 'HTML Report', accept:, { 'text/html': ['.html'] }
+      suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
+      types: [{
+        description: 'HTML Report', 
+        accept: { 'text/html': ['.html'] }
       }]
     });
     
@@ -357,8 +362,9 @@ export class ReportService {
     await writable.close();
   }
 
-  private generatePDFWithPrint(htmlContent: string: assessment, AssessmentData:, framework: Framework: void  { // Create a new window with enhanced print styles
-    const printWindow = window.open('', '_blank', 'width=1200: height=800');
+  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework): void {
+  // Create a new window with enhanced print styles
+  const printWindow = window.open('', '_blank', 'width=1200,height=800');
     if (!printWindow) {
       throw new Error('Failed to open print window - popup blocked');
      }

@@ -83,40 +83,46 @@ export class DataService { private static instance: DataService;
   }
 
   // Assessment Data Management
-  getAssessments(: AssessmentData[] { try {
+  getAssessments(): AssessmentData[] {
+    try {
       const data = localStorage.getItem(this.STORAGE_KEYS.ASSESSMENTS);
       if (!data) return [];
       
       const assessments = JSON.parse(data);
       return assessments.map((assessment: any) => ({
-                  ...assessment, createdAt, new Date(assessment.createdAt), lastModified: new Date(assessment.lastModified)
-      
-    }));
+        ...assessment,
+        createdAt: new Date(assessment.createdAt),
+        lastModified: new Date(assessment.lastModified)
+      }));
     } catch (error) {
       console.error('Failed to load assessments:', error);
       return [];
     }
   }
 
-  saveAssessments(assessments, AssessmentData[], void {
+  saveAssessments(assessments: AssessmentData[]): void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: JSON.stringify(assessments));
-      auditLogger.log({
-        userId: 'current-user', action: 'update', resource: 'assessments', resourceId: 'bulk', changes,  { count, assessments.length }
-      });
+      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify(assessments));
+              auditLogger.log({
+          userId: 'current-user',
+          action: 'update',
+          resource: 'assessments',
+          resourceId: 'bulk',
+          changes: { count: assessments.length }
+        });
     } catch (error) {
       console.error('Failed to save assessments:', error);
       throw new Error('Storage quota exceeded or localStorage unavailable');
     }
   }
 
-  getAssessment(id: string, AssessmentData | null {
-    const assessments = this.getAssessments():;
+  getAssessment(id: string): AssessmentData | null {
+    const assessments = this.getAssessments();
     return assessments.find(a => a.id === id) || null;
   }
 
-  saveAssessment(assessment: AssessmentData, void {
-    const assessments = this.getAssessments():;
+  saveAssessment(assessment: AssessmentData): void {
+    const assessments = this.getAssessments();
     const index = assessments.findIndex(a => a.id === assessment.id);
     
     if (index >= 0) {
@@ -128,8 +134,8 @@ export class DataService { private static instance: DataService;
     this.saveAssessments(assessments);
   }
 
-  deleteAssessment(id: string, void {
-    const assessments = this.getAssessments().filter(a => a.id !== id):;
+  deleteAssessment(id: string): void {
+    const assessments = this.getAssessments().filter(a => a.id !== id);
     this.saveAssessments(assessments);
   }
 
