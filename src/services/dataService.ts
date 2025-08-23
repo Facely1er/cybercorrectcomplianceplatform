@@ -12,9 +12,15 @@ export interface AppData { assessments: AssessmentData[];
   version, string;
 }
 
-export class DataService { private static instance: DataService;
+export class DataService {
+  private static instance: DataService;
   private readonly STORAGE_KEYS = {
-    ASSESSMENTS, 'cybersecurity-assessments', USER_PROFILE: 'user-profile', ASSETS: 'asset-inventory', TASKS: 'cybersecurity-tasks', SETTINGS: 'app-settings', BACKUP_METADATA: 'backup-metadata'
+    ASSESSMENTS: 'cybersecurity-assessments',
+    USER_PROFILE: 'user-profile',
+    ASSETS: 'asset-inventory',
+    TASKS: 'cybersecurity-tasks',
+    SETTINGS: 'app-settings',
+    BACKUP_METADATA: 'backup-metadata'
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
@@ -54,7 +60,7 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  private performDataMigration(fromVersion, string | null), void {
+  private performDataMigration(fromVersion: string | null): void {
     console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions
@@ -71,7 +77,7 @@ export class DataService { private static instance: DataService;
       assessmentVersion: assessment.assessmentVersion || '1.0.0',
       evidenceLibrary: assessment.evidenceLibrary || [],
       questionEvidence: assessment.questionEvidence || {},
-      versionHistory, assessment.versionHistory || []
+      versionHistory: assessment.versionHistory || []
     }));
       
       this.saveAssessments(migratedAssessments);
@@ -100,21 +106,22 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  saveAssessments(assessments, AssessmentData[]), void {
+  saveAssessments(assessments: AssessmentData[]): void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify('current-user',
-          action: 'update',
-          resource: 'assessments',
-          resourceId: 'bulk',
-          changes, { count, assessments.length }
-        });
+      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify(assessments));
+      this.logUserAction('current-user', {
+        action: 'update',
+        resource: 'assessments',
+        resourceId: 'bulk',
+        changes: { count: assessments.length }
+      });
     } catch (error) {
-      console.error('Failed to save assessments, ', error);
+      console.error('Failed to save assessments:', error);
       throw new Error('Storage quota exceeded or localStorage unavailable');
     }
   }
 
-  getAssessment(id, string), AssessmentData | null {
+  getAssessment(id: string): AssessmentData | null {
     const assessments = this.getAssessments();
     return assessments.find(a => a.id === id) || null;
   }

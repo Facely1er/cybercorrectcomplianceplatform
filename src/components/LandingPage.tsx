@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: Building, Database, Scale, , Briefcase, HelpCircle  } from 'lucide-react';
+import { CheckCircle, Building, Database, Scale, Briefcase, HelpCircle } from 'lucide-react';
 
 // Text Carousel Component
 const TextCarousel: React.FC = () => {
