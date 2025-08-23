@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
-  ChevronLeft, ChevronRight, Save, CheckCircle, AlertTriangle
+  ChevronLeft, ChevronRight, Save, CheckCircle, AlertTriangle, Lightbulb
 } from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
@@ -25,32 +25,99 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({
   const { breadcrumbs } = useInternalLinking();
   const framework = getFramework(assessment.frameworkId);
   
+  // Early return if framework is not valid
+  if (!framework || !framework.sections || !Array.isArray(framework.sections)) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Framework Loading Error
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            The framework data for this assessment could not be loaded properly. 
+            Framework ID: {assessment.frameworkId}
+          </p>
+          <div className="space-y-3">
+            <button 
+              onClick={onBack}
+              className="w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+            >
+              Back to Dashboard
+            </button>
+            <button 
+              onClick={() => window.location.reload()}
+              className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
   const [currentResponses, setCurrentResponses] = useState(assessment.responses);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const [notes, setNotes] = useState(assessment.questionNotes || {});
   const [lastSaved, setLastSaved] = useState<Date>(new Date());
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [showGuidance, setShowGuidance] = useState(true);
 
-  // Get all questions in order
+  // Get all questions in order with additional safety checks
   const allQuestions = useMemo(() => {
     const questions: (Question & { sectionName: string; categoryName: string })[] = [];
-    framework.sections.forEach(section => {
-      section.categories.forEach(category => {
-        category.questions.forEach(question => {
-          questions.push({
-            ...question,
-            sectionName: section.name,
-            categoryName: category.name
+    
+    if (framework && framework.sections && Array.isArray(framework.sections)) {
+      framework.sections.forEach(section => {
+        if (section && section.categories && Array.isArray(section.categories)) {
+          section.categories.forEach(category => {
+            if (category && category.questions && Array.isArray(category.questions)) {
+              category.questions.forEach(question => {
+                if (question && question.id) {
+                  questions.push({
+                    ...question,
+                    sectionName: section.name || 'Unknown Section',
+                    categoryName: category.name || 'Unknown Category'
+                  });
+                }
+              });
+            }
           });
-        });
+        }
       });
-    });
+    }
+    
     return questions;
   }, [framework]);
 
+  // Additional safety check for questions
+  if (allQuestions.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            No Questions Available
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            This framework doesn't contain any questions to assess.
+            Framework: {framework.name} (ID: {assessment.frameworkId})
+          </p>
+          <button 
+            onClick={onBack}
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const currentQuestion = allQuestions[currentQuestionIndex];
-  const progress = (currentQuestionIndex + 1) / allQuestions.length * 100;
+  const progress = allQuestions.length > 0 ? (currentQuestionIndex + 1) / allQuestions.length * 100 : 0;
 
   // Auto-save functionality
   useEffect(() => {

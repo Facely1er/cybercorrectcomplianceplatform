@@ -147,7 +147,7 @@ export const optimizeLocalStorage = (): void => {
     // Check storage usage
     let totalSize = 0;
     for (const key in localStorage) {
-      if (localStorage.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
         totalSize += localStorage[key].length;
       }
     }

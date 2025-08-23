@@ -57,7 +57,7 @@ export const UserProfileSchema = z.object({
   certifications: z.array(z.string().max(50)).max(20, 'Too many certifications').optional(),
   department: z.string().max(50, 'Department too long').optional(),
   manager: z.string().max(100, 'Manager name too long').optional(),
-  phoneNumber: z.string().regex(/^\+?[\d\s\-\(\)]+$/, 'Invalid phone number').optional()
+  phoneNumber: z.string().regex(/^\+?[\d\s\-()]+$/, 'Invalid phone number').optional()
 });
 
 // Security validation helpers

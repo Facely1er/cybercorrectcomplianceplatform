@@ -80,25 +80,47 @@ const AssessmentWrapper: React.FC<{
   try {
     const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
+      console.error('Framework validation failed:', {
+        frameworkId: assessment.frameworkId,
+        framework: framework,
+        hasFramework: !!framework,
+        hasSections: framework?.sections ? true : false,
+        sectionsLength: framework?.sections?.length || 0
+      });
+      
       return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Error</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              The framework for this assessment (ID: {assessment.frameworkId}) could not be loaded.
+              The framework for this assessment (ID: {assessment.frameworkId}) could not be loaded properly.
             </p>
-            <button 
-              onClick={onBack}
-              className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-            >
-              Back to Dashboard
-            </button>
+            <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              Debug info: Framework exists: {framework ? 'Yes' : 'No'}, 
+              Sections: {framework?.sections?.length || 0}
+            </div>
+            <div className="space-y-2">
+              <button 
+                onClick={onBack}
+                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+              >
+                Back to Dashboard
+              </button>
+              <button 
+                onClick={() => window.location.reload()}
+                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              >
+                Reload Page
+              </button>
+            </div>
           </div>
         </div>
       );
     }
   } catch (error) {
     console.error('Framework validation error:', error);
+    console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
+    
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
@@ -106,12 +128,23 @@ const AssessmentWrapper: React.FC<{
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             There was an error loading the framework data for this assessment.
           </p>
-          <button 
-            onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-          >
-            Back to Dashboard
-          </button>
+          <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Error: {error instanceof Error ? error.message : 'Unknown error'}
+          </div>
+          <div className="space-y-2">
+            <button 
+              onClick={onBack}
+              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+            >
+              Back to Dashboard
+            </button>
+            <button 
+              onClick={() => window.location.reload()}
+              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+            >
+              Reload Page
+            </button>
+          </div>
         </div>
       </div>
     );

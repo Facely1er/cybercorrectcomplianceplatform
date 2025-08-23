@@ -1,0 +1,8 @@
+DEPLOYMENT TEST - v2.0.1-hotfix
+Timestamp: 2024-12-19T07:25:00Z
+Commit: 8a8ab46
+Assets Expected: index-Cnvz2ggu.js
+Assessment Fix: INCLUDED
+
+This file verifies that the latest deployment has been updated.
+If you can see this content at /deployment-test.txt, the deployment has been refreshed.

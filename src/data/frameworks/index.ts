@@ -30,6 +30,9 @@ export { privacyFramework };
 
 // Helper to get framework by ID
 export const getFramework = (frameworkId?: string) => {
+  console.log('getFramework called with ID:', frameworkId);
+  console.log('Available frameworks:', frameworks.map(f => ({ id: f.id, name: f.name, sectionsCount: f.sections?.length || 0 })));
+  
   // Ensure we have a valid fallback framework
   const createFallbackFramework = () => ({
     id: 'nist-csf-v2-fallback',
@@ -57,6 +60,7 @@ export const getFramework = (frameworkId?: string) => {
   
   // If no frameworkId provided, return first available framework or fallback
   if (!frameworkId) {
+    console.log('No frameworkId provided, using first framework:', frameworks[0]?.id);
     return frameworks[0] || createFallbackFramework();
   }
   
@@ -65,15 +69,18 @@ export const getFramework = (frameworkId?: string) => {
   
   if (!foundFramework) {
     console.warn(`Framework with id '${frameworkId}' not found, using fallback`);
+    console.log('Available framework IDs:', frameworks.map(f => f.id));
     return createFallbackFramework();
   }
   
   // Validate that the found framework has required properties
   if (!foundFramework.sections || !Array.isArray(foundFramework.sections)) {
     console.warn(`Framework '${frameworkId}' has invalid sections, using fallback`);
+    console.log('Framework sections:', foundFramework.sections);
     return createFallbackFramework();
   }
   
+  console.log(`Successfully loaded framework '${frameworkId}' with ${foundFramework.sections.length} sections`);
   return foundFramework;
 };
 

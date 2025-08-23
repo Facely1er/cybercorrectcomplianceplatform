@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   Shield, Target, BarChart3, FileText, Calendar,
   CheckCircle, ArrowRight, Activity, Building,
-  Eye, Database, Scale, Briefcase, HelpCircle, Settings
+  Eye, Database, Scale, Briefcase, HelpCircle, Settings, Award
 } from 'lucide-react';
 
 // Text Carousel Component

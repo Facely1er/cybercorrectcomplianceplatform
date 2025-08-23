@@ -33,7 +33,7 @@ export const EnhancedUserProfileSchema = z.object({
   certifications: z.array(z.string().max(100)).max(20).optional(),
   department: z.string().max(100).optional(),
   manager: z.string().max(100).optional(),
-  phoneNumber: z.string().regex(/^\+?[\d\s\-\(\)]+$/).max(20).optional()
+  phoneNumber: z.string().regex(/^\+?[\d\s\-()]+$/).max(20).optional()
 });
 
 export const EnhancedAssetSchema = z.object({
