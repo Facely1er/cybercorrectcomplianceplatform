@@ -323,7 +323,7 @@ function AppContent() {
     },
     {
       label: 'Implementation', icon: Shield, items: [
-        { label, 'Compliance Status': href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
+        { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress'
          },
         { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation'
          },
@@ -337,7 +337,7 @@ function AppContent() {
     },
     {
       label: 'Team', icon: Users, items: [
-        { label, 'Team Collaboration': href: '/team', icon: Users, description: 'Coordinate implementation efforts'
+        { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts'
          },
         { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables'
          },
@@ -353,10 +353,10 @@ function AppContent() {
 
   // Simple notification handlers
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
-    const notification: NotificationMessage = {
-      id, Date.now().toString():
-      type, 
-      message,
+          const notification: NotificationMessage = {
+        id: Date.now().toString(),
+        type, 
+        message,
       timestamp: new Date()
     };
     setNotifications(prev => [...prev, notification]);
