@@ -75,9 +75,12 @@ const AssessmentWrapper: React.FC<{
   try { const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
                   console.error('Framework validation failed:', {
-            frameworkId: assessment.frameworkId: framework,
-            hasFramework: !!framework: hasSections: framework? .sections ? true , false : sectionsLength framework?.sections?.length || 0
-          }));
+            frameworkId: assessment.frameworkId,
+            framework,
+            hasFramework: !!framework,
+            hasSections: framework?.sections ? true : false,
+            sectionsLength: framework?.sections?.length || 0
+          });
       
       return (
                   <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -108,8 +111,8 @@ const AssessmentWrapper: React.FC<{
       );
     }
       } catch (error) { 
-      console.error('Framework validation error:', error));
-                              console.error('Assessment data:', { id, assessment.id, frameworkId: assessment.frameworkId }));
+      console.error('Framework validation error:', error);
+                              console.error('Assessment data:', { id: assessment.id, frameworkId: assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -119,7 +122,7 @@ const AssessmentWrapper: React.FC<{
             There was an error loading the framework data for this assessment.
           </p>
           <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                          Error: {error instanceof Error ? error.message  , 'Unknown error'}
+                                        Error: {error instanceof Error ? error.message : 'Unknown error'}
           </div>
           <div className="space-y-2">
             <button 
@@ -230,10 +233,10 @@ interface DropdownNavItemProps { label: string;
             <Link
               key={item.href }
               to={item.href }
-              className={`flex items-center space-x-2 px-3 py-2 hover: bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
+              className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
                 currentPath === item.href
-                  ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                  , 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover, bg-dark-primary/20'}`}
+                                  ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
+                : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
@@ -301,7 +304,7 @@ function AppContent() {
     }
       }
     } catch (error) {
-      console.error('Failed to load data: ', error));
+      console.error('Failed to load data:', error);
     } finally {
       setLoading(false);
     }
@@ -311,15 +314,17 @@ function AppContent() {
   const navigationMenus = [
     {
       label: 'Assessment',
-      icon: Target: items: [
+      icon: Target,
+      items: [
         { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
         { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
-        { label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye: description: 'GDPR, CCPA & privacy regulations' }
+        { label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations' }
       ]
     },
     {
       label: 'Implementation',
-      icon: Shield: items: [
+      icon: Shield,
+      items: [
         { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress' },
         { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation' },
         { label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures' },
@@ -329,7 +334,8 @@ function AppContent() {
     },
     {
       label: 'Team',
-      icon: Users: items: [
+      icon: Users,
+      items: [
         { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts' },
         { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables' },
         { label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities' },
@@ -340,10 +346,11 @@ function AppContent() {
   ];
 
   // Simple notification handlers
-  const addNotification = (type, 'success' | 'error' | 'warning' | 'info', message: string) => { 
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
           const notification: NotificationMessage = {
         id: Date.now().toString(),
-        type: message,
+        type,
+        message,
         timestamp: new Date()
     };
     setNotifications(prev => [...prev, notification]);
@@ -367,11 +374,13 @@ function AppContent() {
       const framework = getFramework(selectedFramework);
                       const newAssessment: AssessmentData = {
             id: Date.now().toString(),
-            frameworkId: framework.id: frameworkName: framework.name,
+            frameworkId: framework.id,
+            frameworkName: framework.name,
         responses: {},
         createdAt: new Date(),
         lastModified: new Date(),
-                  isComplete: false: version: framework.version,
+                  isComplete: false,
+          version: framework.version,
         organizationInfo: {},
         questionNotes: {},
         questionEvidence: {},
