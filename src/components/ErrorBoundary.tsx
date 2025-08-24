@@ -4,21 +4,21 @@ import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
 
 interface Props { 
-  children, ReactNode;
-  fallback?, ReactNode;
-  onError?: (error, Error, errorInfo, ErrorInfo) => void;
-  showErrorDetails?, boolean;
+  children: ReactNode;
+  fallback?: ReactNode;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  showErrorDetails?: boolean;
 }
 
 interface State { 
-  hasError, boolean;
-  error?, Error;
-  errorInfo?, ErrorInfo;
-  errorId? , string;
+  hasError: boolean;
+  error?: Error;
+  errorInfo?: ErrorInfo;
+  errorId?: string;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props, Props) {
+  constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
@@ -27,14 +27,14 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error, errorId: Date.now().toString() };
   }
 
-  componentDidCatch(error, Error, errorInfo, ErrorInfo) { 
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) { 
     console.error('Error caught by boundary, ', error, errorInfo);
     
     this.setState({ error, errorInfo });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
-      extra, errorInfo,
+      extra: errorInfo,
       tags: { type: 'reactError', boundary: 'ErrorBoundary' },
       level: 'error'
     });
@@ -51,7 +51,7 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null });
+    this.setState({ hasError: false, error: undefined, errorInfo: undefined });
   };
 
   private handleReportError = () => { 
@@ -199,11 +199,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Higher-order component for wrapping routes with error boundary
 export const withErrorBoundary = <P extends object>(
-  Component, React.ComponentType<P>,
-  errorFallback?, ReactNode,
-  onError?: (error, Error, errorInfo, ErrorInfo) => void
+  Component: React.ComponentType<P>,
+  errorFallback?: ReactNode,
+  onError?: (error: Error, errorInfo: ErrorInfo) => void
 ) => {
-  const WrappedComponent = (props, P) => (
+  const WrappedComponent = (props: P) => (
     <ErrorBoundary 
       fallback={errorFallback}
       onError={onError}
