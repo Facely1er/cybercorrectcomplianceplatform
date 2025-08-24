@@ -317,33 +317,33 @@ function AppContent() {
   const navigationMenus = [
     {
       label: 'Assessment',
-      icon, Target,
-      items, [
-        { label: 'Start Assessment', href: '/assessment-intro', icon, Target, description: 'Begin cybersecurity framework assessment' },
-        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon, Building, description: 'CMMC Level 2 certification readiness' },
-        { label: 'Privacy Assessment', href: '/compliance/privacy', icon, Eye, description: 'GDPR, CCPA & privacy regulations' }
+      icon: Target,
+      items: [
+        { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
+        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
+        { label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations' }
       ]
     },
     {
       label: 'Implementation',
-      icon, Shield,
-      items, [
-        { label: 'Compliance Status', href: '/compliance', icon, Activity, description: 'Real-time implementation progress' },
-        { label: 'Evidence Collection', href: '/evidence', icon, FileText, description: 'Manage compliance documentation' },
-        { label: 'Policy Management', href: '/policies', icon, Shield, description: 'Required policies and procedures' },
-        { label: 'Controls Management', href: '/controls', icon, CheckSquare, description: 'Security controls implementation' },
-        { label: 'Asset Management', href: '/assets', icon, BarChart3, description: 'Inventory and scope management' }
+      icon: Shield,
+      items: [
+        { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress' },
+        { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation' },
+        { label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures' },
+        { label: 'Controls Management', href: '/controls', icon: CheckSquare, description: 'Security controls implementation' },
+        { label: 'Asset Management', href: '/assets', icon: BarChart3, description: 'Inventory and scope management' }
       ]
     },
     {
       label: 'Team',
-      icon, Users,
-      items, [
-        { label: 'Team Collaboration', href: '/team', icon, Users, description: 'Coordinate implementation efforts' },
-        { label: 'Task Management', href: '/tasks', icon, CheckSquare, description: 'Track tasks and deliverables' },
-        { label: 'Activity Calendar', href: '/calendar', icon, Calendar, description: 'Schedule compliance activities' },
-        { label: 'Assessment Reports', href: '/reports', icon, FileText, description: 'Generate detailed reports' },
-        { label: 'Advanced Analytics', href: '/reports/advanced', icon, BarChart3, description: 'Comprehensive analytics dashboard' }
+      icon: Users,
+      items: [
+        { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts' },
+        { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables' },
+        { label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities' },
+        { label: 'Assessment Reports', href: '/reports', icon: FileText, description: 'Generate detailed reports' },
+        { label: 'Advanced Analytics', href: '/reports/advanced', icon: BarChart3, description: 'Comprehensive analytics dashboard' }
       ]
     }
   ];
