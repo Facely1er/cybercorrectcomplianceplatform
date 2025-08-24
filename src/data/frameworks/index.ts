@@ -15,7 +15,7 @@ export const frameworks: Framework[] = [
 
 // Reorder frameworks for Start Assessment page
 export const assessmentFrameworks: Framework[] = [
-  cmmcFramework: // CUI/CMMC
+  cmmcFramework, // CUI/CMMC
   privacyFramework, // NIST Privacy Framework
   nistCSFv2ExtendedFramework // NIST CSF v2.0 Standard (106 subcategories)
 ];

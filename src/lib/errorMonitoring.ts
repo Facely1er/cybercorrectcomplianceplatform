@@ -1,10 +1,10 @@
 import { ENV } from '../config/environment';
 
 interface ErrorContext {
-  user?: { id: string; email, string };
-  url?, string;
-  userAgent?, string;
-  timestamp?, Date;
+  user?: { id: string; email: string };
+  url?: string;
+  userAgent?: string;
+  timestamp?: Date;
   extra?: Record<string, any>;
   tags?: Record<string, string>;
   level?: 'error' | 'warning' | 'info' | 'debug';
