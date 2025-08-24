@@ -763,8 +763,7 @@ function AppContent() {
                         branding: {
                           organizationName: assessment.organizationInfo?.name || 'Organization'
                         }
-                        }
-                    });
+                        });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
                   } catch (error) {
                     addNotification('error', 'Failed to export report: ' + (error as Error).message);
