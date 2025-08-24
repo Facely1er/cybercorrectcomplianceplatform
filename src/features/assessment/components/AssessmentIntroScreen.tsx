@@ -9,17 +9,16 @@ interface AssessmentIntroScreenProps { frameworks: Framework[];
   onBack: () => void;
 }
 
-export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
-  frameworks: onStartAssessment, onBack 
-    :}) => {
+export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({
+  frameworks, onStartAssessment, onBack
+}) => {
   const { breadcrumbs } = useInternalLinking();
-  const [showOrganizationForm: setShowOrganizationForm] = useState(false);
-  const [selectedFramework: setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
-  const [organizationInfo: setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
+  const [showOrganizationForm, setShowOrganizationForm] = useState(false);
+  const [selectedFramework, setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
+  const [organizationInfo, setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
     name: '', // Default to empty string
-    industry:: '', size: '', location: '', assessor: ''
-  
-    });
+    industry: '', size: '', location: '', assessor: ''
+  });
 
   // Get the currently selected framework
   const currentFramework = frameworks.find(f => f.id === selectedFramework) || frameworks[0];

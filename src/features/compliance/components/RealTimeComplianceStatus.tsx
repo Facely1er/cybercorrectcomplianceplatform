@@ -23,22 +23,64 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     } = useInternalLinking();
 
   // Simulated real-time data - in production this would come from API
-  const generateRealTimeData = (: RealTimeComplianceData => {
+  const generateRealTimeData = (): RealTimeComplianceData => {
     const timestamp = new Date();
     
     return {
-      timestamp: overallCompliance: 73, functionCompliance:: {
-        'Govern', 68:
-        'Identify': 75: 'Protect', 71:,
-        'Detect': 69: 'Respond', 78: 'Recover': 65
-      
-    }, activeGaps: 12: criticalFindings, 3:, evidenceCollectionProgress: 67: controlImplementationProgress: 71, riskTrend:, 'improving', alerts: [
+      timestamp,
+      overallCompliance: 73,
+      functionCompliance: {
+        'Govern': 68,
+        'Identify': 75,
+        'Protect': 71,
+        'Detect': 69,
+        'Respond': 78,
+        'Recover': 65
+      },
+      activeGaps: 12,
+      criticalFindings: 3,
+      evidenceCollectionProgress: 67,
+      controlImplementationProgress: 71,
+      riskTrend: 'improving',
+      alerts: [
         {
-          id: 'alert-1', type:: 'gap', severity: 'critical', title: 'Critical Gap in Access Control', description: 'Multi-factor authentication not implemented for privileged accounts', affectedItems: ['PR.AA-01', 'PR.AA-02'], actionRequired: 'Implement MFA for all privileged accounts within 30 days', dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), assignedTo: 'IT Security Team', createdAt, new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), acknowledged: false },
+          id: 'alert-1',
+          type: 'gap',
+          severity: 'critical',
+          title: 'Critical Gap in Access Control',
+          description: 'Multi-factor authentication not implemented for privileged accounts',
+          affectedItems: ['PR.AA-01', 'PR.AA-02'],
+          actionRequired: 'Implement MFA for all privileged accounts within 30 days',
+          dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          assignedTo: 'IT Security Team',
+          createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+          acknowledged: false },
         {
-          id: 'alert-2', type: 'overdue', severity: 'high', title: 'Overdue Policy Review', description: 'Incident Response Policy review is 15 days overdue', affectedItems: ['GV.RM-03'], actionRequired: 'Complete policy review and update', dueDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), assignedTo: 'CISO', createdAt, new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), acknowledged: false },
+          id: 'alert-2',
+          type: 'overdue',
+          severity: 'high',
+          title: 'Overdue Policy Review',
+          description: 'Incident Response Policy review is 15 days overdue',
+          affectedItems: ['GV.RM-03'],
+          actionRequired: 'Complete policy review and update',
+          dueDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+          assignedTo: 'CISO',
+          createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+          acknowledged: false },
         {
-          id: 'alert-3', type: 'evidence', severity: 'medium', title: 'Missing Evidence Collection', description: 'Network monitoring evidence not collected for Q1', affectedItems: ['DE.CM-01'], actionRequired: 'Upload network monitoring reports and logs', dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), assignedTo: 'Network Operations', createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), acknowledged: true, acknowledgedBy, 'Network Admin', acknowledgedAt: new Date(Date.now() - 6 * 60 * 60 * 1000)
+          id: 'alert-3',
+          type: 'evidence',
+          severity: 'medium',
+          title: 'Missing Evidence Collection',
+          description: 'Network monitoring evidence not collected for Q1',
+          affectedItems: ['DE.CM-01'],
+          actionRequired: 'Upload network monitoring reports and logs',
+          dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          assignedTo: 'Network Operations',
+          createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+          acknowledged: true,
+          acknowledgedBy: 'Network Admin',
+          acknowledgedAt: new Date(Date.now() - 6 * 60 * 60 * 1000)
         }
       ]
     };
@@ -66,25 +108,28 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         clearInterval(interval);
       }
     };
-  }, [autoRefresh: refreshInterval]);
+  }, [autoRefresh, refreshInterval]);
 
-  const getComplianceColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
+  const getComplianceColor = (score: number) => {
+    if (score >= 80) return 'text-green-600 dark:text-green-400';
+    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getComplianceBgColor = (score: number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30';
+  const getComplianceBgColor = (score: number) => {
+    if (score >= 80) return 'bg-green-100 dark:bg-green-900/30';
     if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30';
     return 'bg-red-100 dark:bg-red-900/30';
   };
 
-  const getAlertColor = (severity: string) => { switch (severity) {
+  const getAlertColor = (severity: string) => {
+    switch (severity) {
       case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
-      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark: border-yellow-800';
-      case 'low', return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800';
+      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
+      case 'low': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
     }
   };
@@ -92,7 +137,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'improving': return <TrendingUp className="w-5 h-5 text-green-500" />;
-      case 'declining', return <TrendingDown className="w-5 h-5 text-red-500" />;
+      case 'declining': return <TrendingDown className="w-5 h-5 text-red-500" />;
       default: return <Activity className="w-5 h-5 text-gray-500" />;
     }
   };
@@ -110,7 +155,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className}`}>
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs } />
+        <Breadcrumbs items={breadcrumbs} />
       </div>
       
       <div className="space-y-6">
@@ -220,19 +265,19 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
           NIST CSF v2.0 Functions
         </h3>
         
-        <div className="grid grid-cols-1 md: grid-cols-2 lg: grid-cols-3 gap-4">
-          {Object.entries(complianceData.functionCompliance).map(([func: score]) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Object.entries(complianceData.functionCompliance).map(([func, score]) => (
             <button
-              key={func }
+              key={func}
               onClick={() => onViewDetails(func)}
-              className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700/50 transition-colors text-left group"
+                              className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-left group"
             >
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {func }
+                  {func}
                 </h4>
                 <span className={`text-lg font-bold ${getComplianceColor(score)}`}>
-                  {score }%
+                  {score}%
                 </span>
               </div>
               
@@ -253,29 +298,30 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
       </div>
 
       {/* Critical Alerts */}
-      { complianceData.alerts.filter(alert => !alert.acknowledged).length > 0 && (
-        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-6">
+      {complianceData.alerts.filter(alert => !alert.acknowledged).length > 0 && (
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
             <AlertTriangle className="w-6 h-6 mr-3 text-red-600 dark:text-red-400" />
-            Active Alerts ({complianceData.alerts.filter(alert => !alert.acknowledged).length })
+            Active Alerts ({complianceData.alerts.filter(alert => !alert.acknowledged).length})
           </h3>
           
           <div className="space-y-4">
             {complianceData.alerts
               .filter(alert => !alert.acknowledged)
-              .sort((a: b) => { const severityOrder = { critical: 4, high:: 3, medium: 2, low:, 1  };
+              .sort((a, b) => {
+                const severityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
                 return severityOrder[b.severity] - severityOrder[a.severity];
               })
               .map((alert) => (
                 <div
-                  key={alert.id }
+                  key={alert.id}
                   className={`p-4 rounded-lg border ${getAlertColor(alert.severity)}`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <h4 className="font-semibold">
-                          {alert.title }
+                          {alert.title}
                         </h4>
                         <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/50 dark:bg-gray-800/50">
                           {alert.severity.toUpperCase()}
@@ -286,11 +332,11 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                       </div>
                       
                       <p className="text-sm mb-3">
-                        {alert.description }
+                        {alert.description}
                       </p>
                       
                       <div className="text-sm">
-                        <strong>Action Required:</strong> {alert.actionRequired }
+                        <strong>Action Required:</strong> {alert.actionRequired}
                       </div>
                       
                       {alert.dueDate && (
@@ -306,17 +352,17 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                       
                       {alert.assignedTo && (
                         <div className="text-sm mt-1">
-                          <strong>Assigned:</strong> {alert.assignedTo }
+                          <strong>Assigned:</strong> {alert.assignedTo}
                         </div>
                       )}
                       
                       <div className="flex flex-wrap gap-1 mt-2">
-                        {alert.affectedItems.map((item: index) => (
+                        {alert.affectedItems.map((item, index) => (
                           <span
-                            key={index }
+                            key={index}
                             className="px-2 py-1 bg-white/30 dark:bg-gray-800/30 text-xs rounded"
                           >
-                            {item }
+                            {item}
                           </span>
                         ))}
                       </div>

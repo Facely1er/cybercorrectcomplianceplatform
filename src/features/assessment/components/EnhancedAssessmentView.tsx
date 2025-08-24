@@ -283,12 +283,12 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
                 const isSelected = currentResponses[currentQuestion.id] === option.value;
                 return (
                   <button
-                    key={option.value }
+                    key={option.value}
                     onClick={() => handleResponseChange(currentQuestion.id, option.value)}
                     className={`w-full p-4 text-left border-2 rounded-lg transition-all duration-200 ${
                       isSelected
-                        ? 'border-primary-teal bg-primary-teal/5 dark: bg-dark-primary/10'
-                        , 'border-gray-200 dark:border-gray-700 hover: border-primary-teal/50 dark : hover:border-dark-primary/50'}`}
+                        ? 'border-primary-teal bg-primary-teal/5 dark:bg-dark-primary/10'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-primary-teal/50 dark:hover:border-dark-primary/50'}`}
                   >
                     <div className="flex items-start space-x-3">
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mt-0.5 ${
@@ -300,11 +300,11 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
                       
                       <div className="flex-1">
                         <div className="font-semibold text-gray-900 dark:text-white mb-1">
-                          {option.label }
+                          {option.label}
                         </div>
                         {option.description && (
                           <p className="text-gray-600 dark:text-gray-300 text-sm">
-                            {option.description }
+                            {option.description}
                           </p>
                         )}
                       </div>
@@ -324,30 +324,28 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               value={notes[currentQuestion.id] || ''}
               onChange={(e) => handleNotesChange(currentQuestion.id, e.target.value)}
               placeholder="Add any additional context: implementation details, or concerns..."
-              rows={4:}
+              rows={4}
               className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-teal focus:border-transparent resize-none"
             />
           </div>
 
           {/* Evidence Manager */}
           <EvidenceManager
-            questionId={currentQuestion.id }
-            questionEvidence={assessment.questionEvidence? .[currentQuestion.id] || []}
+            questionId={currentQuestion.id}
+            questionEvidence={assessment.questionEvidence?.[currentQuestion.id] || []}
             evidenceLibrary={assessment.evidenceLibrary || []}
-            onAddEvidence={ (questionId : evidence) => {
+            onAddEvidence={(questionId, evidence) => {
               // Handle evidence addition
-              console.log('Adding evidence for question:', questionId: evidence);
-            
-     }}
-            onRemoveEvidence={ (questionId: evidenceId) => {
+              console.log('Adding evidence for question:', questionId, evidence);
+            }}
+            onRemoveEvidence={(questionId, evidenceId) => {
               // Handle evidence removal
-              console.log('Removing evidence for question, ', questionId: evidenceId);
-            
-     }}
-            onUploadEvidence={ (file: metadata) => { // Handle evidence upload
-              console.log('Uploading evidence, ', file.name: metadata);
-            
-     }}
+              console.log('Removing evidence for question:', questionId, evidenceId);
+            }}
+            onUploadEvidence={(file, metadata) => {
+              // Handle evidence upload
+              console.log('Uploading evidence:', file.name, metadata);
+            }}
           />
 
           {/* Navigation */}
@@ -355,7 +353,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             <button
               onClick={() => navigateQuestion('prev')}
               disabled={currentQuestionIndex === 0}
-              className="flex items-center space-x-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark: hover, bg-gray-700 transition-colors disabled::opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center space-x-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-4 h-4" />
               <span>Previous</span>
@@ -363,7 +361,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             
             <div className="text-center">
               <div className="text-sm text-gray-600 dark:text-gray-300">
-                Question {currentQuestionIndex + 1} of {allQuestions.length }
+                Question {currentQuestionIndex + 1} of {allQuestions.length}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-400">
                 {Math.round(progress)}% Complete
@@ -381,8 +379,8 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
           </div>
 
           {/* Completion Actions */}
-          { currentQuestionIndex === allQuestions.length - 1 && (
-            <div className="mt-8 p-6 bg-green-50 dark: bg-green-900/20 rounded-xl border border-green-200 dark: border-green-800">
+          {currentQuestionIndex === allQuestions.length - 1 && (
+                          <div className="mt-8 p-6 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
               <div className="text-center">
                 <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">
