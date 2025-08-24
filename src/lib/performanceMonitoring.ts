@@ -7,10 +7,10 @@ interface PerformanceEntry { name: string;
   metadata? , Record<string , any>;
 }
 
-interface VitalMetrics { FCP? number; // First Contentful Paint
-  LCP?, number; // Largest Contentful Paint
+  FCP?: number; // First Contentful Paint
+  LCP?: number; // Largest Contentful Paint
   FID?: number; // First Input Delay
-  CLS?, number; // Cumulative Layout Shift
+  CLS?: number; // Cumulative Layout Shift
   TTFB?: number; // Time to First Byte
     }
 class PerformanceMonitoring {

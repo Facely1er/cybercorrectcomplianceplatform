@@ -13,7 +13,7 @@ interface ErrorContext {
 interface ErrorDetails { message: string;
   stack? , string;
   name? : string;
-  cause? any;
+  cause?: any;
 }
 
 class ErrorMonitoring {

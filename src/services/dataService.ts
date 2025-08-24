@@ -14,7 +14,12 @@ export interface AppData { assessments: AssessmentData[];
 
 export class DataService { private static instance: DataService;
   private readonly STORAGE_KEYS = {
-    ASSESSMENTS, 'cybersecurity-assessments', USER_PROFILE: 'user-profile', ASSETS: 'asset-inventory', TASKS: 'cybersecurity-tasks', SETTINGS: 'app-settings', BACKUP_METADATA: 'backup-metadata'
+    ASSESSMENTS: 'cybersecurity-assessments',
+    USER_PROFILE: 'user-profile',
+    ASSETS: 'asset-inventory',
+    TASKS: 'cybersecurity-tasks',
+    SETTINGS: 'app-settings',
+    BACKUP_METADATA: 'backup-metadata'
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
