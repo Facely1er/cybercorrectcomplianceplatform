@@ -8,8 +8,6 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { NotificationSystem } from './shared/components/ui/NotificationSystem';
 import { errorMonitoring } from './lib/errorMonitoring';
 import { performanceMonitoring } from './lib/performanceMonitoring';
-import { enhancedDataService } from './services/enhancedDataService';
-import { assessmentService } from './services/assessmentService';
 
 // Lazy load components for better code splitting
 const LandingPage = React.lazy(() => import('./components/LandingPage').then(m => ({ default: m.LandingPage })));
