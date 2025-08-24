@@ -61,9 +61,9 @@ class ErrorMonitoring {
         tags: { type: 'globalError' },
         level: 'error',
         extra: {
-          filename, event.filename,
-          lineno, event.lineno,
-          colno, event.colno
+          filename: event.filename,
+          lineno: event.lineno,
+          colno: event.colno
         }
       });
     });
