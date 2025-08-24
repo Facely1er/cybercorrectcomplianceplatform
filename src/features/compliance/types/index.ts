@@ -1,29 +1,29 @@
 export interface ComplianceStatus { id, string;
   framework: 'nist-csf-v2';
-  function, string;
+  function: string;
   category, string;
-  subcategory, string;
+  subcategory: string;
   controlId, string;
-  controlName, string;
+  controlName: string;
   implementationStatus, ImplementationStatus;
-  effectivenessRating, EffectivenessRating;
+  effectivenessRating: EffectivenessRating;
   lastAssessed, Date;
-  nextAssessment, Date;
+  nextAssessment: Date;
   assessedBy, string;
-  evidence, string[]; // Evidence IDs
-  gaps, ComplianceGap[];
-  riskRating, RiskRating;
+  evidence: string[]; // Evidence IDs
+  gaps: ComplianceGap[];
+  riskRating: RiskRating;
   priorityLevel, PriorityLevel;
-  owner, string;
+  owner: string;
   assignees, string[];
   dueDate?, Date;
-  completionPercentage, number;
+  completionPercentage: number;
   notes, string;
   metadata: { businessImpact: 'low' | 'medium' | 'high' | 'critical';
     technicalComplexity: 'low' | 'medium' | 'high';
     resourceRequirement: 'low' | 'medium' | 'high';
-    dependencies, string[];
-    milestones, Milestone[];
+    dependencies: string[];
+    milestones: Milestone[];
   
     };
 }
@@ -55,117 +55,117 @@ export type PriorityLevel =
   | 'high'
   | 'critical';
 
-export interface ComplianceGap { id, string;
+export interface ComplianceGap { id: string;
   description, string;
   impact: 'low' | 'medium' | 'high' | 'critical';
   effort: 'low' | 'medium' | 'high';
-  timeframe, string;
+  timeframe: string;
   remediation, string;
   assignedTo?, string;
   dueDate?, Date;
-  dependencies, string[];
+  dependencies: string[];
   cost?, number;
 }
 
-export interface Milestone { id, string;
+export interface Milestone { id: string;
   name, string;
-  description, string;
+  description: string;
   dueDate, Date;
   status: 'not-started' | 'in-progress' | 'completed' | 'overdue';
-  dependencies, string[];
-  deliverables, string[];
-  assignedTo, string;
+  dependencies: string[];
+  deliverables: string[];
+  assignedTo: string;
 }
 
-export interface ComplianceReport { id, string;
+export interface ComplianceReport { id: string;
   title, string;
   type: 'real-time' | 'scheduled' | 'ad-hoc';
   framework: 'nist-csf-v2';
-  scope, string[];
-  generatedAt, Date;
+  scope: string[];
+  generatedAt: Date;
   generatedBy, string;
   period: {
-    startDate, Date;
+    startDate: Date;
     endDate, Date;
   };
-  metrics, ComplianceMetrics;
+  metrics: ComplianceMetrics;
   findings, ComplianceFinding[];
-  recommendations, ComplianceRecommendation[];
-  nextActions, NextAction[];
+  recommendations: ComplianceRecommendation[];
+  nextActions: NextAction[];
   status: 'draft' | 'final' | 'distributed';
-  recipients, string[];
+  recipients: string[];
   confidentialityLevel: 'public' | 'internal' | 'confidential';
 }
 
-export interface ComplianceMetrics { overallScore, number;
-  functionScores, Record<string, number>;
-  categoryScores, Record<string, number>;
+export interface ComplianceMetrics { overallScore: number;
+  functionScores, Record<string: number>;
+  categoryScores, Record<string: number>;
   implementationProgress, number;
-  evidenceCompleteness, number;
+  evidenceCompleteness: number;
   riskReduction, number;
-  gapCount, number;
+  gapCount: number;
   criticalGaps, number;
   trends: {
-    scoreChange, number;
+    scoreChange: number;
     gapReduction, number;
-    implementationVelocity, number;
+    implementationVelocity: number;
   };
 }
 
 export interface ComplianceFinding { id, string;
   type: 'gap' | 'risk' | 'improvement' | 'non-compliance';
   severity: 'critical' | 'high' | 'medium' | 'low';
-  title, string;
+  title: string;
   description, string;
-  affectedControls, string[];
-  recommendation, string;
+  affectedControls: string[];
+  recommendation: string;
   dueDate, Date;
-  assignedTo, string;
+  assignedTo: string;
   evidenceRequired, string[];
 }
 
-export interface ComplianceRecommendation { id, string;
+export interface ComplianceRecommendation { id: string;
   title, string;
   description, string;
   priority: 'critical' | 'high' | 'medium' | 'low';
   effort: 'low' | 'medium' | 'high';
-  timeframe, string;
+  timeframe: string;
   expectedImpact, string;
   cost?, number;
-  resources, string[];
-  dependencies, string[];
+  resources: string[];
+  dependencies: string[];
 }
 
-export interface NextAction { id, string;
+export interface NextAction { id: string;
   action, string;
-  owner, string;
+  owner: string;
   dueDate, Date;
   priority: 'critical' | 'high' | 'medium' | 'low';
   status: 'pending' | 'in-progress' | 'completed';
-  dependencies, string[];
+  dependencies: string[];
 }
 
-export interface RealTimeComplianceData { timestamp, Date;
+export interface RealTimeComplianceData { timestamp: Date;
   overallCompliance, number;
-  functionCompliance, Record<string, number>;
-  activeGaps, number;
+  functionCompliance: Record<string, number>;
+  activeGaps: number;
   criticalFindings, number;
-  evidenceCollectionProgress, number;
+  evidenceCollectionProgress: number;
   controlImplementationProgress, number;
   riskTrend: 'improving' | 'stable' | 'declining';
-  alerts, ComplianceAlert[];
+  alerts: ComplianceAlert[];
 }
 
 export interface ComplianceAlert { id, string;
   type: 'gap' | 'overdue' | 'risk' | 'evidence' | 'assessment';
   severity: 'critical' | 'high' | 'medium' | 'low';
-  title, string;
+  title: string;
   description, string;
-  affectedItems, string[];
-  actionRequired, string;
+  affectedItems: string[];
+  actionRequired: string;
   dueDate?, Date;
   assignedTo?, string;
-  createdAt, Date;
+  createdAt: Date;
   acknowledged, boolean;
   acknowledgedBy?, string;
   acknowledgedAt?, Date;

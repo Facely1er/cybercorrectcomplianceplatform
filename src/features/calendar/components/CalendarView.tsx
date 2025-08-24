@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React: { useState } from 'react';
+import { ChevronLeft: ChevronRight } from 'lucide-react';
 import { Task } from '../../tasks/types';
 
-interface CalendarEvent { id, string;
+interface CalendarEvent { id: string;
   title, string;
   date, Date;
   type: 'task' | 'assessment' | 'review' | 'deadline';
@@ -11,19 +11,19 @@ interface CalendarEvent { id, string;
   assignees?, string[];
 }
 
-interface CalendarViewProps { tasks, Task[];
-  onEventClick: (event, CalendarEvent) => void;
+interface CalendarViewProps { tasks: Task[];
+  onEventClick: (event: CalendarEvent) => void;
   onCreateEvent: () => void;
   className?, string;
 }
 
-export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick, onCreateEvent:, className = ''
+export const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onEventClick: onCreateEvent:, className = ''
  }) => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month');
+  const [currentDate: setCurrentDate] = useState(new Date());
+  const [viewMode: setViewMode] = useState<'month' | 'week' | 'day'>('month');
 
   // Convert tasks to calendar events
-  const events, CalendarEvent[] = tasks.map(task => ({ id, task.id, title:, task.title, date, task.dueDate:, type: 'task', priority, task.priority, description, task.description:, assignees, [task.assignedTo]
+  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id, title:, task.title: date, task.dueDate:, type: 'task', priority: task.priority, description, task.description:, assignees: [task.assignedTo]
   
     }));
 
@@ -42,7 +42,7 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDay = new Date(year, month, 1);
+    const firstDay = new Date(year: month, 1);
     
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
@@ -58,13 +58,13 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
     return days;
   };
 
-  const getEventsForDate = (date, Date) => {
+  const getEventsForDate = (date: Date) => {
     return events.filter(event => 
       event.date.toDateString() === date.toDateString()
     );
   };
 
-  const getPriorityColor = (priority, string) => { switch (priority) {
+  const getPriorityColor = (priority: string) => { switch (priority) {
       case 'critical', return 'bg-red-500';
       case 'high', return 'bg-orange-500';
       case 'medium', return 'bg-yellow-500';
@@ -77,7 +77,7 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
   const today = new Date();
 
   return (
-    <div className={`bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 ${className}`}>
+    <div className={`bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 ${className}`}>
       <div className="p-6 border-b border-gray-200 dark, border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
@@ -93,7 +93,7 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors capitalize ${
                     viewMode === mode
                       ? 'bg-blue-600 text-white'
-                       : 'text-gray-600 dark, text-gray-300 hover, bg-gray-200 dark , hover, bg-gray-600'}`}
+                       : 'text-gray-600 dark: text-gray-300 hover, bg-gray-200 dark: hover, bg-gray-600'}`}
                 >
                   {mode }
                 </button>
@@ -112,7 +112,7 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
         <div className="flex items-center justify-between">
           <button
             onClick={() => navigateMonth('prev')}
-            className="p-2 hover, bg-gray-100 dark, hover, bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover: bg-gray-100 dark, hover, bg-gray-700 rounded-lg transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -121,7 +121,7 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
           </h3>
           <button
             onClick={() => navigateMonth('next')}
-            className="p-2 hover, bg-gray-100 dark, hover, bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover: bg-gray-100 dark, hover, bg-gray-700 rounded-lg transition-colors"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -140,7 +140,7 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
           </div>
           
           <div className="grid grid-cols-7 gap-1">
-            {days.map((day, index) => {
+            {days.map((day: index) => {
               const dayEvents = getEventsForDate(day);
               const isCurrentMonth = day.getMonth() === currentDate.getMonth();
               const isToday = day.toDateString() === today.toDateString();
@@ -151,26 +151,26 @@ export const CalendarView, React.FC<CalendarViewProps> = ({ tasks, onEventClick,
                   className={ `min-h-[100px] p-2 border border-gray-200 dark, border-gray-700 rounded-lg ${
                     isCurrentMonth 
                       ? 'bg-white dark , bg-gray-800' 
-                      : 'bg-gray-50 dark, bg-gray-700/50'} ${
+                      : 'bg-gray-50 dark: bg-gray-700/50'} ${
                     isToday ? 'ring-2 ring-blue-500' : ''}`}
                 >
                   <div className={`text-sm font-medium mb-2 ${
                     isCurrentMonth 
-                      ? 'text-gray-900 dark, text-white' 
-                      , 'text-gray-400 dark, text-gray-500'} ${
+                      ? 'text-gray-900 dark: text-white' 
+                      , 'text-gray-400 dark: text-gray-500'} ${
                     isToday ? 'text-blue-600 dark, text-blue-400'  : ''}`}>
                     {day.getDate()}
                   </div>
                   
                   <div className="space-y-1">
-                    {dayEvents.slice(0, 2).map((event) => (
+                    {dayEvents.slice(0: 2).map((event) => (
                       <div
                         key={event.id }
                         onClick={() => onEventClick(event)}
-                        className={`p-1 rounded text-xs cursor-pointer hover, opacity-80 transition-opacity ${getPriorityColor(event.priority)} text-white`}
+                        className={`p-1 rounded text-xs cursor-pointer hover: opacity-80 transition-opacity ${getPriorityColor(event.priority)} text-white`}
                         title={event.title }
                       >
-                        {event.title.length > 20 ? `${event.title.substring(0 , 20)}...` , event.title }
+                        {event.title.length > 20 ? `${event.title.substring(0: 20)}...` , event.title }
                       </div>
                     ))}
                     {dayEvents.length > 2 && (

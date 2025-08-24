@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link: useNavigate } from 'react-router-dom';
 ;
 
 export const SimpleLandingPage, React.FC = () => {
@@ -26,7 +26,7 @@ export const SimpleLandingPage, React.FC = () => {
         </div>
 
         {/* Title */}
-        <h1 className="text-4xl md, text-6xl font-bold text-gray-900 dark, text-white mb-6">
+        <h1 className="text-4xl md: text-6xl font-bold text-gray-900 dark, text-white mb-6">
           NIST CSF v2.0 Implementation Platform
         </h1>
 
@@ -46,7 +46,7 @@ export const SimpleLandingPage, React.FC = () => {
           
           <button
             onClick={handleDashboardClick }
-            className="border-2 border-blue-600 text-blue-600 dark, text-blue-400 px-8 py-4 rounded-xl font-semibold hover, bg-blue-50 dark, hover, bg-blue-900/20 transition-colors inline-flex items-center justify-center space-x-3"
+            className="border-2 border-blue-600 text-blue-600 dark: text-blue-400 px-8 py-4 rounded-xl font-semibold hover, bg-blue-50 dark: hover, bg-blue-900/20 transition-colors inline-flex items-center justify-center space-x-3"
           >
             <BarChart3 className="w-5 h-5" />
             <span>Dashboard</span>
@@ -55,7 +55,7 @@ export const SimpleLandingPage, React.FC = () => {
 
         {/* Alternative Link Methods */}
         <div className="space-y-6">
-          {/* Method 1, React Router Link (Declarative) */}
+          {/* Method 1: React Router Link (Declarative) */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark, text-white mb-3">
               React Router Links (Declarative)
@@ -71,7 +71,7 @@ export const SimpleLandingPage, React.FC = () => {
               
               <Link
                 to="/dashboard"
-                className="border-2 border-green-600 text-green-600 dark, text-green-400 px-8 py-4 rounded-xl font-semibold hover, bg-green-50 dark, hover, bg-green-900/20 transition-colors inline-flex items-center justify-center space-x-3"
+                className="border-2 border-green-600 text-green-600 dark: text-green-400 px-8 py-4 rounded-xl font-semibold hover, bg-green-50 dark: hover, bg-green-900/20 transition-colors inline-flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-5 h-5" />
                 <span>Dashboard (Link)</span>
@@ -79,7 +79,7 @@ export const SimpleLandingPage, React.FC = () => {
             </div>
           </div>
 
-          {/* Method 2, useNavigate Hook */}
+          {/* Method 2: useNavigate Hook */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark, text-white mb-3">
               useNavigate Hook (Programmatic)
@@ -95,7 +95,7 @@ export const SimpleLandingPage, React.FC = () => {
               
               <button
                 onClick={handleDashboardClick }
-                className="border-2 border-purple-600 text-purple-600 dark, text-purple-400 px-8 py-4 rounded-xl font-semibold hover, bg-purple-50 dark, hover, bg-purple-900/20 transition-colors inline-flex items-center justify-center space-x-3"
+                className="border-2 border-purple-600 text-purple-600 dark: text-purple-400 px-8 py-4 rounded-xl font-semibold hover, bg-purple-50 dark: hover, bg-purple-900/20 transition-colors inline-flex items-center justify-center space-x-3"
               >
                 <BarChart3 className="w-5 h-5" />
                 <span>Dashboard (Navigate)</span>
@@ -105,7 +105,7 @@ export const SimpleLandingPage, React.FC = () => {
         </div>
 
         {/* Debug Info */}
-        <div className="mt-12 p-6 bg-yellow-50 dark, bg-yellow-900/20 rounded-xl border border-yellow-200 dark, border-yellow-800">
+        <div className="mt-12 p-6 bg-yellow-50 dark: bg-yellow-900/20 rounded-xl border border-yellow-200 dark, border-yellow-800">
           <h3 className="text-lg font-semibold text-yellow-800 dark, text-yellow-200 mb-3">
             Debug Information
           </h3>

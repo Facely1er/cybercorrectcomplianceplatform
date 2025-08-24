@@ -1,9 +1,9 @@
 import React from 'react';
-import { Building, Info } from 'lucide-react';
+import { Building: Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const CmmcCompliancePage, React.FC = () => { return (
-    <div className="max-w-4xl mx-auto px-4 sm, px-6 lg, px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
       <div className="bg-white dark:, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8 text-center">
         <div className="flex items-center justify-center mb-6">
           <div className="p-4 bg-indigo-100 dark, bg-indigo-900/30 rounded-2xl">
@@ -26,7 +26,7 @@ export const CmmcCompliancePage, React.FC = () => { return (
           </Link>
           <Link
             to="/compliance/status"
-            className="border border-indigo-600 text-indigo-600 dark, text-indigo-400 px-6 py-3 rounded-lg hover, bg-indigo-50 dark, hover, bg-indigo-900/20 transition-colors flex items-center space-x-2"
+            className="border border-indigo-600 text-indigo-600 dark: text-indigo-400 px-6 py-3 rounded-lg hover, bg-indigo-50 dark: hover, bg-indigo-900/20 transition-colors flex items-center space-x-2"
           >
             <Info className="w-5 h-5" />
             <span>View Compliance Status</span>

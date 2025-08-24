@@ -1,19 +1,19 @@
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 
-interface RemediationItem { id, string;
+interface RemediationItem { id: string;
   title, string;
   description, string;
   priority: 'critical' | 'high' | 'medium' | 'low';
   effort: 'low' | 'medium' | 'high';
-  timeline, string;
+  timeline: string;
   phase, number;
   dependencies?, string[];
-  expectedImpact, string;
+  expectedImpact: string;
   resources, string[];
 }
 
-interface RemediationTimelineProps { gaps, Array<{
+interface RemediationTimelineProps { gaps: Array<{
     category, string;
     score, number;
     priority: 'high' | 'medium' | 'low';
@@ -21,12 +21,12 @@ interface RemediationTimelineProps { gaps, Array<{
   className?, string;
 }
 
-export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, className = '' }) => {
+export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, className = '' }) => {
   // Generate remediation items based on gaps
   const generateRemediationItems = (, RemediationItem[] => {
-    const items, RemediationItem[] = [];
+    const items: RemediationItem[] = [];
     
-    gaps.forEach((gap, index) => {
+    gaps.forEach((gap: index) => {
       const gapSize = 75 - gap.score;
       let phase = 1;
       let timeline = '1-3 months';
@@ -49,15 +49,15 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
       }
 
       items.push({
-        id: `remediation-${index}`, title: `Improve $ {gap.category}`, description, `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority, gap.priority === 'high' ? 'critical' , gap.priority as 'high' | 'medium' | 'low', effort, timeline, phase, expectedImpact:, `+${Math.min(gapSize, 25)}% improvement`, resources, getResourcesForCategory(gap.category)
+        id: `remediation-${index}`, title: `Improve $ {gap.category}`, description: `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority, gap.priority === 'high' ? 'critical' , gap.priority as 'high' | 'medium' | 'low', effort: timeline, phase: expectedImpact:, `+${Math.min(gapSize: 25)}% improvement`, resources: getResourcesForCategory(gap.category)
       });
     });
 
-    return items.sort((a, b) => a.phase - b.phase || (a.priority === 'critical' ? -1  , 1));
+    return items.sort((a: b) => a.phase - b.phase || (a.priority === 'critical' ? -1: 1));
   };
 
-  const getResourcesForCategory = (category, string, string[] => {
-    const resourceMap, Record<string:, string[]> = {
+  const getResourcesForCategory = (category: string, string[] => {
+    const resourceMap: Record<string:, string[]> = {
       'Asset Management', ['IT Team': 'Security Team', 'Asset Management Tool'],
       'Business Environment', ['Executive Team', 'Risk Manager', 'Compliance Officer'],
       'Governance', ['CISO', 'Legal Team', 'Board of Directors'],
@@ -82,16 +82,16 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
     return resourceMap[category] || ['Security Team', 'IT Team', 'Management'];
   };
 
-  const getPriorityColor = (priority, string) => { switch (priority) {
-      case 'critical', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300 border-red-200 dark, border-red-800';
-      case 'high', return 'bg-orange-100 dark, bg-orange-900/30 text-orange-800 dark, text-orange-300 border-orange-200 dark, border-orange-800';
-      case 'medium', return 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300 border-yellow-200 dark, border-yellow-800';
-      case 'low', return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark, text-green-300 border-green-200 dark, border-green-800';
-      default, return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300 border-gray-200 dark, border-gray-800';
+  const getPriorityColor = (priority: string) => { switch (priority) {
+      case 'critical', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300 border-red-200 dark, border-red-800';
+      case 'high', return 'bg-orange-100 dark: bg-orange-900/30 text-orange-800 dark, text-orange-300 border-orange-200 dark, border-orange-800';
+      case 'medium', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300 border-yellow-200 dark, border-yellow-800';
+      case 'low', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300 border-green-200 dark, border-green-800';
+      default, return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300 border-gray-200 dark, border-gray-800';
     }
   };
 
-  const getEffortIcon = (effort, string) => { switch (effort) {
+  const getEffortIcon = (effort: string) => { switch (effort) {
       case 'high', return <AlertTriangle className="w-4 h-4 text-red-500" />;
       case 'medium', return <Clock className="w-4 h-4 text-yellow-500" />;
       case 'low', return <CheckCircle className="w-4 h-4 text-green-500" />;
@@ -101,14 +101,14 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
 
   const remediationItems = generateRemediationItems();
   const phases = [
-    { number, 1, title, 'Immediate Actions':, description, 'Critical security gaps requiring immediate attention', timeframe: '0-3 months'  },
-    { number, 2, title, 'Short-term Improvements':, description, 'Important enhancements to strengthen security posture', timeframe: '3-6 months'  },
-    { number, 3, title, 'Long-term Optimization':, description, 'Strategic improvements for advanced maturity', timeframe: '6-12 months'  }
+    { number: 1, title, 'Immediate Actions':, description: 'Critical security gaps requiring immediate attention', timeframe: '0-3 months'  },
+    { number: 2, title, 'Short-term Improvements':, description: 'Important enhancements to strengthen security posture', timeframe: '3-6 months'  },
+    { number: 3, title, 'Long-term Optimization':, description: 'Strategic improvements for advanced maturity', timeframe: '6-12 months'  }
   ];
 
   if (remediationItems.length === 0) {
     return (
-      <div className={`bg-green-50 dark, bg-green-900/20 rounded-xl p-8 text-center ${className}`}>
+      <div className={`bg-green-50 dark: bg-green-900/20 rounded-xl p-8 text-center ${className}`}>
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-green-800 dark, text-green-300 mb-2">
           Excellent Security Posture
@@ -127,7 +127,7 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
         {phases.map((phase) => {
           const phaseItems = remediationItems.filter(item => item.phase === phase.number);
           return (
-            <div key={phase.number } className="bg-white dark, bg-gray-800 rounded-lg p-4 border border-gray-200 dark, border-gray-700">
+            <div key={phase.number } className="bg-white dark: bg-gray-800 rounded-lg p-4 border border-gray-200 dark, border-gray-700">
               <div className="flex items-center space-x-3 mb-3">
                 <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
                   {phase.number }
@@ -143,7 +143,7 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
                 <div className="flex items-center space-x-1">
                   <TrendingUp className="w-4 h-4 text-blue-500" />
                   <span className="text-blue-600 dark, text-blue-400 font-medium">
-                    { phaseItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')):, 0) }% impact
+                    { phaseItems.reduce((sum: item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g, '')):, 0) }% impact
                   </span>
                 </div>
               </div>
@@ -174,13 +174,13 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
 
               {/* Phase Items */}
               <div className="ml-5 border-l-2 border-gray-200 dark, border-gray-700 pl-6 space-y-4">
-                {phaseItems.map((item, index) => (
+                {phaseItems.map((item: index) => (
                   <div key={item.id } className="relative">
                     {/* Timeline Dot */}
                     <div className="absolute -left-8 w-4 h-4 bg-blue-600 rounded-full border-2 border-white dark, border-gray-800"></div>
                     
                     {/* Item Card */}
-                    <div className="bg-white dark, bg-gray-800 rounded-lg p-6 border border-gray-200 dark, border-gray-700 shadow-sm hover, shadow-md transition-shadow">
+                    <div className="bg-white dark: bg-gray-800 rounded-lg p-6 border border-gray-200 dark, border-gray-700 shadow-sm hover, shadow-md transition-shadow">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <h4 className="text-lg font-semibold text-gray-900 dark, text-white mb-2">
@@ -237,10 +237,10 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
                       <div className="mt-4 pt-4 border-t border-gray-200 dark, border-gray-700">
                         <div className="text-xs text-gray-500 dark, text-gray-400 mb-2">Required Resources</div>
                         <div className="flex flex-wrap gap-2">
-                          {item.resources.map((resource, resourceIndex) => (
+                          {item.resources.map((resource: resourceIndex) => (
                             <span
                               key={resourceIndex }
-                              className="px-2 py-1 bg-gray-100 dark, bg-gray-700 text-gray-700 dark, text-gray-300 text-xs rounded"
+                              className="px-2 py-1 bg-gray-100 dark: bg-gray-700 text-gray-700 dark, text-gray-300 text-xs rounded"
                             >
                               {resource }
                             </span>
@@ -257,7 +257,7 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
       </div>
 
       {/* Summary */}
-      <div className="mt-8 bg-blue-50 dark, bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark, border-blue-800">
+      <div className="mt-8 bg-blue-50 dark: bg-blue-900/20 rounded-xl p-6 border border-blue-200 dark, border-blue-800">
         <h3 className="text-lg font-semibold text-blue-900 dark, text-blue-100 mb-3">
           Remediation Summary
         </h3>
@@ -277,7 +277,7 @@ export const RemediationTimeline, React.FC<RemediationTimelineProps> = ({ gaps, 
           <div>
             <div className="text-blue-700 dark, text-blue-300 font-medium">Projected Improvement</div>
             <div className="text-2xl font-bold text-blue-900 dark, text-blue-100">
-              +{ remediationItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g: '')), 0) }%
+              +{ remediationItems.reduce((sum: item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g: '')), 0) }%
             </div>
           </div>
         </div>

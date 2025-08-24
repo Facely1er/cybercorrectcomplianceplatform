@@ -1,13 +1,13 @@
-export interface UserProfile { id, string;
+export interface UserProfile { id: string;
   name, string;
-  email, string;
+  email: string;
   organization, string;
-  role, string;
+  role: string;
   industry, string;
   certifications?, string[];
-  preferences, UserPreferences;
+  preferences: UserPreferences;
   createdAt, Date;
-  lastLogin, Date;
+  lastLogin: Date;
   avatar?, string;
   timezone?, string;
   phoneNumber?, string;
@@ -17,29 +17,29 @@ export interface UserProfile { id, string;
 }
 
 export interface UserPreferences { defaultFramework?, string;
-  autoSave, boolean;
+  autoSave: boolean;
   emailNotifications, boolean;
   reportFormat: 'detailed' | 'summary' | 'executive';
   theme?: 'light' | 'dark' | 'auto';
   language?: 'en' | 'fr';
-  assessmentReminders, boolean;
+  assessmentReminders: boolean;
   showGuidanceByDefault, boolean;
-  defaultReportSections, string[];
+  defaultReportSections: string[];
 }
 
-export interface AssessmentHistoryEntry { assessmentId, string;
+export interface AssessmentHistoryEntry { assessmentId: string;
   frameworkName, string;
-  score, number;
+  score: number;
   completedAt, Date;
-  timeSpent, number;
+  timeSpent: number;
 }
 
 export interface NotificationMessage { id, string;
   type: 'success' | 'error' | 'warning' | 'info';
-  message, string;
+  message: string;
   timestamp, Date;
   action?: {
-    label, string;
+    label: string;
     onClick: () => void;
   };
   persistent?, boolean;
@@ -47,15 +47,15 @@ export interface NotificationMessage { id, string;
   priority?: 'low' | 'medium' | 'high';
 }
 
-export interface Framework { id, string;
+export interface Framework { id: string;
   name, string;
-  description, string;
+  description: string;
   version, string;
-  sections, Section[];
-  maturityLevels, MaturityLevel[];
+  sections: Section[];
+  maturityLevels: MaturityLevel[];
   industry?, string[];
   complexity: 'basic' | 'intermediate' | 'advanced';
-  estimatedTime, number;
+  estimatedTime: number;
   prerequisites?, string[];
   certificationBody?, string;
   lastUpdated?, Date;
@@ -64,15 +64,15 @@ export interface Framework { id, string;
   applicableRegulations?, string[];
 }
 
-export interface FrameworkChange { version, string;
+export interface FrameworkChange { version: string;
   date, Date;
-  changes, string[];
+  changes: string[];
   impact: 'minor' | 'major' | 'breaking';
 }
 
-export interface Section { id, string;
+export interface Section { id: string;
   name, string;
-  description, string;
+  description: string;
   categories, Category[];
   weight, number;
   priority: 'high' | 'medium' | 'low';
@@ -81,23 +81,23 @@ export interface Section { id, string;
   learningResources?, LearningResource[];
 }
 
-export interface Category { id, string;
+export interface Category { id: string;
   name, string;
-  description, string;
+  description: string;
   questions, Question[];
-  weight, number;
+  weight: number;
   maturityIndicators?, MaturityIndicator[];
 }
 
 export interface MaturityIndicator {
-  level, number;
+  level: number;
   description, string;
-  criteria, string[];
+  criteria: string[];
 }
 
-export interface Question { id, string;
+export interface Question { id: string;
   text, string;
-  guidance, string;
+  guidance: string;
   options, Option[];
   priority: 'high' | 'medium' | 'low';
   references?, string[];
@@ -109,22 +109,22 @@ export interface Question { id, string;
   improvementSuggestions?, ImprovementSuggestion[];
 }
 
-export interface SubQuestion { id, string;
+export interface SubQuestion { id: string;
   text, string;
-  required, boolean;
+  required: boolean;
   dependsOn?, string;
 }
 
 export interface ConditionalLogic { showIf: {
     questionId, string;
     operator: 'equals' | 'greaterThan' | 'lessThan';
-    value, number;
+    value: number;
   };
 }
 
 export interface EvidenceRequirement {
   type: 'document' | 'screenshot' | 'policy' | 'procedure';
-  description, string;
+  description: string;
   required, boolean;
 }
 
@@ -136,20 +136,20 @@ export interface RiskFactor {
 
 export interface ImprovementSuggestion { priority: 'high' | 'medium' | 'low';
   effort: 'low' | 'medium' | 'high';
-  timeframe, string;
+  timeframe: string;
   description, string;
   resources?, string[];
 }
 
 export interface LearningResource { title, string;
   type: 'article' | 'video' | 'course' | 'whitepaper' | 'tool';
-  url, string;
+  url: string;
   description, string;
   duration?, number;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
 }
 
-export interface Option { value, number;
+export interface Option { value: number;
   label, string;
   description?, string;
   riskLevel?: 'low' | 'medium' | 'high' | 'critical';
@@ -157,11 +157,11 @@ export interface Option { value, number;
   recommendedActions?, string[];
 }
 
-export interface MaturityLevel { level, number;
+export interface MaturityLevel { level: number;
   name, string;
-  description, string;
+  description: string;
   color, string;
-  minScore, number;
+  minScore: number;
   maxScore, number;
   characteristics?, string[];
   typicalOrganizations?, string[];

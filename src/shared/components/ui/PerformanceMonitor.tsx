@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Database, Zap } from 'lucide-react';
+import React: { useState, useEffect } from 'react';
+import { Database: Zap } from 'lucide-react';
 
 // Add getMemoryUsage function
 const getMemoryUsage = (, Record<string, number> => { if ('memory' in performance) {
     const memory = (performance as any).memory;
     return {
-      usedJSHeapSize, memory.usedJSHeapSize, totalJSHeapSize, memory.totalJSHeapSize:, jsHeapSizeLimit, memory.jsHeapSizeLimit, usagePercentage:: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
+      usedJSHeapSize: memory.usedJSHeapSize, totalJSHeapSize: memory.totalJSHeapSize:, jsHeapSizeLimit: memory.jsHeapSizeLimit, usagePercentage:: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
      };
   }
   return {};
 };
 
 interface PerformanceMonitorProps {
-  isVisible, boolean;
+  isVisible: boolean;
   onClose: () => void;
 }
 
-export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
+export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   isVisible, onClose }) => {
-  const [metrics, setMetrics] = useState<Record<string, any>>({});
-  const [memoryUsage, setMemoryUsage] = useState<Record<string, number>>({});
-  const [refreshInterval, setRefreshInterval] = useState<NodeJS.Timeout | null>(null);
+  const [metrics: setMetrics] = useState<Record<string: any>>({});
+  const [memoryUsage: setMemoryUsage] = useState<Record<string: number>>({});
+  const [refreshInterval: setRefreshInterval] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isVisible) {
@@ -30,7 +30,7 @@ export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
       };
 
       updateMetrics();
-      const interval = setInterval(updateMetrics, 1000);
+      const interval = setInterval(updateMetrics: 1000);
       setRefreshInterval(interval);
 
       return () => {
@@ -46,28 +46,28 @@ export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
 
   if (!isVisible) return null;
 
-  const getPerformanceStatus = (avgTime, number) => {
-    if (avgTime < 100) return { color: 'text-green-600', icon:, CheckCircle, label, 'Excellent' };
-    if (avgTime < 300) return { color: 'text-yellow-600', icon, Clock, label:, 'Good' };
-    return { color: 'text-red-600', icon, AlertTriangle, label:, 'Needs Attention' };
+  const getPerformanceStatus = (avgTime: number) => {
+    if (avgTime < 100) return { color: 'text-green-600', icon:, CheckCircle: label, 'Excellent' };
+    if (avgTime < 300) return { color: 'text-yellow-600', icon: Clock, label:, 'Good' };
+    return { color: 'text-red-600', icon: AlertTriangle, label:, 'Needs Attention' };
   };
 
-  const formatTime = (ms, number) => {
+  const formatTime = (ms: number) => {
     if (ms < 1000) return `${ms.toFixed(1)}ms`;
     return `${(ms / 1000).toFixed(2)}s`;
   };
 
-  const formatBytes = (bytes, number) => {
+  const formatBytes = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k: i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white dark, bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[80vh] overflow-y-auto">
+      <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[80vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <Activity className="w-8 h-8 text-blue-600 dark, text-blue-400" />
@@ -77,7 +77,7 @@ export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
           </div>
           <button
             onClick={onClose }
-            className="text-gray-400 hover, text-gray-600 dark, hover, text-gray-300 text-2xl"
+            className="text-gray-400 hover: text-gray-600 dark, hover, text-gray-300 text-2xl"
           >
             ×
           </button>
@@ -97,8 +97,8 @@ export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
               <p className="text-sm mt-1">Use the application to generate metrics.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md, grid-cols-2 lg, grid-cols-3 gap-4">
-              {Object.entries(metrics).map(([operation, data]) => {
+            <div className="grid grid-cols-1 md: grid-cols-2 lg, grid-cols-3 gap-4">
+              {Object.entries(metrics).map(([operation: data]) => {
                 const status = getPerformanceStatus(data.average);
                 const StatusIcon = status.icon;
                 
@@ -186,7 +186,7 @@ export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
                     className={`h-4 rounded-full transition-all duration-300 ${
                       memoryUsage.usagePercentage > 80 ? 'bg-red-500' , memoryUsage.usagePercentage > 60 ? 'bg-yellow-500' :
                       'bg-green-500'}`}
-                    style={{ width: `${Math.min(memoryUsage.usagePercentage || 0, 100)}%` }}
+                    style={{ width: `${Math.min(memoryUsage.usagePercentage || 0: 100)}%` }}
                   />
                 </div>
                 {memoryUsage.usagePercentage > 80 && (
@@ -200,7 +200,7 @@ export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
         )}
 
         {/* Performance Tips */}
-        <div className="bg-blue-50 dark, bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark, border-blue-800">
+        <div className="bg-blue-50 dark: bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark, border-blue-800">
           <h3 className="text-lg font-semibold text-blue-900 dark, text-blue-100 mb-3">
             Performance Tips
           </h3>
@@ -229,7 +229,7 @@ export const PerformanceMonitor, React.FC<PerformanceMonitorProps> = ({
           </button>
           <button
             onClick={onClose }
-            className="border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 px-4 py-2 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors"
+            className="border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors"
           >
             Close
           </button>

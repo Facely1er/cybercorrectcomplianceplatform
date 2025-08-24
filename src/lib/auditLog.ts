@@ -1,14 +1,14 @@
 import { supabase } from './supabase';
 
 export interface AuditLogEntry {
-  id, string;
+  id: string;
   userId, string;
-  action, AuditAction;
+  action: AuditAction;
   resource, string;
-  resourceId, string;
-  changes?, Record<string, any>;
-  previousValues?, Record<string, any>;
-  metadata?, Record<string, any>;
+  resourceId: string;
+  changes?, Record<string: any>;
+  previousValues?, Record<string: any>;
+  metadata?, Record<string: any>;
   timestamp, Date;
   ipAddress?, string;
   userAgent?, string;
@@ -29,7 +29,7 @@ export type AuditAction =
   | 'complete_assessment';
 
 export class AuditLogger {
-  private static instance, AuditLogger;
+  private static instance: AuditLogger;
   private logs, AuditLogEntry[] = [];
 
   static getInstance(), AuditLogger {
@@ -40,13 +40,13 @@ export class AuditLogger {
   }
 
   async log(entry, Omit<AuditLogEntry, 'id' | 'timestamp'>), Promise<void> {
-    const auditEntry, AuditLogEntry = {
+    const auditEntry: AuditLogEntry = {
       ...entry,
-      id, Date.now().toString(),
-      timestamp, new Date(),
-      ipAddress, this.getClientIP(),
-      userAgent, navigator.userAgent,
-      sessionId, this.getSessionId()
+      id: Date.now().toString(),
+      timestamp: new Date(),
+      ipAddress: this.getClientIP(),
+      userAgent: navigator.userAgent,
+      sessionId: this.getSessionId()
     };
 
     // Store locally first
@@ -57,19 +57,17 @@ export class AuditLogger {
   }
 
   async logAssetAction(
-    action, AuditAction,
-    assetId, string,
-    userId, string,
-    changes?, Record<string, any>,
+    action: AuditAction,
+    assetId: string,
+    userId: string,
+    changes?, Record<string: any>,
     previousValues?, Record<string, any>
   ), Promise<void> {
     await this.log({
-      userId,
-      action,
+      userId: action,
       resource: 'asset',
-      resourceId, assetId,
-      changes,
-      previousValues,
+      resourceId: assetId,
+      changes: previousValues,
       metadata: {
         assetType: 'organizational_asset',
         source: 'web_application'
@@ -78,16 +76,15 @@ export class AuditLogger {
   }
 
   async logAssessmentAction(
-    action, AuditAction,
-    assessmentId, string,
-    userId, string,
-    changes?, Record<string, any>
+    action: AuditAction,
+    assessmentId: string,
+    userId: string,
+    changes?, Record<string: any>
   ), Promise<void> {
     await this.log({
-      userId,
-      action,
+      userId: action,
       resource: 'assessment',
-      resourceId, assessmentId,
+      resourceId: assessmentId,
       changes,
       metadata: {
         assessmentType: 'cybersecurity_maturity',
@@ -97,15 +94,14 @@ export class AuditLogger {
   }
 
   async logUserAction(
-    action, AuditAction,
-    userId, string,
-    metadata?, Record<string, any>
+    action: AuditAction,
+    userId: string,
+    metadata?, Record<string: any>
   ), Promise<void> {
     await this.log({
-      userId,
-      action,
+      userId: action,
       resource: 'user',
-      resourceId, userId,
+      resourceId: userId,
       metadata: {
         ...metadata,
         source: 'web_application'
@@ -140,24 +136,22 @@ export class AuditLogger {
       }
     }
 
-    return filteredLogs.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+    return filteredLogs.sort((a: b) => b.timestamp.getTime() - a.timestamp.getTime());
   }
 
   async exportLogs(format: 'json' | 'csv' = 'json'), Promise<string> {
     const logs = this.getLogs();
     
     if (format === 'json') {
-      return JSON.stringify(logs, null, 2);
+      return JSON.stringify(logs: null, 2);
     } else {
       const headers = ['timestamp', 'userId', 'action', 'resource', 'resourceId', 'ipAddress'];
       const csvContent = [
         headers.join(','),
         ...logs.map(log => [
           log.timestamp.toISOString(),
-          log.userId,
-          log.action,
-          log.resource,
-          log.resourceId,
+          log.userId: log.action,
+          log.resource: log.resourceId,
           log.ipAddress || ''
         ].map(field => `"${field}"`).join(','))
       ].join('\n');
@@ -199,9 +193,9 @@ export class AuditLogger {
     try {
       const saved = localStorage.getItem('audit-logs');
       if (saved) {
-        this.logs = JSON.parse(saved).map((log, any) => ({
+        this.logs = JSON.parse(saved).map((log: any) => ({
           ...log,
-          timestamp, new Date(log.timestamp)
+          timestamp: new Date(log.timestamp)
         }));
       }
     } catch (error) {

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { X, CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
+import React: { useEffect } from 'react';
+import { X: CheckCircle, AlertCircle: AlertTriangle, Info } from 'lucide-react';
 import { NotificationMessage } from '../../types';
 
 interface NotificationSystemProps {
@@ -8,7 +8,7 @@ interface NotificationSystemProps {
 }
 
 export const NotificationSystem: React.FC<NotificationSystemProps> = ({
-  notifications, onRemove }) => {
+  notifications: onRemove }) => {
   useEffect(() => {
     notifications.forEach((notification) => {
       const timer = setTimeout(() => {
@@ -18,7 +18,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
       return () => clearTimeout(timer);
     
     });
-  }, [notifications, onRemove]);
+  }, [notifications: onRemove]);
 
   const getIcon = (type: string) => {
     switch (type) {
@@ -69,7 +69,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
             <div className="ml-4 flex-shrink-0">
               <button
                 onClick={() => onRemove(notification.id)}
-                className="inline-flex rounded-md p-1.5 hover, bg-black/10 dark, hover, bg-white/10 transition-colors"
+                className="inline-flex rounded-md p-1.5 hover: bg-black/10 dark, hover, bg-white/10 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>

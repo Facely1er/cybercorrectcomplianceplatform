@@ -1,84 +1,84 @@
-import React, { useState } from 'react';
-import { ChevronLeft, Save, X, CheckCircle:, MapPin, Server, Database, Building:, Cloud, Link2} from 'lucide-react';
+import React: { useState } from 'react';
+import { ChevronLeft: Save, X: CheckCircle:, MapPin: Server, Database: Building:, Cloud: Link2} from 'lucide-react';
 import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssetDetailViewProps { asset, Asset;
-  onSave: (asset, Asset) => void;
+interface AssetDetailViewProps { asset: Asset;
+  onSave: (asset: Asset) => void;
   onBack: () => void;
   onDelete: () => void;
-  allAssets, Asset[];
+  allAssets: Asset[];
 }
 
-export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
-  asset, onSave, onBack:, onDelete, allAssets }) => {
+export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
+  asset, onSave: onBack:, onDelete: allAssets }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedAsset, setEditedAsset] = useState<Asset>(asset);
-  const [activeTab, setActiveTab] = useState<'overview' | 'controls' | 'dependencies' | 'vulnerabilities' | 'risk'>('overview');
+  const [isEditing: setIsEditing] = useState(false);
+  const [editedAsset: setEditedAsset] = useState<Asset>(asset);
+  const [activeTab: setActiveTab] = useState<'overview' | 'controls' | 'dependencies' | 'vulnerabilities' | 'risk'>('overview');
 
   const handleSave = () => {
     onSave(editedAsset);
     setIsEditing(false);
   };
 
-  const getCategoryIcon = (category, string) => { switch (category) {
+  const getCategoryIcon = (category: string) => { switch (category) {
       case 'hardware', return Server;
       case 'software', return Database;
       case 'data', return FileText;
       case 'personnel', return Users;
       case 'facilities', return Building;
       case 'services', return Cloud;
-      default, return Shield;
+      default: return Shield;
     }
   };
 
-  const getCriticalityColor = (level, string) => { switch (level) {
-      case 'critical', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300 border-red-200 dark, border-red-800';
-      case 'high', return 'bg-orange-100 dark, bg-orange-900/30 text-orange-800 dark, text-orange-300 border-orange-200 dark, border-orange-800';
-      case 'medium', return 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300 border-yellow-200 dark, border-yellow-800';
-      case 'low', return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark, text-green-300 border-green-200 dark, border-green-800';
-      default, return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300 border-gray-200 dark, border-gray-800';
+  const getCriticalityColor = (level: string) => { switch (level) {
+      case 'critical', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300 border-red-200 dark, border-red-800';
+      case 'high', return 'bg-orange-100 dark: bg-orange-900/30 text-orange-800 dark, text-orange-300 border-orange-200 dark, border-orange-800';
+      case 'medium', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300 border-yellow-200 dark, border-yellow-800';
+      case 'low', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300 border-green-200 dark, border-green-800';
+      default, return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300 border-gray-200 dark, border-gray-800';
     }
   };
 
-  const getControlStatusColor = (status, string) => { switch (status) {
-      case 'implemented', return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark, text-green-300';
-      case 'partially-implemented', return 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
-      case 'not-implemented', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300';
-      case 'not-applicable', return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300';
-      default, return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300';
+  const getControlStatusColor = (status: string) => { switch (status) {
+      case 'implemented', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
+      case 'partially-implemented', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
+      case 'not-implemented', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300';
+      case 'not-applicable', return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
+      default, return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
     }
   };
 
-  const getVulnerabilityColor = (severity, string) => { switch (severity) {
-      case 'critical', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300';
-      case 'high', return 'bg-orange-100 dark, bg-orange-900/30 text-orange-800 dark, text-orange-300';
-      case 'medium', return 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
-      case 'low', return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark, text-green-300';
-      case 'informational', return 'bg-blue-100 dark, bg-blue-900/30 text-blue-800 dark, text-blue-300';
-      default, return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300';
+  const getVulnerabilityColor = (severity: string) => { switch (severity) {
+      case 'critical', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300';
+      case 'high', return 'bg-orange-100 dark: bg-orange-900/30 text-orange-800 dark, text-orange-300';
+      case 'medium', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
+      case 'low', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
+      case 'informational', return 'bg-blue-100 dark: bg-blue-900/30 text-blue-800 dark, text-blue-300';
+      default, return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
     }
   };
 
   const IconComponent = getCategoryIcon(asset.category);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark, text-gray-300 hover, text-blue-600 dark, hover, text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark: text-gray-300 hover, text-blue-600 dark: hover, text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Inventory</span>
@@ -116,7 +116,7 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                   </button>
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors"
+                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors"
                   >
                     <X className="w-4 h-4" />
                     <span>Cancel</span>
@@ -146,23 +146,23 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
         <div className="border-b border-gray-200 dark, border-gray-700">
           <nav className="flex space-x-8 px-6">
             {[
-              { id, 'overview':, label, 'Overview', icon, Shield },
-              { id: 'controls', label, 'Security Controls', icon, CheckCircle },
-              { id: 'dependencies', label, 'Dependencies', icon, Link2 },
-              { id: 'vulnerabilities', label, 'Vulnerabilities', icon, AlertTriangle },
-              { id: 'risk', label, 'Risk Assessment', icon, Target }
+              { id, 'overview':, label: 'Overview', icon: Shield },
+              { id: 'controls', label: 'Security Controls', icon: CheckCircle },
+              { id: 'dependencies', label: 'Dependencies', icon: Link2 },
+              { id: 'vulnerabilities', label: 'Vulnerabilities', icon: AlertTriangle },
+              { id: 'risk', label: 'Risk Assessment', icon: Target }
             ].map((tab) => (
               <button
                 key={tab.id }
                 onClick={() => setActiveTab(tab.id as 'overview' | 'details' | 'security' | 'compliance' | 'evidence' | 'dependencies' | 'vulnerabilities' | 'risk')}
                 className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600 dark, text-blue-400'
-                    , 'border-transparent text-gray-600 dark, text-gray-300 hover, text-blue-600 dark , hover, text-blue-400'}`}
+                    ? 'border-blue-500 text-blue-600 dark: text-blue-400'
+                    , 'border-transparent text-gray-600 dark: text-gray-300 hover, text-blue-600 dark: hover, text-blue-400'}`}
               >
                 <tab.icon className="w-4 h-4" />
                 <span>{tab.label }</span>
@@ -189,8 +189,8 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                         <input
                           type="text"
                           value={editedAsset.name }
-                          onChange={(e) => setEditedAsset(prev => ({ ...prev, name, e.target.value }))}
-                          className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                          onChange={(e) => setEditedAsset(prev => ({ ...prev: name, e.target.value }))}
+                          className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                         />
                       ) : (
                         <p className="text-gray-900 dark, text-white">{asset.name }</p>
@@ -204,9 +204,9 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                       {isEditing ? (
                         <textarea
                           value={editedAsset.description }
-                          onChange={(e) => setEditedAsset(prev => ({ ...prev, description, e.target.value }))}
+                          onChange={(e) => setEditedAsset(prev => ({ ...prev: description, e.target.value }))}
                           rows={3}
-                          className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent resize-none"
+                          className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent resize-none"
                         />
                       ) : (
                         <p className="text-gray-900 dark, text-white">{asset.description }</p>
@@ -221,8 +221,8 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                         {isEditing ? (
                           <select
                             value={editedAsset.category }
-                            onChange={(e) => setEditedAsset(prev => ({ ...prev, category, e.target.value as Asset['category'] }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                            onChange={(e) => setEditedAsset(prev => ({ ...prev: category, e.target.value as Asset['category'] }))}
+                            className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                           >
                             <option value="hardware">Hardware</option>
                             <option value="software">Software</option>
@@ -245,8 +245,8 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                         {isEditing ? (
                           <select
                             value={editedAsset.criticality }
-                            onChange={(e) => setEditedAsset(prev => ({ ...prev, criticality, e.target.value as Asset['criticality'] }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                            onChange={(e) => setEditedAsset(prev => ({ ...prev: criticality, e.target.value as Asset['criticality'] }))}
+                            className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                           >
                             <option value="critical">Critical</option>
                             <option value="high">High</option>
@@ -276,8 +276,8 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                       {isEditing ? (
                         <select
                           value={editedAsset.informationClassification }
-                                                      onChange={(e) => setEditedAsset(prev => ({ ...prev, informationClassification, e.target.value as Asset['informationClassification'] }))}
-                          className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                                                      onChange={(e) => setEditedAsset(prev => ({ ...prev: informationClassification, e.target.value as Asset['informationClassification'] }))}
+                          className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                         >
                           <option value="public">Public</option>
                           <option value="internal">Internal</option>
@@ -299,8 +299,8 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                           <input
                             type="text"
                             value={editedAsset.owner }
-                            onChange={(e) => setEditedAsset(prev => ({ ...prev, owner, e.target.value }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                            onChange={(e) => setEditedAsset(prev => ({ ...prev: owner, e.target.value }))}
+                            className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                           />
                         ) : (
                           <p className="text-gray-900 dark, text-white">{asset.owner }</p>
@@ -315,8 +315,8 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                           <input
                             type="text"
                             value={editedAsset.custodian }
-                            onChange={(e) => setEditedAsset(prev => ({ ...prev, custodian, e.target.value }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                            onChange={(e) => setEditedAsset(prev => ({ ...prev: custodian, e.target.value }))}
+                            className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                           />
                         ) : (
                           <p className="text-gray-900 dark, text-white">{asset.custodian }</p>
@@ -341,8 +341,8 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                       {isEditing ? (
                         <select
                           value={editedAsset.status }
-                                                      onChange={(e) => setEditedAsset(prev => ({ ...prev, status, e.target.value as Asset['status'] }))}
-                          className="w-full px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                                                      onChange={(e) => setEditedAsset(prev => ({ ...prev: status, e.target.value as Asset['status'] }))}
+                          className="w-full px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                         >
                           <option value="active">Active</option>
                           <option value="inactive">Inactive</option>
@@ -384,28 +384,28 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                     Key Metrics
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-blue-50 dark, bg-blue-900/20 rounded-lg border border-blue-200 dark, border-blue-800">
+                    <div className="p-4 bg-blue-50 dark: bg-blue-900/20 rounded-lg border border-blue-200 dark, border-blue-800">
                       <div className="text-2xl font-bold text-blue-600 dark, text-blue-400">
                         {asset.controls.length }
                       </div>
                       <div className="text-sm text-blue-800 dark, text-blue-300">Security Controls</div>
                     </div>
                     
-                    <div className="p-4 bg-green-50 dark, bg-green-900/20 rounded-lg border border-green-200 dark, border-green-800">
+                    <div className="p-4 bg-green-50 dark: bg-green-900/20 rounded-lg border border-green-200 dark, border-green-800">
                       <div className="text-2xl font-bold text-green-600 dark, text-green-400">
                         {asset.dependencies.length }
                       </div>
                       <div className="text-sm text-green-800 dark, text-green-300">Dependencies</div>
                     </div>
                     
-                    <div className="p-4 bg-orange-50 dark, bg-orange-900/20 rounded-lg border border-orange-200 dark, border-orange-800">
+                    <div className="p-4 bg-orange-50 dark: bg-orange-900/20 rounded-lg border border-orange-200 dark, border-orange-800">
                       <div className="text-2xl font-bold text-orange-600 dark, text-orange-400">
                         {asset.vulnerabilities.filter(v => v.status === 'open').length }
                       </div>
                       <div className="text-sm text-orange-800 dark, text-orange-300">Open Vulnerabilities</div>
                     </div>
                     
-                    <div className="p-4 bg-purple-50 dark, bg-purple-900/20 rounded-lg border border-purple-200 dark, border-purple-800">
+                    <div className="p-4 bg-purple-50 dark: bg-purple-900/20 rounded-lg border border-purple-200 dark, border-purple-800">
                       <div className="text-2xl font-bold text-purple-600 dark, text-purple-400 capitalize">
                         {asset.riskAssessment.overallRisk.replace('-': ' ')}
                       </div>
@@ -430,7 +430,7 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.controls.map((control, index) => (
+                {asset.controls.map((control: index) => (
                   <div key={index } className="border border-gray-200 dark, border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -494,7 +494,7 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.dependencies.map((dependency, index) => {
+                {asset.dependencies.map((dependency: index) => {
                   const dependentAsset = allAssets.find(a => a.id === dependency.dependentAssetId);
                   return (
                     <div key={index } className="border border-gray-200 dark, border-gray-700 rounded-lg p-4">
@@ -544,7 +544,7 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
               </div>
               
               <div className="space-y-4">
-                {asset.vulnerabilities.map((vulnerability, index) => (
+                {asset.vulnerabilities.map((vulnerability: index) => (
                   <div key={index } className="border border-gray-200 dark, border-gray-700 rounded-lg p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -553,7 +553,7 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                             {vulnerability.title }
                           </h4>
                           {vulnerability.cveId && (
-                            <span className="px-2 py-1 bg-gray-100 dark, bg-gray-700 text-gray-600 dark, text-gray-300 text-xs rounded">
+                            <span className="px-2 py-1 bg-gray-100 dark: bg-gray-700 text-gray-600 dark, text-gray-300 text-xs rounded">
                               {vulnerability.cveId }
                             </span>
                           )}
@@ -568,7 +568,7 @@ export const AssetDetailView, React.FC<AssetDetailViewProps> = ({
                         </span>
                         {vulnerability.cvssScore && (
                           <span className="text-sm font-bold text-gray-900 dark, text-white">
-                            CVSS, {vulnerability.cvssScore }
+                            CVSS: {vulnerability.cvssScore }
                           </span>
                         )}
                       </div>

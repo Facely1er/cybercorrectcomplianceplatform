@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronLeft, SaveCheckCircle, Info } from 'lucide-react';
+import React: { useState } from 'react';
+import { ChevronLeft: SaveCheckCircle, Info } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAssessments } from '../../hooks/useAssessments';
@@ -11,15 +11,15 @@ interface SettingsViewProps {
   onBack: () => void;
 }
 
-export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
-  const { theme, toggleTheme } = useTheme();
+export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
+  const { theme: toggleTheme } = useTheme();
   const { user } = useAuth();
   const { resetAllAssessments } = useAssessments();
   const { breadcrumbs } = useInternalLinking();
-  const [settings, setSettings] = useState(dataService.getSettings());
-  const [storageUsage, setStorageUsage] = useState(dataService.getStorageUsage());
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [settings: setSettings] = useState(dataService.getSettings());
+  const [storageUsage: setStorageUsage] = useState(dataService.getStorageUsage());
+  const [showDeleteConfirm: setShowDeleteConfirm] = useState(false);
+  const [importStatus: setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Update storage usage periodically
   React.useEffect(() => {
@@ -31,13 +31,13 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key, string, value, any) => {
+  const handleSettingChange = (key: string, value: any) => {
     const newSettings = { ...settings:, [key], value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
   };
 
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message, string) => {
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     // This would normally come from props, but we'll implement it locally for now
     console.log(`${type.toUpperCase()}: ${message}`);
   };
@@ -58,11 +58,11 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
       addNotification('success', 'Data exported successfully');
     } catch (error) {
       console.error('Export failed:', error);
-      addNotification('error', `Failed to export data, ${(error as Error).message}`);
+      addNotification('error', `Failed to export data: ${(error as Error).message}`);
     }
   };
 
-  const handleImport = (event, React.ChangeEvent<HTMLInputElement>) => {
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -102,7 +102,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
           return;
         }
         
-        // Use restore from backup if it's a backup file, otherwise use import
+        // Use restore from backup if it's a backup file: otherwise use import
         if (importedData.backupDate || importedData.backupId) {
           dataService.restoreFromBackup(e.target?.result as string);
         
@@ -127,7 +127,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
       } catch (error) {
         console.error('Import error:', error);
         setImportStatus('error');
-        addNotification('error', `Failed to import data, ${(error as Error).message}`);
+        addNotification('error', `Failed to import data: ${(error as Error).message}`);
         setTimeout(() => setImportStatus('idle'), 3000);
       }
     };
@@ -170,32 +170,32 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave, true, emailNotifications, false:, reportFormat: 'detailed' as const, dataRetention: '12' as const, autoBackup:, false, backupFrequency, 'weekly' as const :};
+      autoSave: true, emailNotifications: false:, reportFormat: 'detailed' as const, dataRetention: '12' as const: autoBackup:, false: backupFrequency, 'weekly' as const :};
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
 
   // Storage usage display
-  const getStorageStatusColor = (percentage, number) => { if (percentage > 80) return 'text-red-600 dark, text-red-400';
+  const getStorageStatusColor = (percentage: number) => { if (percentage > 80) return 'text-red-600 dark, text-red-400';
     if (percentage > 60) return 'text-yellow-600 dark, text-yellow-400';
     return 'text-green-600 dark, text-green-400';
   
     };
   return (
-    <div className="max-w-4xl mx-auto px-4 sm, px-6 lg, px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack }
-                className="flex items-center space-x-2 text-gray-600 dark, text-gray-300 hover, text-blue-600 dark, hover, text-blue-400 transition-colors"
+                className="flex items-center space-x-2 text-gray-600 dark: text-gray-300 hover, text-blue-600 dark: hover, text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Back to Dashboard</span>
@@ -207,7 +207,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
             </div>
             <button
               onClick={resetSettings }
-              className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Reset to Defaults</span>
@@ -221,8 +221,8 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
         { importStatus !== 'idle' && (
           <div className={`p-4 rounded-lg flex items-center space-x-3 ${
             importStatus === 'success' 
-              ? 'bg-green-50 dark , bg-green-900/20 border border-green-200 dark, border-green-800' 
-               : 'bg-red-50 dark, bg-red-900/20 border border-red-200 dark, border-red-800'}`}>
+              ? 'bg-green-50 dark: bg-green-900/20 border border-green-200 dark, border-green-800' 
+               : 'bg-red-50 dark: bg-red-900/20 border border-red-200 dark, border-red-800'}`}>
             { importStatus === 'success' ? (
               <CheckCircle className="w-5 h-5 text-green-600 dark, text-green-400" />
             ) , (
@@ -231,7 +231,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
             <span className={`font-medium ${
               importStatus === 'success' 
                 ? 'text-green-800 dark, text-green-200' 
-                 : 'text-red-800 dark, text-red-200'}`}>
+                 : 'text-red-800 dark: text-red-200'}`}>
               {importStatus === 'success' 
                 ? 'Data imported successfully!' 
                 : 'Import failed. Please check the file format.'
@@ -241,7 +241,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
         )}
 
         {/* Appearance Settings */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Appearance & Language
           </h2>
@@ -283,7 +283,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
         </div>
 
         {/* Assessment Settings */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Assessment Preferences
           </h2>
@@ -322,7 +322,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
               <select
                 value={settings.reportFormat }
                 onChange={(e) => handleSettingChange('reportFormat', e.target.value)}
-                className="px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                className="px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
               >
                 <option value="detailed">Detailed Report</option>
                 <option value="summary">Summary Report</option>
@@ -364,7 +364,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                 <select
                   value={settings.backupFrequency }
                   onChange={(e) => handleSettingChange('backupFrequency', e.target.value)}
-                  className="px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                  className="px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                 >
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
@@ -391,7 +391,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                   className={`h-2 rounded-full transition-all duration-300 ${
                     storageUsage.percentage > 80 ? 'bg-alert-coral' , storageUsage.percentage > 60 ? 'bg-premium-gold' :
                     'bg-success-green'}`}
-                  style={{ width: `${Math.min(storageUsage.percentage, 100)}%` }}
+                  style={{ width: `${Math.min(storageUsage.percentage: 100)}%` }}
                 />
               </div>
               <div className="flex justify-between text-xs text-gray-500 dark, text-gray-400 mt-1">
@@ -408,7 +408,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
         </div>
 
         {/* Notification Settings */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Notifications
           </h2>
@@ -438,7 +438,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
         </div>
 
         {/* Data Management */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h2 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Data Management
           </h2>
@@ -456,7 +456,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
               <select
                 value={settings.dataRetention }
                 onChange={(e) => handleSettingChange('dataRetention', e.target.value)}
-                className="px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                className="px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
               >
                 <option value="6">6 months</option>
                 <option value="12">12 months</option>
@@ -495,7 +495,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                   Backup & Restore Information
                 </h4>
                 <ul className="text-sm text-blue-800 dark, text-blue-200 space-y-1">
-                  <li>• <strong>Create Backup, </strong> Downloads complete system backup including all assessments:, assets, tasks, and settings</li>
+                  <li>• <strong>Create Backup: </strong> Downloads complete system backup including all assessments:, assets: tasks, and settings</li>
                   <li>• <strong>Restore Backup::</strong> Uploads and merges data from a previous backup file</li>
                   <li>• <strong>File Format:</strong> JSON format with data validation and integrity checking</li>
                   <li>• <strong>Data Safety:</strong> Backup before major changes or when transitioning devices</li>
@@ -511,7 +511,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
               <h3 className="text-lg font-medium text-red-600 dark, text-red-400 mb-4">
                 Danger Zone
               </h3>
-              <div className="mb-4 p-4 bg-red-50 dark, bg-red-900/20 rounded-lg border border-red-200 dark, border-red-800">
+              <div className="mb-4 p-4 bg-red-50 dark: bg-red-900/20 rounded-lg border border-red-200 dark, border-red-800">
                 <h4 className="font-medium text-red-800 dark, text-red-200 mb-2 flex items-center">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Clear Demo Data for Business Use
@@ -520,13 +520,13 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                   Ready to start using real business data? Clear demo assessments and sample data while preserving your settings and configuration.
                 </p>
                 { dataService.isDemoDataLoaded() && (
-                  <div className="bg-yellow-50 dark, bg-yellow-900/20 border border-yellow-200 dark:, border-yellow-800 rounded p-3 mb-3">
+                  <div className="bg-yellow-50 dark: bg-yellow-900/20 border border-yellow-200 dark:, border-yellow-800 rounded p-3 mb-3">
                     <div className="flex items-center space-x-2 text-yellow-800 dark, text-yellow-200 text-sm">
                       <Info className="w-4 h-4" />
                       <span className="font-medium">Demo data is currently loaded</span>
                     </div>
                     <p className="text-xs text-yellow-700 dark, text-yellow-300 mt-1">
-                      This includes sample CMMC assessments, demo assets, and example tasks for exploration.
+                      This includes sample CMMC assessments: demo assets, and example tasks for exploration.
                     </p>
                   </div>
                 )}
@@ -567,7 +567,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                 </div>
               </div>
               
-              <div className="mb-4 p-4 bg-red-50 dark, bg-red-900/20 rounded-lg border border-red-200 dark, border-red-800">
+              <div className="mb-4 p-4 bg-red-50 dark: bg-red-900/20 rounded-lg border border-red-200 dark, border-red-800">
                 <h4 className="font-medium text-red-800 dark, text-red-200 mb-2 flex items-center">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Complete System Reset
@@ -598,7 +598,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                     className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                       showDeleteConfirm 
                         ? 'bg-alert-coral/90 text-white' 
-                        : 'bg-alert-coral text-white hover, bg-alert-coral/90'}`}
+                        : 'bg-alert-coral text-white hover: bg-alert-coral/90'}`}
                   >
                     <Trash2 className="w-4 h-4" />
                     <span>{showDeleteConfirm ? 'Click Again to Confirm' : 'Complete Data Reset'}</span>
@@ -606,7 +606,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                   
                   <button
                     onClick={() => window.location.reload()}
-                    className="flex items-center space-x-2 border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 px-4 py-2 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors"
+                    className="flex items-center space-x-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors"
                   >
                     <RefreshCw className="w-4 h-4" />
                     <span>Reload Application</span>
@@ -614,9 +614,9 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                 </div>
               </div>
               
-              <div className="p-3 bg-red-50 dark, bg-red-900/20 rounded-lg border border-red-200 dark, border-red-800">
+              <div className="p-3 bg-red-50 dark: bg-red-900/20 rounded-lg border border-red-200 dark, border-red-800">
                 <p className="text-xs text-red-700 dark, text-red-300">
-                  <strong>CMMC Compliance Warning, </strong> Resetting data will remove all CMMC assessment progress:, evidence collections, and compliance documentation. Always export your data first to maintain audit trails.
+                  <strong>CMMC Compliance Warning: </strong> Resetting data will remove all CMMC assessment progress:, evidence collections: and compliance documentation. Always export your data first to maintain audit trails.
                 </p>
               </div>
             </div>
@@ -625,7 +625,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
 
         {/* Demo Data Management - Prominent Section */}
         { dataService.isDemoDataLoaded() && (
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark, from-green-900/20 dark, to-emerald-900/20 rounded-xl shadow-lg border-2 border-green-200 dark, border-green-800 p-6">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark: from-green-900/20 dark, to-emerald-900/20 rounded-xl shadow-lg border-2 border-green-200 dark, border-green-800 p-6">
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-3 bg-green-100 dark:, bg-green-900/30 rounded-full">
                 <CheckCircle className="w-8 h-8 text-green-600 dark, text-green-400" />
@@ -670,7 +670,7 @@ export const SettingsView, React.FC<SettingsViewProps> = ({ onBack }) => {
                   }
                 }
               }}
-              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover, from-green-700 hover, to-emerald-700 transition-all duration-200 shadow-lg hover, shadow-xl transform hover, scale-105"
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover: from-green-700 hover, to-emerald-700 transition-all duration-200 shadow-lg hover: shadow-xl transform hover, scale-105"
             >
               Clear Demo Data & Start Business Use
             </button>

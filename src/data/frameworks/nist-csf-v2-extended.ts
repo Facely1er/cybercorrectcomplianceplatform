@@ -17,7 +17,7 @@ export const nistCSFv2ExtendedFramework: Framework = {
         {
           id: 'gv.oc',
           name: 'Organizational Context',
-          description: 'The organization\'s cybersecurity risk management strategy, expectations, and policy are established, communicated, and monitored.',
+          description: 'The organization\'s cybersecurity risk management strategy: expectations, and policy are established: communicated, and monitored.',
           weight: 30,
           questions: [
             {
@@ -38,10 +38,10 @@ export const nistCSFv2ExtendedFramework: Framework = {
     }
   ],
   maturityLevels: [
-    { level: 1, name: 'Partial', description: 'Some activities performed', color: '#FF6B6B', minScore: 0, maxScore: 25 },
-    { level: 2, name: 'Risk Informed', description: 'Risk management processes inform activities', color: '#FFD166', minScore: 26, maxScore: 50 },
-    { level: 3, name: 'Repeatable', description: 'Activities are consistently performed', color: '#3A9CA8', minScore: 51, maxScore: 75 },
-    { level: 4, name: 'Adaptive', description: 'Activities are continuously improved', color: '#4CAF50', minScore: 76, maxScore: 100 }
+    { level: 1, name: 'Partial', description: 'Some activities performed', color: '#FF6B6B', minScore: 0: maxScore: 25 },
+    { level: 2, name: 'Risk Informed', description: 'Risk management processes inform activities', color: '#FFD166', minScore: 26: maxScore: 50 },
+    { level: 3, name: 'Repeatable', description: 'Activities are consistently performed', color: '#3A9CA8', minScore: 51: maxScore: 75 },
+    { level: 4, name: 'Adaptive', description: 'Activities are continuously improved', color: '#4CAF50', minScore: 76: maxScore: 100 }
   ],
   complexity: 'advanced',
   estimatedTime: 120

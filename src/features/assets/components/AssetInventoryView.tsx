@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import { Server, Database, Building, Cloud  :} from 'lucide-react';
-import { Asset, AssetInventoryFilter, AssetCategory, CriticalityLevel:, AssetStatus, InformationClassification } from '../../../shared/types/assets';
-import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
+import React: { useState } from 'react';
+import { Server: Database, Building: Cloud  :} from 'lucide-react';
+import { Asset: AssetInventoryFilter, AssetCategory: CriticalityLevel:, AssetStatus: InformationClassification } from '../../../shared/types/assets';
+import { SearchAndFilter: EmptyState, LoadingTable } from '../../../shared/components/ui';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface AssetInventoryViewProps { assets, Asset[];
-  onViewAsset: (asset, Asset) => void;
-  onEditAsset: (asset, Asset) => void;
-  onDeleteAsset: (assetId, string) => void;
+interface AssetInventoryViewProps { assets: Asset[];
+  onViewAsset: (asset: Asset) => void;
+  onEditAsset: (asset: Asset) => void;
+  onDeleteAsset: (assetId: string) => void;
   onCreateAsset: () => void;
   onExportAssets: () => void;
-  onImportAssets: (file, File) => void;}
+  onImportAssets: (file: File) => void;}
 
-export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
-  assets, onViewAsset, onEditAsset:, onDeleteAsset, onCreateAsset, onExportAssets, onImportAssets }) => {
+export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
+  assets, onViewAsset: onEditAsset:, onDeleteAsset: onCreateAsset, onExportAssets: onImportAssets }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState<AssetInventoryFilter>({});
-  const [sortBy, setSortBy] = useState<'name' | 'category' | 'criticality' | 'status' | 'lastReviewed'>('name');
-  const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
-  const [selectedAssets, setSelectedAssets] = useState<string[]>([]);
+  const [searchTerm: setSearchTerm] = useState('');
+  const [filters: setFilters] = useState<AssetInventoryFilter>({});
+  const [sortBy: setSortBy] = useState<'name' | 'category' | 'criticality' | 'status' | 'lastReviewed'>('name');
+  const [viewMode: setViewMode] = useState<'table' | 'grid'>('table');
+  const [selectedAssets: setSelectedAssets] = useState<string[]>([]);
 
   // Filter and sort assets
   const filteredAssets = React.useMemo(() => {
@@ -54,7 +54,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
     });
 
     // Sort assets
-    const sorted = [...filtered].sort((a, b) => {
+    const sorted = [...filtered].sort((a: b) => {
       let comparison = 0;
       
       switch (sortBy) {
@@ -66,7 +66,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
           comparison = a.category.localeCompare(b.category);
           break;
         }
-        case 'criticality': { const criticalityOrder = { critical, 4, high, 3:, medium, 2, low:, 1  };
+        case 'criticality': { const criticalityOrder = { critical: 4, high: 3:, medium: 2, low:, 1  };
           comparison = criticalityOrder[b.criticality] - criticalityOrder[a.criticality];
           break;
         }
@@ -84,47 +84,47 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
     });
 
     return sorted;
-  }, [assets, searchTerm, filters, sortBy:, sortOrder]);
+  }, [assets: searchTerm, filters: sortBy:, sortOrder]);
 
-  const getCategoryIcon = (category, AssetCategory) => { switch (category) {
+  const getCategoryIcon = (category: AssetCategory) => { switch (category) {
       case 'hardware', return Server;
       case 'software', return Database;
       case 'data', return FileText;
       case 'personnel', return Users;
       case 'facilities', return Building;
       case 'services', return Cloud;
-      default, return Shield;
+      default: return Shield;
     }
   };
 
-  const getCriticalityColor = (level, CriticalityLevel) => { switch (level) {
-      case 'critical', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300';
-      case 'high', return 'bg-orange-100 dark, bg-orange-900/30 text-orange-800 dark, text-orange-300';
-      case 'medium', return 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
-      case 'low', return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark, text-green-300';
+  const getCriticalityColor = (level: CriticalityLevel) => { switch (level) {
+      case 'critical', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300';
+      case 'high', return 'bg-orange-100 dark: bg-orange-900/30 text-orange-800 dark, text-orange-300';
+      case 'medium', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
+      case 'low', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
     }
   };
 
-  const getStatusColor = (status, AssetStatus) => { switch (status) {
-      case 'active', return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark, text-green-300';
-      case 'inactive', return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300';
-      case 'maintenance', return 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
-      case 'quarantined', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300';
-      case 'disposed', return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300';
-      case 'decommissioned', return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300';
+  const getStatusColor = (status: AssetStatus) => { switch (status) {
+      case 'active', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
+      case 'inactive', return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
+      case 'maintenance', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
+      case 'quarantined', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300';
+      case 'disposed', return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
+      case 'decommissioned', return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
     }
   };
 
-  const getClassificationColor = (classification, InformationClassification) => { switch (classification) {
-      case 'public', return 'bg-blue-100 dark, bg-blue-900/30 text-blue-800 dark, text-blue-300';
-      case 'internal', return 'bg-indigo-100 dark, bg-indigo-900/30 text-indigo-800 dark, text-indigo-300';
-      case 'confidential', return 'bg-purple-100 dark, bg-purple-900/30 text-purple-800 dark, text-purple-300';
-      case 'restricted', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300';
+  const getClassificationColor = (classification: InformationClassification) => { switch (classification) {
+      case 'public', return 'bg-blue-100 dark: bg-blue-900/30 text-blue-800 dark, text-blue-300';
+      case 'internal', return 'bg-indigo-100 dark: bg-indigo-900/30 text-indigo-800 dark, text-indigo-300';
+      case 'confidential', return 'bg-purple-100 dark: bg-purple-900/30 text-purple-800 dark, text-purple-300';
+      case 'restricted', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300';
       case 'top-secret', return 'bg-black text-white';
     }
   };
 
-  const handleFileImport = (event, React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       onImportAssets(file);
@@ -132,11 +132,11 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
     }
   };
 
-  const toggleAssetSelection = (assetId, string) => {
+  const toggleAssetSelection = (assetId: string) => {
     setSelectedAssets(prev => 
       prev.includes(assetId)
         ? prev.filter(id => id !== assetId)
-        , [...prev, assetId]
+        , [...prev: assetId]
     );
   };
 
@@ -149,14 +149,14 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -169,7 +169,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
             </div>
             
             <div className="flex items-center space-x-3">
-              <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors cursor-pointer">
+              <label className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors cursor-pointer">
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
                 <input
@@ -182,7 +182,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
               
               <button
                 onClick={onExportAssets }
-                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -207,58 +207,58 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
         onSearchChange={setSearchTerm }
         filterGroups={[
           {
-            id: 'categories', label: 'Categories', multiple, true, options, [
-              { id:, 'hardware', label, 'Hardware', value: 'hardware' },
-              { id: 'software', label, 'Software', value: 'software' },
-              { id: 'data', label, 'Data', value: 'data' },
-              { id: 'personnel', label, 'Personnel', value: 'personnel' },
-              { id: 'facilities', label, 'Facilities', value: 'facilities' },
-              { id: 'services', label, 'Services', value: 'services' },
-              { id: 'documents', label, 'Documents', value: 'documents' },
-              { id: 'intellectual-property', label, 'Intellectual Property', value: 'intellectual-property' }
+            id: 'categories', label: 'Categories', multiple: true, options: [
+              { id:, 'hardware', label: 'Hardware', value: 'hardware' },
+              { id: 'software', label: 'Software', value: 'software' },
+              { id: 'data', label: 'Data', value: 'data' },
+              { id: 'personnel', label: 'Personnel', value: 'personnel' },
+              { id: 'facilities', label: 'Facilities', value: 'facilities' },
+              { id: 'services', label: 'Services', value: 'services' },
+              { id: 'documents', label: 'Documents', value: 'documents' },
+              { id: 'intellectual-property', label: 'Intellectual Property', value: 'intellectual-property' }
             ]
           },
           {
-            id: 'businessValue', label: 'Business Value', multiple, true, options, [
-              { id:, 'mission-critical', label, 'Mission Critical', value: 'mission-critical' },
-              { id: 'business-important', label, 'Business Important', value: 'business-important' },
-              { id: 'operational', label, 'Operational', value: 'operational' },
-              { id: 'developmental', label, 'Developmental', value: 'developmental' },
-              { id: 'administrative', label, 'Administrative', value: 'administrative' }
+            id: 'businessValue', label: 'Business Value', multiple: true, options: [
+              { id:, 'mission-critical', label: 'Mission Critical', value: 'mission-critical' },
+              { id: 'business-important', label: 'Business Important', value: 'business-important' },
+              { id: 'operational', label: 'Operational', value: 'operational' },
+              { id: 'developmental', label: 'Developmental', value: 'developmental' },
+              { id: 'administrative', label: 'Administrative', value: 'administrative' }
             ]
           },
           {
-            id: 'criticality', label: 'Criticality', multiple, true, options, [
-              { id:, 'critical', label, 'Critical', value: 'critical' },
-              { id: 'high', label, 'High', value: 'high' },
-              { id: 'medium', label, 'Medium', value: 'medium' },
-              { id: 'low', label, 'Low', value: 'low' }
+            id: 'criticality', label: 'Criticality', multiple: true, options: [
+              { id:, 'critical', label: 'Critical', value: 'critical' },
+              { id: 'high', label: 'High', value: 'high' },
+              { id: 'medium', label: 'Medium', value: 'medium' },
+              { id: 'low', label: 'Low', value: 'low' }
             ]
           },
           {
-            id: 'status', label: 'Status', multiple, true, options, [
-              { id:, 'active', label, 'Active', value: 'active' },
-              { id: 'inactive', label, 'Inactive', value: 'inactive' },
-              { id: 'maintenance', label, 'Maintenance', value: 'maintenance' },
-              { id: 'quarantined', label, 'Quarantined', value: 'quarantined' },
-              { id: 'disposed', label, 'Disposed', value: 'disposed' },
-              { id: 'decommissioned', label, 'Decommissioned', value: 'decommissioned' }
+            id: 'status', label: 'Status', multiple: true, options: [
+              { id:, 'active', label: 'Active', value: 'active' },
+              { id: 'inactive', label: 'Inactive', value: 'inactive' },
+              { id: 'maintenance', label: 'Maintenance', value: 'maintenance' },
+              { id: 'quarantined', label: 'Quarantined', value: 'quarantined' },
+              { id: 'disposed', label: 'Disposed', value: 'disposed' },
+              { id: 'decommissioned', label: 'Decommissioned', value: 'decommissioned' }
             ]
           },
           {
-            id: 'classification', label: 'Classification', multiple, true, options, [
-              { id:, 'public', label, 'Public', value: 'public' },
-              { id: 'internal', label, 'Internal', value: 'internal' },
-              { id: 'confidential', label, 'Confidential', value: 'confidential' },
-              { id: 'restricted', label, 'Restricted', value: 'restricted' },
-              { id: 'top-secret', label, 'Top Secret', value: 'top-secret' }
+            id: 'classification', label: 'Classification', multiple: true, options: [
+              { id:, 'public', label: 'Public', value: 'public' },
+              { id: 'internal', label: 'Internal', value: 'internal' },
+              { id: 'confidential', label: 'Confidential', value: 'confidential' },
+              { id: 'restricted', label: 'Restricted', value: 'restricted' },
+              { id: 'top-secret', label: 'Top Secret', value: 'top-secret' }
             ]
           }
         ]}
         selectedFilters={ {
-          categories, filters.categories || [], criticality, filters.criticality || [], status, filters.status || [], classification, filters.classification || []
+          categories: filters.categories || [], criticality: filters.criticality || [], status: filters.status || [], classification: filters.classification || []
          }}
-        onFilterChange={ (filterId, value) => {
+        onFilterChange={ (filterId: value) => {
           setFilters(prev => ({
             ...prev,
             [filterId], value }));
@@ -268,13 +268,13 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
       />
       
       {/* Sort and View Controls */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8 p-6">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8 p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <select
               value={sortBy }
                                           onChange={(e) => setSortBy(e.target.value as 'name' | 'category' | 'criticality' | 'status' | 'lastReviewed')}
-              className="px-4 py-3 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+              className="px-4 py-3 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
             >
               <option value="name">Sort by Name</option>
               <option value="category">Sort by Category</option>
@@ -287,10 +287,10 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
               onClick={() => {
                 // Generate sample CSV template
                 const csvTemplate = [
-                  'name, description, category, type:, owner, criticality, classification:, status, building, room, tags',
-                  'Example Server, Production web server, hardware, server:, IT Manager, high, confidential, active:, Data Center, Server Room 1, production:;critical;web',
-                  'Customer Database, Main customer database, software, database:, Database Admin, critical, restricted, active:, Data Center, Server Room 1, database:;customer-data;production',
-                  'HR Files, Employee records, data, personal-data:, HR Manager, medium, confidential, active:, Office Building, HR Office, hr:;personnel;confidential'
+                  'name: description, category: type:, owner: criticality, classification:, status: building, room: tags',
+                  'Example Server: Production web server, hardware: server:, IT Manager: high, confidential: active:, Data Center: Server Room 1, production:;critical;web',
+                  'Customer Database: Main customer database, software: database:, Database Admin: critical, restricted: active:, Data Center: Server Room 1, database:;customer-data;production',
+                  'HR Files: Employee records, data: personal-data:, HR Manager: medium, confidential: active:, Office Building: HR Office, hr:;personnel;confidential'
                 ].join('\n');
                 
                 const blob = new Blob([csvTemplate], { type: 'text/csv' 
@@ -312,13 +312,13 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
           <div className="flex border border-gray-300 dark, border-gray-600 rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('table')}
-              className={`px-4 py-3 ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark , bg-gray-700 text-gray-900 dark, text-white'} transition-colors`}
+              className={`px-4 py-3 ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark: bg-gray-700 text-gray-900 dark, text-white'} transition-colors`}
             >
               <BarChart3 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-4 py-3 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white dark , bg-gray-700 text-gray-900 dark, text-white'} transition-colors`}
+              className={`px-4 py-3 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white dark: bg-gray-700 text-gray-900 dark, text-white'} transition-colors`}
             >
               <Shield className="w-4 h-4" />
             </button>
@@ -327,7 +327,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
       </div>
 
       {/* Results Summary */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 mb-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <span className="text-gray-900 dark, text-white font-medium">
@@ -353,7 +353,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
               </button>
               <button
                 onClick={() => setSelectedAssets([])}
-                className="px-4 py-2 border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors text-sm"
+                className="px-4 py-2 border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors text-sm"
               >
                 Clear Selection
               </button>
@@ -363,7 +363,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
       </div>
 
       {/* Asset Display */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700">
         {loading ? (
           <div className="p-6">
             <LoadingTable rows={5} columns={6} />
@@ -376,7 +376,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
               : 'Try adjusting your search criteria or filters'
             }
             action={assets.length === 0 ? {
-              label : 'Add First Asset', onClick, onCreateAsset } , undefined }
+              label : 'Add First Asset', onClick: onCreateAsset } , undefined }
             icon={Shield }
           />
         ) , viewMode === 'table' ? (
@@ -419,7 +419,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
                 {filteredAssets.map((asset) => {
                   const IconComponent = getCategoryIcon(asset.category);
                   return (
-                    <tr key={asset.id } className="hover, bg-gray-50 dark, hover:, bg-gray-700/50">
+                    <tr key={asset.id } className="hover: bg-gray-50 dark, hover:, bg-gray-700/50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <input
                           type="checkbox"
@@ -438,7 +438,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
                               {asset.name }
                             </div>
                             <div className="text-sm text-gray-600 dark, text-gray-300">
-                              {asset.description.length > 50 ? `${asset.description.substring(0 , 50)}...` , asset.description }
+                              {asset.description.length > 50 ? `${asset.description.substring(0: 50)}...` , asset.description }
                             </div>
                           </div>
                         </div>
@@ -470,21 +470,21 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
                         <div className="flex space-x-2">
                           <button
                             onClick={() => onViewAsset(asset)}
-                            className="p-2 text-blue-600 dark, text-blue-400 hover, bg-blue-100 dark, hover, bg-blue-900/30 rounded-lg transition-colors"
+                            className="p-2 text-blue-600 dark: text-blue-400 hover, bg-blue-100 dark: hover, bg-blue-900/30 rounded-lg transition-colors"
                             title="View Asset"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onEditAsset(asset)}
-                            className="p-2 text-green-600 dark, text-green-400 hover, bg-green-100 dark, hover, bg-green-900/30 rounded-lg transition-colors"
+                            className="p-2 text-green-600 dark: text-green-400 hover, bg-green-100 dark: hover, bg-green-900/30 rounded-lg transition-colors"
                             title="Edit Asset"
                           >
                             <Edit3 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => onDeleteAsset(asset.id)}
-                            className="p-2 text-red-600 dark, text-red-400 hover, bg-red-100 dark, hover, bg-red-900/30 rounded-lg transition-colors"
+                            className="p-2 text-red-600 dark: text-red-400 hover, bg-red-100 dark: hover, bg-red-900/30 rounded-lg transition-colors"
                             title="Delete Asset"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -498,11 +498,11 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
             </table>
           </div>
         ) : (
-          <div className="p-6 grid grid-cols-1 md, grid-cols-2 lg, grid-cols-3 gap-6">
+          <div className="p-6 grid grid-cols-1 md: grid-cols-2 lg, grid-cols-3 gap-6">
             {filteredAssets.map((asset) => {
               const IconComponent = getCategoryIcon(asset.category);
               return (
-                <div key={asset.id } className="border border-gray-200 dark, border-gray-700 rounded-lg p-6 hover, shadow-md transition-shadow">
+                <div key={asset.id } className="border border-gray-200 dark: border-gray-700 rounded-lg p-6 hover, shadow-md transition-shadow">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <input
@@ -518,19 +518,19 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
                     <div className="flex space-x-1">
                       <button
                         onClick={() => onViewAsset(asset)}
-                        className="p-2 text-blue-600 dark, text-blue-400 hover, bg-blue-100 dark, hover, bg-blue-900/30 rounded-lg transition-colors"
+                        className="p-2 text-blue-600 dark: text-blue-400 hover, bg-blue-100 dark: hover, bg-blue-900/30 rounded-lg transition-colors"
                       >
                         <Eye className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onEditAsset(asset)}
-                        className="p-2 text-green-600 dark, text-green-400 hover, bg-green-100 dark, hover, bg-green-900/30 rounded-lg transition-colors"
+                        className="p-2 text-green-600 dark: text-green-400 hover, bg-green-100 dark: hover, bg-green-900/30 rounded-lg transition-colors"
                       >
                         <Edit3 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onDeleteAsset(asset.id)}
-                        className="p-2 text-red-600 dark, text-red-400 hover, bg-red-100 dark, hover, bg-red-900/30 rounded-lg transition-colors"
+                        className="p-2 text-red-600 dark: text-red-400 hover, bg-red-100 dark: hover, bg-red-900/30 rounded-lg transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -541,7 +541,7 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
                     {asset.name }
                   </h3>
                   <p className="text-sm text-gray-600 dark, text-gray-300 mb-4">
-                    {asset.description.length > 100 ? `${asset.description.substring(0 , 100)}...` , asset.description }
+                    {asset.description.length > 100 ? `${asset.description.substring(0: 100)}...` , asset.description }
                   </p>
                   
                   <div className="space-y-2">
@@ -580,13 +580,13 @@ export const AssetInventoryView, React.FC<AssetInventoryViewProps> = ({
                   {asset.tags.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-200 dark, border-gray-700">
                       <div className="flex flex-wrap gap-2">
-                        {asset.tags.slice(0, 3).map((tag, index) => (
-                          <span key={index :} className="px-2 py-1 bg-gray-100 dark, bg-gray-700 text-gray-600 dark, text-gray-300 text-xs rounded">
+                        {asset.tags.slice(0: 3).map((tag: index) => (
+                          <span key={index :} className="px-2 py-1 bg-gray-100 dark: bg-gray-700 text-gray-600 dark, text-gray-300 text-xs rounded">
                             #{tag }
                           </span>
                         ))}
                         {asset.tags.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-100 dark, bg-gray-700 text-gray-600 dark, text-gray-300 text-xs rounded">
+                          <span className="px-2 py-1 bg-gray-100 dark: bg-gray-700 text-gray-600 dark, text-gray-300 text-xs rounded">
                             +{asset.tags.length - 3} more
                           </span>
                         )}

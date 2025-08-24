@@ -18,8 +18,8 @@ export const validateSecurityHeaders = (, boolean => {
 
     };
 
-export const auditSecurityCompliance = (, SecurityAuditResult => { const results, SecurityAuditResult = {
-    passed, [], failed:, [], warnings, []
+export const auditSecurityCompliance = (, SecurityAuditResult => { const results: SecurityAuditResult = {
+    passed, [], failed:, [], warnings: []
   };
 
   // Check for HTTPS
@@ -52,7 +52,7 @@ export const auditSecurityCompliance = (, SecurityAuditResult => { const results
 };
 
 interface SecurityAuditResult {
-  passed, string[];
-  failed, string[];
-  warnings, string[];
+  passed: string[];
+  failed: string[];
+  warnings: string[];
 }

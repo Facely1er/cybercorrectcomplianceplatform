@@ -1,46 +1,46 @@
-export interface Asset { id, string;
+export interface Asset { id: string;
   name, string;
-  description, string;
+  description: string;
   category, AssetCategory;
-  subcategory, string;
+  subcategory: string;
   type, AssetType;
-  owner, string;
+  owner: string;
   custodian, string;
-  location, AssetLocation;
+  location: AssetLocation;
   status, AssetStatus;
-  criticality, CriticalityLevel;
+  criticality: CriticalityLevel;
   informationClassification, InformationClassification;
-  businessValue, BusinessValue;
+  businessValue: BusinessValue;
   technicalSpecs?, TechnicalSpecifications;
-  dependencies, AssetDependency[];
-  controls, SecurityControl[];
-  vulnerabilities, Vulnerability[];
-  riskAssessment, AssetRiskAssessment;
+  dependencies: AssetDependency[];
+  controls: SecurityControl[];
+  vulnerabilities: Vulnerability[];
+  riskAssessment: AssetRiskAssessment;
   compliance, ComplianceRequirement[];
-  lifecycle, AssetLifecycle;
+  lifecycle: AssetLifecycle;
   createdAt, Date;
-  updatedAt, Date;
+  updatedAt: Date;
   lastReviewed, Date;
-  nextReview, Date;
+  nextReview: Date;
   tags, string[];
-  metadata, Record<string, any>;
+  metadata: Record<string, any>;
   // Enhanced classification fields
   dataClassification?: { sensitivityLevel: 'low' | 'medium' | 'high' | 'critical';
-    regulatoryRequirements, string[];
-    dataTypes, string[];
+    regulatoryRequirements: string[];
+    dataTypes: string[];
     accessRestrictions: 'public' | 'standard' | 'restricted' | 'highly-restricted';
   
     };
   importMetadata?: {
-    importedAt, string;
+    importedAt: string;
     sourceFile, string;
     originalId?, string;
   };
-  exportMetadata?: { exportedAt, string;
+  exportMetadata?: { exportedAt: string;
     classification: { level, InformationClassification:;
-      businessValue, BusinessValue;
+      businessValue: BusinessValue;
       criticality, CriticalityLevel;
-      riskLevel, RiskLevel;
+      riskLevel: RiskLevel;
     };
   };
 }
@@ -115,7 +115,7 @@ export interface AssetLocation { type: 'physical' | 'logical' | 'cloud' | 'hybri
   region?, string;
   subnet?, string;
   coordinates?: {
-    latitude, number;
+    latitude: number;
     longitude, number;
   };
 }
@@ -128,14 +128,14 @@ export interface TechnicalSpecifications { operatingSystem?, string;
   ipAddress?, string;
   macAddress?, string;
   capacity?, string;
-  specifications?, Record<string, any>;
+  specifications?, Record<string: any>;
 }
 
-export interface AssetDependency { dependentAssetId, string;
+export interface AssetDependency { dependentAssetId: string;
   dependencyType, DependencyType;
-  criticalityImpact, CriticalityLevel;
+  criticalityImpact: CriticalityLevel;
   description, string;
-  bidirectional, boolean;
+  bidirectional: boolean;
 }
 
 export type DependencyType = 
@@ -147,20 +147,20 @@ export type DependencyType =
   | 'backup' 
   | 'disaster-recovery';
 
-export interface SecurityControl { id, string;
+export interface SecurityControl { id: string;
   name, string;
-  description, string;
+  description: string;
   type, ControlType;
-  framework, string;
+  framework: string;
   controlFamily, string;
-  implementationStatus, ImplementationStatus;
+  implementationStatus: ImplementationStatus;
   effectivenessRating, EffectivenessRating;
-  testingFrequency, TestingFrequency;
+  testingFrequency: TestingFrequency;
   lastTested, Date;
-  nextTest, Date;
+  nextTest: Date;
   owner, string;
-  evidence, string[];
-  exceptions, ControlException[];
+  evidence: string[];
+  exceptions: ControlException[];
 }
 
 export type ControlType = 
@@ -191,26 +191,26 @@ export type TestingFrequency =
   | 'annually' 
   | 'ad-hoc';
 
-export interface ControlException { id, string;
+export interface ControlException { id: string;
   reason, string;
-  approvedBy, string;
+  approvedBy: string;
   approvalDate, Date;
-  expirationDate, Date;
+  expirationDate: Date;
   compensatingControls, string[];
-  riskAcceptance, string;
+  riskAcceptance: string;
 }
 
-export interface Vulnerability { id, string;
+export interface Vulnerability { id: string;
   cveId?, string;
-  title, string;
+  title: string;
   description, string;
-  severity, VulnerabilitySeverity;
+  severity: VulnerabilitySeverity;
   cvssScore?, number;
-  discoveredDate, Date;
+  discoveredDate: Date;
   status, VulnerabilityStatus;
-  remediation, VulnerabilityRemediation;
+  remediation: VulnerabilityRemediation;
   affectedSystems, string[];
-  exploitability, ExploitabilityLevel;
+  exploitability: ExploitabilityLevel;
 }
 
 export type VulnerabilitySeverity = 
@@ -234,13 +234,13 @@ export type ExploitabilityLevel =
   | 'low' 
   | 'theoretical';
 
-export interface VulnerabilityRemediation { priority, CriticalityLevel;
+export interface VulnerabilityRemediation { priority: CriticalityLevel;
   estimatedEffort, string;
-  targetDate, Date;
+  targetDate: Date;
   assignedTo, string;
-  strategy, RemediationStrategy;
+  strategy: RemediationStrategy;
   progress, number;
-  notes, string;
+  notes: string;
 }
 
 export type RemediationStrategy = 
@@ -251,14 +251,14 @@ export type RemediationStrategy =
   | 'risk-acceptance' 
   | 'system-replacement';
 
-export interface AssetRiskAssessment { overallRisk, RiskLevel;
+export interface AssetRiskAssessment { overallRisk: RiskLevel;
   riskFactors, RiskFactor[];
-  threats, ThreatAssessment[];
-  impact, ImpactAssessment;
+  threats: ThreatAssessment[];
+  impact: ImpactAssessment;
   likelihood, LikelihoodAssessment;
-  riskTreatment, RiskTreatment;
+  riskTreatment: RiskTreatment;
   lastAssessment, Date;
-  nextAssessment, Date;
+  nextAssessment: Date;
   assessedBy, string;
 }
 
@@ -269,20 +269,20 @@ export type RiskLevel =
   | 'high' 
   | 'very-high';
 
-export interface RiskFactor { factor, string;
+export interface RiskFactor { factor: string;
   description, string;
-  impact, RiskLevel;
+  impact: RiskLevel;
   likelihood, RiskLevel;
-  mitigation, string;
+  mitigation: string;
 }
 
-export interface ThreatAssessment { threatId, string;
+export interface ThreatAssessment { threatId: string;
   threatName, string;
-  threatType, ThreatType;
+  threatType: ThreatType;
   likelihood, RiskLevel;
-  impact, RiskLevel;
+  impact: RiskLevel;
   riskRating, RiskLevel;
-  mitigations, string[];
+  mitigations: string[];
 }
 
 export type ThreatType = 
@@ -296,25 +296,25 @@ export type ThreatType =
   | 'denial-of-service' 
   | 'supply-chain-attack';
 
-export interface ImpactAssessment { confidentiality, RiskLevel;
+export interface ImpactAssessment { confidentiality: RiskLevel;
   integrity, RiskLevel;
-  availability, RiskLevel;
+  availability: RiskLevel;
   financialImpact, string;
-  operationalImpact, string;
+  operationalImpact: string;
   reputationalImpact, string;
-  legalImpact, string;
+  legalImpact: string;
 }
 
-export interface LikelihoodAssessment { threatLevel, RiskLevel;
+export interface LikelihoodAssessment { threatLevel: RiskLevel;
   vulnerabilityLevel, RiskLevel;
-  exposureLevel, RiskLevel;
+  exposureLevel: RiskLevel;
   historicalIncidents, number;
-  industryTrends, string;
+  industryTrends: string;
 }
 
-export interface RiskTreatment { strategy, RiskTreatmentStrategy;
+export interface RiskTreatment { strategy: RiskTreatmentStrategy;
   controls, string[];
-  residualRisk, RiskLevel;
+  residualRisk: RiskLevel;
   acceptanceRationale?, string;
   approvedBy?, string;
   approvalDate?, Date;
@@ -326,23 +326,23 @@ export type RiskTreatmentStrategy =
   | 'avoid' 
   | 'accept';
 
-export interface ComplianceRequirement { framework, string;
+export interface ComplianceRequirement { framework: string;
   requirement, string;
-  description, string;
+  description: string;
   mandatory, boolean;
-  implementationStatus, ImplementationStatus;
+  implementationStatus: ImplementationStatus;
   evidence, string[];
-  assessmentDate, Date;
+  assessmentDate: Date;
   nextAssessment, Date;
-  exceptions, string[];
+  exceptions: string[];
 }
 
-export interface AssetLifecycle { phase, LifecyclePhase;
+export interface AssetLifecycle { phase: LifecyclePhase;
   acquisitionDate?, Date;
   deploymentDate?, Date;
   endOfLife?, Date;
   disposalDate?, Date;
-  maintenanceSchedule, MaintenanceSchedule;
+  maintenanceSchedule: MaintenanceSchedule;
   supportContract?, SupportContract;
   warrantyExpiration?, Date;
 }
@@ -355,11 +355,11 @@ export type LifecyclePhase =
   | 'maintenance' 
   | 'disposal';
 
-export interface MaintenanceSchedule { frequency, TestingFrequency;
+export interface MaintenanceSchedule { frequency: TestingFrequency;
   lastMaintenance?, Date;
-  nextMaintenance, Date;
+  nextMaintenance: Date;
   maintenanceType, MaintenanceType;
-  assignedTo, string;
+  assignedTo: string;
 }
 
 export type MaintenanceType = 
@@ -368,13 +368,13 @@ export type MaintenanceType =
   | 'predictive' 
   | 'emergency';
 
-export interface SupportContract { vendor, string;
+export interface SupportContract { vendor: string;
   contractNumber, string;
-  startDate, Date;
+  startDate: Date;
   endDate, Date;
-  supportLevel, SupportLevel;
+  supportLevel: SupportLevel;
   responseTime, string;
-  coverage, string[];
+  coverage: string[];
 }
 
 export type SupportLevel = 
@@ -395,15 +395,15 @@ export interface AssetInventoryFilter { categories?, AssetCategory[];
   complianceStatus?, ImplementationStatus[];
 }
 
-export interface AssetRelationship { id, string;
+export interface AssetRelationship { id: string;
   sourceAssetId, string;
-  targetAssetId, string;
+  targetAssetId: string;
   relationshipType, RelationshipType;
-  description, string;
+  description: string;
   strength, RelationshipStrength;
-  bidirectional, boolean;
+  bidirectional: boolean;
   createdAt, Date;
-  createdBy, string;
+  createdBy: string;
 }
 
 export type RelationshipType = 
@@ -422,15 +422,15 @@ export type RelationshipStrength =
   | 'strong' 
   | 'critical';
 
-export interface AssetGroup { id, string;
+export interface AssetGroup { id: string;
   name, string;
-  description, string;
+  description: string;
   groupType, AssetGroupType;
-  assets, string[];
-  rules, AssetGroupRule[];
-  owner, string;
+  assets: string[];
+  rules: AssetGroupRule[];
+  owner: string;
   createdAt, Date;
-  updatedAt, Date;
+  updatedAt: Date;
 }
 
 export type AssetGroupType = 
@@ -444,15 +444,15 @@ export interface AssetGroupRule { field, string;
   condition: 'and' | 'or';
 }
 
-export interface AssetMetrics { totalAssets, number;
-  assetsByCategory, Record<AssetCategory, number>;
-  assetsByCriticality, Record<CriticalityLevel, number>;
-  assetsByStatus, Record<AssetStatus, number>;
-  assetsByClassification, Record<InformationClassification, number>;
-  riskDistribution, Record<RiskLevel, number>;
+export interface AssetMetrics { totalAssets: number;
+  assetsByCategory, Record<AssetCategory: number>;
+  assetsByCriticality, Record<CriticalityLevel: number>;
+  assetsByStatus, Record<AssetStatus: number>;
+  assetsByClassification, Record<InformationClassification: number>;
+  riskDistribution, Record<RiskLevel: number>;
   complianceRate, number;
-  averageAge, number;
+  averageAge: number;
   maintenanceOverdue, number;
-  vulnerabilityCount, number;
+  vulnerabilityCount: number;
   controlCoverage, number;
 }

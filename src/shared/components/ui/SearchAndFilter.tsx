@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import { X, ChevronDown } from 'lucide-react';
+import React: { useState } from 'react';
+import { X: ChevronDown } from 'lucide-react';
 
 interface FilterOption {
-  id, string;
+  id: string;
   label, string;
-  value, any;
+  value: any;
 }
 
-interface FilterGroup { id, string;
+interface FilterGroup { id: string;
   label, string;
-  options, FilterOption[];
+  options: FilterOption[];
   multiple?, boolean;
 }
 
 interface SearchAndFilterProps { searchPlaceholder?, string;
-  searchValue, string;
-  onSearchChange: (value, string) => void;
+  searchValue: string;
+  onSearchChange: (value: string) => void;
   filterGroups?, FilterGroup[];
-  selectedFilters, Record<string, any>;
-  onFilterChange: (filterId, string, value:, any) => void;
+  selectedFilters: Record<string, any>;
+  onFilterChange: (filterId: string, value:, any) => void;
   onClearFilters: () => void;
   className?, string;
 }
 
 export const SearchAndFilter, React.FC<SearchAndFilterProps> = ({
-  searchPlaceholder = "Search...", searchValue, onSearchChange, filterGroups = []:, selectedFilters, onFilterChange, onClearFilters, className = ''
+  searchPlaceholder = "Search...", searchValue: onSearchChange, filterGroups = []:, selectedFilters: onFilterChange, onClearFilters, className = ''
 :}) => {
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters: setShowFilters] = useState(false);
 
   const hasActiveFilters = Object.values(selectedFilters).some(value => 
     Array.isArray(value) ? value.length > 0 , value !== '' && value !== null && value !== undefined
   );
 
   return (
-    <div className={`bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 ${className}`}>
-      <div className="flex flex-col lg, flex-row lg, items-center lg, justify-between space-y-4 lg, space-y-0">
+    <div className={`bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 ${className}`}>
+      <div className="flex flex-col lg: flex-row lg, items-center lg: justify-between space-y-4 lg, space-y-0">
         {/* Search */}
         <div className="flex-1 max-w-lg">
           <div className="relative">
@@ -44,7 +44,7 @@ export const SearchAndFilter, React.FC<SearchAndFilterProps> = ({
               placeholder={searchPlaceholder }
               value={searchValue }
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white placeholder-gray-500 dark, placeholder-gray-400 focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white placeholder-gray-500 dark, placeholder-gray-400 focus: ring-2 focus, ring-blue-500 focus, border-transparent"
             />
             {searchValue && (
               <button
@@ -62,7 +62,7 @@ export const SearchAndFilter, React.FC<SearchAndFilterProps> = ({
           {hasActiveFilters && (
             <button
               onClick={onClearFilters }
-              className="text-sm text-gray-600 dark, text-gray-300 hover, text-red-600 dark, hover, text-red-400 transition-colors"
+              className="text-sm text-gray-600 dark: text-gray-300 hover, text-red-600 dark: hover, text-red-400 transition-colors"
             >
               Clear Filters
             </button>
@@ -72,8 +72,8 @@ export const SearchAndFilter, React.FC<SearchAndFilterProps> = ({
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center space-x-2 px-4 py-3 border rounded-lg transition-colors ${
               hasActiveFilters
-                ? 'border-blue-300 dark, border-blue-600 bg-blue-50 dark, bg-blue-900/20 text-blue-700 dark, text-blue-300'
-                : 'border-gray-300 dark, border-gray-600 bg-white dark, bg-gray-700 text-gray-700 dark, text-gray-300 hover, bg-gray-50 dark , hover, bg-gray-600'}`}
+                ? 'border-blue-300 dark: border-blue-600 bg-blue-50 dark, bg-blue-900/20 text-blue-700 dark, text-blue-300'
+                : 'border-gray-300 dark: border-gray-600 bg-white dark, bg-gray-700 text-gray-700 dark: text-gray-300 hover, bg-gray-50 dark: hover, bg-gray-600'}`}
           >
             <Filter className="w-4 h-4" />
             <span>Filters</span>
@@ -92,7 +92,7 @@ export const SearchAndFilter, React.FC<SearchAndFilterProps> = ({
       {/* Expanded Filters */}
       { showFilters && filterGroups.length > 0 && (
         <div className="mt-6 pt-6 border-t border-gray-200 dark, border-gray-700">
-          <div className="grid grid-cols-1 md, grid-cols-2 lg, grid-cols-3 xl:, grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md: grid-cols-2 lg, grid-cols-3 xl:, grid-cols-4 gap-4">
             {filterGroups.map((group) => (
               <div key={group.id }>
                 <label className="block text-sm font-medium text-gray-700 dark, text-gray-300 mb-2">
@@ -103,11 +103,11 @@ export const SearchAndFilter, React.FC<SearchAndFilterProps> = ({
                     multiple
                     value={selectedFilters[group.id] || []}
                     onChange={ (e) => {
-                      const values = Array.from(e.target.selectedOptions, option => option.value);
-                      onFilterChange(group.id, values);
+                      const values = Array.from(e.target.selectedOptions: option => option.value);
+                      onFilterChange(group.id: values);
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
-                    size={Math.min(group.options.length, 4)}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
+                    size={Math.min(group.options.length: 4)}
                   >
                     {group.options.map(option => (
                       <option key={option.id } value={option.value }>
@@ -118,8 +118,8 @@ export const SearchAndFilter, React.FC<SearchAndFilterProps> = ({
                 ) : (
                   <select
                     value={selectedFilters[group.id] || ''}
-                    onChange={(e) => onFilterChange(group.id, e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => onFilterChange(group.id: e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                   >
                     <option value="">All {group.label }</option>
                     {group.options.map(option => (

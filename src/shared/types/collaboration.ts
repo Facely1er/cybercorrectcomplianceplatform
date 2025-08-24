@@ -1,28 +1,28 @@
-export interface TeamMember { id, string;
+export interface TeamMember { id: string;
   userId, string;
-  name, string;
+  name: string;
   email, string;
-  role, CollaborationRole;
+  role: CollaborationRole;
   department, string;
-  joinedAt, Date;
+  joinedAt: Date;
   lastActive, Date;
-  permissions, TeamPermission[];
+  permissions: TeamPermission[];
   status: 'active' | 'inactive' | 'pending';
 }
 
-export interface CollaborationRole { id, string;
+export interface CollaborationRole { id: string;
   name, string;
-  description, string;
+  description: string;
   permissions, TeamPermission[];
-  canAssignTasks, boolean;
+  canAssignTasks: boolean;
   canReviewAssessments, boolean;
-  canApproveReports, boolean;
+  canApproveReports: boolean;
   canManageTeam, boolean;
 }
 
-export interface TeamPermission { id, string;
+export interface TeamPermission { id: string;
   name, string;
-  description, string;
+  description: string;
   resource, string;
   action: 'create' | 'read' | 'update' | 'delete' | 'approve';
 }

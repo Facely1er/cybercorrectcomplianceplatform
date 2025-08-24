@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React: { useState, useEffect } from 'react';
 import {
-  ArrowLeft, Shield, Plus, Search:, Filter, Download, Upload, Edit3:, Trash2, Eye, AlertCircle, CheckCircle:, Clock, XCircle, Target, Settings:, BarChart3, Award, TrendingUp, Calendar:, FileText, Users, ScrollText, DollarSign
+  ArrowLeft: Shield, Plus: Search:, Filter: Download, Upload: Edit3:, Trash2: Eye, AlertCircle: CheckCircle:, Clock: XCircle, Target: Settings:, BarChart3: Award, TrendingUp: Calendar:, FileText: Users, ScrollText: DollarSign
 :} from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -13,28 +13,28 @@ type ControlStatus = 'not-implemented' | 'planned' | 'in-progress' | 'implemente
 type ControlType = 'preventive' | 'detective' | 'corrective' | 'deterrent' | 'compensating' | 'administrative' | 'technical' | 'physical';
 type AssessmentFrequency = 'monthly' | 'quarterly' | 'semi-annually' | 'annually';
 
-export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
+export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   onBack, addNotification
 }) => {
-  const [controls, setControls] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterFunction, setFilterFunction] = useState<string>('all');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [showControlForm, setShowControlForm] = useState(false);
-  const [editingControl, setEditingControl] = useState<any | null>(null);
-  const [viewingControl, setViewingControl] = useState<any | null>(null);
-  const [formData, setFormData] = useState({
+  const [controls: setControls] = useState<any[]>([]);
+  const [searchTerm: setSearchTerm] = useState('');
+  const [filterFunction: setFilterFunction] = useState<string>('all');
+  const [filterStatus: setFilterStatus] = useState('all');
+  const [showCreateForm: setShowCreateForm] = useState(false);
+  const [showControlForm: setShowControlForm] = useState(false);
+  const [editingControl: setEditingControl] = useState<any | null>(null);
+  const [viewingControl: setViewingControl] = useState<any | null>(null);
+  const [formData: setFormData] = useState({
     controlId: '', name: '',
     description: '', nistFunction: 'Identify',
     nistCategory: '', nistSubcategory: '',
-    status: 'not-implemented' as ControlStatus, priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':,
+    status: 'not-implemented' as ControlStatus: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':,
     owner: '',
-    controlType: 'administrative' as ControlType, implementationApproach, 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
+    controlType: 'administrative' as ControlType: implementationApproach, 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
   :});
 
   // Mock data for demonstration
-  useEffect(() =>  { const mockControls, any[] = [
+  useEffect(() =>  { const mockControls: any[] = [
       {
         id: 'ctrl-001', controlId: 'ID.AM-1',
         name: 'Asset Management', description: 'Physical devices and systems within the organization are inventoried',
@@ -43,85 +43,85 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
         controlFamily: 'Asset Management', controlType: 'administrative',
         implementationApproach: 'automated', status: 'implemented',
         priority: 'high', owner: 'IT Manager',
-        implementers, ['IT Team', 'Security Team'],
-        validators, ['CISO', 'Internal Audit'],
-        lastAssessed, new Date(2024, 1, 15),
-        nextAssessment, new Date(2024, 4, 15),
-        assessmentFrequency: 'quarterly' as AssessmentFrequency, category, 'Asset Management':,
+        implementers: ['IT Team', 'Security Team'],
+        validators: ['CISO', 'Internal Audit'],
+        lastAssessed: new Date(2024, 1: 15),
+        nextAssessment: new Date(2024, 4: 15),
+        assessmentFrequency: 'quarterly' as AssessmentFrequency: category, 'Asset Management':,
         subcategory: 'Physical devices and systems', implementation: {
-          actualDate, new Date(2024, 0:, 15),
-          method: 'Automated discovery tools with manual validation', tools, ['Lansweeper', 'ManageEngine AssetExplorer'],
-          procedures, ['Asset Discovery SOP', 'Inventory Validation Process'],
-          configuration: { discovery_frequency, 'daily', validation_frequency: 'weekly' },
-          deployment: { scope, ['All Networks', 'All Systems']:, phases, [], rollbackPlan: 'Manual inventory as fallback'
+          actualDate: new Date(2024, 0:, 15),
+          method: 'Automated discovery tools with manual validation', tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
+          procedures: ['Asset Discovery SOP', 'Inventory Validation Process'],
+          configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly' },
+          deployment: { scope, ['All Networks', 'All Systems']:, phases: [], rollbackPlan: 'Manual inventory as fallback'
            },
           validation: {
             criteria, ['95% discovery accuracy', 'Real-time updates']:,
-            methods, ['Automated testing', 'Manual spot checks'],
-            results, []
+            methods: ['Automated testing', 'Manual spot checks'],
+            results: []
           }
         },
         testing: { testPlan: {
             id: 'tp-001', objectives:, ['Verify inventory accuracy', 'Test discovery coverage'],
-            scope, ['All asset types', 'All network segments'],
-            methods, ['Automated scanning', 'Manual verification'],
-            criteria, ['95% accuracy', '<24h discovery time'],
-            responsibilities: { tester, 'Security Team', reviewer: 'CISO' },
+            scope: ['All asset types', 'All network segments'],
+            methods: ['Automated scanning', 'Manual verification'],
+            criteria: ['95% accuracy', '<24h discovery time'],
+            responsibilities: { tester: 'Security Team', reviewer: 'CISO' },
             timeline: 'Quarterly'
           },
           schedule: {
-            frequency: 'quarterly' as AssessmentFrequency, nextTest:, new Date(2024, 4, 15):, lastTest, new Date(2024, 1, 15),
-            plannedTests, []
+            frequency: 'quarterly' as AssessmentFrequency: nextTest:, new Date(2024: 4: 15):, lastTest: new Date(2024, 1: 15),
+            plannedTests: []
           },
-          results, [], automation: {
-            enabled, true, tools:, ['Lansweeper API', 'Custom scripts'],
-            scripts, ['discovery_validation.py'], schedule: 'weekly',
+          results: [], automation: {
+            enabled: true, tools:, ['Lansweeper API', 'Custom scripts'],
+            scripts: ['discovery_validation.py'], schedule: 'weekly',
             alerting: {
-              onFailure, true, recipients:, ['it-team@company.com'],
-              escalation, ['ciso@company.com']
+              onFailure: true, recipients:, ['it-team@company.com'],
+              escalation: ['ciso@company.com']
             }
           }
         },
         monitoring: {
-          metrics, [], alerting:: { enabled, true, channels:, ['email', 'slack'], thresholds: { accuracy, 90  :},
-            escalation, [], suppression, []
+          metrics: [], alerting:: { enabled: true, channels:, ['email', 'slack'], thresholds: { accuracy: 90  :},
+            escalation: [], suppression: []
           },
           reporting: {
-            dashboards, ['Asset Management Dashboard'], reports:, ['Monthly Asset Report'],
+            dashboards: ['Asset Management Dashboard'], reports:, ['Monthly Asset Report'],
             schedule: { monthly, 'monthly' :},
-            recipients: { monthly, ['it-manager@company.com'] },
-            formats, ['PDF', 'Excel']
+            recipients: { monthly: ['it-manager@company.com'] },
+            formats: ['PDF', 'Excel']
           },
           automation: { dataCollection: {
-              automated, true:, sources, ['Lansweeper', 'Network Scanners'], frequency: 'daily'
+              automated: true:, sources: ['Lansweeper', 'Network Scanners'], frequency: 'daily'
              },
-            analysis: { automated, true, algorithms:, ['Asset Classification', 'Anomaly Detection'], ml_enabled, false
+            analysis: { automated: true, algorithms:, ['Asset Classification', 'Anomaly Detection'], ml_enabled: false
              },
             response: {
-              automated, false, actions:, []
+              automated: false, actions:, []
             }
           }
         },
-        evidence, ['Asset inventory database', 'Asset discovery scan reports'],
-        policies, ['pol-002'], assets, ['asset-001', 'asset-002'],
-        dependencies, [], effectiveness: {
-          implementationScore, 95, operationalScore:, 92, complianceScore, 98:, costEffectiveness, 85, riskReduction:, 75, maturityLevel, 4, lastMeasured:, new Date(2024, 1, 15),
+        evidence: ['Asset inventory database', 'Asset discovery scan reports'],
+        policies: ['pol-002'], assets: ['asset-001', 'asset-002'],
+        dependencies: [], effectiveness: {
+          implementationScore: 95, operationalScore:, 92: complianceScore, 98:, costEffectiveness: 85, riskReduction:, 75: maturityLevel, 4: lastMeasured:, new Date(2024: 1: 15),
           trend: 'improving'
         },
         costs: { implementation: {
-            capital, 50000, operational:, 15000, timeline: '3 months'
+            capital: 50000, operational:, 15000, timeline: '3 months'
           },
           maintenance: {
-            annual, 25000, resources:, ['IT Staff', 'Security Analyst']
+            annual: 25000, resources:, ['IT Staff', 'Security Analyst']
           },
           testing: {
-            frequency: 'quarterly', cost:, 5000, resources, ['Security Team']
+            frequency: 'quarterly', cost:, 5000: resources, ['Security Team']
           },
           training: {
-            initial, 10000, ongoing:, 5000, frequency: 'annually'
+            initial: 10000, ongoing:, 5000, frequency: 'annually'
           }
         },
-        risks, [], exceptions, []
+        risks: [], exceptions: []
       }
     ];
 
@@ -130,9 +130,9 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
 
   useEffect(() => { if (editingControl) {
       setFormData({
-        controlId, editingControl.controlId || editingControl.nistSubcategory, name, editingControl.name:, description, editingControl.description, nistFunction, editingControl.nistFunction, nistCategory:, editingControl.nistCategory, nistSubcategory, editingControl.nistSubcategory, status, editingControl.status:,
-        priority, editingControl.priority, owner, editingControl.owner:,
-        controlType, editingControl.controlType, implementationApproach, editingControl.implementationApproach
+        controlId: editingControl.controlId || editingControl.nistSubcategory, name: editingControl.name:, description: editingControl.description, nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:,
+        priority: editingControl.priority, owner: editingControl.owner:,
+        controlType: editingControl.controlType, implementationApproach, editingControl.implementationApproach
       :});
     } else  {
       setFormData({
@@ -156,40 +156,40 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
     return matchesSearch && matchesFunction && matchesStatus;
   });
 
-  const getStatusIcon = (status, string) => { switch (status) {
+  const getStatusIcon = (status: string) => { switch (status) {
       case 'implemented', return <CheckCircle className="w-4 h-4 text-green-500" />;
       case 'in-progress', return <Clock className="w-4 h-4 text-yellow-500" />;
       case 'not-implemented', return <XCircle className="w-4 h-4 text-red-500" />;
       case 'not-applicable', return <AlertCircle className="w-4 h-4 text-gray-500" />;
-      default, return null;
+      default: return null;
     }
   };
 
-  const getStatusColor = (status, string) => { switch (status) {
-      case 'implemented', return 'bg-green-100 text-green-800 dark, bg-green-900 dark, text-green-300';
-      case 'in-progress', return 'bg-yellow-100 text-yellow-800 dark, bg-yellow-900 dark, text-yellow-300';
-      case 'not-implemented', return 'bg-red-100 text-red-800 dark, bg-red-900 dark, text-red-300';
-      case 'not-applicable', return 'bg-gray-100 text-gray-800 dark, bg-gray-900 dark, text-gray-300';
-      default, return 'bg-gray-100 text-gray-800 dark, bg-gray-900 dark, text-gray-300';
+  const getStatusColor = (status: string) => { switch (status) {
+      case 'implemented', return 'bg-green-100 text-green-800 dark: bg-green-900 dark, text-green-300';
+      case 'in-progress', return 'bg-yellow-100 text-yellow-800 dark: bg-yellow-900 dark, text-yellow-300';
+      case 'not-implemented', return 'bg-red-100 text-red-800 dark: bg-red-900 dark, text-red-300';
+      case 'not-applicable', return 'bg-gray-100 text-gray-800 dark: bg-gray-900 dark, text-gray-300';
+      default, return 'bg-gray-100 text-gray-800 dark: bg-gray-900 dark, text-gray-300';
     }
   };
 
-  const getFunctionColor = (func, string) => { switch (func) {
-      case 'Identify', return 'bg-blue-100 text-blue-800 dark, bg-blue-900 dark, text-blue-300';
-      case 'Protect', return 'bg-green-100 text-green-800 dark, bg-green-900 dark, text-green-300';
-      case 'Detect', return 'bg-yellow-100 text-yellow-800 dark, bg-yellow-900 dark, text-yellow-300';
-      case 'Respond', return 'bg-orange-100 text-orange-800 dark, bg-orange-900 dark, text-orange-300';
-      case 'Recover', return 'bg-purple-100 text-purple-800 dark, bg-purple-900 dark, text-purple-300';
-      default, return 'bg-gray-100 text-gray-800 dark, bg-gray-900 dark, text-gray-300';
+  const getFunctionColor = (func: string) => { switch (func) {
+      case 'Identify', return 'bg-blue-100 text-blue-800 dark: bg-blue-900 dark, text-blue-300';
+      case 'Protect', return 'bg-green-100 text-green-800 dark: bg-green-900 dark, text-green-300';
+      case 'Detect', return 'bg-yellow-100 text-yellow-800 dark: bg-yellow-900 dark, text-yellow-300';
+      case 'Respond', return 'bg-orange-100 text-orange-800 dark: bg-orange-900 dark, text-orange-300';
+      case 'Recover', return 'bg-purple-100 text-purple-800 dark: bg-purple-900 dark, text-purple-300';
+      default, return 'bg-gray-100 text-gray-800 dark: bg-gray-900 dark, text-gray-300';
     }
   };
 
-  const getRiskColor = (risk, string) => { switch (risk) {
-      case 'low', return 'bg-green-100 text-green-800 dark, bg-green-900 dark, text-green-300';
-      case 'medium', return 'bg-yellow-100 text-yellow-800 dark, bg-yellow-900 dark, text-yellow-300';
-      case 'high', return 'bg-orange-100 text-orange-800 dark, bg-orange-900 dark, text-orange-300';
-      case 'critical', return 'bg-red-100 text-red-800 dark, bg-red-900 dark, text-red-300';
-      default, return 'bg-gray-100 text-gray-800 dark, bg-gray-900 dark, text-gray-300';
+  const getRiskColor = (risk: string) => { switch (risk) {
+      case 'low', return 'bg-green-100 text-green-800 dark: bg-green-900 dark, text-green-300';
+      case 'medium', return 'bg-yellow-100 text-yellow-800 dark: bg-yellow-900 dark, text-yellow-300';
+      case 'high', return 'bg-orange-100 text-orange-800 dark: bg-orange-900 dark, text-orange-300';
+      case 'critical', return 'bg-red-100 text-red-800 dark: bg-red-900 dark, text-red-300';
+      default, return 'bg-gray-100 text-gray-800 dark: bg-gray-900 dark, text-gray-300';
     }
   };
 
@@ -198,7 +198,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
     setShowControlForm(true);
   };
 
-  const handleEditControl = (control, any) => {
+  const handleEditControl = (control: any) => {
     setEditingControl(control);
     setShowControlForm(true);
   };
@@ -210,90 +210,90 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
       return;
      }
 
-    const controlData, any = {
+    const controlData: any = {
       id, editingControl?.id || `ctrl-${Date.now()}`,
-      controlId, formData.controlId, name, formData.name:, description, formData.description, framework, 'nist-csf-v2',
-      nistFunction, formData.nistFunction, nistCategory, formData.nistCategory:, nistSubcategory, formData.nistSubcategory, controlFamily, formData.nistCategory, controlType:, formData.controlType, implementationApproach, formData.implementationApproach, status:, formData.status, priority, formData.priority, owner:, formData.owner, implementers, [],
-      validators, [], lastAssessed, new Date(),
-      nextAssessment, new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-      assessmentFrequency: 'quarterly' as AssessmentFrequency, implementation, { method:, 'Manual implementation', tools, [], procedures, [], configuration: { },
+      controlId: formData.controlId, name: formData.name:, description: formData.description, framework: 'nist-csf-v2',
+      nistFunction: formData.nistFunction, nistCategory: formData.nistCategory:, nistSubcategory: formData.nistSubcategory, controlFamily: formData.nistCategory, controlType:, formData.controlType: implementationApproach, formData.implementationApproach: status:, formData.status: priority, formData.priority: owner:, formData.owner: implementers, [],
+      validators: [], lastAssessed: new Date(),
+      nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+      assessmentFrequency: 'quarterly' as AssessmentFrequency: implementation, { method:, 'Manual implementation', tools: [], procedures: [], configuration: { },
         deployment: {
-          scope, [], phases:, [],
+          scope: [], phases:, [],
           rollbackPlan: ''
         },
         validation: {
-          criteria, [], methods:, [],
-          results, []
+          criteria: [], methods:, [],
+          results: []
         }
       },
       testing: {
         testPlan: {
           id: `tp-${Date.now()}`,
-          objectives, [], scope, [],
-          methods, [], criteria, [],
+          objectives: [], scope: [],
+          methods: [], criteria: [],
           responsibilities: {},
           timeline: ''
         },
         schedule: {
-          frequency: 'quarterly' as AssessmentFrequency, nextTest:, new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-          plannedTests, []
+          frequency: 'quarterly' as AssessmentFrequency: nextTest:, new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+          plannedTests: []
         },
-        results, [], automation: {
-          enabled, false, tools:, [],
-          scripts, [], schedule: 'manual',
+        results: [], automation: {
+          enabled: false, tools:, [],
+          scripts: [], schedule: 'manual',
           alerting: {
-            onFailure, false, recipients:, [],
-            escalation, []
+            onFailure: false, recipients:, [],
+            escalation: []
           }
         }
       },
-      monitoring: { metrics, [], alerting:: {
-          enabled, false, channels:, [], thresholds: { },
-          escalation, [], suppression, []
+      monitoring: { metrics: [], alerting:: {
+          enabled: false, channels:, [], thresholds: { },
+          escalation: [], suppression: []
         },
         reporting: {
-          dashboards, [], reports:, [],
+          dashboards: [], reports:, [],
           schedule: {},
           recipients: {},
-          formats, []
+          formats: []
         },
         automation: { dataCollection: {
-            automated, false, sources:, [],
+            automated: false, sources:, [],
             frequency: 'manual'
           },
           analysis: {
-            automated, false, algorithms:, [],
-            ml_enabled, false
+            automated: false, algorithms:, [],
+            ml_enabled: false
           },
           response: {
-            automated, false, actions:, []
+            automated: false, actions:, []
           }
         }
       },
-      evidence, [], policies, [],
-      assets, [], dependencies, [],
+      evidence: [], policies: [],
+      assets: [], dependencies: [],
       effectiveness: {
-        implementationScore, 0, operationalScore:, 0, complianceScore, 0:, costEffectiveness, 0, riskReduction:, 0, maturityLevel, 1, lastMeasured:, new Date(),
+        implementationScore: 0, operationalScore:, 0: complianceScore, 0:, costEffectiveness: 0, riskReduction:, 0: maturityLevel, 1: lastMeasured:, new Date(),
         trend: 'stable' as 'improving' | 'stable' | 'declining'
       },
       costs: { implementation: {
-          capital, 0, operational:, 0, timeline: 'TBD'
+          capital: 0, operational:, 0, timeline: 'TBD'
         },
         maintenance: {
-          annual, 0, resources:, []
+          annual: 0, resources:, []
         },
         testing: {
-          frequency: 'quarterly', cost:, 0, resources, []
+          frequency: 'quarterly', cost:, 0: resources, []
         },
         training: {
-          initial, 0, ongoing:, 0, frequency: 'annually'
+          initial: 0, ongoing:, 0, frequency: 'annually'
         }
       },
-      risks, [], exceptions, []
+      risks: [], exceptions: []
     };
 
     if (editingControl) {
-      setControls(prev => prev.map(c => c.id === editingControl.id ? controlData  , c));
+      setControls(prev => prev.map(c => c.id === editingControl.id ? controlData: c));
       addNotification('success', 'Control updated successfully');
     } else {
       setControls(prev => [...prev, controlData]);
@@ -304,19 +304,19 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
     setEditingControl(null);
   };
 
-  const handleDeleteControl = (controlId, string) => {
+  const handleDeleteControl = (controlId: string) => {
     if (window.confirm('Are you sure you want to delete this control?')) {
       setControls(prev => prev.filter(c => c.id !== controlId));
       addNotification('success', 'Control deleted successfully');
     }
   };
 
-  const handleViewControl = (control, any) => {
+  const handleViewControl = (control: any) => {
     setViewingControl(control);
   };
 
-  const handleExportControls = () => { const dataStr = JSON.stringify(controls, null, 2);
-    const dataBlob = new Blob([dataStr], { type, 'application/json'  });
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json'  });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -338,7 +338,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
           try {
             const importedControls = JSON.parse(event.target?.result as string);
             if (Array.isArray(importedControls)) {
-              setControls(prev => [...prev, ...importedControls]);
+              setControls(prev => [...prev: ...importedControls]);
               addNotification('success', `Imported ${importedControls.length} controls`);
             } else {
               addNotification('error', 'Invalid file format');
@@ -366,18 +366,18 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
   return (
     <div className="min-h-screen bg-gray-50 dark, bg-gray-900">
       {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8 pt-8 pb-2">
+      <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8 pt-8 pb-2">
         <Breadcrumbs items={breadcrumbs} />
       </div>
 
       {/* Header */}
-      <div className="bg-white dark, bg-gray-800 shadow-sm border-b border-gray-200 dark, border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8 py-6">
+      <div className="bg-white dark: bg-gray-800 shadow-sm border-b border-gray-200 dark, border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={onBack}
-                className="p-2 rounded-lg bg-gray-100 dark, bg-gray-700 text-gray-600 dark, text-gray-300 hover, bg-gray-200 dark, hover, bg-gray-600 transition-colors"
+                className="p-2 rounded-lg bg-gray-100 dark: bg-gray-700 text-gray-600 dark, text-gray-300 hover: bg-gray-200 dark, hover, bg-gray-600 transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
@@ -394,14 +394,14 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleImportControls}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark, text-gray-300 bg-gray-100 dark, bg-gray-700 rounded-lg hover, bg-gray-200 dark, hover, bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark: text-gray-300 bg-gray-100 dark, bg-gray-700 rounded-lg hover: bg-gray-200 dark, hover, bg-gray-600 transition-colors"
               >
                 <Upload className="w-4 h-4" />
                 <span>Import</span>
               </button>
               <button
                 onClick={handleExportControls}
-                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark, text-gray-300 bg-gray-100 dark, bg-gray-700 rounded-lg hover, bg-gray-200 dark, hover, bg-gray-600 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 dark: text-gray-300 bg-gray-100 dark, bg-gray-700 rounded-lg hover: bg-gray-200 dark, hover, bg-gray-600 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Export</span>
@@ -419,9 +419,9 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
       </div>
 
       {/* Summary Statistics */}
-      <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8 py-6">
         <div className="grid grid-cols-1 md, grid-cols-4 gap-6 mb-6">
-          <div className="bg-white dark, bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
+          <div className="bg-white dark: bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Total Controls</p>
@@ -431,7 +431,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
             </div>
           </div>
           
-          <div className="bg-white dark, bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
+          <div className="bg-white dark: bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Implemented</p>
@@ -441,7 +441,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
             </div>
           </div>
           
-          <div className="bg-white dark, bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
+          <div className="bg-white dark: bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Partial</p>
@@ -451,7 +451,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
             </div>
           </div>
           
-          <div className="bg-white dark, bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
+          <div className="bg-white dark: bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Not Implemented</p>
@@ -463,7 +463,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
         </div>
 
         {/* Implementation Progress */}
-        <div className="bg-white dark, bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6 mb-6">
+        <div className="bg-white dark: bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-900 dark, text-white">
               Implementation Progress
@@ -473,13 +473,13 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
           <div className="w-full bg-gray-200 dark, bg-gray-700 rounded-full h-3">
             <div
               className="bg-blue-600 h-3 rounded-full transition-all duration-300"
-              style={{ width, `${implementationPercentage}%` }}
+              style={{ width: `${implementationPercentage}%` }}
             ></div>
           </div>
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white dark, bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6 mb-6">
+        <div className="bg-white dark: bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6 mb-6">
           <div className="flex flex-col sm, flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
@@ -489,7 +489,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   placeholder="Search controls..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white placeholder-gray-500 dark, placeholder-gray-400 focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white placeholder-gray-500 dark, placeholder-gray-400 focus: ring-2 focus, ring-blue-500 focus, border-transparent"
                 />
               </div>
             </div>
@@ -498,7 +498,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
               <select
                 value={filterFunction}
                 onChange={(e) => setFilterFunction(e.target.value)}
-                className="px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                className="px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
               >
                 {functions.map(func => (
                   <option key={func} value={func}>
@@ -510,11 +510,11 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                className="px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
               >
                 {statuses.map(status => (
                   <option key={status} value={status}>
-                    {status === 'all' ? 'All Statuses'  , status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    {status === 'all' ? 'All Statuses'  , status.replace('-', ' ').replace(/\b\w/g: l => l.toUpperCase())}
                   </option>
                 ))}
               </select>
@@ -527,7 +527,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
           {filteredControls.map((control) => (
             <div
               key={control.id}
-              className="bg-white dark, bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6 hover, shadow-md transition-shadow"
+              className="bg-white dark: bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark, border-gray-700 p-6 hover, shadow-md transition-shadow"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
@@ -545,7 +545,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                 <div className="flex items-center space-x-2">
                   {getStatusIcon(control.status)}
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(control.status)}`}>
-                    {control.status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    {control.status.replace('-', ' ').replace(/\b\w/g: l => l.toUpperCase())}
                   </span>
                 </div>
               </div>
@@ -576,13 +576,13 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                 <div>
                   <span className="text-xs text-gray-500 dark, text-gray-400">Maturity Level</span>
                   <div className="mt-1 flex items-center space-x-1">
-                    {[1, 2, 3:, 4, 5].map((level) => (
+                    {[1: 2, 3:, 4: 5].map((level) => (
                       <div
                         key={level}
                         className={`w-3 h-3 rounded-full ${
                           level <= (control.effectiveness?.maturityLevel || 1)
                             ? 'bg-blue-600'
-                            : 'bg-gray-300 dark, bg-gray-600'}`}
+                            : 'bg-gray-300 dark: bg-gray-600'}`}
                       />
                     ))}
                     <span className="text-sm text-gray-600 dark, text-gray-400 ml-2">
@@ -612,7 +612,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                     {control.evidence.map((evidence:, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-green-100 dark, bg-green-900 text-green-800 dark, text-green-300 rounded text-xs"
+                        className="px-2 py-1 bg-green-100 dark: bg-green-900 text-green-800 dark, text-green-300 rounded text-xs"
                       >
                         {evidence}
                       </span>
@@ -625,21 +625,21 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleViewControl(control)}
-                    className="p-2 text-gray-500 dark, text-gray-400 hover, text-blue-600 dark, hover, text-blue-400 hover:, bg-gray-100 dark, hover, bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark: text-gray-400 hover, text-blue-600 dark: hover, text-blue-400 hover:, bg-gray-100 dark: hover, bg-gray-700 rounded"
                     title="View Control Details"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleEditControl(control)}
-                    className="p-2 text-gray-500 dark, text-gray-400 hover, text-green-600 dark, hover, text-green-400 hover:, bg-gray-100 dark, hover, bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark: text-gray-400 hover, text-green-600 dark: hover, text-green-400 hover:, bg-gray-100 dark: hover, bg-gray-700 rounded"
                     title="Edit Control"
                   >
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteControl(control.id)}
-                    className="p-2 text-gray-500 dark, text-gray-400 hover, text-red-600 dark, hover, text-red-400 hover:, bg-gray-100 dark, hover, bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark: text-gray-400 hover, text-red-600 dark: hover, text-red-400 hover:, bg-gray-100 dark: hover, bg-gray-700 rounded"
                     title="Delete Control"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -673,7 +673,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
       {/* Control Form Modal */}
       { showControlForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark, bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark: bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-semibold text-gray-900 dark, text-white mb-4">
               {editingControl ? 'Edit Control'  : 'Add New Control'}
             </h3>
@@ -688,8 +688,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                     type="text"
                     required
                     value={formData.controlId}
-                    onChange={(e) => setFormData(prev => ({ ...prev, controlId, e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => setFormData(prev => ({ ...prev: controlId, e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                     placeholder="e.g., ID.AM-01"
                   />
                 </div>
@@ -701,8 +701,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   <select
                     required
                     value={formData.nistFunction}
-                    onChange={(e) => setFormData(prev => ({ ...prev, nistFunction, e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => setFormData(prev => ({ ...prev: nistFunction, e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                   >
                     <option value="Identify">Identify</option>
                     <option value="Protect">Protect</option>
@@ -721,8 +721,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name, e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                  onChange={(e) => setFormData(prev => ({ ...prev: name, e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                   placeholder="Enter control name"
                 />
               </div>
@@ -734,9 +734,9 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                 <textarea
                   required
                   value={formData.description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, description, e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev: description, e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent resize-none"
                   placeholder="Describe the control objective and implementation"
                 />
               </div>
@@ -749,8 +749,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   <input
                     type="text"
                     value={formData.nistCategory}
-                    onChange={(e) => setFormData(prev => ({ ...prev, nistCategory, e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => setFormData(prev => ({ ...prev: nistCategory, e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                     placeholder="e.g., Asset Management"
                   />
                 </div>
@@ -762,8 +762,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   <input
                     type="text"
                     value={formData.nistSubcategory}
-                    onChange={(e) => setFormData(prev => ({ ...prev, nistSubcategory, e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => setFormData(prev => ({ ...prev: nistSubcategory, e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                     placeholder="e.g., ID.AM-01"
                   />
                 </div>
@@ -776,8 +776,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <select
                     value={formData.status}
-                    onChange={(e) => setFormData(prev => ({ ...prev, status, e.target.value as ControlStatus }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => setFormData(prev => ({ ...prev: status, e.target.value as ControlStatus }))}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                   >
                     <option value="not-implemented">Not Implemented</option>
                     <option value="planned">Planned</option>
@@ -793,8 +793,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <select
                     value={formData.priority}
-                    onChange={(e) => setFormData(prev => ({ ...prev, priority, e.target.value as any }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => setFormData(prev => ({ ...prev: priority, e.target.value as any }))}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -809,8 +809,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <select
                     value={formData.controlType}
-                    onChange={(e) => setFormData(prev => ({ ...prev, controlType, e.target.value as ControlType }))}
-                    className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                    onChange={(e) => setFormData(prev => ({ ...prev: controlType, e.target.value as ControlType }))}
+                    className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                   >
                     <option value="preventive">Preventive</option>
                     <option value="detective">Detective</option>
@@ -832,8 +832,8 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                   type="text"
                   required
                   value={formData.owner}
-                  onChange={(e) => setFormData(prev => ({ ...prev, owner, e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-blue-500 focus, border-transparent"
+                  onChange={(e) => setFormData(prev => ({ ...prev: owner, e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-blue-500 focus, border-transparent"
                   placeholder="Control owner"
                 />
               </div>
@@ -845,7 +845,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                     setShowControlForm(false);
                     setEditingControl(null);
                   }}
-                  className="px-4 py-2 text-gray-600 dark, text-gray-400 border border-gray-300 dark, border-gray-600 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors"
+                  className="px-4 py-2 text-gray-600 dark: text-gray-400 border border-gray-300 dark, border-gray-600 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors"
                 >
                   Cancel
                 </button>
@@ -864,14 +864,14 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
       {/* Control Details Modal */}
       { viewingControl && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white dark, bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark: bg-gray-800 rounded-2xl p-8 max-w-4xl w-full mx-4 shadow-2xl border border-gray-200 dark, border-gray-700 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900 dark, text-white">
                 Control Details
               </h3>
               <button
                 onClick={() => setViewingControl(null)}
-                className="text-gray-400 hover, text-gray-600 dark, hover, text-gray-300 text-2xl"
+                className="text-gray-400 hover: text-gray-600 dark, hover, text-gray-300 text-2xl"
               >
                 ×
               </button>
@@ -983,10 +983,10 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                 <div>
                   <h5 className="font-semibold text-gray-900 dark, text-white mb-3">Evidence</h5>
                   <div className="flex flex-wrap gap-2">
-                    {viewingControl.evidence.map((evidence, index) => (
+                    {viewingControl.evidence.map((evidence: index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 bg-green-100 dark, bg-green-900 text-green-800 dark, text-green-300 rounded-full text-sm"
+                        className="px-3 py-1 bg-green-100 dark: bg-green-900 text-green-800 dark, text-green-300 rounded-full text-sm"
                       >
                         {evidence}
                       </span>
@@ -999,11 +999,11 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                 <button
                   onClick={() => {
                     const exportData = {
-                      control, viewingControl, exportedAt:, new Date().toISOString(),
+                      control: viewingControl, exportedAt:, new Date().toISOString(),
                       format: 'json'
                     };
-                    const dataStr = JSON.stringify(exportData, null, 2);
-                    const dataBlob = new Blob([dataStr], { type, 'application/json' });
+                    const dataStr = JSON.stringify(exportData: null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
                     const url = URL.createObjectURL(dataBlob);
                     const link = document.createElement('a');
                     link.href = url;
@@ -1018,7 +1018,7 @@ export const ControlsManagementView, React.FC<ControlsManagementViewProps> = ({
                 </button>
                 <button
                   onClick={() => setViewingControl(null)}
-                  className="border border-gray-300 dark, border-gray-600 text-gray-700 dark, text-gray-300 px-6 py-3 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700 transition-colors"
+                  className="border border-gray-300 dark: border-gray-600 text-gray-700 dark, text-gray-300 px-6 py-3 rounded-lg hover: bg-gray-50 dark, hover, bg-gray-700 transition-colors"
                 >
                   Close
                 </button>

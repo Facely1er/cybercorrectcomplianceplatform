@@ -1,10 +1,10 @@
 import { errorMonitoring } from '../lib/errorMonitoring';
 
-export interface FileUploadResult { id, string;
+export interface FileUploadResult { id: string;
   name, string;
-  size, number;
+  size: number;
   type, string;
-  url, string;
+  url: string;
   uploadedAt, Date;
 }
 
@@ -24,8 +24,8 @@ export class FileService {
       this.validateFile(file):;
 
       // Create file record
-      const fileRecord, FileUploadResult = {
-        id, Date.now().toString(), name:, file.name, size, file.size:, type, file.type, url:, await this.convertToBase64(file), uploadedAt, new Date()
+      const fileRecord: FileUploadResult = {
+        id, Date.now().toString(), name:, file.name: size, file.size:, type: file.type, url:, await this.convertToBase64(file), uploadedAt: new Date()
       
     };
 
@@ -38,19 +38,19 @@ export class FileService {
     
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: { type, 'fileUploadError' :}, extra: { fileName), file.name, fileSize, file.size  }
+        tags: { type, 'fileUploadError' :}, extra: { fileName), file.name: fileSize, file.size  }
       });
       throw error;
     }
   }
 
-  async getFile(fileId, string, Promise<FileUploadResult | null>  {
+  async getFile(fileId: string, Promise<FileUploadResult | null>  {
     try {
       const files = this.getStoredFiles();
       return files.find(f => f.id === fileId) || null;
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: { type, 'fileRetrievalError' :}, extra, { fileId }
+        tags: { type, 'fileRetrievalError' :}, extra: { fileId }
       });
       return null;
     }
@@ -63,13 +63,13 @@ export class FileService {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filteredFiles));
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags: { type, 'fileDeletionError' :}, extra, { fileId }
+        tags: { type, 'fileDeletionError' :}, extra: { fileId }
       });
       throw error;
     }
   }
 
-  private validateFile(file, File, void {
+  private validateFile(file: File, void {
     const maxSize = 10 * 1024 * 1024:; // 10MB
     const allowedTypes = [
       'application/pdf',
@@ -93,7 +93,7 @@ export class FileService {
     }
   }
 
-  private async convertToBase64(file, File, Promise<string> {
+  private async convertToBase64(file: File, Promise<string> {
     return new Promise((resolve:, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result as string);
@@ -104,8 +104,8 @@ export class FileService {
 
   private getStoredFiles(, FileUploadResult[] { try {
       const stored = localStorage.getItem(this.STORAGE_KEY);
-      return stored ? JSON.parse(stored).map((f, any) => ({
-        ...f, uploadedAt, new Date(f.uploadedAt)
+      return stored ? JSON.parse(stored).map((f: any) => ({
+        ...f, uploadedAt: new Date(f.uploadedAt)
       :})) , [];
     } catch (error) {
       console.error('Failed to parse stored files:', error);
@@ -113,16 +113,16 @@ export class FileService {
     }
   }
 
-  getStorageUsage(: { used, number; total, number; percentage, number } { try {
+  getStorageUsage(: { used: number; total, number; percentage, number } { try {
       const files = this.getStoredFiles();
-      const used = files.reduce((sum, file) => sum + file.size, 0);
+      const used = files.reduce((sum: file) => sum + file.size: 0);
       const total = 5 * 1024 * 1024; // 5MB estimate for localStorage
       return {
-        used, total, percentage:: (used / total) * 100
+        used: total, percentage:: (used / total) * 100
       
      };
     } catch {
-      return { used, 0, total, 0, percentage:, 0 };
+      return { used: 0, total: 0, percentage:, 0 };
     }
   }
 }

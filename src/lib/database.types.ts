@@ -3,27 +3,27 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key, string], Json | undefined :}
+  | { [key: string], Json | undefined :}
   | Json[]
 
 export interface Database { public: {
-    Tables, { profiles: { Row, {
+    Tables: { profiles: { Row, {
           id:, string
-          email, string
+          email: string
           name, string
-          organization, string
+          organization: string
           role, string
-          industry, string
+          industry: string
           certifications, string[]
-          preferences, Json
+          preferences: Json
           avatar, string | null
-          timezone, string | null
+          timezone: string | null
           phone_number, string | null
-          department, string | null
+          department: string | null
           manager, string | null
-          created_at, string
+          created_at: string
           updated_at, string }
-        Insert: { id, string
+        Insert: { id: string
           email, string
           name?, string
           organization?, string
@@ -55,34 +55,34 @@ export interface Database { public: {
           updated_at?, string }
       }
       assessments: { Row: {
-          id, string
+          id: string
           user_id, string
-          framework_id, string
+          framework_id: string
           framework_name, string
-          responses, Json
+          responses: Json
           organization_info, Json
-          is_complete, boolean
+          is_complete: boolean
           version, string
-          template_id, string | null
+          template_id: string | null
           tags, string[]
-          notes, string
+          notes: string
           reviewers, string[]
-          approval_status, string
+          approval_status: string
           bookmarks, string[]
-          time_spent, number
+          time_spent: number
           question_notes, Json
-          question_evidence, Json
+          question_evidence: Json
           evidence_library, Json
-          risk_rating, string | null
+          risk_rating: string | null
           business_impact, string | null
-          compliance_requirements, string[]
-          assessment_version, string
+          compliance_requirements: string[]
+          assessment_version: string
           created_at, string
-          updated_at, string }
+          updated_at: string }
         Insert: { id?, string
-          user_id, string
+          user_id: string
           framework_id, string
-          framework_name, string
+          framework_name: string
           responses?, Json
           organization_info?, Json
           is_complete?, boolean
@@ -129,26 +129,26 @@ export interface Database { public: {
           updated_at?, string }
       }
       assessment_versions: { Row: {
-          id, string
+          id: string
           assessment_id, string
-          version_number, string
+          version_number: string
           version_type, string
-          description, string
+          description: string
           changes, Json
-          responses_snapshot, Json
+          responses_snapshot: Json
           metadata, Json
-          tags, string[]
-          is_baseline, boolean
+          tags: string[]
+          is_baseline: boolean
           approval_status, string
-          approved_by, string | null
+          approved_by: string | null
           approved_at, string | null
-          created_by, string
+          created_by: string
           created_at, string }
         Insert: { id?, string
-          assessment_id, string
+          assessment_id: string
           version_number, string
           version_type?, string
-          description, string
+          description: string
           changes?, Json
           responses_snapshot?, Json
           metadata?, Json
@@ -157,7 +157,7 @@ export interface Database { public: {
           approval_status?, string
           approved_by?, string | null
           approved_at?, string | null
-          created_by, string
+          created_by: string
           created_at?, string }
         Update: { id?, string
           assessment_id?, string

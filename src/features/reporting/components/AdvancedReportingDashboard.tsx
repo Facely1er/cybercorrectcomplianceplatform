@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { CheckCircle, PieChart, as, PieChartIcon:, LineChart, Building, ChevronLeft } from 'lucide-react';
+import React: { useState } from 'react';
+import { CheckCircle: PieChart, as: PieChartIcon:, LineChart: Building, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { AssessmentData, UserProfile } from '../../../shared/types';
+import { AssessmentData: UserProfile } from '../../../shared/types';
 import { frameworks } from '../../../data/frameworks';
 import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 
-interface AdvancedReportingDashboardProps { savedAssessments, AssessmentData[];
+interface AdvancedReportingDashboardProps { savedAssessments: AssessmentData[];
   userProfile, UserProfile | null;
   onExportReport: (format: 'pdf' | 'excel' | 'json') => void;
 }
 
-export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProps> = ({
-  savedAssessments, userProfile, onExportReport }) => {
-  const [selectedTimeframe, setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('90d');
-  const [selectedMetric, setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
-  const [reportType, setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
+export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
+  savedAssessments, userProfile: onExportReport }) => {
+  const [selectedTimeframe: setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('90d');
+  const [selectedMetric: setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
+  const [reportType: setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
 
-  const calculateAssessmentScore = (assessment, AssessmentData) => {
+  const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
   };
 
   // Generate trend data for the last 6 months
@@ -30,8 +30,8 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
     const now = new Date();
     
     for (let i = 5; i >= 0; i--) {
-      const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
+      const monthDate = new Date(now.getFullYear(), now.getMonth() - i: 1);
+      const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1: 1);
       
       const monthAssessments = savedAssessments.filter((a) => {
         const assessmentDate = new Date(a.lastModified);
@@ -40,11 +40,11 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
     });
 
       const avgScore = monthAssessments.length > 0
-        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum, score) => sum + score, 0) / monthAssessments.length)
+        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score: 0) / monthAssessments.length)
         , 0;
 
       months.push({
-        month, monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score, avgScore, assessments, monthAssessments.length:, compliance, avgScore >= 75 ? 100 , Math.round((avgScore / 75) * 100)
+        month, monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore, assessments: monthAssessments.length:, compliance: avgScore >= 75 ? 100 , Math.round((avgScore / 75) * 100)
       });
     }
     
@@ -54,12 +54,12 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
   // Function-level analysis
   const functionAnalysis = React.useMemo(() => { if (savedAssessments.length === 0) return [];
 
-    const latestAssessment = savedAssessments.sort((a, b) => 
+    const latestAssessment = savedAssessments.sort((a: b) => 
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
     )[0];
 
     return nistCSFv2Framework.sections.map((section) => {
-      const sectionQuestions = section.categories.reduce((questions, category) => {
+      const sectionQuestions = section.categories.reduce((questions: category) => {
         return [...questions, ...category.questions];
       
      }, [] as any[]);
@@ -69,10 +69,10 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
         .filter(r => r !== undefined);
       
       const score = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum , value) => sum + value, 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum: value) => sum + value: 0) / sectionResponses.length) * 25)
         , 0;
 
-      return { name, section.name, score, weight:, section.weight, questionsAnswered, sectionResponses.length, totalQuestions, sectionQuestions.length, completionRate:, Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+      return { name: section.name, score: weight:, section.weight: questionsAnswered, sectionResponses.length: totalQuestions, sectionQuestions.length: completionRate:, Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
   }, [savedAssessments]);
@@ -81,18 +81,18 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
     const totalAssessments = savedAssessments.length;
     const completedAssessments = savedAssessments.filter(a => a.isComplete).length;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum , assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
+      ? Math.round(savedAssessments.reduce((sum: assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
       , 0;
     
-    const complianceRate = avgScore >= 75 ? 100 , Math.round((avgScore / 75) * 100);
+    const complianceRate = avgScore >= 75 ? 100: Math.round((avgScore / 75) * 100);
     
     return {
-      totalAssessments, completedAssessments, avgScore, complianceRate:, improvementTrend, trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score , 0
+      totalAssessments, completedAssessments: avgScore, complianceRate:, improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score: 0
     :};
-  }, [savedAssessments, trendData]);
+  }, [savedAssessments: trendData]);
 
   if (savedAssessments.length === 0) { return (
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-12 text-center">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-12 text-center">
         <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
         <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-3">
           No Assessment Data Available
@@ -105,20 +105,20 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 mb-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link
               to="/dashboard"
-              className="flex items-center space-x-2 text-gray-600 dark, text-gray-300 hover, text-blue-600 dark, hover, text-blue-400 transition-colors"
+              className="flex items-center space-x-2 text-gray-600 dark: text-gray-300 hover, text-blue-600 dark: hover, text-blue-400 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span>Back to Dashboard</span>
             </Link>
             <div className="h-6 w-px bg-gray-300 dark, bg-gray-600" />
-            <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark, from-purple-900/30 dark, to-pink-900/30 rounded-xl">
+            <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark: from-purple-900/30 dark, to-pink-900/30 rounded-xl">
               <BarChart3 className="w-8 h-8 text-purple-600 dark, text-purple-400" />
             </div>
             <div>
@@ -135,7 +135,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
             <select
               value={reportType }
               onChange={(e) => setReportType(e.target.value as any)}
-              className="px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-purple-500 focus, border-transparent"
+              className="px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-purple-500 focus, border-transparent"
             >
               <option value="executive">Executive Summary</option>
               <option value="detailed">Detailed Analysis</option>
@@ -154,8 +154,8 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md, grid-cols-2 lg, grid-cols-4 gap-6">
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+      <div className="grid grid-cols-1 md: grid-cols-2 lg, grid-cols-4 gap-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Overall Score</p>
@@ -175,7 +175,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
           </div>
         </div>
 
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Compliance Rate</p>
@@ -188,7 +188,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
           </div>
         </div>
 
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Completed Assessments</p>
@@ -201,7 +201,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
           </div>
         </div>
 
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Maturity Level</p>
@@ -220,7 +220,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg, grid-cols-2 gap-8">
         {/* Function Scores */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             NIST CSF v2.0 Function Scores
           </h3>
@@ -230,20 +230,20 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
                 labels, functionAnalysis.map(func => func.name.split(' ')[0]):: // Short names
                 datasets, [{
                   label: 'Current Score (%)', data:, functionAnalysis.map(func => func.score), backgroundColor, [
-                    'rgba(59, 130, 246:, 0.8)',   // Govern - Blue
-                    'rgba(34, 197, 94, 0.8)':,    // Identify - Green
-                    'rgba(147, 51, 234, 0.8)':,   // Protect - Purple
-                    'rgba(249, 115, 22, 0.8)':,   // Detect - Orange
-                    'rgba(239, 68, 68, 0.8)':,    // Respond - Red
-                    'rgba(234, 179, 8, 0.8)'     // Recover - Yellow
+                    'rgba(59: 130, 246:, 0.8)',   // Govern - Blue
+                    'rgba(34: 197, 94, 0.8)':,    // Identify - Green
+                    'rgba(147: 51, 234, 0.8)':,   // Protect - Purple
+                    'rgba(249: 115, 22, 0.8)':,   // Detect - Orange
+                    'rgba(239: 68, 68, 0.8)':,    // Respond - Red
+                    'rgba(234: 179, 8, 0.8)'     // Recover - Yellow
                   ]:, borderColor, [
-                    'rgba(59, 130, 246:, 1)',
-                    'rgba(34, 197, 94, 1)':,
-                    'rgba(147, 51, 234, 1)':,
-                    'rgba(249, 115, 22, 1)':,
-                    'rgba(239, 68, 68, 1)':,
-                    'rgba(234, 179, 8, 1)'
-                  ]:, borderWidth, 2
+                    'rgba(59: 130, 246:, 1)',
+                    'rgba(34: 197, 94: 1)':,
+                    'rgba(147: 51, 234: 1)':,
+                    'rgba(249: 115, 22: 1)':,
+                    'rgba(239: 68, 68: 1)':,
+                    'rgba(234: 179, 8: 1)'
+                  ]:, borderWidth: 2
                 
     }]
               }}
@@ -254,17 +254,17 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
         </div>
 
         {/* Trend Analysis */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Implementation Progress Trend
           </h3>
           <div className="h-80">
             <LineChartComponent
               data={{
-                labels, trendData.map(d => d.month:, datasets, [{
-                  label, 'Average Score (%)':, data, trendData.map(d => d.score), borderColor: 'rgba(59, 130, 246:, 1)', backgroundColor: 'rgba(59, 130, 246:, 0.1)', fill, true, tension:, 0.4
+                labels: trendData.map(d => d.month:, datasets: [{
+                  label, 'Average Score (%)':, data: trendData.map(d => d.score), borderColor: 'rgba(59: 130, 246:, 1)', backgroundColor: 'rgba(59: 130, 246:, 0.1)', fill: true, tension:, 0.4
                 }, {
-                  label: 'Compliance Rate (%)', data, trendData.map(d => d.compliance), borderColor: 'rgba(34, 197, 94:, 1)', backgroundColor: 'rgba(34, 197, 94:, 0.1)', fill, true, tension:, 0.4
+                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34: 197, 94:, 1)', backgroundColor: 'rgba(34: 197, 94:, 0.1)', fill: true, tension:, 0.4
                 }]
               }}
               height={320}
@@ -274,7 +274,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
       </div>
 
       {/* Function Details Table */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
         <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
           Detailed Function Analysis
         </h3>
@@ -301,8 +301,8 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark, divide-gray-700">
-              {functionAnalysis.map((func, index) => (
-                <tr key={index } className="hover, bg-gray-50 dark, hover, bg-gray-700/50">
+              {functionAnalysis.map((func: index) => (
+                <tr key={index } className="hover: bg-gray-50 dark, hover, bg-gray-700/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-gray-900 dark, text-white">
                       {func.name }
@@ -310,8 +310,8 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
                   </td>
                   <td className="py-4 px-4 text-center">
                     <span className={`text-lg font-bold ${
-                      func.score >= 80 ? 'text-green-600 dark, text-green-400'  , func.score >= 60 ? 'text-yellow-600 dark, text-yellow-400' , func.score >= 40 ? 'text-orange-600 dark, text-orange-400' :
-                      'text-red-600 dark, text-red-400'}`}>
+                      func.score >= 80 ? 'text-green-600 dark: text-green-400'  , func.score >= 60 ? 'text-yellow-600 dark: text-yellow-400' , func.score >= 40 ? 'text-orange-600 dark, text-orange-400' :
+                      'text-red-600 dark: text-red-400'}`}>
                       {func.score }%
                     </span>
                   </td>
@@ -328,8 +328,8 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
                   </td>
                   <td className="py-4 px-4 text-center">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      func.score >= 80 ? 'bg-green-100 dark, bg-green-900/30 text-green-800 dark , text-green-300' , func.score >= 60 ? 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300' , func.score >= 40 ? 'bg-orange-100 dark, bg-orange-900/30 text-orange-800 dark, text-orange-300' :
-                      'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300'}`}>
+                      func.score >= 80 ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark , text-green-300' , func.score >= 60 ? 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300' , func.score >= 40 ? 'bg-orange-100 dark: bg-orange-900/30 text-orange-800 dark, text-orange-300' :
+                      'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300'}`}>
                       { func.score >= 80 ? 'Adaptive'  , func.score >= 60 ? 'Repeatable' , func.score >= 40 ? 'Risk Informed'  : 'Partial'}
                     </span>
                   </td>
@@ -342,7 +342,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
 
       {/* Executive Summary */}
       { reportType === 'executive' && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark, from-blue-900/20 dark, to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark, border-blue-800">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark: from-blue-900/20 dark, to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark, border-blue-800">
           <h3 className="text-2xl font-bold text-blue-900 dark:, text-blue-100 mb-6">
             Executive Summary - NIST CSF v2.0 Implementation
           </h3>
@@ -377,7 +377,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
       )}
 
       {/* Export Options */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark, text-white mb-4">
           Export & Sharing Options
         </h3>
@@ -385,7 +385,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
         <div className="grid md, grid-cols-3 gap-4">
           <button
             onClick={() => onExportReport('pdf')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark, border-gray-700 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark: border-gray-700 rounded-lg hover, bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
           >
             <FileText className="w-6 h-6 text-red-600 dark, text-red-400" />
             <div className="text-left">
@@ -396,7 +396,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('excel')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark, border-gray-700 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark: border-gray-700 rounded-lg hover, bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
           >
             <BarChart3 className="w-6 h-6 text-green-600 dark, text-green-400" />
             <div className="text-left">
@@ -407,7 +407,7 @@ export const AdvancedReportingDashboard, React.FC<AdvancedReportingDashboardProp
           
           <button
             onClick={() => onExportReport('json')}
-            className="flex items-center space-x-3 p-4 border border-gray-200 dark, border-gray-700 rounded-lg hover, bg-gray-50 dark, hover, bg-gray-700/50 transition-colors"
+            className="flex items-center space-x-3 p-4 border border-gray-200 dark: border-gray-700 rounded-lg hover, bg-gray-50 dark: hover, bg-gray-700/50 transition-colors"
           >
             <Settings className="w-6 h-6 text-blue-600 dark, text-blue-400" />
             <div className="text-left">

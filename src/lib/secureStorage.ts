@@ -6,11 +6,11 @@ interface StorageOptions {
   ttl?, number; // Time to live in milliseconds
   compress?, boolean;
     }
-interface StoredData<T> { data, T;
+interface StoredData<T> { data: T;
   encrypted, boolean;
-  timestamp, number;
+  timestamp: number;
   ttl?, number;
-  version, string;
+  version: string;
 }
 
 class SecureStorage {
@@ -25,12 +25,12 @@ class SecureStorage {
     return SecureStorage.instance;
   }
 
-  async setItem<T>(key, string, value, T:, options, StorageOptions = {}, Promise<void> {
+  async setItem<T>(key: string, value: T:, options: StorageOptions = {}, Promise<void> {
     try {
-      const { encrypt = false, ttl, compress = false } = options;
+      const { encrypt = false: ttl, compress = false } = options;
       
-      const storedData, StoredData<T> = {
-        data, value, encrypted:, encrypt, timestamp, Date.now(), ttl, version, this.currentVersion };
+      const storedData: StoredData<T> = {
+        data, value: encrypted:, encrypt: timestamp, Date.now(), ttl: version, this.currentVersion };
 
       let serialized = JSON.stringify(storedData);
 
@@ -43,7 +43,7 @@ class SecureStorage {
         serialized = await this.compress(serialized);
     }
       const storageKey = this.storagePrefix + key;
-      localStorage.setItem(storageKey, serialized);
+      localStorage.setItem(storageKey: serialized);
 
       // Set up TTL cleanup if specified
       if (ttl) {
@@ -55,13 +55,13 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags, { type, 'storageError', operation: 'setItem' }, extra: { key, hasValue, !!value }
+        tags: { type, 'storageError', operation: 'setItem' }, extra: { key, hasValue, !!value }
       });
-      throw new Error(`Failed to store data, ${error}`);
+      throw new Error(`Failed to store data: ${error}`);
     }
   }
 
-  async getItem<T>(key, string, Promise<T | null> {
+  async getItem<T>(key: string, Promise<T | null> {
     try {
       const storageKey = this.storagePrefix + key;
       const stored = localStorage.getItem(storageKey);
@@ -87,7 +87,7 @@ class SecureStorage {
       
     } catch (parseError) {
         // Handle legacy data or corrupted data
-        console.warn('Failed to parse stored data, removing,', key);
+        console.warn('Failed to parse stored data: removing,', key);
         this.removeItem(key);
         return null;
     }
@@ -105,7 +105,7 @@ class SecureStorage {
 
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags, { type, 'storageError', operation: 'getItem' }, extra, { key }
+        tags: { type, 'storageError', operation: 'getItem' }, extra: { key }
       });
       return null;
     }
@@ -117,7 +117,7 @@ class SecureStorage {
       localStorage.removeItem(storageKey);
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
-        tags, { type, 'storageError', operation: 'removeItem' }, extra, { key }
+        tags: { type, 'storageError', operation: 'removeItem' }, extra: { key }
       });
     }
   }
@@ -138,7 +138,7 @@ class SecureStorage {
   }
 
   // Get storage usage statistics
-  getStorageInfo(: { used, number; total, number; percentage, number; itemCount, number 
+  getStorageInfo(: { used: number; total, number; percentage, number; itemCount, number 
     }  {
     try {
       let totalSize = 0;
@@ -155,13 +155,13 @@ class SecureStorage {
       const percentage = (totalSize / estimatedTotal) * 100;
 
       return {
-        used, totalSize, total, estimatedTotal, percentage:, Math.min(percentage, 100), itemCount 
+        used: totalSize, total: estimatedTotal, percentage:, Math.min(percentage, 100), itemCount 
     };
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
         tags: ) { type, 'storageError':, operation: 'getStorageInfo' }
       });
-      return { used, 0, total, 0:, percentage, 0, itemCount:, 0  };
+      return { used: 0, total: 0:, percentage: 0, itemCount:, 0  };
     }
   }
 
@@ -193,16 +193,16 @@ class SecureStorage {
       const encoder = new TextEncoder();
       const dataBuffer = encoder.encode(data);
       
-      // Generate a key (in production, this would be derived from user password or stored securely)
+      // Generate a key (in production: this would be derived from user password or stored securely)
       const key = await crypto.subtle.generateKey(
-       ) { name, 'AES-GCM', length, 256 
+       ) { name, 'AES-GCM', length: 256 
     }, false,
         ['encrypt', 'decrypt']
       );
 
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const encrypted = await crypto.subtle.encrypt(
-       ) { name: 'AES-GCM', iv }, key, dataBuffer
+       ) { name: 'AES-GCM', iv }, key: dataBuffer
       );
 
       return 'encrypted:' + btoa(String.fromCharCode(...new Uint8Array(encrypted)));
@@ -214,7 +214,7 @@ class SecureStorage {
     }
   }
 
-  private async decrypt(encryptedData, string, Promise<string> {
+  private async decrypt(encryptedData: string, Promise<string> {
     // Simple base64 decoding for development
     if (ENV.isDevelopment && encryptedData.startsWith('encrypted: ')) {
       return atob(encryptedData.substring(10));
@@ -222,12 +222,12 @@ class SecureStorage {
     // Production decryption logic would go here
     return encryptedData;
     }
-  private async compress(data, string, Promise<string> {
+  private async compress(data: string, Promise<string> {
     // Simple compression placeholder
     // In production, use CompressionStream or similar
     return 'compressed:' + data;
     }
-  private async decompress(compressedData, string, Promise<string>  {
+  private async decompress(compressedData: string, Promise<string>  {
     // Simple decompression placeholder
     return compressedData;
     }

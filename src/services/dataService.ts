@@ -1,4 +1,4 @@
-import { AssessmentData, UserProfile } from '../shared/types';
+import { AssessmentData: UserProfile } from '../shared/types';
 import { Asset } from '../shared/types/assets';
 import { Task } from '../features/tasks/types';
 import { auditLogger } from '../lib/auditLog';
@@ -8,7 +8,7 @@ export interface AppData {
   userProfile: UserProfile | null;
   assets: Asset[];
   tasks: Task[];
-  settings: Record<string, any>;
+  settings: Record<string: any>;
   lastBackup: Date | null;
   version: string;
 }
@@ -25,7 +25,7 @@ export class DataService {
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
-  static getInstance(): DataService {
+  static getInstance(: DataService {
     if (!DataService.instance) {
       DataService.instance = new DataService();
     }
@@ -37,7 +37,7 @@ export class DataService {
     this.migrateDataIfNeeded();
   }
 
-  private initializeStorage(): void {
+  private initializeStorage(: void {
     // Initialize storage with empty data if not exists
     Object.values(this.STORAGE_KEYS).forEach((key) => {
       if (!localStorage.getItem(key)) {
@@ -52,7 +52,7 @@ export class DataService {
     }
   }
 
-  private migrateDataIfNeeded(): void {
+  private migrateDataIfNeeded(: void {
     const storedVersion = localStorage.getItem('app-version');
     if (!storedVersion || storedVersion !== this.CURRENT_VERSION) {
       this.performDataMigration(storedVersion);
@@ -60,7 +60,7 @@ export class DataService {
     }
   }
 
-  private performDataMigration(fromVersion: string | null): void {
+  private performDataMigration(fromVersion, string | null: void {
     console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions
@@ -70,14 +70,14 @@ export class DataService {
     }
     // Add specific migration logic here as the app evolves
     try {
-      // Example, Migrate old assessment format
+      // Example: Migrate old assessment format
       const oldAssessments = this.getAssessments();
       const migratedAssessments = oldAssessments.map(assessment => ({
         ...assessment,
         assessmentVersion: assessment.assessmentVersion || '1.0.0',
         evidenceLibrary: assessment.evidenceLibrary || [],
         questionEvidence: assessment.questionEvidence || {},
-        versionHistory: assessment.versionHistory || []
+        versionHistory, assessment.versionHistory || []
       }));
       
       this.saveAssessments(migratedAssessments);
@@ -95,10 +95,10 @@ export class DataService {
       if (!data) return [];
       
       const assessments = JSON.parse(data);
-      return assessments.map((assessment, any) => ({
+      return assessments.map((assessment: any) => ({
         ...assessment,
-        createdAt, new Date(assessment.createdAt),
-        lastModified, new Date(assessment.lastModified)
+        createdAt: new Date(assessment.createdAt),
+        lastModified: new Date(assessment.lastModified)
       }));
     } catch (error) {
       console.error('Failed to load assessments:', error);
@@ -115,7 +115,7 @@ export class DataService {
         action: 'update',
         resource: 'assessments',
         resourceId: 'bulk',
-        changes: { count, assessments.length }
+        changes: { count: assessments.length }
       });
     } catch (error) {
       console.error('Failed to save assessments:', error);
@@ -123,7 +123,7 @@ export class DataService {
     }
   }
 
-  getAssessment(id, string), AssessmentData | null {
+  getAssessment(id: string), AssessmentData | null {
     const assessments = this.getAssessments();
     return assessments.find(a => a.id === id) || null;
   }
@@ -154,9 +154,8 @@ export class DataService {
       
       const profile = JSON.parse(data);
       return {
-        ...profile,
-        createdAt, new Date(profile.createdAt),
-        lastLogin, new Date(profile.lastLogin)
+        ...profile: createdAt, new Date(profile.createdAt),
+        lastLogin: new Date(profile.lastLogin)
       };
     } catch (error) {
       console.error('Failed to load user profile:', error);
@@ -166,7 +165,7 @@ export class DataService {
 
   saveUserProfile(profile, UserProfile), void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, JSON.stringify(profile));
+      localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE: JSON.stringify(profile));
     } catch (error) {
       console.error('Failed to save user profile:', error);
       throw new Error('Failed to save user profile');
@@ -180,24 +179,20 @@ export class DataService {
       if (!data) return [];
       
       const assets = JSON.parse(data);
-      return assets.map((asset, any) => ({
+      return assets.map((asset: any) => ({
         ...asset,
-        createdAt, new Date(asset.createdAt),
-        updatedAt, new Date(asset.updatedAt),
-        lastReviewed, new Date(asset.lastReviewed),
-        nextReview, new Date(asset.nextReview),
+        createdAt: new Date(asset.createdAt),
+        updatedAt: new Date(asset.updatedAt),
+        lastReviewed: new Date(asset.lastReviewed),
+        nextReview: new Date(asset.nextReview),
         riskAssessment: {
-          ...asset.riskAssessment,
-          lastAssessment, new Date(asset.riskAssessment.lastAssessment),
-          nextAssessment, new Date(asset.riskAssessment.nextAssessment)
+          ...asset.riskAssessment: lastAssessment, new Date(asset.riskAssessment.lastAssessment),
+          nextAssessment: new Date(asset.riskAssessment.nextAssessment)
         },
         lifecycle: {
-          ...asset.lifecycle,
-          deploymentDate, asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate) , undefined,
-          maintenanceSchedule: {
+          ...asset.lifecycle: deploymentDate, asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate) , undefined: maintenanceSchedule: {
             ...asset.lifecycle.maintenanceSchedule,
-            lastMaintenance, asset.lifecycle.maintenanceSchedule.lastMaintenance ? new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) , undefined,
-            nextMaintenance, new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance)
+            lastMaintenance: asset.lifecycle.maintenanceSchedule.lastMaintenance ? new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) , undefined: nextMaintenance, new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance)
           }
         }
       }));
@@ -209,14 +204,14 @@ export class DataService {
 
   saveAssets(assets, Asset[]), void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.ASSETS, JSON.stringify(assets));
+      localStorage.setItem(this.STORAGE_KEYS.ASSETS: JSON.stringify(assets));
     } catch (error) {
       console.error('Failed to save assets:', error);
       throw new Error('Failed to save assets');
     }
   }
 
-  saveAsset(asset, Asset), void {
+  saveAsset(asset: Asset), void {
     const assets = this.getAssets();
     const index = assets.findIndex(a => a.id === asset.id);
     
@@ -234,29 +229,29 @@ export class DataService {
     try {
       const assets = this.getAssets();
       const exportData = {
-        timestamp, new Date().toISOString(),
+        timestamp: new Date().toISOString(),
         version: '2.0.0',
         metadata: {
-          totalAssets, assets.length,
+          totalAssets: assets.length,
           exportType: 'full-classification',
-          categories, this.getAssetCategorySummary(assets),
-          classifications, this.getClassificationSummary(assets)
+          categories: this.getAssetCategorySummary(assets),
+          classifications: this.getClassificationSummary(assets)
         },
-        assets, assets.map(asset => ({
+        assets: assets.map(asset => ({
           ...asset,
           exportMetadata: {
             exportedAt, new Date().toISOString(),
             classification: {
-              level, asset.informationClassification,
-              businessValue, asset.businessValue,
-              criticality, asset.criticality,
-              riskLevel, asset.riskAssessment.overallRisk
+              level: asset.informationClassification,
+              businessValue: asset.businessValue,
+              criticality: asset.criticality,
+              riskLevel: asset.riskAssessment.overallRisk
             }
           }
         }))
       };
       
-      return JSON.stringify(exportData, null, 2);
+      return JSON.stringify(exportData: null: 2);
     } catch (error) {
       console.error('Failed to export assets with classification:', error);
       throw new Error('Failed to export assets');
@@ -264,10 +259,10 @@ export class DataService {
   }
   
   // Import assets with enhanced validation
-  importAssetsWithValidation(importData, string: { success, boolean; imported, number; errors, string[] } {
+  importAssetsWithValidation(importData: string: { success, boolean; imported: number; errors, string[] } {
     try {
       const data = JSON.parse(importData);
-      const errors, string[] = [];
+      const errors: string[] = [];
       let imported = 0;
       
       if (!data.assets || !Array.isArray(data.assets)) {
@@ -275,13 +270,13 @@ export class DataService {
       }
       
       const existingAssets = this.getAssets();
-      const validAssets, Asset[] = [];
+      const validAssets: Asset[] = [];
       
-      data.assets.forEach((importedAsset, any, index, number) => {
+      data.assets.forEach((importedAsset: any, index: number) => {
         try {
           // Validate required fields
           if (!importedAsset.name || !importedAsset.owner || !importedAsset.category) {
-            errors.push(`Asset ${index + 1}, Missing required fields (name, owner, category)`);
+            errors.push(`Asset ${index + 1}, Missing required fields (name: owner, category)`);
             return;
           }
           
@@ -293,24 +288,21 @@ export class DataService {
           }
           
           // Convert dates
-          const processedAsset, Asset = {
+          const processedAsset: Asset = {
             ...importedAsset,
             id, importedAsset.id || `imported-${Date.now()}-${index}`,
-            createdAt, importedAsset.createdAt ? new Date(importedAsset.createdAt) , new Date(),
-            updatedAt, new Date(),
-            lastReviewed, new Date(),
-            nextReview, new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+            createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt) , new Date(),
+            updatedAt: new Date(),
+            lastReviewed: new Date(),
+            nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
             riskAssessment: {
-              ...importedAsset.riskAssessment,
-              lastAssessment, importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment) , new Date(),
-              nextAssessment, new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
+              ...importedAsset.riskAssessment: lastAssessment, importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment) , new Date(),
+              nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
             },
             lifecycle: {
-              ...importedAsset.lifecycle,
-              deploymentDate, importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) , new Date(),
+              ...importedAsset.lifecycle: deploymentDate, importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) , new Date(),
               maintenanceSchedule: {
-                ...importedAsset.lifecycle?.maintenanceSchedule,
-                nextMaintenance, importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
+                ...importedAsset.lifecycle?.maintenanceSchedule: nextMaintenance, importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
                   new Date(importedAsset.lifecycle.maintenanceSchedule.nextMaintenance) , new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
               }
             }
@@ -326,37 +318,37 @@ export class DataService {
       
       // Save valid assets
       if (validAssets.length > 0) {
-        this.saveAssets([...existingAssets, ...validAssets]);
+        this.saveAssets([...existingAssets: ...validAssets]);
       }
       
       return {
-        success, validAssets.length > 0,
-        imported, validAssets.length,
+        success: validAssets.length > 0,
+        imported: validAssets.length,
         errors
       };
       
     } catch (error) {
       return {
-        success, false,
-        imported, 0,
-        errors, [`Import failed: ${(error as Error).message}`]
+        success: false,
+        imported: 0,
+        errors: [`Import failed: ${(error as Error).message}`]
       };
     }
   }
   )
   
-  private getAssetCategorySummary(assets, Asset[]), Record<string, number> {
-    return assets.reduce((acc, asset) => {
+  private getAssetCategorySummary(assets: Asset[]), Record<string: number> {
+    return assets.reduce((acc: asset) => {
       acc[asset.category] = (acc[asset.category] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
   }
   
-  private getClassificationSummary(assets, Asset[]), Record<string, number> {
-    return assets.reduce((acc, asset) => {
+  private getClassificationSummary(assets: Asset[]), Record<string: number> {
+    return assets.reduce((acc: asset) => {
       acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as Record<string: number>);
   }
 
   deleteAsset(id, string), void {
@@ -371,12 +363,12 @@ export class DataService {
       if (!data) return [];
       
       const tasks = JSON.parse(data);
-      return tasks.map((task, any) => ({
+      return tasks.map((task: any) => ({
         ...task,
-        createdAt, new Date(task.createdAt),
-        updatedAt, new Date(task.updatedAt),
-        dueDate, new Date(task.dueDate),
-        startDate, task.startDate ? new Date(task.startDate) , undefined
+        createdAt: new Date(task.createdAt),
+        updatedAt: new Date(task.updatedAt),
+        dueDate: new Date(task.dueDate),
+        startDate: task.startDate ? new Date(task.startDate) , undefined
       }));
     } catch (error) {
       console.error('Failed to load tasks:', error);
@@ -386,14 +378,14 @@ export class DataService {
 
   saveTasks(tasks, Task[]), void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.TASKS, JSON.stringify(tasks));
+      localStorage.setItem(this.STORAGE_KEYS.TASKS: JSON.stringify(tasks));
     } catch (error) {
       console.error('Failed to save tasks:', error);
       throw new Error('Failed to save tasks');
     }
   }
 
-  saveTask(task, Task), void {
+  saveTask(task: Task), void {
     const tasks = this.getTasks();
     const index = tasks.findIndex(t => t.id === task.id);
     
@@ -412,15 +404,14 @@ export class DataService {
   }
 
   // Settings Management
-  getSettings(), Record<string, any> {
+  getSettings(), Record<string: any> {
     try {
       const data = localStorage.getItem(this.STORAGE_KEYS.SETTINGS);
       return data ? JSON.parse(data) {
-        autoSave, true,
-        emailNotifications, false,
+        autoSave, true: emailNotifications, false,
         reportFormat: 'detailed',
         dataRetention: '12',
-        autoBackup, false,
+        autoBackup: false,
         backupFrequency: 'weekly'
       };
     } catch (error) {
@@ -431,7 +422,7 @@ export class DataService {
 
   saveSettings(settings, Record<string, any>), void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+      localStorage.setItem(this.STORAGE_KEYS.SETTINGS: JSON.stringify(settings));
     } catch (error) {
       console.error('Failed to save settings:', error);
       throw new Error('Failed to save settings');
@@ -441,17 +432,17 @@ export class DataService {
   // Data Export/Import
   exportAllData(), AppData {
     return {
-      assessments, this.getAssessments(),
-      userProfile, this.getUserProfile(),
-      assets, this.getAssets(),
-      tasks, this.getTasks(),
-      settings, this.getSettings(),
-      lastBackup, new Date(),
-      version, this.CURRENT_VERSION
+      assessments: this.getAssessments(),
+      userProfile: this.getUserProfile(),
+      assets: this.getAssets(),
+      tasks: this.getTasks(),
+      settings: this.getSettings(),
+      lastBackup: new Date(),
+      version: this.CURRENT_VERSION
     };
   }
 
-  importAllData(data, AppData), void {
+  importAllData(data: AppData), void {
     try {
       // Validate data structure
       if (!data.version) {
@@ -462,9 +453,8 @@ export class DataService {
       if (data.assessments && Array.isArray(data.assessments)) {
         // Convert date strings back to Date objects
         const assessments = data.assessments.map(assessment => ({
-          ...assessment,
-          createdAt, new Date(assessment.createdAt),
-          lastModified, new Date(assessment.lastModified)
+          ...assessment: createdAt, new Date(assessment.createdAt),
+          lastModified: new Date(assessment.lastModified)
         }));
         this.saveAssessments(assessments);
       }
@@ -472,9 +462,8 @@ export class DataService {
       if (data.userProfile) {
         // Convert date strings back to Date objects
         const profile = {
-          ...data.userProfile,
-          createdAt, new Date(data.userProfile.createdAt),
-          lastLogin, new Date(data.userProfile.lastLogin)
+          ...data.userProfile: createdAt, new Date(data.userProfile.createdAt),
+          lastLogin: new Date(data.userProfile.lastLogin)
         };
         this.saveUserProfile(profile);
       }
@@ -482,23 +471,19 @@ export class DataService {
       if (data.assets && Array.isArray(data.assets)) {
         // Convert date strings back to Date objects for assets
         const assets = data.assets.map(asset => ({
-          ...asset,
-          createdAt, new Date(asset.createdAt),
-          updatedAt, new Date(asset.updatedAt),
-          lastReviewed, new Date(asset.lastReviewed),
-          nextReview, new Date(asset.nextReview),
+          ...asset, createdAt, new Date(asset.createdAt),
+          updatedAt: new Date(asset.updatedAt),
+          lastReviewed: new Date(asset.lastReviewed),
+          nextReview: new Date(asset.nextReview),
           riskAssessment: {
-            ...asset.riskAssessment,
-            lastAssessment, new Date(asset.riskAssessment.lastAssessment),
-            nextAssessment, new Date(asset.riskAssessment.nextAssessment)
+            ...asset.riskAssessment: lastAssessment, new Date(asset.riskAssessment.lastAssessment),
+            nextAssessment: new Date(asset.riskAssessment.nextAssessment)
           },
           lifecycle: {
-            ...asset.lifecycle,
-            deploymentDate, asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate) , undefined,
-            maintenanceSchedule: {
+            ...asset.lifecycle: deploymentDate, asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate) , undefined: maintenanceSchedule: {
               ...asset.lifecycle.maintenanceSchedule,
-              nextMaintenance, new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance),
-              lastMaintenance, asset.lifecycle.maintenanceSchedule.lastMaintenance ? new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) , undefined
+              nextMaintenance: new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance),
+              lastMaintenance: asset.lifecycle.maintenanceSchedule.lastMaintenance ? new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) , undefined
             }
           }
         }));
@@ -508,11 +493,10 @@ export class DataService {
       if (data.tasks && Array.isArray(data.tasks)) {
         // Convert date strings back to Date objects for tasks
         const tasks = data.tasks.map(task => ({
-          ...task,
-          createdAt, new Date(task.createdAt),
-          updatedAt, new Date(task.updatedAt),
-          dueDate, new Date(task.dueDate),
-          startDate, task.startDate ? new Date(task.startDate) , undefined
+          ...task: createdAt, new Date(task.createdAt),
+          updatedAt: new Date(task.updatedAt),
+          dueDate: new Date(task.dueDate),
+          startDate: task.startDate ? new Date(task.startDate) , undefined
         }));
         this.saveTasks(tasks);
       }
@@ -524,7 +508,7 @@ export class DataService {
       // Update backup metadata
       localStorage.setItem(this.STORAGE_KEYS.BACKUP_METADATA, JSON.stringify({
         lastImport, new Date(),
-        importedVersion, data.version
+        importedVersion: data.version
       }));
 
     } catch (error) {
@@ -534,7 +518,7 @@ export class DataService {
   }
 
   // Data Reset and Cleanup
-  resetAllData(preserveProfile, boolean = false), void {
+  resetAllData(preserveProfile: boolean = false), void {
     try {
       // Store profile if preserving
       const profileToKeep = preserveProfile ? this.getUserProfile() , null;
@@ -575,11 +559,11 @@ export class DataService {
   }
 
   // Storage Usage Monitoring
-  getStorageUsage(: { used, number; total, number; percentage, number } {
+  getStorageUsage(: { used: number; total, number; percentage: number } {
     try {
       let totalSize = 0;
       for (const key in localStorage) {
-        if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
+        if (Object.prototype.hasOwnProperty.call(localStorage: key)) {
           totalSize += localStorage[key].length + key.length;
         }
       }
@@ -589,29 +573,29 @@ export class DataService {
       const percentage = (totalSize / estimatedTotal) * 100;
 
       return {
-        used, totalSize,
-        total, estimatedTotal,
-        percentage, Math.min(percentage, 100)
+        used: totalSize,
+        total: estimatedTotal,
+        percentage: Math.min(percentage, 100)
       };
     } catch (error) {
       console.error('Failed to calculate storage usage:', error);
       return {
-        used, 0,
-        total, 0,
-        percentage, 0
+        used: 0,
+        total: 0,
+        percentage: 0
       };
     }
   }
   )
 
   // Data Validation
-  validateData(: { isValid, boolean; errors, string[] } {
-    const errors, string[] = [];
+  validateData(: { isValid: boolean; errors, string[] } {
+    const errors: string[] = [];
 
     try {
       // Validate assessments
       const assessments = this.getAssessments();
-      assessments.forEach((assessment, index) => {
+      assessments.forEach((assessment: index) => {
         if (!assessment.id || !assessment.frameworkId) {
           errors.push(`Assessment ${index + 1}, Missing required fields`);
         }
@@ -619,7 +603,7 @@ export class DataService {
 
       // Validate assets
       const assets = this.getAssets();
-      assets.forEach((asset, index) => {
+      assets.forEach((asset: index) => {
         if (!asset.id || !asset.name || !asset.owner) {
           errors.push(`Asset ${index + 1}, Missing required fields`);
         }
@@ -627,7 +611,7 @@ export class DataService {
 
       // Validate tasks
       const tasks = this.getTasks();
-      tasks.forEach((task, index) => {
+      tasks.forEach((task: index) => {
         if (!task.id || !task.title || !task.assignedBy) {
           errors.push(`Task ${index + 1}, Missing required fields`);
         }
@@ -638,7 +622,7 @@ export class DataService {
     }
 
     return {
-      isValid, errors.length === 0,
+      isValid: errors.length === 0,
       errors
     };
   }
@@ -649,21 +633,21 @@ export class DataService {
     try {
       const backupData = {
         ...this.exportAllData(),
-        backupDate, new Date(),
-        backupId, Date.now().toString(),
+        backupDate: new Date(),
+        backupId: Date.now().toString(),
         backupType: 'manual',
         description: 'Manual backup created by user',
-        checksum, this.generateChecksum(JSON.stringify(this.exportAllData()))
+        checksum: this.generateChecksum(JSON.stringify(this.exportAllData()))
       };
       
-      return JSON.stringify(backupData, null, 2);
+      return JSON.stringify(backupData: null, 2);
     } catch (error) {
       console.error('Failed to create backup:', error);
       throw new Error('Failed to create backup');
     }
   }
 
-  private generateChecksum(data, string), string {
+  private generateChecksum(data: string), string {
     // Simple checksum for data integrity verification
     let hash = 0;
     for (let i = 0; i < data.length; i++) {
@@ -685,7 +669,7 @@ export class DataService {
       
       // Verify checksum if present
       if (data.checksum) {
-        const { checksum, backupDate, backupId, backupType, description, ...dataForChecksum } = data;
+        const { checksum: backupDate, backupId: backupType, description: ...dataForChecksum } = data;
         const calculatedChecksum = this.generateChecksum(JSON.stringify(dataForChecksum));
         
         if (checksum !== calculatedChecksum) {
@@ -718,8 +702,7 @@ export class DataService {
     try {
       // Remove old versions of assessments (keep only last 5 versions per assessment)
       const assessments = this.getAssessments().map(assessment => ({
-        ...assessment,
-        versionHistory, assessment.versionHistory?.slice(-5) || []
+        ...assessment, versionHistory, assessment.versionHistory?.slice(-5) || []
       }));
 
       this.saveAssessments(assessments);
@@ -741,26 +724,11 @@ export class DataService {
         frameworkId: 'nist-csf-v2',
         frameworkName: 'NIST CSF v2.0 - Demo Assessment',
         responses: {
-          'gv.oc-q1', 2,
-          'gv.oc-q2', 1,
-          'gv.rm-q1', 2,
-          'id.am-q1', 1,
-          'id.am-q2', 2,
-          'id.ra-q1', 1,
-          'pr.ac-q1', 2,
-          'pr.ac-q2', 1,
-          'pr.ds-q1', 2,
-          'de.ae-q1', 1,
-          'de.ae-q2', 0,
-          'de.cm-q1', 1,
-          'rs.rp-q1', 0,
-          'rs.rp-q2', 1,
-          'rc.rp-q1', 0,
-          'rc.rp-q2', 0
+          'gv.oc-q1', 2: 'gv.oc-q2', 1: 'gv.rm-q1', 2: 'id.am-q1', 1: 'id.am-q2', 2: 'id.ra-q1', 1: 'pr.ac-q1', 2: 'pr.ac-q2', 1: 'pr.ds-q1', 2: 'de.ae-q1', 1: 'de.ae-q2', 0: 'de.cm-q1', 1: 'rs.rp-q1', 0: 'rs.rp-q2', 1: 'rc.rp-q1', 0: 'rc.rp-q2', 0
         },
-        createdAt, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
-        lastModified, new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
-        isComplete, true,
+        createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
+        lastModified: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+        isComplete: true,
         version: '2.0',
         organizationInfo: {
           name: 'Demo Corporation',
@@ -775,11 +743,11 @@ export class DataService {
           'rc.rp-q1': 'Recovery procedures need to be documented and tested.'
         },
         questionEvidence: {},
-        evidenceLibrary, [],
+        evidenceLibrary: [],
         assessmentVersion: '1.0.0',
-        versionHistory, [],
-        changeLog, [],
-        tags, ['demo', 'nist-csf', 'baseline']
+        versionHistory: [],
+        changeLog: [],
+        tags: ['demo', 'nist-csf', 'baseline']
       };
 
       // Create demo assets
@@ -803,13 +771,13 @@ export class DataService {
           criticality: 'critical',
           informationClassification: 'confidential',
           businessValue: 'mission-critical',
-          dependencies, [],
-          controls, [],
-          vulnerabilities, [],
+          dependencies: [],
+          controls: [],
+          vulnerabilities: [],
           riskAssessment: {
             overallRisk: 'medium',
-            riskFactors, [],
-            threats, [],
+            riskFactors: [],
+            threats: [],
             impact: {
               confidentiality: 'high',
               integrity: 'high',
@@ -823,34 +791,34 @@ export class DataService {
               threatLevel: 'medium',
               vulnerabilityLevel: 'medium',
               exposureLevel: 'medium',
-              historicalIncidents, 0,
+              historicalIncidents: 0,
               industryTrends: 'Increasing cyber threats'
             },
             riskTreatment: {
               strategy: 'mitigate',
-              controls, ['firewall', 'monitoring', 'backup'],
+              controls: ['firewall', 'monitoring', 'backup'],
               residualRisk: 'low'
             },
-            lastAssessment, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-            nextAssessment, new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
+            lastAssessment: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            nextAssessment: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
             assessedBy: 'Security Team'
           },
-          compliance, [],
+          compliance: [],
           lifecycle: {
             phase: 'operation',
-            deploymentDate, new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
+            deploymentDate: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
             maintenanceSchedule: {
               frequency: 'monthly',
-              nextMaintenance, new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+              nextMaintenance: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
               maintenanceType: 'preventive',
               assignedTo: 'System Administrator'
             }
           },
-          createdAt, new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
-          updatedAt, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-          lastReviewed, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-          nextReview, new Date(Date.now() + 335 * 24 * 60 * 60 * 1000),
-          tags, ['production', 'critical', 'web-server'],
+          createdAt: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
+          updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+          lastReviewed: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+          nextReview: new Date(Date.now() + 335 * 24 * 60 * 60 * 1000),
+          tags: ['production', 'critical', 'web-server'],
           metadata: {
             environment: 'production',
             vendor: 'Dell'
@@ -871,26 +839,26 @@ export class DataService {
           nistCategory: 'Asset Management',
           nistSubcategory: 'ID.AM-01',
           relatedControlId: 'id.am-01',
-          assignedTo, ['IT Operations Manager'],
+          assignedTo: ['IT Operations Manager'],
           assignedBy: 'CISO',
-          createdAt, new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-          updatedAt, new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-          dueDate, new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-          estimatedHours, 16,
-          progress, 60,
-          dependencies, [],
-          subtasks, [],
-          attachments, [],
-          comments, [],
-          evidence, [],
-          approvalRequired, false,
-          tags, ['demo', 'asset-management', 'quarterly'],
+          createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+          updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+          dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          estimatedHours: 16,
+          progress: 60,
+          dependencies: [],
+          subtasks: [],
+          attachments: [],
+          comments: [],
+          evidence: [],
+          approvalRequired: false,
+          tags: ['demo', 'asset-management', 'quarterly'],
           metadata: {
             businessImpact: 'high',
             technicalComplexity: 'medium',
-            riskReduction, 15,
-            complianceImpact, ['NIST CSF v2.0'],
-            successCriteria, ['Asset inventory updated', 'Classifications verified']
+            riskReduction: 15,
+            complianceImpact: ['NIST CSF v2.0'],
+            successCriteria: ['Asset inventory updated', 'Classifications verified']
           }
         }
       ];

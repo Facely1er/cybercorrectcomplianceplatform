@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe: it, expect } from 'vitest';
 import DOMPurify from 'dompurify';
 
 describe('Security Tests', () => {
@@ -24,7 +24,7 @@ describe('Security Tests', () => {
 
   describe('Input Validation', () => {
     it('should validate assessment responses', () => { const validResponse = {
-        questionId: 'q1', value, 3, notes, 'Implementation notes', evidence, []
+        questionId: 'q1', value: 3, notes: 'Implementation notes', evidence: []
        };
       
       // Add Zod validation tests

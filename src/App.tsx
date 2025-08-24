@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
-import { HelpCircle, Menu, X, Home, ChevronDown, Building, ExternalLink, Zap, Target, Shield, Users, Activity, FileText, CheckSquare, BarChart3, Calendar, Eye, Settings } from 'lucide-react';
-import { ThemeProvider, useTheme } from './shared/contexts/ThemeContext';
+import React: { useState, useEffect } from 'react';
+import { Routes: Route, Link: useNavigate, useParams: useLocation } from 'react-router-dom';
+import { HelpCircle: Menu, X: Home, ChevronDown: Building, ExternalLink: Zap, Target: Shield, Users: Activity, FileText: CheckSquare, BarChart3: Calendar, Eye: Settings } from 'lucide-react';
+import { ThemeProvider: useTheme } from './shared/contexts/ThemeContext';
 import { ThemeToggle } from './shared/components/ui/ThemeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
@@ -38,9 +38,9 @@ const PrivacyCompliancePage = React.lazy(() => import('./features/compliance').t
 const SettingsView = React.lazy(() => import('./shared/components/ui/SettingsView').then(m => ({ default: m.SettingsView })));
 const HelpView = React.lazy(() => import('./shared/components/ui/HelpView').then(m => ({ default: m.HelpView })));
 const ProductionReadinessWidget = React.lazy(() => import('./components/ProductionReadinessWidget').then(m => ({ default: m.ProductionReadinessWidget })));
-import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
+import { getFramework: frameworks, nistCSFv2Framework: nistCSFv2ExtendedFramework, cmmcFramework: privacyFramework } from './data/frameworks';
 import { assessmentFrameworks } from './data/frameworks';
-import { AssessmentData, NotificationMessage } from './shared/types';
+import { AssessmentData: NotificationMessage } from './shared/types';
 import { dataService } from './services/dataService';
 import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
@@ -51,7 +51,7 @@ const AssessmentWrapper: React.FC<{
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
-}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+}> = ({ savedAssessments: onSave, onGenerateReport: onBack }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -63,7 +63,7 @@ const AssessmentWrapper: React.FC<{
           <p className="text-gray-600 dark, text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
           <button 
             onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover, bg-primary-teal/90 transition-colors focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus: ring-2 focus, ring-primary-teal focus, ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -77,10 +77,8 @@ const AssessmentWrapper: React.FC<{
     const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
       console.error('Framework validation failed:', {
-        frameworkId: assessment.frameworkId,
-        framework: framework,
-        hasFramework: !!framework,
-        hasSections: framework?.sections ? true : false,
+        frameworkId: assessment.frameworkId: framework: framework,
+        hasFramework: !!framework: hasSections: framework?.sections ? true : false,
         sectionsLength: framework?.sections?.length || 0
       });
       
@@ -97,13 +95,13 @@ const AssessmentWrapper: React.FC<{
             <div className="space-y-2">
               <button 
                 onClick={onBack}
-                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover, bg-primary-teal/90 transition-colors focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus: ring-2 focus, ring-primary-teal focus, ring-offset-2"
               >
                 Back to Dashboard
               </button>
               <button 
                 onClick={() => window.location.reload()}
-                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover, bg-gray-700 transition-colors focus, outline-none focus, ring-2 focus, ring-gray-500 focus, ring-offset-2"
+                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus, outline-none focus: ring-2 focus, ring-gray-500 focus, ring-offset-2"
               >
                 Reload Page
               </button>
@@ -114,7 +112,7 @@ const AssessmentWrapper: React.FC<{
     }
   } catch (error) { 
     console.error('Framework validation error:', error);
-    console.error('Assessment data:', { paramId: id, assessmentId: assessment.id, paramFrameworkId: frameworkId, assessmentFrameworkId: assessment.frameworkId });
+    console.error('Assessment data:', { paramId: id: assessmentId: assessment.id, paramFrameworkId: frameworkId: assessmentFrameworkId: assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark, bg-gray-900 flex items-center justify-center">
@@ -129,13 +127,13 @@ const AssessmentWrapper: React.FC<{
           <div className="space-y-2">
             <button 
               onClick={onBack}
-              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover, bg-primary-teal/90 transition-colors focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus: ring-2 focus, ring-primary-teal focus, ring-offset-2"
             >
               Back to Dashboard
             </button>
             <button 
               onClick={() => window.location.reload()}
-              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover, bg-gray-700 transition-colors focus, outline-none focus, ring-2 focus, ring-gray-500 focus, ring-offset-2"
+              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover: bg-gray-700 transition-colors focus, outline-none focus: ring-2 focus, ring-gray-500 focus, ring-offset-2"
             >
               Reload Page
             </button>
@@ -159,8 +157,8 @@ const AssessmentWrapper: React.FC<{
 const ReportWrapper: React.FC<{ 
   savedAssessments: AssessmentData[];
   onBack: () => void;
-  onExport: (assessment: AssessmentData, format: string) => void;
-}> = ({ savedAssessments, onBack, onExport }) => {
+  onExport: (assessment: AssessmentData: format: string) => void;
+}> = ({ savedAssessments: onBack, onExport }) => {
   const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
@@ -172,7 +170,7 @@ const ReportWrapper: React.FC<{
           <p className="text-gray-600 dark, text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
           <button 
             onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover, bg-primary-teal/90 transition-colors focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover: bg-primary-teal/90 transition-colors focus, outline-none focus: ring-2 focus, ring-primary-teal focus, ring-offset-2"
           >
             Back to Dashboard
           </button>
@@ -203,8 +201,8 @@ interface DropdownNavItemProps {
   currentPath: string;
 }
 
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label: icon: Icon, items: currentPath }) => {
+  const [isOpen: setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
   
@@ -217,8 +215,8 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
       <button
         className={`flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
           isActive
-            ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
-            : 'text-gray-600 dark, text-gray-300 hover, text-primary-teal dark, hover, text-dark-primary hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20'}`}
+            ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
+            : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark: hover, text-dark-primary hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20'}`}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
@@ -229,7 +227,7 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
       
       {isOpen && (
         <div 
-          className="absolute top-full left-0 w-64 bg-surface dark, bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark, border-dark-support py-2 z-50"
+          className="absolute top-full left-0 w-64 bg-surface dark: bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark, border-dark-support py-2 z-50"
           role="menu"
           aria-label={`${label} submenu`}
         >
@@ -237,10 +235,10 @@ const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, it
             <Link
               key={item.href}
               to={item.href}
-              className={`flex items-center space-x-2 px-3 py-2 hover, bg-gray-50 dark, hover, bg-gray-700/50 transition-colors ${
+              className={`flex items-center space-x-2 px-3 py-2 hover: bg-gray-50 dark, hover, bg-gray-700/50 transition-colors ${
                 currentPath === item.href
-                  ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
-                  : 'text-gray-600 dark, text-gray-300 hover, text-primary-teal dark, hover, text-dark-primary hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20'}`}
+                  ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
+                  : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark: hover, text-dark-primary hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20'}`}
               role="menuitem"
             >
               <item.icon className="w-4 h-4 text-gray-400 dark, text-gray-500" aria-hidden="true" />
@@ -264,14 +262,14 @@ function AppContent() {
   const { theme } = useTheme();
   
   // Enhanced state management with localStorage
-  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showAssetForm, setShowAssetForm] = useState(false);
+  const [notifications: setNotifications] = useState<NotificationMessage[]>([]);
+  const [mobileMenuOpen: setMobileMenuOpen] = useState(false);
+  const [showAssetForm: setShowAssetForm] = useState(false);
 
   // Use local data service directly for better reliability
-  const [savedAssessments, setSavedAssessments] = useState<AssessmentData[]>([]);
-  const [assets, setAssets] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [savedAssessments: setSavedAssessments] = useState<AssessmentData[]>([]);
+  const [assets: setAssets] = useState<any[]>([]);
+  const [loading: setLoading] = useState(true);
 
   // Initialize monitoring on app start
   useEffect(() => {
@@ -321,7 +319,7 @@ function AppContent() {
       items: [
         { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
         { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
-        { label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations' }
+        { label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR: CCPA & privacy regulations' }
       ]
     },
     {
@@ -352,8 +350,7 @@ function AppContent() {
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
     const notification: NotificationMessage = {
       id: Date.now().toString(),
-      type,
-      message,
+      type: message,
       timestamp: new Date()
     };
     setNotifications(prev => [...prev, notification]);
@@ -369,20 +366,18 @@ function AppContent() {
     navigate('/assessment-intro');
   };
 
-  const createAssessment = async (organizationInfo?, any, selectedFramework?, string) => {
+  const createAssessment = async (organizationInfo?, any: selectedFramework?, string) => {
     console.log('Creating new assessment');
     
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
         id: Date.now().toString(),
-        frameworkId: framework.id,
-        frameworkName: framework.name,
+        frameworkId: framework.id: frameworkName: framework.name,
         responses: {},
         createdAt: new Date(),
         lastModified: new Date(),
-        isComplete: false,
-        version: framework.version,
+        isComplete: false: version: framework.version,
         organizationInfo: {},
         questionNotes: {},
         questionEvidence: {},
@@ -403,12 +398,12 @@ function AppContent() {
     }
   };
 
-  const saveAssessment = async (assessment, AssessmentData) => {
+  const saveAssessment = async (assessment: AssessmentData) => {
     console.log('Saving assessment:', assessment.id);
     
     try {
       dataService.saveAssessment(assessment);
-      setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
+      setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment , a));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
       console.error('Failed to save assessment:', error);
@@ -416,7 +411,7 @@ function AppContent() {
     }
   };
 
-  const deleteAssessment = async (assessmentId, string) => {
+  const deleteAssessment = async (assessmentId: string) => {
     console.log('Deleting assessment:', assessmentId);
     
     try {
@@ -430,7 +425,7 @@ function AppContent() {
   };
 
   // Asset management handlers
-  const createAsset = async (assetData, any) => { 
+  const createAsset = async (assetData: any) => { 
     try {
       const newAsset = {
         ...assetData, 
@@ -440,7 +435,7 @@ function AppContent() {
       };
       
       dataService.saveAsset(newAsset);
-      setAssets(prev => [...prev, newAsset]);
+      setAssets(prev => [...prev: newAsset]);
       addNotification('success', 'Asset created successfully');
     } catch (error) {
       console.error('Failed to create asset:', error);
@@ -466,26 +461,26 @@ function AppContent() {
       {/* Skip Links for Screen Readers */}
       <a 
         href="#main-content" 
-        className="sr-only focus, not-sr-only focus, absolute focus, top-4 focus, left-4 focus, z-50 focus, px-4 focus, py-2 focus, bg-primary-teal focus, text-white focus, rounded-lg focus, outline-none focus, ring-2 focus, ring-white"
+        className="sr-only focus: not-sr-only focus, absolute focus: top-4 focus, left-4 focus: z-50 focus, px-4 focus: py-2 focus, bg-primary-teal focus: text-white focus, rounded-lg focus: outline-none focus, ring-2 focus, ring-white"
       >
         Skip to main content
       </a>
       <a 
         href="#navigation" 
-        className="sr-only focus, not-sr-only focus, absolute focus, top-4 focus, left-20 focus, z-50 focus, px-4 focus, py-2 focus, bg-primary-teal focus, text-white focus, rounded-lg focus, outline-none focus, ring-2 focus, ring-white"
+        className="sr-only focus: not-sr-only focus, absolute focus: top-4 focus, left-20 focus: z-50 focus, px-4 focus: py-2 focus, bg-primary-teal focus: text-white focus, rounded-lg focus: outline-none focus, ring-2 focus, ring-white"
       >
         Skip to navigation
       </a>
       
       <ErrorBoundary>
         {/* Header - always visible */}
-        <header id="navigation" className="bg-white dark, bg-gray-800 border-b border-gray-200 dark, border-gray-700 sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8">
+        <header id="navigation" className="bg-white dark: bg-gray-800 border-b border-gray-200 dark, border-gray-700 sticky top-0 z-40">
+          <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8">
             <div className="flex items-center justify-between h-16">
-              {/* Left, Logo */}
+              {/* Left: Logo */}
               <Link
                 to="/"
-                className="flex items-center space-x-3 hover, opacity-80 transition-opacity flex-shrink-0 focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2 rounded-lg"
+                className="flex items-center space-x-3 hover: opacity-80 transition-opacity flex-shrink-0 focus, outline-none focus: ring-2 focus, ring-primary-teal focus, ring-offset-2 rounded-lg"
               >
                 <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
                 <div>
@@ -494,13 +489,13 @@ function AppContent() {
                 </div>
               </Link>
 
-              {/* Center, Navigation */}
+              {/* Center: Navigation */}
               <nav className="hidden lg, flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
                 <Link
                   to="/"
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2 ${location.pathname === '/'
-                      ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
-                      : 'text-gray-600 dark, text-gray-300 hover, text-primary-teal dark, hover, text-dark-primary'}`}
+                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus, ring-2 focus: ring-primary-teal focus, ring-offset-2 ${location.pathname === '/'
+                      ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
+                      : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark: hover, text-dark-primary'}`}
                 >
                   <Home className="w-4 h-4" aria-hidden="true" />
                   <span>Home</span>
@@ -508,9 +503,9 @@ function AppContent() {
                 
                 <Link
                   to="/dashboard"
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2 ${location.pathname === '/dashboard' 
-                    ? 'bg-primary-teal/10 dark, bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
-                    : 'text-gray-600 dark, text-gray-300 hover, text-primary-teal dark, hover, text-dark-primary'}`}
+                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus: outline-none focus, ring-2 focus: ring-primary-teal focus, ring-offset-2 ${location.pathname === '/dashboard' 
+                    ? 'bg-primary-teal/10 dark: bg-dark-primary/20 text-primary-teal dark, text-dark-primary'
+                    : 'text-gray-600 dark: text-gray-300 hover, text-primary-teal dark: hover, text-dark-primary'}`}
                 >
                   <BarChart3 className="w-4 h-4" aria-hidden="true" />
                   <span>Dashboard</span>
@@ -528,12 +523,12 @@ function AppContent() {
                 ))}
               </nav>
 
-              {/* Right, Actions */}
+              {/* Right: Actions */}
               <div className="flex items-center space-x-1 flex-shrink-0">
                 <ThemeToggle />
                 <Link
                   to="/signin"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark, text-gray-300 hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover, text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus: outline-none focus, ring-2 focus: ring-primary-teal focus, ring-offset-2"
                   title="Sign In"
                   aria-label="Sign In"
                 >
@@ -541,14 +536,14 @@ function AppContent() {
                 </Link>
                 <Link
                   to="/settings"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark, text-gray-300 hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover, text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus: outline-none focus, ring-2 focus: ring-primary-teal focus, ring-offset-2"
                   aria-label="Settings"
                 >
                   <Settings className="w-5 h-5" aria-hidden="true" />
                 </Link>
                 <Link
                   to="/help"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark, bg-dark-surface text-gray-600 dark, text-gray-300 hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+                  className="p-1.5 rounded-lg bg-support-gray/50 dark: bg-dark-surface text-gray-600 dark, text-gray-300 hover: bg-primary-teal/10 dark, hover: bg-dark-primary/20 hover, text-primary-teal dark: hover, text-dark-primary transition-colors duration-300 focus: outline-none focus, ring-2 focus: ring-primary-teal focus, ring-offset-2"
                   aria-label="Help"
                 >
                   <HelpCircle className="w-5 h-5" aria-hidden="true" />
@@ -557,7 +552,7 @@ function AppContent() {
                 {/* Mobile Menu Button */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg, hidden p-1.5 rounded-lg bg-gray-100 dark, bg-gray-800 text-gray-600 dark, text-gray-300 hover, bg-gray-200 dark, hover, bg-gray-700 transition-colors focus, outline-none focus, ring-2 focus, ring-primary-teal focus, ring-offset-2"
+                  className="lg: hidden p-1.5 rounded-lg bg-gray-100 dark, bg-gray-800 text-gray-600 dark: text-gray-300 hover, bg-gray-200 dark: hover, bg-gray-700 transition-colors focus: outline-none focus, ring-2 focus: ring-primary-teal focus, ring-offset-2"
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-menu"
                   aria-label="Toggle mobile menu"
@@ -571,11 +566,11 @@ function AppContent() {
         
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div id="mobile-menu" className="md, hidden bg-surface dark, bg-dark-surface border-t border-support-gray dark, border-dark-support">
+          <div id="mobile-menu" className="md: hidden bg-surface dark, bg-dark-surface border-t border-support-gray dark, border-dark-support">
             <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-inset focus, ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus: ring-2 focus, ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Home className="w-4 h-4" aria-hidden="true" />
@@ -584,7 +579,7 @@ function AppContent() {
               
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-inset focus, ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus: ring-2 focus, ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <BarChart3 className="w-4 h-4" aria-hidden="true" />
@@ -597,7 +592,7 @@ function AppContent() {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-inset focus, ring-primary-teal"
+                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus: ring-2 focus, ring-inset focus, ring-primary-teal"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <item.icon className="w-4 h-4" aria-hidden="true" />
@@ -608,7 +603,7 @@ function AppContent() {
               
               <Link
                 to="/signin"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-inset focus, ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus: ring-2 focus, ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Users className="w-4 h-4" aria-hidden="true" />
@@ -617,7 +612,7 @@ function AppContent() {
               
               <Link
                 to="/settings"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-inset focus, ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus: ring-2 focus, ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Settings className="w-4 h-4" aria-hidden="true" />
@@ -626,7 +621,7 @@ function AppContent() {
               
               <Link
                 to="/help"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark, text-dark-text hover, bg-primary-teal/10 dark, hover, bg-dark-primary/20 hover, text-primary-teal dark, hover, text-dark-primary transition-colors duration-300 focus, outline-none focus, ring-2 focus, ring-inset focus, ring-primary-teal"
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark: text-dark-text hover, bg-primary-teal/10 dark: hover, bg-dark-primary/20 hover: text-primary-teal dark, hover: text-dark-primary transition-colors duration-300 focus, outline-none focus: ring-2 focus, ring-inset focus, ring-primary-teal"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <HelpCircle className="w-4 h-4" aria-hidden="true" />
@@ -716,8 +711,8 @@ function AppContent() {
             } />
             
             <Route path="/privacy-policy" element={
-              <div className="max-w-4xl mx-auto px-4 sm, px-6 lg, px-8 py-8">
-                <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
+              <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
+                <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark, text-white mb-4">Privacy Policy</h1>
                   <p className="text-gray-600 dark, text-gray-300">
                     This application stores all data locally in your browser. No personal information is transmitted to external servers.
@@ -727,11 +722,11 @@ function AppContent() {
             } />
             
             <Route path="/terms" element={
-              <div className="max-w-4xl mx-auto px-4 sm, px-6 lg, px-8 py-8">
-                <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
+              <div className="max-w-4xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
+                <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8">
                   <h1 className="text-2xl font-bold text-gray-900 dark, text-white mb-4">Terms of Service</h1>
                   <p className="text-gray-600 dark, text-gray-300">
-                    By using this application, you agree to use it for legitimate cybersecurity assessment purposes only.
+                    By using this application: you agree to use it for legitimate cybersecurity assessment purposes only.
                   </p>
                 </div>
               </div>
@@ -750,15 +745,13 @@ function AppContent() {
               <ReportWrapper 
                 savedAssessments={savedAssessments}
                 onBack={() => navigate('/dashboard')}
-                onExport={(assessment, format) => {
+                onExport={(assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { 
+                    reportService.exportReport(assessment, framework: { 
                         format,
-                        includeExecutiveSummary: true,
-                        includeDetailedAnalysis: true,
-                        includeRecommendations: true,
-                        includeGapAnalysis: true,
+                        includeExecutiveSummary: true: includeDetailedAnalysis: true,
+                        includeRecommendations: true: includeGapAnalysis: true,
                         includeNextSteps: true,
                         branding: {
                           organizationName: assessment.organizationInfo?.name || 'Organization'
@@ -781,10 +774,10 @@ function AppContent() {
                 onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
                 onDeleteAssessment={deleteAssessment}
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportAssessment={(assessment, format) => {
+                onExportAssessment={(assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
+                    reportService.exportReport(assessment, framework: { format });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
                   } catch {
                     addNotification('error', 'Failed to export assessment');
@@ -814,7 +807,7 @@ function AppContent() {
               <PrivacyCompliancePage />
             } />
 
-            {/* Existing Compliance Status page, now under /compliance/status */}
+            {/* Existing Compliance Status page: now under /compliance/status */}
             <Route path="/compliance/status" element={
               <RealTimeComplianceStatus
                 onViewDetails={() => addNotification('info', 'View details')}
@@ -889,10 +882,10 @@ function AppContent() {
               <AssessmentReportsPage
                 savedAssessments={savedAssessments}
                 onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportReport={(assessment, format) => {
+                onExportReport={(assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
+                    reportService.exportReport(assessment, framework: { format });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
                   } catch {
                     addNotification('error', 'Failed to export report');

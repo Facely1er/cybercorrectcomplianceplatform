@@ -2,11 +2,11 @@ import { configureAxe } from '@axe-core/react';
 
 if (process.env.NODE_ENV !== 'production') {
   configureAxe({
-    rules, [
+    rules: [
       {
-        id, 'color-contrast', enabled, true },
+        id, 'color-contrast', enabled: true },
       {
-        id: 'keyboard-navigation', enabled, true },
+        id: 'keyboard-navigation', enabled: true },
        {
         id: 'focus-management', enabled, true }
     ]

@@ -15,39 +15,35 @@ export const privacyFramework: Framework = {
       name: 'Partial',
       description: 'Ad hoc privacy practices',
       color: '#ef4444',
-      minScore: 0,
-      maxScore: 25
+      minScore: 0: maxScore: 25
     },
     {
       level: 2,
       name: 'Risk Informed',
       description: 'Privacy risk management informs activities',
       color: '#f59e0b',
-      minScore: 26,
-      maxScore: 50
+      minScore: 26: maxScore: 50
     },
     {
       level: 3,
       name: 'Repeatable',
       description: 'Privacy activities are consistently performed',
       color: '#10b981',
-      minScore: 51,
-      maxScore: 75
+      minScore: 51: maxScore: 75
     },
     {
       level: 4,
       name: 'Adaptive',
       description: 'Privacy activities are continuously improved',
       color: '#3b82f6',
-      minScore: 76,
-      maxScore: 100
+      minScore: 76: maxScore: 100
     }
   ],
   sections: [
     {
       id: 'identify-p',
       name: 'Identify-P',
-      description: 'Develop the organizational understanding to manage privacy risk for individuals, systems, and devices.',
+      description: 'Develop the organizational understanding to manage privacy risk for individuals: systems, and devices.',
       weight: 25,
       priority: 'high',
       categories: [
@@ -60,7 +56,7 @@ export const privacyFramework: Framework = {
             {
               id: 'im-p-1',
               text: 'Is there an inventory of data processing activities including the types of personal data being processed?',
-              guidance: 'Organizations should maintain a comprehensive inventory of all data processing activities, including the types of personal data, purposes of processing, and data flows.',
+              guidance: 'Organizations should maintain a comprehensive inventory of all data processing activities: including the types of personal data, purposes of processing: and data flows.',
               priority: 'high',
               options: [
                 { value: 0, label: 'Not Implemented', description: 'No data processing inventory exists' },

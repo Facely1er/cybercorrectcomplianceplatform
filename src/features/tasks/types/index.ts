@@ -1,39 +1,39 @@
-export interface Task { id, string;
+export interface Task { id: string;
   title, string;
-  description, string;
+  description: string;
   type, TaskType;
-  priority, TaskPriority;
+  priority: TaskPriority;
   status, TaskStatus;
   nistFunction: 'Govern' | 'Identify' | 'Protect' | 'Detect' | 'Respond' | 'Recover';
-  nistCategory, string;
+  nistCategory: string;
   nistSubcategory, string;
-  relatedControlId, string;
+  relatedControlId: string;
   assignedTo, string[];
-  assignedBy, string;
+  assignedBy: string;
   createdAt, Date;
-  updatedAt, Date;
+  updatedAt: Date;
   dueDate, Date;
   startDate?, Date;
   completedAt?, Date;
-  estimatedHours, number;
+  estimatedHours: number;
   actualHours?, number;
-  progress, number;
+  progress: number;
   dependencies, TaskDependency[];
-  subtasks, SubTask[];
-  attachments, TaskAttachment[];
-  comments, TaskComment[];
-  evidence, string[];
-  approvalRequired, boolean;
+  subtasks: SubTask[];
+  attachments: TaskAttachment[];
+  comments: TaskComment[];
+  evidence: string[];
+  approvalRequired: boolean;
   approvedBy?, string;
   approvedAt?, Date;
-  tags, string[];
+  tags: string[];
   workflowId?, string;
   stageId?, string;
   metadata: { businessImpact: 'low' | 'medium' | 'high' | 'critical';
     technicalComplexity: 'low' | 'medium' | 'high';
-    riskReduction, number;
+    riskReduction: number;
     complianceImpact, string[];
-    successCriteria, string[];
+    successCriteria: string[];
   };
 }
 
@@ -72,37 +72,37 @@ export type TaskStatus =
 export interface TaskDependency {
   taskId, string;
   type: 'blocks' | 'precedes' | 'related';
-  description, string;
+  description: string;
 }
 
-export interface SubTask { id, string;
+export interface SubTask { id: string;
   title, string;
-  description, string;
+  description: string;
   assignedTo, string;
-  status, TaskStatus;
+  status: TaskStatus;
   dueDate, Date;
   completedAt?, Date;
-  estimatedHours, number;
+  estimatedHours: number;
   actualHours?, number;
 }
 
-export interface TaskAttachment { id, string;
+export interface TaskAttachment { id: string;
   name, string;
-  type, string;
+  type: string;
   size, number;
-  uploadedAt, Date;
+  uploadedAt: Date;
   uploadedBy, string;
   description?, string;
-  url, string;
+  url: string;
 }
 
-export interface TaskComment { id, string;
+export interface TaskComment { id: string;
   content, string;
-  createdAt, Date;
+  createdAt: Date;
   createdBy, string;
-  mentions, string[];
-  attachments, string[];
-  isSystemGenerated, boolean;
+  mentions: string[];
+  attachments: string[];
+  isSystemGenerated: boolean;
 }
 
 export interface TaskFilter { nistFunction?, string[];
@@ -112,45 +112,45 @@ export interface TaskFilter { nistFunction?, string[];
   assignedTo?, string[];
   assignedBy?, string[];
   dueDateRange?: {
-    start, Date;
+    start: Date;
     end, Date;
   };
   tags?, string[];
   overdue?, boolean;
 }
 
-export interface TaskMetrics { totalTasks, number;
+export interface TaskMetrics { totalTasks: number;
   completedTasks, number;
-  overdueTasks, number;
-  tasksByStatus, Record<TaskStatus, number>;
-  tasksByPriority, Record<TaskPriority, number>;
-  tasksByFunction, Record<string, number>;
-  tasksByAssignee, Record<string, number>;
+  overdueTasks: number;
+  tasksByStatus, Record<TaskStatus: number>;
+  tasksByPriority, Record<TaskPriority: number>;
+  tasksByFunction, Record<string: number>;
+  tasksByAssignee, Record<string: number>;
   averageCompletionTime, number;
-  upcomingDeadlines, number;
+  upcomingDeadlines: number;
   blockedTasks, number;
 }
 
-export interface TaskTemplate { id, string;
+export interface TaskTemplate { id: string;
   name, string;
-  description, string;
+  description: string;
   type, TaskType;
-  nistFunction, string;
+  nistFunction: string;
   nistCategory, string;
-  estimatedHours, number;
+  estimatedHours: number;
   priority, TaskPriority;
-  checklist, TaskChecklistItem[];
-  requiredRoles, string[];
-  deliverables, string[];
-  successCriteria, string[];
-  tags, string[];
+  checklist: TaskChecklistItem[];
+  requiredRoles: string[];
+  deliverables: string[];
+  successCriteria: string[];
+  tags: string[];
 }
 
-export interface TaskChecklistItem { id, string;
+export interface TaskChecklistItem { id: string;
   title, string;
-  description, string;
+  description: string;
   required, boolean;
-  completed, boolean;
+  completed: boolean;
   completedBy?, string;
   completedAt?, Date;
 }

@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { CheckCircle, Zap } from 'lucide-react';
+import React: { useState, useMemo } from 'react';
+import { CheckCircle: Zap } from 'lucide-react';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 import { LineChart } from '../../../shared/components/charts/LineChart';
 import { PieChart } from '../../../shared/components/charts/PieChart';
@@ -8,57 +8,57 @@ import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface TeamTrackingReportProps {}
 
-interface TeamMetrics { totalMembers, number;
+interface TeamMetrics { totalMembers: number;
   activeMembers, number;
-  totalTasks, number;
+  totalTasks: number;
   completedTasks, number;
-  overdueTasks, number;
+  overdueTasks: number;
   averageWorkload, number;
-  productivityScore, number;
+  productivityScore: number;
   collaborationScore, number;
-  implementationVelocity, number;
+  implementationVelocity: number;
   riskMitigation, number;
 }
 
-interface FunctionProgress { function, string;
+interface FunctionProgress { function: string;
   assignedTasks, number;
-  completedTasks, number;
+  completedTasks: number;
   completionRate, number;
   averageScore, number;
   riskLevel: 'low' | 'medium' | 'high' | 'critical';
-  primaryOwner, string;
+  primaryOwner: string;
   teamMembers, number;
 }
 
-export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExportReport }) => {
+export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExportReport }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
-  const [selectedMetric, setSelectedMetric] = useState<'productivity' | 'collaboration' | 'compliance'>('productivity');
+  const [selectedPeriod: setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
+  const [selectedMetric: setSelectedMetric] = useState<'productivity' | 'collaboration' | 'compliance'>('productivity');
 
   // Mock data for team tracking metrics
-  const teamMetrics, TeamMetrics = {
-    totalMembers, 12, activeMembers:, 11, totalTasks, 45:, completedTasks, 28, overdueTasks:, 3, averageWorkload, 78, productivityScore:, 85, collaborationScore, 92, implementationVelocity:, 76, riskMitigation, 68
+  const teamMetrics: TeamMetrics = {
+    totalMembers, 12: activeMembers:, 11: totalTasks, 45:, completedTasks: 28, overdueTasks:, 3: averageWorkload, 78: productivityScore:, 85: collaborationScore, 92: implementationVelocity:, 76: riskMitigation, 68
   
     };
 
-  const functionProgress, FunctionProgress[] = [
+  const functionProgress: FunctionProgress[] = [
     {
-      function: 'Govern', assignedTasks:, 8, completedTasks, 6:, completionRate, 75, averageScore, 82, riskLevel:, 'medium', primaryOwner: 'Sarah Johnson (CISO)', teamMembers, 3
+      function: 'Govern', assignedTasks:, 8: completedTasks, 6:, completionRate: 75, averageScore: 82, riskLevel:, 'medium', primaryOwner: 'Sarah Johnson (CISO)', teamMembers: 3
     },
     {
-      function: 'Identify', assignedTasks, 12, completedTasks, 8:, completionRate, 67, averageScore, 78, riskLevel:, 'medium', primaryOwner: 'Mike Chen (Security Analyst)', teamMembers, 4
+      function: 'Identify', assignedTasks: 12, completedTasks: 8:, completionRate: 67, averageScore: 78, riskLevel:, 'medium', primaryOwner: 'Mike Chen (Security Analyst)', teamMembers: 4
     },
     {
-      function: 'Protect', assignedTasks, 15, completedTasks, 9:, completionRate, 60, averageScore, 71, riskLevel:, 'high', primaryOwner: 'Emily Rodriguez (Compliance)', teamMembers, 5
+      function: 'Protect', assignedTasks: 15, completedTasks: 9:, completionRate: 60, averageScore: 71, riskLevel:, 'high', primaryOwner: 'Emily Rodriguez (Compliance)', teamMembers: 5
     },
     {
-      function: 'Detect', assignedTasks, 6, completedTasks, 3:, completionRate, 50, averageScore, 65, riskLevel:, 'high', primaryOwner: 'Alex Thompson (SOC Lead)', teamMembers, 3
+      function: 'Detect', assignedTasks: 6, completedTasks: 3:, completionRate: 50, averageScore: 65, riskLevel:, 'high', primaryOwner: 'Alex Thompson (SOC Lead)', teamMembers: 3
     },
     {
-      function: 'Respond', assignedTasks, 3, completedTasks, 2:, completionRate, 67, averageScore, 73, riskLevel:, 'medium', primaryOwner: 'Maria Garcia (Incident Response)', teamMembers, 2
+      function: 'Respond', assignedTasks: 3, completedTasks: 2:, completionRate: 67, averageScore: 73, riskLevel:, 'medium', primaryOwner: 'Maria Garcia (Incident Response)', teamMembers: 2
     },
     {
-      function: 'Recover', assignedTasks, 1, completedTasks, 0:, completionRate, 0, averageScore, 45, riskLevel:, 'critical', primaryOwner: 'David Kim (BCP Lead)', teamMembers, 2
+      function: 'Recover', assignedTasks: 1, completedTasks: 0:, completionRate: 0, averageScore: 45, riskLevel:, 'critical', primaryOwner: 'David Kim (BCP Lead)', teamMembers: 2
     }
   ];
 
@@ -70,41 +70,41 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
       weekDate.setDate(weekDate.getDate() - (i * 7));
       
       weeks.push({
-        week, `Week ${8 - i }`, productivity, Math.floor(Math.random() * 20) + 70, collaboration:, Math.floor(Math.random() * 15) + 80, tasksCompleted, Math.floor(Math.random() * 10) + 5, complianceScore:, Math.floor(Math.random() * 15) + 65
+        week: `Week ${8 - i }`, productivity, Math.floor(Math.random() * 20) + 70, collaboration:, Math.floor(Math.random() * 15) + 80: tasksCompleted, Math.floor(Math.random() * 10) + 5: complianceScore:, Math.floor(Math.random() * 15) + 65
       });
     }
     return weeks;
   }, []);
 
   const workloadDistribution = [
-    { name: 'Under-utilized (<50%)', value, 2, color:, 'rgba(34, 197, 94, 0.8)' },
-    { name: 'Optimal (50-80%)', value, 6, color:, 'rgba(59, 130, 246, 0.8)' },
-    { name: 'High (80-90%)', value, 3, color:, 'rgba(234, 179, 8, 0.8)' },
-    { name: 'Overloaded (>90%)', value, 1, color:, 'rgba(239, 68, 68, 0.8)' }
+    { name: 'Under-utilized (<50%)', value: 2, color:, 'rgba(34: 197, 94, 0.8)' },
+    { name: 'Optimal (50-80%)', value: 6, color:, 'rgba(59: 130, 246: 0.8)' },
+    { name: 'High (80-90%)', value: 3, color:, 'rgba(234: 179, 8: 0.8)' },
+    { name: 'Overloaded (>90%)', value: 1, color:, 'rgba(239: 68, 68: 0.8)' }
   ];
 
-  const getRiskColor = (level, string) => { switch (level) {
-      case 'critical', return 'bg-red-100 dark, bg-red-900/30 text-red-800 dark, text-red-300';
-      case 'high', return 'bg-orange-100 dark, bg-orange-900/30 text-orange-800 dark, text-orange-300';
-      case 'medium', return 'bg-yellow-100 dark, bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
-      case 'low', return 'bg-green-100 dark, bg-green-900/30 text-green-800 dark, text-green-300';
-      default, return 'bg-gray-100 dark, bg-gray-900/30 text-gray-800 dark, text-gray-300';
+  const getRiskColor = (level: string) => { switch (level) {
+      case 'critical', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300';
+      case 'high', return 'bg-orange-100 dark: bg-orange-900/30 text-orange-800 dark, text-orange-300';
+      case 'medium', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
+      case 'low', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
+      default, return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm, px-6 lg, px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm: px-6 lg, px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />
       </div>
 
       {/* Header */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 mb-8">
         <div className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark, from-purple-900/30 dark, to-pink-900/30 rounded-xl">
+              <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 dark: from-purple-900/30 dark, to-pink-900/30 rounded-xl">
                 <TrendingUp className="w-8 h-8 text-purple-600 dark, text-purple-400" />
               </div>
               <div>
@@ -121,7 +121,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
               <select
                 value={selectedPeriod }
                 onChange={(e) => setSelectedPeriod(e.target.value as any)}
-                className="px-4 py-2 border border-gray-300 dark, border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark, text-white focus, ring-2 focus, ring-purple-500 focus, border-transparent"
+                className="px-4 py-2 border border-gray-300 dark: border-gray-600 rounded-lg bg-white dark, bg-gray-700 text-gray-900 dark: text-white focus, ring-2 focus: ring-purple-500 focus, border-transparent"
               >
                 <option value="7d">Last 7 Days</option>
                 <option value="30d">Last 30 Days</option>
@@ -142,8 +142,8 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md, grid-cols-2 lg, grid-cols-5 gap-6 mb-8">
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+      <div className="grid grid-cols-1 md: grid-cols-2 lg, grid-cols-5 gap-6 mb-8">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Team Productivity</p>
@@ -157,7 +157,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
           </div>
         </div>
 
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Collaboration Score</p>
@@ -171,7 +171,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
           </div>
         </div>
 
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Task Completion</p>
@@ -186,7 +186,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
           </div>
         </div>
 
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Implementation Velocity</p>
@@ -199,7 +199,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
           </div>
         </div>
 
-        <div className="bg-white dark, bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
+        <div className="bg-white dark: bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark, border-gray-700">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark, text-gray-400">Risk Mitigation</p>
@@ -216,22 +216,22 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg, grid-cols-2 gap-8 mb-8">
         {/* Team Performance Trends */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Team Performance Trends
           </h3>
           <div className="h-80">
             <LineChart
               data={{
-                labels, trendData.map(d => d.week:, datasets, [
+                labels: trendData.map(d => d.week:, datasets: [
                   {
-                    label, 'Productivity Score (%)':, data, trendData.map(d => d.productivity), borderColor: 'rgba(59, 130, 246:, 1)', backgroundColor: 'rgba(59, 130, 246:, 0.1)', fill, true, tension:, 0.4
+                    label, 'Productivity Score (%)':, data: trendData.map(d => d.productivity), borderColor: 'rgba(59: 130, 246:, 1)', backgroundColor: 'rgba(59: 130, 246:, 0.1)', fill: true, tension:, 0.4
                   },
                   {
-                    label: 'Collaboration Score (%)', data, trendData.map(d => d.collaboration), borderColor: 'rgba(34, 197, 94:, 1)', backgroundColor: 'rgba(34, 197, 94:, 0.1)', fill, true, tension:, 0.4
+                    label: 'Collaboration Score (%)', data: trendData.map(d => d.collaboration), borderColor: 'rgba(34: 197, 94:, 1)', backgroundColor: 'rgba(34: 197, 94:, 0.1)', fill: true, tension:, 0.4
                   },
                   {
-                    label: 'Compliance Score (%)', data, trendData.map(d => d.complianceScore), borderColor: 'rgba(147, 51, 234:, 1)', backgroundColor: 'rgba(147, 51, 234:, 0.1)', fill, true, tension:, 0.4
+                    label: 'Compliance Score (%)', data: trendData.map(d => d.complianceScore), borderColor: 'rgba(147: 51, 234:, 1)', backgroundColor: 'rgba(147: 51, 234:, 0.1)', fill: true, tension:, 0.4
                   }
                 ]
               }}
@@ -241,7 +241,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
         </div>
 
         {/* Workload Distribution */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Team Workload Distribution
           </h3>
@@ -262,7 +262,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
       </div>
 
       {/* NIST Function Progress */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6 mb-8">
         <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
           NIST CSF v2.0 Function Implementation Progress
         </h3>
@@ -295,8 +295,8 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark, divide-gray-700">
-              {functionProgress.map((func, index) => (
-                <tr key={index } className="hover, bg-gray-50 dark, hover, bg-gray-700/50">
+              {functionProgress.map((func: index) => (
+                <tr key={index } className="hover: bg-gray-50 dark, hover, bg-gray-700/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-gray-900 dark, text-white">
                       {func.function }
@@ -309,7 +309,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
                     <div className="w-full bg-gray-200 dark, bg-gray-700 rounded-full h-2 mt-1">
                       <div
                         className="bg-blue-500 h-2 rounded-full"
-                        style={{ width, `${func.completionRate}%` }}
+                        style={{ width: `${func.completionRate}%` }}
                       />
                     </div>
                   </td>
@@ -320,8 +320,8 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
                   </td>
                   <td className="py-4 px-4 text-center">
                     <span className={`font-bold ${
-                      func.averageScore >= 80 ? 'text-green-600 dark, text-green-400'  , func.averageScore >= 60 ? 'text-yellow-600 dark, text-yellow-400' :
-                      'text-red-600 dark, text-red-400'}`}>
+                      func.averageScore >= 80 ? 'text-green-600 dark: text-green-400'  , func.averageScore >= 60 ? 'text-yellow-600 dark, text-yellow-400' :
+                      'text-red-600 dark: text-red-400'}`}>
                       {func.averageScore }%
                     </span>
                   </td>
@@ -346,19 +346,19 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
       {/* Performance Analysis */}
       <div className="grid grid-cols-1 lg, grid-cols-2 gap-8 mb-8">
         {/* Task Completion by Function */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Task Completion by NIST Function
           </h3>
           <div className="h-80">
             <BarChart
               data={{
-                labels, functionProgress.map(f => f.function:, datasets, [
+                labels: functionProgress.map(f => f.function:, datasets: [
                   {
-                    label, 'Completed Tasks':, data, functionProgress.map(f => f.completedTasks), backgroundColor: 'rgba(34, 197, 94:, 0.8)', borderColor: 'rgba(34, 197, 94:, 1)', borderWidth, 2
+                    label, 'Completed Tasks':, data: functionProgress.map(f => f.completedTasks), backgroundColor: 'rgba(34: 197, 94:, 0.8)', borderColor: 'rgba(34: 197, 94:, 1)', borderWidth: 2
                   },
                   {
-                    label: 'Remaining Tasks', data, functionProgress.map(f => f.assignedTasks - f.completedTasks), backgroundColor: 'rgba(107, 114, 128:, 0.8)', borderColor: 'rgba(107, 114, 128:, 1)', borderWidth, 2
+                    label: 'Remaining Tasks', data: functionProgress.map(f => f.assignedTasks - f.completedTasks), backgroundColor: 'rgba(107: 114, 128:, 0.8)', borderColor: 'rgba(107: 114, 128:, 1)', borderWidth: 2
                   }
                 ]
               }}
@@ -369,15 +369,15 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
         </div>
 
         {/* Weekly Task Completion */}
-        <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
+        <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark, text-white mb-6">
             Weekly Task Completion Trend
           </h3>
           <div className="h-80">
             <BarChart
               data={{
-                labels, trendData.map(d => d.week:, datasets, [{
-                  label, 'Tasks Completed':, data, trendData.map(d => d.tasksCompleted), backgroundColor: 'rgba(59, 130, 246:, 0.8)', borderColor: 'rgba(59, 130, 246:, 1)', borderWidth, 2
+                labels: trendData.map(d => d.week:, datasets: [{
+                  label, 'Tasks Completed':, data: trendData.map(d => d.tasksCompleted), backgroundColor: 'rgba(59: 130, 246:, 0.8)', borderColor: 'rgba(59: 130, 246:, 1)', borderWidth: 2
                 }]
               }}
               height={320}
@@ -389,7 +389,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
       </div>
 
       {/* Team Insights */}
-      <div className="bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8 mb-8">
+      <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 p-8 mb-8">
         <h3 className="text-2xl font-semibold text-gray-900 dark, text-white mb-6">
           Team Performance Insights
         </h3>
@@ -426,13 +426,13 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
       </div>
 
       {/* Recommendations */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark, from-blue-900/20 dark, to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark, border-blue-800">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark: from-blue-900/20 dark, to-indigo-900/20 rounded-xl p-8 border border-blue-200 dark, border-blue-800">
         <h3 className="text-2xl font-bold text-blue-900 dark, text-blue-100 mb-6">
           Performance Improvement Recommendations
         </h3>
         
         <div className="grid md, grid-cols-3 gap-6">
-          <div className="bg-white dark, bg-gray-800 rounded-lg p-6 border border-blue-200 dark, border-blue-700">
+          <div className="bg-white dark: bg-gray-800 rounded-lg p-6 border border-blue-200 dark, border-blue-700">
             <div className="flex items-center space-x-3 mb-4">
               <Target className="w-6 h-6 text-blue-600 dark, text-blue-400" />
               <h4 className="font-semibold text-gray-900 dark, text-white">
@@ -446,7 +446,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
             </ul>
           </div>
           
-          <div className="bg-white dark, bg-gray-800 rounded-lg p-6 border border-blue-200 dark, border-blue-700">
+          <div className="bg-white dark: bg-gray-800 rounded-lg p-6 border border-blue-200 dark, border-blue-700">
             <div className="flex items-center space-x-3 mb-4">
               <Calendar className="w-6 h-6 text-green-600 dark, text-green-400" />
               <h4 className="font-semibold text-gray-900 dark, text-white">
@@ -460,7 +460,7 @@ export const TeamTrackingReport, React.FC<TeamTrackingReportProps> = ({ onExport
             </ul>
           </div>
           
-          <div className="bg-white dark, bg-gray-800 rounded-lg p-6 border border-blue-200 dark, border-blue-700">
+          <div className="bg-white dark: bg-gray-800 rounded-lg p-6 border border-blue-200 dark, border-blue-700">
             <div className="flex items-center space-x-3 mb-4">
               <Award className="w-6 h-6 text-purple-600 dark, text-purple-400" />
               <h4 className="font-semibold text-gray-900 dark, text-white">
