@@ -6,7 +6,7 @@ import { cmmcFramework } from './cmmc';
 import { privacyFramework } from './privacy';
 
 // Support for multiple cybersecurity frameworks
-export const frameworks, Framework[] = [
+export const frameworks: Framework[] = [
   nistCSFv2StandardFramework, // NIST CSF v2.0 Quick Check
   cmmcFramework,
   privacyFramework,

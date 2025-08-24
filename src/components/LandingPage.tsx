@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { CheckCircle, Building, Database, Scale,  Briefcase, HelpCircle  } from 'lucide-react';
 
 // Text Carousel Component
-const TextCarousel, React.FC = () => {
+const TextCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
   
   const messages = [

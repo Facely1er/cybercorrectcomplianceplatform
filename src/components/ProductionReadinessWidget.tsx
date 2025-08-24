@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Info, X, Monitor  :} from 'lucide-react';
+import { CheckCircle, Info, X, Monitor } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';

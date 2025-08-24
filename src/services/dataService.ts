@@ -4,13 +4,13 @@ import { Task } from '../features/tasks/types';
 import { auditLogger } from '../lib/auditLog';
 
 export interface AppData {
-  assessments, AssessmentData[];
-  userProfile, UserProfile | null;
-  assets, Asset[];
-  tasks, Task[];
-  settings, Record<string, any>;
-  lastBackup, Date | null;
-  version, string;
+  assessments: AssessmentData[];
+  userProfile: UserProfile | null;
+  assets: Asset[];
+  tasks: Task[];
+  settings: Record<string, any>;
+  lastBackup: Date | null;
+  version: string;
 }
 
 export class DataService {
@@ -343,6 +343,7 @@ export class DataService {
       };
     }
   }
+  )
   
   private getAssetCategorySummary(assets, Asset[]), Record<string, number> {
     return assets.reduce((acc, asset) => {
@@ -601,6 +602,7 @@ export class DataService {
       };
     }
   }
+  )
 
   // Data Validation
   validateData(: { isValid, boolean; errors, string[] } {
@@ -640,6 +642,7 @@ export class DataService {
       errors
     };
   }
+  )
 
   // Backup and Recovery
   createBackup(), string {

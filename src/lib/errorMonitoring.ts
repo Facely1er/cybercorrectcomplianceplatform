@@ -18,7 +18,7 @@ interface ErrorDetails {
 }
 
 class ErrorMonitoring {
-  private static instance, ErrorMonitoring;
+  private static instance: ErrorMonitoring;
   private isInitialized = false;
 
   static getInstance(), ErrorMonitoring {

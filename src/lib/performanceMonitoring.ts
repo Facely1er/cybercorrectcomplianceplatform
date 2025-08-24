@@ -17,10 +17,10 @@ interface VitalMetrics {
 }
 
 class PerformanceMonitoring {
-  private static instance, PerformanceMonitoring;
-  private measurements, Map<string, PerformanceEntry[]> = new Map();
-  private vitals, VitalMetrics = {};
-  private observer?, PerformanceObserver;
+  private static instance: PerformanceMonitoring;
+  private measurements: Map<string, PerformanceEntry[]> = new Map();
+  private vitals: VitalMetrics = {};
+  private observer?: PerformanceObserver;
 
   static getInstance(), PerformanceMonitoring {
     if (!PerformanceMonitoring.instance) {
@@ -164,6 +164,7 @@ class PerformanceMonitoring {
       return this.measurePerformance(name, duration, metadata);
     };
   }
+  )
 
   getAverageTime(name, string), number {
     const measurements = this.measurements.get(name);
