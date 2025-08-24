@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle: Info: X, Monitor  :} from 'lucide-react';
+import { CheckCircle, Info, X, Monitor } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -11,10 +11,10 @@ interface ReadinessCheck { name: string;
 }
 
 export const ProductionReadinessWidget: React.FC = () => {
-  const [isOpen: setIsOpen] = useState(false);
-  const [checks: setChecks] = useState<ReadinessCheck[]>([]);
-  const [readinessScore: setReadinessScore] = useState(0);
-  const [isReady: setIsReady] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [checks, setChecks] = useState<ReadinessCheck[]>([]);
+  const [readinessScore, setReadinessScore] = useState(0);
+      const [isReady, setIsReady] = useState(false);
   const { metrics, isMonitoring, getHealthStatusColor } = useProductionMonitoring();
 
   useEffect(() => {
@@ -34,10 +34,11 @@ export const ProductionReadinessWidget: React.FC = () => {
     }
   };
 
-  const getStatusIcon = (status: string) => { switch (status) {
-      case 'pass', return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case 'warning': return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
-      case 'fail', return <AlertTriangle className="w-4 h-4 text-red-500" />;
+      const getStatusIcon = (status: string) => {
+      switch (status) {
+        case 'pass': return <CheckCircle className="w-4 h-4 text-green-500" />;
+        case 'warning': return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
+        case 'fail': return <AlertTriangle className="w-4 h-4 text-red-500" />;
       default: return <Info className="w-4 h-4 text-gray-500" />;
     }
   };
@@ -187,7 +188,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               <button
                 onClick={async () => {
                   const report = await productionReadinessChecker.generateReport();
-                                      const blob = new Blob([report], { type, 'text/markdown' });
+                                      const blob = new Blob([report], { type: 'text/markdown' });
                   const url = URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = url;

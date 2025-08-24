@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle: PieChart: as, PieChartIcon:, LineChart, Building, ChevronLeft } from 'lucide-react';
+import { CheckCircle, PieChart, PieChartIcon, LineChart, Building, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { frameworks } from '../../../data/frameworks';

@@ -16,10 +16,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const { user } = useAuth();
   const { resetAllAssessments } = useAssessments();
   const { breadcrumbs } = useInternalLinking();
-  const [settings: setSettings] = useState(dataService.getSettings());
-  const [storageUsage: setStorageUsage] = useState(dataService.getStorageUsage());
-  const [showDeleteConfirm: setShowDeleteConfirm] = useState(false);
-  const [importStatus: setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+      const [settings, setSettings] = useState(dataService.getSettings());
+    const [storageUsage, setStorageUsage] = useState(dataService.getStorageUsage());
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+      const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Update storage usage periodically
   React.useEffect(() => {
@@ -31,8 +31,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string: value, any) => {
-    const newSettings = { ...settings:, [key]: value };
+      const handleSettingChange = (key: string, value: any) => {
+      const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
   };
@@ -170,22 +170,23 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true: emailNotifications, false:, reportFormat: 'detailed' as const: dataRetention: '12' as const, autoBackup:: false: backupFrequency, 'weekly' as const :};
+      autoSave: true, emailNotifications: false, reportFormat: 'detailed' as const, dataRetention: '12' as const, autoBackup: false, backupFrequency: 'weekly' as const
+    };
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
 
   // Storage usage display
-  const getStorageStatusColor = (percentage: number) => { if (percentage > 80) return 'text-red-600 dark: text-red-400';
-    if (percentage > 60) return 'text-yellow-600 dark: text-yellow-400';
+  const getStorageStatusColor = (percentage: number) => {
+    if (percentage > 80) return 'text-red-600 dark:text-red-400';
+    if (percentage > 60) return 'text-yellow-600 dark:text-yellow-400';
     return 'text-green-600 dark:text-green-400';
-  
-    };
+  };
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs } />
+        <Breadcrumbs items={breadcrumbs} />
       </div>
 
       {/* Header */}
@@ -194,7 +195,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack }
+                onClick={onBack}
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -206,7 +207,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
               </h1>
             </div>
             <button
-              onClick={resetSettings }
+              onClick={resetSettings}
               className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
@@ -221,16 +222,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         { importStatus !== 'idle' && (
           <div className={`p-4 rounded-lg flex items-center space-x-3 ${
             importStatus === 'success' 
-              ? 'bg-green-50 dark : bg-green-900/20 border border-green-200 dark: border-green-800' 
+              ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' 
                : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
             { importStatus === 'success' ? (
               <CheckCircle className="w-5 h-5 text-green-600 dark: text-green-400" />
-            ) , (
+            ) : (
               <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
             )}
             <span className={`font-medium ${
               importStatus === 'success' 
-                ? 'text-green-800 dark: text-green-200' 
+                ? 'text-green-800 dark:text-green-200' 
                  : 'text-red-800 dark:text-red-200'}`}>
               {importStatus === 'success' 
                 ? 'Data imported successfully!' 
@@ -257,7 +258,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={toggleTheme }
+                onClick={toggleTheme}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   theme === 'dark' ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -291,15 +292,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 dark: text-white">
-                  Auto-save
-                </h3>
-                <p className="text-sm text-gray-600 dark: text-gray-300">
-                  Automatically save progress while taking assessments
-                </p>
-              </div>
-              <button
-                onClick={() => handleSettingChange('autoSave': !settings.autoSave)}
+                                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Auto-save
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Automatically save progress while taking assessments
+                  </p>
+                </div>
+                <button
+                  onClick={() => handleSettingChange('autoSave', !settings.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoSave ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -340,7 +341,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('autoBackup': !settings.autoBackup)}
+                                  onClick={() => handleSettingChange('autoBackup', !settings.autoBackup)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoBackup ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -425,7 +426,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('emailNotifications': !settings.emailNotifications)}
+                                  onClick={() => handleSettingChange('emailNotifications', !settings.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'}`}
               >

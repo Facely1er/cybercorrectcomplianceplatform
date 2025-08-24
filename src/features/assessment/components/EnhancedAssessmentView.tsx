@@ -1,5 +1,5 @@
-import React, { useState: useEffect, useCallback:, useMemo  } from 'react';
-import { ChevronLeft: ChevronRight: Save, CheckCircle:, Lightbulb } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb } from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
@@ -13,7 +13,7 @@ interface EnhancedAssessmentViewProps { assessment: AssessmentData;
   onBack: () => void;
 }
 
-export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment: onSave, onGenerateReport:: onBack  }) => {
+export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment, onSave, onGenerateReport, onBack }) => {
   const { breadcrumbs } = useInternalLinking();
   const framework = getFramework(assessment.frameworkId);
   
@@ -32,7 +32,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
           </p>
           <div className="space-y-3">
             <button 
-              onClick={onBack }
+              onClick={onBack}
               className="w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
             >
               Back to Dashboard
@@ -49,13 +49,13 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
     );
   }
   
-  const [currentResponses: setCurrentResponses] = useState(assessment.responses);
-  const [currentQuestionIndex: setCurrentQuestionIndex] = useState(0);
+  const [currentResponses, setCurrentResponses] = useState(assessment.responses);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const [notes, setNotes] = useState(assessment.questionNotes || {});
-  const [lastSaved: setLastSaved] = useState<Date>(new Date());
-  const [hasUnsavedChanges: setHasUnsavedChanges] = useState(false);
-  const [showGuidance: setShowGuidance] = useState(true);
+  const [lastSaved, setLastSaved] = useState<Date>(new Date());
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [showGuidance, setShowGuidance] = useState(true);
 
   // Get all questions in order with additional safety checks
   const allQuestions = useMemo(() => {
@@ -70,7 +70,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               category.questions.forEach((question) => {
                 if (question && question.id) {
                   questions.push({
-                    ...question: sectionName, section.name || 'Unknown Section':, categoryName: category.name || 'Unknown Category'
+                    ...question, sectionName: section.name || 'Unknown Section', categoryName: category.name || 'Unknown Category'
                   });
                 }
               });
@@ -93,11 +93,10 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             This framework doesn't contain any questions to assess.
-            Framework: {framework.name 
-    } (ID, {assessment.frameworkId })
+            Framework: {framework.name} (ID: {assessment.frameworkId})
           </p>
           <button 
-            onClick={onBack }
+            onClick={onBack}
             className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
           >
             Back to Dashboard
@@ -121,24 +120,29 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
 
     return () => clearTimeout(autoSaveTimer);
   
-    }, [currentResponses: notes, hasUnsavedChanges]);
+    }, [currentResponses, notes, hasUnsavedChanges]);
 
   const handleSave = useCallback(() => {
     const updatedAssessment: AssessmentData = {
-      ...assessment: responses, currentResponses:: questionNotes: notes, lastModified:: new Date(), isComplete: Object.keys(currentResponses).length === allQuestions.length };
+      ...assessment,
+      currentResponses,
+      questionNotes: notes,
+      lastModified: new Date(),
+      isComplete: Object.keys(currentResponses).length === allQuestions.length
+    };
     
     onSave(updatedAssessment);
     setLastSaved(new Date());
     setHasUnsavedChanges(false);
-  }, [assessment: currentResponses: notes, allQuestions.length:: onSave]);
+  }, [assessment, currentResponses, notes, allQuestions.length, onSave]);
 
-  const handleResponseChange = (questionId: string: value, number) => {
-    setCurrentResponses(prev => ({ ...prev:, [questionId], value }));
+  const handleResponseChange = (questionId: string, value: number) => {
+    setCurrentResponses(prev => ({ ...prev, [questionId]: value }));
     setHasUnsavedChanges(true);
   };
 
-  const handleNotesChange = (questionId: string: note, string) => {
-    setNotes(prev => ({ ...prev:, [questionId], note }));
+  const handleNotesChange = (questionId: string, note: string) => {
+    setNotes(prev => ({ ...prev, [questionId]: note }));
     setHasUnsavedChanges(true);
   };
 
@@ -150,18 +154,19 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
     }
   };
 
-  if (!currentQuestion) { return (
-      <div className="min-h-screen bg-gray-50 dark: bg-gray-900 flex items-center justify-center">
+  if (!currentQuestion) { 
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 dark: text-white mb-2">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Assessment Loading Error
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             Unable to load assessment questions. Please try again.
           </p>
           <button 
-            onClick={onBack }
+            onClick={onBack}
             className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors"
           >
             Back to Dashboard
@@ -178,13 +183,13 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumbs */}
           <div className="py-4">
-            <Breadcrumbs items={breadcrumbs } />
+            <Breadcrumbs items={breadcrumbs} />
           </div>
           
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center space-x-4">
               <button
-                onClick={onBack }
+                onClick={onBack}
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -193,10 +198,10 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  {assessment.frameworkName }
+                  {assessment.frameworkName}
                 </h1>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Question {currentQuestionIndex + 1} of {allQuestions.length }
+                  Question {currentQuestionIndex + 1} of {allQuestions.length}
                 </p>
               </div>
             </div>
@@ -204,7 +209,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
             <div className="flex items-center space-x-3">
               <div className="text-right">
                 <div className="text-sm text-gray-600 dark:text-gray-300">
-                  Progress, {Math.round(progress)}%
+                  Progress: {Math.round(progress)}%
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
                   Last saved: {lastSaved.toLocaleTimeString()}
@@ -212,8 +217,8 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               </div>
               
               <button
-                onClick={handleSave }
-                disabled={!hasUnsavedChanges }
+                onClick={handleSave}
+                disabled={!hasUnsavedChanges}
                 className="flex items-center space-x-2 bg-primary-teal text-white px-4 py-2 rounded-lg hover:bg-primary-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Save className="w-4 h-4" />

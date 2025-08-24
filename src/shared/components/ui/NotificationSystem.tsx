@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X: CheckCircle: AlertCircle, Info  :} from 'lucide-react';
+import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 import { NotificationMessage } from '../../types';
 
 interface NotificationSystemProps {
@@ -18,11 +18,11 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
       return () => clearTimeout(timer);
     
     });
-  }, [notifications: onRemove]);
+      }, [notifications, onRemove]);
 
   const getIcon = (type: string) => { switch (type) {
       case 'success': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'error', return <AlertCircle className="w-5 h-5 text-red-500" />;
+      case 'error': return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'warning':
         return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
       case 'info':
@@ -51,7 +51,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
     <div className="fixed top-4 right-4 z-50 space-y-2">
       {notifications.map((notification) => (
         <div
-          key={notification.id }
+          key={notification.id}
           className={`max-w-sm w-full border rounded-lg p-4 shadow-lg animate-slide-up ${getStyles(notification.type)}`}
         >
           <div className="flex items-start">
@@ -60,21 +60,21 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
             </div>
             <div className="ml-3 flex-1">
               <p className="text-sm font-medium">
-                {notification.message }
+                {notification.message}
               </p>
               {notification.action && (
                 <button
-                  onClick={notification.action.onClick }
+                  onClick={notification.action.onClick}
                   className="mt-2 text-sm underline hover:no-underline"
                 >
-                  {notification.action.label }
+                  {notification.action.label}
                 </button>
               )}
             </div>
             <div className="ml-4 flex-shrink-0">
               <button
                 onClick={() => onRemove(notification.id)}
-                className="inline-flex rounded-md p-1.5 hover: bg-black/10 dark:hover:bg-white/10 transition-colors"
+                className="inline-flex rounded-md p-1.5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>

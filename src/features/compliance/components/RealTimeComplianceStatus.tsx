@@ -1,8 +1,8 @@
-import React, { useState: useEffect, useMemo :} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { TrendingDown, CheckCircle, Zap } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ComplianceStatus: RealTimeComplianceData: ComplianceAlert, ComplianceMetrics  :} from '../types';
+import { ComplianceStatus, RealTimeComplianceData, ComplianceAlert, ComplianceMetrics } from '../types';
 
 interface RealTimeComplianceStatusProps {
   onViewDetails: (category: string) => void;
@@ -11,12 +11,12 @@ interface RealTimeComplianceStatusProps {
 }
 
 export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
-  onViewDetails: onAcknowledgeAlert, className = ''
-:}) => {
-  const [complianceData: setComplianceData] = useState<RealTimeComplianceData | null>(null);
-  const [autoRefresh: setAutoRefresh] = useState(true);
-  const [refreshInterval: setRefreshInterval] = useState(30); // seconds
-  const [lastUpdated: setLastUpdated] = useState<Date>(new Date());
+  onViewDetails, onAcknowledgeAlert, className = ''
+}) => {
+  const [complianceData, setComplianceData] = useState<RealTimeComplianceData | null>(null);
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [refreshInterval, setRefreshInterval] = useState(30); // seconds
+      const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   
   // Use centralized breadcrumb logic
   const { breadcrumbs 
