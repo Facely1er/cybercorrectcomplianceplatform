@@ -67,7 +67,7 @@ export class ErrorBoundary extends Component<Props, State> {
         timestamp: new Date().toISOString(),
         errorId: this.state.errorId
       },
-      componentStack: this.state.errorInfo? .componentStack || ''
+      componentStack: (this.state.errorInfo && this.state.errorInfo.componentStack) || ''
     };
 
     // Copy to clipboard for easy reporting
