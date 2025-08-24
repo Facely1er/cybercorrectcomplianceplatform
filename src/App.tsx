@@ -955,7 +955,7 @@ function App() {
     <ThemeProvider>
       <AppContent />
       <Analytics />
-    <ThemeProvider>
+    </ThemeProvider>
   );
 }
 
