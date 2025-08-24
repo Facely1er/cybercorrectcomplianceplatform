@@ -125,7 +125,7 @@ class PerformanceMonitoring {
   }
 
   measurePerformance(name: string, duration?: number, metadata?: Record<string, any>): PerformanceEntry {
-    const entry, PerformanceEntry = {
+    const entry: PerformanceEntry = {
       name,
       startTime: performance.now(),
       duration: duration || 0,
@@ -156,15 +156,13 @@ class PerformanceMonitoring {
     return entry;
   }
 
-  startTiming(name, string: () => void {
+  startTiming(name: string): () => void {
     const startTime = performance.now();
     
     return (metadata?, Record<string, any>) => {
       const duration = performance.now() - startTime;
       return this.measurePerformance(name, duration, metadata);
     };
-  }
-  )
 
   getAverageTime(name, string), number {
     const measurements = this.measurements.get(name);

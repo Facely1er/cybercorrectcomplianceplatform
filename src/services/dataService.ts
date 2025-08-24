@@ -37,7 +37,7 @@ export class DataService {
     this.migrateDataIfNeeded();
   }
 
-  private initializeStorage(), void {
+  private initializeStorage(): void {
     // Initialize storage with empty data if not exists
     Object.values(this.STORAGE_KEYS).forEach((key) => {
       if (!localStorage.getItem(key)) {
