@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// More comprehensive cleanup patterns
+// Comprehensive cleanup patterns
 const patterns = [
   // Ternary operator in array map - fix the comma syntax
   {
@@ -11,6 +11,18 @@ const patterns = [
   },
   
   // Specific pattern for the current error
+  {
+    pattern: /(\b\w+)\s*,\s*([`'"]?[^`'"]*?[`'"]?|\b\w+\b|\d+\b|true|false|null|undefined|\[[^\]]*?\]|\{[^\}]*?\})(?=\s*[,\]\}])/g,
+    replacement: '$1: $2',
+    description: 'Fix identifier, value to identifier: value in object-like contexts'
+  },
+  // Fix: `param, Type` to `param: Type` in function parameters or destructuring
+  {
+    pattern: /(\b\w+)\s*,\s*(\b\w+\b|Array<[^>]+>|Record<[^>]+>|Omit<[^>]+>|Partial<[^>]+>|Promise<[^>]+>)(?=\s*\)|\s*=>)/g,
+    replacement: '$1: $2',
+    description: 'Fix identifier, value to identifier: value in function parameters/destructuring'
+  },
+  // Original specific pattern for the current error (might be redundant now but kept for safety)
   {
     pattern: /\?\s*(\w+)\s*,\s*(\w+)\)/g,
     replacement: '? $1 : $2)',
