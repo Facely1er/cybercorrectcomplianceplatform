@@ -374,22 +374,22 @@ function AppContent() {
     
     try {
       const framework = getFramework(selectedFramework);
-      const newAssessment, AssessmentData = {
-        id, Date.now().toString(),
-        frameworkId, framework.id,
-        frameworkName, framework.name,
+      const newAssessment: AssessmentData = {
+        id: Date.now().toString(),
+        frameworkId: framework.id,
+        frameworkName: framework.name,
         responses: {},
-        createdAt, new Date(),
-        lastModified, new Date(),
-        isComplete, false,
-        version, framework.version,
+        createdAt: new Date(),
+        lastModified: new Date(),
+        isComplete: false,
+        version: framework.version,
         organizationInfo: {},
         questionNotes: {},
         questionEvidence: {},
-        evidenceLibrary, [],
+        evidenceLibrary: [],
         assessmentVersion: '1.0.0',
-        versionHistory, [],
-        changeLog, []
+        versionHistory: [],
+        changeLog: []
       };
 
       // Save using local data service directly
