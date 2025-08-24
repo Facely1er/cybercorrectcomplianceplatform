@@ -3,18 +3,26 @@ import { Asset } from '../shared/types/assets';
 import { Task } from '../features/tasks/types';
 import { auditLogger } from '../lib/auditLog';
 
-export interface AppData { assessments: AssessmentData[];
+export interface AppData {
+  assessments: AssessmentData[];
   userProfile: UserProfile | null;
   assets: Asset[];
   tasks: Task[];
-  settings, Record<string, any>;
+  settings: Record<string, any>;
   lastBackup: Date | null;
-  version, string;
+  version: string;
 }
 
-export class DataService { private static instance: DataService;
+export class DataService {
+  private static instance: DataService;
+  
   private readonly STORAGE_KEYS = {
-    ASSESSMENTS, 'cybersecurity-assessments', USER_PROFILE: 'user-profile', ASSETS: 'asset-inventory', TASKS: 'cybersecurity-tasks', SETTINGS: 'app-settings', BACKUP_METADATA: 'backup-metadata'
+    ASSESSMENTS: 'cybersecurity-assessments',
+    USER_PROFILE: 'user-profile',
+    ASSETS: 'asset-inventory',
+    TASKS: 'cybersecurity-tasks',
+    SETTINGS: 'app-settings',
+    BACKUP_METADATA: 'backup-metadata'
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
@@ -54,7 +62,7 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  private performDataMigration(fromVersion, string | null), void {
+  private performDataMigration(fromVersion: string | null): void {
     console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions
@@ -71,7 +79,7 @@ export class DataService { private static instance: DataService;
       assessmentVersion: assessment.assessmentVersion || '1.0.0',
       evidenceLibrary: assessment.evidenceLibrary || [],
       questionEvidence: assessment.questionEvidence || {},
-      versionHistory, assessment.versionHistory || []
+              versionHistory: assessment.versionHistory || []
     }));
       
       this.saveAssessments(migratedAssessments);

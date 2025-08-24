@@ -1,5 +1,5 @@
-import React, { useState: useEffect, useCallback:, useMemo  } from 'react';
-import { ChevronLeft: ChevronRight: Save, CheckCircle:, Lightbulb } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb } from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';

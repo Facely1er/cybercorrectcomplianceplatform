@@ -10,17 +10,18 @@ interface ErrorContext {
   level?: 'error' | 'warning' | 'info' | 'debug';
 }
 
-interface ErrorDetails { message: string;
-  stack? , string;
-  name? : string;
-  cause? any;
+interface ErrorDetails {
+  message: string;
+  stack?: string;
+  name?: string;
+  cause?: any;
 }
 
 class ErrorMonitoring {
   private static instance: ErrorMonitoring;
   private isInitialized = false;
 
-  static getInstance(), ErrorMonitoring {
+  static getInstance(): ErrorMonitoring {
     if (!ErrorMonitoring.instance) {
       ErrorMonitoring.instance = new ErrorMonitoring();
     }
@@ -47,7 +48,7 @@ class ErrorMonitoring {
     // Handle unhandled promise rejections
     window.addEventListener('unhandledrejection', (event) => {
               this.captureException(new Error(String(event.reason)), {
-          tags: { type, 'unhandledRejection' },
+          tags: { type: 'unhandledRejection' },
           level: 'error'
         });
     });
@@ -55,10 +56,10 @@ class ErrorMonitoring {
     // Handle global JavaScript errors
     window.addEventListener('error', (event) => {
       this.captureException(event.error || new Error(event.message), {
-        tags: { type, 'globalError' },
+        tags: { type: 'globalError' },
         level: 'error',
                   extra: {
-            filename, event.filename,
+            filename: event.filename,
             lineno: event.lineno,
             colno: event.colno
           }
@@ -66,10 +67,10 @@ class ErrorMonitoring {
     });
   }
 
-  captureException(error: Error | string, context, ErrorContext = {}) {
-          const errorDetails: ErrorDetails = typeof error === 'string' 
-        ? { message : error }
-         { message: error.message, stack: error.stack, name: error.name, cause: error.cause };
+    captureException(error: Error | string, context: ErrorContext = {}) {
+    const errorDetails: ErrorDetails = typeof error === 'string' 
+      ? { message: error }
+      : { message: error.message, stack: error.stack, name: error.name, cause: error.cause };
 
     const enhancedContext: ErrorContext = { 
       ...context,
@@ -93,17 +94,17 @@ class ErrorMonitoring {
     // Store in localStorage for debugging
           this.storeErrorLocally(errorDetails, enhancedContext);
     }
-  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context, ErrorContext = {}) { 
+  captureMessage(message: string, level: 'error' | 'warning' | 'info' | 'debug' = 'info', context: ErrorContext = {}) { 
   this.captureException(message, { ...context, level });
 }
 
-private sendToMonitoringService(error: ErrorDetails, context, ErrorContext) {
+private sendToMonitoringService(error: ErrorDetails, context: ErrorContext) {
     // In production, this would send to Sentry, LogRocket, etc.
     try {
       fetch('/api/errors', {
         method: 'POST',
-        headers: { 'Content-Type', 'application/json' },
-        body, JSON.stringify({ error, context })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error, context })
       }).catch((fetchError) => {
         console.error('Failed to send error to monitoring service, ', fetchError);
       });
@@ -112,18 +113,20 @@ private sendToMonitoringService(error: ErrorDetails, context, ErrorContext) {
     }
   }
 
-  private storeErrorLocally(error: ErrorDetails, context, ErrorContext), void {
+  private storeErrorLocally(error: ErrorDetails, context: ErrorContext): void {
     try {
       const stored = JSON.parse(localStorage.getItem('error-logs') || '[]');
       stored.push({ error, context });
       
       // Keep only last 50 errors
       const recent = stored.slice(-50);
-      localStorage.setItem('error-logs', JSON.stringify(', storageError);
+      localStorage.setItem('error-logs', JSON.stringify(recent));
+    } catch (storageError) {
+      console.error('Failed to store error locally:', storageError);
     }
   }
 
-  getStoredErrors(): Array<{ error: ErrorDetails; context, ErrorContext }> {
+  getStoredErrors(): Array<{ error: ErrorDetails; context: ErrorContext }> {
     try {
       return JSON.parse(localStorage.getItem('error-logs') || '[]');
     } catch {
@@ -136,21 +139,21 @@ private sendToMonitoringService(error: ErrorDetails, context, ErrorContext) {
   }
 
   // Performance monitoring
-  capturePerformance(name: string, duration: number, metadata? , Record<string , any>) {
+  capturePerformance(name: string, duration: number, metadata?: Record<string, any>) {
     if (ENV.isProduction) {
       // Send performance data to monitoring service
-      this.captureMessage(`Performance ${name} took ${duration}ms`, 'info', {
-                  tags: { type, 'performance' }, extra, { duration, ...metadata }
+            this.captureMessage(`Performance: ${name} took ${duration}ms`, 'info', {
+        tags: { type: 'performance' }, extra: { duration, ...metadata }
       });
     }
   }
 
   // User action tracking
-  captureUserAction(action: string, metadata? , Record<string , any>) {
+  captureUserAction(action: string, metadata?: Record<string, any>) {
     if (ENV.isProduction && ENV.ANALYTICS_ID) {
       // Send to analytics service
-      this.captureMessage(`User Action ${action}`, 'info', {
-        tags: { type, 'userAction' }, extra, metadata });
+      this.captureMessage(`User Action: ${action}`, 'info', {
+        tags: { type: 'userAction' }, extra: metadata });
     }
   }
 }

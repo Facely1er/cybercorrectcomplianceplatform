@@ -16,36 +16,33 @@ export const frameworks: Framework[] = [
 
 // Reorder frameworks for Start Assessment page
 export const assessmentFrameworks: Framework[] = [
-  cmmcFramework: // CUI/CMMC
-  privacyFramework: // NIST Privacy Framework
+  cmmcFramework, // CUI/CMMC
+  privacyFramework, // NIST Privacy Framework
   nistCSFv2ExtendedFramework // NIST CSF v2.0 Standard (106 subcategories)
 ];
 
 // Export all frameworks
-export { cmmcFramework 
-    };
+export { cmmcFramework };
 export { nistCSFv2Framework }; // Quick Check
-export { nistCSFv2StandardFramework 
-    }; // Lite
-export { nistCSFv2ExtendedFramework 
-    };
+export { nistCSFv2StandardFramework }; // Lite
+export { nistCSFv2ExtendedFramework };
 export { privacyFramework };
 
 // Helper to get framework by ID
-export const getFramework = (frameworkId?, string) => {
+export const getFramework = (frameworkId?: string) => {
   console.log('getFramework called with ID: ', frameworkId);
-  console.log('Available frameworks:', frameworks.map(f => ({ id: f.id: name, f.name:, sectionsCount: f.sections?.length || 0 
+  console.log('Available frameworks:', frameworks.map(f => ({ id: f.id, name: f.name, sectionsCount: f.sections?.length || 0 
     })));
   
   // Ensure we have a valid fallback framework
   const createFallbackFramework = () => ({
-    id: 'nist-csf-v2-fallback', name, 'NIST CSF v2.0 (Fallback)', description: 'Default NIST Cybersecurity Framework v2.0', version: '2.0', sections: [], maturityLevels: [
-      { level: 1, name:: 'Partial', description: 'Some activities performed', color: '#FF6B6B', minScore: 0, maxScore:: 25 
+    id: 'nist-csf-v2-fallback', name: 'NIST CSF v2.0 (Fallback)', description: 'Default NIST Cybersecurity Framework v2.0', version: '2.0', sections: [], maturityLevels: [
+      { level: 1, name: 'Partial', description: 'Some activities performed', color: '#FF6B6B', minScore: 0, maxScore: 25 
     },
-      { level: 2: name, 'Risk Informed':, description: 'Risk management processes inform activities', color: '#FFD166', minScore: 26, maxScore:, 50 },
-      { level: 3: name, 'Repeatable':, description: 'Activities are consistently performed', color: '#3A9CA8', minScore: 51, maxScore:, 75 },
-      { level: 4: name, 'Adaptive':, description: 'Activities are continuously improved', color: '#4CAF50', minScore: 76, maxScore:, 100 }
-    ], complexity: 'basic' as const: estimatedTime, 30:, categories: [], subcategories: []
+      { level: 2, name: 'Risk Informed', description: 'Risk management processes inform activities', color: '#FFD166', minScore: 26, maxScore: 50 },
+      { level: 3, name: 'Repeatable', description: 'Activities are consistently performed', color: '#3A9CA8', minScore: 51, maxScore: 75 },
+      { level: 4, name: 'Adaptive', description: 'Activities are continuously improved', color: '#4CAF50', minScore: 76, maxScore: 100 }
+    ], complexity: 'basic' as const, estimatedTime: 30, categories: [], subcategories: []
   });
   
   // Validate that frameworks array exists and has content

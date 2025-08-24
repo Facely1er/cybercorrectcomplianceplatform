@@ -16,7 +16,7 @@ export interface ReportExportOptions { format: 'pdf' | 'json' | 'csv';
 export class ReportService {
   private static instance: ReportService;
 
-  static getInstance(), ReportService {
+  static getInstance(): ReportService {
     if (!ReportService.instance) {
       ReportService.instance = new ReportService();
     }
@@ -26,11 +26,12 @@ export class ReportService {
   async exportReport(
     assessment: AssessmentData,
     framework: Framework,
-    options, ReportExportOptions
+    options: ReportExportOptions
   ): Promise<void> {
     try {
       switch (options.format) {
-        case 'pdf', await this.exportToPDF(assessment, framework, options);
+        case 'pdf':
+          return await this.exportToPDF(assessment, framework, options);
           break;
         case 'json':
           await this.exportToJSON(assessment, framework, options);
@@ -42,8 +43,8 @@ export class ReportService {
       }
     } catch (error) {
               errorMonitoring.captureException(error as Error, {
-          tags: { type, 'reportExportError' }, 
-          extra: { assessmentId, assessment.id, format, options.format }
+          tags: { type: 'reportExportError' }, 
+          extra: { assessmentId: assessment.id, format: options.format }
         });
       throw error;
     }
@@ -52,8 +53,8 @@ export class ReportService {
   private async exportToPDF(
     assessment: AssessmentData,
     framework: Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    options: ReportExportOptions
+  ): Promise<void> {
     // Enhanced PDF generation with better formatting
     const reportData = this.generateReportData(assessment, framework);
     
@@ -78,8 +79,8 @@ export class ReportService {
     assessment: AssessmentData,
     framework: Framework,
     reportData: any,
-    options, ReportExportOptions
-  ), string {
+    options: ReportExportOptions
+  ): string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
     
