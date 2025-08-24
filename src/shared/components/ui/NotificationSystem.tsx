@@ -7,7 +7,7 @@ interface NotificationSystemProps {
   onRemove: (id: string) => void;
 }
 
-export const NotificationSystem, React.FC<NotificationSystemProps> = ({
+export const NotificationSystem: React.FC<NotificationSystemProps> = ({
   notifications, onRemove }) => {
   useEffect(() => {
     notifications.forEach((notification) => {
