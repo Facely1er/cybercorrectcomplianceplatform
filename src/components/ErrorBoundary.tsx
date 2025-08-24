@@ -35,8 +35,8 @@ export class ErrorBoundary extends Component<Props, State> {
     // Send to error monitoring
     errorMonitoring.captureException(error, {
       extra: errorInfo,
-      tags: { type, 'reactError', boundary: 'ErrorBoundary' },
-      level, 'error'
+      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
+      level: 'error'
     });
 
     // Call custom error handler if provided
