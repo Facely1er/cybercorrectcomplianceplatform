@@ -3,8 +3,8 @@ import { X, CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
 import { NotificationMessage } from '../../types';
 
 interface NotificationSystemProps {
-  notifications, NotificationMessage[];
-  onRemove: (id, string) => void;
+  notifications: NotificationMessage[];
+  onRemove: (id: string) => void;
 }
 
 export const NotificationSystem, React.FC<NotificationSystemProps> = ({
