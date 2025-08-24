@@ -1,184 +1,533 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
-import { HelpCircle, Menu, X, Home, ChevronDown, Building, ExternalLink, Zap, Target, Shield,
-Users, Activity, FileText, CheckSquare, BarChart3, Calendar, Eye, Settings } from 'lucide-react';
+import { 
+  Shield, BarChart3, Settings, HelpCircle, Menu, X, Home, ChevronDown,
+  Activity, FileText, Calendar, Users, CheckSquare, Target, Award, Building, Eye
+} from 'lucide-react';
 import { ThemeProvider, useTheme } from './shared/contexts/ThemeContext';
 import { ThemeToggle } from './shared/components/ui/ThemeToggle';
-import { ErrorBoundary } from './components/ErrorBoundary';
-
-import { NotificationSystem } from './shared/components/ui/NotificationSystem';
-import { errorMonitoring } from './lib/errorMonitoring';
-import { performanceMonitoring } from './lib/performanceMonitoring';
-import { enhancedDataService } from './services/enhancedDataService';
-import { assessmentService } from './services/assessmentService';
-
-// Lazy load components for better code splitting
-const LandingPage = React.lazy(() => import('./components/LandingPage').then(m => ({ default: m.LandingPage })));
-const AssessmentIntroScreen = React.lazy(() => import('./features/assessment/components/AssessmentIntroScreen').then(m => ({ default: m.AssessmentIntroScreen })));
-const SignInPage = React.lazy(() => import('./features/auth').then(m => ({ default: m.SignInPage })));
-const AdvancedDashboard = React.lazy(() => import('./features/assessment/components/AdvancedDashboard').then(m => ({ default: m.AdvancedDashboard })));
-const RealTimeComplianceStatus = React.lazy(() => import('./features/compliance/components/RealTimeComplianceStatus').then(m => ({ default: m.RealTimeComplianceStatus })));
-const EvidenceCollectionDashboard = React.lazy(() => import('./features/evidence/components/EvidenceCollectionDashboard').then(m => ({ default: m.EvidenceCollectionDashboard })));
-const AdvancedReportingDashboard = React.lazy(() => import('./features/reporting/components/AdvancedReportingDashboard').then(m => ({ default: m.AdvancedReportingDashboard })));
-const AssessmentReportsPage = React.lazy(() => import('./features/reporting/components/AssessmentReportsPage').then(m => ({ default: m.AssessmentReportsPage })));
-const TeamTrackingReport = React.lazy(() => import('./features/reporting/components/TeamTrackingReport').then(m => ({ default: m.TeamTrackingReport })));
-const ComplianceCalendarView = React.lazy(() => import('./features/calendar/components/ComplianceCalendarView').then(m => ({ default: m.ComplianceCalendarView })));
-const PolicyManagementView = React.lazy(() => import('./features/policies').then(m => ({ default: m.PolicyManagementView })));
-const ControlsManagementView = React.lazy(() => import('./features/controls/components/ControlsManagementView').then(m => ({ default: m.ControlsManagementView })));
-const TeamCollaborationDashboard = React.lazy(() => import('./features/collaboration/components/TeamCollaborationDashboard').then(m => ({ default: m.TeamCollaborationDashboard })));
-const TaskManagementDashboard = React.lazy(() => import('./features/tasks/components/TaskManagementDashboard').then(m => ({ default: m.TaskManagementDashboard })));
-const AssetDashboard = React.lazy(() => import('./features/assets/components/AssetDashboard').then(m => ({ default: m.AssetDashboard })));
-const AssetInventoryView = React.lazy(() => import('./features/assets/components/AssetInventoryView').then(m => ({ default: m.AssetInventoryView })));
-const AssetCreationForm = React.lazy(() => import('./features/assets/components/AssetCreationForm').then(m => ({ default: m.AssetCreationForm })));
-const EnhancedAssessmentView = React.lazy(() => import('./features/assessment/components/EnhancedAssessmentView').then(m => ({ default: m.EnhancedAssessmentView })));
-const ReportView = React.lazy(() => import('./features/reporting/components/ReportView').then(m => ({ default: m.ReportView })));
-const NistStandardCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.NistStandardCompliancePage })));
-const NistExtendedCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.NistExtendedCompliancePage })));
-const CmmcCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.CmmcCompliancePage })));
-const PrivacyCompliancePage = React.lazy(() => import('./features/compliance').then(m => ({ default: m.PrivacyCompliancePage })));
-const SettingsView = React.lazy(() => import('./shared/components/ui/SettingsView').then(m => ({ default: m.SettingsView })));
-const HelpView = React.lazy(() => import('./shared/components/ui/HelpView').then(m => ({ default: m.HelpView })));
-const ProductionReadinessWidget = React.lazy(() => import('./components/ProductionReadinessWidget').then(m => ({ default: m.ProductionReadinessWidget })));
-import { getFramework, frameworks, nistCSFv2Framework, nistCSFv2ExtendedFramework, cmmcFramework, privacyFramework } from './data/frameworks';
-import { assessmentFrameworks } from './data/frameworks';
+import { getFramework, assessmentFrameworks } from './data/frameworks';
 import { AssessmentData, NotificationMessage } from './shared/types';
 import { dataService } from './services/dataService';
-import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
 
-// Assessment Wrapper Component
-const AssessmentWrapper: React.FC<{ 
-  savedAssessments: AssessmentData[];
-  onSave: (assessment: AssessmentData) => void;
-  onGenerateReport: (assessment: AssessmentData) => void;
-  onBack: () => void;
-}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
-  const { id } = useParams<{ id: string }>();
-  const assessment = savedAssessments.find(a => a.id === id);
-  
-  if (!assessment) { 
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Assessment Not Found</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment you're looking for doesn't exist.</p>
-          <button 
-            onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-          >
-            Back to Dashboard
-          </button>
-        </div>
-      </div>
-    );
+// Simple Error Boundary
+class SimpleErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean}> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
   }
-  
-  // Validate that the assessment has a valid framework
-  try { 
-    const framework = getFramework(assessment.frameworkId);
-    if (!framework || !framework.sections || framework.sections.length === 0) {
-      console.error('Framework validation failed:', {
-        frameworkId: assessment.frameworkId,
-        framework: framework,
-        hasFramework: !!framework,
-        hasSections: framework?.sections ? true : false,
-        sectionsLength: framework?.sections?.length || 0
-      });
-      
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error('Error caught:', error);
+  }
+
+  render() {
+    if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
           <div className="text-center">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Error</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              The framework for this assessment (ID: {assessment.frameworkId}) could not be loaded properly.
-            </p>
-            <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Debug info: Framework exists: {framework ? 'Yes' : 'No'}, Sections: {framework?.sections?.length || 0}
-            </div>
-            <div className="space-y-2">
-              <button 
-                onClick={onBack}
-                className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-              >
-                Back to Dashboard
-              </button>
-              <button 
-                onClick={() => window.location.reload()}
-                className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-              >
-                Reload Page
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-  } catch (error) { 
-    console.error('Framework validation error:', error);
-    console.error('Assessment data:', { 
-      paramId: id,
-      assessmentId: assessment.id,
-      paramFrameworkId: assessment.frameworkId,
-      assessmentFrameworkId: assessment.frameworkId 
-    });
-    
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Framework Loading Error</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            There was an error loading the framework data for this assessment.
-          </p>
-          <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Error: {error instanceof Error ? error.message : 'Unknown error'}
-          </div>
-          <div className="space-y-2">
-            <button 
-              onClick={onBack}
-              className="block w-full px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-            >
-              Back to Dashboard
-            </button>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Something went wrong</h2>
             <button 
               onClick={() => window.location.reload()}
-              className="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Reload Page
             </button>
           </div>
         </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// Simple Notification System
+const SimpleNotificationSystem: React.FC<{
+  notifications: NotificationMessage[];
+  onRemove: (id: string) => void;
+}> = ({ notifications, onRemove }) => {
+  return (
+    <div className="fixed top-4 right-4 z-50 space-y-2">
+      {notifications.map((notification) => (
+        <div
+          key={notification.id}
+          className={`max-w-sm w-full border rounded-lg p-4 shadow-lg ${
+            notification.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
+            notification.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
+            notification.type === 'warning' ? 'bg-yellow-50 border-yellow-200 text-yellow-800' :
+            'bg-blue-50 border-blue-200 text-blue-800'
+          }`}
+        >
+          <div className="flex items-start">
+            <div className="flex-1">
+              <p className="text-sm font-medium">{notification.message}</p>
+            </div>
+            <button
+              onClick={() => onRemove(notification.id)}
+              className="ml-4 text-gray-400 hover:text-gray-600"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Simple Landing Page
+const SimpleLandingPage: React.FC = () => {
+  const navigate = useNavigate();
+  
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center">
+          <div className="flex items-center justify-center mb-8">
+            <div className="p-4 bg-blue-600 rounded-2xl">
+              <Shield className="w-12 h-12 text-white" />
+            </div>
+          </div>
+          
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              CyberCorrect™
+            </span>
+            <br />
+            Compliance Platform
+          </h1>
+          
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Complete cybersecurity compliance platform for NIST CSF v2.0, CMMC, and Privacy frameworks
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => navigate('/assessment-intro')}
+              className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors"
+            >
+              Start Assessment
+            </button>
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 transition-colors"
+            >
+              View Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Simple Assessment Intro
+const SimpleAssessmentIntro: React.FC<{
+  frameworks: any[];
+  onStartAssessment: (orgInfo?: any, framework?: string) => void;
+  onBack: () => void;
+}> = ({ frameworks, onStartAssessment, onBack }) => {
+  const [selectedFramework, setSelectedFramework] = useState(frameworks[0]?.id || '');
+  
+  return (
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+        <button
+          onClick={onBack}
+          className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 mb-6"
+        >
+          <ChevronDown className="w-4 h-4 rotate-90" />
+          <span>Back</span>
+        </button>
+        
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+          Choose Assessment Framework
+        </h1>
+        
+        <div className="space-y-4 mb-8">
+          {frameworks.map((framework) => (
+            <button
+              key={framework.id}
+              onClick={() => setSelectedFramework(framework.id)}
+              className={`w-full p-6 text-left border-2 rounded-xl transition-colors ${
+                selectedFramework === framework.id
+                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                  : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
+              }`}
+            >
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                {framework.name}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                {framework.description}
+              </p>
+              <div className="mt-4 text-sm text-blue-600 dark:text-blue-400">
+                Estimated time: {framework.estimatedTime || 'N/A'} minutes
+              </div>
+            </button>
+          ))}
+        </div>
+        
+        <button
+          onClick={() => onStartAssessment(undefined, selectedFramework)}
+          className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors"
+        >
+          Start Assessment
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Simple Dashboard
+const SimpleDashboard: React.FC<{
+  savedAssessments: AssessmentData[];
+  onStartAssessment: () => void;
+  onLoadAssessment: (assessment: AssessmentData) => void;
+  onDeleteAssessment: (id: string) => void;
+  addNotification: (type: string, message: string) => void;
+}> = ({ savedAssessments, onStartAssessment, onLoadAssessment, onDeleteAssessment, addNotification }) => {
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          Cybersecurity Compliance Dashboard
+        </h1>
+        <p className="text-gray-600 dark:text-gray-300">
+          Manage your cybersecurity assessments and compliance progress
+        </p>
+      </div>
+      
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            Total Assessments
+          </h3>
+          <p className="text-3xl font-bold text-blue-600">{savedAssessments.length}</p>
+        </div>
+        
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            Completed
+          </h3>
+          <p className="text-3xl font-bold text-green-600">
+            {savedAssessments.filter(a => a.isComplete).length}
+          </p>
+        </div>
+        
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            In Progress
+          </h3>
+          <p className="text-3xl font-bold text-orange-600">
+            {savedAssessments.filter(a => !a.isComplete).length}
+          </p>
+        </div>
+      </div>
+      
+      {/* Start Assessment */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 mb-8">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Start New Assessment
+          </h2>
+          <button
+            onClick={onStartAssessment}
+            className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors"
+          >
+            Begin Assessment
+          </button>
+        </div>
+      </div>
+      
+      {/* Assessments List */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            Your Assessments
+          </h2>
+        </div>
+        
+        {savedAssessments.length === 0 ? (
+          <div className="p-12 text-center">
+            <Shield className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              No Assessments Yet
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Start your first cybersecurity assessment
+            </p>
+          </div>
+        ) : (
+          <div className="p-6 space-y-4">
+            {savedAssessments.map((assessment) => (
+              <div key={assessment.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      {assessment.frameworkName}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      Last modified: {new Date(assessment.lastModified).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => onLoadAssessment(assessment)}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm"
+                    >
+                      Continue
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (window.confirm('Delete this assessment?')) {
+                          onDeleteAssessment(assessment.id);
+                        }
+                      }}
+                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 text-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Simple Assessment View
+const SimpleAssessmentView: React.FC<{
+  assessment: AssessmentData;
+  onSave: (assessment: AssessmentData) => void;
+  onBack: () => void;
+}> = ({ assessment, onSave, onBack }) => {
+  const [currentResponses, setCurrentResponses] = useState(assessment.responses);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  
+  const framework = getFramework(assessment.frameworkId);
+  
+  if (!framework || !framework.sections) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            Framework Error
+          </h2>
+          <button 
+            onClick={onBack}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Back to Dashboard
+          </button>
+        </div>
       </div>
     );
   }
   
-  return (
-    <EnhancedAssessmentView
-      assessment={assessment}
-      onSave={onSave}
-      onGenerateReport={onGenerateReport}
-      onBack={onBack}
-    />
+  // Get all questions
+  const allQuestions = framework.sections.flatMap(section =>
+    section.categories.flatMap(category =>
+      category.questions.map(question => ({
+        ...question,
+        sectionName: section.name,
+        categoryName: category.name
+      }))
+    )
   );
-};
-
-// Report Wrapper Component  
-const ReportWrapper: React.FC<{ 
-  savedAssessments: AssessmentData[];
-  onBack: () => void;
-  onExport: (assessment: AssessmentData, format: string) => void;
-}> = ({ savedAssessments, onBack, onExport }) => {
-  const { id } = useParams<{ id: string }>();
-  const assessment = savedAssessments.find(a => a.id === id);
   
-  if (!assessment) { 
+  const currentQuestion = allQuestions[currentQuestionIndex];
+  
+  if (!currentQuestion) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Report Not Found</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">The assessment report you're looking for doesn't exist.</p>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            No Questions Available
+          </h2>
           <button 
             onClick={onBack}
-            className="px-4 py-2 bg-primary-teal text-white rounded-lg hover:bg-primary-teal/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+  
+  const handleSave = () => {
+    const updatedAssessment = {
+      ...assessment,
+      responses: currentResponses,
+      lastModified: new Date(),
+      isComplete: Object.keys(currentResponses).length === allQuestions.length
+    };
+    onSave(updatedAssessment);
+  };
+  
+  const handleResponseChange = (questionId: string, value: number) => {
+    setCurrentResponses(prev => ({ ...prev, [questionId]: value }));
+  };
+  
+  const progress = (currentQuestionIndex + 1) / allQuestions.length * 100;
+  
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <button
+                onClick={onBack}
+                className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 mb-2"
+              >
+                <ChevronDown className="w-4 h-4 rotate-90" />
+                <span>Back to Dashboard</span>
+              </button>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                {assessment.frameworkName}
+              </h1>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Question {currentQuestionIndex + 1} of {allQuestions.length}
+              </p>
+            </div>
+            <button
+              onClick={handleSave}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            >
+              Save
+            </button>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-4">
+            <div
+              className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      </div>
+      
+      {/* Question Content */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
+          <div className="mb-6">
+            <div className="flex items-center space-x-2 mb-4">
+              <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm">
+                {currentQuestion.sectionName}
+              </span>
+              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">
+                {currentQuestion.categoryName}
+              </span>
+            </div>
+            
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              {currentQuestion.text}
+            </h2>
+            
+            {currentQuestion.guidance && (
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800 mb-6">
+                <p className="text-blue-800 dark:text-blue-200">
+                  {currentQuestion.guidance}
+                </p>
+              </div>
+            )}
+          </div>
+          
+          {/* Response Options */}
+          <div className="space-y-3 mb-8">
+            {currentQuestion.options.map((option: any) => (
+              <button
+                key={option.value}
+                onClick={() => handleResponseChange(currentQuestion.id, option.value)}
+                className={`w-full p-4 text-left border-2 rounded-lg transition-colors ${
+                  currentResponses[currentQuestion.id] === option.value
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                    : 'border-gray-200 dark:border-gray-700 hover:border-blue-300'
+                }`}
+              >
+                <div className="font-semibold text-gray-900 dark:text-white mb-1">
+                  {option.label}
+                </div>
+                {option.description && (
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    {option.description}
+                  </p>
+                )}
+              </button>
+            ))}
+          </div>
+          
+          {/* Navigation */}
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => setCurrentQuestionIndex(Math.max(0, currentQuestionIndex - 1))}
+              disabled={currentQuestionIndex === 0}
+              className="flex items-center space-x-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
+            >
+              <ChevronDown className="w-4 h-4 rotate-90" />
+              <span>Previous</span>
+            </button>
+            
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              {currentQuestionIndex + 1} of {allQuestions.length}
+            </span>
+            
+            <button
+              onClick={() => setCurrentQuestionIndex(Math.min(allQuestions.length - 1, currentQuestionIndex + 1))}
+              disabled={currentQuestionIndex === allQuestions.length - 1}
+              className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            >
+              <span>Next</span>
+              <ChevronDown className="w-4 h-4 -rotate-90" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Simple placeholder for complex features
+const SimplePlaceholder: React.FC<{ title: string; description: string }> = ({ title, description }) => (
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
+      <Shield className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{title}</h2>
+      <p className="text-gray-600 dark:text-gray-300">{description}</p>
+    </div>
+  </div>
+);
+
+// Assessment Wrapper Component
+const AssessmentWrapper: React.FC<{
+  savedAssessments: AssessmentData[];
+  onSave: (assessment: AssessmentData) => void;
+  onBack: () => void;
+}> = ({ savedAssessments, onSave, onBack }) => {
+  const { id } = useParams<{ id: string }>();
+  const assessment = savedAssessments.find(a => a.id === id);
+  
+  if (!assessment) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Assessment Not Found</h2>
+          <button 
+            onClick={onBack}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Back to Dashboard
           </button>
@@ -188,79 +537,11 @@ const ReportWrapper: React.FC<{
   }
   
   return (
-    <ReportView
+    <SimpleAssessmentView
       assessment={assessment}
+      onSave={onSave}
       onBack={onBack}
-      onExport={onExport}
     />
-  );
-};
-
-// Dropdown Navigation Component
-interface DropdownNavItemProps { 
-  label: string;
-  icon: React.ComponentType<any>;
-  items: Array<{ 
-    label: string;
-    href: string;
-    icon: React.ComponentType<any>;
-    description?: string;
-  }>;
-  currentPath: string;
-}
-
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const isActive = items.some(item => currentPath === item.href);
-  
-  return (
-    <div 
-      className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <button
-        className={`flex items-center space-x-1 px-1 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
-          isActive
-            ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-            : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-      >
-        <Icon className="w-4 h-4" aria-hidden="true" />
-        <span>{label}</span>
-        <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
-      </button>
-      
-      {isOpen && (
-        <div 
-          className="absolute top-full left-0 w-64 bg-surface dark:bg-dark-surface rounded-xl shadow-enhanced border border-support-gray dark:border-dark-support py-2 z-50"
-          role="menu"
-          aria-label={`${label} submenu`}
-        >
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className={`flex items-center space-x-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
-                currentPath === item.href
-                  ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20'}`}
-              role="menuitem"
-            >
-              <item.icon className="w-4 h-4 text-gray-400 dark:text-gray-500" aria-hidden="true" />
-              <div>
-                <div className="font-medium">{item.label}</div>
-                {item.description && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400">{item.description}</div>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
   );
 };
 
@@ -269,46 +550,25 @@ function AppContent() {
   const location = useLocation();
   const { theme } = useTheme();
   
-  // Enhanced state management with localStorage
   const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showAssetForm, setShowAssetForm] = useState(false);
-
-  // Use local data service directly for better reliability
   const [savedAssessments, setSavedAssessments] = useState<AssessmentData[]>([]);
-  const [assets, setAssets] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Initialize monitoring on app start
   useEffect(() => {
-    errorMonitoring.initialize();
-    performanceMonitoring.initialize();
-    
-    // Load data from localStorage
     try {
       const assessments = dataService.getAssessments();
-      const assetData = dataService.getAssets();
       setSavedAssessments(assessments);
-      setAssets(assetData);
       
-      // Load demo data if this is first visit and no data exists
-      if (assessments.length === 0 && assetData.length === 0 && !dataService.isDemoDataLoaded()) {
+      if (assessments.length === 0 && !dataService.isDemoDataLoaded()) {
         const shouldLoadDemo = !localStorage.getItem('demo-declined') && window.confirm(
-          'Welcome to CyberCorrect™! Would you like to load demo data to explore the platform? \n\n' +
-          'Demo data includes: \n' +
-          '• Sample CMMC Level 2 assessment\n' +
-          '• Example assets and compliance tasks\n' +
-          '• Mock evidence collections\n\n' +
-          'You can clear this demo data anytime in Settings when ready for real business use.'
+          'Welcome to CyberCorrect™! Would you like to load demo data to explore the platform?'
         );
         
         if (shouldLoadDemo) {
           dataService.loadDemoData();
           setSavedAssessments(dataService.getAssessments());
-          setAssets(dataService.getAssets());
-          addNotification('info', 'Demo data loaded successfully! Go to Settings > Data Management to clear when ready for real business use.');
         } else {
-          // Remember user declined demo data
           localStorage.setItem('demo-declined', 'true');
         }
       }
@@ -319,43 +579,7 @@ function AppContent() {
     }
   }, []);
 
-  // Navigation menu structure
-  const navigationMenus = [
-    {
-      label: 'Assessment',
-      icon: Target,
-      items: [
-        { label: 'Start Assessment', href: '/assessment-intro', icon: Target, description: 'Begin cybersecurity framework assessment' },
-        { label: 'CMMC Assessment', href: '/compliance/cmmc', icon: Building, description: 'CMMC Level 2 certification readiness' },
-        { label: 'Privacy Assessment', href: '/compliance/privacy', icon: Eye, description: 'GDPR, CCPA & privacy regulations' }
-      ]
-    },
-    {
-      label: 'Implementation',
-      icon: Shield,
-      items: [
-        { label: 'Compliance Status', href: '/compliance', icon: Activity, description: 'Real-time implementation progress' },
-        { label: 'Evidence Collection', href: '/evidence', icon: FileText, description: 'Manage compliance documentation' },
-        { label: 'Policy Management', href: '/policies', icon: Shield, description: 'Required policies and procedures' },
-        { label: 'Controls Management', href: '/controls', icon: CheckSquare, description: 'Security controls implementation' },
-        { label: 'Asset Management', href: '/assets', icon: BarChart3, description: 'Inventory and scope management' }
-      ]
-    },
-    {
-      label: 'Team',
-      icon: Users,
-      items: [
-        { label: 'Team Collaboration', href: '/team', icon: Users, description: 'Coordinate implementation efforts' },
-        { label: 'Task Management', href: '/tasks', icon: CheckSquare, description: 'Track tasks and deliverables' },
-        { label: 'Activity Calendar', href: '/calendar', icon: Calendar, description: 'Schedule compliance activities' },
-        { label: 'Assessment Reports', href: '/reports', icon: FileText, description: 'Generate detailed reports' },
-        { label: 'Advanced Analytics', href: '/reports/advanced', icon: BarChart3, description: 'Comprehensive analytics dashboard' }
-      ]
-    }
-  ];
-
-  // Simple notification handlers
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
     const notification: NotificationMessage = {
       id: Date.now().toString(),
       type,
@@ -363,21 +587,22 @@ function AppContent() {
       timestamp: new Date()
     };
     setNotifications(prev => [...prev, notification]);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      setNotifications(prev => prev.filter(n => n.id !== notification.id));
+    }, 5000);
   };
 
   const removeNotification = (id: string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
   };
 
-  // Simple assessment handlers
   const startAssessment = () => {
-    console.log('Starting assessment - navigating to /assessment-intro');
     navigate('/assessment-intro');
   };
 
-  const createAssessment = async (organizationInfo: any, selectedFramework: string) => {
-    console.log('Creating new assessment');
-    
+  const createAssessment = async (organizationInfo?: any, selectedFramework?: string) => {
     try {
       const framework = getFramework(selectedFramework);
       const newAssessment: AssessmentData = {
@@ -389,7 +614,7 @@ function AppContent() {
         lastModified: new Date(),
         isComplete: false,
         version: framework.version,
-        organizationInfo: {},
+        organizationInfo,
         questionNotes: {},
         questionEvidence: {},
         evidenceLibrary: [],
@@ -398,7 +623,6 @@ function AppContent() {
         changeLog: []
       };
 
-      // Save using local data service directly
       dataService.saveAssessment(newAssessment);
       setSavedAssessments(prev => [...prev, newAssessment]);
       navigate(`/assessment/${newAssessment.id}`);
@@ -410,8 +634,6 @@ function AppContent() {
   };
 
   const saveAssessment = async (assessment: AssessmentData) => {
-    console.log('Saving assessment:', assessment.id);
-    
     try {
       dataService.saveAssessment(assessment);
       setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
@@ -423,8 +645,6 @@ function AppContent() {
   };
 
   const deleteAssessment = async (assessmentId: string) => {
-    console.log('Deleting assessment:', assessmentId);
-    
     try {
       dataService.deleteAssessment(assessmentId);
       setSavedAssessments(prev => prev.filter(a => a.id !== assessmentId));
@@ -434,518 +654,177 @@ function AppContent() {
       addNotification('error', 'Failed to delete assessment');
     }
   };
-
-  // Asset management handlers
-  const createAsset = async (assetData: any) => { 
-    try {
-      const newAsset = {
-        ...assetData, 
-        id: Date.now().toString(),
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-      
-      dataService.saveAsset(newAsset);
-      setAssets(prev => [...prev, newAsset]);
-      addNotification('success', 'Asset created successfully');
-    } catch (error) {
-      console.error('Failed to create asset:', error);
-      addNotification('error', 'Failed to create asset');
-    }
-  };
-
   
-  // Show loading screen while data loads
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin w-12 h-12 border-4 border-primary-teal border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading application data...</p>
+          <div className="animate-spin w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300">Loading...</p>
         </div>
       </div>
     );
   }
-  
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Skip Links for Screen Readers */}
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-teal focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
-      >
-        Skip to main content
-      </a>
-      <a 
-        href="#navigation" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-20 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-teal focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
-      >
-        Skip to navigation
-      </a>
-      
-      <ErrorBoundary>
-        {/* Header - always visible */}
-        <header id="navigation" className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              {/* Left: Logo */}
-              <Link
-                to="/"
-                className="flex items-center space-x-3 hover:opacity-80 transition-opacity flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 rounded-lg"
-              >
-                <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-11 h-11 rounded-lg" />
-                <div>
-                  <h1 className="text-xl font-bold text-gray-900 dark:text-white">CyberCorrect™</h1>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">by ERMITS</p>
-                </div>
-              </Link>
-
-              {/* Center: Navigation */}
-              <nav className="hidden lg:flex items-center justify-center space-x-3 flex-1 mx-2" role="navigation" aria-label="Main navigation">
-                <Link
-                  to="/"
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${location.pathname === '/'
-                      ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'}`}
-                >
-                  <Home className="w-4 h-4" aria-hidden="true" />
-                  <span>Home</span>
-                </Link>
-                
-                <Link
-                  to="/dashboard"
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2 ${location.pathname === '/dashboard' 
-                    ? 'bg-primary-teal/10 dark:bg-dark-primary/20 text-primary-teal dark:text-dark-primary'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-teal dark:hover:text-dark-primary'}`}
-                >
-                  <BarChart3 className="w-4 h-4" aria-hidden="true" />
-                  <span>Dashboard</span>
-                </Link>
-                
-                {/* Dropdown Menus */}
-                {navigationMenus.map((menu) => (
-                  <DropdownNavItem
-                    key={menu.label}
-                    label={menu.label}
-                    icon={menu.icon}
-                    items={menu.items}
-                    currentPath={location.pathname}
-                  />
-                ))}
-              </nav>
-
-              {/* Right: Actions */}
-              <div className="flex items-center space-x-1 flex-shrink-0">
-                <ThemeToggle />
-                <Link
-                  to="/signin"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                  title="Sign In"
-                  aria-label="Sign In"
-                >
-                  <Users className="w-5 h-5" aria-hidden="true" />
-                </Link>
-                <Link
-                  to="/settings"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                  aria-label="Settings"
-                >
-                  <Settings className="w-5 h-5" aria-hidden="true" />
-                </Link>
-                <Link
-                  to="/help"
-                  className="p-1.5 rounded-lg bg-support-gray/50 dark:bg-dark-surface text-gray-600 dark:text-gray-300 hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                  aria-label="Help"
-                >
-                  <HelpCircle className="w-5 h-5" aria-hidden="true" />
-                </Link>
-                
-                {/* Mobile Menu Button */}
-                <button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg:hidden p-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-teal focus:ring-offset-2"
-                  aria-expanded={mobileMenuOpen}
-                  aria-controls="mobile-menu"
-                  aria-label="Toggle mobile menu"
-                >
-                  {mobileMenuOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
-                </button>
+      {/* Header */}
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link to="/" className="flex items-center space-x-3">
+              <img src="/cybercorrect.png" alt="CyberCorrect Logo" className="w-8 h-8 rounded-lg" />
+              <div>
+                <h1 className="text-lg font-bold text-gray-900 dark:text-white">CyberCorrect™</h1>
               </div>
-            </div>
-          </div>
-        </header>
-        
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden bg-surface dark:bg-dark-surface border-t border-support-gray dark:border-dark-support">
-            <nav className="px-4 py-2 space-y-1" role="navigation" aria-label="Mobile navigation">
+            </Link>
+
+            <nav className="hidden md:flex items-center space-x-6">
               <Link
                 to="/"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
+                className={`text-sm font-medium transition-colors ${
+                  location.pathname === '/' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600'
+                }`}
               >
-                <Home className="w-4 h-4" aria-hidden="true" />
-                <span>Home</span>
+                Home
               </Link>
-              
               <Link
                 to="/dashboard"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
+                className={`text-sm font-medium transition-colors ${
+                  location.pathname === '/dashboard' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600'
+                }`}
               >
-                <BarChart3 className="w-4 h-4" aria-hidden="true" />
-                <span>Dashboard</span>
+                Dashboard
               </Link>
-              
-              {/* Mobile menu items - flattened structure */}
-              {navigationMenus.map((menu) =>
-                menu.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <item.icon className="w-4 h-4" aria-hidden="true" />
-                    <span>{item.label}</span>
-                  </Link>
-                ))
-              )}
-              
               <Link
-                to="/signin"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
+                to="/assessment-intro"
+                className={`text-sm font-medium transition-colors ${
+                  location.pathname === '/assessment-intro' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600'
+                }`}
               >
-                <Users className="w-4 h-4" aria-hidden="true" />
-                <span>Sign In</span>
-              </Link>
-              
-              <Link
-                to="/settings"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Settings className="w-4 h-4" aria-hidden="true" />
-                <span>Settings</span>
-              </Link>
-              
-              <Link
-                to="/help"
-                className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-dark-text hover:bg-primary-teal/10 dark:hover:bg-dark-primary/20 hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-teal"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <HelpCircle className="w-4 h-4" aria-hidden="true" />
-                <span>Help</span>
+                Assessment
               </Link>
             </nav>
+
+            <div className="flex items-center space-x-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
-        )}
-      </ErrorBoundary>
+        </div>
+      </header>
+      
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+          <nav className="px-4 py-2 space-y-1">
+            <Link to="/" className="block px-3 py-2 text-gray-700 dark:text-gray-300" onClick={() => setMobileMenuOpen(false)}>
+              Home
+            </Link>
+            <Link to="/dashboard" className="block px-3 py-2 text-gray-700 dark:text-gray-300" onClick={() => setMobileMenuOpen(false)}>
+              Dashboard
+            </Link>
+            <Link to="/assessment-intro" className="block px-3 py-2 text-gray-700 dark:text-gray-300" onClick={() => setMobileMenuOpen(false)}>
+              Assessment
+            </Link>
+          </nav>
+        </div>
+      )}
 
       {/* Main Content */}
-      <main id="main-content" role="main">
-        <ErrorBoundary>
-          <React.Suspense fallback={
-            <div className="flex items-center justify-center min-h-screen">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-teal mx-auto mb-4"></div>
-                <p className="text-gray-600 dark:text-gray-400">Loading...</p>
-              </div>
-            </div>
-          }>
-            <Routes>
-            {/* Homepage */}
-            <Route path="/" element={
-              <ErrorBoundary>
-                <LandingPage />
-              </ErrorBoundary>
+      <main>
+        <SimpleErrorBoundary>
+          <Routes>
+            <Route path="/" element={<SimpleLandingPage />} />
+            
+            <Route path="/dashboard" element={
+              <SimpleDashboard
+                savedAssessments={savedAssessments}
+                onStartAssessment={startAssessment}
+                onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
+                onDeleteAssessment={deleteAssessment}
+                addNotification={addNotification}
+              />
             } />
             
-            {/* Authentication */}
-            <Route path="/signin" element={
-              <ErrorBoundary>
-                <SignInPage />
-              </ErrorBoundary>
-            } />
-            
-            {/* Assessment Flow */}
             <Route path="/assessment-intro" element={
-              <ErrorBoundary>
-              <AssessmentIntroScreen
+              <SimpleAssessmentIntro
                 frameworks={assessmentFrameworks}
                 onStartAssessment={createAssessment}
                 onBack={() => navigate('/')}
               />
-              </ErrorBoundary>
-            } />
-            
-            {/* Specific Framework Assessment Routes */}
-            <Route path="/nist-standard" element={
-              <AssessmentIntroScreen
-                frameworks={[nistCSFv2Framework]}
-                onStartAssessment={createAssessment}
-                onBack={() => navigate('/')}
-              />
-            } />
-            
-            <Route path="/nist-extended" element={
-              <AssessmentIntroScreen
-                frameworks={[nistCSFv2ExtendedFramework]}
-                onStartAssessment={createAssessment}
-                onBack={() => navigate('/')}
-              />
-            } />
-            
-            <Route path="/cmmc-assessment" element={
-              <AssessmentIntroScreen
-                frameworks={[cmmcFramework]}
-                onStartAssessment={createAssessment}
-                onBack={() => navigate('/')}
-              />
-            } />
-            
-            <Route path="/nist-lite" element={
-              <AssessmentIntroScreen
-                frameworks={[nistCSFv2Framework]}
-                onStartAssessment={createAssessment}
-                onBack={() => navigate('/')}
-              />
-            } />
-            
-            <Route path="/privacy-assessment" element={
-              <AssessmentIntroScreen
-                frameworks={[privacyFramework]}
-                onStartAssessment={createAssessment}
-                onBack={() => navigate('/')}
-              />
-            } />
-            
-            <Route path="/privacy-policy" element={
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Privacy Policy</h1>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    This application stores all data locally in your browser. No personal information is transmitted to external servers.
-                  </p>
-                </div>
-              </div>
-            } />
-            
-            <Route path="/terms" element={
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Terms of Service</h1>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    By using this application, you agree to use it for legitimate cybersecurity assessment purposes only.
-                  </p>
-                </div>
-              </div>
             } />
             
             <Route path="/assessment/:id" element={
               <AssessmentWrapper 
                 savedAssessments={savedAssessments}
                 onSave={saveAssessment}
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
                 onBack={() => navigate('/dashboard')}
               />
             } />
             
-            <Route path="/report/:id" element={
-              <ReportWrapper 
-                savedAssessments={savedAssessments}
-                onBack={() => navigate('/dashboard')}
-                onExport={(assessment, format) => {
-                  try {
-                    const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { 
-                        format,
-                        includeExecutiveSummary: true,
-                        includeDetailedAnalysis: true,
-                        includeRecommendations: true,
-                        includeGapAnalysis: true,
-                        includeNextSteps: true,
-                        branding: {
-                          organizationName: assessment.organizationInfo?.name || 'Organization'
-                        }
-                    });
-                    addNotification('success', 'Report exported as ' + format.toUpperCase());
-                  } catch (error) {
-                    addNotification('error', 'Failed to export report: ' + (error as Error).message);
-                  }
-                }}
-              />
+            {/* Simplified placeholders for other routes */}
+            <Route path="/signin" element={
+              <SimplePlaceholder title="Sign In" description="Authentication feature coming soon" />
             } />
             
-            {/* Dashboard */}
-            <Route path="/dashboard" element={
-              <ErrorBoundary>
-              <AdvancedDashboard
-                savedAssessments={savedAssessments}
-                onStartAssessment={startAssessment}
-                onLoadAssessment={(assessment) => navigate(`/assessment/${assessment.id}`)}
-                onDeleteAssessment={deleteAssessment}
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportAssessment={(assessment, format) => {
-                  try {
-                    const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', 'Assessment exported as ' + format.toUpperCase());
-                  } catch {
-                    addNotification('error', 'Failed to export assessment');
-                  }
-                }}
-                onImportAssessment={() => addNotification('info', 'Import feature')}
-                userProfile={null}
-                addNotification={addNotification}
-              />
-              </ErrorBoundary>
-            } />
-            
-            {/* New Compliance Pages */}
-            <Route path="/compliance/nist-standard" element={
-              <NistStandardCompliancePage />
-            } />
-
-            <Route path="/compliance/nist-extended" element={
-              <NistExtendedCompliancePage />
-            } />
-
-            <Route path="/compliance/cmmc" element={
-              <CmmcCompliancePage />
-            } />
-
-            <Route path="/compliance/privacy" element={
-              <PrivacyCompliancePage />
-            } />
-
-            {/* Existing Compliance Status page: now under /compliance/status */}
-            <Route path="/compliance/status" element={
-              <RealTimeComplianceStatus
-                onViewDetails={() => addNotification('info', 'View details')}
-                onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
-              />
-            } />
-            {/* Implementation Pages */}
-            <Route path="/compliance" element={
-              <RealTimeComplianceStatus
-                onViewDetails={() => addNotification('info', 'View details')}
-                onAcknowledgeAlert={() => addNotification('success', 'Alert acknowledged')}
-              />
+            <Route path="/compliance/*" element={
+              <SimplePlaceholder title="Compliance Status" description="Real-time compliance monitoring coming soon" />
             } />
             
             <Route path="/evidence" element={
-              <EvidenceCollectionDashboard
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <SimplePlaceholder title="Evidence Collection" description="Evidence management features coming soon" />
             } />
             
             <Route path="/policies" element={
-              <PolicyManagementView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <SimplePlaceholder title="Policy Management" description="Policy management features coming soon" />
             } />
             
             <Route path="/controls" element={
-              <ControlsManagementView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <SimplePlaceholder title="Controls Management" description="Security controls management coming soon" />
             } />
             
             <Route path="/team" element={
-              <TeamCollaborationDashboard
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <SimplePlaceholder title="Team Collaboration" description="Team features coming soon" />
             } />
             
             <Route path="/tasks" element={
-              <TaskManagementDashboard
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <SimplePlaceholder title="Task Management" description="Task management features coming soon" />
             } />
             
             <Route path="/calendar" element={
-              <ComplianceCalendarView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <SimplePlaceholder title="Activity Calendar" description="Calendar features coming soon" />
             } />
             
             <Route path="/assets" element={
-              <AssetDashboard
-                assets={assets}
-                onViewAsset={() => addNotification('info', 'Asset view feature')}
-                onCreateAsset={() => setShowAssetForm(true)}
-                onViewInventory={() => addNotification('info', 'Asset inventory view')}
-                onViewCategories={() => addNotification('info', 'Asset categories view')}
-                onViewDependencies={() => addNotification('info', 'Asset dependencies view')}
-                onViewWorkflow={() => addNotification('info', 'Asset workflow view')}
-                onViewRoadmap={() => addNotification('info', 'Asset roadmap view')}
-                onViewActionPlan={() => addNotification('info', 'Asset action plan view')}
-              />
+              <SimplePlaceholder title="Asset Management" description="Asset management features coming soon" />
             } />
             
-            <Route path="/reports" element={
-              <AssessmentReportsPage
-                savedAssessments={savedAssessments}
-                onGenerateReport={(assessment) => navigate(`/report/${assessment.id}`)}
-                onExportReport={(assessment, format) => {
-                  try {
-                    const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment, framework, { format });
-                    addNotification('success', `Report exported as ${format.toUpperCase()}`);
-                  } catch {
-                    addNotification('error', 'Failed to export report');
-                  }
-                }}
-                onStartAssessment={startAssessment}
-                userProfile={null}
-                addNotification={addNotification}
-              />
-            } />
-            
-            <Route path="/reports/advanced" element={
-              <AdvancedReportingDashboard
-                savedAssessments={savedAssessments}
-                userProfile={null}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
-              />
-            } />
-            
-            <Route path="/reports/team" element={
-              <TeamTrackingReport
-                onBack={() => navigate('/dashboard')}
-                onExportReport={(format) => addNotification('info', `Export ${format} feature`)}
-              />
+            <Route path="/reports/*" element={
+              <SimplePlaceholder title="Reports" description="Reporting features coming soon" />
             } />
             
             <Route path="/settings" element={
-              <SettingsView
-                onBack={() => navigate('/dashboard')}
-                addNotification={addNotification}
-              />
+              <SimplePlaceholder title="Settings" description="Settings page coming soon" />
             } />
             
             <Route path="/help" element={
-              <HelpView
-                onBack={() => navigate('/dashboard')}
-              />
+              <SimplePlaceholder title="Help" description="Help documentation coming soon" />
             } />
-            </Routes>
-          </React.Suspense>
-        </ErrorBoundary>
+          </Routes>
+        </SimpleErrorBoundary>
       </main>
 
-      <NotificationSystem 
+      <SimpleNotificationSystem 
         notifications={notifications}
         onRemove={removeNotification}
       />
+      <Analytics />
     </div>
   );
 }
@@ -954,7 +833,6 @@ function App() {
   return (
     <ThemeProvider>
       <AppContent />
-      <Analytics />
     </ThemeProvider>
   );
 }
