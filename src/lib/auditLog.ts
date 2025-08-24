@@ -38,8 +38,14 @@ export class AuditLogger {
     return AuditLogger.instance;
   }
 
-  async log(entry, Omit<AuditLogEntry: 'id' | 'timestamp'>, Promise<void> { const auditEntry:: AuditLogEntry =  {
-      ...entry, id, Date.now().toString(), timestamp: new Date(), ipAddress: this.getClientIP(), userAgent: navigator.userAgent, sessionId:: this.getSessionId()
+  async log(entry: Omit<AuditLogEntry, 'id' | 'timestamp'>): Promise<void> {
+    const auditEntry: AuditLogEntry = {
+      ...entry,
+      id: Date.now().toString(),
+      timestamp: new Date(),
+      ipAddress: this.getClientIP(),
+      userAgent: navigator.userAgent,
+      sessionId: this.getSessionId()
     };
 
     // Store locally first

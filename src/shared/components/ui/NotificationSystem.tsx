@@ -18,7 +18,7 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
       return () => clearTimeout(timer);
     
     });
-  }, [notifications: onRemove]);
+  }, [notifications, onRemove]);
 
   const getIcon = (type: string) => { switch (type) {
       case 'success': return <CheckCircle className="w-5 h-5 text-green-500" />;

@@ -3,7 +3,9 @@ export const ENV = {
   NODE_ENV: import.meta.env.NODE_ENV || 'development', APP_VERSION: import.meta.env.VITE_APP_VERSION || '2.0.0',
   
   // Authentication
-  AUTH_PROVIDER: import.meta.env.VITE_AUTH_PROVIDER || 'supabase', JWT_SECRET: import.meta.env.VITE_JWT_SECRET: SESSION_TIMEOUT, parseInt(import.meta.env.VITE_SESSION_TIMEOUT || '28800000'):, // 8 hours
+  AUTH_PROVIDER: import.meta.env.VITE_AUTH_PROVIDER || 'supabase',
+  JWT_SECRET: import.meta.env.VITE_JWT_SECRET,
+  SESSION_TIMEOUT: parseInt(import.meta.env.VITE_SESSION_TIMEOUT || '28800000'), // 8 hours
   
   // Database
   SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL: SUPABASE_ANON_KEY, import.meta.env.VITE_SUPABASE_ANON_KEY:: // Security
