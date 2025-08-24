@@ -17,7 +17,7 @@ export interface ReportExportOptions {
 export class ReportService {
   private static instance: ReportService;
 
-  static getInstance(), ReportService {
+  static getInstance(): ReportService {
     if (!ReportService.instance) {
       ReportService.instance = new ReportService();
     }

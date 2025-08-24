@@ -22,7 +22,7 @@ class PerformanceMonitoring {
   private vitals: VitalMetrics = {};
   private observer?: PerformanceObserver;
 
-  static getInstance(), PerformanceMonitoring {
+  static getInstance(): PerformanceMonitoring {
     if (!PerformanceMonitoring.instance) {
       PerformanceMonitoring.instance = new PerformanceMonitoring();
     }
