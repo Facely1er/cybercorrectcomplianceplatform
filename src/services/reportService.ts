@@ -16,7 +16,7 @@ export interface ReportExportOptions { format: 'pdf' | 'json' | 'csv';
 export class ReportService {
   private static instance: ReportService;
 
-  static getInstance(), ReportService {
+  static getInstance(): ReportService {
     if (!ReportService.instance) {
       ReportService.instance = new ReportService();
     }
@@ -30,7 +30,8 @@ export class ReportService {
   ): Promise<void> {
     try {
       switch (options.format) {
-        case 'pdf', await this.exportToPDF(assessment, framework, options);
+        case 'pdf':
+          await this.exportToPDF(assessment, framework, options);
           break;
         case 'json':
           await this.exportToJSON(assessment, framework, options);
@@ -42,8 +43,8 @@ export class ReportService {
       }
     } catch (error) {
               errorMonitoring.captureException(error as Error, {
-          tags: { type, 'reportExportError' }, 
-          extra: { assessmentId, assessment.id, format, options.format }
+          tags: { type: 'reportExportError' }, 
+          extra: { assessmentId: assessment.id, format: options.format }
         });
       throw error;
     }
@@ -52,8 +53,8 @@ export class ReportService {
   private async exportToPDF(
     assessment: AssessmentData,
     framework: Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    options: ReportExportOptions
+  ): Promise<void> {
     // Enhanced PDF generation with better formatting
     const reportData = this.generateReportData(assessment, framework);
     
@@ -78,8 +79,8 @@ export class ReportService {
     assessment: AssessmentData,
     framework: Framework,
     reportData: any,
-    options, ReportExportOptions
-  ), string {
+    options: ReportExportOptions
+  ): string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
     
@@ -303,7 +304,7 @@ export class ReportService {
                     <td style="text-align center;">${section.answered}/${section.total}</td>
                     <td>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981'  : section.score >= 50 ? '#f59e0b' , '#ef4444'};"></div>
+                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981' : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
                       </div>
                     </td>
                   </tr>
@@ -345,13 +346,13 @@ export class ReportService {
     `;
   }
 
-    private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework, Framework): Promise<void> {
+  private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework): Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
-      suggestedName, `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
+      suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
       types: [{
-        description, 'HTML Report', 
-        accept: { 'text/html', ['.html'] }
+        description: 'HTML Report', 
+        accept: { 'text/html': ['.html'] }
       }]
     });
     
@@ -360,7 +361,7 @@ export class ReportService {
     await writable.close();
   }
 
-  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework, Framework), void {
+  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework): void {
   // Create a new window with enhanced print styles
   const printWindow = window.open('', '_blank', 'width=1200,height=800');
     if (!printWindow) {
@@ -389,13 +390,13 @@ export class ReportService {
   private async exportToJSON(
     assessment: AssessmentData,
     framework: Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    options: ReportExportOptions
+  ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     const exportData = {
       assessment,
       framework: {
-        id, framework.id,
+        id: framework.id,
         name: framework.name,
         version: framework.version,
         description: framework.description
@@ -404,7 +405,7 @@ export class ReportService {
       exportedAt: new Date(),
       options,
       metadata: {
-        totalQuestions, reportData.totalQuestions,
+        totalQuestions: reportData.totalQuestions,
         answeredQuestions: reportData.answeredQuestions,
         overallScore: reportData.overallScore,
         completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100),
@@ -424,8 +425,8 @@ export class ReportService {
   private async exportToCSV(
     assessment: AssessmentData,
     framework: Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    options: ReportExportOptions
+  ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
     // Enhanced CSV with more comprehensive data
@@ -456,8 +457,9 @@ export class ReportService {
     ].map(row => row.map(field => `"$ {field }"`).join(',')).join('\n');
     // Add metadata header
     const metadataHeader = [
-      `# ${framework.name } Assessment Report`,
-      `# Organization: ${assessment.organizationInfo? .name || 'Not specified'}` : `# Generated: ${new Date().toLocaleDateString()}`,
+      `# ${framework.name} Assessment Report`,
+      `# Organization: ${assessment.organizationInfo?.name || 'Not specified'}`,
+      `# Generated: ${new Date().toLocaleDateString()}`,
       `# Assessment ID: ${assessment.id}`,
       `# Framework Version: ${framework.version}`,
       '#',
@@ -471,7 +473,7 @@ export class ReportService {
     );
   }
 
-  private generateReportData(assessment: AssessmentData, framework, Framework: , any {
+  private generateReportData(assessment: AssessmentData, framework: Framework): any {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
       ? Math.round((responses.reduce((a  : b) => a + b 0) / responses.length) * 25)

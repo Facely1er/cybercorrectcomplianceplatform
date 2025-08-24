@@ -7,14 +7,20 @@ export interface AppData { assessments: AssessmentData[];
   userProfile: UserProfile | null;
   assets: Asset[];
   tasks: Task[];
-  settings, Record<string, any>;
+  settings: Record<string, any>;
   lastBackup: Date | null;
-  version, string;
+  version: string;
 }
 
-export class DataService { private static instance: DataService;
+export class DataService {
+  private static instance: DataService;
   private readonly STORAGE_KEYS = {
-    ASSESSMENTS, 'cybersecurity-assessments', USER_PROFILE: 'user-profile', ASSETS: 'asset-inventory', TASKS: 'cybersecurity-tasks', SETTINGS: 'app-settings', BACKUP_METADATA: 'backup-metadata'
+    ASSESSMENTS: 'cybersecurity-assessments',
+    USER_PROFILE: 'user-profile',
+    ASSETS: 'asset-inventory',
+    TASKS: 'cybersecurity-tasks',
+    SETTINGS: 'app-settings',
+    BACKUP_METADATA: 'backup-metadata'
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
@@ -54,7 +60,7 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  private performDataMigration(fromVersion, string | null), void {
+  private performDataMigration(fromVersion: string | null): void {
     console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions
@@ -71,7 +77,7 @@ export class DataService { private static instance: DataService;
       assessmentVersion: assessment.assessmentVersion || '1.0.0',
       evidenceLibrary: assessment.evidenceLibrary || [],
       questionEvidence: assessment.questionEvidence || {},
-      versionHistory, assessment.versionHistory || []
+              versionHistory: assessment.versionHistory || []
     }));
       
       this.saveAssessments(migratedAssessments);
@@ -100,26 +106,21 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  saveAssessments(assessments, AssessmentData[]), void {
+  saveAssessments(assessments: AssessmentData[]): void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify('current-user',
-          action: 'update',
-          resource: 'assessments',
-          resourceId: 'bulk',
-          changes, { count, assessments.length }
-        });
+      localStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, JSON.stringify(assessments));
     } catch (error) {
       console.error('Failed to save assessments, ', error);
       throw new Error('Storage quota exceeded or localStorage unavailable');
     }
   }
 
-  getAssessment(id, string), AssessmentData | null {
+  getAssessment(id: string): AssessmentData | null {
     const assessments = this.getAssessments();
     return assessments.find(a => a.id === id) || null;
   }
 
-  saveAssessment(assessment, AssessmentData), void {
+  saveAssessment(assessment: AssessmentData): void {
     const assessments = this.getAssessments();
     const index = assessments.findIndex(a => a.id === assessment.id);
     
@@ -132,7 +133,7 @@ export class DataService { private static instance: DataService;
     this.saveAssessments(assessments);
   }
 
-  deleteAssessment(id, string), void {
+  deleteAssessment(id: string): void {
     const assessments = this.getAssessments().filter(a => a.id !== id);
     this.saveAssessments(assessments);
   }
@@ -155,25 +156,40 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  saveUserProfile(profile, UserProfile), void {
+  saveUserProfile(profile: UserProfile): void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, JSON.stringify(', error);
+      localStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, JSON.stringify(profile));
+    } catch (error) {
+      console.error('Failed to save user profile:', error);
       throw new Error('Failed to save user profile');
     }
   }
 
   // Asset Management
-  getAssets(: Asset[] { try {
+  getAssets(): Asset[] {
+    try {
       const data = localStorage.getItem(this.STORAGE_KEYS.ASSETS);
       if (!data) return [];
       
       const assets = JSON.parse(data);
-      return assets.map((asset, any) => ({
-        ...asset, createdAt, new Date(asset.createdAt), updatedAt: new Date(asset.updatedAt), lastReviewed: new Date(asset.lastReviewed), nextReview: new Date(asset.nextReview), riskAssessment: {
-          ...asset.riskAssessment, lastAssessment, new Date(asset.riskAssessment.lastAssessment), nextAssessment: new Date(asset.riskAssessment.nextAssessment)
-        
-    }, lifecycle: { ...asset.lifecycle, deploymentDate, asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate: : {
-            ...asset.lifecycle.maintenanceSchedule, lastMaintenance, asset.lifecycle.maintenanceSchedule.lastMaintenance ? new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance)  : undefined : nextMaintenance, new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance)
+      return assets.map((asset: any) => ({
+        ...asset,
+        createdAt: new Date(asset.createdAt),
+        updatedAt: new Date(asset.updatedAt),
+        lastReviewed: new Date(asset.lastReviewed),
+        nextReview: new Date(asset.nextReview),
+        riskAssessment: {
+          ...asset.riskAssessment,
+          lastAssessment: new Date(asset.riskAssessment.lastAssessment),
+          nextAssessment: new Date(asset.riskAssessment.nextAssessment)
+        },
+        lifecycle: {
+          ...asset.lifecycle,
+          deploymentDate: asset.lifecycle.deploymentDate ? new Date(asset.lifecycle.deploymentDate) : undefined,
+          maintenanceSchedule: {
+            ...asset.lifecycle.maintenanceSchedule,
+            lastMaintenance: asset.lifecycle.maintenanceSchedule.lastMaintenance ? new Date(asset.lifecycle.maintenanceSchedule.lastMaintenance) : undefined,
+            nextMaintenance: new Date(asset.lifecycle.maintenanceSchedule.nextMaintenance)
           }
         }
       }));
@@ -183,15 +199,17 @@ export class DataService { private static instance: DataService;
     }
   }
 
-  saveAssets(): void {
+  saveAssets(assets: Asset[]): void {
     try {
-      localStorage.setItem(this.STORAGE_KEYS.ASSETS, JSON.stringify(', error);
+      localStorage.setItem(this.STORAGE_KEYS.ASSETS, JSON.stringify(assets));
+    } catch (error) {
+      console.error('Failed to save assets:', error);
       throw new Error('Failed to save assets');
     }
   }
 
-  saveAsset(): void {
-    const assets = this.getAssets():;
+  saveAsset(asset: Asset): void {
+    const assets = this.getAssets();
     const index = assets.findIndex(a => a.id === asset.id);
     
     if (index >= 0) {
@@ -208,11 +226,24 @@ export class DataService { private static instance: DataService;
     try  {
       const assets = this.getAssets();
       const exportData = {
-        timestamp: new Date().toISOString(), version: '2.0.0', metadata: { totalAssets, assets.length, exportType:: 'full-classification', categories, this.getAssetCategorySummary(assets), classifications: this.getClassificationSummary(assets)
-        
-     }, assets: assets.map(asset => ({
-                      ...asset, exportMetadata, {
-            exportedAt, , new Date().toISOString(), classification: { level, asset.informationClassification, businessValue:: asset.businessValue, criticality: asset.criticality, riskLevel:, asset.riskAssessment.overallRisk  }
+        timestamp: new Date().toISOString(),
+        version: '2.0.0',
+        metadata: {
+          totalAssets: assets.length,
+          exportType: 'full-classification',
+          categories: this.getAssetCategorySummary(assets),
+          classifications: this.getClassificationSummary(assets)
+        },
+        assets: assets.map(asset => ({
+          ...asset,
+          exportMetadata: {
+            exportedAt: new Date().toISOString(),
+            classification: {
+              level: asset.informationClassification,
+              businessValue: asset.businessValue,
+              criticality: asset.criticality,
+              riskLevel: asset.riskAssessment.overallRisk
+            }
           }
         }))
       };
@@ -225,7 +256,7 @@ export class DataService { private static instance: DataService;
   }
   
   // Import assets with enhanced validation
-  importAssetsWithValidation(importData: string, { success: , boolean; imported, number; errors, string[] } {
+  importAssetsWithValidation(importData: string): { success: boolean; imported: number; errors: string[] } {
     try {
       const data = JSON.parse(importData);
       const errors: string[] = [];
@@ -242,7 +273,7 @@ export class DataService { private static instance: DataService;
         try {
           // Validate required fields
           if (!importedAsset.name || !importedAsset.owner || !importedAsset.category) {
-            errors.push(`Asset ${index + 1:}, Missing required fields (name, owner, category)`);
+            errors.push(`Asset ${index + 1}: Missing required fields (name, owner, category)`);
             return;
           }
           
@@ -255,9 +286,24 @@ export class DataService { private static instance: DataService;
           
           // Convert dates
           const processedAsset: Asset = {
-            ...importedAsset, id, importedAsset.id || `imported-${Date.now():}-${index}`, createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt: { ...importedAsset.riskAssessment, lastAssessment, importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment: , { ...importedAsset.lifecycle, deploymentDate, importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) :, new Date(), maintenanceSchedule: {
-                ...importedAsset.lifecycle? .maintenanceSchedule : nextMaintenance, importedAsset.lifecycle? .maintenanceSchedule?.nextMaintenance ? 
-                  new Date(importedAsset.lifecycle.maintenanceSchedule.nextMaintenance) , new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
+            ...importedAsset,
+            id: importedAsset.id || `imported-${Date.now()}-${index}`,
+            createdAt: importedAsset.createdAt ? new Date(importedAsset.createdAt) : new Date(),
+            updatedAt: new Date(),
+            lastReviewed: new Date(),
+            nextReview: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+            riskAssessment: {
+              ...importedAsset.riskAssessment,
+              lastAssessment: importedAsset.riskAssessment?.lastAssessment ? new Date(importedAsset.riskAssessment.lastAssessment) : new Date(),
+              nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
+            },
+            lifecycle: {
+              ...importedAsset.lifecycle,
+              deploymentDate: importedAsset.lifecycle?.deploymentDate ? new Date(importedAsset.lifecycle.deploymentDate) : new Date(),
+              maintenanceSchedule: {
+                ...importedAsset.lifecycle?.maintenanceSchedule,
+                nextMaintenance: importedAsset.lifecycle?.maintenanceSchedule?.nextMaintenance ? 
+                  new Date(importedAsset.lifecycle.maintenanceSchedule.nextMaintenance) : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
                }
             }
           };
@@ -266,7 +312,7 @@ export class DataService { private static instance: DataService;
           imported++;
           
         } catch (assetError) {
-          errors.push(`Asset ${index + 1}, ${(assetError as Error).message}`);
+          errors.push(`Asset ${index + 1}: ${(assetError as Error).message}`);
         }
       });
       
@@ -275,31 +321,36 @@ export class DataService { private static instance: DataService;
         this.saveAssets([...existingAssets , ...validAssets]);
     }
       return {
-        success validAssets.length > 0, imported:, validAssets.length, errors };
+        success: validAssets.length > 0,
+        imported: validAssets.length,
+        errors
+      };
       
     } catch (error) {
       return {
-        success: false, imported, 0:, errors: [`Import failed, ${(error as Error).message:}`]
+        success: false,
+        imported: 0,
+        errors: [`Import failed: ${(error as Error).message}`]
       };
     }
   }
   
-  private getAssetCategorySummary(assets: Asset[], Record<string, number> {
+  private getAssetCategorySummary(assets: Asset[]): Record<string, number> {
     return assets.reduce((acc, asset) => {
-      acc[asset.category] = (acc[asset.category] || 0) + 1:;
+      acc[asset.category] = (acc[asset.category] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
   }
   
-  private getClassificationSummary(assets: Asset[], Record<string, number> {
+  private getClassificationSummary(assets: Asset[]): Record<string, number> {
     return assets.reduce((acc, asset) => {
-      acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1:;
+      acc[asset.informationClassification] = (acc[asset.informationClassification] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
   }
 
-  deleteAsset(): void {
-    const assets = this.getAssets().filter(a => a.id !== id):;
+  deleteAsset(id: string): void {
+    const assets = this.getAssets().filter(a => a.id !== id);
     this.saveAssets(assets);
   }
 

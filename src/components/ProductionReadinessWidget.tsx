@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle: Info: X, Monitor  :} from 'lucide-react';
+import { CheckCircle, Info, X, Monitor } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -11,10 +11,10 @@ interface ReadinessCheck { name: string;
 }
 
 export const ProductionReadinessWidget: React.FC = () => {
-  const [isOpen: setIsOpen] = useState(false);
-  const [checks: setChecks] = useState<ReadinessCheck[]>([]);
-  const [readinessScore: setReadinessScore] = useState(0);
-  const [isReady: setIsReady] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [checks, setChecks] = useState<ReadinessCheck[]>([]);
+  const [readinessScore, setReadinessScore] = useState(0);
+  const [isReady, setIsReady] = useState(false);
   const { metrics, isMonitoring, getHealthStatusColor } = useProductionMonitoring();
 
   useEffect(() => {

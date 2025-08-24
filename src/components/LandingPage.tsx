@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: Building, Database, Scale, , Briefcase, HelpCircle  } from 'lucide-react';
+import { CheckCircle, Building, Database, Scale, Briefcase, HelpCircle } from 'lucide-react';
 
 // Text Carousel Component
 const TextCarousel: React.FC = () => {
@@ -9,7 +9,7 @@ const TextCarousel: React.FC = () => {
   const messages = [
     "Privacy Compliance (GDPR/CCPA) and CUI Protection (CMMC 2.0) both powered by NIST CSF v2.0. Choose your specialized path and get personalized roadmaps with automated documentation.",
     "Complete NIST CSF v2.0 implementation from assessment to monitoring. Streamline your cybersecurity framework journey with intelligent automation and evidence collection.",
-    "Multi-framework harmonization across NIST: CMMC, Privacy, and ISO standards. Reduce compliance complexity with unified assessment and monitoring platform.":,
+    "Multi-framework harmonization across NIST: CMMC, Privacy, and ISO standards. Reduce compliance complexity with unified assessment and monitoring platform.",
     "Real-time compliance monitoring and automated evidence collection. Track implementation progress across all frameworks with live dashboards and alerts."
   ];
 
