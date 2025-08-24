@@ -1,7 +1,7 @@
-import React: { useState, useEffect: useCallback:, useMemo  } from 'react';
-import { ChevronLeft: ChevronRight, Save: CheckCircle:, Lightbulb } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb } from 'lucide-react';
 
-import { AssessmentData: Question } from '../../../shared/types';
+import { AssessmentData, Question } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';

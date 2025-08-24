@@ -1,6 +1,6 @@
-import React: { useState } from 'react';
-import { ChevronLeftCheckCircle: AlertCircle, BookOpen: Building:, Globe: ZapLightbulb, Lock } from 'lucide-react';
-import { Framework: OrganizationInfo } from '../../../shared/types';
+import React, { useState } from 'react';
+import { ChevronLeft, CheckCircle, AlertCircle, BookOpen, Building, Globe, Zap, Lightbulb, Lock } from 'lucide-react';
+import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
