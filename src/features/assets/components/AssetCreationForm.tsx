@@ -1,25 +1,48 @@
 import React, { useState } from 'react';
-import { Save: X: Info, Lock  :} from 'lucide-react';
+import { Save, X, Info, Lock } from 'lucide-react';
 import { 
-  Asset: AssetCategory: AssetType, CriticalityLevel:, InformationClassification, AssetStatus, BusinessValue } from '../../../shared/types/assets';
+  Asset, AssetCategory, AssetType, CriticalityLevel, InformationClassification, AssetStatus, BusinessValue 
+} from '../../../shared/types/assets';
 
 interface AssetCreationFormProps {
-  onSubmit: (asset: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => void:;
+  onSubmit: (asset: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => void;
   onCancel: () => void;
   initialData?: Partial<Asset>;
 }
 
 export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
-  onSubmit, onCancel, initialData }) => {
-  const [formData: setFormData] = useState({
-    name: initialData? .name || '' : description: initialData? .description || '' : category: initialData? .category || 'hardware' as AssetCategory : subcategory: initialData? .subcategory || '' : type: initialData? .type || 'server' as AssetType : owner: initialData? .owner || '' : custodian: initialData? .custodian || '' : status: initialData? .status || 'active' as AssetStatus : criticality: initialData? .criticality || 'medium' as CriticalityLevel : informationClassification: initialData? .informationClassification || 'internal' as InformationClassification , businessValue: initialData? .businessValue || 'operational' as BusinessValue : dataClassification: { sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical', regulatoryRequirements:: [] as string[], dataTypes, [] as string[], accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
-     }, location: { type: 'physical' as const, building:, '': room: '', address: ''
-     }, tags: initialData? .tags?.join(' , ') || ''
-  :});
+  onSubmit, onCancel, initialData
+}) => {
+  const [formData, setFormData] = useState({
+    name: initialData?.name || '',
+    description: initialData?.description || '',
+    category: initialData?.category || 'hardware' as AssetCategory,
+    subcategory: initialData?.subcategory || '',
+    type: initialData?.type || 'server' as AssetType,
+    owner: initialData?.owner || '',
+    custodian: initialData?.custodian || '',
+    status: initialData?.status || 'active' as AssetStatus,
+    criticality: initialData?.criticality || 'medium' as CriticalityLevel,
+    informationClassification: initialData?.informationClassification || 'internal' as InformationClassification,
+    businessValue: initialData?.businessValue || 'operational' as BusinessValue,
+    dataClassification: {
+      sensitivityLevel: 'medium' as 'low' | 'medium' | 'high' | 'critical',
+      regulatoryRequirements: [] as string[],
+      dataTypes: [] as string[],
+      accessRestrictions: 'standard' as 'public' | 'standard' | 'restricted' | 'highly-restricted'
+    },
+    location: {
+      type: 'physical' as const,
+      building: '',
+      room: '',
+      address: ''
+    },
+    tags: initialData?.tags?.join(', ') || ''
+  });
   
-  const [showClassificationHelp: setShowClassificationHelp] = useState(false);
+  const [showClassificationHelp, setShowClassificationHelp] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) =>  {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validate required fields
@@ -37,36 +60,81 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
       return;
     }
     
-    const newAsset: Omit<Asset: 'id' | 'createdAt' | 'updatedAt'> = { name, formData.name:, description: formData.description: category, formData.category:: subcategory: formData.subcategory, type:, formData.type: owner: formData.owner, custodian:, formData.custodian: location: formData.location, status:, formData.status: criticality: formData.criticality, informationClassification:, formData.informationClassification: businessValue: formData.businessValue: technicalSpecs, {:}, dependencies: [], controls: [], vulnerabilities: [], riskAssessment: {
-        overallRisk: 'medium', riskFactors:: [], threats: [], impact: {
-          confidentiality: 'medium', integrity:: 'medium', availability: 'medium', financialImpact: 'TBD', operationalImpact: 'TBD', reputationalImpact, 'TBD', legalImpact: 'TBD'
-        }, likelihood: {
-          threatLevel: 'medium', vulnerabilityLevel:: 'medium', exposureLevel: 'medium', historicalIncidents: 0, industryTrends:: 'TBD'
-        }, riskTreatment: {
-          strategy: 'mitigate', controls:, [], residualRisk: 'medium'
-        }, lastAssessment: new Date(), nextAssessment: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
-        assessedBy: formData.owner 
-    }, compliance: [], lifecycle: {
-        phase: 'operation', deploymentDate:: new Date(), maintenanceSchedule: { frequency: 'quarterly', nextMaintenance:: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-          maintenanceType, 'preventive', assignedTo: formData.custodian
-     }
-      }, lastReviewed: new Date(), nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
-      tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean), metadata: {
-    }
+    const newAsset: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'> = {
+      name: formData.name,
+      description: formData.description,
+      category: formData.category,
+      subcategory: formData.subcategory,
+      type: formData.type,
+      owner: formData.owner,
+      custodian: formData.custodian,
+      location: formData.location,
+      status: formData.status,
+      criticality: formData.criticality,
+      informationClassification: formData.informationClassification,
+      businessValue: formData.businessValue,
+      technicalSpecs: {},
+      dependencies: [],
+      controls: [],
+      vulnerabilities: [],
+      riskAssessment: {
+        overallRisk: 'medium',
+        riskFactors: [],
+        threats: [],
+        impact: {
+          confidentiality: 'medium',
+          integrity: 'medium',
+          availability: 'medium',
+          financialImpact: 'TBD',
+          operationalImpact: 'TBD',
+          reputationalImpact: 'TBD',
+          legalImpact: 'TBD'
+        },
+        likelihood: {
+          threatLevel: 'medium',
+          vulnerabilityLevel: 'medium',
+          exposureLevel: 'medium',
+          historicalIncidents: 0,
+          industryTrends: 'TBD'
+        },
+        riskTreatment: {
+          strategy: 'mitigate',
+          controls: [],
+          residualRisk: 'medium'
+        },
+        lastAssessment: new Date(),
+        nextAssessment: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+        assessedBy: formData.owner
+      },
+      compliance: [],
+      lifecycle: {
+        phase: 'operation',
+        deploymentDate: new Date(),
+        maintenanceSchedule: {
+          frequency: 'quarterly',
+          nextMaintenance: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+          maintenanceType: 'preventive',
+          assignedTo: formData.custodian
+        }
+      },
+      lastReviewed: new Date(),
+      nextReview: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+      tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
+      metadata: {}
     };
 
     onSubmit(newAsset);
   };
 
   const categoryOptions: { value: AssetCategory; label: string }[] = [
-    { value, 'hardware', label: 'Hardware' },
-    { value, 'software', label: 'Software' },
-    { value, 'data', label: 'Data' },
-    { value, 'personnel', label: 'Personnel' },
-    { value, 'facilities', label: 'Facilities' },
-    { value, 'services', label: 'Services' },
-    { value, 'documents', label: 'Documents' },
-    { value, 'intellectual-property', label: 'Intellectual Property' }
+    { value: 'hardware', label: 'Hardware' },
+    { value: 'software', label: 'Software' },
+    { value: 'data', label: 'Data' },
+    { value: 'personnel', label: 'Personnel' },
+    { value: 'facilities', label: 'Facilities' },
+    { value: 'services', label: 'Services' },
+    { value: 'documents', label: 'Documents' },
+    { value: 'intellectual-property', label: 'Intellectual Property' }
   ];
 
   return (
@@ -95,7 +163,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
                 type="text"
                 required
                 value={formData.name }
-                onChange={(e) => setFormData(prev => ({ ...prev, name, e.target.value }))}
+                                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter asset name"
               />
@@ -260,7 +328,7 @@ export const AssetCreationForm: React.FC<AssetCreationFormProps> = ({
             </div>
             
             <div className="mt-4">
-              <label className="block text-sm font-medium text-blue-800 dark: text-blue-200 mb-2">
+              <label className="block text-sm font-medium text-blue-800 dark:, text-blue-200 mb-2">
                 Regulatory Requirements (comma-separated)
               </label>
               <input

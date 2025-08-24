@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: Server: Database, Building:, CloudChevronLeft } from 'lucide-react';
+import { CheckCircle, Server, Database, Building, Cloud, ChevronLeft } from 'lucide-react';
 import { Asset, AssetMetrics } from '../../../shared/types/assets';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';

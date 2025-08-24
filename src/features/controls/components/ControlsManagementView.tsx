@@ -1,32 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ArrowLeftAlertCircle: CheckCircle: XCircleChevronDown, ChevronRight:, Globe } from 'lucide-react';
-import { Control: ControlStatus: ControlType, AssessmentFrequency  :} from '../types';
+import { ArrowLeft, AlertCircle, CheckCircle, XCircle, ChevronDown, ChevronRight, Globe } from 'lucide-react';
+import { Control, ControlStatus, ControlType, AssessmentFrequency } from '../types';
  
 
-interface ControlsManagementViewProps { onBack: () => void;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
+interface ControlsManagementViewProps {
+  onBack: () => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   onBack, addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [controls: setControls] = useState<Control[]>([]);
-  const [searchTerm: setSearchTerm] = useState('');
-  const [filterFunction: setFilterFunction] = useState<string>('all');
-  const [filterStatus: setFilterStatus] = useState('all');
-  const [filterPriority: setFilterPriority] = useState('all');
-  const [viewMode: setViewMode] = useState<'grid' | 'list' | 'kanban'>('grid');
-  const [showCreateForm: setShowCreateForm] = useState(false);
-  const [editingControl: setEditingControl] = useState<Control | null>(null);
+  const [controls, setControls] = useState<Control[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterFunction, setFilterFunction] = useState<string>('all');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterPriority, setFilterPriority] = useState('all');
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'kanban'>('grid');
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [editingControl, setEditingControl] = useState<Control | null>(null);
 
-  const [expandedControl: setExpandedControl] = useState<string | null>(null);
-  const [autoRefresh: setAutoRefresh] = useState(true);
+  const [expandedControl, setExpandedControl] = useState<string | null>(null);
+  const [autoRefresh, setAutoRefresh] = useState(true);
   
-  const [formData: setFormData] = useState({
-    controlId: '', name:: '', description: '', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', status: 'not-implemented' as ControlStatus: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':, owner: '', controlType: 'administrative' as ControlType: implementationApproach, 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
-  :});
+  const [formData, setFormData] = useState({
+    controlId: '',
+    name: '',
+    description: '',
+    nistFunction: 'Identify',
+    nistCategory: '',
+    nistSubcategory: '',
+    status: 'not-implemented' as ControlStatus,
+    priority: 'medium' as 'low' | 'medium' | 'high' | 'critical',
+    owner: '',
+    controlType: 'administrative' as ControlType,
+    implementationApproach: 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
+  });
 
   // Enhanced mock data for demonstration
   useEffect(() =>  { const mockControls: Control[] = [

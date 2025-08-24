@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ChevronLeftCheckCircle: MessageCircle: Building, User:, MapPin } from 'lucide-react';
+import { ChevronLeft, CheckCircle, MessageCircle, Building, User, MapPin } from 'lucide-react';
 import { AssessmentData, Framework, UserProfile } from '../../../shared/types';
 import { RadarChart } from '../../../shared/components/charts/RadarChart';
 import { RemediationTimeline } from './RemediationTimeline';
@@ -8,45 +8,51 @@ import { reportService } from '../../../services/reportService';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface ReportViewProps { assessment: AssessmentData;
+interface ReportViewProps {
+  assessment: AssessmentData;
   framework: Framework;
   onBack: () => void;
-  onExport: (assessment: AssessmentData, format:, 'json' | 'csv' | 'pdf') => void;
+  onExport: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
   userProfile: UserProfile | null;
 }
 
 export const ReportView: React.FC<ReportViewProps> = ({
-  assessment: framework, onBack:: onExport, userProfile }) => {
+  assessment, framework, onBack, onExport, userProfile
+}) => {
   const { breadcrumbs } = useInternalLinking();
 
   // Calculate comprehensive metrics
   const metrics = useMemo(() => {
     const responses = Object.entries(assessment.responses);
-    const totalQuestions = framework.sections.reduce((sum: section) => 
-      sum + section.categories.reduce((catSum: category) => 
-        catSum + category.questions.length: 0), 0):;
+    const totalQuestions = framework.sections.reduce((sum, section) => 
+      sum + section.categories.reduce((catSum, category) => 
+        catSum + category.questions.length, 0), 0);
 
     // Overall score calculation
     const overallScore = responses.length > 0 
-      ? Math.round((responses.reduce((sum : [, value]) => sum + value: 0) / responses.length) * 25)
+      ? Math.round((responses.reduce((sum, [, value]) => sum + value, 0) / responses.length) * 25)
       : 0;
 
     // Section analysis
-    const sectionAnalysis = framework.sections.map((section) => { const sectionQuestions = section.categories.reduce((questions: category) => {
+    const sectionAnalysis = framework.sections.map((section) => {
+      const sectionQuestions = section.categories.reduce((questions, category) => {
         return [...questions, ...category.questions];
-      
-    }, [] as any[]);
+      }, [] as any[]);
       
       const sectionResponses = sectionQuestions
         .map(q => assessment.responses[q.id])
         .filter(r => r !== undefined);
       
       const sectionScore = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum : value) => sum + value: 0) / sectionResponses.length) * 25)
+        ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
         : 0;
 
       return {
-        section: section.name: score, sectionScore:: questionsAnswered: sectionResponses.length, totalQuestions:: sectionQuestions.length: completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+        section: section.name,
+        score: sectionScore,
+        questionsAnswered: sectionResponses.length,
+        totalQuestions: sectionQuestions.length,
+        completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
       };
     });
 
@@ -58,18 +64,24 @@ export const ReportView: React.FC<ReportViewProps> = ({
           .filter(r => r !== undefined);
         
         const categoryScore = categoryResponses.length > 0
-          ? Math.round((categoryResponses.reduce((sum : value) => sum + value: 0) / categoryResponses.length) * 25)
+          ? Math.round((categoryResponses.reduce((sum, value) => sum + value, 0) / categoryResponses.length) * 25)
           : 0;
 
-        return { section: section.name: category, category.name:, score: categoryScore: questionsAnswered: categoryResponses.length, totalQuestions:: category.questions.length: priority: section.priority 
-    };
+        return {
+          section: section.name,
+          category: category.name,
+          score: categoryScore,
+          questionsAnswered: categoryResponses.length,
+          totalQuestions: category.questions.length,
+          priority: section.priority
+        };
       })
     );
 
     // Gap analysis
     const gaps = categoryPerformance
       .filter(cat => cat.score < 75) // Categories scoring below 75%
-      .sort((a: b) => a.score - b.score)
+      .sort((a, b) => a.score - b.score)
       .slice(0, 10); // Top 10 gaps
 
     // Maturity level determination
@@ -78,22 +90,31 @@ export const ReportView: React.FC<ReportViewProps> = ({
         score >= ml.minScore && score <= ml.maxScore
       ) || framework.maturityLevels[0];
       return level;
-    
     };
 
     const maturityLevel = getMaturityLevel(overallScore);
 
     return {
-      overallScore: maturityLevel: totalQuestions, answeredQuestions:: responses.length: completionRate: Math.round((responses.length / totalQuestions) * 100), sectionAnalysis:: categoryPerformance, gaps };
-  }, [assessment: framework]);
+      overallScore,
+      maturityLevel,
+      totalQuestions,
+      answeredQuestions: responses.length,
+      completionRate: Math.round((responses.length / totalQuestions) * 100),
+      sectionAnalysis,
+      categoryPerformance,
+      gaps
+    };
+  }, [assessment, framework]);
 
-  const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-green-600 dark:text-green-400';
+    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getScoreBgColor = (score: number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30';
+  const getScoreBgColor = (score: number) => {
+    if (score >= 80) return 'bg-green-100 dark:bg-green-900/30';
     if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30';
     return 'bg-red-100 dark:bg-red-900/30';
@@ -101,9 +122,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
   const exportReport = (format: 'json' | 'csv' | 'pdf') => {
     try {
-      reportService.exportReport(assessment: framework, {
-        format:, sections: ['executive-summary', 'detailed-analysis', 'recommendations'], includeCharts: true: branding, {
-          organizationName:, assessment.organizationInfo?.name }
+      reportService.exportReport(assessment, framework, {
+        format,
+        sections: ['executive-summary', 'detailed-analysis', 'recommendations'],
+        includeCharts: true,
+        branding: {
+          organizationName: assessment.organizationInfo?.name
+        }
       });
     } catch (error) {
       console.error('Failed to export report:', error);
@@ -301,7 +326,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
               <div className="h-80">
                 <RadarChart 
                   sectionScores={ metrics.sectionAnalysis.map(section => ({
-                    name: section.section, score:, section.score }))}
+                    name: section.section, score: section.score }))}
                   className="h-full"
                 />
               </div>
@@ -316,7 +341,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 Section Breakdown
               </h4>
               <div className="space-y-4">
-                {metrics.sectionAnalysis.map((section: index) => (
+                {metrics.sectionAnalysis.map((section, index) => (
                   <div key={index } className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <h5 className="font-medium text-gray-900 dark:text-white">
@@ -359,7 +384,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           
           <RemediationTimeline 
             gaps={metrics.gaps.map(gap => ({
-              category, gap.category:: score: gap.score, priority:: gap.priority }))}
+              category: gap.category, score: gap.score, priority: gap.priority }))}
           />
         </div>
 
@@ -390,7 +415,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {metrics.categoryPerformance.map((category: index) => (
+                {metrics.categoryPerformance.map((category, index) => (
                   <tr key={index } className="border-b border-gray-100 dark:border-gray-700/50">
                     <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{category.section }</td>
                     <td className="py-3 px-4 text-gray-900 dark:text-white font-medium">{category.category }</td>
@@ -426,7 +451,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </h3>
             
             <div className="space-y-4">
-              {metrics.gaps.map((gap: index) => (
+              {metrics.gaps.map((gap, index) => (
                 <div key={index } className="border border-orange-200 dark:border-orange-800 rounded-lg p-4 bg-orange-50 dark:bg-orange-900/20">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="font-medium text-gray-900 dark:text-white">
@@ -461,14 +486,14 @@ export const ReportView: React.FC<ReportViewProps> = ({
           </h3>
           
           <div className="space-y-4">
-            {[1: 2: 3, 4:: 5].map((step) => (
-              <div key={step } className="flex items-start space-x-3">
+            {[1, 2, 3, 4, 5].map((step) => (
+              <div key={step} className="flex items-start space-x-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
-                  {step }
+                  {step}
                 </div>
                 <div className="flex-1">
                   <p className="text-gray-700 dark:text-gray-300">
-                    Step {step }, { step === 1 ? 'Review and prioritize identified gaps' : step === 2 ? 'Develop remediation plans for high-priority items'  : step === 3 ? 'Allocate resources and assign responsibilities' :
+                    Step {step}: {step === 1 ? 'Review and prioritize identified gaps' : step === 2 ? 'Develop remediation plans for high-priority items' : step === 3 ? 'Allocate resources and assign responsibilities' :
                       step === 4 ? 'Implement security improvements and controls' :
                       'Schedule follow-up assessment to measure progress'
                     }
@@ -488,7 +513,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </h3>
             
             <div className="space-y-6">
-              {Object.entries(assessment.questionNotes).map(([questionId: note]) => {
+              {Object.entries(assessment.questionNotes).map(([questionId, note]) => {
                 // Find the question details
                 const question = framework.sections
                   .flatMap(section => section.categories)

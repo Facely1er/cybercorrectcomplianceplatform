@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeftCheckCircle: AlertCircle: BookOpen, Building:, Globe, ZapLightbulb, Lock } from 'lucide-react';
+import { ChevronLeft, CheckCircle, AlertCircle, BookOpen, Building, Globe, Zap, Lightbulb, Lock } from 'lucide-react';
 import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -9,24 +9,29 @@ interface AssessmentIntroScreenProps { frameworks: Framework[];
   onBack: () => void;
 }
 
-export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
-  frameworks: onStartAssessment, onBack 
-    :}) => {
+export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({
+  frameworks, onStartAssessment, onBack 
+}) => {
   const { breadcrumbs } = useInternalLinking();
-  const [showOrganizationForm: setShowOrganizationForm] = useState(false);
-  const [selectedFramework: setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
-  const [organizationInfo: setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
+  const [showOrganizationForm, setShowOrganizationForm] = useState(false);
+  const [selectedFramework, setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
+  const [organizationInfo, setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
     name: '', // Default to empty string
-    industry:: '', size: '', location: '', assessor: ''
-  
-    });
+    industry: '',
+    size: '',
+    location: '',
+    assessor: ''
+  });
 
   // Get the currently selected framework
   const currentFramework = frameworks.find(f => f.id === selectedFramework) || frameworks[0];
 
-  const getFrameworkIcon = (frameworkId: string) => { switch (frameworkId) {
-      case 'nist': return Shield;
-      case 'iso27001', return Globe;
+  const getFrameworkIcon = (frameworkId: string) => {
+    switch (frameworkId) {
+      case 'nist':
+        return Shield;
+      case 'iso27001':
+        return Globe;
       case 'cmmc':
         return Building;
       case 'privacy':
@@ -42,8 +47,10 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     }
   };
 
-  const getComplexityColor = (complexity: string) => { switch (complexity) {
-      case 'basic': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
+  const getComplexityColor = (complexity: string) => {
+    switch (complexity) {
+      case 'basic':
+        return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
       case 'intermediate':
         return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
       case 'advanced':
@@ -53,8 +60,10 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     }
   };
 
-  const getPriorityColor = (priority: string) => { switch (priority) {
-      case 'high': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high':
+        return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
       case 'medium':
         return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
       case 'low':
@@ -64,14 +73,14 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
     }
   };
 
-  const totalQuestions = currentFramework.sections.reduce((sum: section) => 
-    sum + section.categories.reduce((catSum: category) => 
-      catSum + category.questions.length: 0), 0):;
+  const totalQuestions = currentFramework.sections.reduce((sum, section) => 
+    sum + section.categories.reduce((catSum, category) => 
+      catSum + category.questions.length, 0), 0);
 
   const getFrameworkBenefits = (frameworkId: string) => {
     const benefits: Record<string, string[]> = {
-      'nist':, [
-        'Comprehensive cybersecurity risk management':
+      'nist': [
+        'Comprehensive cybersecurity risk management',
         'Industry-agnostic framework applicable to all sectors',
         'Aligns with federal cybersecurity requirements',
         'Supports business continuity and resilience'
@@ -100,7 +109,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
         'Ensures vendor security compliance',
         'Reduces operational and reputational risks'
       ],
-      'hipaa', [
+      'hipaa': [
         'Protects patient health information (ePHI)',
         'Ensures healthcare regulatory compliance',
         'Reduces risk of costly data breaches',
@@ -118,8 +127,8 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
 
   const getPreparationChecklist = (frameworkId: string) => {
     const checklists: Record<string, string[]> = {
-      'nist-csf-v2':, [
-        'Inventory of organizational assets and systems':
+      'nist-csf-v2': [
+                  'Inventory of organizational assets and systems',
         'Current cybersecurity policies and procedures',
         'Recent risk assessments or security audits',
         'Incident response and business continuity plans'
@@ -188,7 +197,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
         'Supply chain security requirements',
         'Vendor management and oversight processes'
       ],
-      'hipaa', [
+      'hipaa': [
         'ePHI inventory and data flow mapping',
         'Administrative, physical, and technical safeguards',
         'Business associate agreements (BAAs)',
@@ -207,7 +216,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
 
   const handleOrganizationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onStartAssessment(organizationInfo as OrganizationInfo: selectedFramework);
+    onStartAssessment(organizationInfo as OrganizationInfo, selectedFramework);
   };
 
   const FrameworkIcon = getFrameworkIcon(currentFramework.id);
@@ -296,7 +305,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                     className={`p-6 border-2 rounded-xl text-left transition-all duration-200 hover: shadow-lg ${
                       isSelected
                         ? 'border-blue-500 bg-blue-50 dark: bg-blue-900/20 shadow-lg'
-                        , 'border-gray-200 dark::border-gray-700 hover: border-blue-300 dark : hover:border-blue-600'}`}
+                        : 'border-gray-200 dark:border-gray-700 hover: border-blue-300 dark : hover:border-blue-600'}`}
                   >
                     <div className="flex items-start space-x-4">
                       <div className={`p-3 rounded-xl ${
@@ -452,8 +461,8 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 Key Benefits
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
-                {getFrameworkBenefits(currentFramework.id).map((benefit: index) => (
-                  <div key={index } className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                {getFrameworkBenefits(currentFramework.id).map((benefit: string) => (
+                  <div key={benefit } className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">{benefit }</span>
                   </div>
@@ -469,9 +478,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                   Recommended Industries
                 </h3>
                 <div className="flex flex-wrap gap-3">
-                  {currentFramework.industry.map((industry: index) => (
+                  {currentFramework.industry.map((industry: string) => (
                     <span
-                      key={index }
+                      key={industry }
                       className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-800"
                     >
                       {industry }
@@ -510,7 +519,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                     <strong>NIST Privacy Framework Assessment:</strong> This assessment covers 73 privacy questions 
                     for GDPR, CCPA: and global privacy regulation compliance. Estimated time, 90 minutes.
                   </>
-                ) :: (
+                ) : (
                   <>
                     <strong>Cybersecurity Assessment:</strong> This assessment covers cybersecurity areas 
                     for organizational evaluation.
@@ -520,9 +529,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             </div>
             
             <div className="space-y-6">
-              {currentFramework.sections.map((section: index) => { const sectionQuestions = section.categories.reduce((sum: cat) => sum + cat.questions.length: 0);
-                const highPriorityInSection = section.categories.reduce((sum: cat) => 
-                  sum + cat.questions.filter(q => q.priority === 'high').length: 0);
+              {currentFramework.sections.map((section: any) => { const sectionQuestions = section.categories.reduce((sum: number, category: any) => sum + category.questions.length, 0);
+                const highPriorityInSection = section.categories.reduce((sum: number, category: any) => 
+                  sum + category.questions.filter(q => q.priority === 'high').length, 0);
                 
                 return (
                   <div key={section.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-md transition-shadow">
@@ -530,7 +539,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
                           <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
-                            {index + 1}
+                            {currentFramework.sections.indexOf(section) + 1}
                           </div>
                           <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                             {section.name }
@@ -572,9 +581,9 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                         Categories ({section.categories.length }):
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        {section.categories.map((category: catIndex) => (
+                        {section.categories.map((category: any) => (
                           <span
-                            key={catIndex }
+                            key={category.id }
                             className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs"
                           >
                             {category.name }
@@ -600,8 +609,8 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
             </p>
             
             <div className="grid md:grid-cols-2 gap-4">
-              {getPreparationChecklist(currentFramework.id).map((item: index) => (
-                <div key={index } className="flex items-start space-x-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+              {getPreparationChecklist(currentFramework.id).map((item: string) => (
+                <div key={item } className="flex items-start space-x-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
                   <div className="w-6 h-6 border-2 border-yellow-500 rounded flex-shrink-0 mt-0.5"></div>
                   <span className="text-gray-700 dark:text-gray-300">{item }</span>
                 </div>
@@ -672,11 +681,11 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 Maturity Levels
               </h4>
               <div className="space-y-2">
-                {currentFramework? .maturityLevels?.map((level : index) => (
-                  <div key={index } className="flex items-center space-x-3">
+                                  {currentFramework?.maturityLevels?.map((level: any) => (
+                  <div key={level.id } className="flex items-center space-x-3">
                     <div 
                       className="w-4 h-4 rounded-full"
-                      style={{ backgroundColor, level.color }}
+                      style={{ backgroundColor: level.color }}
                     />
                     <div>
                       <div className="font-medium text-gray-900 dark:text-white text-sm">
@@ -702,7 +711,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
               </button>
               
               <button
-                onClick={() => onStartAssessment(undefined, selectedFramework):}
+                onClick={() => onStartAssessment(undefined, selectedFramework)}
                 className="w-full border-2 border-blue-600 text-blue-600 dark:text-blue-400 py-3 px-6 rounded-xl font-medium hover: bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex items-center justify-center space-x-2"
               >
                 <ArrowRight className="w-4 h-4" />
@@ -762,7 +771,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 <input
                   type="text"
                   value={organizationInfo.name || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, name, e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter organization name"
                 />
@@ -774,7 +783,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 </label>
                 <select
                   value={organizationInfo.industry || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, industry, e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, industry: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select industry</option>
@@ -796,7 +805,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 </label>
                 <select
                   value={organizationInfo.size || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, size, e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, size: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select size</option>
@@ -814,7 +823,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
                 <input
                   type="text"
                   value={organizationInfo.assessor || ''}
-                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, assessor, e.target.value }))}
+                  onChange={(e) => setOrganizationInfo(prev => ({ ...prev, assessor: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your name"
                 />

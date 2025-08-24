@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ArrowLeft: Shield: Plus, Search:, Filter: Download: Upload, Edit3:, Trash2: Eye: AlertCircle, CheckCircle:, Clock: XCircle: Target, Settings:, BarChart3: Award: TrendingUp, Calendar:, FileText: Users: ScrollText, DollarSign
-:} from 'lucide-react';
+  ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye, AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award, TrendingUp, Calendar, FileText, Users, ScrollText, DollarSign
+} from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface ControlsManagementViewProps { onBack: () => void;
-  addNotification: (type: 'success' | 'error' | 'info' | 'warning', message:: string) => void;
+interface ControlsManagementViewProps {
+  onBack: () => void;
+  addNotification: (type: 'success' | 'error' | 'info' | 'warning', message: string) => void;
 }
 
 type ControlStatus = 'not-implemented' | 'planned' | 'in-progress' | 'implemented' | 'operational';
@@ -14,114 +15,169 @@ type ControlType = 'preventive' | 'detective' | 'corrective' | 'deterrent' | 'co
 type AssessmentFrequency = 'monthly' | 'quarterly' | 'semi-annually' | 'annually';
 
 export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
-  onBack: addNotification
+  onBack, addNotification
 }) => {
-  const [controls: setControls] = useState<any[]>([]);
-  const [searchTerm: setSearchTerm] = useState('');
-  const [filterFunction: setFilterFunction] = useState<string>('all');
-  const [filterStatus: setFilterStatus] = useState('all');
-  const [showCreateForm: setShowCreateForm] = useState(false);
-  const [showControlForm: setShowControlForm] = useState(false);
-  const [editingControl: setEditingControl] = useState<any | null>(null);
-  const [viewingControl: setViewingControl] = useState<any | null>(null);
-  const [formData: setFormData] = useState({
-    controlId: '', name:: '',
-    description: '', nistFunction: 'Identify',
-    nistCategory: '', nistSubcategory: '',
-    status: 'not-implemented' as ControlStatus: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':,
+  const [controls, setControls] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterFunction, setFilterFunction] = useState<string>('all');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showControlForm, setShowControlForm] = useState(false);
+  const [editingControl, setEditingControl] = useState<any | null>(null);
+  const [viewingControl, setViewingControl] = useState<any | null>(null);
+  const [formData, setFormData] = useState({
+    controlId: '',
+    name: '',
+    description: '',
+    nistFunction: 'Identify',
+    nistCategory: '',
+    nistSubcategory: '',
+    status: 'not-implemented' as ControlStatus,
+    priority: 'medium' as 'low' | 'medium' | 'high' | 'critical',
     owner: '',
-    controlType: 'administrative' as ControlType: implementationApproach, 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
-  :});
+    controlType: 'administrative' as ControlType,
+    implementationApproach: 'manual' as 'manual' | 'automated' | 'hybrid' | 'outsourced' | 'cloud-native'
+  });
 
   // Mock data for demonstration
   useEffect(() =>  { const mockControls: any[] = [
       {
-        id: 'ctrl-001', controlId:: 'ID.AM-1',
-        name: 'Asset Management', description: 'Physical devices and systems within the organization are inventoried',
-        framework: 'nist-csf-v2', nistFunction: 'Identify',
-        nistCategory: 'Asset Management', nistSubcategory: 'ID.AM-01',
-        controlFamily: 'Asset Management', controlType: 'administrative',
-        implementationApproach: 'automated', status: 'implemented',
-        priority: 'high', owner: 'IT Manager',
+        id: 'ctrl-001',
+        controlId: 'ID.AM-1',
+        name: 'Asset Management',
+        description: 'Physical devices and systems within the organization are inventoried',
+        framework: 'nist-csf-v2',
+        nistFunction: 'Identify',
+        nistCategory: 'Asset Management',
+        nistSubcategory: 'ID.AM-01',
+        controlFamily: 'Asset Management',
+        controlType: 'administrative',
+        implementationApproach: 'automated',
+        status: 'implemented',
+        priority: 'high',
+        owner: 'IT Manager',
         implementers: ['IT Team', 'Security Team'],
         validators: ['CISO', 'Internal Audit'],
         lastAssessed: new Date(2024, 1, 15),
         nextAssessment: new Date(2024, 4, 15),
-        assessmentFrequency: 'quarterly' as AssessmentFrequency: category, 'Asset Management':,
-        subcategory: 'Physical devices and systems', implementation: {
-          actualDate: new Date(2024, 0:, 15),
-          method: 'Automated discovery tools with manual validation', tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
+        assessmentFrequency: 'quarterly' as AssessmentFrequency,
+        subcategory: 'Physical devices and systems',
+        implementation: {
+          actualDate: new Date(2024, 0, 15),
+          method: 'Automated discovery tools with manual validation',
+          tools: ['Lansweeper', 'ManageEngine AssetExplorer'],
           procedures: ['Asset Discovery SOP', 'Inventory Validation Process'],
-          configuration: { discovery_frequency, 'daily', validation_frequency: 'weekly' },
-          deployment: { scope: ['All Networks', 'All Systems']:, phases, [], rollbackPlan: 'Manual inventory as fallback'
-           },
+          configuration: { discovery_frequency: 'daily', validation_frequency: 'weekly' },
+          deployment: {
+            scope: ['All Networks', 'All Systems'],
+            phases: [],
+            rollbackPlan: 'Manual inventory as fallback'
+          },
           validation: {
-            criteria: ['95% discovery accuracy', 'Real-time updates']:,
-            methods, ['Automated testing', 'Manual spot checks'],
+            criteria: ['95% discovery accuracy', 'Real-time updates'],
+            methods: ['Automated testing', 'Manual spot checks'],
             results: []
           }
         },
-        testing: { testPlan: {
-            id: 'tp-001', objectives:: ['Verify inventory accuracy', 'Test discovery coverage'],
+        testing: {
+          testPlan: {
+            id: 'tp-001',
+            objectives: ['Verify inventory accuracy', 'Test discovery coverage'],
             scope: ['All asset types', 'All network segments'],
             methods: ['Automated scanning', 'Manual verification'],
             criteria: ['95% accuracy', '<24h discovery time'],
-            responsibilities: { tester, 'Security Team', reviewer: 'CISO' },
+            responsibilities: { tester: 'Security Team', reviewer: 'CISO' },
             timeline: 'Quarterly'
           },
           schedule: {
-            frequency: 'quarterly' as AssessmentFrequency, nextTest:: new Date(2024: 4, 15):, lastTest: new Date(2024, 1, 15),
+            frequency: 'quarterly' as AssessmentFrequency,
+            nextTest: new Date(2024, 4, 15),
+            lastTest: new Date(2024, 1, 15),
             plannedTests: []
           },
-          results: [], automation: {
-            enabled: true, tools:: ['Lansweeper API', 'Custom scripts'],
-            scripts: ['discovery_validation.py'], schedule: 'weekly',
+          results: [],
+          automation: {
+            enabled: true,
+            tools: ['Lansweeper API', 'Custom scripts'],
+            scripts: ['discovery_validation.py'],
+            schedule: 'weekly',
             alerting: {
-              onFailure: true, recipients:, ['it-team@company.com'],
+              onFailure: true,
+              recipients: ['it-team@company.com'],
               escalation: ['ciso@company.com']
             }
           }
         },
         monitoring: {
-          metrics: [], alerting:: { enabled: true, channels:, ['email', 'slack']: thresholds: { accuracy, 90  :},
-            escalation: [], suppression: []
+          metrics: [],
+          alerting: {
+            enabled: true,
+            channels: ['email', 'slack'],
+            thresholds: { accuracy: 90 },
+            escalation: [],
+            suppression: []
           },
           reporting: {
-            dashboards: ['Asset Management Dashboard'], reports:: ['Monthly Asset Report'],
-            schedule: { monthly, 'monthly' :},
+            dashboards: ['Asset Management Dashboard'],
+            reports: ['Monthly Asset Report'],
+            schedule: { frequency: 'monthly' },
             recipients: { monthly: ['it-manager@company.com'] },
             formats: ['PDF', 'Excel']
           },
-          automation: { dataCollection: {
-              automated, true:: sources, ['Lansweeper', 'Network Scanners'], frequency: 'daily'
-             },
-            analysis: { automated: true, algorithms:, ['Asset Classification', 'Anomaly Detection'], ml_enabled: false
-             },
+          automation: {
+            dataCollection: {
+              automated: true,
+              sources: ['Lansweeper', 'Network Scanners'],
+              frequency: 'daily'
+            },
+            analysis: {
+              automated: true,
+              algorithms: ['Asset Classification', 'Anomaly Detection'],
+              ml_enabled: false
+            },
             response: {
-              automated: false, actions:: []
+              automated: false,
+              actions: []
             }
           }
         },
         evidence: ['Asset inventory database', 'Asset discovery scan reports'],
-        policies: ['pol-002'], assets: ['asset-001', 'asset-002'],
-        dependencies: [], effectiveness: {
-          implementationScore: 95, operationalScore:: 92: complianceScore, 98:: costEffectiveness: 85, riskReduction:, 75: maturityLevel: 4, lastMeasured:: new Date(2024, 1, 15),
+        policies: ['pol-002'],
+        assets: ['asset-001', 'asset-002'],
+        dependencies: [],
+        effectiveness: {
+          implementationScore: 95,
+          operationalScore: 92,
+          complianceScore: 98,
+          costEffectiveness: 85,
+          riskReduction: 75,
+          maturityLevel: 4,
+          lastMeasured: new Date(2024, 1, 15),
           trend: 'improving'
         },
-        costs: { implementation: {
-            capital: 50000, operational:, 15000: timeline: '3 months'
+        costs: {
+          implementation: {
+            capital: 50000,
+            operational: 15000,
+            timeline: '3 months'
           },
           maintenance: {
-            annual: 25000, resources:, ['IT Staff', 'Security Analyst']
+            annual: 25000,
+            resources: ['IT Staff', 'Security Analyst']
           },
           testing: {
-            frequency: 'quarterly', cost:, 5000: resources: ['Security Team']
+            frequency: 'quarterly',
+            cost: 5000,
+            resources: ['Security Team']
           },
           training: {
-            initial: 10000, ongoing:, 5000: frequency: 'annually'
+            initial: 10000,
+            ongoing: 5000,
+            frequency: 'annually'
           }
         },
-        risks: [], exceptions: []
+        risks: [],
+        exceptions: []
       }
     ];
 
@@ -130,18 +186,31 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   useEffect(() => { if (editingControl) {
       setFormData({
-        controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name:, description: editingControl.description: nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:,
-        priority: editingControl.priority: owner, editingControl.owner:,
-        controlType: editingControl.controlType: implementationApproach, editingControl.implementationApproach
-      :});
+        controlId: editingControl.controlId || editingControl.nistSubcategory,
+        name: editingControl.name,
+        description: editingControl.description,
+        nistFunction: editingControl.nistFunction,
+        nistCategory: editingControl.nistCategory,
+        nistSubcategory: editingControl.nistSubcategory,
+        status: editingControl.status,
+        priority: editingControl.priority,
+        owner: editingControl.owner,
+        controlType: editingControl.controlType,
+        implementationApproach: editingControl.implementationApproach
+      });
     } else  {
       setFormData({
-        controlId: '', name: '',
-        description: '', nistFunction: 'Identify',
-        nistCategory: '', nistSubcategory: '',
-        status: 'not-implemented', priority: 'medium',
+        controlId: '',
+        name: '',
+        description: '',
+        nistFunction: 'Identify',
+        nistCategory: '',
+        nistSubcategory: '',
+        status: 'not-implemented',
+        priority: 'medium',
         owner: '',
-        controlType: 'administrative', implementationApproach: 'manual'
+        controlType: 'administrative',
+        implementationApproach: 'manual'
       });
     }
   }, [editingControl]);
@@ -158,7 +227,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   const getStatusIcon = (status: string) => { switch (status) {
       case 'implemented': return <CheckCircle className="w-4 h-4 text-green-500" />;
-      case 'in-progress', return <Clock className="w-4 h-4 text-yellow-500" />;
+      case 'in-progress': return <Clock className="w-4 h-4 text-yellow-500" />;
       case 'not-implemented':
         return <XCircle className="w-4 h-4 text-red-500" />;
       case 'not-applicable':
@@ -219,93 +288,152 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setShowControlForm(true);
   };
 
-  const handleSaveControl = (e, React.FormEvent) => { e.preventDefault();
+  const handleSaveControl = (e: React.FormEvent) => { e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim() || !formData.controlId.trim()) {
-      addNotification('error', 'Control ID: name, and description are required');
+      addNotification('error', 'Control ID, name, and description are required');
       return;
      }
 
     const controlData: any = {
       id: editingControl?.id || `ctrl-${Date.now()}`,
-      controlId: formData.controlId: name, formData.name:, description: formData.description: framework, 'nist-csf-v2',
-      nistFunction: formData.nistFunction: nistCategory, formData.nistCategory:, nistSubcategory: formData.nistSubcategory: controlFamily: formData.nistCategory, controlType:, formData.controlType: implementationApproach: formData.implementationApproach, status:, formData.status: priority: formData.priority, owner:, formData.owner: implementers, [],
-      validators: [], lastAssessed: new Date(),
+      controlId: formData.controlId,
+      name: formData.name,
+      description: formData.description,
+      framework: 'nist-csf-v2',
+      nistFunction: formData.nistFunction,
+      nistCategory: formData.nistCategory,
+      nistSubcategory: formData.nistSubcategory,
+      controlFamily: formData.nistCategory,
+      controlType: formData.controlType,
+      implementationApproach: formData.implementationApproach,
+      status: formData.status,
+      priority: formData.priority,
+      owner: formData.owner,
+      implementers: [],
+      validators: [],
+      lastAssessed: new Date(),
       nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
-      assessmentFrequency: 'quarterly' as AssessmentFrequency: implementation, { method:, 'Manual implementation': tools: [], procedures, [], configuration: { },
+      assessmentFrequency: 'quarterly' as AssessmentFrequency,
+      subcategory: formData.nistSubcategory,
+      implementation: {
+        actualDate: new Date(),
+        method: 'Manual implementation',
+        tools: [],
+        procedures: [],
+        configuration: {
+          discovery_frequency: 'manual',
+          validation_frequency: 'manual'
+        },
         deployment: {
-          scope: [], phases:, [],
+          scope: [],
+          phases: [],
           rollbackPlan: ''
         },
         validation: {
-          criteria: [], methods:, [],
+          criteria: [],
+          methods: [],
           results: []
         }
       },
       testing: {
         testPlan: {
           id: `tp-${Date.now()}`,
-          objectives: [], scope: [],
-          methods: [], criteria: [],
+          objectives: [],
+          scope: [],
+          methods: [],
+          criteria: [],
           responsibilities: {},
           timeline: ''
         },
         schedule: {
-          frequency: 'quarterly' as AssessmentFrequency, nextTest:, new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
+          frequency: 'quarterly' as AssessmentFrequency,
+          nextTest: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
           plannedTests: []
         },
-        results: [], automation: {
-          enabled: false, tools:: [],
-          scripts: [], schedule: 'manual',
+        results: [],
+        automation: {
+          enabled: false,
+          tools: [],
+          scripts: [],
+          schedule: 'manual',
           alerting: {
-            onFailure: false, recipients:, [],
+            onFailure: false,
+            recipients: [],
             escalation: []
           }
         }
       },
-      monitoring: { metrics: [], alerting:: {
-          enabled: false, channels:: [], thresholds: { },
-          escalation: [], suppression: []
+      monitoring: {
+        metrics: [],
+        alerting: {
+          enabled: false,
+          channels: [],
+          thresholds: {},
+          escalation: [],
+          suppression: []
         },
         reporting: {
-          dashboards: [], reports:, [],
+          dashboards: [],
+          reports: [],
           schedule: {},
           recipients: {},
           formats: []
         },
-        automation: { dataCollection: {
-            automated: false, sources:, [],
+        automation: {
+          dataCollection: {
+            automated: false,
+            sources: [],
             frequency: 'manual'
           },
           analysis: {
-            automated: false, algorithms:, [],
+            automated: false,
+            algorithms: [],
             ml_enabled: false
           },
           response: {
-            automated: false, actions:: []
+            automated: false,
+            actions: []
           }
         }
       },
-      evidence: [], policies: [],
-      assets: [], dependencies: [],
+      evidence: [],
+      policies: [],
+      assets: [],
+      dependencies: [],
       effectiveness: {
-        implementationScore: 0, operationalScore:: 0: complianceScore, 0:: costEffectiveness: 0, riskReduction:, 0: maturityLevel: 1, lastMeasured:: new Date(),
+        implementationScore: 0,
+        operationalScore: 0,
+        complianceScore: 0,
+        costEffectiveness: 0,
+        riskReduction: 0,
+        maturityLevel: 1,
+        lastMeasured: new Date(),
         trend: 'stable' as 'improving' | 'stable' | 'declining'
       },
-      costs: { implementation: {
-          capital: 0, operational:, 0: timeline: 'TBD'
+      costs: {
+        implementation: {
+          capital: 0,
+          operational: 0,
+          timeline: 'TBD'
         },
         maintenance: {
-          annual: 0, resources:: []
+          annual: 0,
+          resources: []
         },
         testing: {
-          frequency: 'quarterly', cost:, 0: resources: []
+          frequency: 'quarterly',
+          cost: 0,
+          resources: []
         },
         training: {
-          initial: 0, ongoing:, 0: frequency: 'annually'
+          initial: 0,
+          ongoing: 0,
+          frequency: 'annually'
         }
       },
-      risks: [], exceptions: []
+      risks: [],
+      exceptions: []
     };
 
     if (editingControl) {
@@ -331,8 +459,8 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setViewingControl(control);
   };
 
-  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
-    const dataBlob = new Blob([dataStr], { type, 'application/json'  });
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -489,7 +617,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
             <div
               className="bg-blue-600 h-3 rounded-full transition-all duration-300"
-              style={{ width, `${implementationPercentage}%` }}
+              style={{ width: `${implementationPercentage}%` }}
             ></div>
           </div>
         </div>
@@ -592,7 +720,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <div>
                   <span className="text-xs text-gray-500 dark: text-gray-400">Maturity Level</span>
                   <div className="mt-1 flex items-center space-x-1">
-                    {[1: 2, 3:: 4: 5].map((level) => (
+                    {[1, 2, 3, 4, 5].map((level) => (
                       <div
                         key={level}
                         className={`w-3 h-3 rounded-full ${
@@ -625,7 +753,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <div className="mb-4">
                   <span className="text-xs text-gray-500 dark: text-gray-400">Evidence, </span>
                   <div className="flex flex-wrap gap-1 mt-1">
-                    {control.evidence.map((evidence:: index) => (
+                    {control.evidence.map((evidence: string, index) => (
                       <span
                         key={index}
                         className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 rounded text-xs"
@@ -641,21 +769,21 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleViewControl(control)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-blue-600 dark: hover, text-blue-400 hover::bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-blue-600 dark: hover: text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="View Control Details"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleEditControl(control)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-green-600 dark: hover, text-green-400 hover::bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-green-600 dark: hover: text-green-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="Edit Control"
                   >
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDeleteControl(control.id)}
-                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-red-600 dark: hover, text-red-400 hover::bg-gray-100 dark:hover:bg-gray-700 rounded"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover: text-red-600 dark: hover: text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                     title="Delete Control"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -704,7 +832,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                     type="text"
                     required
                     value={formData.controlId}
-                    onChange={(e) => setFormData(prev => ({ ...prev, controlId, e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, controlId: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus: border-transparent"
                     placeholder="e.g.: ID.AM-01"
                   />
@@ -717,7 +845,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   <select
                     required
                     value={formData.nistFunction}
-                    onChange={(e) => setFormData(prev => ({ ...prev, nistFunction, e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, nistFunction: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="Identify">Identify</option>
@@ -737,7 +865,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name, e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Enter control name"
                 />
@@ -750,7 +878,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <textarea
                   required
                   value={formData.description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, description, e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                   placeholder="Describe the control objective and implementation"
@@ -765,7 +893,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   <input
                     type="text"
                     value={formData.nistCategory}
-                    onChange={(e) => setFormData(prev => ({ ...prev, nistCategory, e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, nistCategory: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus: border-transparent"
                     placeholder="e.g.: Asset Management"
                   />
@@ -778,7 +906,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   <input
                     type="text"
                     value={formData.nistSubcategory}
-                    onChange={(e) => setFormData(prev => ({ ...prev, nistSubcategory, e.target.value }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, nistSubcategory: e.target.value }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus: border-transparent"
                     placeholder="e.g.: ID.AM-01"
                   />
@@ -792,7 +920,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <select
                     value={formData.status}
-                    onChange={(e) => setFormData(prev => ({ ...prev, status, e.target.value as ControlStatus }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as ControlStatus }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="not-implemented">Not Implemented</option>
@@ -809,7 +937,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <select
                     value={formData.priority}
-                    onChange={(e) => setFormData(prev => ({ ...prev, priority, e.target.value as any }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, priority: e.target.value as any }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="low">Low</option>
@@ -825,7 +953,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   </label>
                   <select
                     value={formData.controlType}
-                    onChange={(e) => setFormData(prev => ({ ...prev, controlType, e.target.value as ControlType }))}
+                    onChange={(e) => setFormData(prev => ({ ...prev, controlType: e.target.value as ControlType }))}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="preventive">Preventive</option>
@@ -848,7 +976,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                   type="text"
                   required
                   value={formData.owner}
-                  onChange={(e) => setFormData(prev => ({ ...prev, owner, e.target.value }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, owner: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Control owner"
                 />
@@ -999,7 +1127,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <div>
                   <h5 className="font-semibold text-gray-900 dark:text-white mb-3">Evidence</h5>
                   <div className="flex flex-wrap gap-2">
-                    {viewingControl.evidence.map((evidence: index) => (
+                    {viewingControl.evidence.map((evidence: string, index) => (
                       <span
                         key={index}
                         className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 rounded-full text-sm"
@@ -1015,11 +1143,12 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
                 <button
                   onClick={() => {
                     const exportData = {
-                      control: viewingControl, exportedAt:, new Date().toISOString(),
+                      control: viewingControl,
+                      exportedAt: new Date().toISOString(),
                       format: 'json'
                     };
-                    const dataStr = JSON.stringify(exportData: null, 2);
-                    const dataBlob = new Blob([dataStr], { type, 'application/json' });
+                    const dataStr = JSON.stringify(exportData, null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
                     const url = URL.createObjectURL(dataBlob);
                     const link = document.createElement('a');
                     link.href = url;

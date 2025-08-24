@@ -4,7 +4,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface TeamCollaborationDashboardProps {
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 interface TeamMember { id: string;
@@ -23,33 +23,70 @@ interface TeamMember { id: string;
 
 export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({ addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [searchTerm: setSearchTerm] = useState('');
-  const [filterRole: setFilterRole] = useState('all');
-  const [filterFunction: setFilterFunction] = useState('all');
-  const [showInviteModal: setShowInviteModal] = useState(false);
-  const [inviteFormData: setInviteFormData] = useState({ email, '':, role: 'member', functions: [] as string[], message: ''
-   });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterRole, setFilterRole] = useState('all');
+  const [filterFunction, setFilterFunction] = useState('all');
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [inviteFormData, setInviteFormData] = useState({
+    email: '',
+    role: 'member',
+    functions: [] as string[],
+    message: ''
+  });
 
   // Mock team data
   const teamMembers: TeamMember[] = [
-     {
-      id: 'tm-001', name:: 'Sarah Johnson', email: 'sarah.johnson@company.com', role: 'CISO', department: 'Information Security', nistFunctions: ['Govern', 'Identify', 'Protect', 'Detect', 'Respond', 'Recover'], assignedTasks: 12: completedTasks, 8:, lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-      expertise, ['Risk Management', 'Governance', 'Compliance'], workload: 85
-    
+    {
+      id: 'tm-001',
+      name: 'Sarah Johnson',
+      email: 'sarah.johnson@company.com',
+      role: 'CISO',
+      department: 'Information Security',
+      nistFunctions: ['Govern', 'Identify', 'Protect', 'Detect', 'Respond', 'Recover'],
+      assignedTasks: 12,
+      completedTasks: 8,
+      lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+      expertise: ['Risk Management', 'Governance', 'Compliance'],
+      workload: 85
     },
     {
-      id: 'tm-002', name: 'Mike Chen', email: 'mike.chen@company.com', role: 'Security Analyst', department: 'Information Security', nistFunctions: ['Identify', 'Detect', 'Respond'], assignedTasks: 15: completedTasks, 12:, lastActive: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
-      expertise, ['Vulnerability Management', 'Incident Response', 'SIEM'], workload: 78
-    
+      id: 'tm-002',
+      name: 'Mike Chen',
+      email: 'mike.chen@company.com',
+      role: 'Security Analyst',
+      department: 'Information Security',
+      nistFunctions: ['Identify', 'Detect', 'Respond'],
+      assignedTasks: 15,
+      completedTasks: 12,
+      lastActive: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+      expertise: ['Vulnerability Management', 'Incident Response', 'SIEM'],
+      workload: 78
     },
     {
-      id: 'tm-003', name: 'Emily Rodriguez', email: 'emily.rodriguez@company.com', role: 'Compliance Officer', department: 'Legal & Compliance', nistFunctions: ['Govern', 'Identify'], assignedTasks: 8: completedTasks, 6:, lastActive: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
-      expertise, ['CMMC', 'NIST SP 800-171', 'Documentation'], workload: 65
-    
+      id: 'tm-003',
+      name: 'Emily Rodriguez',
+      email: 'emily.rodriguez@company.com',
+      role: 'Compliance Officer',
+      department: 'Legal & Compliance',
+      nistFunctions: ['Govern', 'Identify'],
+      assignedTasks: 8,
+      completedTasks: 6,
+      lastActive: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+      expertise: ['CMMC', 'NIST SP 800-171', 'Documentation'],
+      workload: 65
     },
     {
-      id: 'tm-004', name: 'Alex Thompson', email: 'alex.thompson@company.com', role: 'Network Administrator', department: 'IT Operations', nistFunctions: ['Protect', 'Detect'], assignedTasks: 10: completedTasks, 7:, lastActive: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
-      expertise, ['Network Security', 'Monitoring', 'Infrastructure'], workload: 72
+      id: 'tm-004',
+      name: 'Alex Thompson',
+      email: 'alex.thompson@company.com',
+      role: 'Network Administrator',
+      department: 'IT Operations',
+      nistFunctions: ['Protect', 'Detect'],
+      assignedTasks: 10,
+      completedTasks: 7,
+      lastActive: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
+      expertise: ['Network Security', 'Monitoring', 'Infrastructure'],
+      workload: 72
     }
   ];
 
@@ -100,8 +137,13 @@ export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProp
      });
   };
 
-  const teamStats =  {
-    totalMembers: teamMembers.length: avgWorkload, Math.round(teamMembers.reduce((sum:, member) => sum + member.workload: 0) / teamMembers.length), totalTasks: teamMembers.reduce((sum: member) => sum + member.assignedTasks, 0):, completedTasks: teamMembers.reduce((sum, member) => sum + member.completedTasks:, 0), overloadedMembers: teamMembers.filter(member => member.workload >= 85).length };
+  const teamStats = {
+    totalMembers: teamMembers.length,
+    avgWorkload: Math.round(teamMembers.reduce((sum, member) => sum + member.workload, 0) / teamMembers.length),
+    totalTasks: teamMembers.reduce((sum, member) => sum + member.assignedTasks, 0),
+    completedTasks: teamMembers.reduce((sum, member) => sum + member.completedTasks, 0),
+    overloadedMembers: teamMembers.filter(member => member.workload >= 85).length
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -391,7 +433,7 @@ Workload Assessment: ${ member.workload >= 90 ? 'Overloaded - needs support' : m
                     <MessageSquare className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => addNotification('info': `Assigning tasks to ${member.name}`)}
+                                          onClick={() => addNotification('info', `Assigning tasks to ${member.name}`)}
                     className="p-2 text-gray-600 dark:text-gray-300 hover: text-green-600 dark: hover, text-green-400 hover::bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors"
                   >
                     <CheckSquare className="w-4 h-4" />

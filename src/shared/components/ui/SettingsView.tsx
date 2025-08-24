@@ -16,36 +16,35 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const { user } = useAuth();
   const { resetAllAssessments } = useAssessments();
   const { breadcrumbs } = useInternalLinking();
-  const [settings: setSettings] = useState(dataService.getSettings());
-  const [storageUsage: setStorageUsage] = useState(dataService.getStorageUsage());
-  const [showDeleteConfirm: setShowDeleteConfirm] = useState(false);
-  const [importStatus: setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [settings, setSettings] = useState(dataService.getSettings());
+  const [storageUsage, setStorageUsage] = useState(dataService.getStorageUsage());
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Update storage usage periodically
   React.useEffect(() => {
     const interval = setInterval(() => {
       setStorageUsage(dataService.getStorageUsage());
-    
     }, 5000);
     
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string: value, any) => {
-    const newSettings = { ...settings:, [key]: value };
+  const handleSettingChange = (key: string, value: any) => {
+    const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
   };
 
   const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
-    // This would normally come from props: but we'll implement it locally for now
+    // This would normally come from props, but we'll implement it locally for now
     console.log(`${type.toUpperCase()}: ${message}`);
   };
 
   const handleExportAllData = () => {
     try {
       const backupData = dataService.createBackup();
-              const dataBlob = new Blob([backupData], { type: 'application/json;charset=utf-8' });
+      const dataBlob = new Blob([backupData], { type: 'application/json;charset=utf-8' });
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement('a');
       link.href = url;
@@ -58,7 +57,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
       addNotification('success', 'Data exported successfully');
     } catch (error) {
       console.error('Export failed:', error);
-      addNotification('error', `Failed to export data, ${(error as Error).message}`);
+      addNotification('error', `Failed to export data: ${(error as Error).message}`);
     }
   };
 
@@ -84,13 +83,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         // Validate imported data structure
         if (!importedData.version && !importedData.assessments && !importedData.backupDate) {
           throw new Error('Invalid backup file format');
-    }
+        }
         // Show confirmation dialog with import details
         const itemCount = (importedData.assessments?.length || 0) + 
                          (importedData.assets?.length || 0) + 
                          (importedData.tasks?.length || 0);
         
-        const confirmMessage = `Import ${itemCount } items from backup?\n\n` +
+        const confirmMessage = `Import ${itemCount} items from backup?\n\n` +
           `• ${importedData.assessments?.length || 0} assessments\n` +
           `• ${importedData.assets?.length || 0} assets\n` +
           `• ${importedData.tasks?.length || 0} tasks\n` +
@@ -102,11 +101,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
           return;
         }
         
-        // Use restore from backup if it's a backup file: otherwise use import
+        // Use restore from backup if it's a backup file, otherwise use import
         if (importedData.backupDate || importedData.backupId) {
           dataService.restoreFromBackup(e.target?.result as string);
-        
-    } else {
+        } else {
           dataService.importAllData(importedData);
         }
         
@@ -114,20 +112,20 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
         setSettings(dataService.getSettings());
         
         setImportStatus('success');
-        addNotification('success', `Successfully imported ${itemCount } items`);
+        addNotification('success', `Successfully imported ${itemCount} items`);
         setTimeout(() => setImportStatus('idle'), 3000);
         
         // Refresh page to show imported data
         setTimeout(() => {
           if (window.confirm('Data imported successfully! Refresh the page to see imported data?')) {
             window.location.reload();
-    }
+          }
         }, 1500);
         
       } catch (error) {
         console.error('Import error:', error);
         setImportStatus('error');
-        addNotification('error', `Failed to import data, ${(error as Error).message}`);
+        addNotification('error', `Failed to import data: ${(error as Error).message}`);
         setTimeout(() => setImportStatus('idle'), 3000);
       }
     };
@@ -170,7 +168,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true: emailNotifications, false:, reportFormat: 'detailed' as const: dataRetention: '12' as const, autoBackup:: false: backupFrequency, 'weekly' as const :};
+      autoSave: true, emailNotifications: false, reportFormat: 'detailed' as const, dataRetention: '12' as const, autoBackup: false, backupFrequency: 'weekly' as const };
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
@@ -225,7 +223,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
             { importStatus === 'success' ? (
               <CheckCircle className="w-5 h-5 text-green-600 dark: text-green-400" />
-            ) , (
+                          ) : (
               <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
             )}
             <span className={`font-medium ${
@@ -299,7 +297,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('autoSave': !settings.autoSave)}
+                onClick={() => handleSettingChange('autoSave', !settings.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoSave ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -340,7 +338,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('autoBackup': !settings.autoBackup)}
+                onClick={() => handleSettingChange('autoBackup', !settings.autoBackup)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoBackup ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -425,7 +423,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('emailNotifications': !settings.emailNotifications)}
+                onClick={() => handleSettingChange('emailNotifications', !settings.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'}`}
               >

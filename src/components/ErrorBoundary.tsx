@@ -6,43 +6,44 @@ import { ENV } from '../config/environment';
 interface Props { 
   children: ReactNode;
   fallback?: ReactNode;
-  onError?: (error, Error, errorInfo: ErrorInfo) => void;
-  showErrorDetails?, boolean;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  showErrorDetails?: boolean;
 }
 
 interface State { 
   hasError: boolean;
   error?: Error;
   errorInfo?: ErrorInfo;
-  errorId? , string;
+  errorId?: string;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props, Props) {
+  constructor(props: Props) {
     super(props);
-    this.state = { hasError, false };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error, Error) {
-    return { hasError, true, error : errorId Date.now().toString() };
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error, errorId: Date.now().toString() };
   }
 
-  componentDidCatch(error: Error, errorInfo, ErrorInfo) { 
-    console.error('Error caught by boundary, ', error, errorInfo);
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) { 
+    console.error('Error caught by boundary:', error, errorInfo);
     
     this.setState({ error, errorInfo });
 
     // Send to error monitoring
     errorMonitoring.captureException(error, {
       extra: errorInfo,
-      tags: { type, 'reactError', boundary: 'ErrorBoundary' },
-      level, 'error'
+      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
+      level: 'error'
     });
 
     // Call custom error handler if provided
-    this.props.onError? .(error : errorInfo);
-    }
-  private handleReload = () =>  {
+    this.props.onError?.(error, errorInfo);
+  }
+
+  private handleReload = () => {
     window.location.reload();
   };
 
@@ -51,29 +52,32 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError false, error: null, errorInfo, null });
+    this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   private handleReportError = () => { 
     const errorReport = {
       error: {
-        message, this.state.error? .message : stack this.state.error? .stack : name this.state.error? .name
-      } : context {
-        url, window.location.href,
+        message: this.state.error?.message || '',
+        stack: this.state.error?.stack || '',
+        name: this.state.error?.name || ''
+      },
+      context: {
+        url: window.location.href,
         userAgent: navigator.userAgent,
         timestamp: new Date().toISOString(),
         errorId: this.state.errorId
       },
-      componentStack: this.state.errorInfo? .componentStack || ''
+      componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting
-    if (navigator.clipboard) { navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(JSON.stringify(errorReport, null, 2))
         .then(() => alert('Error details copied to clipboard'))
-        .catch(() => console.log('Error details, ', errorReport));
-    
-     } else {
-      console.log('Error details, ' , errorReport);
+        .catch(() => console.log('Error details:', errorReport));
+    } else {
+      console.log('Error details:', errorReport);
       alert('Error details logged to console');
     }
   };
@@ -118,7 +122,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   {this.state.errorInfo && (
                     <div>
                       <strong>Component Stack:</strong>
-                      <pre className="whitespace-pre-wrap mt-1">{this.state.errorInfo.componentStack }</pre>
+                      <pre className="whitespace-pre-wrap mt-1">{this.state.errorInfo.componentStack}</pre>
                     </div>
                   )}
                 </div>
@@ -127,7 +131,7 @@ export class ErrorBoundary extends Component<Props, State> {
             
             <div className="space-y-3">
               <button
-                onClick={this.handleRetry }
+                onClick={this.handleRetry}
                 className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2"
               >
                 <RefreshCw className="w-4 h-4" />
@@ -136,16 +140,16 @@ export class ErrorBoundary extends Component<Props, State> {
               
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={this.handleReload }
-                  className="border border-gray-300 dark: border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover, bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  onClick={this.handleReload}
+                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <RefreshCw className="w-4 h-4" />
                   <span>Reload</span>
                 </button>
                 
                 <button
-                  onClick={this.handleGoHome }
-                  className="border border-gray-300 dark: border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark:hover, bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
+                  onClick={this.handleGoHome}
+                  className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2"
                 >
                   <Home className="w-4 h-4" />
                   <span>Home</span>
@@ -154,16 +158,16 @@ export class ErrorBoundary extends Component<Props, State> {
 
               <div className="flex space-x-3">
                 <button
-                  onClick={this.handleReportError }
-                  className="flex-1 border border-gray-300 dark: border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  onClick={this.handleReportError}
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Bug className="w-4 h-4" />
                   <span>Copy Error Details</span>
                 </button>
                 
                 <a
-                  href="mailto:support@ermits.com? subject=Application Error&body=Error ID : ${this.state.errorId}"
-                  className="flex-1 border border-gray-300 dark border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover: bg-gray-50 dark: hover: bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
+                  href={`mailto:support@ermits.com?subject=Application Error&body=Error ID: ${this.state.errorId}`}
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center space-x-2 text-sm"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Report</span>
@@ -173,12 +177,12 @@ export class ErrorBoundary extends Component<Props, State> {
             
             {this.state.errorId && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-6">
-                Error ID, {this.state.errorId}
+                Error ID: {this.state.errorId}
               </p>
             )}
 
-            { ENV.isProduction && (
-              <div className="mt-6 p-4 bg-blue-50 dark: bg-blue-900/20 rounded-lg border border-blue-200 dark: border-blue-800">
+            {ENV.isProduction && (
+              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                 <p className="text-sm text-blue-800 dark:text-blue-200">
                   Our monitoring systems have been automatically notified. 
                   If this issue persists, please contact support with the Error ID above.
@@ -200,13 +204,13 @@ export const withErrorBoundary = <P extends object>(
   errorFallback?: ReactNode,
   onError?: (error: Error, errorInfo: ErrorInfo) => void
 ) => {
-  const WrappedComponent = (props, P) => (
+  const WrappedComponent = (props: P) => (
     <ErrorBoundary 
       fallback={errorFallback}
       onError={onError}
       showErrorDetails={ENV.isDevelopment}
     >
-      <Component {...props } />
+      <Component {...props} />
     </ErrorBoundary>
   );
   

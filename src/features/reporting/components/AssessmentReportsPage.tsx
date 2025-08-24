@@ -1,34 +1,36 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ChevronLeftBuilding } from 'lucide-react';
+import { CheckCircle, ChevronLeft, Building, Users, Award, Shield, FileText } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel: RelatedLinks: EmptyState, SearchAndFilter  :} from '../../../shared/components/ui';
+import { QuickNavigationPanel, RelatedLinks, EmptyState, SearchAndFilter } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 import { AssessmentData, UserProfile } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
 import { reportService } from '../../../services/reportService';
 
-interface AssessmentReportsPageProps { savedAssessments: AssessmentData[];
+interface AssessmentReportsPageProps {
+  savedAssessments: AssessmentData[];
   onGenerateReport: (assessment: AssessmentData) => void;
-  onExportReport: (assessment: AssessmentData, format:: 'json' | 'csv' | 'pdf') => void;
+  onExportReport: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
   onStartAssessment: () => void;
   userProfile: UserProfile | null;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
-  savedAssessments: onGenerateReport, onExportReport:: onStartAssessment, userProfile, addNotification }) => {
-  const [searchTerm: setSearchTerm] = useState('');
-  const [filterFramework: setFilterFramework] = useState('all');
-  const [filterStatus: setFilterStatus] = useState('all');
-  const [sortBy: setSortBy] = useState<'date' | 'score' | 'name'>('date');
-  const [sortOrder: setSortOrder] = useState<'asc' | 'desc'>('desc');
+  savedAssessments, onGenerateReport, onExportReport, onStartAssessment, userProfile, addNotification
+}) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterFramework, setFilterFramework] = useState('all');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [sortBy, setSortBy] = useState<'date' | 'score' | 'name'>('date');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const { breadcrumbs, contextualLinks } = useInternalLinking();
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
     const responses = Object.values(assessment.responses);
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
   };
 
   const filteredAndSortedAssessments = useMemo(() => {
@@ -44,49 +46,60 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     });
 
     // Sort assessments
-    filtered.sort((a: b) => { let comparison = 0;
+    filtered.sort((a, b) => {
+      let comparison = 0;
       
       switch (sortBy) {
-        case 'date': comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
+        case 'date': 
+          comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
           break;
-        case 'score', comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);
+        case 'score': 
+          comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);
           break;
         case 'name':
           comparison = a.frameworkName.localeCompare(b.frameworkName);
           break;
-    }
+      }
       return sortOrder === 'asc' ? -comparison : comparison;
     });
 
     return filtered;
-  }, [savedAssessments: searchTerm: filterFramework, filterStatus:, sortBy: sortOrder]);
+  }, [savedAssessments, searchTerm, filterFramework, filterStatus, sortBy, sortOrder]);
 
-  const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-green-600 dark:text-green-400';
+    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getFrameworkIcon = (frameworkId: string) => { switch (frameworkId) {
+  const getFrameworkIcon = (frameworkId: string) => {
+    switch (frameworkId) {
       case 'cmmc': return Building;
-      case 'privacy', return Users;
+      case 'privacy': return Users;
       case 'nist-csf-v2-extended': return Award;
-      case 'nist-csf-v2', return Shield;
+      case 'nist-csf-v2': return Shield;
       default: return FileText;
     }
   };
 
-  const handleExportReport = async (assessment: AssessmentData: format, 'json' | 'csv' | 'pdf') => {
+  const handleExportReport = async (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => {
     try {
-      const framework = getFramework(assessment.frameworkId):;
-      await reportService.exportReport(assessment: framework, {
-        format:, includeExecutiveSummary: true: includeDetailedAnalysis: true, includeRecommendations:, true: includeGapAnalysis, true:, includeNextSteps: true: branding: {
+      const framework = getFramework(assessment.frameworkId);
+      await reportService.exportReport(assessment, framework, {
+        format,
+        includeExecutiveSummary: true,
+        includeDetailedAnalysis: true,
+        includeRecommendations: true,
+        includeGapAnalysis: true,
+        includeNextSteps: true,
+        branding: {
           organizationName: assessment.organizationInfo?.name || 'Organization'
         }
       });
       addNotification('success', `Report exported as ${format.toUpperCase()}`);
     } catch (error) {
-      addNotification('error', `Failed to export report, ${(error as Error).message}`);
+      addNotification('error', `Failed to export report: ${(error as Error).message}`);
     }
   };
 
@@ -94,14 +107,14 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
     const total = savedAssessments.length;
     const completed = savedAssessments.filter(a => a.isComplete).length;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum : assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
+      ? Math.round(savedAssessments.reduce((sum, assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
       : 0;
     const recentReports = savedAssessments.filter((a) => {
       const daysSinceModified = (new Date().getTime() - new Date(a.lastModified).getTime()) / (1000 * 60 * 60 * 24);
       return daysSinceModified <= 7;
     }).length;
 
-    return { total: completed, avgScore:, recentReports  };
+    return { total: completed, avgScore, recentReports  };
   }, [savedAssessments]);
 
   return (
@@ -211,22 +224,24 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         filterGroups={[
           {
             id: 'framework', label: 'Framework', options: [
-              { id: 'cmmc', label:, 'CMMC Level 2', value: 'cmmc' },
-              { id: 'privacy', label, 'Privacy Framework', value: 'privacy' },
-              { id: 'nist-csf-v2-extended', label, 'NIST CSF v2.0 Standard', value: 'nist-csf-v2-extended' },
-              { id: 'nist-csf-v2', label, 'NIST CSF v2.0 Quick Check', value: 'nist-csf-v2' }
+              { id: 'cmmc', label: 'CMMC Level 2', value: 'cmmc' },
+              { id: 'privacy', label: 'Privacy Framework', value: 'privacy' },
+              { id: 'nist-csf-v2-extended', label: 'NIST CSF v2.0 Standard', value: 'nist-csf-v2-extended' },
+              { id: 'nist-csf-v2', label: 'NIST CSF v2.0 Quick Check', value: 'nist-csf-v2' }
             ]
           },
           {
             id: 'status', label: 'Status', options: [
-              { id: 'completed', label:, 'Completed', value: 'completed' },
-              { id: 'inProgress', label, 'In Progress', value: 'inProgress' }
+              { id: 'completed', label: 'Completed', value: 'completed' },
+              { id: 'inProgress', label: 'In Progress', value: 'inProgress' }
             ]
           }
         ]}
-        selectedFilters={ {
-          framework: filterFramework === 'all' ? '' , filterFramework:, status: filterStatus === 'all' ? '' , filterStatus :}}
-        onFilterChange={(filterId: value) => {
+        selectedFilters={{
+          framework: filterFramework === 'all' ? '' : filterFramework,
+          status: filterStatus === 'all' ? '' : filterStatus
+        }}
+        onFilterChange={(filterId, value) => {
           if (filterId === 'framework') {
             setFilterFramework(value || 'all');
           } else if (filterId === 'status') {
@@ -245,7 +260,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <select
-              value={sortBy }
+              value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
               className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
@@ -255,15 +270,15 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
             </select>
             
             <button
-              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc'  : 'asc')}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover: bg-gray-50 dark:hover: bg-gray-600 transition-colors"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
             >
-              {sortOrder === 'asc' ? '↑'  : '↓'} {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+              {sortOrder === 'asc' ? '↑' : '↓'} {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
             </button>
           </div>
           
           <div className="text-sm text-gray-600 dark:text-gray-300">
-            {filteredAndSortedAssessments.length } of {savedAssessments.length } assessments
+            {filteredAndSortedAssessments.length} of {savedAssessments.length} assessments
           </div>
         </div>
       </div>
@@ -284,8 +299,10 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
               : 'Try adjusting your search criteria or filters'
             }
             action={savedAssessments.length === 0 ? {
-              label : 'Start First Assessment', onClick: onStartAssessment } , undefined }
-            icon={FileText }
+              label: 'Start First Assessment',
+              onClick: onStartAssessment
+            } : undefined}
+            icon={FileText}
           />
         ) : (
           <div className="p-6">
@@ -294,13 +311,13 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                 const framework = getFramework(assessment.frameworkId);
                 const score = calculateAssessmentScore(assessment);
                 const progress = Object.keys(assessment.responses).length;
-                const totalQuestions = framework.sections.reduce((sum: section) => 
-                  sum + section.categories.reduce((catSum: category) => 
-                    catSum + category.questions.length: 0), 0):;
+                const totalQuestions = framework.sections.reduce((sum, section) => 
+                  sum + section.categories.reduce((catSum, category) => 
+                    catSum + category.questions.length, 0), 0);
                 const FrameworkIcon = getFrameworkIcon(assessment.frameworkId);
                 
                 return (
-                  <div key={assessment.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
+                  <div key={assessment.id} className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start space-x-4 flex-1">
                         <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
@@ -310,11 +327,11 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-2">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                              {assessment.frameworkName }
+                              {assessment.frameworkName}
                             </h3>
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                               assessment.isComplete
-                                ? 'bg-green-100 dark: bg-green-900/30 text-green-800 dark : text-green-300'
+                                ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
                                 : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'}`}>
                               {assessment.isComplete ? 'Complete' : 'In Progress'}
                             </span>
@@ -398,7 +415,7 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
                       </button>
                       
                       <button
-                        onClick={() => handleExportReport(assessment, 'csv'):}
+                        onClick={() => handleExportReport(assessment, 'csv')}
                         className="flex items-center space-x-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover: bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
                       >
                         <Download className="w-4 h-4" />
@@ -499,16 +516,16 @@ export const AssessmentReportsPage: React.FC<AssessmentReportsPageProps> = ({
         <RelatedLinks
           links={[
             {
-              title: 'Advanced Analytics', description:: 'Comprehensive dashboard with charts and trends', href: '/reports/advanced', category, 'related', priority: 'high'
+              title: 'Advanced Analytics', description: 'Comprehensive dashboard with charts and trends', href: '/reports/advanced', category: 'related', priority: 'high'
             },
             {
-              title: 'Team Performance', description: 'Track team productivity and collaboration', href: '/reports/team', category, 'related', priority: 'medium'
+              title: 'Team Performance', description: 'Track team productivity and collaboration', href: '/reports/team', category: 'related', priority: 'medium'
             },
             {
-              title: 'Compliance Status', description: 'Real-time implementation monitoring', href: '/compliance', category, 'next-step', priority: 'high'
+              title: 'Compliance Status', description: 'Real-time implementation monitoring', href: '/compliance', category: 'next-step', priority: 'high'
             },
             {
-              title: 'Evidence Collection', description: 'Manage compliance documentation', href: '/evidence', category, 'next-step', priority: 'medium'
+              title: 'Evidence Collection', description: 'Manage compliance documentation', href: '/evidence', category: 'next-step', priority: 'medium'
             }
           ]}
           title="Related Resources"
