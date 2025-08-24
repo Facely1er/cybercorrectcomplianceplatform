@@ -3,7 +3,7 @@ import { errorMonitoring } from './errorMonitoring';
 
 interface PerformanceEntry {
   name: string;
-  startTime, number;
+  startTime: number;
   duration: number;
   metadata?: Record<string, any>;
 }

@@ -584,4 +584,4 @@ export class ReportService {
   }
 }
 
-export const reportService = new ReportService(); 
+export const reportService = new ReportService();
