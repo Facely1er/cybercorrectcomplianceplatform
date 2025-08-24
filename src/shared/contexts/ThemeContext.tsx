@@ -17,7 +17,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (saved === 'light' || saved === 'dark') {
         return saved;
       }
-              return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     return 'light';
   });
@@ -38,10 +38,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   const toggleTheme = () => {
-                  setThemeState(theme === 'light' ? 'dark' : 'light');
+    console.log('Theme toggle clicked, current theme:', theme);
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    console.log('Switching to theme:', newTheme);
+    setThemeState(newTheme);
   };
 
   const setTheme = (newTheme: Theme) => {
+    console.log('Setting theme to:', newTheme);
     setThemeState(newTheme);
   };
 

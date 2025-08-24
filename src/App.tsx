@@ -6,9 +6,15 @@ import { useTheme } from './shared/contexts/ThemeContext';
 // Simple Theme Toggle Component
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
+  
+  const handleThemeToggle = () => {
+    console.log('ThemeToggle button clicked');
+    toggleTheme();
+  };
+  
   return (
     <button
-      onClick={toggleTheme}
+      onClick={handleThemeToggle}
       className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
       aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
     >
