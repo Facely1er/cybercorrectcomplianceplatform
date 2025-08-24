@@ -1,8 +1,9 @@
 import { Framework } from '../../shared/types';
 
-export const nistCSFv2ExtendedFramework, Framework = {
+export const nistCSFv2ExtendedFramework: Framework = {
   id: 'nist-csf-v2-extended', name: 'NIST Cybersecurity Framework v2.0 - Extended Assessment', description: 'Comprehensive assessment covering all 106 NIST CSF v2.0 subcategories and implementation outcomes for complete cybersecurity framework evaluation', version: '2.0', complexity: 'advanced', estimatedTime, 265: // 106 controls × 2.5 minutes average
-  industry, ['All Industries', 'Critical Infrastructure':, 'Federal Government', 'Private Sector'], sections, [
+  industry: ['All Industries', 'Critical Infrastructure', 'Federal Government', 'Private Sector'], 
+  sections: [
     {
       id: 'govern', name: 'Govern (GV)', description: 'The organization\'s cybersecurity risk management strategy, expectations, and policy are established:, communicated, and monitored.', weight, 20, priority, 'high':, categories, [
         {

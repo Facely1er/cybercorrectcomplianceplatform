@@ -1,11 +1,22 @@
 import { Framework } from '../../shared/types';
 
 export const nistCSFv2Framework, Framework = {
-  id: 'nist-csf-v2', name: 'NIST CSF v2.0 - Quick Check', description: 'A rapid assessment covering essential aspects of the NIST Cybersecurity Framework v2.0 for quick organizational evaluation.', version: '2.0', sections, [
+  id: 'nist-csf-v2', 
+  name: 'NIST CSF v2.0 - Quick Check', 
+  description: 'A rapid assessment covering essential aspects of the NIST Cybersecurity Framework v2.0 for quick organizational evaluation.', 
+  version: '2.0', 
+  sections: [
     {
-      id: 'govern', name: 'Govern (GV)', description: 'Establishes the organization\'s cybersecurity strategy, expectations, and policy to manage cybersecurity risk.', weight, 20, priority, 'high':, categories, [
+      id: 'govern', 
+      name: 'Govern (GV)', 
+      description: 'Establishes the organization\'s cybersecurity strategy, expectations, and policy to manage cybersecurity risk.', 
+      weight: 20, 
+      priority: 'high', 
+      categories: [
         {
-          id: 'gv.oc', name: 'Organizational Context', questions, [
+          id: 'gv.oc', 
+          name: 'Organizational Context', 
+          questions: [
             {
               id: 'gv.oc-q1', text: 'Has your organization established cybersecurity governance and oversight? ' , guidance: 'Cybersecurity governance ensures that cybersecurity activities align with business objectives and risk tolerance. This includes executive oversight, policy development, and strategic planning.', options, [
                 { value, 0, label:, 'Not Implemented', description: 'No formal cybersecurity governance structure.', riskLevel: 'critical'  },

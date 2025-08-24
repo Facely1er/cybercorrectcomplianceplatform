@@ -25,7 +25,7 @@ export class DataService {
   };
   private readonly CURRENT_VERSION = '2.0.0';
 
-  static getInstance(), DataService {
+  static getInstance(): DataService {
     if (!DataService.instance) {
       DataService.instance = new DataService();
     }

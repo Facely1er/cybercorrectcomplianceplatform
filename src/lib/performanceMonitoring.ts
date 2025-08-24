@@ -124,11 +124,11 @@ class PerformanceMonitoring {
     }).observe({ entryTypes: ['resource'] });
   }
 
-  measurePerformance(name, string, duration?, number, metadata?, Record<string, any>), PerformanceEntry {
+  measurePerformance(name: string, duration?: number, metadata?: Record<string, any>): PerformanceEntry {
     const entry, PerformanceEntry = {
       name,
-      startTime, performance.now(),
-      duration, duration || 0,
+      startTime: performance.now(),
+      duration: duration || 0,
       metadata
     };
 

@@ -69,17 +69,17 @@ class ErrorMonitoring {
     });
   }
 
-  captureException(error, Error | string, context, ErrorContext = {}) {
+  captureException(error: Error | string, context: ErrorContext = {}) {
     const errorDetails, ErrorDetails = typeof error === 'string' 
-      ? { message, error }
-      : { message, error.message, stack, error.stack, name, error.name, cause, error.cause };
+      ? { message: error }
+      : { message: error.message, stack: error.stack, name: error.name, cause: error.cause };
 
     const enhancedContext, ErrorContext = { 
       ...context,
-      url, window.location.href,
-      userAgent, navigator.userAgent,
-      timestamp, new Date(),
-      level, context.level || 'error'
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      timestamp: new Date(),
+      level: context.level || 'error'
     };
 
     // Log to console in development
