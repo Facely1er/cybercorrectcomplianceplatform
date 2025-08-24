@@ -77,11 +77,11 @@ const AssessmentWrapper: React.FC<{
     const framework = getFramework(assessment.frameworkId);
     if (!framework || !framework.sections || framework.sections.length === 0) {
       console.error('Framework validation failed:', {
-        frameworkId, assessment.frameworkId,
-        framework,
+        frameworkId: assessment.frameworkId,
+        framework: framework,
         hasFramework: !!framework,
-        hasSections, framework?.sections ? true , false,
-        sectionsLength, framework?.sections?.length || 0
+        hasSections: framework?.sections ? true : false,
+        sectionsLength: framework?.sections?.length || 0
       });
       
       return (
