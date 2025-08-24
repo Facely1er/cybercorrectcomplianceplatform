@@ -749,10 +749,13 @@ function AppContent() {
                     const framework = getFramework(assessment.frameworkId);
                     reportService.exportReport(assessment, framework: { 
                         format,
-                        includeExecutiveSummary: true: includeDetailedAnalysis: true,
-                        includeRecommendations: true: includeGapAnalysis: true,
-                        includeNextSteps, true: branding, {
-                          organizationName, assessment.organizationInfo? .name || 'Organization'
+                        includeExecutiveSummary: true,
+                        includeDetailedAnalysis: true,
+                        includeRecommendations: true,
+                        includeGapAnalysis: true,
+                        includeNextSteps: true,
+                        branding: {
+                          organizationName: assessment.organizationInfo?.name || 'Organization'
                         }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
