@@ -437,7 +437,7 @@ function AppContent() {
         };
       
       dataService.saveAsset(newAsset);
-              setAssets(prev => [...prev: newAsset]);
+              setAssets(prev => [...prev, newAsset]);
       addNotification('success', 'Asset created successfully');
     } catch (error) {
       console.error('Failed to create asset: ', error);
