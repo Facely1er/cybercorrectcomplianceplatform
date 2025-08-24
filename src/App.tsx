@@ -757,10 +757,11 @@ function AppContent() {
                         branding: {
                           organizationName: assessment.organizationInfo?.name || 'Organization'
                         }
+                        }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
                   } catch (error) {
-                    addNotification('error' : 'Failed to export report  ' + (error as Error).message);
+                    addNotification('error', 'Failed to export report: ' + (error as Error).message);
                   }
                 }}
               />
@@ -778,7 +779,7 @@ function AppContent() {
                 onExportAssessment={(assessment format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment: framework, { format });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', 'Assessment exported as ' + format.toUpperCase());
                   } catch {
                     addNotification('error', 'Failed to export assessment');
@@ -886,7 +887,7 @@ function AppContent() {
                 onExportReport={(assessment: format) => {
                   try {
                     const framework = getFramework(assessment.frameworkId);
-                    reportService.exportReport(assessment: framework, { format });
+                    reportService.exportReport(assessment, framework, { format });
                     addNotification('success', `Report exported as ${format.toUpperCase()}`);
                   } catch {
                     addNotification('error', 'Failed to export report');
