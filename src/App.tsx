@@ -46,13 +46,11 @@ import { reportService } from './services/reportService';
 import { Analytics } from "@vercel/analytics/react";
 
 // Assessment Wrapper Component
-const AssessmentWrapper, React.FC<{ 
-  savedAssessments, AssessmentData[];
-  onSave: (assessment, AssessmentData) => void;
-  onGenerateReport: (assessment, AssessmentData) => void;
+const AssessmentWrapper: React.FC<{ 
+  savedAssessments: AssessmentData[];
+  onSave: (assessment: AssessmentData) => void;
+  onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
-  }> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
-  const { id } = useParams<{ id, string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
   if (!assessment) { 
