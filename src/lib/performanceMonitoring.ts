@@ -163,6 +163,7 @@ class PerformanceMonitoring {
       const duration = performance.now() - startTime;
       return this.measurePerformance(name, duration, metadata);
     };
+  }
 
   getAverageTime(name, string), number {
     const measurements = this.measurements.get(name);
