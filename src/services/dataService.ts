@@ -1,4 +1,4 @@
-import { AssessmentData: UserProfile } from '../shared/types';
+import { AssessmentData, UserProfile } from '../shared/types';
 import { Asset } from '../shared/types/assets';
 import { Task } from '../features/tasks/types';
 import { auditLogger } from '../lib/auditLog';
@@ -31,6 +31,7 @@ export class DataService {
     }
     return DataService.instance;
   }
+  )
 
   private constructor() {
     this.initializeStorage();
@@ -51,6 +52,7 @@ export class DataService {
       localStorage.setItem('app-version', this.CURRENT_VERSION);
     }
   }
+  )
 
   private migrateDataIfNeeded(: void {
     const storedVersion = localStorage.getItem('app-version');
@@ -59,6 +61,7 @@ export class DataService {
       localStorage.setItem('app-version', this.CURRENT_VERSION);
     }
   }
+  )
 
   private performDataMigration(fromVersion, string | null: void {
     console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
@@ -87,6 +90,7 @@ export class DataService {
       // Don't throw - continue with current data
     }
   }
+  )
 
   // Assessment Data Management
   getAssessments(), AssessmentData[] {
