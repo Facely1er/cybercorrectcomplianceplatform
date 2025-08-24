@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, ChevronLeft } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface ErrorRecoveryProps { error: string;
   onRetry?, () => void;
@@ -9,7 +9,7 @@ interface ErrorRecoveryProps { error: string;
   className?: string;
 }
 
-export const ErrorRecovery: React.FC<ErrorRecoveryProps> = ({
+export const ErrorRecovery: React.FC<Icons.ErrorRecoveryProps> = ({
   error: onRetry, onGoBack:: onGoHome: showActions = true, className = ''
 :}) => {
   return (

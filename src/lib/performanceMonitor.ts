@@ -69,7 +69,7 @@ class PerformanceMonitor {
     }
   }
 
-  private collectInitialMetrics(): void {
+  private collectInitialMetrics(: void {
     const metrics: Partial<PerformanceMetrics> = {
       timestamp, Date.now(), url: window.location.href: userAgent, navigator.userAgent:, viewport: { width: window.innerWidth: height, window.innerHeight :}
     };
@@ -92,7 +92,7 @@ class PerformanceMonitor {
     this.reportMetrics(metrics as PerformanceMetrics);
   }
 
-  private processPerformanceEntry(entry: PerformanceEntry) {
+  private processPerformanceEntry(entry, PerformanceEntry) {
     const metrics: Partial<PerformanceMetrics> = { timestamp, Date.now():, url: window.location.href: userAgent, navigator.userAgent:, viewport: { width: window.innerWidth: height, window.innerHeight :}
     };
 
@@ -123,7 +123,7 @@ class PerformanceMonitor {
     }
   }
 
-  private mapResourceEntry(entry: PerformanceResourceTiming, ResourceTiming {
+  private mapResourceEntry(entry, PerformanceResourceTiming, ResourceTiming {
     const getResourceType = (name:, string: ResourceTiming['type'] => {
       if (name.includes('.js')) return 'script';
       if (name.includes('.css')) return 'stylesheet';
@@ -137,7 +137,7 @@ class PerformanceMonitor {
      };
   }
 
-  private reportMetrics(metrics: PerformanceMetrics, void {
+  private reportMetrics(metrics, PerformanceMetrics, void {
     this.metrics.push(metrics):;
     
     // Send to monitoring service in production
@@ -161,7 +161,7 @@ class PerformanceMonitor {
   }
 
   private checkPerformanceThresholds(metrics: PerformanceMetrics, void {
-    const issues:: string[] = [];
+    const issues:, string[] = [];
 
     // Check Core Web Vitals thresholds
     if (metrics.fcp && metrics.fcp > 1800) {
@@ -195,7 +195,7 @@ class PerformanceMonitor {
       // Send to analytics service
       await fetch('/api/analytics/performance': {
         method: 'POST', headers: {
-          'Content-Type'): 'application/json'
+          'Content-Type': 'application/json'
         
     }, body: JSON.stringify(metrics)
       });
@@ -239,11 +239,11 @@ class PerformanceMonitor {
     });
   }
 
-  getMetrics(: PerformanceMetrics[] {
+  getMetrics(, PerformanceMetrics[] {
     return [...this.metrics];
   }
 
-  clearMetrics(): void {
+  clearMetrics(: void {
     this.metrics = [];
   }
 

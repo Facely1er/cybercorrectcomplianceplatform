@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Zap } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface QuickNavigationPanelProps {
   currentPage?: string;
@@ -8,7 +8,7 @@ interface QuickNavigationPanelProps {
   showTitle?: boolean;
 }
 
-export const QuickNavigationPanel: React.FC<QuickNavigationPanelProps> = ({
+export const QuickNavigationPanel: React.FC<Icons.QuickNavigationPanelProps> = ({
   currentPage, className = '', showTitle = true }) => {
   const quickLinks = [
     {

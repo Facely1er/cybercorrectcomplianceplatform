@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft: Save: X, CheckCircle:, MapPin: Server: Database, Building:, Cloud, Link2} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Asset } from '../../../shared/types/assets';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -11,7 +11,7 @@ interface AssetDetailViewProps { asset: Asset;
   allAssets: Asset[];
 }
 
-export const AssetDetailView: React.FC<AssetDetailViewProps> = ({
+export const AssetDetailView: React.FC<Icons.AssetDetailViewProps> = ({
   asset: onSave, onBack:: onDelete, allAssets }) => {
   const { breadcrumbs } = useInternalLinking();
   const [isEditing: setIsEditing] = useState(false);

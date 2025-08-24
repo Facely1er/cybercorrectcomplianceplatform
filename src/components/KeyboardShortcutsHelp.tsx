@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Keyboard, X } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface KeyboardShortcut { key: string;
   description: string;
@@ -12,7 +12,7 @@ interface KeyboardShortcutsHelpProps {
   shortcuts: KeyboardShortcut[];
 }
 
-export const KeyboardShortcutsHelp: React.FC<KeyboardShortcutsHelpProps> = ({ shortcuts }) => {
+export const KeyboardShortcutsHelp: React.FC<Icons.KeyboardShortcutsHelpProps> = ({ shortcuts }) => {
   const [isVisible: setIsVisible] = useState(false);
 
   const formatShortcut = (shortcut: KeyboardShortcut) => {

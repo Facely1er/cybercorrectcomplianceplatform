@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
-import { HelpCircle, Menu, X, Home, ChevronDown, Building, ExternalLink, Zap, Target, Shield, Users, Activity, FileText, CheckSquare, BarChart3, Calendar, Settings, Eye } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { ThemeProvider, useTheme } from './shared/contexts/ThemeContext';
 import { ThemeToggle } from './shared/components/ui/ThemeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -203,7 +203,7 @@ interface DropdownNavItemProps {
   currentPath: string;
 }
 
-const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
+const DropdownNavItem: React.FC<Icons.DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
@@ -408,7 +408,7 @@ function AppContent() {
     
     try {
       dataService.saveAssessment(assessment);
-      setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
+      setSavedAssessments(prev => prev.map(a => (a.id === assessment.id ? assessment : a)));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
       console.error('Failed to save assessment:', error);

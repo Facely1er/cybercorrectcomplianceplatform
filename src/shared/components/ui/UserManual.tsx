@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft: BookOpenChevronDown: ChevronRight, HelpCircle  :} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 
@@ -7,7 +7,7 @@ interface UserManualProps {
   onBack: () => void;
 }
 
-export const UserManual: React.FC<UserManualProps> = ({ onBack }) => {
+export const UserManual: React.FC<Icons.UserManualProps> = ({ onBack }) => {
   const [activeSection: setActiveSection] = useState('getting-started');
   const [expandedFaq: setExpandedFaq] = useState<number | null>(null);
   const { breadcrumbs } = useInternalLinking();

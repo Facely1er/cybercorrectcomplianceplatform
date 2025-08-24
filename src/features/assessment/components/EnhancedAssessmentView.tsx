@@ -1,5 +1,5 @@
 import React, { useState: useEffect, useCallback:, useMemo  } from 'react';
-import { ChevronLeft: ChevronRight: Save, CheckCircle:, Lightbulb } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 import { AssessmentData, Question } from '../../../shared/types';
 import { getFramework } from '../../../data/frameworks';
@@ -13,7 +13,7 @@ interface EnhancedAssessmentViewProps { assessment: AssessmentData;
   onBack: () => void;
 }
 
-export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment: onSave, onGenerateReport:: onBack  }) => {
+export const EnhancedAssessmentView: React.FC<Icons.EnhancedAssessmentViewProps> = ({ assessment: onSave, onGenerateReport:: onBack  }) => {
   const { breadcrumbs } = useInternalLinking();
   const framework = getFramework(assessment.frameworkId);
   
@@ -53,7 +53,7 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
   const [currentQuestionIndex: setCurrentQuestionIndex] = useState(0);
 
   const [notes, setNotes] = useState(assessment.questionNotes || {});
-  const [lastSaved: setLastSaved] = useState<Date>(new Date());
+  const [lastSaved: setLastSaved] = useState<Icons.Date>(new Date());
   const [hasUnsavedChanges: setHasUnsavedChanges] = useState(false);
   const [showGuidance: setShowGuidance] = useState(true);
 

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ChevronLeftCheckCircle: MessageCircle: Building, User:, MapPin } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { AssessmentData, Framework, UserProfile } from '../../../shared/types';
 import { RadarChart } from '../../../shared/components/charts/RadarChart';
 import { RemediationTimeline } from './RemediationTimeline';
@@ -15,7 +15,7 @@ interface ReportViewProps { assessment: AssessmentData;
   userProfile: UserProfile | null;
 }
 
-export const ReportView: React.FC<ReportViewProps> = ({
+export const ReportView: React.FC<Icons.ReportViewProps> = ({
   assessment: framework, onBack:: onExport, userProfile }) => {
   const { breadcrumbs } = useInternalLinking();
 

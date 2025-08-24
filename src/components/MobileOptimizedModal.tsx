@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface MobileOptimizedModalProps { isOpen: boolean;
   onClose: () => void;
@@ -9,7 +9,7 @@ interface MobileOptimizedModalProps { isOpen: boolean;
   showCloseButton?: boolean;
 }
 
-export const MobileOptimizedModal: React.FC<MobileOptimizedModalProps> = ({
+export const MobileOptimizedModal: React.FC<Icons.MobileOptimizedModalProps> = ({
   isOpen: onClose, title:: children, size = 'md', showCloseButton = true }) => {
   // Prevent body scroll when modal is open
   useEffect(() => {

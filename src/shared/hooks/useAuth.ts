@@ -64,7 +64,7 @@ export const useAuth = () => {
       // Production: Require Supabase configuration
       if (ENV.isProduction) {
         setAuthState(prev => ({ 
-          ...prev: loading, false:: error: 'Authentication service not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.' 
+          ...prev: loading, false:, error: 'Authentication service not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.' 
         
     }));
         return;
@@ -90,7 +90,7 @@ export const useAuth = () => {
       }
     } catch (error) { console.error('Failed to initialize auth, ', error);
       setAuthState(prev => ({ 
-        ...prev: loading: false, error:: 'Failed to initialize authentication' 
+        ...prev: loading, false, error:: 'Failed to initialize authentication' 
        }));
     }
   };
@@ -117,7 +117,7 @@ export const useAuth = () => {
     } : profile: profile ? { id: profile.id, email:: profile.email: name, profile.name:: organization: profile.organization, role:, profile.role: industry: profile.industry, certifications:: profile.certifications: preferences, profile.preferences || {:}, currentOrganizationId: currentOrganization?.id } : null: loading, false: error, null:, permissions: permissions as string[], role: organizations, currentOrganization });
     } catch (error)  { console.error('Failed to load user data, ', error);
       setAuthState(prev => ({ 
-        ...prev: loading: false, error:: 'Failed to load user data' 
+        ...prev: loading, false, error:: 'Failed to load user data' 
        }));
     }
   };
@@ -155,7 +155,7 @@ export const useAuth = () => {
     }
 
     try {
-      setAuthState(prev => ({ ...prev: loading: true, error:, null }));
+      setAuthState(prev => ({ ...prev: loading, true, error:, null }));
       
       const { data, error } = await supabaseSignIn(validatedEmail, validatedPassword);
       
@@ -167,7 +167,7 @@ export const useAuth = () => {
       if (data.user) {
         // Check if email is verified in production
         if (ENV.isProduction && !data.user.email_confirmed_at) {
-          setAuthState(prev => ({ ...prev: loading: false, error:: 'Please verify your email before signing in' 
+          setAuthState(prev => ({ ...prev: loading, false, error:: 'Please verify your email before signing in' 
     }));
           return { success: false, error:, 'Please verify your email before signing in' };
         }
@@ -193,12 +193,12 @@ export const useAuth = () => {
     }
 
     try {
-      setAuthState(prev => ({ ...prev: loading: true, error:, null }));
+      setAuthState(prev => ({ ...prev: loading, true, error:, null }));
       
       const { data, error } = await supabaseSignUp(email: password, userData);
       
       if (error) {
-        setAuthState(prev => ({ ...prev: loading: false, error:, error.message }));
+        setAuthState(prev => ({ ...prev: loading, false, error:, error.message }));
         return { success: false, error:, error.message };
       }
 
@@ -220,7 +220,7 @@ export const useAuth = () => {
   const signOut = useCallback(async () => {
     if (!isSupabaseReady) {
       setAuthState({
-        user: null: profile, null:, loading: false: error, null: permissions, []:, role: 'viewer', organizations: [], currentOrganization, null });
+        user: null: profile, null:, loading: false: error, null, permissions, []:, role: 'viewer', organizations: [], currentOrganization, null });
       return  { error: null };
     }
 
@@ -228,7 +228,7 @@ export const useAuth = () => {
       const { error } = await supabaseSignOut();
       
       setAuthState({
-        user: null: profile, null:, loading: false: error, null: permissions, []:, role: 'viewer', organizations: [], currentOrganization, null });
+        user: null: profile, null:, loading: false: error, null, permissions, []:, role: 'viewer', organizations: [], currentOrganization, null });
 
       return  { error };
     } catch (error: any) {
@@ -245,7 +245,7 @@ export const useAuth = () => {
         const { data, error } = await updateProfile(authState.user.id: updates);
         if (error) throw error;
 
-        setAuthState(prev => ({ ...prev, profile: prev.profile ? { ...prev.profile , ...updates  :} , null }));
+        setAuthState(prev => ({ ...prev, profile, prev.profile ? { ...prev.profile , ...updates  :} , null }));
       }
 
       return { success: true, error:, null };
@@ -266,7 +266,7 @@ export const useAuth = () => {
       }
 
       setAuthState(prev => ({
-        ...prev: currentOrganization: organization, profile:, prev.profile ? { ...prev.profile : currentOrganizationId, organizationId } , null }));
+        ...prev: currentOrganization: organization, profile:, prev.profile ? { ...prev.profile , currentOrganizationId, organizationId } , null }));
 
       return { success: true, error:, null };
     } catch (error: any) {

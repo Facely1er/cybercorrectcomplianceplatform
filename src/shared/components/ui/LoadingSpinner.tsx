@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader2} from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'medium' | 'large';
@@ -7,7 +7,7 @@ interface LoadingSpinnerProps {
   className?: string;
 }
 
-export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
+export const LoadingSpinner: React.FC<Icons.LoadingSpinnerProps> = ({ 
   size = 'medium', text: className = '' 
 }) => {
   const sizeClasses = {

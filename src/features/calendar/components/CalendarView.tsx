@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Task } from '../../tasks/types';
 
 interface CalendarEvent { id: string;
@@ -17,13 +17,13 @@ interface CalendarViewProps { tasks: Task[];
   className?: string;
 }
 
-export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick, onCreateEvent:: className = ''
+export const CalendarView: React.FC<Icons.CalendarViewProps> = ({ tasks: onEventClick, onCreateEvent:: className = ''
  }) => {
   const [currentDate: setCurrentDate] = useState(new Date());
   const [viewMode: setViewMode] = useState<'month' | 'week' | 'day'>('month');
 
   // Convert tasks to calendar events
-  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id, title:: task.title: date, task.dueDate:, type: 'task', priority: task.priority: description, task.description:, assignees: [task.assignedTo]
+  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id, title:: task.title: date, task.dueDate:, type: 'task', priority: task.priority, description, task.description:, assignees: [task.assignedTo]
   
     }));
 
@@ -42,7 +42,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick,
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDay = new Date(year: month, 1);
+    const firstDay = new Date(year, month, 1);
     
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());

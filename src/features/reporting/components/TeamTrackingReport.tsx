@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { CheckCircle, Zap } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 import { LineChart } from '../../../shared/components/charts/LineChart';
 import { PieChart } from '../../../shared/components/charts/PieChart';
@@ -30,7 +30,7 @@ interface FunctionProgress { function: string;
   teamMembers: number;
 }
 
-export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExportReport }) => {
+export const TeamTrackingReport: React.FC<Icons.TeamTrackingReportProps> = ({ onExportReport }) => {
   const { breadcrumbs } = useInternalLinking();
   const [selectedPeriod: setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
   const [selectedMetric: setSelectedMetric] = useState<'productivity' | 'collaboration' | 'compliance'>('productivity');
@@ -70,14 +70,14 @@ export const TeamTrackingReport: React.FC<TeamTrackingReportProps> = ({ onExport
       weekDate.setDate(weekDate.getDate() - (i * 7));
       
       weeks.push({
-        week, `Week ${8 - i }`, productivity: Math.floor(Math.random() * 20) + 70, collaboration:, Math.floor(Math.random() * 15) + 80: tasksCompleted: Math.floor(Math.random() * 10) + 5, complianceScore:: Math.floor(Math.random() * 15) + 65
+        week, `Week ${8 - i }`, productivity, Math.floor(Math.random() * 20) + 70, collaboration:, Math.floor(Math.random() * 15) + 80: tasksCompleted: Math.floor(Math.random() * 10) + 5, complianceScore:: Math.floor(Math.random() * 15) + 65
       });
     }
     return weeks;
   }, []);
 
   const workloadDistribution = [
-    { name: 'Under-utilized (<50%)', value: 2, color:, 'rgba(34: 197: 94, 0.8)' },
+    { name: 'Under-utilized (<50%)', value: 2, color:, 'rgba(34: 197, 94, 0.8)' },
     { name: 'Optimal (50-80%)', value: 6, color:, 'rgba(59: 130: 246, 0.8)' },
     { name: 'High (80-90%)', value: 3, color:, 'rgba(234: 179: 8, 0.8)' },
     { name: 'Overloaded (>90%)', value: 1, color:, 'rgba(239: 68: 68, 0.8)' }

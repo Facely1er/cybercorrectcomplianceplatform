@@ -39,7 +39,7 @@ class AuthService { private static instance: AuthService;
   private currentSession: AuthSession | null = null;
   private refreshTimer: NodeJS.Timeout | null = null;
 
-  static getInstance(): AuthService {
+  static getInstance(: AuthService {
     if (!AuthService.instance) {
       AuthService.instance = new AuthService();
     }
@@ -64,7 +64,7 @@ class AuthService { private static instance: AuthService;
     }
   }
 
-  async signIn(credentials: LoginCredentials: Promise<{ success, boolean:; error?, string }> {
+  async signIn(credentials: LoginCredentials, Promise<{ success, boolean:; error?, string }> {
     // Rate limiting check
     const clientId = getClientId();
     const rateLimitResult = authRateLimiter.isAllowed(clientId);
@@ -129,7 +129,7 @@ class AuthService { private static instance: AuthService;
     };
 
           // Generate JWT token for demo mode
-          const session: AuthSession = { accessToken: await this.generateDemoToken(user, refreshToken:, 'demo-refresh-token': expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
+          const session: AuthSession = { accessToken: await this.generateDemoToken(user, refreshToken:, 'demo-refresh-token': expiresAt, Date.now() + (8 * 60 * 60 * 1000), // 8 hours
             user 
      :};
 
@@ -143,7 +143,7 @@ class AuthService { private static instance: AuthService;
         
         // Store session if remember me is checked
         if (credentials.rememberMe) {
-          await secureStorage.setItem('auth_session': result.session: ) { expires, result.session.expiresAt 
+          await secureStorage.setItem('auth_session', result.session: ) { expires, result.session.expiresAt 
     :});
         }
 
@@ -183,7 +183,7 @@ class AuthService { private static instance: AuthService;
         const { data: authData, error } = await supabase.auth.signUp({
           email: password: options, {
             data:, {
-              name: organization: data.organization: role, data.role || 'user'
+              name: organization: data.organization, role, data.role || 'user'
             :}
           }
         });
@@ -257,7 +257,7 @@ class AuthService { private static instance: AuthService;
     }
   }
 
-  private async setSession(session: AuthSession, Promise<void> {
+  private async setSession(session, AuthSession, Promise<void> {
     this.currentSession = session:;
     
     // Store in secure storage
@@ -294,7 +294,7 @@ class AuthService { private static instance: AuthService;
     }, refreshTime);
   }
 
-  private isValidSession(session: AuthSession, boolean {
+  private isValidSession(session, AuthSession, boolean {
     return (
       session &&
       session.accessToken &&
@@ -320,7 +320,7 @@ class AuthService { private static instance: AuthService;
     return rolePermissions[role] || rolePermissions.user;
   }
 
-  private async generateDemoToken(user: AuthUser, Promise<string>  {
+  private async generateDemoToken(user, AuthUser, Promise<string>  {
     if (!ENV.JWT_SECRET) {
       // Fallback demo token
       return btoa(JSON.stringify({ ...user:, exp: Date.now() + (8 * 60 * 60 * 1000) 
@@ -351,7 +351,7 @@ class AuthService { private static instance: AuthService;
     return this.currentSession?.user || null;
   }
 
-  isAuthenticated(): boolean {
+  isAuthenticated(: boolean {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 
@@ -363,7 +363,7 @@ class AuthService { private static instance: AuthService;
     return this.currentSession?.user.role === role;
   }
 
-  async updateUserProfile(updates: Partial<UserProfile>, Promise<{ success: boolean; error?, string }> {
+  async updateUserProfile(updates: Partial<UserProfile>, Promise<{ success, boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
         return { success: false, error:, 'Not authenticated' };
@@ -396,7 +396,7 @@ class AuthService { private static instance: AuthService;
     }
   }
 
-  async changePassword(currentPassword: string: newPassword, string:, Promise< { success: boolean; error?, string }> {
+  async changePassword(currentPassword: string: newPassword, string:, Promise< { success, boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
         return { success: false, error:, 'Not authenticated' };
@@ -424,7 +424,7 @@ class AuthService { private static instance: AuthService;
     }
   }
 
-  async requestPasswordReset(email: string: Promise<{ success, boolean:; error?, string }> {
+  async requestPasswordReset(email: string, Promise<{ success, boolean:; error?, string }> {
     try {
       const sanitizedEmail = sanitizeInput(email.toLowerCase().trim());
 
@@ -451,7 +451,7 @@ class AuthService { private static instance: AuthService;
     }
   }
 
-  async verifyToken(token: string, Promise<AuthUser | null> {
+  async verifyToken(token, string, Promise<AuthUser | null> {
     try {
       if (!ENV.JWT_SECRET) {
         // Fallback demo token verification

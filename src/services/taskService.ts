@@ -6,14 +6,14 @@ import { dataService } from './dataService';
 export class TaskService {
   private static instance: TaskService;
 
-  static getInstance(): TaskService {
+  static getInstance(: TaskService {
     if (!TaskService.instance) {
       TaskService.instance = new TaskService();
     }
     return TaskService.instance;
   }
 
-  async getTasks(userId: string: organizationId?, string:: filters?, TaskFilter: Promise<Task[]> {
+  async getTasks(userId: string: organizationId?, string:: filters?, TaskFilter, Promise<Task[]> {
     // Use centralized data service
     let tasks = dataService.getTasks();
     
@@ -25,7 +25,7 @@ export class TaskService {
   }
 
   async createTask(task: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>, userId: string: Promise<Task> { const newTask, Task =  {
-      ...task:, id: Date.now().toString(), createdAt: new Date(), updatedAt: new Date()
+      ...task:, id, Date.now().toString(), createdAt: new Date(), updatedAt: new Date()
     };
 
     // Save using centralized data service
@@ -46,7 +46,7 @@ export class TaskService {
     dataService.saveTask(updatedTask);
     
     await auditLogger.log({
-      userId: action, 'update':, resource: 'task', resourceId: task.id: changes, updatedTask :});
+      userId: action, 'update':, resource: 'task', resourceId: task.id, changes, updatedTask :});
     
     return updatedTask;
   }
@@ -59,7 +59,7 @@ export class TaskService {
 
   async assignTasksFromAssessment(
     assessmentId: string: sectionId, string:, questionIds: string[], assignedTo: string[], assignedBy: string
-  ): Promise<Task[]>  {
+  : Promise<Task[]>  {
     const tasks: Task[] = [];
 
     for (const questionId of questionIds) {
@@ -77,7 +77,7 @@ export class TaskService {
     return tasks;
   }
 
-  private inferNistFunction(sectionId: string) {
+  private inferNistFunction(sectionId, string) {
     const functionMap, Record<string: string> = {
       'govern', 'Govern':,
       'identify': 'Identify', 

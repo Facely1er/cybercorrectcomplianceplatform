@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Database, Zap } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 // Add getMemoryUsage function
 const getMemoryUsage = (: Record<string, number> => { if ('memory' in performance) {
@@ -16,7 +16,7 @@ interface PerformanceMonitorProps {
   onClose: () => void;
 }
 
-export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
+export const PerformanceMonitor: React.FC<Icons.PerformanceMonitorProps> = ({
   isVisible, onClose }) => {
   const [metrics, setMetrics] = useState<Record<string, any>>({});
   const [memoryUsage, setMemoryUsage] = useState<Record<string, number>>({});

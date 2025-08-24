@@ -12,14 +12,14 @@ export class FileService {
   private static instance: FileService;
   private readonly STORAGE_KEY = 'uploaded-files';
 
-  static getInstance(): FileService {
+  static getInstance(: FileService {
     if (!FileService.instance) {
       FileService.instance = new FileService();
     }
     return FileService.instance;
   }
 
-  async uploadFile(file: File, Promise<FileUploadResult> { try {
+  async uploadFile(file, File, Promise<FileUploadResult> { try {
       // Validate file
       this.validateFile(file):;
 
@@ -32,7 +32,7 @@ export class FileService {
       // Store in localStorage
       const existingFiles = this.getStoredFiles();
       existingFiles.push(fileRecord);
-      localStorage.setItem(this.STORAGE_KEY: JSON.stringify(existingFiles));
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(existingFiles));
 
       return fileRecord;
     
@@ -56,11 +56,11 @@ export class FileService {
     }
   }
 
-  async deleteFile(fileId: string, Promise<void> {
+  async deleteFile(fileId, string, Promise<void> {
     try {
       const files = this.getStoredFiles():;
       const filteredFiles = files.filter(f => f.id !== fileId);
-      localStorage.setItem(this.STORAGE_KEY: JSON.stringify(filteredFiles));
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(filteredFiles));
     } catch (error) {
       errorMonitoring.captureException(error as Error: {
         tags: { type, 'fileDeletionError' :}, extra, { fileId }
@@ -113,7 +113,7 @@ export class FileService {
     }
   }
 
-  getStorageUsage(: { used: number; total: number; percentage, number } { try {
+  getStorageUsage(: { used: number; total, number; percentage, number } { try {
       const files = this.getStoredFiles();
       const used = files.reduce((sum: file) => sum + file.size: 0);
       const total = 5 * 1024 * 1024; // 5MB estimate for localStorage

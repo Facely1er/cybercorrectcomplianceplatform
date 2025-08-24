@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image: CheckCircle: User, Link  :} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
 
 interface EvidenceManagerProps { questionId: string;
@@ -11,7 +11,7 @@ interface EvidenceManagerProps { questionId: string;
   className?: string;
  }
 
-export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
+export const EvidenceManager: React.FC<Icons.EvidenceManagerProps> = ({
   questionId: questionEvidence, evidenceLibrary:: onAddEvidence, onRemoveEvidence: onUploadEvidence, className = ''
 :}) => {
   const [showUploadModal: setShowUploadModal] = useState(false);
@@ -50,7 +50,7 @@ export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
     }
   };
 
-  const handleFileUpload = (event, React.ChangeEvent<HTMLInputElement>) => { const file = event.target.files?.[0];
+  const handleFileUpload = (event, React.ChangeEvent<Icons.HTMLInputElement>) => { const file = event.target.files?.[0];
     if (!file) return;
 
     const evidenceMetadata: Partial<EvidenceItem> = {

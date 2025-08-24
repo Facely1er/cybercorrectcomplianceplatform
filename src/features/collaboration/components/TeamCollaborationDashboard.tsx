@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserMessageSquareCheckCircle } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
@@ -21,7 +21,7 @@ interface TeamMember { id: string;
   workload: number;
 }
 
-export const TeamCollaborationDashboard: React.FC<TeamCollaborationDashboardProps> = ({ addNotification }) => {
+export const TeamCollaborationDashboard: React.FC<Icons.TeamCollaborationDashboardProps> = ({ addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
   const [searchTerm: setSearchTerm] = useState('');
   const [filterRole: setFilterRole] = useState('all');

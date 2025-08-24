@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft: Construction: Clock, ArrowRight  :} from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface ComingSoonProps { title?: string;
   description?, string;
@@ -10,7 +10,7 @@ interface ComingSoonProps { title?: string;
   features?: string[];
 }
 
-export const ComingSoon: React.FC<ComingSoonProps> = ({
+export const ComingSoon: React.FC<Icons.ComingSoonProps> = ({
   title = 'Coming Soon',
   description = 'This feature is currently under development and will be available soon.',
   backPath = '/dashboard',

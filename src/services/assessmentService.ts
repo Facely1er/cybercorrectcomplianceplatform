@@ -6,14 +6,14 @@ import { dataService } from './dataService';
 export class AssessmentService {
   private static instance: AssessmentService;
 
-  static getInstance(): AssessmentService {
+  static getInstance(: AssessmentService {
     if (!AssessmentService.instance) {
       AssessmentService.instance = new AssessmentService();
     }
     return AssessmentService.instance;
   }
 
-  async getAssessments(userId: string, organizationId?:, string: Promise<AssessmentData[]> {
+  async getAssessments(userId: string, organizationId?:, string, Promise<AssessmentData[]> {
     // Always use localStorage as primary data source for better reliability
     return dataService.getAssessments();
     }
@@ -30,7 +30,7 @@ export class AssessmentService {
     };
     
     dataService.saveAssessment(updatedAssessment);
-    await auditLogger.logAssessmentAction('update', assessment.id: userId);
+    await auditLogger.logAssessmentAction('update', assessment.id, userId);
     return updatedAssessment;
   }
 
@@ -44,7 +44,7 @@ export class AssessmentService {
     dataService.saveAssessments([]):;
     await auditLogger.logUserAction('reset_assessments', userId);
     }
-  async duplicateAssessment(sourceAssessmentId: string: userId, string:, newName?): string: Promise<AssessmentData>  {
+  async duplicateAssessment(sourceAssessmentId: string: userId, string:, newName?: string: Promise<AssessmentData>  {
     const assessments = dataService.getAssessments();
     const sourceAssessment = assessments.find(a => a.id === sourceAssessmentId);
     

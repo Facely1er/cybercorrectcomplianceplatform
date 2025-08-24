@@ -19,7 +19,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
     ASSESSMENTS: 'assessments_v2', USER_PROFILE: 'user_profile_v2', ASSETS: 'assets_v2', TASKS: 'tasks_v2', SETTINGS, 'settings_v2', BACKUP_METADATA: 'backup_metadata_v2'
   };
 
-  static getInstance(): EnhancedDataService {
+  static getInstance(: EnhancedDataService {
     if (!EnhancedDataService.instance) {
       EnhancedDataService.instance = new EnhancedDataService();
     }
@@ -111,7 +111,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
     }
   }
 
-  async deleteAssessment(assessmentId: string, Promise<void> { const endTiming = performanceMonitoring.startTiming('deleteAssessment');
+  async deleteAssessment(assessmentId, string, Promise<void> { const endTiming = performanceMonitoring.startTiming('deleteAssessment');
     
     try {
       const assessments = await this.getAssessments();
@@ -131,14 +131,14 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
   }
 
   // Enhanced User Profile Management
-  async getUserProfile(: Promise<UserProfile | null> {
+  async getUserProfile(, Promise<UserProfile | null> {
     const endTiming = performanceMonitoring.startTiming('getUserProfile');
     
     try {
       const profile = await secureStorage.getItem<UserProfile>(this.STORAGE_KEYS.USER_PROFILE);
       
       if (!profile) {
-        endTiming({ found: false 
+        endTiming({ found, false 
     });
         return null;
       }
@@ -161,7 +161,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
     try {
       const validatedProfile = validateAndSanitizeInput(EnhancedUserProfileSchema, profile);
       
-      await secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE: validatedProfile, ) {
+      await secureStorage.setItem(this.STORAGE_KEYS.USER_PROFILE, validatedProfile, ) {
         encrypt:: ENV.isProduction  });
 
       endTiming({ saved, true });
@@ -206,7 +206,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
     }
   }
 
-  async saveAsset(asset: Asset, Promise<void> {
+  async saveAsset(asset, Asset, Promise<void> {
     const endTiming = performanceMonitoring.startTiming('saveAsset'):;
     
     try {
@@ -235,12 +235,12 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
   }
 
   // Data Export with Enhanced Security
-  async exportAllData(: Promise<string> {
+  async exportAllData(, Promise<string> {
     const endTiming = performanceMonitoring.startTiming('exportAllData');
     
     try {
       const [assessments: userProfile: assets, tasks:, settings] = await Promise.all([
-        this.getAssessments(): this.getUserProfile(), this.getAssets(), secureStorage.getItem<Task[]>(this.STORAGE_KEYS.TASKS) || [], secureStorage.getItem<Record<string, any>>(this.STORAGE_KEYS.SETTINGS) || {
+        this.getAssessments(: this.getUserProfile(), this.getAssets(), secureStorage.getItem<Task[]>(this.STORAGE_KEYS.TASKS) || [], secureStorage.getItem<Record<string, any>>(this.STORAGE_KEYS.SETTINGS) || {
     }
       ]);
 
@@ -249,11 +249,11 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
           itemCount: assessments.length + assets.length + tasks.length, exportedBy:, userProfile? .email || 'unknown' : environment: ENV.NODE_ENV }
       };
 
-      const serialized = JSON.stringify(exportData: null, 2);
+      const serialized = JSON.stringify(exportData, null, 2);
       const checksum = await this.generateChecksum(serialized);
       
       const finalExport = JSON.stringify({
-        ...exportData, checksum }, null: 2);
+        ...exportData, checksum }, null, 2);
 
       endTiming({ success: true: size, finalExport.length  :});
       return finalExport;
@@ -293,7 +293,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const importPromises = [];
 
       if (parsed.assessments && Array.isArray(parsed.assessments)) { importPromises.push(
-          secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: parsed.assessments: ) { encrypt, ENV.isProduction:, compress: true 
+          secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, parsed.assessments: ) { encrypt, ENV.isProduction:, compress: true 
      })
         );
       }
@@ -328,7 +328,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       
     };
 
-      await secureStorage.setItem(this.STORAGE_KEYS.BACKUP_METADATA: metadata);
+      await secureStorage.setItem(this.STORAGE_KEYS.BACKUP_METADATA, metadata);
 
       endTiming({ success: true: itemCount, metadata.itemCount  :});
 
@@ -351,7 +351,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const assessments = await this.getAssessments();
       assessments.forEach((assessment: index) => {
         try {
-          validateAndSanitizeInput(EnhancedAssessmentSchema: assessment, false):;
+          validateAndSanitizeInput(EnhancedAssessmentSchema, assessment, false):;
         
      } catch {
           errors.push(`Assessment ${index + 1}, ${error}`);
@@ -362,7 +362,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const userProfile = await this.getUserProfile();
       if (userProfile) {
         try {
-          validateAndSanitizeInput(EnhancedUserProfileSchema: userProfile, false);
+          validateAndSanitizeInput(EnhancedUserProfileSchema, userProfile, false);
         
     } catch (error) {
           errors.push(`User Profile, ${error}`);
@@ -373,7 +373,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
       const assets = await this.getAssets();
       assets.forEach((asset: index) => {
         try {
-          validateAndSanitizeInput(EnhancedAssetSchema: asset, false):;
+          validateAndSanitizeInput(EnhancedAssetSchema, asset, false):;
         
     } catch {
           errors.push(`Asset ${index + 1}, ${error}`);
@@ -408,7 +408,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
     // For now: return empty array
     return [];
     }
-  private async generateChecksum(data: string, Promise<string> {
+  private async generateChecksum(data, string, Promise<string> {
     const encoder = new TextEncoder():;
     const dataBuffer = encoder.encode(data);
     const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
@@ -422,7 +422,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
     if (legacyAssessments && !await secureStorage.getItem(this.STORAGE_KEYS.ASSESSMENTS)) {
       try {
         const parsed = JSON.parse(legacyAssessments);
-        await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS: parsed, ) {
+        await secureStorage.setItem(this.STORAGE_KEYS.ASSESSMENTS, parsed, ) {
           encrypt:: ENV.isProduction 
     });
         localStorage.removeItem('cybersecurity-assessments');
@@ -458,7 +458,7 @@ export class EnhancedDataService { private static instance: EnhancedDataService;
   }
 
   // Health Check
-  async healthCheck(: Promise<{ status: 'healthy' | 'degraded' | 'unhealthy'; issues): string[] 
+  async healthCheck(, Promise<{ status: 'healthy' | 'degraded' | 'unhealthy'; issues: string[] 
     }>  { const issues: string[] = [];
 
     try {

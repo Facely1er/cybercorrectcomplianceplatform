@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  ArrowLeft: Shield: Plus, Search:, Filter: Download: Upload, Edit3:, Trash2: Eye: AlertCircle, CheckCircle:, Clock: XCircle: Target, Settings:, BarChart3: Award: TrendingUp, Calendar:, FileText: Users: ScrollText, DollarSign
-:} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
@@ -13,7 +11,7 @@ type ControlStatus = 'not-implemented' | 'planned' | 'in-progress' | 'implemente
 type ControlType = 'preventive' | 'detective' | 'corrective' | 'deterrent' | 'compensating' | 'administrative' | 'technical' | 'physical';
 type AssessmentFrequency = 'monthly' | 'quarterly' | 'semi-annually' | 'annually';
 
-export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
+export const ControlsManagementView: React.FC<Icons.ControlsManagementViewProps> = ({
   onBack: addNotification
 }) => {
   const [controls: setControls] = useState<any[]>([]);
@@ -132,7 +130,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
       setFormData({
         controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name:, description: editingControl.description: nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:,
         priority: editingControl.priority: owner, editingControl.owner:,
-        controlType: editingControl.controlType: implementationApproach, editingControl.implementationApproach
+        controlType: editingControl.controlType, implementationApproach, editingControl.implementationApproach
       :});
     } else  {
       setFormData({
@@ -222,7 +220,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const handleSaveControl = (e, React.FormEvent) => { e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim() || !formData.controlId.trim()) {
-      addNotification('error', 'Control ID: name, and description are required');
+      addNotification('error', 'Control ID, name, and description are required');
       return;
      }
 
@@ -331,7 +329,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     setViewingControl(control);
   };
 
-  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls, null, 2);
     const dataBlob = new Blob([dataStr], { type, 'application/json'  });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
@@ -1019,7 +1017,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
               <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark: border-gray-700">
                 <button
                   onClick={ () => {
-                    const dataStr = JSON.stringify(viewingControl: null, 2):;
+                    const dataStr = JSON.stringify(viewingControl, null, 2):;
                     const dataBlob = new Blob([dataStr], { type, 'application/json'  });
                     const url = URL.createObjectURL(dataBlob);
                     const link = document.createElement('a');

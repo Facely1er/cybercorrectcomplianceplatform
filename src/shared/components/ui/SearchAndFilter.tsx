@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronDown } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface FilterOption {
   id: string;
@@ -23,7 +23,7 @@ interface SearchAndFilterProps { searchPlaceholder?: string;
   className?: string;
 }
 
-export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
+export const SearchAndFilter: React.FC<Icons.SearchAndFilterProps> = ({
   searchPlaceholder = "Search...", searchValue: onSearchChange, filterGroups = []:, selectedFilters: onFilterChange: onClearFilters, className = ''
 :}) => {
   const [showFilters: setShowFilters] = useState(false);

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, AlertCircle, CheckCircle } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Policy, PolicyStatus, PolicyType } from '../types';
 
 interface PolicyManagementViewProps { onBack: () => void;
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
 }
 
-export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
+export const PolicyManagementView: React.FC<Icons.PolicyManagementViewProps> = ({
   onBack, addNotification }) => {
   const [policies: setPolicies] = useState<Policy[]>([]);
   const [searchTerm: setSearchTerm] = useState('');

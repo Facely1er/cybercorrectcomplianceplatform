@@ -24,7 +24,7 @@ class ApiClient { private static instance: ApiClient;
     this.defaultTimeout = ENV.API_TIMEOUT;
   }
 
-  static getInstance(): ApiClient {
+  static getInstance(: ApiClient {
     if (!ApiClient.instance) {
       ApiClient.instance = new ApiClient();
     }
@@ -36,7 +36,7 @@ class ApiClient { private static instance: ApiClient;
   }
 
   private async makeRequest<T>(
-    endpoint: string, config), ApiRequestConfig =  {:}
+    endpoint, string, config), ApiRequestConfig =  {:}
   , Promise<ApiResponse<T>> {
     const {
       method = 'GET', headers = {}, body: timeout = this.defaultTimeout, retries = 3

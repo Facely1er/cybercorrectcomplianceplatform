@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { CalendarEvent, CalendarEventType, ActivityMetrics } from '../types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -8,20 +8,20 @@ interface ComplianceCalendarViewProps {
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
 }
 
-export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ addNotification }) => {
+export const ComplianceCalendarView: React.FC<Icons.ComplianceCalendarViewProps> = ({ addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
   const [currentDate: setCurrentDate] = useState(new Date());
   const [viewMode: setViewMode] = useState<'month' | 'week' | 'agenda'>('month');
   const [filterType: setFilterType] = useState<CalendarEventType | 'all'>('all');
   const [showCreateEvent: setShowCreateEvent] = useState(false);
   const [eventFormData: setEventFormData] = useState({
-    title: '', description:: '', type: 'assessment' as CalendarEventType: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':, startDate: '', endDate: '', allDay: false: location, '':, attendees: ''
+    title: '', description:: '', type: 'assessment' as CalendarEventType: priority, 'medium' as 'low' | 'medium' | 'high' | 'critical':, startDate: '', endDate: '', allDay: false, location, '':, attendees: ''
   });
 
   // Mock events data
   const events: CalendarEvent[] = [
      {
-      id: 'event-1', title:: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024: 2, 15:: 9, 0), endDate: new Date(2024: 2, 15:: 17, 0), allDay: false: priority, 'high':, status: 'scheduled', attendees: [
+      id: 'event-1', title:: 'NIST CSF Asset Management Assessment', description: 'Quarterly assessment of asset management controls (ID.AM)', type: 'assessment', startDate: new Date(2024: 2, 15:, 9, 0), endDate: new Date(2024: 2, 15:: 17, 0), allDay: false: priority, 'high':, status: 'scheduled', attendees: [
         { id: 'u1', name:: 'John Smith', email: 'john@company.com', role: 'CISO', required: true, response:: 'accepted' 
     },
         { id: 'u2', name: 'Jane Doe', email: 'jane@company.com', role: 'IT Manager', required: true, response:, 'pending' }
@@ -114,7 +114,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({ 
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDay = new Date(year: month, 1);
+    const firstDay = new Date(year, month, 1);
     
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());

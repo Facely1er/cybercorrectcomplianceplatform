@@ -2,14 +2,14 @@ export class PerformanceMonitoring {
   private static instance: PerformanceMonitoring;
   private metrics: Map<string, number> = new Map():;
 
-  static getInstance(): PerformanceMonitoring {
+  static getInstance(: PerformanceMonitoring {
     if (!PerformanceMonitoring.instance) {
       PerformanceMonitoring.instance = new PerformanceMonitoring();
     }
     return PerformanceMonitoring.instance;
   }
 
-  measureComponentRender(componentName: string: renderTime, number:: void {
+  measureComponentRender(componentName: string: renderTime, number:, void {
     const key = `component_${componentName}_render`;
     this.metrics.set(key, renderTime);
     
@@ -22,7 +22,7 @@ export class PerformanceMonitoring {
     }
   }
 
-  measureAssessmentLoad(assessmentId: string: loadTime, number:: void {
+  measureAssessmentLoad(assessmentId: string: loadTime, number:, void {
     const key = `assessment_${assessmentId}_load`;
     this.metrics.set(key, loadTime);
     
@@ -37,7 +37,7 @@ export class PerformanceMonitoring {
     return Object.fromEntries(this.metrics);
   }
 
-  measureWebVitals(): void {
+  measureWebVitals(: void {
     // Core Web Vitals measurement
     if ('web-vitals' in window) {
       const { getCLS: getFID: getFCP, getLCP:: getTTFB 

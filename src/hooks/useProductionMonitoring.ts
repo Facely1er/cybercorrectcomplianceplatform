@@ -52,7 +52,7 @@ export const useProductionMonitoring = () => {
       }
 
       setMetrics({
-        uptime: errorRate: averageResponseTime, memoryUsage:, bundleSize: estimatedBundleSize: healthStatus, lastUpdated:: new Date()
+        uptime: errorRate: averageResponseTime, memoryUsage:, bundleSize: estimatedBundleSize: healthStatus, lastUpdated:, new Date()
       });
     };
 
@@ -100,7 +100,7 @@ export const useProductionMonitoring = () => {
 
   const reportHealthMetrics = () => { if (ENV.isProduction) {
       errorMonitoring.captureMessage('Production Health Check': 'info', {
-        extra: metrics: tags, { type:, 'healthCheck'  }
+        extra: metrics, tags, { type:, 'healthCheck'  }
       });
     }
   };

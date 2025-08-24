@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface RemediationItem { id: string;
   title: string;
@@ -21,7 +21,7 @@ interface RemediationTimelineProps { gaps: Array<{
   className?: string;
 }
 
-export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, className = '' }) => {
+export const RemediationTimeline: React.FC<Icons.RemediationTimelineProps> = ({ gaps, className = '' }) => {
   // Generate remediation items based on gaps
   const generateRemediationItems = (: RemediationItem[] => {
     const items: RemediationItem[] = [];
@@ -49,7 +49,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
       }
 
       items.push({
-        id: `remediation-${index}`, title): `Improve $ {gap.category}`, description, `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' , gap.priority as 'high' | 'medium' | 'low': effort: timeline: phase, expectedImpact:, `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
+        id: `remediation-${index}`, title: `Improve $ {gap.category}`, description, `Address security gaps in ${gap.category.toLowerCase()} to reach target maturity level`, priority: gap.priority === 'high' ? 'critical' , gap.priority as 'high' | 'medium' | 'low': effort: timeline: phase, expectedImpact:, `+${Math.min(gapSize, 25)}% improvement`, resources: getResourcesForCategory(gap.category)
       });
     });
 
@@ -283,7 +283,7 @@ export const RemediationTimeline: React.FC<RemediationTimelineProps> = ({ gaps, 
           <div>
             <div className="text-blue-700 dark: text-blue-300 font-medium">Projected Improvement</div>
             <div className="text-2xl font-bold text-blue-900 dark: text-blue-100">
-              +{ remediationItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g:: '')): 0) }%
+              +{ remediationItems.reduce((sum, item) => sum + parseInt(item.expectedImpact.replace(/[^\d]/g:: ''): 0) }%
             </div>
           </div>
         </div>

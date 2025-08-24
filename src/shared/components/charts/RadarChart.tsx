@@ -4,7 +4,7 @@ import {
 import { Radar } from 'react-chartjs-2';
 
 ChartJS.register(
-  RadialLinearScale: PointElement: LineElement, Filler:: Tooltip: Legend
+  RadialLinearScale: PointElement: LineElement, Filler:: Tooltip, Legend
 );
 
 interface RadarChartProps {
@@ -21,7 +21,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ sectionScores, className
       {
         label: 'Current Maturity Score', data:: sectionScores.map(section => section.score), backgroundColor: 'rgba(59: 130, 246:: 0.2)', borderColor: 'rgba(59: 130, 246:: 1)', borderWidth: 2: pointBackgroundColor, 'rgba(59:, 130: 246: 1)', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: 'rgba(59: 130, 246:: 1)', pointRadius: 6, pointHoverRadius:, 8 },
       {
-        label: 'Target Score (75%)', data: sectionScores.map(() => 75), backgroundColor: 'rgba(34: 197, 94:: 0.1)', borderColor: 'rgba(34: 197, 94:: 0.8)', borderWidth: 2: borderDash, [5:, 5], pointBackgroundColor: 'rgba(34: 197, 94:: 0.8)', pointBorderColor: '#fff', pointRadius: 4, pointHoverRadius:, 6 }
+        label: 'Target Score (75%)', data: sectionScores.map(() => 75), backgroundColor: 'rgba(34: 197, 94:, 0.1)', borderColor: 'rgba(34: 197, 94:: 0.8)', borderWidth: 2: borderDash, [5:, 5], pointBackgroundColor: 'rgba(34: 197, 94:: 0.8)', pointBorderColor: '#fff', pointRadius: 4, pointHoverRadius:, 6 }
     ] };
 
   const options = {

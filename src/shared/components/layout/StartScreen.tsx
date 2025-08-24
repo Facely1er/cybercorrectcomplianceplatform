@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Building: Zap: Sparkles, Rocket  :} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 
@@ -14,20 +14,20 @@ interface StartScreenProps {
 
 import { cmmcFramework, privacyFramework } from '../../../data/frameworks';
 
-export const StartScreen: React.FC<StartScreenProps> = ({
+export const StartScreen: React.FC<Icons.StartScreenProps> = ({
   onStartAssessment, onContinue, userProfile }) => {
   const { theme } = useTheme();
   const [showQuickStart: setShowQuickStart] = useState(false);
   
   // Memoize handlers to prevent re-render issues
   const handleStartAssessment = useCallback(() => {
-    console.log('StartScreen: Starting assessment');
+    console.log('StartScreen, Starting assessment');
     onStartAssessment();
   
     }, [onStartAssessment]);
   
   const handleContinue = useCallback(() => {
-    console.log('StartScreen: Continuing to dashboard');
+    console.log('StartScreen, Continuing to dashboard');
     onContinue();
   }, [onContinue]);
   

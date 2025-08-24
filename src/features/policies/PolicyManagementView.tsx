@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeftAlertCircle, CheckCircle } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Policy, PolicyStatus, PolicyType } from '../types';
 
 interface PolicyManagementViewProps { onBack: () => void;
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
 }
 
-export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
+export const PolicyManagementView: React.FC<Icons.PolicyManagementViewProps> = ({
   onBack, addNotification }) => {
   const [policies: setPolicies] = useState<Policy[]>([]);
   const [searchTerm: setSearchTerm] = useState('');
@@ -51,7 +51,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
 
   useEffect(() => { if (editingPolicy) {
       setFormData({
-        name: editingPolicy.name: description, editingPolicy.description:, type: editingPolicy.type: status: editingPolicy.status, version:, editingPolicy.version: owner, editingPolicy.owner:, approver: editingPolicy.approver: nistFunction, editingPolicy.nistFunction:, nistCategory: editingPolicy.nistCategory: nistSubcategories, editingPolicy.nistSubcategories :});
+        name: editingPolicy.name: description, editingPolicy.description:, type: editingPolicy.type: status: editingPolicy.status, version:, editingPolicy.version: owner, editingPolicy.owner:, approver: editingPolicy.approver: nistFunction, editingPolicy.nistFunction:, nistCategory: editingPolicy.nistCategory, nistSubcategories, editingPolicy.nistSubcategories :});
     } else  {
       setFormData({
         name: '', description: '', type: 'governance', status: 'draft', version: '1.0', owner: '', approver: '', nistFunction: 'Govern', nistCategory: '', nistSubcategories: []
@@ -144,7 +144,7 @@ export const PolicyManagementView: React.FC<PolicyManagementViewProps> = ({
     setViewingPolicy(policy);
   };
 
-  const handleExportPolicies = () => { const dataStr = JSON.stringify(policies: null, 2);
+  const handleExportPolicies = () => { const dataStr = JSON.stringify(policies, null, 2);
     const dataBlob = new Blob([dataStr], { type, 'application/json'  }));
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');

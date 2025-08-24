@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface RelatedLink { title: string;
   description: string;
@@ -16,7 +16,7 @@ interface RelatedLinksProps { links: RelatedLink[];
   maxItems?: number;
 }
 
-export const RelatedLinks: React.FC<RelatedLinksProps> = ({ links, title = 'Related Pages', className = '', maxItems = 6
+export const RelatedLinks: React.FC<Icons.RelatedLinksProps> = ({ links, title = 'Related Pages', className = '', maxItems = 6
  }) => {
   const getCategoryIcon = (category: string) => { switch (category) {
       case 'next-step', return '→';

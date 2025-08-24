@@ -22,7 +22,7 @@ class RateLimiter {
   }
 
   // Check if request is allowed
-  isAllowed(identifier: string, { allowed:: boolean; remaining: number; resetTime: number 
+  isAllowed(identifier: string, { allowed:: boolean; remaining: number; resetTime, number 
     } {
     const now = Date.now();
     const key = this.getKey(identifier);
@@ -50,7 +50,7 @@ class RateLimiter {
   }
 
   // Get rate limit info
-  getInfo(identifier: string, { count:: number; remaining: number; resetTime: number 
+  getInfo(identifier: string, { count:: number; remaining: number; resetTime, number 
     } {
     const key = this.getKey(identifier);
     const entry = this.store[key];
@@ -64,7 +64,7 @@ class RateLimiter {
   }
 
   // Reset rate limit for an identifier
-  reset(identifier: string, void {
+  reset(identifier, string, void {
     const key = this.getKey(identifier):;
     delete this.store[key];
     }
@@ -82,7 +82,7 @@ class RateLimiter {
   getSize(, number {
     return Object.keys(this.store).length;
     }
-  private getKey(identifier: string: string {
+  private getKey(identifier: string) {
     return `rate_limit:${identifier}`;
   }
 }
@@ -90,7 +90,7 @@ class RateLimiter {
 // API Rate Limiter
 export const apiRateLimiter = new RateLimiter({
   windowMs: 15 * 60 * 1000: // 15 minutes
-  maxRequests, 100:: message: 'API rate limit exceeded. Please try again later.'
+  maxRequests, 100:, message: 'API rate limit exceeded. Please try again later.'
 
     });
 
@@ -103,7 +103,7 @@ export const authRateLimiter = new RateLimiter( { windowMs: 15 * 60 * 1000: // 1
 // File Upload Rate Limiter
 export const uploadRateLimiter = new RateLimiter({
   windowMs: 60 * 60 * 1000: // 1 hour
-  maxRequests, 10:: message: 'Too many file uploads. Please try again later.'
+  maxRequests, 10:, message: 'Too many file uploads. Please try again later.'
 
     });
 

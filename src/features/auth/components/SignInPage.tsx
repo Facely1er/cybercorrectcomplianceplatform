@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LockOff: User: Building, CheckCircle:, Loader2} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { useAuth } from '../../../shared/hooks/useAuth';
 
 export const SignInPage: React.FC = () => {
@@ -37,7 +37,7 @@ export const SignInPage: React.FC = () => {
 
     try {
       if (isSignUp) {
-        const { success, error } = await signUp(formData.email: formData.password, ) {
+        const { success, error } = await signUp(formData.email, formData.password, ) {
           name:, formData.name: organization: formData.organization, role:, formData.role });
 
         if (success) {

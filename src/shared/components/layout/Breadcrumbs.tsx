@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Home } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface BreadcrumbItem { label: string;
   path?: string;
@@ -17,7 +17,7 @@ interface BreadcrumbsProps { items: BreadcrumbItem[];
   maxItems?: number;
 }
 
-export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ 
+export const Breadcrumbs: React.FC<Icons.BreadcrumbsProps> = ({ 
   items, className = '', showHome = true, homeLabel = 'Dashboard', homePath = '/dashboard', separator = <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-500" />, maxItems = 5
 }) => {
   // Limit items if too many

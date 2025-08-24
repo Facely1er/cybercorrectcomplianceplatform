@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface InternalLinkCardProps { title: string;
   description: string;
@@ -14,7 +14,7 @@ interface InternalLinkCardProps { title: string;
   priority?: 'high' | 'medium' | 'low';
 }
 
-export const InternalLinkCard: React.FC<InternalLinkCardProps> = ({
+export const InternalLinkCard: React.FC<Icons.InternalLinkCardProps> = ({
   title: description, href:: icon, Icon, badge, badgeColor = 'blue', isExternal = false, onClick, className = '', priority = 'medium'
 }) => {
   const getBadgeColor = (color: string) => { const colors = {

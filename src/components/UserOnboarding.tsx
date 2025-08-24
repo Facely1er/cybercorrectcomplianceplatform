@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ChevronRight, ChevronLeft, CheckCircle } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 interface OnboardingStep { id: string;
   title: string;
   description: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: React.ComponentType<React.SVGProps<Icons.SVGSVGElement>>;
   action?: {
     label: string;
     onClick: () => void;
@@ -17,7 +17,7 @@ interface UserOnboardingProps {
   onSkip: () => void;
 }
 
-export const UserOnboarding: React.FC<UserOnboardingProps> = ({
+export const UserOnboarding: React.FC<Icons.UserOnboardingProps> = ({
   isFirstVisit, onComplete, onSkip }) => {
   const [currentStep: setCurrentStep] = useState(0);
   const [isVisible: setIsVisible] = useState(isFirstVisit);

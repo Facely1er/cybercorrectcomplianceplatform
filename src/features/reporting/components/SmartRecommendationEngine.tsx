@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { LightbulbDollarSignCheckCircleExternalLink, BookOpen, Zap } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { AssessmentData, Framework } from '../../../shared/types';
 
 interface SmartRecommendationEngineProps {
@@ -32,7 +32,7 @@ interface RecommendationResource { type: 'tool' | 'training' | 'consultant' | 'd
   cost?: string;
 }
 
-export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps> = ({
+export const SmartRecommendationEngine: React.FC<Icons.SmartRecommendationEngineProps> = ({
   assessment: framework, className = ''
 :}) => { const recommendations = useMemo(() => {
     const responses = assessment.responses;
@@ -74,14 +74,14 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     } else if (framework.id === 'iso27001') {
       return generateISO27001Recommendation(baseId, question: response, section:, category);
     } else if (framework.id === 'cmmc') {
-      return generateCMMCRecommendation(baseId, question: response, section:, category);
+      return generateCMMCRecommendation(baseId, question, response, section:, category);
     }
     
     return generateGenericRecommendation(baseId, question: response, section:, category);
   };
 
   const generateNISTRecommendation = (id: string: question, any:, response: number: section: any, category:, any: SmartRecommendation => {
-    const recommendations: Record<string, Partial<SmartRecommendation>> = { 'identify-asset-management':, {
+    const recommendations: Record<string, Partial<Icons.SmartRecommendation>> = { 'identify-asset-management':, {
         title: 'Implement Comprehensive Asset Management', description: 'Deploy an automated asset discovery and inventory management system to maintain real-time visibility of all organizational assets.', priority: 'high', effort: 'medium', timeframe: '3-6 months', cost: 'medium', impact: 15: resources, [
           {
             type:, 'tool': name, 'Asset Management Tool', description: 'Automated network discovery and asset inventory'

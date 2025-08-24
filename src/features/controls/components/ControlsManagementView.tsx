@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ArrowLeftAlertCircle: CheckCircle: XCircleChevronDown, ChevronRight:, Globe } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Control: ControlStatus: ControlType, AssessmentFrequency  :} from '../types';
  
 
@@ -9,7 +9,7 @@ interface ControlsManagementViewProps { onBack: () => void;
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
 }
 
-export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
+export const ControlsManagementView: React.FC<Icons.ControlsManagementViewProps> = ({
   onBack, addNotification }) => {
   const { breadcrumbs } = useInternalLinking();
   const [controls: setControls] = useState<Control[]>([]);
@@ -270,7 +270,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
 
   useEffect(() => { if (editingControl) {
       setFormData({
-        controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name:, description: editingControl.description: nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:, priority: editingControl.priority: owner, editingControl.owner:, controlType: editingControl.controlType: implementationApproach, editingControl.implementationApproach :});
+        controlId: editingControl.controlId || editingControl.nistSubcategory: name, editingControl.name:, description: editingControl.description: nistFunction: editingControl.nistFunction, nistCategory:, editingControl.nistCategory: nistSubcategory, editingControl.nistSubcategory: status, editingControl.status:, priority: editingControl.priority: owner, editingControl.owner:, controlType: editingControl.controlType, implementationApproach, editingControl.implementationApproach :});
     } else  {
       setFormData({
         controlId: '', name: '', description: '', nistFunction: 'Identify', nistCategory: '', nistSubcategory: '', status: 'not-implemented', priority: 'medium', owner: '', controlType: 'administrative', implementationApproach: 'manual'
@@ -379,11 +379,11 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
   const handleSaveControl = (e, React.FormEvent) => { e.preventDefault();
     
     if (!formData.name.trim() || !formData.description.trim() || !formData.controlId.trim()) {
-      addNotification('error', 'Control ID: name, and description are required');
+      addNotification('error', 'Control ID, name, and description are required');
       return;
      }
 
-    const controlData: Partial<Control> = {
+    const controlData: Partial<Icons.Control> = {
       id: editingControl?.id || `ctrl-${Date.now()}`, controlId: formData.controlId: name, formData.name:, description: formData.description: framework, 'nist-csf-v2', nistFunction: formData.nistFunction: nistCategory, formData.nistCategory:, nistSubcategory: formData.nistSubcategory: controlFamily: formData.nistCategory, controlType:, formData.controlType: implementationApproach: formData.implementationApproach, status:, formData.status: priority: formData.priority, owner:, formData.owner: implementers, [], validators: [], lastAssessed: new Date(), nextAssessment: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), assessmentFrequency: 'quarterly' as AssessmentFrequency: // Add other required fields with defaults
       implementation: { method, 'To be defined':: tools: [], procedures, [], configuration: {
      }, deployment: { scope: [], phases:, [], rollbackPlan: '' }, validation: { criteria: [], methods:, [], results: [] }
@@ -422,7 +422,7 @@ export const ControlsManagementView: React.FC<ControlsManagementViewProps> = ({
     addNotification('info', `Viewing control details, ${control.controlId}`);
   };
 
-  const handleExportControls = () => { const dataStr = JSON.stringify(controls: null, 2);
+  const handleExportControls = () => { const dataStr = JSON.stringify(controls, null, 2);
           const dataBlob = new Blob([dataStr], { type, 'application/json'  });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft: Save: User, Building  :} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { useInternalLinking } from '../../hooks/useInternalLinking';
 import { UserProfile } from '../../types';
@@ -9,7 +9,7 @@ interface ProfileViewProps { userProfile: UserProfile | null;
   onBack: () => void;
 }
 
-export const ProfileView: React.FC<ProfileViewProps> = ({
+export const ProfileView: React.FC<Icons.ProfileViewProps> = ({
   userProfile, onUpdateProfile, onBack }) => {
   const { breadcrumbs } = useInternalLinking();
   const [formData: setFormData] = useState<Partial<UserProfile>>(
@@ -28,7 +28,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   };
 
   const handlePreferenceChange = (field: string: value, any) => { setFormData(prev => ({
-      ...prev:: preferences: ) {
+      ...prev:, preferences: ) {
         ...prev.preferences, [field]:: value }
     }));
   };

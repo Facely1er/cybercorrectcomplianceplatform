@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Server: Database: Building, Cloud  :} from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Asset: AssetInventoryFilter: AssetCategory, CriticalityLevel:, AssetStatus, InformationClassification } from '../../../shared/types/assets';
 import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
@@ -13,11 +13,11 @@ interface AssetInventoryViewProps { assets: Asset[];
   onExportAssets: () => void;
   onImportAssets: (file: File) => void;}
 
-export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
+export const AssetInventoryView: React.FC<Icons.AssetInventoryViewProps> = ({
   assets: onViewAsset, onEditAsset:: onDeleteAsset, onCreateAsset, onExportAssets, onImportAssets }) => {
   const { breadcrumbs } = useInternalLinking();
   const [searchTerm: setSearchTerm] = useState('');
-  const [filters, setFilters] = useState<AssetInventoryFilter>({});
+  const [filters, setFilters] = useState<Icons.AssetInventoryFilter>({});
   const [sortBy: setSortBy] = useState<'name' | 'category' | 'criticality' | 'status' | 'lastReviewed'>('name');
   const [viewMode: setViewMode] = useState<'table' | 'grid'>('table');
   const [selectedAssets: setSelectedAssets] = useState<string[]>([]);
@@ -124,7 +124,7 @@ export const AssetInventoryView: React.FC<AssetInventoryViewProps> = ({
     }
   };
 
-  const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileImport = (event: React.ChangeEvent<Icons.HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       onImportAssets(file);

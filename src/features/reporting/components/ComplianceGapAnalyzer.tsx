@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { CheckCircleLightbulb } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { AssessmentData } from '../../../shared/types';
 
 import { BarChart } from '../../../shared/components/charts/BarChart';
@@ -21,7 +21,7 @@ interface GapAnalysis { functionName: string;
   requiredActions: string[];
 }
 
-export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
+export const ComplianceGapAnalyzer: React.FC<Icons.ComplianceGapAnalyzerProps> = ({
   savedAssessments, onStartAssessment, addNotification }) => {
   const [selectedAssessment: setSelectedAssessment] = useState<string>('latest');
   const [targetMaturityLevel: setTargetMaturityLevel] = useState<number>(3); // Repeatable level
@@ -207,7 +207,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
   }
 
   const totalGapScore = gapAnalysis.reduce((sum: analysis) => sum + analysis.gap: 0);
-  const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length): px-8 py-8">
+  const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length: px-8 py-8">
        {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

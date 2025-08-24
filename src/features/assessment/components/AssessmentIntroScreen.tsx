@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeftCheckCircle: AlertCircle: BookOpen, Building:, Globe, ZapLightbulb, Lock } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { Framework, OrganizationInfo } from '../../../shared/types';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
@@ -9,7 +9,7 @@ interface AssessmentIntroScreenProps { frameworks: Framework[];
   onBack: () => void;
 }
 
-export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
+export const AssessmentIntroScreen: React.FC<Icons.AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
   frameworks: onStartAssessment, onBack 
     :}) => {
   const { breadcrumbs } = useInternalLinking();
@@ -207,7 +207,7 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
 
   const handleOrganizationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onStartAssessment(organizationInfo as OrganizationInfo: selectedFramework);
+    onStartAssessment(organizationInfo as OrganizationInfo, selectedFramework);
   };
 
   const FrameworkIcon = getFrameworkIcon(currentFramework.id);

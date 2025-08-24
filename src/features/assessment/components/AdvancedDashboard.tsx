@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: AlertCircle: ArrowUp, ArrowDown:, Info, Building, ScrollText } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
@@ -21,7 +21,7 @@ interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
 }
 
-export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
+export const AdvancedDashboard: React.FC<Icons.AdvancedDashboardProps> = ({
   savedAssessments: onStartAssessment, onLoadAssessment:: onDeleteAssessment: onGenerateReport, onExportAssessment:, userProfile: addNotification }) => {
   const [searchTerm: setSearchTerm] = useState('');
   const [filterStatus: setFilterStatus] = useState('all');
@@ -143,7 +143,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
   };
 
-  const handleFileImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileImport = (event: React.ChangeEvent<Icons.HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       // Validate file type
@@ -202,7 +202,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   const toggleAssessmentSelection = (assessmentId: string) => {
     setSelectedAssessments(prev => 
       prev.includes(assessmentId)
-        ? prev.filter(id => id !== assessmentId): px-8 py-8">
+        ? prev.filter(id => id !== assessmentId: px-8 py-8">
        {/* Breadcrumbs */}
       <div className="mb-6">
         <Breadcrumbs items={breadcrumbs } />

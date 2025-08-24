@@ -130,7 +130,7 @@ export const useInternalLinking = () => {
       // Special handling for assessment routes
       if (segment === 'assessment' && !isLast) {
         // For /assessment/:id routes: link "Assessment" to dashboard instead of non-existent /assessment
-        breadcrumbs.push({ label: 'Assessment', path:: '/dashboard', isActive: false 
+        breadcrumbs.push({ label: 'Assessment', path:: '/dashboard', isActive, false 
      });
         return;
       }
