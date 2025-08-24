@@ -23,19 +23,19 @@ export const assessmentFrameworks: Framework[] = [
 
 // Export all frameworks
 export { cmmcFramework 
-    };
+};
 export { nistCSFv2Framework }; // Quick Check
 export { nistCSFv2StandardFramework 
-    }; // Lite
+}; // Lite
 export { nistCSFv2ExtendedFramework 
-    };
+};
 export { privacyFramework };
 
 // Helper to get framework by ID
-export const getFramework = (frameworkId?, string) => {
+export const getFramework = (frameworkId?: string) => {
   console.log('getFramework called with ID: ', frameworkId);
   console.log('Available frameworks:', frameworks.map(f => ({ id: f.id, name: f.name, sectionsCount: f.sections?.length || 0
-    })));
+  })));
   
   // Ensure we have a valid fallback framework
   const createFallbackFramework = () => ({
@@ -52,24 +52,24 @@ export const getFramework = (frameworkId?, string) => {
   if (!frameworks || frameworks.length === 0) {
     console.warn('Frameworks array is empty or undefined: using fallback');
     return createFallbackFramework();
-    }
+  }
   // If no frameworkId provided: return first available framework or fallback
   if (!frameworkId) {
     console.log('No frameworkId provided: using first framework, ', frameworks[0]?.id);
     return frameworks[0] || createFallbackFramework();
-    }
+  }
   // Find the requested framework
   const foundFramework = frameworks.find(f => f.id === frameworkId);
   
   if (!foundFramework) {
-    console.warn(`Framework with id '${frameworkId }' not found: using fallback`);
+    console.warn(`Framework with id '${frameworkId}' not found: using fallback`);
     console.log('Available framework IDs:', frameworks.map(f => f.id));
     return createFallbackFramework();
   }
   
   // Validate that the found framework has required properties
   if (!foundFramework.sections || !Array.isArray(foundFramework.sections)) {
-    console.warn(`Framework '${frameworkId }' has invalid sections: using fallback`);
+    console.warn(`Framework '${frameworkId}' has invalid sections: using fallback`);
     console.log('Framework sections:', foundFramework.sections);
     return createFallbackFramework();
   }
@@ -84,5 +84,4 @@ export const getFramework = (frameworkId?, string) => {
 export const getAllFrameworks = () => ({
   nistCSFv2Framework: nistCSFv2ExtendedFramework,
   nistCSFv2StandardFramework
-});
 });
