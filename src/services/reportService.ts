@@ -3,14 +3,14 @@ import { errorMonitoring } from '../lib/errorMonitoring';
 
 export interface ReportExportOptions {
   format: 'pdf' | 'json' | 'csv';
-  includeExecutiveSummary?, boolean;
-  includeDetailedAnalysis?, boolean;
-  includeRecommendations?, boolean;
-  includeGapAnalysis?, boolean;
-  includeNextSteps?, boolean;
+  includeExecutiveSummary?: boolean;
+  includeDetailedAnalysis?: boolean;
+  includeRecommendations?: boolean;
+  includeGapAnalysis?: boolean;
+  includeNextSteps?: boolean;
   branding?: {
-    organizationName?, string;
-    logo?, string;
+    organizationName?: string;
+    logo?: string;
   };
 }
 
@@ -31,18 +31,18 @@ export class ReportService {
   ): Promise<void> {
     try {
       switch (options.format) {
-        case 'pdf', await this.exportToPDF(assessment, framework, options);
+        case 'pdf': await this.exportToPDF(assessment, framework, options);
           break;
-        case 'json', await this.exportToJSON(assessment, framework, options);
+        case 'json': await this.exportToJSON(assessment, framework, options);
           break;
-        case 'csv', await this.exportToCSV(assessment, framework, options);
+        case 'csv': await this.exportToCSV(assessment, framework, options);
           break;
-        default, throw new Error(`Unsupported format: ${options.format}`);
+        default: throw new Error(`Unsupported format: ${options.format}`);
       }
     } catch (error) {
       errorMonitoring.captureException(error as Error, {
         tags: { type: 'reportExportError' },
-        extra: { assessmentId, assessment.id, format, options.format }
+        extra: { assessmentId: assessment.id, format: options.format }
       });
       throw error;
     }
@@ -59,7 +59,7 @@ export class ReportService {
     // Generate comprehensive HTML report
     const htmlContent = this.generateHTMLReport(assessment, framework, reportData, options);
     
-    // Method 1, Try to use browser's PDF generation API if available
+    // Method 1: Try to use browser's PDF generation API if available
     if ('showSaveFilePicker' in window) {
       try {
         await this.generatePDFWithAPI(htmlContent, assessment, framework);
@@ -69,7 +69,7 @@ export class ReportService {
       }
     }
     
-    // Method 2, Fallback to enhanced print window
+    // Method 2: Fallback to enhanced print window
     this.generatePDFWithPrint(htmlContent, assessment, framework);
   }
 
@@ -90,175 +90,175 @@ export class ReportService {
           <meta charset="UTF-8">
           <style>
             @page {
-              margin, 1in;
-              size, letter;
+              margin: 1in;
+              size: letter;
             }
             
             body { 
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-              margin, 0;
-              padding, 20px;
-              line-height, 1.6;
+              margin: 0;
+              padding: 20px;
+              line-height: 1.6;
               color: #333;
-              background, white;
+              background: white;
             }
             
             .header {
-              text-align, center; 
-              margin-bottom, 40px; 
-              border-bottom, 3px solid #2563eb;
-              padding-bottom, 20px;
+              text-align: center; 
+              margin-bottom: 40px; 
+              border-bottom: 3px solid #2563eb;
+              padding-bottom: 20px;
             }
             
             .header h1 {
               color: #1e40af;
-              font-size, 28px;
-              margin-bottom, 10px;
-              font-weight, bold;
+              font-size: 28px;
+              margin-bottom: 10px;
+              font-weight: bold;
             }
             
             .header .subtitle {
               color: #6b7280;
-              font-size, 16px;
-              margin-bottom, 5px;
+              font-size: 16px;
+              margin-bottom: 5px;
             }
             
             .section { 
-              margin-bottom, 30px; 
-              break-inside, avoid;
+              margin-bottom: 30px; 
+              break-inside: avoid;
             }
             
             .section h2 {
               color: #1f2937;
-              font-size, 20px;
-              margin-bottom, 15px;
-              border-bottom, 2px solid #e5e7eb;
-              padding-bottom, 8px;
+              font-size: 20px;
+              margin-bottom: 15px;
+              border-bottom: 2px solid #e5e7eb;
+              padding-bottom: 8px;
             }
             
             .score {
-              font-size, 36px; 
-              font-weight, bold; 
+              font-size: 36px; 
+              font-weight: bold; 
               color: #2563eb;
-              text-align, center;
-              margin, 20px 0;
+              text-align: center;
+              margin: 20px 0;
             }
             
             .score-large {
-              font-size, 48px;
+              font-size: 48px;
               color: #059669;
-              margin, 30px 0;
+              margin: 30px 0;
             }
             
             table {
-              width, 100%; 
-              border-collapse, collapse; 
-              margin, 15px 0;
-              break-inside, avoid;
+              width: 100%; 
+              border-collapse: collapse; 
+              margin: 15px 0;
+              break-inside: avoid;
             }
             
             th, td {
-              border, 1px solid #d1d5db; 
-              padding, 12px 8px; 
-              text-align, left;
-              font-size, 14px;
+              border: 1px solid #d1d5db; 
+              padding: 12px 8px; 
+              text-align: left;
+              font-size: 14px;
             }
             
             th { 
               background-color: #f9fafb;
-              font-weight, 600;
+              font-weight: 600;
               color: #374151;
             }
             
             .metric-grid {
-              display, grid;
-              grid-template-columns, repeat(auto-fit, minmax(200px, 1fr));
-              gap, 20px;
-              margin, 20px 0;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 20px;
+              margin: 20px 0;
             }
             
             .metric-card {
-              border, 2px solid #e5e7eb;
-              border-radius, 8px;
-              padding, 20px;
-              text-align, center;
+              border: 2px solid #e5e7eb;
+              border-radius: 8px;
+              padding: 20px;
+              text-align: center;
               background: #f9fafb;
             }
             
             .metric-value {
-              font-size, 24px;
-              font-weight, bold;
+              font-size: 24px;
+              font-weight: bold;
               color: #2563eb;
-              margin-bottom, 5px;
+              margin-bottom: 5px;
             }
             
             .metric-label {
-              font-size, 14px;
+              font-size: 14px;
               color: #6b7280;
-              font-weight, 500;
+              font-weight: 500;
             }
             
             .progress-bar {
-              width, 100%;
-              height, 20px;
+              width: 100%;
+              height: 20px;
               background-color: #e5e7eb;
-              border-radius, 10px;
-              overflow, hidden;
-              margin, 10px 0;
+              border-radius: 10px;
+              overflow: hidden;
+              margin: 10px 0;
             }
             
             .progress-fill {
-              height, 100%;
-              background, linear-gradient(90deg, #3b82f6, #1d4ed8);
-              transition, width 0.3s ease;
+              height: 100%;
+              background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+              transition: width 0.3s ease;
             }
             
             .gap-item {
               background: #fef2f2;
-              border, 1px solid #fecaca;
-              border-radius, 8px;
-              padding, 15px;
-              margin, 10px 0;
+              border: 1px solid #fecaca;
+              border-radius: 8px;
+              padding: 15px;
+              margin: 10px 0;
             }
             
             .gap-title {
-              font-weight, bold;
+              font-weight: bold;
               color: #dc2626;
-              margin-bottom, 5px;
+              margin-bottom: 5px;
             }
             
             .notes-section {
               background: #f0f9ff;
-              border, 1px solid #bae6fd;
-              border-radius, 8px;
-              padding, 15px;
-              margin, 15px 0;
+              border: 1px solid #bae6fd;
+              border-radius: 8px;
+              padding: 15px;
+              margin: 15px 0;
             }
             
             .notes-title {
-              font-weight, bold;
+              font-weight: bold;
               color: #0369a1;
-              margin-bottom, 8px;
+              margin-bottom: 8px;
             }
             
             .footer {
-              margin-top, 40px;
-              text-align, center;
-              font-size, 12px;
+              margin-top: 40px;
+              text-align: center;
+              font-size: 12px;
               color: #6b7280;
-              border-top, 1px solid #e5e7eb;
-              padding-top, 20px;
+              border-top: 1px solid #e5e7eb;
+              padding-top: 20px;
             }
             
             .no-print { 
-              display, none !important; 
+              display: none !important; 
             }
             
             @media print {
-              body { margin, 0; }
-              .no-print { display, none !important; }
-              .section { page-break-inside, avoid; }
-              .header { page-break-after, avoid; }
+              body { margin: 0; }
+              .no-print { display: none !important; }
+              .section { page-break-inside: avoid; }
+              .header { page-break-after: avoid; }
             }
           </style>
         </head>
@@ -301,21 +301,21 @@ export class ReportService {
             <table>
               <thead>
                 <tr>
-                  <th style="width, 40%;">Section</th>
-                  <th style="width, 15%;">Score</th>
-                  <th style="width, 20%;">Progress</th>
-                  <th style="width, 25%;">Performance Bar</th>
+                  <th style="width: 40%;">Section</th>
+                  <th style="width: 15%;">Score</th>
+                  <th style="width: 20%;">Progress</th>
+                  <th style="width: 25%;">Performance Bar</th>
                 </tr>
               </thead>
               <tbody>
-                ${reportData.sectionScores.map((section, any) => `
+                ${reportData.sectionScores.map((section: any) => `
                   <tr>
                     <td><strong>${section.name}</strong></td>
-                    <td style="text-align, center; font-weight, bold; color: ${section.score >= 75 ? '#059669' , section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score}%</td>
-                    <td style="text-align, center;">${section.answered}/${section.total}</td>
+                    <td style="text-align: center; font-weight: bold; color: ${section.score >= 75 ? '#059669' : section.score >= 50 ? '#d97706' : '#dc2626'};">${section.score}%</td>
+                    <td style="text-align: center;">${section.answered}/${section.total}</td>
                     <td>
                       <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981' , section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
+                        <div class="progress-fill" style="width: ${section.score}%; background: ${section.score >= 75 ? '#10b981' : section.score >= 50 ? '#f59e0b' : '#ef4444'};"></div>
                       </div>
                     </td>
                   </tr>
@@ -357,14 +357,13 @@ export class ReportService {
     `;
   }
 
-  private async generatePDFWithAPI(htmlContent, string, assessment, AssessmentData, framework, Framework), Promise<void> {
   private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework): Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
       suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
-      types, [{
+      types: [{
         description: 'HTML Report',
-        accept: { 'text/html', ['.html'] }
+        accept: { 'text/html': ['.html'] }
       }]
     });
     
@@ -373,7 +372,6 @@ export class ReportService {
     await writable.close();
   }
 
-  private generatePDFWithPrint(htmlContent, string, assessment, AssessmentData, framework, Framework), void {
   private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework): void {
     // Create a new window with enhanced print styles
     const printWindow = window.open('', '_blank', 'width=1200,height=800');
@@ -453,7 +451,7 @@ export class ReportService {
       'Priority'
     ];
     
-    const csvRows = reportData.sectionScores.map((section, any) => [
+    const csvRows = reportData.sectionScores.map((section: any) => [
       section.name,
       section.score.toString(),
       section.answered.toString(),
@@ -500,12 +498,11 @@ export class ReportService {
     );
   }
 
-  private generateReportData(assessment, AssessmentData, framework, Framework), any {
   private generateReportData(assessment: AssessmentData, framework: Framework): any {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
       ? Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25)
-      , 0;
+      : 0;
 
     const sectionScores = framework.sections.map((section) => {
       const sectionQuestions = section.categories.reduce((questions, category) => {
@@ -518,7 +515,7 @@ export class ReportService {
       
       const sectionScore = sectionResponses.length > 0
         ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25)
-        , 0;
+        : 0;
 
       return {
         name: section.name,
@@ -531,14 +528,13 @@ export class ReportService {
     return {
       overallScore,
       sectionScores,
-      totalQuestions, framework.sections.reduce((sum, section) => 
+      totalQuestions: framework.sections.reduce((sum, section) => 
         sum + section.categories.reduce((catSum, category) => 
           catSum + category.questions.length, 0), 0),
-      answeredQuestions, Object.keys(assessment.responses).length
+      answeredQuestions: Object.keys(assessment.responses).length
     };
   }
 
-  private downloadFile(content, string, filename, string, mimeType, string), void {
   private downloadFile(content: string, filename: string, mimeType: string): void {
     try {
       // Add UTF-8 BOM for CSV files to ensure proper character encoding
@@ -559,7 +555,6 @@ export class ReportService {
     }
   }
   
-  private async downloadWithAPI(blob, Blob, filename, string, mimeType, string), Promise<void> {
   private async downloadWithAPI(blob: Blob, filename: string, mimeType: string): Promise<void> {
     try {
       const fileHandle = await (window as any).showSaveFilePicker({
@@ -579,7 +574,6 @@ export class ReportService {
     }
   }
   
-  private downloadWithLink(blob, Blob, filename, string), void {
   private downloadWithLink(blob: Blob, filename: string): void {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -592,18 +586,16 @@ export class ReportService {
     URL.revokeObjectURL(url);
   }
   
-  private getFileTypeDescription(mimeType, string), string {
   private getFileTypeDescription(mimeType: string): string {
     switch (mimeType) {
-      case 'application/json', return 'JSON Data';
-      case 'text/csv', return 'CSV Spreadsheet';
-      case 'text/html', return 'HTML Report';
-      case 'application/pdf', return 'PDF Document';
-      default, return 'File';
+      case 'application/json': return 'JSON Data';
+      case 'text/csv': return 'CSV Spreadsheet';
+      case 'text/html': return 'HTML Report';
+      case 'application/pdf': return 'PDF Document';
+      default: return 'File';
     }
   }
   
-  private getFileExtension(filename, string), string {
   private getFileExtension(filename: string): string {
     const parts = filename.split('.');
     return parts.length > 1 ? `.${parts[parts.length - 1]}` : '';
