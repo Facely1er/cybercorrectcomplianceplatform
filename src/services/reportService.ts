@@ -27,8 +27,8 @@ export class ReportService {
   async exportReport(
     assessment, AssessmentData,
     framework, Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    options: ReportExportOptions
+  ): Promise<void> {
     try {
       switch (options.format) {
         case 'pdf', await this.exportToPDF(assessment, framework, options);

@@ -34,7 +34,7 @@ export { privacyFramework };
 // Helper to get framework by ID
 export const getFramework = (frameworkId?, string) => {
   console.log('getFramework called with ID: ', frameworkId);
-  console.log('Available frameworks:', frameworks.map(f => ({ id, f.id, name, f.name, sectionsCount, f.sections?.length || 0
+  console.log('Available frameworks:', frameworks.map(f => ({ id: f.id, name: f.name, sectionsCount: f.sections?.length || 0
   })));
   
   // Ensure we have a valid fallback framework
