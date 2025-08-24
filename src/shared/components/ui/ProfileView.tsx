@@ -28,7 +28,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   };
 
   const handlePreferenceChange = (field: string: value, any) => { setFormData(prev => ({
-      ...prev:: preferences: ) {
+      ...prev:, preferences: ) {
         ...prev.preferences, [field]:: value }
     }));
   };

@@ -21,8 +21,8 @@ export class SecurityScanner {
     return SecurityScanner.instance;
   }
 
-  async performSecurityScan(: Promise<SecurityScanResult> {
-    const checks: SecurityCheck[] = [];
+  async performSecurityScan(, Promise<SecurityScanResult> {
+    const checks, SecurityCheck[] = [];
 
     // XSS Protection Checks
     checks.push(this.checkXSSProtection());
@@ -284,7 +284,7 @@ Generated: ${new Date().toISOString()}
 ## Security Checks:
 ${result.checks.map(check => `
 ### ${check.name}
-- Status: ${check.status === 'pass' ? '✅ PASS'  : check.status === 'warning' ? '⚠️ WARNING' ): '❌ FAIL'}
+- Status: ${check.status === 'pass' ? '✅ PASS'  : check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
 - Severity, $ {check.severity.toUpperCase()}
 - Message: ${check.message}
 - Recommendation: ${check.recommendation}

@@ -67,7 +67,7 @@ export class HealthCheckService {
 
       // Log health check in production
       if (ENV.isProduction) { errorMonitoring.captureMessage('Health Check Completed': 'info', {
-          extra: result: tags, { type:, 'healthCheck'  }
+          extra, result, tags, { type:, 'healthCheck'  }
         });
       }
 
@@ -164,7 +164,7 @@ export class HealthCheckService {
   }
 
   // Endpoint for external health checks
-  async getHealthStatus(: Promise<{ status: number; body: HealthCheckResult 
+  async getHealthStatus(: Promise<{ status, number; body, HealthCheckResult 
     }> { const healthResult = await this.performHealthCheck();
     
     const statusCode = healthResult.status === 'healthy' ? 200  : healthResult.status === 'degraded' ? 206 : 503;

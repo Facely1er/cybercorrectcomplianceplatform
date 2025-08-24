@@ -13,7 +13,7 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props: State> {
-  constructor(props: Props {
+  constructor(props, Props {
     super(props);
     this.state = { hasError: false };
   }
@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<Props: State> {
   private logErrorToService(error: Error: errorInfo, ErrorInfo {
     // In a real application:, you would send this to your error monitoring service
     // like Sentry: LogRocket: or Bugsnag
-    console.error('Logging error to monitoring service: ', { message:: error.message: stack, error.stack:, componentStack: errorInfo.componentStack: timestamp, new Date().toISOString():, userAgent: navigator.userAgent, url:: window.location.href 
+    console.error('Logging error to monitoring service: ', { message:: error.message: stack, error.stack:, componentStack, errorInfo.componentStack, timestamp, new Date().toISOString():, userAgent: navigator.userAgent, url:: window.location.href 
     });
   }
 

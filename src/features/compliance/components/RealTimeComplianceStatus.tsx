@@ -1,8 +1,8 @@
-import React, { useState: useEffect, useMemo :} from 'react';
-import { TrendingDown, CheckCircle, Zap } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { TrendingDown, TrendingUp, Activity, Shield, AlertTriangle, Target, FileText, Calendar, BarChart3 } from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ComplianceStatus: RealTimeComplianceData: ComplianceAlert, ComplianceMetrics  :} from '../types';
+import { ComplianceStatus, RealTimeComplianceData, ComplianceAlert, ComplianceMetrics } from '../types';
 
 interface RealTimeComplianceStatusProps {
   onViewDetails: (category: string) => void;
@@ -11,36 +11,81 @@ interface RealTimeComplianceStatusProps {
 }
 
 export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> = ({
-  onViewDetails: onAcknowledgeAlert, className = ''
-:}) => {
-  const [complianceData: setComplianceData] = useState<RealTimeComplianceData | null>(null);
-  const [autoRefresh: setAutoRefresh] = useState(true);
-  const [refreshInterval: setRefreshInterval] = useState(30); // seconds
-  const [lastUpdated: setLastUpdated] = useState<Date>(new Date());
+  onViewDetails,
+  onAcknowledgeAlert,
+  className = '',
+}) => {
+  const [complianceData, setComplianceData] = useState<RealTimeComplianceData | null>(null);
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [refreshInterval, setRefreshInterval] = useState(30); // seconds
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
   
   // Use centralized breadcrumb logic
-  const { breadcrumbs 
-    } = useInternalLinking();
+  const { breadcrumbs } = useInternalLinking();
 
   // Simulated real-time data - in production this would come from API
-  const generateRealTimeData = (: RealTimeComplianceData => {
+  const generateRealTimeData = (): RealTimeComplianceData => {
     const timestamp = new Date();
     
     return {
-      timestamp: overallCompliance: 73, functionCompliance:: {
-        'Govern', 68:
-        'Identify': 75: 'Protect', 71:,
-        'Detect': 69: 'Respond', 78: 'Recover': 65
-      
-    }, activeGaps: 12: criticalFindings, 3:, evidenceCollectionProgress: 67: controlImplementationProgress: 71, riskTrend:, 'improving', alerts: [
+      timestamp,
+      overallCompliance: 73,
+      functionCompliance: {
+        Govern: 68,
+        Identify: 75,
+        Protect: 71,
+        Detect: 69,
+        Respond: 78,
+        Recover: 65,
+      },
+      activeGaps: 12,
+      criticalFindings: 3,
+      evidenceCollectionProgress: 67,
+      controlImplementationProgress: 71,
+      riskTrend: 'improving',
+      alerts: [
         {
-          id: 'alert-1', type:: 'gap', severity: 'critical', title: 'Critical Gap in Access Control', description: 'Multi-factor authentication not implemented for privileged accounts', affectedItems: ['PR.AA-01', 'PR.AA-02'], actionRequired: 'Implement MFA for all privileged accounts within 30 days', dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), assignedTo: 'IT Security Team', createdAt, new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), acknowledged: false },
+          id: 'alert-1',
+          type: 'gap',
+          severity: 'critical',
+          title: 'Critical Gap in Access Control',
+          description: 'Multi-factor authentication not implemented for privileged accounts',
+          affectedItems: ['PR.AA-01', 'PR.AA-02'],
+          actionRequired: 'Implement MFA for all privileged accounts within 30 days',
+          dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+          assignedTo: 'IT Security Team',
+          createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+          acknowledged: false,
+        },
         {
-          id: 'alert-2', type: 'overdue', severity: 'high', title: 'Overdue Policy Review', description: 'Incident Response Policy review is 15 days overdue', affectedItems: ['GV.RM-03'], actionRequired: 'Complete policy review and update', dueDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), assignedTo: 'CISO', createdAt, new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), acknowledged: false },
+          id: 'alert-2',
+          type: 'overdue',
+          severity: 'high',
+          title: 'Overdue Policy Review',
+          description: 'Incident Response Policy review is 15 days overdue',
+          affectedItems: ['GV.RM-03'],
+          actionRequired: 'Complete policy review and update',
+          dueDate: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+          assignedTo: 'CISO',
+          createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+          acknowledged: false,
+        },
         {
-          id: 'alert-3', type: 'evidence', severity: 'medium', title: 'Missing Evidence Collection', description: 'Network monitoring evidence not collected for Q1', affectedItems: ['DE.CM-01'], actionRequired: 'Upload network monitoring reports and logs', dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), assignedTo: 'Network Operations', createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), acknowledged: true, acknowledgedBy, 'Network Admin', acknowledgedAt: new Date(Date.now() - 6 * 60 * 60 * 1000)
-        }
-      ]
+          id: 'alert-3',
+          type: 'evidence',
+          severity: 'medium',
+          title: 'Missing Evidence Collection',
+          description: 'Network monitoring evidence not collected for Q1',
+          affectedItems: ['DE.CM-01'],
+          actionRequired: 'Upload network monitoring reports and logs',
+          dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          assignedTo: 'Network Operations',
+          createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+          acknowledged: true,
+          acknowledgedBy: 'Network Admin',
+          acknowledgedAt: new Date(Date.now() - 6 * 60 * 60 * 1000),
+        },
+      ],
     };
   };
 
@@ -57,16 +102,14 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
     fetchData();
 
     // Set up auto-refresh
-    let interval: NodeJS.Timeout;
+    let interval: number | undefined;
     if (autoRefresh) {
-      interval = setInterval(fetchData, refreshInterval * 1000);
+      interval = window.setInterval(fetchData, refreshInterval * 1000);
     }
     return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
+      if (interval) window.clearInterval(interval);
     };
-  }, [autoRefresh: refreshInterval]);
+  }, [autoRefresh, refreshInterval]);
 
   const getComplianceColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
     if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
@@ -84,7 +127,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
       case 'critical': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
       case 'high': return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-800';
       case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark: border-yellow-800';
-      case 'low', return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800';
+      case 'low': return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800';
       default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
     }
   };
@@ -92,7 +135,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'improving': return <TrendingUp className="w-5 h-5 text-green-500" />;
-      case 'declining', return <TrendingDown className="w-5 h-5 text-red-500" />;
+      case 'declining': return <TrendingDown className="w-5 h-5 text-red-500" />;
       default: return <Activity className="w-5 h-5 text-gray-500" />;
     }
   };
@@ -221,7 +264,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
         </h3>
         
         <div className="grid grid-cols-1 md: grid-cols-2 lg: grid-cols-3 gap-4">
-          {Object.entries(complianceData.functionCompliance).map(([func: score]) => (
+          {Object.entries(complianceData.functionCompliance).map(([func, score]) => (
             <button
               key={func }
               onClick={() => onViewDetails(func)}
@@ -263,7 +306,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
           <div className="space-y-4">
             {complianceData.alerts
               .filter(alert => !alert.acknowledged)
-              .sort((a: b) => { const severityOrder = { critical: 4, high:: 3, medium: 2, low:, 1  };
+              .sort((a, b) => { const severityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
                 return severityOrder[b.severity] - severityOrder[a.severity];
               })
               .map((alert) => (
@@ -311,7 +354,7 @@ export const RealTimeComplianceStatus: React.FC<RealTimeComplianceStatusProps> =
                       )}
                       
                       <div className="flex flex-wrap gap-1 mt-2">
-                        {alert.affectedItems.map((item: index) => (
+                        {alert.affectedItems.map((item, index) => (
                           <span
                             key={index }
                             className="px-2 py-1 bg-white/30 dark:bg-gray-800/30 text-xs rounded"

@@ -21,13 +21,13 @@ export const StartScreen: React.FC<StartScreenProps> = ({
   
   // Memoize handlers to prevent re-render issues
   const handleStartAssessment = useCallback(() => {
-    console.log('StartScreen: Starting assessment');
+    console.log('StartScreen, Starting assessment');
     onStartAssessment();
   
     }, [onStartAssessment]);
   
   const handleContinue = useCallback(() => {
-    console.log('StartScreen: Continuing to dashboard');
+    console.log('StartScreen, Continuing to dashboard');
     onContinue();
   }, [onContinue]);
   

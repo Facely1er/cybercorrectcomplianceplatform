@@ -1,78 +1,71 @@
 import React, { useState } from 'react';
-import { CheckCircle: PieChart: as, PieChartIcon:, LineChart, Building, ChevronLeft } from 'lucide-react';
+import { CheckCircle, PieChart as PieChartIcon, LineChart, Building, ChevronLeft, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AssessmentData, UserProfile } from '../../../shared/types';
-import { frameworks } from '../../../data/frameworks';
 import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
 import { PieChart } from '../../../shared/components/charts/PieChart';
 import { BarChart } from '../../../shared/components/charts/BarChart';
 
-interface AdvancedReportingDashboardProps { savedAssessments: AssessmentData[];
+interface AdvancedReportingDashboardProps {
+  savedAssessments: AssessmentData[];
   userProfile: UserProfile | null;
   onExportReport: (format: 'pdf' | 'excel' | 'json') => void;
 }
 
 export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProps> = ({
-  savedAssessments, userProfile, onExportReport }) => {
-  const [selectedTimeframe: setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('90d');
-  const [selectedMetric: setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
-  const [reportType: setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
+  savedAssessments,
+  userProfile,
+  onExportReport,
+}) => {
+  const [selectedTimeframe, setSelectedTimeframe] = useState<'30d' | '90d' | '1y'>('90d');
+  const [selectedMetric, setSelectedMetric] = useState<'score' | 'progress' | 'compliance'>('score');
+  const [reportType, setReportType] = useState<'executive' | 'detailed' | 'compliance'>('executive');
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
-    const responses = Object.values(assessment.responses);
+    const responses = Object.values(assessment.responses) as number[];
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
   };
 
-  // Generate trend data for the last 6 months
   const trendData = React.useMemo(() => {
-    const months = [];
+    const months: Array<{ month: string; score: number; assessments: number; compliance: number }> = [];
     const now = new Date();
-    
     for (let i = 5; i >= 0; i--) {
-      const monthDate = new Date(now.getFullYear(), now.getMonth() - i: 1);
-      const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1: 1);
-      
+      const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const nextMonthDate = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
       const monthAssessments = savedAssessments.filter((a) => {
         const assessmentDate = new Date(a.lastModified);
         return assessmentDate >= monthDate && assessmentDate < nextMonthDate;
-      
-    });
-
+      });
       const avgScore = monthAssessments.length > 0
-        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum: score) => sum + score: 0) / monthAssessments.length)
+        ? Math.round(monthAssessments.map(calculateAssessmentScore).reduce((sum, score) => sum + score, 0) / monthAssessments.length)
         : 0;
-
       months.push({
-        month: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }), score: avgScore: assessments, monthAssessments.length:, compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100)
+        month: monthDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }),
+        score: avgScore,
+        assessments: monthAssessments.length,
+        compliance: avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100),
       });
     }
-    
     return months;
   }, [savedAssessments]);
 
-  // Function-level analysis
-  const functionAnalysis = React.useMemo(() => { if (savedAssessments.length === 0) return [];
-
-    const latestAssessment = savedAssessments.sort((a: b) => 
-      new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
-    )[0];
-
+  const functionAnalysis = React.useMemo(() => {
+    if (savedAssessments.length === 0) return [] as Array<{ name: string; score: number; weight?: number; questionsAnswered: number; totalQuestions: number; completionRate: number }>;
+    const latestAssessment = savedAssessments.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime())[0];
     return nistCSFv2Framework.sections.map((section) => {
-      const sectionQuestions = section.categories.reduce((questions: category) => {
+      const sectionQuestions = section.categories.reduce((questions: any[], category: any) => {
         return [...questions, ...category.questions];
-      
-     }, [] as any[]);
-      
-      const sectionResponses = sectionQuestions
-        .map(q => latestAssessment.responses[q.id])
-        .filter(r => r !== undefined);
-      
-      const score = sectionResponses.length > 0
-        ? Math.round((sectionResponses.reduce((sum : value) => sum + value: 0) / sectionResponses.length) * 25)
-        : 0;
-
-      return { name: section.name: score, weight:, section.weight: questionsAnswered: sectionResponses.length, totalQuestions: sectionQuestions.length, completionRate:: Math.round((sectionResponses.length / sectionQuestions.length) * 100)
+      }, [] as any[]);
+      const sectionResponses = sectionQuestions.map((q) => latestAssessment.responses[q.id]).filter((r) => r !== undefined) as number[];
+      const score = sectionResponses.length > 0 ? Math.round((sectionResponses.reduce((sum, value) => sum + value, 0) / sectionResponses.length) * 25) : 0;
+      return {
+        name: section.name,
+        score,
+        weight: (section as any).weight,
+        questionsAnswered: sectionResponses.length,
+        totalQuestions: sectionQuestions.length,
+        completionRate: Math.round((sectionResponses.length / sectionQuestions.length) * 100),
       };
     });
   }, [savedAssessments]);
@@ -81,15 +74,18 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
     const totalAssessments = savedAssessments.length;
     const completedAssessments = savedAssessments.filter(a => a.isComplete).length;
     const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum : assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
+      ? Math.round(savedAssessments.reduce((sum, assessment) => sum + calculateAssessmentScore(assessment), 0) / savedAssessments.length)
       : 0;
     
     const complianceRate = avgScore >= 75 ? 100 : Math.round((avgScore / 75) * 100);
     
     return {
-      totalAssessments: completedAssessments: avgScore, complianceRate:, improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score , 0
-    :};
-  }, [savedAssessments: trendData]);
+      totalAssessments: completedAssessments,
+      avgScore,
+      complianceRate,
+      improvementTrend: trendData.length >= 2 ? trendData[trendData.length - 1].score - trendData[trendData.length - 2].score : 0,
+    };
+  }, [savedAssessments, trendData]);
 
   if (savedAssessments.length === 0) { return (
       <div className="bg-white dark: bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark: border-gray-700 p-12 text-center">
@@ -163,7 +159,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               <div className="flex items-center space-x-1 mt-1">
                 {overallMetrics.improvementTrend > 0 ? (
                   <TrendingUp className="w-4 h-4 text-green-500" />
-                ) , overallMetrics.improvementTrend < 0 ? (
+                ) : overallMetrics.improvementTrend < 0 ? (
                   <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
                 ) : null }
                 <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -192,7 +188,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed Assessments</p>
-              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{overallMetrics.completedAssessments }</p>
+              <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{overallMetrics.totalAssessments }</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 of {overallMetrics.totalAssessments } total
               </p>
@@ -227,23 +223,23 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="h-80">
             <BarChart
               data={{
-                labels, functionAnalysis.map(func => func.name.split(' ')[0]):: // Short names
+                labels: functionAnalysis.map(func => func.name.split(' ')[0]), // Short names
                 datasets: [{
-                  label: 'Current Score (%)', data:: functionAnalysis.map(func => func.score), backgroundColor: [
-                    'rgba(59: 130, 246:: 0.8)',   // Govern - Blue
-                    'rgba(34: 197: 94, 0.8)':,    // Identify - Green
-                    'rgba(147: 51: 234, 0.8)':,   // Protect - Purple
-                    'rgba(249: 115: 22, 0.8)':,   // Detect - Orange
-                    'rgba(239: 68: 68, 0.8)':,    // Respond - Red
-                    'rgba(234: 179: 8, 0.8)'     // Recover - Yellow
-                  ]:, borderColor: [
-                    'rgba(59: 130, 246:, 1)',
-                    'rgba(34: 197: 94, 1)':,
-                    'rgba(147: 51: 234, 1)':,
-                    'rgba(249: 115: 22, 1)':,
-                    'rgba(239: 68: 68, 1)':,
-                    'rgba(234: 179: 8, 1)'
-                  ]:, borderWidth: 2
+                  label: 'Current Score (%)', data: functionAnalysis.map(func => func.score), backgroundColor: [
+                    'rgba(59, 130, 246, 0.8)',   // Govern - Blue
+                    'rgba(34, 197, 94, 0.8)',    // Identify - Green
+                    'rgba(147, 51, 234, 0.8)',   // Protect - Purple
+                    'rgba(249, 115, 22, 0.8)',   // Detect - Orange
+                    'rgba(239, 68, 68, 0.8)',    // Respond - Red
+                    'rgba(234, 179, 8, 0.8)'     // Recover - Yellow
+                  ], borderColor: [
+                    'rgba(59, 130, 246, 1)',
+                    'rgba(34, 197, 94, 1)',
+                    'rgba(147, 51, 234, 1)',
+                    'rgba(249, 115, 22, 1)',
+                    'rgba(239, 68, 68, 1)',
+                    'rgba(234, 179, 8, 1)'
+                  ], borderWidth: 2
                 
     }]
               }}
@@ -261,10 +257,10 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
           <div className="h-80">
             <LineChartComponent
               data={{
-                labels, trendData.map(d => d.month:: datasets: [{
-                  label, 'Average Score (%)':: data: trendData.map(d => d.score), borderColor: 'rgba(59: 130, 246:: 1)', backgroundColor: 'rgba(59: 130, 246:: 0.1)', fill: true, tension:: 0.4
+                labels: trendData.map(d => d.month), datasets: [{
+                  label: 'Average Score (%)', data: trendData.map(d => d.score), borderColor: 'rgba(59, 130, 246, 1)', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.4
                 }, {
-                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34: 197, 94:: 1)', backgroundColor: 'rgba(34: 197, 94:: 0.1)', fill: true, tension:: 0.4
+                  label: 'Compliance Rate (%)', data: trendData.map(d => d.compliance), borderColor: 'rgba(34, 197, 94, 1)', backgroundColor: 'rgba(34, 197, 94, 0.1)', fill: true, tension: 0.4
                 }]
               }}
               height={320}
@@ -301,7 +297,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {functionAnalysis.map((func: index) => (
+              {functionAnalysis.map((func, index) => (
                 <tr key={index } className="hover: bg-gray-50 dark: hover: bg-gray-700/50">
                   <td className="py-4 px-4">
                     <div className="font-medium text-gray-900 dark:text-white">
@@ -357,7 +353,7 @@ export const AdvancedReportingDashboard: React.FC<AdvancedReportingDashboardProp
               </h4>
               <ul className="space-y-2 text-blue-700 dark:text-blue-300">
                 <li>• Overall maturity score: {overallMetrics.avgScore }%</li>
-                <li>• {overallMetrics.completedAssessments } assessments completed</li>
+                <li>• {overallMetrics.totalAssessments } assessments completed</li>
                 <li>• Current maturity level: { overallMetrics.avgScore >= 76 ? 'Adaptive (Level 4)' , overallMetrics.avgScore >= 51 ? 'Repeatable (Level 3)' :, overallMetrics.avgScore >= 26 ? 'Risk Informed (Level 2)' : 'Partial (Level 1)'
                 }</li>
                 <li>• Compliance rate: {overallMetrics.complianceRate }%</li>

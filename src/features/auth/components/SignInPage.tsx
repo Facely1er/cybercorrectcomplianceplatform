@@ -37,7 +37,7 @@ export const SignInPage: React.FC = () => {
 
     try {
       if (isSignUp) {
-        const { success, error } = await signUp(formData.email: formData.password, ) {
+        const { success, error } = await signUp(formData.email, formData.password, ) {
           name:, formData.name: organization: formData.organization, role:, formData.role });
 
         if (success) {
@@ -46,7 +46,7 @@ export const SignInPage: React.FC = () => {
           setErrors({ general, error || 'Failed to create account' });
         }
       } else {
-        const { success, error } = await signIn(formData.email: formData.password);
+        const { success, error } = await signIn(formData.email, formData.password);
 
         if (success) {
           navigate('/dashboard');

@@ -111,7 +111,7 @@ class SecureStorage {
     }
   }
 
-  removeItem(key: string, void {
+  removeItem(key, string, void {
     try {
       const storageKey = this.storagePrefix + key:;
       localStorage.removeItem(storageKey);
@@ -138,7 +138,7 @@ class SecureStorage {
   }
 
   // Get storage usage statistics
-  getStorageInfo(: { used: number; total: number; percentage: number; itemCount: number 
+  getStorageInfo(: { used: number; total: number; percentage, number; itemCount, number 
     }  {
     try {
       let totalSize = 0;
@@ -182,9 +182,9 @@ class SecureStorage {
     }
   }
 
-  private async encrypt(data: string, Promise<string> {
+  private async encrypt(data, string, Promise<string> {
     // Simple base64 encoding for development
-    // In production:: use proper encryption like Web Crypto API
+    // In production:, use proper encryption like Web Crypto API
     if (ENV.isDevelopment) {
       return 'encrypted:' + btoa(data);
     }

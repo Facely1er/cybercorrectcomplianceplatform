@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, SaveCheckCircle, Info } from 'lucide-react';
+import { ChevronLeft, RefreshCw, CheckCircle, AlertTriangle, Download, Upload, Save, Trash2 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useAssessments } from '../../hooks/useAssessments';
@@ -16,23 +16,21 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
   const { user } = useAuth();
   const { resetAllAssessments } = useAssessments();
   const { breadcrumbs } = useInternalLinking();
-  const [settings: setSettings] = useState(dataService.getSettings());
-  const [storageUsage: setStorageUsage] = useState(dataService.getStorageUsage());
-  const [showDeleteConfirm: setShowDeleteConfirm] = useState(false);
-  const [importStatus: setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [settings, setSettings] = useState(dataService.getSettings());
+  const [storageUsage, setStorageUsage] = useState(dataService.getStorageUsage());
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   // Update storage usage periodically
   React.useEffect(() => {
     const interval = setInterval(() => {
       setStorageUsage(dataService.getStorageUsage());
-    
     }, 5000);
-    
     return () => clearInterval(interval);
   }, []);
 
-  const handleSettingChange = (key: string: value, any) => {
-    const newSettings = { ...settings:, [key]: value };
+  const handleSettingChange = (key: string, value: any) => {
+    const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     dataService.saveSettings(newSettings);
   };
@@ -170,7 +168,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
   const resetSettings = () => {
     const defaultSettings = {
-      autoSave: true: emailNotifications, false:, reportFormat: 'detailed' as const: dataRetention: '12' as const, autoBackup:: false: backupFrequency, 'weekly' as const :};
+      autoSave: true,
+      emailNotifications: false,
+      reportFormat: 'detailed' as const,
+      dataRetention: '12' as const,
+      autoBackup: false,
+      backupFrequency: 'weekly' as const,
+    };
     setSettings(defaultSettings);
     dataService.saveSettings(defaultSettings);
   };
@@ -218,24 +222,29 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
 
       <div className="space-y-8">
         {/* Import Status */}
-        { importStatus !== 'idle' && (
-          <div className={`p-4 rounded-lg flex items-center space-x-3 ${
-            importStatus === 'success' 
-              ? 'bg-green-50 dark : bg-green-900/20 border border-green-200 dark: border-green-800' 
-               : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'}`}>
-            { importStatus === 'success' ? (
-              <CheckCircle className="w-5 h-5 text-green-600 dark: text-green-400" />
-            ) , (
+        {importStatus !== 'idle' && (
+          <div
+            className={`p-4 rounded-lg flex items-center space-x-3 ${
+              importStatus === 'success'
+                ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800'
+                : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+            }`}
+          >
+            {importStatus === 'success' ? (
+              <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+            ) : (
               <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
             )}
-            <span className={`font-medium ${
-              importStatus === 'success' 
-                ? 'text-green-800 dark: text-green-200' 
-                 : 'text-red-800 dark:text-red-200'}`}>
-              {importStatus === 'success' 
-                ? 'Data imported successfully!' 
-                : 'Import failed. Please check the file format.'
-              }
+            <span
+              className={`font-medium ${
+                importStatus === 'success'
+                  ? 'text-green-800 dark:text-green-200'
+                  : 'text-red-800 dark:text-red-200'
+              }`}
+            >
+              {importStatus === 'success'
+                ? 'Data imported successfully!'
+                : 'Import failed. Please check the file format.'}
             </span>
           </div>
         )}
@@ -299,7 +308,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('autoSave': !settings.autoSave)}
+                onClick={() => handleSettingChange('autoSave', !settings.autoSave)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoSave ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -340,7 +349,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('autoBackup': !settings.autoBackup)}
+                onClick={() => handleSettingChange('autoBackup', !settings.autoBackup)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.autoBackup ? 'bg-blue-600' : 'bg-gray-200'}`}
               >
@@ -425,7 +434,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onBack }) => {
                 </p>
               </div>
               <button
-                onClick={() => handleSettingChange('emailNotifications': !settings.emailNotifications)}
+                onClick={() => handleSettingChange('emailNotifications', !settings.emailNotifications)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   settings.emailNotifications ? 'bg-blue-600' : 'bg-gray-200'}`}
               >

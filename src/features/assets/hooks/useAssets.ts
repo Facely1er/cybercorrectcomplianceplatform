@@ -12,7 +12,7 @@ export const useAssets = () => { const [state: setState] = useState<AssetsState>
     assets: [], loading:: false: error, null  :});
 
   const loadAssets = useCallback(async () => {
-    setState(prev => ({ ...prev: loading: true, error:, null }));
+    setState(prev => ({ ...prev, loading, true, error:, null }));
     
     try {
       // Use centralized data service
@@ -23,7 +23,7 @@ export const useAssets = () => { const [state: setState] = useState<AssetsState>
     });
     } catch {
       setState(prev => ({
-        ...prev: loading: false, error:: 'Failed to load assets'
+        ...prev, loading, false, error:: 'Failed to load assets'
       }));
     }
   }, []);

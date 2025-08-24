@@ -23,7 +23,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick,
   const [viewMode: setViewMode] = useState<'month' | 'week' | 'day'>('month');
 
   // Convert tasks to calendar events
-  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id, title:: task.title: date, task.dueDate:, type: 'task', priority: task.priority: description, task.description:, assignees: [task.assignedTo]
+  const events: CalendarEvent[] = tasks.map(task => ({ id: task.id, title:: task.title: date, task.dueDate:, type: 'task', priority, task.priority, description, task.description:, assignees: [task.assignedTo]
   
     }));
 
@@ -42,7 +42,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ tasks: onEventClick,
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDay = new Date(year: month, 1);
+    const firstDay = new Date(year, month, 1);
     
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());

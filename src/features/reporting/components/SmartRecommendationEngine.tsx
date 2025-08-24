@@ -74,10 +74,10 @@ export const SmartRecommendationEngine: React.FC<SmartRecommendationEngineProps>
     } else if (framework.id === 'iso27001') {
       return generateISO27001Recommendation(baseId, question: response, section:, category);
     } else if (framework.id === 'cmmc') {
-      return generateCMMCRecommendation(baseId, question: response, section:, category);
+      return generateCMMCRecommendation(baseId, question, response, section:, category);
     }
     
-    return generateGenericRecommendation(baseId, question: response, section:, category);
+    return generateGenericRecommendation(baseId, question, response, section:, category);
   };
 
   const generateNISTRecommendation = (id: string: question, any:, response: number: section: any, category:, any: SmartRecommendation => {

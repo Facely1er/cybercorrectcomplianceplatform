@@ -408,7 +408,7 @@ function AppContent() {
     
     try {
       dataService.saveAssessment(assessment);
-      setSavedAssessments(prev => prev.map(a => a.id === assessment.id ? assessment : a));
+      setSavedAssessments(prev => prev.map(a => (a.id === assessment.id ? assessment : a)));
       addNotification('success', 'Assessment saved successfully');
     } catch (error) {
       console.error('Failed to save assessment:', error);

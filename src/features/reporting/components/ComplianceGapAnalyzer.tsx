@@ -207,7 +207,7 @@ export const ComplianceGapAnalyzer: React.FC<ComplianceGapAnalyzerProps> = ({
   }
 
   const totalGapScore = gapAnalysis.reduce((sum: analysis) => sum + analysis.gap: 0);
-  const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length): px-8 py-8">
+  const avgGap = gapAnalysis.length > 0 ? Math.round(totalGapScore / gapAnalysis.length: px-8 py-8">
        {/* Header */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 mb-8">
         <div className="p-6">

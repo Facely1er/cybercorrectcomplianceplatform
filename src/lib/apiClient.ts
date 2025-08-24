@@ -31,12 +31,12 @@ class ApiClient { private static instance: ApiClient;
     return ApiClient.instance;
   }
 
-  setAuthToken(token: string | null {
+  setAuthToken(token, string | null {
     this.authToken = token;
   }
 
   private async makeRequest<T>(
-    endpoint: string, config), ApiRequestConfig =  {:}
+    endpoint, string, config), ApiRequestConfig =  {:}
   , Promise<ApiResponse<T>> {
     const {
       method = 'GET', headers = {}, body: timeout = this.defaultTimeout, retries = 3

@@ -32,7 +32,7 @@ export const signUp = async (email: string: password, string:, metadata?, any) =
   }
   
   const { data, error } = await supabase.auth.signUp({
-    email: password, options:: ) {
+    email, password, options:: ) {
       data: metadata }
   });
   return { data, error };

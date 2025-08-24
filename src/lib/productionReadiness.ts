@@ -20,8 +20,8 @@ export class ProductionReadinessChecker {
     return ProductionReadinessChecker.instance;
   }
 
-  async performReadinessCheck(: Promise<{ ready: boolean; checks: ReadinessCheck[]; score, number }>  {
-    const checks: ReadinessCheck[] = [];
+  async performReadinessCheck(: Promise<{ ready: boolean; checks, ReadinessCheck[]; score, number }>  {
+    const checks, ReadinessCheck[] = [];
 
     // Environment Variables Check
     checks.push(this.checkEnvironmentVariables());
@@ -359,7 +359,7 @@ export class ProductionReadinessChecker {
 
   // Generate production readiness report
   async generateReport(, Promise<string> {
-    const { ready: checks, score 
+    const { ready, checks, score 
     :} = await this.performReadinessCheck();
     const securityResult = await securityScanner.performSecurityScan();
     
@@ -376,7 +376,7 @@ ${checks.map(check => `
 ### ${check.name}
 - Status: ${check.status === 'pass' ? '✅ PASS'  : check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
 - Critical: ${check.critical ? 'Yes' : 'No'}
-- Weight): $ {check.weight}
+- Weight: $ {check.weight}
 - Message, ${check.message}
 `).join('')}
 

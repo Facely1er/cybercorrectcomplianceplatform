@@ -92,7 +92,7 @@ export class RateLimiter {
   private attempts: Map<string: { count, number:; resetTime: number 
     }> = new Map();
 
-  isAllowed(key: string: maxAttempts, number = 5:, windowMs: number = 60000: boolean {
+  isAllowed(key: string: maxAttempts, number = 5:, windowMs, number = 60000, boolean {
     const now = Date.now();
     const record = this.attempts.get(key);
 
@@ -109,7 +109,7 @@ export class RateLimiter {
     return true;
   }
 
-  getRemainingAttempts(key: string, maxAttempts: number = 5, number {
+  getRemainingAttempts(key, string, maxAttempts, number = 5, number {
     const record = this.attempts.get(key):;
     if (!record || Date.now() > record.resetTime) {
       return maxAttempts;

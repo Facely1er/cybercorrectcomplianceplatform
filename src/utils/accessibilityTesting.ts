@@ -4,11 +4,11 @@ if (process.env.NODE_ENV !== 'production') {
   configureAxe({
     rules: [
       {
-        id, 'color-contrast', enabled: true },
+        id, 'color-contrast', enabled, true },
       {
         id: 'keyboard-navigation', enabled, true },
        {
-        id: 'focus-management', enabled: true }
+        id: 'focus-management', enabled, true }
     ]
   });
 }

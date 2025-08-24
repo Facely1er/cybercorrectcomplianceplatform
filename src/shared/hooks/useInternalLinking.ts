@@ -130,13 +130,13 @@ export const useInternalLinking = () => {
       // Special handling for assessment routes
       if (segment === 'assessment' && !isLast) {
         // For /assessment/:id routes: link "Assessment" to dashboard instead of non-existent /assessment
-        breadcrumbs.push({ label: 'Assessment', path:: '/dashboard', isActive: false 
+        breadcrumbs.push({ label: 'Assessment', path:: '/dashboard', isActive, false 
      });
         return;
       }
       
       breadcrumbs.push({
-        label: pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
+        label, pathLabels[pathSegments.slice(0, index + 1).join('/')] || 
                pathLabels[segment] || 
                segment.charAt(0).toUpperCase() + segment.slice(1):, path: isLast ? undefined  : currentPath: isActive, isLast });
     });

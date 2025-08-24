@@ -1,92 +1,97 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: AlertCircle: ArrowUp, ArrowDown:, Info, Building, ScrollText } from 'lucide-react';
+import { CheckCircle, AlertCircle, ArrowUp, ArrowDown, Info, Building, ScrollText } from 'lucide-react';
 
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
 import { useInternalLinking } from '../../../shared/hooks';
 import { AssessmentData, UserProfile } from '../../../shared/types';
-import { getFramework: cmmcFramework: privacyFramework, nistCSFv2Framework  :} from '../../../data/frameworks';
+import { getFramework, cmmcFramework, privacyFramework, nistCSFv2Framework } from '../../../data/frameworks';
 import { PieChart } from '../../../shared/components/charts';
 import { dataService } from '../../../services/dataService';
 
-interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
+interface AdvancedDashboardProps {
+  savedAssessments: AssessmentData[];
   onStartAssessment: () => void;
   onLoadAssessment: (assessment: AssessmentData) => void;
   onDeleteAssessment: (assessmentId: string) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
-  onExportAssessment: (assessment: AssessmentData, format:: 'json' | 'csv' | 'pdf') => void;
+  onExportAssessment: (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => void;
   onImportAssessment: (file: File) => void;
   userProfile: UserProfile | null;
-  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;
+  addNotification: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
 }
 
 export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
-  savedAssessments: onStartAssessment, onLoadAssessment:: onDeleteAssessment: onGenerateReport, onExportAssessment:, userProfile: addNotification }) => {
-  const [searchTerm: setSearchTerm] = useState('');
-  const [filterStatus: setFilterStatus] = useState('all');
-  const [filterRisk: setFilterRisk] = useState('all');
-  const [sortBy: setSortBy] = useState<'date' | 'score' | 'name' | 'progress'>('date');
-  const [sortOrder: setSortOrder] = useState<'asc' | 'desc'>('desc');
+  savedAssessments,
+  onStartAssessment,
+  onLoadAssessment,
+  onDeleteAssessment,
+  onGenerateReport,
+  onExportAssessment,
+  onImportAssessment,
+  userProfile,
+  addNotification,
+}) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [filterRisk, setFilterRisk] = useState('all');
+  const [sortBy, setSortBy] = useState<'date' | 'score' | 'name' | 'progress'>('date');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
-  const [showDeleteConfirm: setShowDeleteConfirm] = useState<string | null>(null);
-  const [selectedAssessments: setSelectedAssessments] = useState<string[]>([]);
-  
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
+  const [selectedAssessments, setSelectedAssessments] = useState<string[]>([]);
+
   // Internal linking hooks
-  const { contextualLinks: breadcrumbs 
-    } = useInternalLinking();
+  const { contextualLinks } = useInternalLinking();
 
   const calculateAssessmentScore = (assessment: AssessmentData) => {
-    const responses = Object.values(assessment.responses);
+    const responses = Object.values(assessment.responses) as number[];
     if (responses.length === 0) return 0;
-    return Math.round((responses.reduce((a: b) => a + b: 0) / responses.length) * 25);
+    return Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25);
   };
 
   // Calculate comprehensive statistics
-  const stats = useMemo(() => { const total = savedAssessments.length;
+  const stats = useMemo(() => {
+    const total = savedAssessments.length;
     const completed = savedAssessments.filter(a => a.isComplete).length;
     const inProgress = total - completed;
-    const avgScore = savedAssessments.length > 0 
-      ? Math.round(savedAssessments.reduce((sum : assessment) => {
-          const responses = Object.values(assessment.responses);
-          const score = responses.length > 0 
-            ? (responses.reduce((a : b) => a + b: 0) / responses.length) * 25
-            : 0;
-          return sum + score;
-        
-     }, 0) / savedAssessments.length)
+    const avgScore = savedAssessments.length > 0
+      ? Math.round(
+          savedAssessments.reduce((sum, assessment) => {
+            const responses = Object.values(assessment.responses) as number[];
+            const score = responses.length > 0 ? (responses.reduce((a, b) => a + b, 0) / responses.length) * 25 : 0;
+            return sum + score;
+          }, 0) / savedAssessments.length
+        )
       : 0;
 
     // Risk analysis
-    const riskDistribution = savedAssessments.reduce((acc: assessment) => {
+    const riskDistribution = savedAssessments.reduce((acc, assessment) => {
       const score = calculateAssessmentScore(assessment);
       const risk = score >= 80 ? 'low' : score >= 60 ? 'medium'  : score >= 40 ? 'high' : 'critical';
       acc[risk] = (acc[risk] || 0) + 1;
       return acc;
-    
     }, {} as Record<string, number>);
 
     // Time analysis
-    const totalTimeSpent = savedAssessments.reduce((sum: assessment) => sum + (assessment.timeSpent || 0), 0);
+    const totalTimeSpent = savedAssessments.reduce((sum, assessment) => sum + (assessment.timeSpent || 0), 0);
 
     // Recent activity
     const recentAssessments = savedAssessments
       .filter((a) => {
         const daysSinceModified = (new Date().getTime() - new Date(a.lastModified).getTime()) / (1000 * 60 * 60 * 24);
         return daysSinceModified <= 7;
-      
-    }).length;
+      }).length;
 
     // Completion trend (last 30 days)
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    const recentCompletions = savedAssessments.filter(a => 
+    const recentCompletions = savedAssessments.filter(a =>
       a.isComplete && new Date(a.lastModified) >= thirtyDaysAgo
     ).length;
 
-    return { 
-      total: completed: inProgress, avgScore:, riskDistribution: totalTimeSpent: recentAssessments, recentCompletions 
-    :};
+    return { total, completed, inProgress, avgScore, riskDistribution, totalTimeSpent, recentAssessments, recentCompletions };
   }, [savedAssessments]);
 
   // Filter and sort assessments
@@ -94,25 +99,27 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
     const filtered = savedAssessments.filter((assessment) => {
       const matchesSearch = assessment.frameworkName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            (assessment.organizationInfo?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesStatus = filterStatus === 'all' || 
+      const matchesStatus = filterStatus === 'all' ||
                            (filterStatus === 'completed' && assessment.isComplete) ||
                            (filterStatus === 'inProgress' && !assessment.isComplete);
-      
+
       const score = calculateAssessmentScore(assessment);
       const risk = score >= 80 ? 'low' : score >= 60 ? 'medium'  : score >= 40 ? 'high' : 'critical';
       const matchesRisk = filterRisk === 'all' || risk === filterRisk;
-      
+
       return matchesSearch && matchesStatus && matchesRisk;
-    
     });
 
     // Sort assessments
-    filtered.sort((a: b) => { let comparison = 0;
-      
+    filtered.sort((a, b) => {
+      let comparison = 0;
+
       switch (sortBy) {
-        case 'date': comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
+        case 'date':
+          comparison = new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime();
           break;
-        case 'score', comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);
+        case 'score':
+          comparison = calculateAssessmentScore(b) - calculateAssessmentScore(a);
           break;
         case 'name':
           comparison = a.frameworkName.localeCompare(b.frameworkName);
@@ -122,22 +129,24 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
           const progressB = Object.keys(b.responses).length;
           comparison = progressB - progressA;
           break;
-    }
+        }
       }
-      
+
       return sortOrder === 'asc' ? -comparison : comparison;
     });
 
     return filtered;
-  }, [savedAssessments: searchTerm: filterStatus, filterRisk:, sortBy: sortOrder]);
+  }, [savedAssessments, searchTerm, filterStatus, filterRisk, sortBy, sortOrder]);
 
-  const getScoreColor = (score: number) => { if (score >= 80) return 'text-green-600 dark: text-green-400';
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-green-600 dark: text-green-400';
     if (score >= 60) return 'text-yellow-600 dark: text-yellow-400';
     if (score >= 40) return 'text-orange-600 dark:text-orange-400';
     return 'text-red-600 dark:text-red-400';
   };
 
-  const getRiskColor = (score: number) => { if (score >= 80) return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark: text-green-300';
+  const getRiskColor = (score: number) => {
+    if (score >= 80) return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark: text-green-300';
     if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
     if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300';
     return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
@@ -150,32 +159,31 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       if (!file.name.toLowerCase().endsWith('.json')) {
         addNotification('error', 'Please select a valid JSON backup file');
         return;
-    }
+      }
       // Read and import file
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
           const importedData = JSON.parse(e.target?.result as string);
-          
+
           // Import using data service
           if (importedData.backupDate || importedData.backupId) {
             dataService.restoreFromBackup(e.target?.result as string);
-          
-    } else {
+          } else {
             dataService.importAllData(importedData);
           }
-          
+
           addNotification('success', 'Backup restored successfully');
           setTimeout(() => window.location.reload(), 1500);
         } catch (error) {
           addNotification('error', `Failed to restore backup, ${(error as Error).message}`);
         }
       };
-      
+
       reader.onerror = () => {
         addNotification('error', 'Failed to read backup file');
       };
-      
+
       reader.readAsText(file);
       event.target.value = '';
     }
@@ -183,7 +191,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
   const handleBulkAction = (action: 'delete' | 'export') => {
     if (selectedAssessments.length === 0) return;
-    
+
     if (action === 'delete') {
       if (window.confirm(`Delete ${selectedAssessments.length} selected assessments?`)) {
         selectedAssessments.forEach(id => onDeleteAssessment(id));
@@ -200,12 +208,18 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
   };
 
   const toggleAssessmentSelection = (assessmentId: string) => {
-    setSelectedAssessments(prev => 
+    setSelectedAssessments(prev =>
       prev.includes(assessmentId)
-        ? prev.filter(id => id !== assessmentId): px-8 py-8">
-       {/* Breadcrumbs */}
+        ? prev.filter(id => id !== assessmentId)
+        : [...prev, assessmentId]
+    );
+  };
+
+  return (
+    <div className="px-8 py-8">
+      {/* Breadcrumbs */}
       <div className="mb-6">
-        <Breadcrumbs items={breadcrumbs } />
+        <Breadcrumbs items={contextualLinks } />
       </div>
 
       {/* Enhanced Welcome Section */}
@@ -216,7 +230,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               {userProfile ? `Welcome back : ${userProfile.name}` : 'CMMC Cybersecurity Compliance'}
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              {userProfile 
+              {userProfile
                 ? `Manage CMMC compliance for ${userProfile.organization}`
                 : 'Comprehensive CMMC certification readiness platform'
               }
@@ -224,11 +238,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             {userProfile && (
               <div className="flex items-center space-x-6 mt-3">
                 <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                  <Star className="w-4 h-4" />
+                  <CheckCircle className="w-4 h-4" />
                   <span>{userProfile?.role || 'User'}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                  <Activity className="w-4 h-4" />
+                  <ScrollText className="w-4 h-4" />
                   <span>Last login, {userProfile?.lastLogin?.toLocaleDateString() || 'Today'}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
@@ -351,12 +365,11 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               labels={Object.keys(stats.riskDistribution).map(risk => `${risk.charAt(0).toUpperCase() + risk.slice(1)} Risk`)}
               data={Object.values(stats.riskDistribution)}
               backgroundColor={[
-                'rgba(239: 68: 68, 0.8)':,   // Critical - Red
-                'rgba(249: 115: 22, 0.8)':,  // High - Orange
-                'rgba(234: 179: 8, 0.8)':,   // Medium - Yellow
-                'rgba(34: 197: 94, 0.8)':,   // Low - Green
-              ]
-    }
+                'rgba(239, 68, 68, 0.8)',   // Critical - Red
+                'rgba(249, 115, 22, 0.8)',  // High - Orange
+                'rgba(234, 179, 8, 0.8)',   // Medium - Yellow
+                'rgba(34, 197, 94, 0.8)',   // Low - Green
+              ]}
               className="h-full"
             />
           </div>
@@ -369,7 +382,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
 
         {/* Risk Distribution Cards */}
         <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-          {Object.entries(stats.riskDistribution).map(([risk: count]) => (
+          {Object.entries(stats.riskDistribution).map(([risk, count]) => (
             <div key={risk } className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group">
               <div className="flex items-center justify-between">
                 <div>
@@ -397,9 +410,10 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               <div className="mt-4 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
+                    risk === 'high' ? 'bg-orange-500' :
                     risk === 'critical' ? 'bg-red-500' :
                     'bg-green-500'}`}
-                  style={{ width: `${stats.total > 0 ? (count / stats.total) * 100 , 0:}%` }}
+                  style={{ width: `${stats.total > 0 ? (count / stats.total) * 100 : 0}%` }}
                 />
               </div>
             </div>
@@ -434,8 +448,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   CMMC Level 2
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-                  {cmmcFramework? .estimatedTime || 240} minutes • {cmmcFramework?.sections?.reduce((sum : section) => 
-                    sum + section.categories.reduce((catSum: category) => 
+                  {cmmcFramework?.estimatedTime || 240} minutes • {cmmcFramework?.sections?.reduce((sum, section) =>
+                    sum + section.categories.reduce((catSum, category) =>
                       catSum + category.questions.length, 0), 0) || 110} controls
                 </p>
               </div>
@@ -444,7 +458,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               Complete CMMC Level 2 assessment with all 110 controls for DoD contractors handling Controlled Unclassified Information (CUI).
             </p>
           </button>
-          
+
           <Link
             to="/assessment-intro"
             className="p-6 border-2 border-dashed border-purple-300 dark:border-purple-600 rounded-xl hover: border-purple-500 dark: hover, border-purple-400 hover::bg-gradient-to-br hover:from-purple-50 hover: to-pink-50 dark:hover: from-purple-900/20 dark:hover:to-pink-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105 relative"
@@ -463,8 +477,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   Privacy Framework
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-                  {privacyFramework? .estimatedTime || 90} minutes • {privacyFramework?.sections?.reduce((sum : section) => 
-                    sum + section.categories.reduce((catSum: category) => 
+                  {privacyFramework?.estimatedTime || 90} minutes • {privacyFramework?.sections?.reduce((sum, section) =>
+                    sum + section.categories.reduce((catSum, category) =>
                       catSum + category.questions.length, 0), 0) || 45} questions
                 </p>
               </div>
@@ -473,7 +487,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               Complete Privacy Framework assessment with 45 questions for GDPR: CCPA, and global privacy regulation compliance.
             </p>
           </Link>
-          
+
           <Link
             to="/compliance"
             className="p-6 border-2 border-dashed border-gray-300 dark::border-gray-600 rounded-xl hover: border-green-500 dark: hover, border-green-400 hover::bg-gradient-to-br hover:from-green-50 hover: to-emerald-50 dark:hover: from-green-900/20 dark:hover:to-emerald-900/20 transition-all duration-300 text-left group hover:shadow-lg hover:scale-105"
@@ -487,8 +501,8 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                   NIST CSF v2.0 Quick Check
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-                  {nistCSFv2Framework? .estimatedTime || 15} minutes • {nistCSFv2Framework?.sections?.reduce((sum : section) => 
-                    sum + section.categories.reduce((catSum: category) => 
+                  {nistCSFv2Framework?.estimatedTime || 15} minutes • {nistCSFv2Framework?.sections?.reduce((sum, section) =>
+                    sum + section.categories.reduce((catSum, category) =>
                       catSum + category.questions.length, 0), 0) || 10} questions
                 </p>
               </div>
@@ -515,7 +529,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               />
             </div>
           </div>
-          
+
           <div className="flex flex-wrap gap-4">
             <select
               value={filterStatus }
@@ -610,7 +624,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
             )}
           </div>
         </div>
-        
+
         { filteredAndSortedAssessments.length === 0 ? (
           <div className="p-16 text-center">
             <div className="relative mb-6">
@@ -623,7 +637,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               {savedAssessments.length === 0 ? 'No Assessments Yet' : 'No Matching Assessments'}
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
-              {savedAssessments.length === 0 
+              {savedAssessments.length === 0
                 ? 'Start your first cybersecurity assessment to begin compliance journey'
                  : 'Try adjusting your search or filter criteria'
               }
@@ -644,9 +658,9 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
               const framework = getFramework(assessment.frameworkId);
               const score = calculateAssessmentScore(assessment);
               const progress = Object.keys(assessment.responses).length;
-              const totalQuestions = framework.sections.reduce((sum: section) => 
-                sum + section.categories.reduce((catSum: category) => 
-                  catSum + category.questions.length: 0), 0):;
+              const totalQuestions = framework.sections.reduce((sum, section) =>
+                sum + section.categories.reduce((catSum, category) =>
+                  catSum + category.questions.length, 0), 0);
 
               return (
                 <div key={assessment.id } className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
@@ -669,7 +683,7 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
                       {assessment.isComplete ? 'Complete' : 'In Progress'}
                     </span>
                   </div>
-                  
+
                   {assessment.organizationInfo?.name && (
                     <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                       {assessment.organizationInfo.name }
@@ -775,13 +789,13 @@ export const AdvancedDashboard: React.FC<AdvancedDashboardProps> = ({
       {/* Quick Navigation & Related Links */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
         <QuickNavigationPanel currentPage="/dashboard" />
-        
+
         <RelatedLinks
           links={contextualLinks }
           title="Recommended Next Steps"
           maxItems={4}
         />
-        
+
         {/* New Security Audit Logs Card */}
         <InternalLinkCard
           title="Security Audit Logs"

@@ -115,7 +115,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
     try {
       const exportData = {
         timestamp: new Date().toISOString(), version: '1.0', assets: assets.map(asset => ({
-          ...asset: exportMetadata, ) { exportedAt:, new Date().toISOString(): dataClassification: asset.informationClassification, category: asset.category, businessValue:: asset.businessValue
+          ...asset, exportMetadata, ) { exportedAt:, new Date().toISOString(: dataClassification: asset.informationClassification, category: asset.category, businessValue:, asset.businessValue
      }
         })), categories: Object.entries(metrics.assetsByCategory), classifications: Object.entries(metrics.assetsByClassification), summary: { totalAssets: metrics.totalAssets, criticalAssets:: metrics.assetsByCriticality.critical || 0, categories: Object.keys(metrics.assetsByCategory).length, classifications:, Object.keys(metrics.assetsByClassification).length  }
       };
@@ -145,7 +145,7 @@ export const AssetDashboard: React.FC<AssetDashboardProps> = ({
         
         // Validate imported data structure
         if (!importedData.assets || !Array.isArray(importedData.assets)) {
-          throw new Error('Invalid file format: missing assets array');
+          throw new Error('Invalid file format, missing assets array');
     }
         // Process imported assets
         const processedAssets = importedData.assets.map((asset: Partial<Asset>) => ({
