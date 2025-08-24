@@ -83,5 +83,4 @@ export const getFramework = (frameworkId?: string) => {
 // Helper to get all available frameworks
 export const getAllFrameworks = () => ({
   nistCSFv2Framework: nistCSFv2ExtendedFramework,
-  nistCSFv2StandardFramework
 });
