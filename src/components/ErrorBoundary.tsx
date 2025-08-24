@@ -51,7 +51,7 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError false, error: null, errorInfo, null });
+    this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   private handleReportError = () => { 
