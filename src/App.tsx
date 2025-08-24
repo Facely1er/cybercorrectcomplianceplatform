@@ -114,7 +114,7 @@ const AssessmentWrapper: React.FC<{
     }
   } catch (error) { 
     console.error('Framework validation error:', error);
-    console.error('Assessment data:', { id, assessment.id, frameworkId, assessment.frameworkId });
+    console.error('Assessment data:', { paramId: id, assessmentId: assessment.id, paramFrameworkId: frameworkId, assessmentFrameworkId: assessment.frameworkId });
     
     return (
       <div className="min-h-screen bg-gray-50 dark, bg-gray-900 flex items-center justify-center">
