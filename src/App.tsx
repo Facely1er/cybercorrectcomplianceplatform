@@ -946,6 +946,7 @@ function AppContent() {
         notifications={notifications}
         onRemove={removeNotification}
       />
+      <Analytics />
     </div>
   );
 }
@@ -955,3 +956,5 @@ function App() {
     <ThemeProvider>
       <AppContent />
     </ThemeProvider>
+  );
+}
