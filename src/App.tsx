@@ -762,6 +762,7 @@ function AppContent() {
                         includeNextSteps: true,
                         branding: {
                           organizationName: assessment.organizationInfo?.name || 'Organization'
+                        }
                     });
                     addNotification('success', 'Report exported as ' + format.toUpperCase());
                   } catch (error) {
