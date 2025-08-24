@@ -68,11 +68,18 @@ const LandingPage: React.FC = () => {
 
 // Simple Dashboard
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleStartAssessment = () => {
+    console.log('Start Assessment clicked');
+    navigate('/assessment-intro');
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-    console.log('Start Assessment clicked - navigating to assessment intro');
-    navigate('/assessment-intro');
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          Cybersecurity Compliance Dashboard
         </h1>
         <p className="text-gray-600 dark:text-gray-300">
           Manage your cybersecurity assessments and compliance progress
@@ -118,7 +125,10 @@ const Dashboard: React.FC = () => {
         <p className="text-gray-600 dark:text-gray-300 mb-6">
           Begin your cybersecurity compliance journey with our guided assessment tools
         </p>
-        <button className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors">
+        <button 
+          onClick={handleStartAssessment}
+          className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors"
+        >
           Start Assessment
         </button>
       </div>
@@ -128,15 +138,17 @@ const Dashboard: React.FC = () => {
 
 // Simple About Page
 const AboutPage: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8">
         <button
-          onClick={() => window.history.back()}
-          className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 mb-6"
+          onClick={() => navigate('/')}
+          className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 mb-6 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
-          <span>Back</span>
+          <span>Back to Home</span>
         </button>
         
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
@@ -187,6 +199,8 @@ const AboutPage: React.FC = () => {
 
 // Simple Coming Soon Component
 const ComingSoon: React.FC<{ title: string; description: string }> = ({ title, description }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
@@ -195,13 +209,13 @@ const ComingSoon: React.FC<{ title: string; description: string }> = ({ title, d
         </div>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{title}</h2>
         <p className="text-gray-600 dark:text-gray-300 mb-6">{description}</p>
-        <Link
-          to="/dashboard"
+        <button
+          onClick={() => navigate('/dashboard')}
           className="inline-flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>Back to Dashboard</span>
-        </Link>
+        </button>
       </div>
     </div>
   );
@@ -210,9 +224,16 @@ const ComingSoon: React.FC<{ title: string; description: string }> = ({ title, d
 // Main App Component
 function AppContent() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isActivePath = (path: string) => location.pathname === path;
+
+  const handleNavClick = (path: string) => {
+    console.log(`Navigation clicked: ${path}`);
+    setMobileMenuOpen(false);
+    navigate(path);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -277,27 +298,24 @@ function AppContent() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
           <nav className="px-4 py-2 space-y-1">
-            <Link 
-              to="/" 
-              className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" 
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              onClick={() => handleNavClick('/')}
+              className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
             >
               Home
-            </Link>
-            <Link 
-              to="/dashboard" 
-              className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" 
-              onClick={() => setMobileMenuOpen(false)}
+            </button>
+            <button
+              onClick={() => handleNavClick('/dashboard')}
+              className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
             >
               Dashboard
-            </Link>
-            <Link 
-              to="/about" 
-              className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg" 
-              onClick={() => setMobileMenuOpen(false)}
+            </button>
+            <button
+              onClick={() => handleNavClick('/about')}
+              className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
             >
               About
-            </Link>
+            </button>
           </nav>
         </div>
       )}
@@ -306,110 +324,43 @@ function AppContent() {
       <main>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/dashboard" element={
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                  Cybersecurity Compliance Dashboard
-                </h1>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Manage your cybersecurity assessments and compliance progress
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Assessments</p>
-                      <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">0</p>
-                    </div>
-                    <Target className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                  </div>
-                </div>
-
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
-                      <p className="text-3xl font-bold text-green-600 dark:text-green-400">0</p>
-                    </div>
-                    <BarChart3 className="w-8 h-8 text-green-600 dark:text-green-400" />
-                  </div>
-                </div>
-
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</p>
-                      <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">0</p>
-                    </div>
-                    <Shield className="w-8 h-8 text-orange-600 dark:text-orange-400" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  Start Your First Assessment
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  Begin your cybersecurity compliance journey with our guided assessment tools
-                </p>
-                <button className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors">
-                  Start Assessment
-                </button>
-              </div>
-            </div>
-          } />
-          
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<AboutPage />} />
           
-          {/* Simple placeholders for other routes */}
+          {/* Placeholder routes that will show coming soon */}
           <Route path="/assessment-intro" element={
             <ComingSoon title="Assessment Setup" description="Framework selection and assessment configuration coming soon" />
           } />
-          
           <Route path="/compliance/*" element={
             <ComingSoon title="Compliance Status" description="Real-time compliance monitoring features coming soon" />
           } />
-          
           <Route path="/evidence" element={
             <ComingSoon title="Evidence Collection" description="Evidence management features coming soon" />
           } />
-          
           <Route path="/assets" element={
             <ComingSoon title="Asset Management" description="Asset inventory and management features coming soon" />
           } />
-          
           <Route path="/team" element={
             <ComingSoon title="Team Collaboration" description="Team management features coming soon" />
           } />
-          
           <Route path="/reports" element={
             <ComingSoon title="Advanced Reports" description="Advanced reporting features coming soon" />
           } />
-          
           <Route path="/calendar" element={
             <ComingSoon title="Activity Calendar" description="Calendar features coming soon" />
           } />
-          
           <Route path="/tasks" element={
             <ComingSoon title="Task Management" description="Task management features coming soon" />
           } />
-          
           <Route path="/policies" element={
             <ComingSoon title="Policy Management" description="Policy management features coming soon" />
           } />
-          
           <Route path="/controls" element={
             <ComingSoon title="Controls Management" description="Security controls management coming soon" />
           } />
-          
           <Route path="/settings" element={
             <ComingSoon title="Settings" description="Application settings coming soon" />
           } />
-          
           <Route path="/help" element={
             <ComingSoon title="Help & Support" description="Help documentation coming soon" />
           } />
