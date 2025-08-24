@@ -349,17 +349,17 @@ function AppContent() {
   ];
 
   // Simple notification handlers
-  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message, string) => { 
-    const notification, NotificationMessage = {
-      id, Date.now().toString(),
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => { 
+    const notification: NotificationMessage = {
+      id: Date.now().toString(),
       type,
       message,
-      timestamp, new Date()
+      timestamp: new Date()
     };
     setNotifications(prev => [...prev, notification]);
   };
 
-  const removeNotification = (id, string) => {
+  const removeNotification = (id: string) => {
     setNotifications(prev => prev.filter(n => n.id !== id));
   };
 
