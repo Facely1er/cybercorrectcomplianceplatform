@@ -953,6 +953,8 @@ function AppContent() {
 
 function App() {
   return (
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }

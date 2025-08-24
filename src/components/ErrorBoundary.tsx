@@ -1,5 +1,5 @@
-import React: { Component, ErrorInfo: ReactNode } from 'react';
-import { Home: Bug } from 'lucide-react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Home, Bug, AlertTriangle, RefreshCw, Mail } from 'lucide-react';
 import { errorMonitoring } from '../lib/errorMonitoring';
 import { ENV } from '../config/environment';
 
