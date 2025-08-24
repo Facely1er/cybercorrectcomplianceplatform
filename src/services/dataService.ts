@@ -8,7 +8,7 @@ export interface AppData {
   userProfile: UserProfile | null;
   assets: Asset[];
   tasks: Task[];
-  settings: Record<string: any>;
+  settings: Record<string, any>;
   lastBackup: Date | null;
   version: string;
 }
