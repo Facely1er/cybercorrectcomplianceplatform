@@ -51,6 +51,8 @@ const AssessmentWrapper: React.FC<{
   onSave: (assessment: AssessmentData) => void;
   onGenerateReport: (assessment: AssessmentData) => void;
   onBack: () => void;
+}> = ({ savedAssessments, onSave, onGenerateReport, onBack }) => {
+  const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
   if (!assessment) { 
@@ -154,12 +156,12 @@ const AssessmentWrapper: React.FC<{
 };
 
 // Report Wrapper Component  
-const ReportWrapper, React.FC<{ 
-  savedAssessments, AssessmentData[];
+const ReportWrapper: React.FC<{ 
+  savedAssessments: AssessmentData[];
   onBack: () => void;
-  onExport: (assessment, AssessmentData, format, string) => void;
+  onExport: (assessment: AssessmentData, format: string) => void;
 }> = ({ savedAssessments, onBack, onExport }) => {
-  const { id } = useParams<{ id, string }>();
+  const { id } = useParams<{ id: string }>();
   const assessment = savedAssessments.find(a => a.id === id);
   
   if (!assessment) { 
@@ -190,18 +192,18 @@ const ReportWrapper, React.FC<{
 
 // Dropdown Navigation Component
 interface DropdownNavItemProps { 
-  label, string;
-  icon, React.ComponentType<any>;
-  items, Array<{ 
-    label, string;
-    href, string;
-    icon, React.ComponentType<any>;
-    description?, string;
+  label: string;
+  icon: React.ComponentType<any>;
+  items: Array<{ 
+    label: string;
+    href: string;
+    icon: React.ComponentType<any>;
+    description?: string;
   }>;
-  currentPath, string;
+  currentPath: string;
 }
 
-const DropdownNavItem, React.FC<DropdownNavItemProps> = ({ label, icon, Icon, items, currentPath }) => {
+const DropdownNavItem: React.FC<DropdownNavItemProps> = ({ label, icon: Icon, items, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const isActive = items.some(item => currentPath === item.href);
