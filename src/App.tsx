@@ -6,15 +6,9 @@ import { useTheme } from './shared/contexts/ThemeContext';
 // Simple Theme Toggle Component
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
-  
-  const handleThemeToggle = () => {
-    console.log('ThemeToggle button clicked');
-    toggleTheme();
-  };
-  
   return (
     <button
-      onClick={handleThemeToggle}
+      onClick={toggleTheme}
       className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
       aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
     >
@@ -26,6 +20,16 @@ const ThemeToggle: React.FC = () => {
 // Simple Landing Page
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
+  
+  const handleGetStarted = () => {
+    console.log('Get Started clicked - navigating to dashboard');
+    navigate('/dashboard');
+  };
+
+  const handleLearnMore = () => {
+    console.log('Learn More clicked - navigating to about');
+    navigate('/about');
+  };
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
@@ -48,14 +52,14 @@ const LandingPage: React.FC = () => {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={() => navigate('/dashboard')}
+            onClick={handleGetStarted}
             className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
           >
             <Play className="w-5 h-5" />
             <span>Get Started</span>
           </button>
           <button
-            onClick={() => navigate('/about')}
+            onClick={handleLearnMore}
             className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
           >
             Learn More
@@ -71,7 +75,7 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
   const handleStartAssessment = () => {
-    console.log('Start Assessment clicked');
+    console.log('Start Assessment clicked - navigating to assessment intro');
     navigate('/assessment-intro');
   };
 
@@ -326,46 +330,9 @@ function AppContent() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<AboutPage />} />
-          
-          {/* Placeholder routes that will show coming soon */}
           <Route path="/assessment-intro" element={
             <ComingSoon title="Assessment Setup" description="Framework selection and assessment configuration coming soon" />
           } />
-          <Route path="/compliance/*" element={
-            <ComingSoon title="Compliance Status" description="Real-time compliance monitoring features coming soon" />
-          } />
-          <Route path="/evidence" element={
-            <ComingSoon title="Evidence Collection" description="Evidence management features coming soon" />
-          } />
-          <Route path="/assets" element={
-            <ComingSoon title="Asset Management" description="Asset inventory and management features coming soon" />
-          } />
-          <Route path="/team" element={
-            <ComingSoon title="Team Collaboration" description="Team management features coming soon" />
-          } />
-          <Route path="/reports" element={
-            <ComingSoon title="Advanced Reports" description="Advanced reporting features coming soon" />
-          } />
-          <Route path="/calendar" element={
-            <ComingSoon title="Activity Calendar" description="Calendar features coming soon" />
-          } />
-          <Route path="/tasks" element={
-            <ComingSoon title="Task Management" description="Task management features coming soon" />
-          } />
-          <Route path="/policies" element={
-            <ComingSoon title="Policy Management" description="Policy management features coming soon" />
-          } />
-          <Route path="/controls" element={
-            <ComingSoon title="Controls Management" description="Security controls management coming soon" />
-          } />
-          <Route path="/settings" element={
-            <ComingSoon title="Settings" description="Application settings coming soon" />
-          } />
-          <Route path="/help" element={
-            <ComingSoon title="Help & Support" description="Help documentation coming soon" />
-          } />
-          
-          {/* Fallback route */}
           <Route path="*" element={
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
