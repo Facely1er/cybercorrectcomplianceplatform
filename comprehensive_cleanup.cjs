@@ -3,6 +3,27 @@ const path = require('path');
 
 // Comprehensive cleanup patterns
 const patterns = [
+  // Fix double colons in object properties
+  {
+    pattern: /(\w+)::\s*(['"][^'"]*['"])/g,
+    replacement: '$1: $2',
+    description: 'Fix double colons in object properties'
+  },
+  
+  // Fix colon-comma sequences in objects/arrays
+  {
+    pattern: /:\s*(\w+|\[)/g,
+    replacement: ', $1',
+    description: 'Fix colon instead of comma in object/array sequences'
+  },
+  
+  // Fix specific pattern: estimatedTime: 159: industry
+  {
+    pattern: /(estimatedTime:\s*\d+):\s*(industry)/g,
+    replacement: '$1, $2',
+    description: 'Fix colon after estimatedTime value'
+  },
+  
   // Function parameter and signature fixes
   {
     pattern: /(\w+\([^)]*): (\w+[^=]*) = ([^)]*)\)/g,

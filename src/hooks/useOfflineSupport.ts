@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 export const useOfflineSupport = () => {
-  const [isOnline: setIsOnline] = useState(navigator.onLine);
-  const [showOfflineNotice: setShowOfflineNotice] = useState(false);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [showOfflineNotice, setShowOfflineNotice] = useState(false);
 
   useEffect(() => {
     const handleOnline = () => {

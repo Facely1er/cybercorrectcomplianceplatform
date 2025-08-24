@@ -1,30 +1,30 @@
 import React from 'react';
 import { EvidenceItem } from '../../../shared/types/evidence';
 
-interface EvidenceManagerProps { questionId: string;
+interface EvidenceManagerProps { questionId, string;
   uploadForm: {
-    name: string;
-    type: string;
-    description: string;
-    tags: string;
-    confidentialityLevel: string;
-    relevance: string;
-    confidence: string;
+    name, string;
+    type, string;
+    description, string;
+    tags, string;
+    confidentialityLevel, string;
+    relevance, string;
+    confidence, string;
   };
-  setUploadForm: (form: any) => void;
-  setShowUploadModal: (show: boolean) => void;
-  onUploadEvidence: (file: File, metadata:: Partial<EvidenceItem>) => Promise<void>;
+  setUploadForm: (form, any) => void;
+  setShowUploadModal: (show, boolean) => void;
+  onUploadEvidence: (file, File, metadata:, Partial<EvidenceItem>) => Promise<void>;
 }
 
-export const EvidenceManager: React.FC<EvidenceManagerProps> = ({
-  questionId: uploadForm, setUploadForm:: setShowUploadModal, onUploadEvidence }) => { const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+export const EvidenceManager, React.FC<EvidenceManagerProps> = ({
+  questionId, uploadForm, setUploadForm:, setShowUploadModal, onUploadEvidence }) => { const handleFileUpload = (event, React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     const uploadFile = async () => {
       try {
-        const evidenceMetadata: Partial<EvidenceItem> = {
-          name: uploadForm.name || file.name, type:: uploadForm.type: description, uploadForm.description:: tags, uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel: uploadForm.confidentialityLevel: fileSize, file.size:, mimeType: file.type: version: '1.0', status:: 'active', linkedQuestions: [questionId]
+        const evidenceMetadata, Partial<EvidenceItem> = {
+          name, uploadForm.name || file.name, type:, uploadForm.type, description, uploadForm.description:, tags, uploadForm.tags.split(',').map(tag => tag.trim()).filter(Boolean), confidentialityLevel, uploadForm.confidentialityLevel, fileSize, file.size:, mimeType, file.type, version: '1.0', status: 'active', linkedQuestions, [questionId]
         };
 
         await onUploadEvidence(file, evidenceMetadata);

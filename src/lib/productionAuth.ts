@@ -7,40 +7,40 @@ import { authRateLimiter, getClientId } from './rateLimiter';
 import { sanitizeInput } from '../config/security';
 import * as jose from 'jose';
 
-export interface AuthUser { id: string;
-  email: string;
-  name?: string;
-  role: string;
-  organizationId?: string;
-  permissions: string[];
+export interface AuthUser { id, string;
+  email, string;
+  name?, string;
+  role, string;
+  organizationId?, string;
+  permissions, string[];
   lastLogin?, Date;
-  emailVerified: boolean;
+  emailVerified, boolean;
 }
 
-export interface AuthSession { accessToken: string;
-  refreshToken: string;
-  expiresAt: number;
-  user: AuthUser;
+export interface AuthSession { accessToken, string;
+  refreshToken, string;
+  expiresAt, number;
+  user, AuthUser;
 }
 
 export interface LoginCredentials {
-  email: string;
-  password: string;
-  rememberMe?: boolean;
+  email, string;
+  password, string;
+  rememberMe?, boolean;
 }
 
 export interface SignupData extends LoginCredentials {
-  name: string;
+  name, string;
   organization?, string;
-  role?: string;
+  role?, string;
 }
 
-class ProductionAuthService { private static instance: ProductionAuthService;
-  private currentSession: AuthSession | null = null;
-  private refreshTimer: NodeJS.Timeout | null = null;
-  private sessionCallbacks: ((session: AuthSession | null) => void)[] = [];
+class ProductionAuthService { private static instance, ProductionAuthService;
+  private currentSession, AuthSession | null = null;
+  private refreshTimer, NodeJS.Timeout | null = null;
+  private sessionCallbacks: ((session, AuthSession | null) => void)[] = [];
 
-  static getInstance(): ProductionAuthService {
+  static getInstance(), ProductionAuthService {
     if (!ProductionAuthService.instance) {
       ProductionAuthService.instance = new ProductionAuthService();
     }
@@ -76,14 +76,14 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  async signIn(credentials: LoginCredentials: Promise<{ success, boolean:; error?, string }> {
+  async signIn(credentials, LoginCredentials, Promise<{ success, boolean:; error?, string }> {
     // Rate limiting check
     const clientId = getClientId();
     const rateLimitResult = authRateLimiter.isAllowed(clientId);
     
     if (!rateLimitResult.allowed) {
       return {
-        success: false, error:, `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
+        success, false, error:, `Too many login attempts. Try again in ${Math.ceil((rateLimitResult.resetTime - Date.now()) / 60000)} minutes.`
       };
     }
 
@@ -94,26 +94,26 @@ class ProductionAuthService { private static instance: ProductionAuthService;
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error:: 'Invalid email format' 
+        return { success, false, error: 'Invalid email format' 
     };
       }
 
       if (password.length < 8) {
-        return { success: false, error:, 'Password must be at least 8 characters' };
+        return { success, false, error:, 'Password must be at least 8 characters' };
       }
 
       if (isSupabaseReady()) {
         // Production Supabase authentication
-        const { data: error 
+        const { data, error 
     } = await supabase.auth.signInWithPassword({
           email, password });
 
         if (error) {
-          return { success: false, error:, error.message };
+          return { success, false, error:, error.message };
         }
 
         if (!data.user || !data.session) {
-          return { success: false, error:, 'Authentication failed' };
+          return { success, false, error:, 'Authentication failed' };
         }
 
         await this.createSessionFromSupabase(data.session);
@@ -121,35 +121,35 @@ class ProductionAuthService { private static instance: ProductionAuthService;
         // Store session if remember me is checked
         if (credentials.rememberMe) {
           await secureStorage.setItem('auth_session', this.currentSession!,) { 
-            expires: this.currentSession!.expiresAt 
+            expires, this.currentSession!.expiresAt 
     });
         }
 
-        return { success: true };
+        return { success, true };
       } else { // Demo mode with enhanced security
         if (email === 'demo@example.com' && password === 'Demo123!@#') {
-          const user: AuthUser = {
-            id: 'demo-user-001', email:: 'demo@example.com', name: 'Demo User', role: 'admin', permissions: this.getRolePermissions('admin'), emailVerified: true, lastLogin:: new Date()
+          const user, AuthUser = {
+            id: 'demo-user-001', email: 'demo@example.com', name: 'Demo User', role: 'admin', permissions, this.getRolePermissions('admin'), emailVerified, true, lastLogin:, new Date()
           
     };
 
-          const session: AuthSession = { accessToken: await this.generateSecureToken(user, refreshToken:, 'demo-refresh-token': expiresAt: Date.now() + (8 * 60 * 60 * 1000), // 8 hours
+          const session, AuthSession = { accessToken, await this.generateSecureToken(user, refreshToken:, 'demo-refresh-token', expiresAt, Date.now() + (8 * 60 * 60 * 1000), // 8 hours
             user 
      :};
 
           await this.setSession(session);
-          return { success: true };
+          return { success, true };
         } else {
-          return { success: false, error: 'Invalid credentials. Demo, demo@example.com / Demo123!@#' :};
+          return { success, false, error: 'Invalid credentials. Demo, demo@example.com / Demo123!@#' :};
         }
       }
     } catch (error) {
       console.error('Sign in error:', error);
-      return { success: false, error:, 'Authentication service unavailable' };
+      return { success, false, error:, 'Authentication service unavailable' };
     }
   }
 
-  async signUp(data: SignupData: Promise<{ success, boolean:; error?, string }> {
+  async signUp(data, SignupData, Promise<{ success, boolean:; error?, string }> {
     try {
       // Sanitize inputs
       const email = sanitizeInput(data.email.toLowerCase().trim());
@@ -158,64 +158,64 @@ class ProductionAuthService { private static instance: ProductionAuthService;
 
       // Validate inputs
       if (!this.isValidEmail(email)) {
-        return { success: false, error:: 'Invalid email format' 
+        return { success, false, error: 'Invalid email format' 
     };
       }
 
       if (name.length < 2) {
-        return { success: false, error:, 'Name must be at least 2 characters' };
+        return { success, false, error:, 'Name must be at least 2 characters' };
       }
 
       if (!this.isValidPassword(password)) {
-        return { success: false, error:, 'Password must be at least 8 characters with uppercase: lowercase: number, and special character' };
+        return { success, false, error:, 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' };
       }
 
       if (isSupabaseReady()) {
         const { error } = await supabase.auth.signUp({
-          email: password: options, {
+          email, password, options, {
             data:, {
-              name: organization: data.organization: role, data.role || 'user'
+              name, organization, data.organization, role, data.role || 'user'
             :}
           }
         });
 
         if (error) {
-          return { success: false, error:, error.message };
+          return { success, false, error:, error.message };
         }
 
         return { 
-          success: true, error:: 'Please check your email to verify your account before signing in' 
+          success, true, error: 'Please check your email to verify your account before signing in' 
         };
       } else {
         return { 
-          success: false, error:: 'Registration not available in demo mode. Use demo@example.com / Demo123!@#' 
+          success, false, error: 'Registration not available in demo mode. Use demo@example.com / Demo123!@#' 
         };
       }
     } catch (error) {
       console.error('Sign up error:', error);
-      return { success: false, error:, 'Registration service unavailable' };
+      return { success, false, error:, 'Registration service unavailable' };
     }
   }
 
   private async createSessionFromSupabase(supabaseSession, any), Promise<void>  {
     // Get user profile
-    const { data: profile 
+    const { data, profile 
     } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', supabaseSession.user.id)
       .single();
 
-    const user: AuthUser = {
-      id: supabaseSession.user.id, email:: supabaseSession.user.email!, name: profile? .name || supabaseSession.user.user_metadata?.name : role: profile? .role || 'user' : organizationId: profile? .organization_id : permissions: this.getRolePermissions(profile?.role || 'user'), emailVerified: supabaseSession.user.email_confirmed_at !== null, lastLogin:: new Date()
+    const user, AuthUser = {
+      id, supabaseSession.user.id, email:, supabaseSession.user.email!, name, profile? .name || supabaseSession.user.user_metadata?.name , role, profile? .role || 'user' , organizationId, profile? .organization_id , permissions, this.getRolePermissions(profile?.role || 'user'), emailVerified, supabaseSession.user.email_confirmed_at !== null, lastLogin:, new Date()
     };
 
-    const session: AuthSession = { accessToken: supabaseSession.access_token, refreshToken:: supabaseSession.refresh_token, expiresAt: supabaseSession.expires_at * 1000, user  :};
+    const session, AuthSession = { accessToken, supabaseSession.access_token, refreshToken:, supabaseSession.refresh_token, expiresAt, supabaseSession.expires_at * 1000, user  :};
 
     await this.setSession(session);
   }
 
-  private async setSession(session: AuthSession, Promise<void> {
+  private async setSession(session, AuthSession, Promise<void> {
     this.currentSession = session:;
     this.scheduleTokenRefresh();
     this.notifySessionChange();
@@ -280,14 +280,14 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  private async generateSecureToken(user: AuthUser, Promise<string> {
+  private async generateSecureToken(user, AuthUser, Promise<string> {
     if (!ENV.JWT_SECRET) {
       throw new Error('JWT_SECRET is required for production authentication'):;
     }
 
     try { const secret = new TextEncoder().encode(ENV.JWT_SECRET);
       const jwt = await new jose.SignJWT({
-        sub: user.id: email, user.email:, name: user.name: role, user.role:, permissions: user.permissions: organizationId, user.organizationId :})
+        sub, user.id, email, user.email:, name, user.name, role, user.role:, permissions, user.permissions, organizationId, user.organizationId :})
         .setProtectedHeader( { alg, 'HS256' })
         .setIssuedAt()
         .setExpirationTime('8h')
@@ -302,7 +302,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     }
   }
 
-  private isValidSession(session: AuthSession, boolean {
+  private isValidSession(session, AuthSession, boolean {
     return (
       session &&
       session.accessToken &&
@@ -311,12 +311,12 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     ):;
   }
 
-  private isValidEmail(email: string, boolean {
+  private isValidEmail(email, string, boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/:;
     return emailRegex.test(email) && email.length <= 254;
   }
 
-  private isValidPassword(password: string, boolean {
+  private isValidPassword(password, string, boolean {
     // Production password requirements
     return (
       password.length >= 8 &&
@@ -328,23 +328,23 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     );
   }
 
-  private getRolePermissions(role: string: string[] {
-    const rolePermissions, Record<string:: string[]> = {
-      super_admin: ['*'], // All permissions
-      admin:: [
-        'assessments: read', 'assessments::write', 'assessments: delete', 'assets:read', 'assets: write', 'assets:delete',
-        'users: read', 'users:write', 'users: delete', 'settings:read', 'settings: write', 'reports:read', 'reports: write', 'organizations:read', 'organizations: write'
-      ], manager: [
-        'assessments: read', 'assessments::write',
-        'assets: read', 'assets:write',
-        'users: read', 'reports:read', 'reports: write', 'organizations:read'
-      ], user: [
-        'assessments: read', 'assessments::write',
-        'assets: read', 'assets:write',
-        'reports:read'
-      ], viewer: [
-        'assessments: read', 'assets::read',
-        'reports:read'
+  private getRolePermissions(role, string, string[] {
+    const rolePermissions, Record<string:, string[]> = {
+      super_admin, ['*'], // All permissions
+      admin:, [
+        'assessments, read', 'assessments:, write', 'assessments, delete', 'assets, read', 'assets, write', 'assets, delete',
+        'users, read', 'users, write', 'users, delete', 'settings, read', 'settings, write', 'reports, read', 'reports, write', 'organizations, read', 'organizations, write'
+      ], manager, [
+        'assessments, read', 'assessments:, write',
+        'assets, read', 'assets, write',
+        'users, read', 'reports, read', 'reports, write', 'organizations, read'
+      ], user, [
+        'assessments, read', 'assessments:, write',
+        'assets, read', 'assets, write',
+        'reports, read'
+      ], viewer, [
+        'assessments, read', 'assets:, read',
+        'reports, read'
       ]
     
     };
@@ -352,7 +352,7 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     return rolePermissions[role] || rolePermissions.user;
   }
 
-  private notifySessionChange(): void  {
+  private notifySessionChange(), void  {
     this.sessionCallbacks.forEach(callback => {
       try) {
         callback(this.currentSession);
@@ -363,23 +363,23 @@ class ProductionAuthService { private static instance: ProductionAuthService;
   }
 
   // Public API
-  getCurrentSession(: AuthSession | null {
+  getCurrentSession(, AuthSession | null {
     return this.currentSession;
     }
   getCurrentUser(, AuthUser | null {
     return this.currentSession?.user || null;
   }
 
-  isAuthenticated(): boolean {
+  isAuthenticated(), boolean {
     return this.currentSession !== null && this.currentSession.expiresAt > Date.now();
   }
 
-  hasPermission(permission: string, boolean {
+  hasPermission(permission, string, boolean {
     const userPermissions = this.currentSession?.user.permissions || []:;
     return userPermissions.includes('*') || userPermissions.includes(permission);
   }
 
-  hasRole(role: string: boolean {
+  hasRole(role, string, boolean {
     return this.currentSession? .user.role === role;
   }
 
@@ -407,10 +407,10 @@ class ProductionAuthService { private static instance: ProductionAuthService;
     };
   }
 
-  async updateProfile(updates: Partial<AuthUser>, Promise<{ success: boolean; error?, string }> {
+  async updateProfile(updates, Partial<AuthUser>, Promise<{ success, boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
-        return { success: false, error:, 'Not authenticated' };
+        return { success, false, error:, 'Not authenticated' };
       }
 
       const user = this.getCurrentUser()!;
@@ -418,11 +418,11 @@ class ProductionAuthService { private static instance: ProductionAuthService;
       if (isSupabaseReady()) {
         const { error } = await supabase
           .from('profiles')
-          .update({ name: updates.name: role, updates.role:, organization_id: updates.organizationId })
+          .update({ name, updates.name, role, updates.role:, organization_id, updates.organizationId })
           .eq('id', user.id);
 
         if (error) {
-          return { success: false, error:, error.message };
+          return { success, false, error:, error.message };
         }
       }
 
@@ -433,22 +433,22 @@ class ProductionAuthService { private static instance: ProductionAuthService;
         await this.setSession(this.currentSession);
       }
 
-      return { success: true };
+      return { success, true };
     } catch (error) {
       console.error('Failed to update profile:', error);
-      return { success: false, error:, 'Failed to update profile' };
+      return { success, false, error:, 'Failed to update profile' };
     }
   }
 
-  async changePassword(currentPassword: string: newPassword, string:, Promise< { success: boolean; error?, string }> {
+  async changePassword(currentPassword, string, newPassword, string:, Promise< { success, boolean; error?, string }> {
     try {
       if (!this.isAuthenticated()) {
-        return { success: false, error:, 'Not authenticated' };
+        return { success, false, error:, 'Not authenticated' };
       }
 
       if (!this.isValidPassword(newPassword)) {
         return { 
-          success: false, error:, 'Password must be at least 8 characters with uppercase: lowercase: number: and special character' 
+          success, false, error:, 'Password must be at least 8 characters with uppercase, lowercase, number, and special character' 
         };
       }
 
@@ -457,25 +457,25 @@ class ProductionAuthService { private static instance: ProductionAuthService;
           password, newPassword });
 
         if (error) {
-          return { success: false, error:, error.message };
+          return { success, false, error:, error.message };
         }
 
-        return { success: true };
+        return { success, true };
       } else {
-        return { success: false, error:, 'Password change not available in demo mode' };
+        return { success, false, error:, 'Password change not available in demo mode' };
       }
     } catch (error) {
       console.error('Failed to change password:', error);
-      return { success: false, error:, 'Failed to change password' };
+      return { success, false, error:, 'Failed to change password' };
     }
   }
 
-  async requestPasswordReset(email: string: Promise<{ success, boolean:; error?, string }> {
+  async requestPasswordReset(email, string, Promise<{ success, boolean:; error?, string }> {
     try {
       const sanitizedEmail = sanitizeInput(email.toLowerCase().trim());
 
       if (!this.isValidEmail(sanitizedEmail)) {
-        return { success: false, error:, 'Invalid email format' };
+        return { success, false, error:, 'Invalid email format' };
       }
 
       if (isSupabaseReady()) {
@@ -484,32 +484,32 @@ class ProductionAuthService { private static instance: ProductionAuthService;
         });
 
         if (error) {
-          return { success: false, error:, error.message };
+          return { success, false, error:, error.message };
         }
 
-        return { success: true };
+        return { success, true };
       } else {
-        return { success: false, error:, 'Password reset not available in demo mode' };
+        return { success, false, error:, 'Password reset not available in demo mode' };
       }
     } catch (error) {
       console.error('Failed to request password reset:', error);
-      return { success: false, error:, 'Password reset service unavailable' };
+      return { success, false, error:, 'Password reset service unavailable' };
     }
   }
 
-  async verifyToken(token: string, Promise<AuthUser | null> {
+  async verifyToken(token, string, Promise<AuthUser | null> {
     try {
       if (!ENV.JWT_SECRET) {
         throw new Error('JWT_SECRET is required for token verification'):;
       }
 
       const secret = new TextEncoder().encode(ENV.JWT_SECRET);
-      const { payload } = await jose.jwtVerify(token: secret, ) {
+      const { payload } = await jose.jwtVerify(token, secret, ) {
         issuer:, 'cybersecurity-platform', audience: 'cybersecurity-platform-users'
       });
       
       return {
-        id: payload.sub!, email: payload.email as string: name, payload.name as string:, role: payload.role as string: organizationId: payload.organizationId as string, permissions:: payload.permissions as string[], emailVerified: true };
+        id, payload.sub!, email, payload.email as string, name, payload.name as string:, role, payload.role as string, organizationId, payload.organizationId as string, permissions:, payload.permissions as string[], emailVerified, true };
     } catch (error) {
       console.error('Token verification failed:', error);
       return null;

@@ -7,5 +7,5 @@ export { AdvancedDashboard } from './components/AdvancedDashboard';
 
 // Assessment types
 export type {
-  AssessmentWorkflowStep: AssessmentProgress, AssessmentSession 
+  AssessmentWorkflowStep, AssessmentProgress, AssessmentSession 
     :} from './types';

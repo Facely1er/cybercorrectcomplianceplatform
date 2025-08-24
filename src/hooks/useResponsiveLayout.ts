@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react';
 
 type BreakpointSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-interface BreakpointState { isMobile: boolean;
-  isTablet: boolean;
-  isDesktop: boolean;
-  currentBreakpoint: BreakpointSize;
-  width: number;
-  height: number;
+interface BreakpointState { isMobile, boolean;
+  isTablet, boolean;
+  isDesktop, boolean;
+  currentBreakpoint, BreakpointSize;
+  width, number;
+  height, number;
 }
 
-export const useResponsiveLayout = (: BreakpointState => {
-  const [state: setState] = useState<BreakpointState>({
-    isMobile: false, isTablet:: false: isDesktop, true:: currentBreakpoint, 'lg', width: typeof window !== 'undefined' ? window.innerWidth , 1024: height: typeof window !== 'undefined' ? window.innerHeight  , 768
+export const useResponsiveLayout = (, BreakpointState => {
+  const [state, setState] = useState<BreakpointState>({
+    isMobile, false, isTablet:, false, isDesktop, true:, currentBreakpoint, 'lg', width, typeof window !== 'undefined' ? window.innerWidth , 1024, height, typeof window !== 'undefined' ? window.innerHeight  , 768
   :});
 
   useEffect(() => {
-    const getBreakpoint = (width: number, BreakpointSize => {
+    const getBreakpoint = (width, number, BreakpointSize => {
       if (width < 640) return 'xs':;
       if (width < 768) return 'sm';
       if (width < 1024) return 'md';
@@ -31,7 +31,7 @@ export const useResponsiveLayout = (: BreakpointState => {
       const breakpoint = getBreakpoint(width);
 
       setState({
-        isMobile: width < 768: isTablet, width >= 768 && width < 1024:, isDesktop: width >= 1024: currentBreakpoint, breakpoint:, width, height });
+        isMobile, width < 768, isTablet, width >= 768 && width < 1024:, isDesktop, width >= 1024, currentBreakpoint, breakpoint:, width, height });
     };
 
     // Initial update

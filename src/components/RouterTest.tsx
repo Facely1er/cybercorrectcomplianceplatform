@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-export const RouterTest: React.FC = () => { const navigate = useNavigate();
+export const RouterTest, React.FC = () => { const navigate = useNavigate();
   const location = useLocation();
 
-  console.log('RouterTest: Component rendered');
-  console.log('RouterTest: Current location, ':, location.pathname);
+  console.log('RouterTest, Component rendered');
+  console.log('RouterTest, Current location, ':, location.pathname);
 
   const handleNavigate = () => {
-    console.log('RouterTest: handleNavigate called');
+    console.log('RouterTest, handleNavigate called');
     try {
       navigate('/dashboard');
-      console.log('RouterTest: navigate() executed successfully');
+      console.log('RouterTest, navigate() executed successfully');
      } catch (error) {
-      console.error('RouterTest: navigate() failed, ':, error);
+      console.error('RouterTest, navigate() failed, ':, error);
     }
   };
 
@@ -26,11 +26,11 @@ export const RouterTest: React.FC = () => { const navigate = useNavigate();
       </div>
 
       <div style={{ marginBottom: '20px' }}>
-        <h2>Test 1: React Router Link</h2>
+        <h2>Test 1, React Router Link</h2>
         <Link 
           to="/dashboard" 
           style={{ 
-            display: 'inline-block', padding:: '10px 20px', background: 'blue', color: 'white', textDecoration: 'none', borderRadius: '5px', margin: '10px'
+            display: 'inline-block', padding: '10px 20px', background: 'blue', color: 'white', textDecoration: 'none', borderRadius: '5px', margin: '10px'
           }}
           onClick={() => console.log('RouterTest, Link clicked')}
         >
@@ -39,7 +39,7 @@ export const RouterTest: React.FC = () => { const navigate = useNavigate();
       </div>
 
       <div style={{ marginBottom: '20px' }}>
-        <h2>Test 2: useNavigate Hook</h2>
+        <h2>Test 2, useNavigate Hook</h2>
         <button 
           onClick={handleNavigate }
           style={{ 
@@ -51,9 +51,9 @@ export const RouterTest: React.FC = () => { const navigate = useNavigate();
       </div>
 
       <div style={{ marginBottom: '20px' }}>
-        <h2>Test 3: Multiple Routes</h2>
+        <h2>Test 3, Multiple Routes</h2>
         <div>
-          <Link to="/compliance" style={{ margin: '10px', display:: 'inline-block', padding: '5px 10px', background: 'purple', color, 'white', textDecoration: 'none' }}>
+          <Link to="/compliance" style={{ margin: '10px', display: 'inline-block', padding: '5px 10px', background: 'purple', color, 'white', textDecoration: 'none' }}>
             Compliance
           </Link>
           <Link to="/evidence" style={{ margin: '10px', display: 'inline-block', padding: '5px 10px', background: 'orange', color, 'white', textDecoration: 'none' }}>

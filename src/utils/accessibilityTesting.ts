@@ -2,18 +2,18 @@ import { configureAxe } from '@axe-core/react';
 
 if (process.env.NODE_ENV !== 'production') {
   configureAxe({
-    rules: [
+    rules, [
       {
-        id, 'color-contrast', enabled: true },
+        id, 'color-contrast', enabled, true },
       {
         id: 'keyboard-navigation', enabled, true },
        {
-        id: 'focus-management', enabled: true }
+        id: 'focus-management', enabled, true }
     ]
   });
 }
 
-export const runAccessibilityAudit = async (: Promise<void> => {
+export const runAccessibilityAudit = async (, Promise<void> => {
   if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined') {
     const axe = await import('axe-core');
     

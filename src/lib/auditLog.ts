@@ -1,18 +1,18 @@
 import { supabase } from './supabase';
 
 export interface AuditLogEntry {
-  id: string;
-  userId: string;
-  action: AuditAction;
-  resource: string;
-  resourceId: string;
-  changes?: Record<string, any>;
-  previousValues?: Record<string, any>;
-  metadata?: Record<string, any>;
-  timestamp: Date;
-  ipAddress?: string;
-  userAgent?: string;
-  sessionId?: string;
+  id, string;
+  userId, string;
+  action, AuditAction;
+  resource, string;
+  resourceId, string;
+  changes?, Record<string, any>;
+  previousValues?, Record<string, any>;
+  metadata?, Record<string, any>;
+  timestamp, Date;
+  ipAddress?, string;
+  userAgent?, string;
+  sessionId?, string;
 }
 
 export type AuditAction = 
@@ -29,24 +29,24 @@ export type AuditAction =
   | 'complete_assessment';
 
 export class AuditLogger {
-  private static instance: AuditLogger;
-  private logs: AuditLogEntry[] = [];
+  private static instance, AuditLogger;
+  private logs, AuditLogEntry[] = [];
 
-  static getInstance(): AuditLogger {
+  static getInstance(), AuditLogger {
     if (!AuditLogger.instance) {
       AuditLogger.instance = new AuditLogger();
     }
     return AuditLogger.instance;
   }
 
-  async log(entry: Omit<AuditLogEntry, 'id' | 'timestamp'>): Promise<void> {
-    const auditEntry: AuditLogEntry = {
+  async log(entry, Omit<AuditLogEntry, 'id' | 'timestamp'>), Promise<void> {
+    const auditEntry, AuditLogEntry = {
       ...entry,
-      id: Date.now().toString(),
-      timestamp: new Date(),
-      ipAddress: this.getClientIP(),
-      userAgent: navigator.userAgent,
-      sessionId: this.getSessionId()
+      id, Date.now().toString(),
+      timestamp, new Date(),
+      ipAddress, this.getClientIP(),
+      userAgent, navigator.userAgent,
+      sessionId, this.getSessionId()
     };
 
     // Store locally first
@@ -57,17 +57,17 @@ export class AuditLogger {
   }
 
   async logAssetAction(
-    action: AuditAction,
-    assetId: string,
-    userId: string,
-    changes?: Record<string, any>,
-    previousValues?: Record<string, any>
-  ): Promise<void> {
+    action, AuditAction,
+    assetId, string,
+    userId, string,
+    changes?, Record<string, any>,
+    previousValues?, Record<string, any>
+  ), Promise<void> {
     await this.log({
       userId,
       action,
       resource: 'asset',
-      resourceId: assetId,
+      resourceId, assetId,
       changes,
       previousValues,
       metadata: {
@@ -78,16 +78,16 @@ export class AuditLogger {
   }
 
   async logAssessmentAction(
-    action: AuditAction,
-    assessmentId: string,
-    userId: string,
-    changes?: Record<string, any>
-  ): Promise<void> {
+    action, AuditAction,
+    assessmentId, string,
+    userId, string,
+    changes?, Record<string, any>
+  ), Promise<void> {
     await this.log({
       userId,
       action,
       resource: 'assessment',
-      resourceId: assessmentId,
+      resourceId, assessmentId,
       changes,
       metadata: {
         assessmentType: 'cybersecurity_maturity',
@@ -97,15 +97,15 @@ export class AuditLogger {
   }
 
   async logUserAction(
-    action: AuditAction,
-    userId: string,
-    metadata?: Record<string, any>
-  ): Promise<void> {
+    action, AuditAction,
+    userId, string,
+    metadata?, Record<string, any>
+  ), Promise<void> {
     await this.log({
       userId,
       action,
       resource: 'user',
-      resourceId: userId,
+      resourceId, userId,
       metadata: {
         ...metadata,
         source: 'web_application'
@@ -114,12 +114,12 @@ export class AuditLogger {
   }
 
   getLogs(filters?: {
-    userId?: string;
-    action?: AuditAction;
-    resource?: string;
-    dateFrom?: Date;
-    dateTo?: Date;
-  }): AuditLogEntry[] {
+    userId?, string;
+    action?, AuditAction;
+    resource?, string;
+    dateFrom?, Date;
+    dateTo?, Date;
+  }), AuditLogEntry[] {
     let filteredLogs = [...this.logs];
 
     if (filters) {
@@ -143,7 +143,7 @@ export class AuditLogger {
     return filteredLogs.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
   }
 
-  async exportLogs(format: 'json' | 'csv' = 'json'): Promise<string> {
+  async exportLogs(format: 'json' | 'csv' = 'json'), Promise<string> {
     const logs = this.getLogs();
     
     if (format === 'json') {
@@ -166,7 +166,7 @@ export class AuditLogger {
     }
   }
 
-  private persistToLocalStorage(): void {
+  private persistToLocalStorage(), void {
     try {
       // Keep only last 1000 entries to prevent storage overflow
       const logsToStore = this.logs.slice(-1000);
@@ -176,17 +176,17 @@ export class AuditLogger {
     }
   }
 
-  private async persistToDatabase(entry: AuditLogEntry): Promise<void> {
+  private async persistToDatabase(entry, AuditLogEntry), Promise<void> {
     // Database persistence disabled - using localStorage only
     console.log('Audit log entry (localStorage only):', entry);
   }
 
-  private getClientIP(): string {
+  private getClientIP(), string {
     // In a production environment, this would be provided by the server
     return 'client-side-unknown';
   }
 
-  private getSessionId(): string {
+  private getSessionId(), string {
     let sessionId = sessionStorage.getItem('session-id');
     if (!sessionId) {
       sessionId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
@@ -195,13 +195,13 @@ export class AuditLogger {
     return sessionId;
   }
 
-  loadFromLocalStorage(): void {
+  loadFromLocalStorage(), void {
     try {
       const saved = localStorage.getItem('audit-logs');
       if (saved) {
-        this.logs = JSON.parse(saved).map((log: any) => ({
+        this.logs = JSON.parse(saved).map((log, any) => ({
           ...log,
-          timestamp: new Date(log.timestamp)
+          timestamp, new Date(log.timestamp)
         }));
       }
     } catch (error) {

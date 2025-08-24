@@ -2,27 +2,27 @@ import React, { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 
-interface NavItem { label: string;
+interface NavItem { label, string;
   href?, string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon, React.ComponentType<React.SVGProps<SVGSVGElement>>;
   children?, NavItem[];
-  description?: string;
+  description?, string;
 }
 
 interface AccessibleNavigationProps {
-  items: NavItem[];
-  className?: string;
+  items, NavItem[];
+  className?, string;
 }
 
-export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({ 
-  items: className = '' 
+export const AccessibleNavigation, React.FC<AccessibleNavigationProps> = ({ 
+  items, className = '' 
 }) => {
-  const [openDropdowns: setOpenDropdowns] = useState<Set<string>>(new Set());
+  const [openDropdowns, setOpenDropdowns] = useState<Set<string>>(new Set());
 
   const location = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
 
-  const toggleDropdown = (label: string) => {
+  const toggleDropdown = (label, string) => {
     setOpenDropdowns((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(label)) {
@@ -34,33 +34,28 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
     });
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent: item, NavItem) => {
+  const handleKeyDown = (event, React.KeyboardEvent, item, NavItem) => {
     switch (event.key) {
-      case 'Enter'::
-      case ' ':
-        event.preventDefault();
+      case 'Enter':, case ' ', event.preventDefault();
         if (item.children) {
           toggleDropdown(item.label);
         } else if (item.href) {
           window.location.href = item.href;
         }
         break;
-      case 'Escape':
-        setOpenDropdowns(new Set());
+      case 'Escape', setOpenDropdowns(new Set());
         setFocusedItem(null);
         break;
-      case 'ArrowDown':
-        event.preventDefault();
+      case 'ArrowDown', event.preventDefault();
         // Focus next item logic
         break;
-      case 'ArrowUp':
-        event.preventDefault();
+      case 'ArrowUp', event.preventDefault();
         // Focus previous item logic
         break;
     }
   };
 
-  const isActive = (href: string) => location.pathname === href;
+  const isActive = (href, string) => location.pathname === href;
 
   return (
     <nav 
@@ -81,8 +76,8 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 <button
                   className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                     item.children?.some(child => child.href && isActive(child.href))
-                      ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark: text-blue-300'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover : bg-blue-50 dark:hover:bg-blue-900/20'}`}
+                      ? 'bg-blue-100 dark, bg-blue-900/30 text-blue-700 dark, text-blue-300'
+                      : 'text-gray-600 dark, text-gray-300 hover, text-blue-600 dark, hover, text-blue-400 hover , bg-blue-50 dark, hover, bg-blue-900/20'}`}
                   onKeyDown={(e) => handleKeyDown(e, item)}
                   aria-expanded={openDropdowns.has(item.label)}
                   aria-haspopup="true"
@@ -99,7 +94,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 
                 {openDropdowns.has(item.label) && (
                   <div 
-                    className="absolute top-full left-0 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50"
+                    className="absolute top-full left-0 w-64 bg-white dark, bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark, border-gray-700 py-2 z-50"
                     role="menu"
                     aria-label={`${item.label} submenu`}
                   >
@@ -107,10 +102,10 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                       <Link
                         key={child.href }
                         to={child.href!}
-                        className={`flex items-center space-x-3 px-4 py-3 hover: bg-gray-50 dark, hover:: bg-gray-700/50 transition-colors ${
+                        className={`flex items-center space-x-3 px-4 py-3 hover, bg-gray-50 dark, hover:, bg-gray-700/50 transition-colors ${
                           isActive(child.href!)
-                            ? 'bg-blue-50 dark : bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                            : 'text-gray-700 dark:text-gray-300'}`}
+                            ? 'bg-blue-50 dark , bg-blue-900/20 text-blue-700 dark, text-blue-300'
+                            : 'text-gray-700 dark, text-gray-300'}`}
                         role="menuitem"
                         aria-label={`${child.label}: ${child.description || ''}`}
                       >
@@ -118,7 +113,7 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                         <div>
                           <div className="font-medium">{child.label }</div>
                           {child.description && (
-                            <div className="text-xs text-gray-500 dark:text-gray-400">
+                            <div className="text-xs text-gray-500 dark, text-gray-400">
                               {child.description }
                             </div>
                           )}
@@ -133,8 +128,8 @@ export const AccessibleNavigation: React.FC<AccessibleNavigationProps> = ({
                 to={item.href!}
                 className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${
                   isActive(item.href!)
-                    ? 'bg-blue-100 dark: bg-blue-900/30 text-blue-700 dark: text-blue-300'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover : bg-blue-50 dark:hover:bg-blue-900/20'}`}
+                    ? 'bg-blue-100 dark, bg-blue-900/30 text-blue-700 dark, text-blue-300'
+                    : 'text-gray-600 dark, text-gray-300 hover, text-blue-600 dark, hover, text-blue-400 hover , bg-blue-50 dark, hover, bg-blue-900/20'}`}
                 role="menuitem"
                 aria-label={item.description || item.label }
               >

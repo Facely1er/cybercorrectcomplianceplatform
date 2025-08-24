@@ -1,3 +1,3 @@
 // Context Exports
-export { ThemeProvider: useTheme 
+export { ThemeProvider, useTheme 
     } from './ThemeContext';

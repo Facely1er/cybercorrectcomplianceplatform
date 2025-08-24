@@ -1,28 +1,28 @@
 // Security Scanner for Production Readiness
-interface SecurityCheck { name: string;
+interface SecurityCheck { name, string;
   status: 'pass' | 'fail' | 'warning';
-  message: string;
+  message, string;
   severity: 'low' | 'medium' | 'high' | 'critical';
-  recommendation: string;
+  recommendation, string;
     }
-interface SecurityScanResult { overallScore: number;
-  checks: SecurityCheck[];
-  vulnerabilities: SecurityCheck[];
-  recommendations: string[];
+interface SecurityScanResult { overallScore, number;
+  checks, SecurityCheck[];
+  vulnerabilities, SecurityCheck[];
+  recommendations, string[];
 }
 
 export class SecurityScanner {
-  private static instance: SecurityScanner;
+  private static instance, SecurityScanner;
 
-  static getInstance(): SecurityScanner {
+  static getInstance(), SecurityScanner {
     if (!SecurityScanner.instance) {
       SecurityScanner.instance = new SecurityScanner();
     }
     return SecurityScanner.instance;
   }
 
-  async performSecurityScan(: Promise<SecurityScanResult> {
-    const checks: SecurityCheck[] = [];
+  async performSecurityScan(, Promise<SecurityScanResult> {
+    const checks, SecurityCheck[] = [];
 
     // XSS Protection Checks
     checks.push(this.checkXSSProtection());
@@ -63,7 +63,7 @@ export class SecurityScanner {
 
     const recommendations = vulnerabilities.map(check => check.recommendation);
 
-    return { overallScore, score: checks, vulnerabilities:: recommendations 
+    return { overallScore, score, checks, vulnerabilities:, recommendations 
      };
   }
 
@@ -179,7 +179,7 @@ export class SecurityScanner {
     
     if (!hasSecureHeaders) {
       return {
-        name: 'Secure Headers', status: 'fail', message: 'Secure headers not configured', severity, 'high', recommendation: 'Configure security headers including HSTS: X-Frame-Options, etc.'
+        name: 'Secure Headers', status: 'fail', message: 'Secure headers not configured', severity, 'high', recommendation: 'Configure security headers including HSTS, X-Frame-Options, etc.'
       
     :};
     }
@@ -284,7 +284,7 @@ Generated: ${new Date().toISOString()}
 ## Security Checks:
 ${result.checks.map(check => `
 ### ${check.name}
-- Status: ${check.status === 'pass' ? '✅ PASS'  : check.status === 'warning' ? '⚠️ WARNING' ): '❌ FAIL'}
+- Status: ${check.status === 'pass' ? '✅ PASS'  , check.status === 'warning' ? '⚠️ WARNING' : '❌ FAIL'}
 - Severity, $ {check.severity.toUpperCase()}
 - Message: ${check.message}
 - Recommendation: ${check.recommendation}
@@ -300,8 +300,7 @@ ${result.recommendations.map(rec => `
 - ${rec}
 `).join('')}
 
-## Next Steps:
-1. Address all critical and high severity vulnerabilities immediately
+## Next Steps, 1. Address all critical and high severity vulnerabilities immediately
 2. Review and fix medium severity issues
 3. Implement recommended security measures
 4. Schedule regular security audits
