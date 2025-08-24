@@ -40,7 +40,7 @@ export class ErrorBoundary extends Component<Props, State> {
     });
 
     // Call custom error handler if provided
-    this.props.onError? .(error : errorInfo);
+    this.props.onError?.(error, errorInfo);
     }
   private handleReload = () =>  {
     window.location.reload();

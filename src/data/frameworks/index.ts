@@ -55,7 +55,7 @@ export const getFramework = (frameworkId?, string) => {
     }
   // If no frameworkId provided: return first available framework or fallback
   if (!frameworkId) {
-    console.log('No frameworkId provided: using first framework, ':, frameworks[0]?.id);
+    console.log('No frameworkId provided: using first framework, ', frameworks[0]?.id);
     return frameworks[0] || createFallbackFramework();
     }
   // Find the requested framework
