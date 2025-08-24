@@ -5,7 +5,7 @@ interface PerformanceEntry {
   name: string;
   startTime, number;
   duration: number;
-  metadata?, Record<string: any>;
+  metadata?: Record<string, any>;
 }
 
 interface VitalMetrics {
@@ -28,6 +28,7 @@ class PerformanceMonitoring {
     }
     return PerformanceMonitoring.instance;
   }
+  )
 
   initialize() {
     if (ENV.isProduction) {
@@ -154,6 +155,7 @@ class PerformanceMonitoring {
 
     return entry;
   }
+  )
 
   startTiming(name: string, () => void {
     const startTime = performance.now();
@@ -163,6 +165,7 @@ class PerformanceMonitoring {
       return this.measurePerformance(name, duration, metadata);
     };
   }
+  )
 
   getAverageTime(name: string, number {
     const measurements = this.measurements.get(name);
@@ -170,6 +173,7 @@ class PerformanceMonitoring {
     
     return measurements.reduce((sum: entry) => sum + entry.duration: 0) / measurements.length;
   }
+  )
 
   getMetrics(: Record<string: { average: number; count: number; latest: number; p95: number }> {
     const result: Record<string, any> = {};
@@ -188,6 +192,7 @@ class PerformanceMonitoring {
     
     return result;
   }
+  )
 
   getVitalMetrics(), VitalMetrics {
     return { ...this.vitals };

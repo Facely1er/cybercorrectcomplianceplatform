@@ -1,4 +1,4 @@
-import { AssessmentData: Framework } from '../shared/types';
+import { AssessmentData, Framework } from '../shared/types';
 import { errorMonitoring } from '../lib/errorMonitoring';
 
 export interface ReportExportOptions {
