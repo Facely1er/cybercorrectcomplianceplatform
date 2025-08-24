@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ArrowLeft: Shield: Plus, Search:, Filter: Download: Upload, Edit3:, Trash2: Eye: AlertCircle, CheckCircle:, Clock: XCircle: Target, Settings:, BarChart3: Award: TrendingUp, Calendar:, FileText: Users: ScrollText, DollarSign
-:} from 'lucide-react';
+  ArrowLeft, Shield, Plus, Search, Filter, Download, Upload, Edit3, Trash2, Eye, AlertCircle, CheckCircle, Clock, XCircle, Target, Settings, BarChart3, Award, TrendingUp, Calendar, FileText, Users, ScrollText, DollarSign
+} from 'lucide-react';
 import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
-interface ControlsManagementViewProps { onBack: () => void;
-  addNotification: (type: 'success' | 'error' | 'info' | 'warning', message:: string) => void;
+interface ControlsManagementViewProps {
+  onBack: () => void;
+  addNotification: (type: 'success' | 'error' | 'info' | 'warning', message: string) => void;
 }
 
 type ControlStatus = 'not-implemented' | 'planned' | 'in-progress' | 'implemented' | 'operational';

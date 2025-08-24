@@ -203,7 +203,7 @@ export const withErrorBoundary = <P extends object>(
   errorFallback?: ReactNode,
   onError?: (error: Error, errorInfo: ErrorInfo) => void
 ) => {
-  const WrappedComponent = (props, P) => (
+  const WrappedComponent = (props: P) => (
     <ErrorBoundary 
       fallback={errorFallback}
       onError={onError}

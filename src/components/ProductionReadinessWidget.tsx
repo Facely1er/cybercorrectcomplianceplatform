@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Info, X, Monitor } from 'lucide-react';
+import { CheckCircle, Info, X, Monitor, AlertTriangle } from 'lucide-react';
 import { productionReadinessChecker } from '../lib/productionReadiness';
 import { useProductionMonitoring } from '../hooks/useProductionMonitoring';
 import { ENV } from '../config/environment';
@@ -35,9 +35,9 @@ export const ProductionReadinessWidget: React.FC = () => {
   };
 
   const getStatusIcon = (status: string) => { switch (status) {
-      case 'pass', return <CheckCircle className="w-4 h-4 text-green-500" />;
+      case 'pass': return <CheckCircle className="w-4 h-4 text-green-500" />;
       case 'warning': return <AlertTriangle className="w-4 h-4 text-yellow-500" />;
-      case 'fail', return <AlertTriangle className="w-4 h-4 text-red-500" />;
+      case 'fail': return <AlertTriangle className="w-4 h-4 text-red-500" />;
       default: return <Info className="w-4 h-4 text-gray-500" />;
     }
   };
@@ -187,7 +187,7 @@ export const ProductionReadinessWidget: React.FC = () => {
               <button
                 onClick={async () => {
                   const report = await productionReadinessChecker.generateReport();
-                                      const blob = new Blob([report], { type, 'text/markdown' });
+                                      const blob = new Blob([report], { type: 'text/markdown' });
                   const url = URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = url;
