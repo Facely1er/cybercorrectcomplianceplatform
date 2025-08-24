@@ -5,7 +5,7 @@ import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
 import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
 
 interface AssessmentIntroScreenProps { frameworks: Framework[];
-  onStartAssessment: (organizationInfo?, OrganizationInfo: selectedFramework?, string) => void;
+  onStartAssessment: (organizationInfo?: OrganizationInfo, selectedFramework?: string) => void;
   onBack: () => void;
 }
 
