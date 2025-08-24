@@ -47,7 +47,7 @@ class PerformanceMonitoring {
             this.reportVital('FCP', entry.startTime);
           }
         }
-      }).observe({ entryTypes, ['paint'] });
+      }).observe({ entryTypes: ['paint'] });
     } catch {
       console.warn('Performance Observer not supported');
     }
@@ -59,7 +59,7 @@ class PerformanceMonitoring {
         const lastEntry = entries[entries.length - 1];
         this.vitals.LCP = lastEntry.startTime;
         this.reportVital('LCP', lastEntry.startTime);
-      }).observe({ entryTypes, ['largest-contentful-paint'] });
+      }).observe({ entryTypes: ['largest-contentful-paint'] });
     } catch {
       console.warn('LCP Performance Observer not supported');
     }
@@ -70,7 +70,7 @@ class PerformanceMonitoring {
         this.vitals.FID = (entry as any).processingStart - entry.startTime;
         this.reportVital('FID', this.vitals.FID);
       }
-    }).observe({ entryTypes, ['first-input'] });
+    }).observe({ entryTypes: ['first-input'] });
 
     // Cumulative Layout Shift
     let clsValue = 0;
@@ -82,7 +82,7 @@ class PerformanceMonitoring {
       }
       this.vitals.CLS = clsValue;
       this.reportVital('CLS', clsValue);
-    }).observe({ entryTypes, ['layout-shift'] });
+    }).observe({ entryTypes: ['layout-shift'] });
   }
 
   private setupNavigationTiming() {
@@ -94,12 +94,12 @@ class PerformanceMonitoring {
 
       // Report key navigation timings
       const timings = {
-        'DNS Lookup', navigation.domainLookupEnd - navigation.domainLookupStart,
-        'TCP Connection', navigation.connectEnd - navigation.connectStart,
-        'Request', navigation.responseStart - navigation.requestStart,
-        'Response', navigation.responseEnd - navigation.responseStart,
-        'DOM Processing', navigation.domContentLoadedEventStart - navigation.responseEnd,
-        'Resource Loading', navigation.loadEventStart - navigation.domContentLoadedEventStart 
+        'DNS Lookup': navigation.domainLookupEnd - navigation.domainLookupStart,
+        'TCP Connection': navigation.connectEnd - navigation.connectStart,
+        'Request': navigation.responseStart - navigation.requestStart,
+        'Response': navigation.responseEnd - navigation.responseStart,
+        'DOM Processing': navigation.domContentLoadedEventStart - navigation.responseEnd,
+        'Resource Loading': navigation.loadEventStart - navigation.domContentLoadedEventStart 
       };
 
       Object.entries(timings).forEach(([name, duration]) => {
@@ -116,12 +116,12 @@ class PerformanceMonitoring {
         // Track slow resources
         if (resource.duration > 1000) { // > 1 second
           this.measurePerformance(`Slow Resource: ${resource.name}`, resource.duration, {
-            initiatorType, resource.initiatorType,
-            transferSize, resource.transferSize 
+            initiatorType: resource.initiatorType,
+            transferSize: resource.transferSize 
           });
         }
       }
-    }).observe({ entryTypes, ['resource'] });
+    }).observe({ entryTypes: ['resource'] });
   }
 
   measurePerformance(name, string, duration?, number, metadata?, Record<string, any>), PerformanceEntry {
@@ -183,10 +183,10 @@ class PerformanceMonitoring {
       const p95Index = Math.floor(durations.length * 0.95);
 
       result[name] = {
-        average, this.getAverageTime(name),
-        count, measurements.length,
-        latest, measurements[measurements.length - 1]?.duration || 0,
-        p95, durations[p95Index] || 0
+        average: this.getAverageTime(name),
+        count: measurements.length,
+        latest: measurements[measurements.length - 1]?.duration || 0,
+        p95: durations[p95Index] || 0
       };
     }
     
@@ -212,9 +212,9 @@ class PerformanceMonitoring {
     if ('memory' in performance) {
       const memory = (performance as any).memory;
       return {
-        usedJSHeapSize, memory.usedJSHeapSize,
-        totalJSHeapSize, memory.totalJSHeapSize,
-        jsHeapSizeLimit, memory.jsHeapSizeLimit,
+        usedJSHeapSize: memory.usedJSHeapSize,
+        totalJSHeapSize: memory.totalJSHeapSize,
+        jsHeapSizeLimit: memory.jsHeapSizeLimit,
         usagePercentage: (memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100 
       };
     }
@@ -227,9 +227,9 @@ class PerformanceMonitoring {
     const styles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
     
     const bundleInfo = {
-      scriptCount, scripts.length,
-      styleCount, styles.length,
-      totalResources, scripts.length + styles.length
+      scriptCount: scripts.length,
+      styleCount: styles.length,
+      totalResources: scripts.length + styles.length
     };
 
     this.measurePerformance('Bundle Analysis', 0, bundleInfo);

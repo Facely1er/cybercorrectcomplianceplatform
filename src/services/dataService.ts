@@ -14,7 +14,7 @@ export interface AppData {
 }
 
 export class DataService {
-  private static instance, DataService;
+  private static instance: DataService;
   private readonly STORAGE_KEYS = {
     ASSESSMENTS: 'cybersecurity-assessments',
     USER_PROFILE: 'user-profile',

@@ -21,7 +21,7 @@ class ErrorMonitoring {
   private static instance: ErrorMonitoring;
   private isInitialized = false;
 
-  static getInstance(), ErrorMonitoring {
+  static getInstance(): ErrorMonitoring {
     if (!ErrorMonitoring.instance) {
       ErrorMonitoring.instance = new ErrorMonitoring();
     }

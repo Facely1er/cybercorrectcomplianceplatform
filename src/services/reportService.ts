@@ -25,8 +25,8 @@ export class ReportService {
   }
 
   async exportReport(
-    assessment, AssessmentData,
-    framework, Framework,
+    assessment: AssessmentData,
+    framework: Framework,
     options: ReportExportOptions
   ): Promise<void> {
     try {
@@ -49,10 +49,10 @@ export class ReportService {
   }
 
   private async exportToPDF(
-    assessment, AssessmentData,
-    framework, Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    assessment: AssessmentData,
+    framework: Framework,
+    options: ReportExportOptions
+  ): Promise<void> {
     // Enhanced PDF generation with better formatting
     const reportData = this.generateReportData(assessment, framework);
     
@@ -74,11 +74,11 @@ export class ReportService {
   }
 
   private generateHTMLReport(
-    assessment, AssessmentData,
-    framework, Framework,
-    reportData, any,
-    options, ReportExportOptions
-  ), string {
+    assessment: AssessmentData,
+    framework: Framework,
+    reportData: any,
+    options: ReportExportOptions
+  ): string {
     const organizationName = options.branding?.organizationName || assessment.organizationInfo?.name || 'Organization';
     const reportDate = new Date().toLocaleDateString();
     
@@ -358,6 +358,7 @@ export class ReportService {
   }
 
   private async generatePDFWithAPI(htmlContent, string, assessment, AssessmentData, framework, Framework), Promise<void> {
+  private async generatePDFWithAPI(htmlContent: string, assessment: AssessmentData, framework: Framework): Promise<void> {
     // Use modern File System Access API if available
     const fileHandle = await (window as any).showSaveFilePicker({
       suggestedName: `${framework.name.replace(/[^a-zA-Z0-9]/g, '-')}-report-${assessment.id}-${new Date().toISOString().split('T')[0]}.html`,
@@ -373,6 +374,7 @@ export class ReportService {
   }
 
   private generatePDFWithPrint(htmlContent, string, assessment, AssessmentData, framework, Framework), void {
+  private generatePDFWithPrint(htmlContent: string, assessment: AssessmentData, framework: Framework): void {
     // Create a new window with enhanced print styles
     const printWindow = window.open('', '_blank', 'width=1200,height=800');
     if (!printWindow) {
@@ -398,27 +400,27 @@ export class ReportService {
   }
 
   private async exportToJSON(
-    assessment, AssessmentData,
-    framework, Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    assessment: AssessmentData,
+    framework: Framework,
+    options: ReportExportOptions
+  ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     const exportData = {
       assessment,
       framework: {
-        id, framework.id,
-        name, framework.name,
-        version, framework.version,
-        description, framework.description
+        id: framework.id,
+        name: framework.name,
+        version: framework.version,
+        description: framework.description
       },
       reportData,
-      exportedAt, new Date(),
+      exportedAt: new Date(),
       options,
       metadata: {
-        totalQuestions, reportData.totalQuestions,
-        answeredQuestions, reportData.answeredQuestions,
-        overallScore, reportData.overallScore,
-        completionRate, Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100),
+        totalQuestions: reportData.totalQuestions,
+        answeredQuestions: reportData.answeredQuestions,
+        overallScore: reportData.overallScore,
+        completionRate: Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100),
         exportFormat: 'json',
         exportVersion: '2.0.0'
       }
@@ -433,10 +435,10 @@ export class ReportService {
   }
 
   private async exportToCSV(
-    assessment, AssessmentData,
-    framework, Framework,
-    options, ReportExportOptions
-  ), Promise<void> {
+    assessment: AssessmentData,
+    framework: Framework,
+    options: ReportExportOptions
+  ): Promise<void> {
     const reportData = this.generateReportData(assessment, framework);
     
     // Enhanced CSV with more comprehensive data
@@ -457,9 +459,9 @@ export class ReportService {
       section.answered.toString(),
       section.total.toString(),
       section.total > 0 ? Math.round((section.answered / section.total) * 100).toString() : '0',
-      section.score >= 75 ? 'High' , section.score >= 50 ? 'Medium' : 'Low',
+      section.score >= 75 ? 'High' : section.score >= 50 ? 'Medium' : 'Low',
       Math.max(0, 75 - section.score).toString(),
-      section.score < 50 ? 'High' , section.score < 75 ? 'Medium' : 'Low'
+      section.score < 50 ? 'High' : section.score < 75 ? 'Medium' : 'Low'
     ]);
     
     const summaryRow = [
@@ -468,9 +470,9 @@ export class ReportService {
       reportData.answeredQuestions.toString(),
       reportData.totalQuestions.toString(),
       Math.round((reportData.answeredQuestions / reportData.totalQuestions) * 100).toString(),
-      reportData.overallScore >= 75 ? 'High' , reportData.overallScore >= 50 ? 'Medium' : 'Low',
+      reportData.overallScore >= 75 ? 'High' : reportData.overallScore >= 50 ? 'Medium' : 'Low',
       Math.max(0, 75 - reportData.overallScore).toString(),
-      reportData.overallScore < 50 ? 'High' , reportData.overallScore < 75 ? 'Medium' : 'Low'
+      reportData.overallScore < 50 ? 'High' : reportData.overallScore < 75 ? 'Medium' : 'Low'
     ];
     
     const csvContent = [
@@ -499,6 +501,7 @@ export class ReportService {
   }
 
   private generateReportData(assessment, AssessmentData, framework, Framework), any {
+  private generateReportData(assessment: AssessmentData, framework: Framework): any {
     const responses = Object.values(assessment.responses);
     const overallScore = responses.length > 0 
       ? Math.round((responses.reduce((a, b) => a + b, 0) / responses.length) * 25)
@@ -518,10 +521,10 @@ export class ReportService {
         , 0;
 
       return {
-        name, section.name,
-        score, sectionScore,
-        answered, sectionResponses.length,
-        total, sectionQuestions.length
+        name: section.name,
+        score: sectionScore,
+        answered: sectionResponses.length,
+        total: sectionQuestions.length
       };
     });
 
@@ -536,6 +539,7 @@ export class ReportService {
   }
 
   private downloadFile(content, string, filename, string, mimeType, string), void {
+  private downloadFile(content: string, filename: string, mimeType: string): void {
     try {
       // Add UTF-8 BOM for CSV files to ensure proper character encoding
       const bom = mimeType === 'text/csv' ? '\uFEFF' : '';
@@ -556,12 +560,13 @@ export class ReportService {
   }
   
   private async downloadWithAPI(blob, Blob, filename, string, mimeType, string), Promise<void> {
+  private async downloadWithAPI(blob: Blob, filename: string, mimeType: string): Promise<void> {
     try {
       const fileHandle = await (window as any).showSaveFilePicker({
-        suggestedName, filename,
-        types, [{
-          description, this.getFileTypeDescription(mimeType),
-          accept: { [mimeType], [this.getFileExtension(filename)] }
+        suggestedName: filename,
+        types: [{
+          description: this.getFileTypeDescription(mimeType),
+          accept: { [mimeType]: [this.getFileExtension(filename)] }
         }]
       });
       
@@ -575,6 +580,7 @@ export class ReportService {
   }
   
   private downloadWithLink(blob, Blob, filename, string), void {
+  private downloadWithLink(blob: Blob, filename: string): void {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -587,6 +593,7 @@ export class ReportService {
   }
   
   private getFileTypeDescription(mimeType, string), string {
+  private getFileTypeDescription(mimeType: string): string {
     switch (mimeType) {
       case 'application/json', return 'JSON Data';
       case 'text/csv', return 'CSV Spreadsheet';
@@ -597,6 +604,7 @@ export class ReportService {
   }
   
   private getFileExtension(filename, string), string {
+  private getFileExtension(filename: string): string {
     const parts = filename.split('.');
     return parts.length > 1 ? `.${parts[parts.length - 1]}` : '';
   }
