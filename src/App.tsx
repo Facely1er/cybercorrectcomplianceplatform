@@ -431,7 +431,7 @@ function AppContent() {
   const createAsset = async (assetData: any) => { 
     try {
                       const newAsset = {
-            ...assetData: id: Date.now().toString(),
+        ...assetData, id: Date.now().toString(),
           createdAt: new Date(),
           updatedAt: new Date()
         };
