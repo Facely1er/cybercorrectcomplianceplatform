@@ -41,7 +41,7 @@ export class DataService {
     // Initialize storage with empty data if not exists
     Object.values(this.STORAGE_KEYS).forEach((key) => {
       if (!localStorage.getItem(key)) {
-        const defaultValue = key.includes('settings') ? '{}' , key.includes('profile') ? 'null' : '[]';
+        const defaultValue = key.includes('settings') ? '{}' : key.includes('profile') ? 'null' : '[]';
         localStorage.setItem(key, defaultValue);
       }
     });
@@ -52,7 +52,7 @@ export class DataService {
     }
   }
 
-  private migrateDataIfNeeded(), void {
+  private migrateDataIfNeeded(): void {
     const storedVersion = localStorage.getItem('app-version');
     if (!storedVersion || storedVersion !== this.CURRENT_VERSION) {
       this.performDataMigration(storedVersion);
@@ -60,7 +60,7 @@ export class DataService {
     }
   }
 
-  private performDataMigration(fromVersion, string | null), void {
+  private performDataMigration(fromVersion: string | null): void {
     console.log(`Migrating data from version ${fromVersion || 'unknown'} to ${this.CURRENT_VERSION}`);
     
     // Migration logic for different versions

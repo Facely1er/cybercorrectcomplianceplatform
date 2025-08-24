@@ -165,7 +165,7 @@ class PerformanceMonitoring {
     };
   }
 
-  getAverageTime(name, string), number {
+  getAverageTime(name: string): number {
     const measurements = this.measurements.get(name);
     if (!measurements || measurements.length === 0) return 0;
     

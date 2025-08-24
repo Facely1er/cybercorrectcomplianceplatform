@@ -70,11 +70,11 @@ class ErrorMonitoring {
   }
 
   captureException(error: Error | string, context: ErrorContext = {}) {
-    const errorDetails, ErrorDetails = typeof error === 'string' 
+    const errorDetails: ErrorDetails = typeof error === 'string'
       ? { message: error }
       : { message: error.message, stack: error.stack, name: error.name, cause: error.cause };
 
-    const enhancedContext, ErrorContext = { 
+    const enhancedContext: ErrorContext = { 
       ...context,
       url: window.location.href,
       userAgent: navigator.userAgent,
@@ -109,7 +109,7 @@ class ErrorMonitoring {
       fetch('/api/errors', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body, JSON.stringify({ error, context })
+        body: JSON.stringify({ error, context })
       }).catch((fetchError) => {
         console.error('Failed to send error to monitoring service: ', fetchError);
       });

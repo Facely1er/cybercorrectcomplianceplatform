@@ -2,6 +2,7 @@
 export const ENV = {
   NODE_ENV: import.meta.env.NODE_ENV || 'development',
   APP_VERSION: import.meta.env.VITE_APP_VERSION || '2.0.0',
+  APP_VERSION: import.meta.env.VITE_APP_VERSION || '2.0.0',
   
   // Authentication
   AUTH_PROVIDER: import.meta.env.VITE_AUTH_PROVIDER || 'supabase',
@@ -37,8 +38,8 @@ export const ENV = {
 
 // Validate required environment variables
 export const validateEnvironment = () => {
-  const errors, string[] = [];
-  const warnings, string[] = [];
+  const errors: string[] = [];
+  const warnings: string[] = [];
   
   // Critical variables for Supabase
   if (!ENV.SUPABASE_URL) {
