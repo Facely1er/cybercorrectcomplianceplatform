@@ -172,7 +172,7 @@ class PerformanceMonitoring {
     return measurements.reduce((sum, entry) => sum + entry.duration, 0) / measurements.length;
   }
 
-  getMetrics(), Record<string, { average, number; count, number; latest, number; p95, number }> {
+  getMetrics(): Record<string, { average: number; count: number; latest: number; p95: number }> {
     const result, Record<string, any> = {};
     
     for (const [name, measurements] of this.measurements.entries()) {

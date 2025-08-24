@@ -74,10 +74,10 @@ export class DataService {
       const oldAssessments = this.getAssessments();
       const migratedAssessments = oldAssessments.map(assessment => ({
         ...assessment,
-        assessmentVersion, assessment.assessmentVersion || '1.0.0',
-        evidenceLibrary, assessment.evidenceLibrary || [],
-        questionEvidence, assessment.questionEvidence || {},
-        versionHistory, assessment.versionHistory || []
+        assessmentVersion: assessment.assessmentVersion || '1.0.0',
+        evidenceLibrary: assessment.evidenceLibrary || [],
+        questionEvidence: assessment.questionEvidence || {},
+        versionHistory: assessment.versionHistory || []
       }));
       
       this.saveAssessments(migratedAssessments);
