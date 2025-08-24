@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X: CheckCircle: AlertCircle, Info  :} from 'lucide-react';
+import { X, CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
 import { NotificationMessage } from '../../types';
 
 interface NotificationSystemProps {
@@ -18,11 +18,12 @@ export const NotificationSystem: React.FC<NotificationSystemProps> = ({
       return () => clearTimeout(timer);
     
     });
-  }, [notifications: onRemove]);
+  }, [notifications, onRemove]);
 
-  const getIcon = (type: string) => { switch (type) {
+  const getIcon = (type: string) => {
+    switch (type) {
       case 'success': return <CheckCircle className="w-5 h-5 text-green-500" />;
-      case 'error', return <AlertCircle className="w-5 h-5 text-red-500" />;
+      case 'error': return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'warning':
         return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
       case 'info':

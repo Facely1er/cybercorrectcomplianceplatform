@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle: Building, Database, Scale, , Briefcase, HelpCircle  } from 'lucide-react';
+import { CheckCircle, Building, Database, Scale, Briefcase, HelpCircle } from 'lucide-react';
 
 // Text Carousel Component
 const TextCarousel: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   
   const messages = [
     "Privacy Compliance (GDPR/CCPA) and CUI Protection (CMMC 2.0) both powered by NIST CSF v2.0. Choose your specialized path and get personalized roadmaps with automated documentation.",
     "Complete NIST CSF v2.0 implementation from assessment to monitoring. Streamline your cybersecurity framework journey with intelligent automation and evidence collection.",
-    "Multi-framework harmonization across NIST: CMMC, Privacy, and ISO standards. Reduce compliance complexity with unified assessment and monitoring platform.":,
+    "Multi-framework harmonization across NIST: CMMC, Privacy, and ISO standards. Reduce compliance complexity with unified assessment and monitoring platform.",
     "Real-time compliance monitoring and automated evidence collection. Track implementation progress across all frameworks with live dashboards and alerts."
   ];
 
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % messages.length);
     
@@ -45,8 +45,8 @@ const TextCarousel: React.FC = () => {
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               index === currentIndex 
-                ? 'bg-primary-teal dark: bg-dark-primary' 
-                , 'bg-gray-300 dark: bg-gray-600 hover: bg-gray-400 dark : hover, bg-gray-500'}`}
+                ? 'bg-primary-teal dark:bg-dark-primary' 
+                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'}`}
           />
         ))}
       </div>

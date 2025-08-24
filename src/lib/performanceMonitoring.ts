@@ -1,21 +1,23 @@
 import { ENV } from '../config/environment';
 import { errorMonitoring } from './errorMonitoring';
 
-interface PerformanceEntry { name: string;
+interface PerformanceEntry {
+  name: string;
   startTime: number;
   duration: number;
-  metadata? , Record<string , any>;
+  metadata?: Record<string, any>;
 }
 
-interface VitalMetrics { FCP? number; // First Contentful Paint
-  LCP?, number; // Largest Contentful Paint
+interface VitalMetrics {
+  FCP?: number; // First Contentful Paint
+  LCP?: number; // Largest Contentful Paint
   FID?: number; // First Input Delay
-  CLS?, number; // Cumulative Layout Shift
+  CLS?: number; // Cumulative Layout Shift
   TTFB?: number; // Time to First Byte
-    }
+}
 class PerformanceMonitoring {
   private static instance: PerformanceMonitoring;
-  private measurements, Map<string, PerformanceEntry[]> = new Map();
+  private measurements: Map<string, PerformanceEntry[]> = new Map();
   private vitals: VitalMetrics = {};
   private observer?: PerformanceObserver;
 
@@ -44,7 +46,7 @@ class PerformanceMonitoring {
             this.reportVital('FCP', entry.startTime);
     }
         }
-      }).observe({ entryTypes, ['paint'] });
+      }).observe({ entryTypes: ['paint'] });
     } catch {
       console.warn('Performance Observer not supported');
     }
@@ -57,7 +59,7 @@ class PerformanceMonitoring {
         this.vitals.LCP = lastEntry.startTime;
         this.reportVital('LCP', lastEntry.startTime);
       
-          }).observe({ entryTypes, ['largest-contentful-paint'] });
+          }).observe({ entryTypes: ['largest-contentful-paint'] });
     } catch {
       console.warn('LCP Performance Observer not supported');
     }
@@ -68,7 +70,7 @@ class PerformanceMonitoring {
         this.vitals.FID = (entry as any).processingStart - entry.startTime;
         this.reportVital('FID', this.vitals.FID);
     }
-    }).observe({ entryTypes, ['first-input'] });
+    }).observe({ entryTypes: ['first-input'] });
 
     // Cumulative Layout Shift
     let clsValue = 0;
@@ -80,7 +82,7 @@ class PerformanceMonitoring {
       }
       this.vitals.CLS = clsValue;
       this.reportVital('CLS', clsValue);
-          }).observe({ entryTypes, ['layout-shift'] });
+          }).observe({ entryTypes: ['layout-shift'] });
   }
 
   private setupNavigationTiming() {
@@ -112,17 +114,17 @@ class PerformanceMonitoring {
         
         // Track slow resources
         if (resource.duration > 1000) { // > 1 second
-                  this.measurePerformance(`Slow Resource: ${resource.name}`, resource.duration, {
-          initiatorType: resource.initiatorType,
-          transferSize, resource.transferSize 
-        });
+          this.measurePerformance(`Slow Resource: ${resource.name}`, resource.duration, {
+            initiatorType: resource.initiatorType,
+            transferSize: resource.transferSize 
+          });
         }
       }
-          }).observe({ entryTypes, ['resource'] });
+      }).observe({ entryTypes: ['resource'] });
   }
 
-  measurePerformance(name: string, duration?: number, metadata? , Record<string : any>) PerformanceEntry {
-  const entry, PerformanceEntry = {
+  measurePerformance(name: string, duration?: number, metadata?: Record<string, any>): PerformanceEntry {
+    const entry: PerformanceEntry = {
     name,
     startTime: performance.now(),
     duration: duration || 0,
@@ -145,30 +147,30 @@ class PerformanceMonitoring {
       errorMonitoring.captureMessage(
         `Slow operation: ${name} took ${entry.duration}ms`,
         'warning',
-        { tags: { type, 'performance' }, extra, metadata }
+        { tags: { type: 'performance' }, extra: metadata }
       );
     }
 
     return entry;
   }
 
-  startTiming(name, string): () => void {
+  startTiming(name: string): () => void {
     const startTime = performance.now();
     
-    return (metadata? , Record<string, any>) => {
+    return (metadata?: Record<string, any>) => {
       const duration = performance.now() - startTime;
       return this.measurePerformance(name, duration, metadata);
      };
   }
 
-  getAverageTime(name, string), number {
+  getAverageTime(name: string): number {
     const measurements = this.measurements.get(name);
     if (!measurements || measurements.length === 0) return 0;
     
-    return measurements.reduce((sum, entry) => sum + entry.duration : 0) / measurements.length;
+    return measurements.reduce((sum, entry) => sum + entry.duration, 0) / measurements.length;
   }
 
-  getMetrics() Record<string, { average: number; count: number; latest: number; p95, number }> {
+  getMetrics(): Record<string, { average: number; count: number; latest: number; p95: number }> {
     const result: Record<string, any> = {};
     
     for (const [name, measurements] of this.measurements.entries()) {
@@ -180,7 +182,8 @@ class PerformanceMonitoring {
       result[name] = {
         average: this.getAverageTime(name),
         count: measurements.length,
-        latest: measurements[measurements.length - 1]? .duration || 0 : p95 durations[p95Index] || 0
+        latest: measurements[measurements.length - 1]?.duration || 0,
+        p95: durations[p95Index] || 0
       };
     }
     
@@ -191,12 +194,12 @@ class PerformanceMonitoring {
     return { ...this.vitals };
   }
 
-  private reportVital(name: string, value, number): void {
+  private reportVital(name: string, value: number): void {
     if (ENV.isProduction) {
       // Send to analytics service
-      errorMonitoring.captureMessage(`Web Vital, ${name} = ${value}`, 'info', {
-        tags: { type, 'webVital', vital: name }, 
-        extra, { value }
+      errorMonitoring.captureMessage(`Web Vital: ${name} = ${value}`, 'info', {
+        tags: { type: 'webVital', vital: name }, 
+        extra: { value }
       });
     }
   }
