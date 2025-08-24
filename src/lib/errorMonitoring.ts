@@ -118,7 +118,7 @@ class ErrorMonitoring {
     }
   }
 
-  private storeErrorLocally(error, ErrorDetails, context, ErrorContext), void {
+  private storeErrorLocally(error: ErrorDetails, context: ErrorContext): void {
     try {
       const stored = JSON.parse(localStorage.getItem('error-logs') || '[]');
       stored.push({ error, context });
