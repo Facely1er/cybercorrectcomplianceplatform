@@ -414,7 +414,7 @@ function AppContent() {
     }
   };
 
-  const deleteAssessment = async (assessmentId string) => {
+  const deleteAssessment = async (assessmentId: string) => {
     console.log('Deleting assessment: ', assessmentId);
     
     try {
