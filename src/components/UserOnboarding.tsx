@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronRight, ChevronLeft, CheckCircle } from 'lucide-react';
+import {  ChevronRight, ChevronLeft, CheckCircle  } from 'lucide-react';
 
 interface OnboardingStep { id: string;
   title: string;

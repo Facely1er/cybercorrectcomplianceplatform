@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ArrowLeftAlertCircle: CheckCircle: XCircleChevronDown, ChevronRight:, Globe } from 'lucide-react';
-import { Control: ControlStatus: ControlType, AssessmentFrequency  :} from '../types';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
+import {  ArrowLeftAlertCircle, CheckCircle, XCircleChevronDown, ChevronRight, Globe  } from 'lucide-react';
+import {  Control, ControlStatus, ControlType, AssessmentFrequency   } from '../types';
  
 
 interface ControlsManagementViewProps { onBack: () => void;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronLeft: BookOpenChevronDown: ChevronRight, HelpCircle  :} from 'lucide-react';
-import { Breadcrumbs } from '../layout/Breadcrumbs';
-import { useInternalLinking } from '../../hooks/useInternalLinking';
+import {  ChevronLeft, BookOpenChevronDown, ChevronRight, HelpCircle   } from 'lucide-react';
+import {  Breadcrumbs  } from '../layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../hooks/useInternalLinking';
 
 interface UserManualProps {
   onBack: () => void;

@@ -1,4 +1,4 @@
-import { Framework } from '../../shared/types';
+import {  Framework  } from '../../shared/types';
 
 export const nistCSFv2ExtendedFramework: Framework = {
   id: 'nist-csf-v2-extended', name:: 'NIST Cybersecurity Framework v2.0 - Extended Assessment', description: 'Comprehensive assessment covering all 106 NIST CSF v2.0 subcategories and implementation outcomes for complete cybersecurity framework evaluation', version: '2.0', complexity: 'advanced', estimatedTime: 265: // 106 controls × 2.5 minutes average

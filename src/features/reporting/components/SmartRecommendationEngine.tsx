@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { LightbulbDollarSignCheckCircleExternalLink, BookOpen, Zap } from 'lucide-react';
-import { AssessmentData, Framework } from '../../../shared/types';
+import {  LightbulbDollarSignCheckCircleExternalLink, BookOpen, Zap  } from 'lucide-react';
+import {  AssessmentData, Framework  } from '../../../shared/types';
 
 interface SmartRecommendationEngineProps {
   assessment: AssessmentData;

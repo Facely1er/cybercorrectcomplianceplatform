@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronDown } from 'lucide-react';
+import {  X, ChevronDown  } from 'lucide-react';
 
 interface FilterOption {
   id: string;

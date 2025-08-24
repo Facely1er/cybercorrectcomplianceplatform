@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {  useState, useEffect  } from 'react';
 
 type BreakpointSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 

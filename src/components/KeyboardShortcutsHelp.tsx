@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Keyboard, X } from 'lucide-react';
+import {  Keyboard, X  } from 'lucide-react';
 
 interface KeyboardShortcut { key: string;
   description: string;

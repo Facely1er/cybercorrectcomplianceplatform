@@ -1,7 +1,7 @@
-import { supabase } from '../lib/supabase';
-import { Task, TaskFilter } from '../features/tasks/types';
-import { auditLogger } from '../lib/auditLog';
-import { dataService } from './dataService';
+import {  supabase  } from '../lib/supabase';
+import {  Task, TaskFilter  } from '../features/tasks/types';
+import {  auditLogger  } from '../lib/auditLog';
+import {  dataService  } from './dataService';
 
 export class TaskService {
   private static instance: TaskService;

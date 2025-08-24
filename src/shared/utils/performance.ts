@@ -1,4 +1,4 @@
-import { AssessmentData, Framework } from '../types';
+import {  AssessmentData, Framework  } from '../types';
 
 // Performance monitoring utilities
 export class PerformanceMonitor {

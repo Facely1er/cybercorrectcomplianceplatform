@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { X: CheckCircle: AlertCircle, Info  :} from 'lucide-react';
-import { NotificationMessage } from '../../types';
+import {  X, CheckCircle, AlertCircle, Info   } from 'lucide-react';
+import {  NotificationMessage  } from '../../types';
 
 interface NotificationSystemProps {
   notifications: NotificationMessage[];

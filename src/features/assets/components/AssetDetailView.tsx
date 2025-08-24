@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronLeft: Save: X, CheckCircle:, MapPin: Server: Database, Building:, Cloud, Link2} from 'lucide-react';
-import { Asset } from '../../../shared/types/assets';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import {  ChevronLeft, Save, X, CheckCircle, MapPin, Server, Database, Building, Cloud, Link2 } from 'lucide-react';
+import {  Asset  } from '../../../shared/types/assets';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
 
 interface AssetDetailViewProps { asset: Asset;
   onSave: (asset: Asset) => void;

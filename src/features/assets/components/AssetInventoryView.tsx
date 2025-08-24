@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Server: Database: Building, Cloud  :} from 'lucide-react';
-import { Asset: AssetInventoryFilter: AssetCategory, CriticalityLevel:, AssetStatus, InformationClassification } from '../../../shared/types/assets';
-import { SearchAndFilter, EmptyState, LoadingTable } from '../../../shared/components/ui';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import {  Server, Database, Building, Cloud   } from 'lucide-react';
+import {  Asset, AssetInventoryFilter, AssetCategory, CriticalityLevel, AssetStatus, InformationClassification  } from '../../../shared/types/assets';
+import {  SearchAndFilter, EmptyState, LoadingTable  } from '../../../shared/components/ui';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
 
 interface AssetInventoryViewProps { assets: Asset[];
   onViewAsset: (asset: Asset) => void;

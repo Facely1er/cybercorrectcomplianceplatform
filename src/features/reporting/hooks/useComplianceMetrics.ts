@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { AssessmentData } from '../../../shared/types';
+import {  useMemo  } from 'react';
+import {  AssessmentData  } from '../../../shared/types';
 
 export interface ComplianceMetrics { overallCompliance: number;
   riskDistribution: Record<string, number>;

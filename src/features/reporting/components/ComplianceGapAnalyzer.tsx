@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { CheckCircleLightbulb } from 'lucide-react';
-import { AssessmentData } from '../../../shared/types';
+import {  CheckCircleLightbulb  } from 'lucide-react';
+import {  AssessmentData  } from '../../../shared/types';
 
-import { BarChart } from '../../../shared/components/charts/BarChart';
+import {  BarChart  } from '../../../shared/components/charts/BarChart';
 
 interface ComplianceGapAnalyzerProps { savedAssessments: AssessmentData[];
   onStartAssessment: () => void;

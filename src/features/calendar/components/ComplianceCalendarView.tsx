@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { CalendarEvent, CalendarEventType, ActivityMetrics } from '../types';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import {  ChevronLeft, ChevronRight  } from 'lucide-react';
+import {  CalendarEvent, CalendarEventType, ActivityMetrics  } from '../types';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
 
 interface ComplianceCalendarViewProps {
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;

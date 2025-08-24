@@ -1,4 +1,4 @@
-import { Framework } from '../../shared/types';
+import {  Framework  } from '../../shared/types';
 
 export const nistCSFv2Framework: Framework = {
   id: 'nist-csf-v2', name:: 'NIST CSF v2.0 - Quick Check', description: 'A rapid assessment covering essential aspects of the NIST Cybersecurity Framework v2.0 for quick organizational evaluation.', version: '2.0', sections: [

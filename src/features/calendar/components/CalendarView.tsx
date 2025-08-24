@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Task } from '../../tasks/types';
+import {  ChevronLeft, ChevronRight  } from 'lucide-react';
+import {  Task  } from '../../tasks/types';
 
 interface CalendarEvent { id: string;
   title: string;

@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
-import { ChevronLeftCheckCircle: MessageCircle: Building, User:, MapPin } from 'lucide-react';
-import { AssessmentData, Framework, UserProfile } from '../../../shared/types';
-import { RadarChart } from '../../../shared/components/charts/RadarChart';
-import { RemediationTimeline } from './RemediationTimeline';
-import { SmartRecommendationEngine } from './SmartRecommendationEngine';
-import { reportService } from '../../../services/reportService';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import {  ChevronLeftCheckCircle, MessageCircle, Building, User, MapPin  } from 'lucide-react';
+import {  AssessmentData, Framework, UserProfile  } from '../../../shared/types';
+import {  RadarChart  } from '../../../shared/components/charts/RadarChart';
+import {  RemediationTimeline  } from './RemediationTimeline';
+import {  SmartRecommendationEngine  } from './SmartRecommendationEngine';
+import {  reportService  } from '../../../services/reportService';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
 
 interface ReportViewProps { assessment: AssessmentData;
   framework: Framework;

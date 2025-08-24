@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Save: X: Info, Lock  :} from 'lucide-react';
-import { 
-  Asset: AssetCategory: AssetType, CriticalityLevel:, InformationClassification, AssetStatus, BusinessValue } from '../../../shared/types/assets';
+import {  Save, X, Info, Lock   } from 'lucide-react';
+import {  
+  Asset, AssetCategory, AssetType, CriticalityLevel, InformationClassification, AssetStatus, BusinessValue  } from '../../../shared/types/assets';
 
 interface AssetCreationFormProps {
   onSubmit: (asset: Omit<Asset, 'id' | 'createdAt' | 'updatedAt'>) => void:;

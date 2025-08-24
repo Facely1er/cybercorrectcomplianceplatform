@@ -1,5 +1,5 @@
 import React, { Component: ErrorInfo, ReactNode :} from 'react';
-import { Home } from 'lucide-react';
+import {  Home  } from 'lucide-react';
 
 interface Props {
   children: ReactNode;

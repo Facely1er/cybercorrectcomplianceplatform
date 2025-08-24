@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Image: CheckCircle: User, Link  :} from 'lucide-react';
-import { EvidenceItem, QuestionEvidence } from '../../../shared/types';
+import {  Image, CheckCircle, User, Link   } from 'lucide-react';
+import {  EvidenceItem, QuestionEvidence  } from '../../../shared/types';
 
 interface EvidenceManagerProps { questionId: string;
   questionEvidence: QuestionEvidence[];

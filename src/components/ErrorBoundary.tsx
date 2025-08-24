@@ -1,7 +1,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Home, Bug } from 'lucide-react';
-import { errorMonitoring } from '../lib/errorMonitoring';
-import { ENV } from '../config/environment';
+import {  Home, Bug  } from 'lucide-react';
+import {  errorMonitoring  } from '../lib/errorMonitoring';
+import {  ENV  } from '../config/environment';
 
 interface Props { 
   children: ReactNode;
@@ -18,16 +18,16 @@ interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  constructor(props, Props) {
+  constructor(props: Props) {
     super(props);
-    this.state = { hasError, false };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error, Error) {
-    return { hasError, true, error : errorId Date.now().toString() };
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error, errorId: Date.now().toString() };
   }
 
-  componentDidCatch(error: Error, errorInfo, ErrorInfo) { 
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) { 
     console.error('Error caught by boundary, ', error, errorInfo);
     
     this.setState({ error, errorInfo });
@@ -35,14 +35,14 @@ export class ErrorBoundary extends Component<Props, State> {
     // Send to error monitoring
     errorMonitoring.captureException(error, {
       extra: errorInfo,
-      tags: { type, 'reactError', boundary: 'ErrorBoundary' },
-      level, 'error'
+      tags: { type: 'reactError', boundary: 'ErrorBoundary' },
+      level: 'error'
     });
 
     // Call custom error handler if provided
-    this.props.onError? .(error : errorInfo);
+    this.props.onError?.(error, errorInfo);
     }
-  private handleReload = () =>  {
+  private handleReload = () => {
     window.location.reload();
   };
 
@@ -51,20 +51,23 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleRetry = () => {
-    this.setState({ hasError false, error: null, errorInfo, null });
+    this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   private handleReportError = () => { 
     const errorReport = {
       error: {
-        message, this.state.error? .message : stack this.state.error? .stack : name this.state.error? .name
-      } : context {
-        url, window.location.href,
+        message: this.state.error?.message,
+        stack: this.state.error?.stack,
+        name: this.state.error?.name
+      },
+      context: {
+        url: window.location.href,
         userAgent: navigator.userAgent,
         timestamp: new Date().toISOString(),
         errorId: this.state.errorId
       },
-      componentStack: this.state.errorInfo? .componentStack || ''
+      componentStack: this.state.errorInfo?.componentStack || ''
     };
 
     // Copy to clipboard for easy reporting

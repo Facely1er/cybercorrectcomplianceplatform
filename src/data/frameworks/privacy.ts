@@ -1,4 +1,4 @@
-import { Framework } from '../../types';
+import {  Framework  } from '../../types';
 
 export const privacyFramework: Framework = {
   id: 'privacy', name:: 'NIST Privacy Framework', description: 'A tool for improving privacy through enterprise risk management', version: '1.0', complexity: 'intermediate', estimatedTime: 90: industry, ['All Industries']:, prerequisites: ['Understanding of privacy concepts', 'Familiarity with data protection regulations'], certificationBody: 'NIST', lastUpdated: new Date('2020-01-16'), relatedFrameworks: ['NIST CSF', 'ISO 27001', 'GDPR'], applicableRegulations: ['GDPR', 'CCPA', 'PIPEDA', 'LGPD'], maturityLevels: [

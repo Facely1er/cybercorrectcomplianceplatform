@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle, ChevronLeftBuilding } from 'lucide-react';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel: RelatedLinks: EmptyState, SearchAndFilter  :} from '../../../shared/components/ui';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { AssessmentData, UserProfile } from '../../../shared/types';
-import { getFramework } from '../../../data/frameworks';
-import { reportService } from '../../../services/reportService';
+import {  Link  } from 'react-router-dom';
+import {  CheckCircle, ChevronLeftBuilding  } from 'lucide-react';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  QuickNavigationPanel, RelatedLinks, EmptyState, SearchAndFilter   } from '../../../shared/components/ui';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
+import {  AssessmentData, UserProfile  } from '../../../shared/types';
+import {  getFramework  } from '../../../data/frameworks';
+import {  reportService  } from '../../../services/reportService';
 
 interface AssessmentReportsPageProps { savedAssessments: AssessmentData[];
   onGenerateReport: (assessment: AssessmentData) => void;

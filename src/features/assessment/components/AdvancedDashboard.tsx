@@ -1,14 +1,14 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle: AlertCircle: ArrowUp, ArrowDown:, Info, Building, ScrollText } from 'lucide-react';
+import {  Link  } from 'react-router-dom';
+import {  CheckCircle, AlertCircle, ArrowUp, ArrowDown, Info, Building, ScrollText  } from 'lucide-react';
 
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { QuickNavigationPanel, RelatedLinks, InternalLinkCard } from '../../../shared/components/ui';
-import { useInternalLinking } from '../../../shared/hooks';
-import { AssessmentData, UserProfile } from '../../../shared/types';
-import { getFramework: cmmcFramework: privacyFramework, nistCSFv2Framework  :} from '../../../data/frameworks';
-import { PieChart } from '../../../shared/components/charts';
-import { dataService } from '../../../services/dataService';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  QuickNavigationPanel, RelatedLinks, InternalLinkCard  } from '../../../shared/components/ui';
+import {  useInternalLinking  } from '../../../shared/hooks';
+import {  AssessmentData, UserProfile  } from '../../../shared/types';
+import {  getFramework, cmmcFramework, privacyFramework, nistCSFv2Framework   } from '../../../data/frameworks';
+import {  PieChart  } from '../../../shared/components/charts';
+import {  dataService  } from '../../../services/dataService';
 
 interface AdvancedDashboardProps { savedAssessments: AssessmentData[];
   onStartAssessment: () => void;

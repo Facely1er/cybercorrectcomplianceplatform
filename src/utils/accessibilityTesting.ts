@@ -1,4 +1,4 @@
-import { configureAxe } from '@axe-core/react';
+import {  configureAxe  } from '@axe-core/react';
 
 if (process.env.NODE_ENV !== 'production') {
   configureAxe({

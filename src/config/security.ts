@@ -1,6 +1,6 @@
 // Security Configuration for Production
-import { ENV 
-    } from './environment';
+import {  ENV 
+     } from './environment';
 
 export interface SecurityConfig {
   headers: Record<string, string>;

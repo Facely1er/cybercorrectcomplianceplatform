@@ -1,4 +1,4 @@
-import { errorMonitoring } from '../lib/errorMonitoring';
+import {  errorMonitoring  } from '../lib/errorMonitoring';
 
 export interface FileUploadResult { id: string;
   name: string;

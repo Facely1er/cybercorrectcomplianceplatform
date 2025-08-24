@@ -1,8 +1,8 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import {  StrictMode  } from 'react';
+import {  createRoot  } from 'react-dom/client';
+import {  BrowserRouter  } from 'react-router-dom';
 import App from './App.tsx';
-import { ThemeProvider } from './shared/contexts/ThemeContext';
+import {  ThemeProvider  } from './shared/contexts/ThemeContext';
 import './index.css';
 
 // Register service worker for offline capabilities

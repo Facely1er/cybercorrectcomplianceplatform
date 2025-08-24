@@ -1,5 +1,5 @@
-import { supabase, isSupabaseReady } from '../lib/supabase';
-import { auditLogger } from '../lib/auditLog';
+import {  supabase, isSupabaseReady  } from '../lib/supabase';
+import {  auditLogger  } from '../lib/auditLog';
 
 export interface Organization { id: string;
   name: string;

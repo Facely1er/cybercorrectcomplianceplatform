@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { Asset, AssetInventoryFilter } from '../../../shared/types/assets';
+import {  useMemo  } from 'react';
+import {  Asset, AssetInventoryFilter  } from '../../../shared/types/assets';
 
 export const useAssetFilters = (assets: Asset[], filters: AssetInventoryFilter) => {
   const filteredAssets = useMemo(() => {

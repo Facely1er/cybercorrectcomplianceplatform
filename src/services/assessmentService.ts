@@ -1,7 +1,7 @@
-import { supabase } from '../lib/supabase';
-import { AssessmentData } from '../shared/types';
-import { auditLogger } from '../lib/auditLog';
-import { dataService } from './dataService';
+import {  supabase  } from '../lib/supabase';
+import {  AssessmentData  } from '../shared/types';
+import {  auditLogger  } from '../lib/auditLog';
+import {  dataService  } from './dataService';
 
 export class AssessmentService {
   private static instance: AssessmentService;

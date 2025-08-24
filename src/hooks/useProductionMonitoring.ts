@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { errorMonitoring } from '../lib/errorMonitoring';
-import { performanceMonitoring } from '../lib/performanceMonitoring';
-import { ENV } from '../config/environment';
+import {  useState, useEffect  } from 'react';
+import {  errorMonitoring  } from '../lib/errorMonitoring';
+import {  performanceMonitoring  } from '../lib/performanceMonitoring';
+import {  ENV  } from '../config/environment';
 
 interface ProductionMetrics { uptime: number;
   errorRate: number;

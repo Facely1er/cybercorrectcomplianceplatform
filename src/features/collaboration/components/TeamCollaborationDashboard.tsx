@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { UserMessageSquareCheckCircle } from 'lucide-react';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import {  UserMessageSquareCheckCircle  } from 'lucide-react';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
 
 interface TeamCollaborationDashboardProps {
   addNotification: (type: 'success' | 'error' | 'warning' | 'info', message:: string) => void;

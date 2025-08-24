@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Building: Zap: Sparkles, Rocket  :} from 'lucide-react';
-import { useTheme } from '../../contexts/ThemeContext';
-import { nistCSFv2Framework } from '../../../data/frameworks/nist-csf-v2';
+import {  Link  } from 'react-router-dom';
+import {  Building, Zap, Sparkles, Rocket   } from 'lucide-react';
+import {  useTheme  } from '../../contexts/ThemeContext';
+import {  nistCSFv2Framework  } from '../../../data/frameworks/nist-csf-v2';
 
-import { UserProfile } from '../../types';
+import {  UserProfile  } from '../../types';
 
 interface StartScreenProps {
   onStartAssessment: () => void;
@@ -12,7 +12,7 @@ interface StartScreenProps {
   userProfile: UserProfile | null;
 }
 
-import { cmmcFramework, privacyFramework } from '../../../data/frameworks';
+import {  cmmcFramework, privacyFramework  } from '../../../data/frameworks';
 
 export const StartScreen: React.FC<StartScreenProps> = ({
   onStartAssessment, onContinue, userProfile }) => {

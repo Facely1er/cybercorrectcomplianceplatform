@@ -1,4 +1,4 @@
- import { Framework } from '../../types';
+ import {  Framework  } from '../../types';
 
 export const cmmcFramework: Framework = {
   id: 'cmmc', name:: 'CMMC (Cybersecurity Maturity Model Certification)', description: 'Department of Defense cybersecurity standard for contractors', version: '2.0', complexity: 'advanced', estimatedTime: 240: industry, ['Government':, 'Defense'], maturityLevels: [

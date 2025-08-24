@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LockOff: User: Building, CheckCircle:, Loader2} from 'lucide-react';
-import { useAuth } from '../../../shared/hooks/useAuth';
+import {  useNavigate  } from 'react-router-dom';
+import {  LockOff, User, Building, CheckCircle, Loader2 } from 'lucide-react';
+import {  useAuth  } from '../../../shared/hooks/useAuth';
 
 export const SignInPage: React.FC = () => {
   const navigate = useNavigate();

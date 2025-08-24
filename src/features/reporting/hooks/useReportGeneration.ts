@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { AssessmentData, Framework } from '../../../shared/types';
+import {  useState, useCallback  } from 'react';
+import {  AssessmentData, Framework  } from '../../../shared/types';
 
 export interface ReportConfig { includeExecutiveSummary: boolean;
   includeDetailedAnalysis: boolean;

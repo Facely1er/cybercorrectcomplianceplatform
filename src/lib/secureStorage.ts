@@ -1,5 +1,5 @@
-import { ENV } from '../config/environment';
-import { errorMonitoring } from './errorMonitoring';
+import {  ENV  } from '../config/environment';
+import {  errorMonitoring  } from './errorMonitoring';
 
 interface StorageOptions {
   encrypt?: boolean;

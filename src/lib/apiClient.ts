@@ -1,5 +1,5 @@
-import { ENV } from '../config/environment';
-import { errorMonitoring } from './errorMonitoring';
+import {  ENV  } from '../config/environment';
+import {  errorMonitoring  } from './errorMonitoring';
 
 interface ApiRequestConfig { method?, 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   headers?: Record<string, string>;

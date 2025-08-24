@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronLeft: Save: User, Building  :} from 'lucide-react';
-import { Breadcrumbs } from '../layout/Breadcrumbs';
-import { useInternalLinking } from '../../hooks/useInternalLinking';
-import { UserProfile } from '../../types';
+import {  ChevronLeft, Save, User, Building   } from 'lucide-react';
+import {  Breadcrumbs  } from '../layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../hooks/useInternalLinking';
+import {  UserProfile  } from '../../types';
 
 interface ProfileViewProps { userProfile: UserProfile | null;
   onUpdateProfile: (profile: UserProfile) => void;

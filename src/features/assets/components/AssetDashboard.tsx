@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle: Server: Database, Building:, CloudChevronLeft } from 'lucide-react';
-import { Asset, AssetMetrics } from '../../../shared/types/assets';
-import { PieChart } from '../../../shared/components/charts/PieChart';
-import { BarChart } from '../../../shared/components/charts/BarChart';
-import { RelatedLinks } from '../../../shared/components/ui/RelatedLinks';
-import { EmptyState } from '../../../shared/components/ui/LoadingStates';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
+import {  Link  } from 'react-router-dom';
+import {  CheckCircle, Server, Database, Building, CloudChevronLeft  } from 'lucide-react';
+import {  Asset, AssetMetrics  } from '../../../shared/types/assets';
+import {  PieChart  } from '../../../shared/components/charts/PieChart';
+import {  BarChart  } from '../../../shared/components/charts/BarChart';
+import {  RelatedLinks  } from '../../../shared/components/ui/RelatedLinks';
+import {  EmptyState  } from '../../../shared/components/ui/LoadingStates';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
 
 interface AssetDashboardProps { assets: Asset[];
   onViewAsset: (asset: Asset) => void;

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft: Construction: Clock, ArrowRight  :} from 'lucide-react';
+import {  Link  } from 'react-router-dom';
+import {  ChevronLeft, Construction, Clock, ArrowRight   } from 'lucide-react';
 
 interface ComingSoonProps { title?: string;
   description?, string;

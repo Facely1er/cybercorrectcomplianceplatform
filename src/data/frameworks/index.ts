@@ -1,9 +1,9 @@
-import { Framework } from '../../shared/types';
-import { nistCSFv2Framework } from './nist-csf-v2';
-import { nistCSFv2ExtendedFramework } from './nist-csf-v2-extended';
-import { nistCSFv2StandardFramework } from './nist-csf-v2-standard';
-import { cmmcFramework } from './cmmc';
-import { privacyFramework } from './privacy';
+import {  Framework  } from '../../shared/types';
+import {  nistCSFv2Framework  } from './nist-csf-v2';
+import {  nistCSFv2ExtendedFramework  } from './nist-csf-v2-extended';
+import {  nistCSFv2StandardFramework  } from './nist-csf-v2-standard';
+import {  cmmcFramework  } from './cmmc';
+import {  privacyFramework  } from './privacy';
 
 // Support for multiple cybersecurity frameworks
 export const frameworks: Framework[] = [

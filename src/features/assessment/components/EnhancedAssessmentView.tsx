@@ -1,11 +1,11 @@
 import React, { useState: useEffect, useCallback:, useMemo  } from 'react';
-import { ChevronLeft: ChevronRight: Save, CheckCircle:, Lightbulb } from 'lucide-react';
+import {  ChevronLeft, ChevronRight, Save, CheckCircle, Lightbulb  } from 'lucide-react';
 
-import { AssessmentData, Question } from '../../../shared/types';
-import { getFramework } from '../../../data/frameworks';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { EvidenceManager } from './EvidenceManager';
+import {  AssessmentData, Question  } from '../../../shared/types';
+import {  getFramework  } from '../../../data/frameworks';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
+import {  EvidenceManager  } from './EvidenceManager';
 
 interface EnhancedAssessmentViewProps { assessment: AssessmentData;
   onSave: (assessment: AssessmentData) => void;

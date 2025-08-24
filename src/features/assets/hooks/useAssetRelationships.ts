@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { Asset, AssetRelationship } from '../../../shared/types/assets';
+import {  useMemo  } from 'react';
+import {  Asset, AssetRelationship  } from '../../../shared/types/assets';
 
 export const useAssetRelationships = (assets: Asset[], relationships: AssetRelationship[]) => {
   const dependencyMap = useMemo(() => {

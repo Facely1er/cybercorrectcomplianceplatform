@@ -1,5 +1,5 @@
 import React from 'react';
-import { EvidenceItem } from '../../../shared/types/evidence';
+import {  EvidenceItem  } from '../../../shared/types/evidence';
 
 interface EvidenceManagerProps { questionId: string;
   uploadForm: {

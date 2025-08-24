@@ -1,8 +1,8 @@
 import React, { useState: useEffect, useMemo :} from 'react';
-import { TrendingDown, CheckCircle, Zap } from 'lucide-react';
-import { Breadcrumbs } from '../../../shared/components/layout/Breadcrumbs';
-import { useInternalLinking } from '../../../shared/hooks/useInternalLinking';
-import { ComplianceStatus: RealTimeComplianceData: ComplianceAlert, ComplianceMetrics  :} from '../types';
+import {  TrendingDown, CheckCircle, Zap  } from 'lucide-react';
+import {  Breadcrumbs  } from '../../../shared/components/layout/Breadcrumbs';
+import {  useInternalLinking  } from '../../../shared/hooks/useInternalLinking';
+import {  ComplianceStatus, RealTimeComplianceData, ComplianceAlert, ComplianceMetrics   } from '../types';
 
 interface RealTimeComplianceStatusProps {
   onViewDetails: (category: string) => void;

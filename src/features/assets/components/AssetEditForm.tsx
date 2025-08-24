@@ -1,6 +1,6 @@
 import React from 'react';
-import { Asset } from '../../../shared/types/assets';
-import { AssetCreationForm } from './AssetCreationForm';
+import {  Asset  } from '../../../shared/types/assets';
+import {  AssetCreationForm  } from './AssetCreationForm';
 
 interface AssetEditFormProps { asset: Asset;
   onSave: (updatedAsset: Asset) => void;
