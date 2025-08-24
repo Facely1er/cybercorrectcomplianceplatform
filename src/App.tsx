@@ -434,9 +434,9 @@ function AppContent() {
     try {
       const newAsset = {
         ...assetData, 
-        id, Date.now().toString(),
-        createdAt, new Date(),
-        updatedAt, new Date()
+        id: Date.now().toString(),
+        createdAt: new Date(),
+        updatedAt: new Date()
       };
       
       dataService.saveAsset(newAsset);
