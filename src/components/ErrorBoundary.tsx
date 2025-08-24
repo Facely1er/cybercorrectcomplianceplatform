@@ -60,9 +60,6 @@ export class ErrorBoundary extends Component<Props, State> {
         message: this.state.error?.message,
         stack: this.state.error?.stack,
         name: this.state.error?.name
-        message: this.state.error?.message,
-        stack: this.state.error?.stack,
-        name: this.state.error?.name
       },
       context: {
         url: window.location.href,
