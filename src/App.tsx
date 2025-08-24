@@ -946,7 +946,6 @@ function AppContent() {
         notifications={notifications}
         onRemove={removeNotification}
       />
-      <Analytics />
     </div>
   );
 }
