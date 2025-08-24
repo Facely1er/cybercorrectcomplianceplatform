@@ -955,5 +955,4 @@ function App() {
   return (
     <ThemeProvider>
       <AppContent />
-import React, { useState, useEffect } from 'react';
     </ThemeProvider>
