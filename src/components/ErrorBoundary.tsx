@@ -57,8 +57,11 @@ export class ErrorBoundary extends Component<Props, State> {
   private handleReportError = () => { 
     const errorReport = {
       error: {
-        message, this.state.error? .message : stack this.state.error? .stack : name this.state.error? .name
-      } : context {
+        message: this.state.error?.message,
+        stack: this.state.error?.stack,
+        name: this.state.error?.name
+      },
+      context: {
         url, window.location.href,
         userAgent: navigator.userAgent,
         timestamp: new Date().toISOString(),
