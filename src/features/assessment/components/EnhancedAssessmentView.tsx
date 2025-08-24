@@ -13,7 +13,7 @@ interface EnhancedAssessmentViewProps { assessment: AssessmentData;
   onBack: () => void;
 }
 
-export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment, onSave: onGenerateReport:, onBack  }) => {
+export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ assessment, onSave, onGenerateReport, onBack }) => {
   const { breadcrumbs } = useInternalLinking();
   const framework = getFramework(assessment.frameworkId);
   
