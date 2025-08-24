@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
-import { Shield, Menu, X, Sun, Moon, Home, Target, BarChart3, Play, ChevronLeft } from 'lucide-react';
+import { Shield, Menu, X, Sun, Moon, Home, Target, BarChart3, Play, ChevronLeft, FileText, Users, Calendar } from 'lucide-react';
 import { useTheme } from './shared/contexts/ThemeContext';
+
+// Import assessment components
+import { AssessmentIntroScreen } from './features/assessment/components/AssessmentIntroScreen';
+import { EnhancedAssessmentView } from './features/assessment/components/EnhancedAssessmentView';
+import { AdvancedDashboard } from './features/assessment/components/AdvancedDashboard';
+import { ReportView } from './features/reporting/components/ReportView';
+
+// Import frameworks and types
+import { frameworks, getFramework } from './data/frameworks';
+import { AssessmentData, UserProfile, OrganizationInfo, NotificationMessage } from './shared/types';
+import { dataService } from './services/dataService';
 
 // Simple Theme Toggle Component
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
+  
+  const handleThemeToggle = () => {
+    console.log('Theme toggle clicked, current:', theme);
+    toggleTheme();
+  };
+  
   return (
     <button
-      onClick={toggleTheme}
+      onClick={handleThemeToggle}
       className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
       aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
     >
@@ -17,19 +34,54 @@ const ThemeToggle: React.FC = () => {
   );
 };
 
+// Notification System
+const NotificationSystem: React.FC<{
+  notifications: NotificationMessage[];
+  onRemove: (id: string) => void;
+}> = ({ notifications, onRemove }) => {
+  useEffect(() => {
+    notifications.forEach((notification) => {
+      if (!notification.persistent) {
+        const timer = setTimeout(() => {
+          onRemove(notification.id);
+        }, 5000);
+        return () => clearTimeout(timer);
+      }
+    });
+  }, [notifications, onRemove]);
+
+  if (notifications.length === 0) return null;
+
+  return (
+    <div className="fixed top-4 right-4 z-50 space-y-2">
+      {notifications.map((notification) => (
+        <div
+          key={notification.id}
+          className={`max-w-sm w-full border rounded-lg p-4 shadow-lg animate-slide-up ${
+            notification.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
+            notification.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
+            notification.type === 'warning' ? 'bg-yellow-50 border-yellow-200 text-yellow-800' :
+            'bg-blue-50 border-blue-200 text-blue-800'
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium">{notification.message}</p>
+            <button
+              onClick={() => onRemove(notification.id)}
+              className="ml-2 text-gray-400 hover:text-gray-600"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 // Simple Landing Page
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  
-  const handleGetStarted = () => {
-    console.log('Get Started clicked - navigating to dashboard');
-    navigate('/dashboard');
-  };
-
-  const handleLearnMore = () => {
-    console.log('Learn More clicked - navigating to about');
-    navigate('/about');
-  };
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
@@ -52,89 +104,19 @@ const LandingPage: React.FC = () => {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={handleGetStarted}
+            onClick={() => navigate('/dashboard')}
             className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
           >
             <Play className="w-5 h-5" />
             <span>Get Started</span>
           </button>
           <button
-            onClick={handleLearnMore}
+            onClick={() => navigate('/about')}
             className="border-2 border-blue-600 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
           >
             Learn More
           </button>
         </div>
-      </div>
-    </div>
-  );
-};
-
-// Simple Dashboard
-const Dashboard: React.FC = () => {
-  const navigate = useNavigate();
-
-  const handleStartAssessment = () => {
-    console.log('Start Assessment clicked - navigating to assessment intro');
-    navigate('/assessment-intro');
-  };
-
-  return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-          Cybersecurity Compliance Dashboard
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Manage your cybersecurity assessments and compliance progress
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Assessments</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">0</p>
-            </div>
-            <Target className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400">0</p>
-            </div>
-            <BarChart3 className="w-8 h-8 text-green-600 dark:text-green-400" />
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">In Progress</p>
-              <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">0</p>
-            </div>
-            <Shield className="w-8 h-8 text-orange-600 dark:text-orange-400" />
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-          Start Your First Assessment
-        </h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-6">
-          Begin your cybersecurity compliance journey with our guided assessment tools
-        </p>
-        <button 
-          onClick={handleStartAssessment}
-          className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors"
-        >
-          Start Assessment
-        </button>
       </div>
     </div>
   );
@@ -230,6 +212,112 @@ function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // State management for assessments
+  const [savedAssessments, setSavedAssessments] = useState<AssessmentData[]>([]);
+  const [currentAssessment, setCurrentAssessment] = useState<AssessmentData | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [notifications, setNotifications] = useState<NotificationMessage[]>([]);
+
+  // Load data on app startup
+  useEffect(() => {
+    const assessments = dataService.getAssessments();
+    setSavedAssessments(assessments);
+    
+    const profile = dataService.getUserProfile();
+    setUserProfile(profile);
+  }, []);
+
+  const addNotification = (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
+    const notification: NotificationMessage = {
+      id: Date.now().toString(),
+      type,
+      message,
+      timestamp: new Date(),
+      category: 'system',
+      priority: type === 'error' ? 'high' : 'medium'
+    };
+    setNotifications(prev => [...prev, notification]);
+  };
+
+  const removeNotification = (id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  };
+
+  // Assessment handlers
+  const handleStartAssessment = (organizationInfo?: OrganizationInfo, selectedFramework?: string) => {
+    const frameworkId = selectedFramework || 'nist-csf-v2';
+    const framework = getFramework(frameworkId);
+    
+    const newAssessment: AssessmentData = {
+      id: Date.now().toString(),
+      frameworkId,
+      frameworkName: framework.name,
+      responses: {},
+      createdAt: new Date(),
+      lastModified: new Date(),
+      isComplete: false,
+      version: '1.0',
+      organizationInfo,
+      questionNotes: {},
+      questionEvidence: {},
+      evidenceLibrary: [],
+      assessmentVersion: '1.0.0',
+      versionHistory: [],
+      changeLog: [],
+      tags: []
+    };
+
+    setCurrentAssessment(newAssessment);
+    navigate(`/assessment/${newAssessment.id}`);
+    addNotification('success', 'Assessment started successfully');
+  };
+
+  const handleSaveAssessment = (assessment: AssessmentData) => {
+    dataService.saveAssessment(assessment);
+    setSavedAssessments(prev => {
+      const index = prev.findIndex(a => a.id === assessment.id);
+      if (index >= 0) {
+        const updated = [...prev];
+        updated[index] = assessment;
+        return updated;
+      }
+      return [...prev, assessment];
+    });
+    setCurrentAssessment(assessment);
+    addNotification('success', 'Assessment saved successfully');
+  };
+
+  const handleLoadAssessment = (assessment: AssessmentData) => {
+    setCurrentAssessment(assessment);
+    navigate(`/assessment/${assessment.id}`);
+  };
+
+  const handleDeleteAssessment = (assessmentId: string) => {
+    dataService.deleteAssessment(assessmentId);
+    setSavedAssessments(prev => prev.filter(a => a.id !== assessmentId));
+    addNotification('success', 'Assessment deleted successfully');
+  };
+
+  const handleGenerateReport = (assessment: AssessmentData) => {
+    navigate(`/report/${assessment.id}`);
+  };
+
+  const handleExportAssessment = (assessment: AssessmentData, format: 'json' | 'csv' | 'pdf') => {
+    try {
+      const dataStr = JSON.stringify(assessment, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${assessment.frameworkName}-${assessment.id}-${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+      addNotification('success', 'Assessment exported successfully');
+    } catch (error) {
+      addNotification('error', 'Failed to export assessment');
+    }
+  };
 
   const isActivePath = (path: string) => location.pathname === path;
 
@@ -274,12 +362,21 @@ function AppContent() {
                 <span>Dashboard</span>
               </Link>
               <Link
+                to="/assessment-intro"
+                className={`text-sm font-medium transition-colors flex items-center space-x-1 ${
+                  isActivePath('/assessment-intro') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600'
+                }`}
+              >
+                <Target className="w-4 h-4" />
+                <span>Assessment</span>
+              </Link>
+              <Link
                 to="/about"
                 className={`text-sm font-medium transition-colors flex items-center space-x-1 ${
                   isActivePath('/about') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600'
                 }`}
               >
-                <Target className="w-4 h-4" />
+                <FileText className="w-4 h-4" />
                 <span>About</span>
               </Link>
             </nav>
@@ -315,6 +412,12 @@ function AppContent() {
               Dashboard
             </button>
             <button
+              onClick={() => handleNavClick('/assessment-intro')}
+              className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+            >
+              Assessment
+            </button>
+            <button
               onClick={() => handleNavClick('/about')}
               className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
             >
@@ -324,15 +427,121 @@ function AppContent() {
         </div>
       )}
 
+      {/* Notification System */}
+      <NotificationSystem notifications={notifications} onRemove={removeNotification} />
+
       {/* Main Content */}
       <main>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/assessment-intro" element={
-            <ComingSoon title="Assessment Setup" description="Framework selection and assessment configuration coming soon" />
+          
+          <Route path="/dashboard" element={
+            <AdvancedDashboard
+              savedAssessments={savedAssessments}
+              onStartAssessment={() => navigate('/assessment-intro')}
+              onLoadAssessment={handleLoadAssessment}
+              onDeleteAssessment={handleDeleteAssessment}
+              onGenerateReport={handleGenerateReport}
+              onExportAssessment={handleExportAssessment}
+              onImportAssessment={() => {}}
+              userProfile={userProfile}
+              addNotification={addNotification}
+            />
           } />
+          
+          <Route path="/assessment-intro" element={
+            <AssessmentIntroScreen
+              frameworks={frameworks}
+              onStartAssessment={handleStartAssessment}
+              onBack={() => navigate('/dashboard')}
+            />
+          } />
+          
+          <Route path="/assessment/:id" element={
+            currentAssessment ? (
+              <EnhancedAssessmentView
+                assessment={currentAssessment}
+                onSave={handleSaveAssessment}
+                onGenerateReport={handleGenerateReport}
+                onBack={() => navigate('/dashboard')}
+              />
+            ) : (
+              <div className="max-w-4xl mx-auto px-4 py-8 text-center">
+                <p className="text-gray-600 dark:text-gray-300">Assessment not found</p>
+                <button
+                  onClick={() => navigate('/dashboard')}
+                  className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Back to Dashboard
+                </button>
+              </div>
+            )
+          } />
+          
+          <Route path="/report/:id" element={
+            (() => {
+              const assessmentId = location.pathname.split('/')[2];
+              const assessment = savedAssessments.find(a => a.id === assessmentId);
+              
+              if (!assessment) {
+                return (
+                  <div className="max-w-4xl mx-auto px-4 py-8 text-center">
+                    <p className="text-gray-600 dark:text-gray-300">Report not found</p>
+                    <button
+                      onClick={() => navigate('/dashboard')}
+                      className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Back to Dashboard
+                    </button>
+                  </div>
+                );
+              }
+              
+              const framework = getFramework(assessment.frameworkId);
+              
+              return (
+                <ReportView
+                  assessment={assessment}
+                  framework={framework}
+                  onBack={() => navigate('/dashboard')}
+                  onExport={handleExportAssessment}
+                  userProfile={userProfile}
+                />
+              );
+            })()
+          } />
+          
+          <Route path="/about" element={<AboutPage />} />
+          
+          {/* Placeholder routes */}
+          <Route path="/compliance/*" element={
+            <ComingSoon title="Compliance Status" description="Real-time compliance monitoring features coming soon" />
+          } />
+          <Route path="/evidence" element={
+            <ComingSoon title="Evidence Collection" description="Evidence management features coming soon" />
+          } />
+          <Route path="/assets" element={
+            <ComingSoon title="Asset Management" description="Asset inventory and management features coming soon" />
+          } />
+          <Route path="/team" element={
+            <ComingSoon title="Team Collaboration" description="Team management features coming soon" />
+          } />
+          <Route path="/reports" element={
+            <ComingSoon title="Advanced Reports" description="Advanced reporting features coming soon" />
+          } />
+          <Route path="/calendar" element={
+            <ComingSoon title="Activity Calendar" description="Calendar features coming soon" />
+          } />
+          <Route path="/tasks" element={
+            <ComingSoon title="Task Management" description="Task management features coming soon" />
+          } />
+          <Route path="/policies" element={
+            <ComingSoon title="Policy Management" description="Policy management features coming soon" />
+          } />
+          <Route path="/controls" element={
+            <ComingSoon title="Controls Management" description="Controls management features coming soon" />
+          } />
+          
           <Route path="*" element={
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
