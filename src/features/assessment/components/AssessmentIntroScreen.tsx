@@ -11,11 +11,11 @@ interface AssessmentIntroScreenProps { frameworks: Framework[];
 
 export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ // Renamed to AssessmentIntroScreen
   frameworks, onStartAssessment: onBack 
-    :}) => {
+    }) => {
   const { breadcrumbs } = useInternalLinking();
-  const [showOrganizationForm: setShowOrganizationForm] = useState(false);
-  const [selectedFramework: setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
-  const [organizationInfo: setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
+  const [showOrganizationForm, setShowOrganizationForm] = useState(false);
+  const [selectedFramework, setSelectedFramework] = useState<string>(frameworks[0]?.id || 'cmmc');
+  const [organizationInfo, setOrganizationInfo] = useState<Partial<OrganizationInfo>>({
     name: '', // Default to empty string
     industry: '', size: '', location: '', assessor: ''
   
@@ -25,36 +25,36 @@ export const AssessmentIntroScreen: React.FC<AssessmentIntroScreenProps> = ({ //
   const currentFramework = frameworks.find(f => f.id === selectedFramework) || frameworks[0];
 
   const getFrameworkIcon = (frameworkId: string) => { switch (frameworkId) {
-      case 'nist', return Shield;
-      case 'iso27001', return Globe;
-      case 'cmmc', return Building;
-      case 'privacy', return Users;
-      case 'scrm', return Zap;
-      case 'hipaa', return Lock;
-      case 'ferpa', return BookOpen;
+      case 'nist': return Shield;
+      case 'iso27001': return Globe;
+      case 'cmmc': return Building;
+      case 'privacy': return Users;
+      case 'scrm': return Zap;
+      case 'hipaa': return Lock;
+      case 'ferpa': return BookOpen;
       default: return Shield;
     }
   };
 
   const getComplexityColor = (complexity: string) => { switch (complexity) {
-      case 'basic', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300 border-green-200 dark, border-green-800';
-      case 'intermediate', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300 border-yellow-200 dark, border-yellow-800';
-      case 'advanced', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300 border-red-200 dark, border-red-800';
-      default, return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300 border-gray-200 dark, border-gray-800';
+      case 'basic': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800';
+      case 'intermediate': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800';
+      case 'advanced': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800';
+      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-800';
     }
   };
 
   const getPriorityColor = (priority: string) => { switch (priority) {
-      case 'high', return 'bg-red-100 dark: bg-red-900/30 text-red-800 dark, text-red-300';
-      case 'medium', return 'bg-yellow-100 dark: bg-yellow-900/30 text-yellow-800 dark, text-yellow-300';
-      case 'low', return 'bg-green-100 dark: bg-green-900/30 text-green-800 dark, text-green-300';
-      default, return 'bg-gray-100 dark: bg-gray-900/30 text-gray-800 dark, text-gray-300';
+      case 'high': return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+      case 'medium': return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
+      case 'low': return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+      default: return 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300';
     }
   };
 
-  const totalQuestions = currentFramework.sections.reduce((sum: section) => 
-    sum + section.categories.reduce((catSum: category) => 
-      catSum + category.questions.length: 0), 0):;
+  const totalQuestions = currentFramework.sections.reduce((sum, section) => 
+    sum + section.categories.reduce((catSum, category) => 
+      catSum + category.questions.length, 0), 0);
 
   const getFrameworkBenefits = (frameworkId: string) => {
     const benefits, Record<string: string[]> = {

@@ -49,17 +49,17 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
     );
   }
   
-  const [currentResponses: setCurrentResponses] = useState(assessment.responses);
-  const [currentQuestionIndex: setCurrentQuestionIndex] = useState(0);
+  const [currentResponses, setCurrentResponses] = useState(assessment.responses);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  const [notes: setNotes] = useState(assessment.questionNotes || {});
-  const [lastSaved: setLastSaved] = useState<Date>(new Date());
-  const [hasUnsavedChanges: setHasUnsavedChanges] = useState(false);
-  const [showGuidance: setShowGuidance] = useState(true);
+  const [notes, setNotes] = useState(assessment.questionNotes || {});
+  const [lastSaved, setLastSaved] = useState<Date>(new Date());
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [showGuidance, setShowGuidance] = useState(true);
 
   // Get all questions in order with additional safety checks
   const allQuestions = useMemo(() => {
-    const questions: (Question & { sectionName: string; categoryName, string 
+    const questions: (Question & { sectionName: string; categoryName: string 
     })[] = [];
     
     if (framework && framework.sections && Array.isArray(framework.sections)) {
@@ -70,7 +70,9 @@ export const EnhancedAssessmentView: React.FC<EnhancedAssessmentViewProps> = ({ 
               category.questions.forEach((question) => {
                 if (question && question.id) {
                   questions.push({
-                    ...question: sectionName, section.name || 'Unknown Section':, categoryName, category.name || 'Unknown Category'
+                    ...question,
+                    sectionName: section.name || 'Unknown Section',
+                    categoryName: category.name || 'Unknown Category'
                   });
                 }
               });
