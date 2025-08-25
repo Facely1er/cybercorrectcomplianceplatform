@@ -42,6 +42,9 @@ export const getFramework = (frameworkId?: string) => {
       },
       { level: 2, name: 'Risk Informed', description: 'Risk management processes inform activities', color: '#FFD166', minScore: 26, maxScore: 50 },
       { level: 3, name: 'Repeatable', description: 'Activities are consistently performed', color: '#3A9CA8', minScore: 51, maxScore: 75 },
+    ]
+  }
+  )
   export const getAllFrameworks = () => ({
     nistCSFv2Framework,
     nistCSFv2ExtendedFramework,
